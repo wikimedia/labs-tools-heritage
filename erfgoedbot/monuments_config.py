@@ -14,7 +14,7 @@ countries = {
 	'lang' : 'nl',
 	'headerTemplate' : 'Tabelkop rijksmonumenten',
 	'rowTemplate' : 'Tabelrij rijksmonument',
-	'namespace' : [0],
+	'namespaces' : [0],
 	'table' : 'monuments_nl',
 	'fields' : [
 	    {
@@ -104,7 +104,7 @@ countries = {
 	'lang' : 'en',
 	'headerTemplate' : 'SIoCPoNaRS header',
 	'rowTemplate' : 'SIoCPoNaRS row',
-	'namespace' : [0],
+	'namespaces' : [0],
 	'table' : 'monuments_ch',
 	'fields' : [
 	    {
