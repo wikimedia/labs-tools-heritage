@@ -65,7 +65,7 @@ def updateMonument(contents, countryconfig, conn, cursor):
 	    else:
 		fieldvalues.append(contents.get(field.get('source')))
     
-    query = u"""REPLACE INTO %s(""" % (countryconfig.get('table'),)
+    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
     i = 0
     for fieldname in fieldnames:
 	if i==0:
