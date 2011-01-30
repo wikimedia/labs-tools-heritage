@@ -12,9 +12,9 @@ countries = {
     'nl' : {
         'project' : 'wikipedia',
 	'lang' : 'nl',
-	'headerTemplate' : '',
-	'rowTemplate' : '',
-	'namespace' : 0,
+	'headerTemplate' : 'Tabelkop rijksmonumenten',
+	'rowTemplate' : 'Tabelrij rijksmonument',
+	'namespace' : [0],
 	'table' : 'monuments_nl',
 	'fields' : [
 	    {
@@ -104,7 +104,7 @@ countries = {
 	'lang' : 'en',
 	'headerTemplate' : 'SIoCPoNaRS header',
 	'rowTemplate' : 'SIoCPoNaRS row',
-	'namespace' : 0,
+	'namespace' : [0],
 	'table' : 'monuments_ch',
 	'fields' : [
 	    {
