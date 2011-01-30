@@ -1,5 +1,6 @@
 /* Create view for all country tables */
 connect p_erfgoed_p sql.toolserver.org;
+DROP VIEW IF EXISTS monuments_all;
 CREATE VIEW monuments_all AS 
 /* Switzerland */
 (SELECT `kgs_nr` AS `id`, 
@@ -12,10 +13,10 @@ CREATE VIEW monuments_all AS
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM monuments_ch)
-UNION
+	FROM `monuments_ch`)
+UNION ALL
 /* Netherlands */
-(SELECT objrijksnr AS id, 
+(SELECT `objrijksnr` AS `id`, 
 	'nl' AS country,
 	`objectnaam` AS `name`,
 	`adres` AS `address`,
@@ -25,4 +26,17 @@ UNION
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM monuments_nl);
+	FROM `monuments_nl`)
+UNION ALL
+/* Vlaanderen */
+(SELECT `id` AS `id`,
+        'be-vlg' AS country,
+        `objectnaam` AS `name`,
+        `adres` AS `address`,
+        `gemeente` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_be-vlg`);
