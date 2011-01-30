@@ -27,7 +27,7 @@ def updateMonument(contents, countryconfig, conn, cursor):
 	if field.get('dest'):
 	    fieldnames.append(field.get('dest'))
 	    #Do some conversions here
-	    fieldvalues.append(conn.escape_string(contents.get(field.get('source'))))
+	    fieldvalues.append(contents.get(field.get('source')))
     
     query = u"""REPLACE INTO %s(""" % (countryconfig.get('table'),)
     i = 0
@@ -43,9 +43,9 @@ def updateMonument(contents, countryconfig, conn, cursor):
     j =0
     for fieldvalue in fieldvalues:
 	if j==0:
-	    query = query + u"""'%s'""" % (fieldvalue,)
+	    query = query + u"""%s""" # % (fieldvalue,)
 	else:
-	    query = query + u""", '%s'""" % (fieldvalue,)
+	    query = query + u""", %s""" # % (fieldvalue,)
 	j = j + 1
 
     query = query + u""")"""
@@ -53,8 +53,8 @@ def updateMonument(contents, countryconfig, conn, cursor):
 
     #query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
     #VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
-    print query
-    cursor.execute(query)
+    print query % tuple(fieldvalues)
+    cursor.execute(query, fieldvalues)
     
     #print contents
     #print u'updating!'
