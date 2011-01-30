@@ -5,6 +5,7 @@ Update the monuments database either from a text file or from some wiki page(s)
 
 '''
 import sys, time
+import monuments_config as mconfig
 sys.path.append("/home/multichill/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
 
@@ -12,43 +13,57 @@ def connectDatabase():
     '''
     Connect to the mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect('sql.toolserver.org', db='p_erfgoed_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
+    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
     cursor = conn.cursor()
     return (conn, cursor)
 
-def updateMonument(contents, conn, cursor):
+def updateMonument(contents, countryconfig, conn, cursor):
     '''
     FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
     '''
-    query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
-		VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
+    fieldnames = []
+    fieldvalues = []
+    for field in countryconfig.get('fields'):
+	if field.get('dest'):
+	    fieldnames.append(field.get('dest'))
+	    #Do some conversions here
+	    fieldvalues.append(MySQLdb.escape_string(contents.get(field.get('source'))))
+    
+    query = u"""REPLACE INTO %s(""" % (countryconfig.get('table'),)
+    i = 0
+    for fieldname in fieldnames:
+	if i==0:
+	    query = query + u"""`%s`""" % (fieldname,)
+	else:
+	    query = query + u""", `%s`""" % (fieldname,)
+	i = i + 1
 
-    cursor.execute(query % (contents.get(u'objrijksnr'),
-			    contents.get(u'woonplaats'),
-			    contents.get(u'adres'),
-                            contents.get(u'objectnaam'),
-                            contents.get(u'type_obj'),
-                            contents.get(u'oorspr_functie'),
-                            contents.get(u'bouwjaar'),
-                            contents.get(u'architect'),
-                            contents.get(u'cbs_tekst'),
-                            contents.get(u'RD_x'),
-                            contents.get(u'RD_y'),
-                            contents.get(u'lat'),
-                            contents.get(u'lon'),
-			    contents.get(u'image'),
-                            contents.get(u'source')))
+    query = query + u""") VALUES ("""
+
+    j =0
+    for fieldvalue in fieldvalues:
+	if j==0:
+	    query = query + u"""'%s'""" % (fieldvalue,)
+	else:
+	    query = query + u""", '%s'""" % (fieldvalue,)
+	j = j + 1
+
+    query = query + u""")"""
+
+
+    #query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
+    #VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
+    print query
+    cursor.execute(query)
+    
     #print contents
     #print u'updating!'
     #time.sleep(5)
 
-def processMonument(params, source, conn, cursor):
+def processMonument(params, source, countryconfig, conn, cursor):
     '''
-    Process a single instance of the Tabelrij rijksmonument template
+    Process a single instance of a monument row template
     '''
-    # First remove line breaks like \n and \r
-    #text = text.replace(u'\n', u' ')
-    #text = text.replace(u'\r', u' ')
     
     # The regexes to find all the fields
     fields = [u'objrijksnr',
@@ -71,62 +86,69 @@ def processMonument(params, source, conn, cursor):
      
     # Get all the fields
     contents = {}
-    contents['source'] = source.replace("'", "\\'")
-    for field in fields:
-	contents[field]=u''
+    #contents['source'] = source.replace("'", "\\'")
+    for field in countryconfig.get('fields'):
+	contents[field.get(u'source')]=u''
 
     for param in params:
 	#Split at =
 	(field, sep, value) = param.partition(u'=')	
 	#See if first part is in fields list
-	if field in fields:
+	if field in contents:
 	    #Load it with Big fucking escape hack. Stupid mysql lib
-	    contents[field] = value.replace("'", "\\'")
+	    contents[field] = value # Do this somewhere else.replace("'", "\\'")
 	else:
-	    wikipedia.output(u'Onbekend veld gevonden: %s' % field)
-	    #print "Big freaking error message"
-    '''
-    for field in fields:
-	regex = field + u'=([^|^}]+)'
-	#print regex
-	match = re.search(regex, text)
-	if match:
-	    # Big fucking escape hack. Stupid mysql lib
-	    contents[field] = match.group(1).strip().replace("'", "\\'") 
-	else:
-	    contents[field] = u'' 
-    #print contents
-    #time.sleep(5)
-
-    # Insert it into the database
-    '''
-    if contents.get('objrijksnr'):
-	updateMonument(contents, conn, cursor)
+	    #FIXME: Include more information where it went wrong
+	    wikipedia.output(u'Found unknown field: %s' % field)
+	    print field
+	    print sep
+	    print value
+	    time.sleep(5)
+    
+    # The first key is assumed to be the primary key, check if it is it.
+    if contents.get(countryconfig.get('fields')[0].get('source')):
+	updateMonument(contents, countryconfig, conn, cursor)
 	#print contents
 	#time.sleep(5)
 
-def processText(text, source, conn, cursor, page=None):
+def processText(text, source, countryconfig, conn, cursor, page=None):
     '''
-    Process a text containing one or multiple instances of the Tabelrij rijksmonument template
+    Process a text containing one or multiple instances of the monument row template
     '''
     if not page:
-	site = wikipedia.getSite('nl', 'wikipedia')
+	site = site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
 	page = wikipedia.Page(site, u'User:Multichill/Zandbak')
     templates = page.templatesWithParams(thistxt=text)
     for (template, params) in templates:
-	if template==u'Tabelrij rijksmonument':
+	if template==countryconfig.get('rowTemplate'):
 	    #print template
 	    #print params
-	    processMonument(params, source, conn, cursor)
+	    processMonument(params, source, countryconfig, conn, cursor)
 	    #time.sleep(5)
 
-def processTextfile(textfile, conn, cursor):
+def processCountry(countryconfig, conn, cursor):
+    '''
+    Process all the monuments of one country
+    '''
+    site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
+    rowTemplate = wikipedia.Page(site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
+
+    transGen = pagegenerators.ReferringPageGenerator(rowTemplate, onlyTemplateInclusion=True)
+    filteredGen = pagegenerators.NamespaceFilterPageGenerator(transGen, countryconfig.get('namespaces'))
+    pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
+    for page in pregenerator:
+	if page.exists() and not page.isRedirectPage():
+	    # Do some checking
+	    processText(page.get(), page.permalink(), countryconfig, conn, cursor, page=page)
+
+
+def processTextfile(textfile, countryconfig, conn, cursor):
     '''
     Process the contents of a text file containing one or more lines with the Tabelrij rijksmonument template
     '''
     file = open(textfile, 'r')
     for line in file:
-	processText(line.decode('UTF-8').strip(), textfile, conn, cursor)
+	processText(line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
 
 def main():
     '''
@@ -134,22 +156,35 @@ def main():
     '''
     # First find out what to work on
 
+    countrycode = u''
     textfile = u''
-    genFactory = pagegenerators.GeneratorFactory()
     conn = None
     cursor = None
     (conn, cursor) = connectDatabase()
 
     for arg in wikipedia.handleArgs():
+	if arg.startswith('-countrycode:'):
+	    countrycode = arg [len('-countrycode:'):]
 	if arg.startswith('-textfile:'):
 	    textfile = arg [len('-textfile:'):]
-	else:
-	    genFactory.handleArg(arg)
 
-    if textfile:
-	print 'going to work on textfile'
-	processTextfile(textfile, conn, cursor)
+    if countrycode:
+	if not mconfig.countries.get(countrycode):
+	    wikipedia.output(u'I have no config for countrycode "%s"' % (countrycode,))
+	    return False
+	wikipedia.output(u'Working on countrycode "%s"' % (countrycode,))
+	if textfile:
+	    wikipedia.output(u'Going to work on textfile.')
+	    processTextfile(textfile, mconfig.countries.get(countrycode), conn, cursor)
+	else:
+	    processCountry(mconfig.countries.get(countrycode), conn, cursor)
     else:
+	for countrycode, countryconfig in mconfig.countries.iteritems():
+	    wikipedia.output(u'Working on countrycode "%s"' % (countrycode,))
+	    processCountry(countryconfig, conn, cursor)
+    '''
+
+
 	generator = genFactory.getCombinedGenerator()
 	if not generator:
 	    wikipedia.output(u'You have to specify what to work on. This can either be -textfile:<filename> to work on a local file or you can use one of the standard pagegenerators (in pagegenerators.py)')
@@ -159,7 +194,8 @@ def main():
 		if page.exists() and not page.isRedirectPage():
 		    # Do some checking
 		    processText(page.get(), page.permalink(), conn, cursor, page=page)
-    
+    '''
+
 if __name__ == "__main__":
     try:
         main()
