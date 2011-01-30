@@ -27,7 +27,7 @@ def updateMonument(contents, countryconfig, conn, cursor):
 	if field.get('dest'):
 	    fieldnames.append(field.get('dest'))
 	    #Do some conversions here
-	    fieldvalues.append(MySQLdb.escape_string(contents.get(field.get('source'))))
+	    fieldvalues.append(conn.escape_string(contents.get(field.get('source'))))
     
     query = u"""REPLACE INTO %s(""" % (countryconfig.get('table'),)
     i = 0
