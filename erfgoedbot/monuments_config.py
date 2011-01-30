@@ -33,6 +33,11 @@ countries = {
 		'conv' : '',
 	    },
 	    {
+		'source' : 'deelgem_id',
+		'dest' : '',
+		'conv' : '',
+	    },
+	    {
 		'source' : 'adres',
 		'dest' : 'adres',
 		'conv' : '',
