@@ -9,6 +9,66 @@ db_server='sql.toolserver.org'
 db = 'p_erfgoed_p'
 
 countries = {
+    'be-vlg' : {
+	'project' : 'wikipedia',
+	'lang' : 'nl',
+	'headerTemplate' : 'Tabelkop erfgoed Vlaanderen',
+	'rowTemplate' : 'Tabelrij erfgoed Vlaanderen',
+	'namespaces' : [0],
+	'table' : 'monuments_be-vlg',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'gemeente',
+		'dest' : 'gemeente',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'deelgem',
+		'dest' : 'deelgem',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'adres',
+		'dest' : 'adres',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'objectnaam',
+		'dest' : 'objectnaam',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'bouwjaar',
+		'dest' : 'bouwjaar',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'architect',
+		'dest' : 'architect',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'image',
+		'dest' : 'image',
+		'conv' : '',
+	    },
+	],
+    },
     'nl' : {
         'project' : 'wikipedia',
 	'lang' : 'nl',
