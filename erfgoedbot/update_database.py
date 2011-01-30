@@ -17,6 +17,39 @@ def connectDatabase():
     cursor = conn.cursor()
     return (conn, cursor)
 
+def CH1903Converter(x, y):
+    x = float(x)
+    y = float(y)
+
+    lat = 16.9023892
+    lat = lat + 3.238272 * ( y - 200 ) / 1000 
+    lat = lat + 0.270978 * ( x - 600 ) / 1000 * ( x - 600 ) / 1000
+    lat = lat + 0.002528 * ( y - 200 ) / 1000 * ( y - 200 ) / 1000
+    lat = lat + 0.044700 * ( x - 600 ) / 1000 * ( x - 600 ) / 1000 * ( y - 200 ) / 1000
+    lat = lat + 0.014000 * ( y - 200 ) / 1000 * ( y - 200 ) / 1000 * ( y - 200 ) / 1000
+    lat = lat / 0.36 # Round 6
+
+    lon = 2.6779094
+    lon = lon + 4.728982 * ( x - 600 ) / 1000
+    lon = lon + 0.791484 * ( x - 600 ) / 1000 * ( y - 200 ) / 1000
+    lon = lon + 0.130600 * ( x - 600 ) / 1000 * ( y - 200 ) / 1000 * ( y - 200 ) / 1000
+    lon = lon - 0.043600 * ( x - 600 ) / 1000 * ( x - 600 ) / 1000 * ( x - 600 ) / 1000
+    lon = lon / 0.36 # Round 6
+    
+    return (lat, lon)
+
+def convertField(field, contents):
+    '''
+    Convert a field
+    '''
+    if field.get('conv')=='CH1903ToLat':
+	(lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
+	return lat
+    elif field.get('conv')=='CH1903ToLon':
+	(lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
+	return lon
+    return u''
+
 def updateMonument(contents, countryconfig, conn, cursor):
     '''
     FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
@@ -27,7 +60,10 @@ def updateMonument(contents, countryconfig, conn, cursor):
 	if field.get('dest'):
 	    fieldnames.append(field.get('dest'))
 	    #Do some conversions here
-	    fieldvalues.append(contents.get(field.get('source')))
+	    if field.get('conv'):
+		fieldvalues.append(convertField(field, contents))
+	    else:
+		fieldvalues.append(contents.get(field.get('source')))
     
     query = u"""REPLACE INTO %s(""" % (countryconfig.get('table'),)
     i = 0
