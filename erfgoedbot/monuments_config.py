@@ -209,5 +209,70 @@ countries = {
 	    },
 	],
     },
+    'pt' : {
+        'project' : 'wikipedia',
+	'lang' : 'pt',
+	'headerTemplate' : 'IGESPAR/cabeçalho',
+	'rowTemplate' : 'IGESPAR/linha',
+        'footerTemplate' : 'IGESPAR/rodapé',
+	'namespaces' : [102],
+	'table' : 'monuments_pt',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'designacoes',
+		'dest' : 'designacoes',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'categoria',
+		'dest' : 'categoria',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'tipologia',
+		'dest' : 'tipologia',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'concelho',
+		'dest' : 'concelho',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'freguesia',
+		'dest' : 'freguesia',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'grau',
+		'dest' : 'grau',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'ano',
+		'dest' : 'ano',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'imagem',
+		'dest' : 'imagem',
+		'conv' : '',
+	    },
+	],
+    },
 }
-
