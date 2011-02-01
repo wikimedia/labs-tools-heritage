@@ -13,7 +13,7 @@ REPLACE INTO `monuments_all`
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`
-        FROM `monuments_be-vlg`);
+        FROM `monuments_be-vlg`)
 UNION ALL
 /* Switzerland */
 (SELECT 'ch' AS `country`,
@@ -40,3 +40,16 @@ UNION ALL
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_nl`)
+UNION ALL
+/* Portugal */
+(SELECT 'pt' AS `country`,
+	`id` AS `id`, 
+	`designacoes` AS `name`,
+	'' AS `address`,
+	`concelho` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`imagem` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_pt`);
