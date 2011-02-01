@@ -89,7 +89,7 @@ def updateMonument(contents, countryconfig, conn, cursor):
 
     #query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
     #VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
-    print query % tuple(fieldvalues)
+    #print query % tuple(fieldvalues)
     cursor.execute(query, fieldvalues)
     
     #print contents
