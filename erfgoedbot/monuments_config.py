@@ -74,6 +74,51 @@ countries = {
 	    },
 	],
     },
+    'ch' : {
+	'project' : 'wikipedia',
+	'lang' : 'en',
+	'headerTemplate' : 'SIoCPoNaRS header',
+	'rowTemplate' : 'SIoCPoNaRS row',
+	'namespaces' : [0],
+	'table' : 'monuments_ch',
+	'fields' : [
+	    {
+		'source' : 'KGS_nr',
+		'dest' : 'kgs_nr',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'name',
+		'dest' : 'name',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'address',
+		'dest' : 'address',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'municipality',
+		'dest' : 'municipality',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'CH1903_X',
+		'dest' : 'lat',
+		'conv' : 'CH1903ToLat',
+	    },
+	    {
+		'source' : 'CH1903_Y',
+		'dest' : 'lon',
+		'conv' : 'CH1903ToLon',
+	    },
+	    {
+		'source' : 'image',
+		'dest' : 'image',
+		'conv' : '',
+	    },
+	]
+    },
     'nl' : {
         'project' : 'wikipedia',
 	'lang' : 'nl',
@@ -164,50 +209,5 @@ countries = {
 	    },
 	],
     },
-    'ch' : {
-	'project' : 'wikipedia',
-	'lang' : 'en',
-	'headerTemplate' : 'SIoCPoNaRS header',
-	'rowTemplate' : 'SIoCPoNaRS row',
-	'namespaces' : [0],
-	'table' : 'monuments_ch',
-	'fields' : [
-	    {
-		'source' : 'KGS_nr',
-		'dest' : 'kgs_nr',
-		'conv' : '',
-	    },
-	    {
-		'source' : 'name',
-		'dest' : 'name',
-		'conv' : '',
-	    },
-	    {
-		'source' : 'address',
-		'dest' : 'address',
-		'conv' : '',
-	    },
-	    {
-		'source' : 'municipality',
-		'dest' : 'municipality',
-		'conv' : '',
-	    },
-	    {
-		'source' : 'CH1903_X',
-		'dest' : 'lat',
-		'conv' : 'CH1903ToLat',
-	    },
-	    {
-		'source' : 'CH1903_Y',
-		'dest' : 'lon',
-		'conv' : 'CH1903ToLon',
-	    },
-	    {
-		'source' : 'image',
-		'dest' : 'image',
-		'conv' : '',
-	    },
-	]
-    }
 }
 
