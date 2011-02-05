@@ -133,7 +133,10 @@ def processMonument(params, source, countryconfig, conn, cursor):
 
     for param in params:
 	#Split at =
-	(field, sep, value) = param.partition(u'=')	
+	(field, sep, value) = param.partition(u'=')
+	# Remove leading or trailing spaces
+	field = field.strip()
+	value = value.strip()
 	#See if first part is in fields list
 	if field in contents:
 	    #Load it with Big fucking escape hack. Stupid mysql lib
