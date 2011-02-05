@@ -64,8 +64,10 @@ def updateMonument(contents, countryconfig, conn, cursor):
 		fieldvalues.append(convertField(field, contents))
 	    else:
 		fieldvalues.append(contents.get(field.get('source')))
-    
-    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
+    if countryconfig.get('truncate'):
+	query = u"""INSERT INTO `%s`(""" % (countryconfig.get('table'),)
+    else:
+	query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
     i = 0
     for fieldname in fieldnames:
 	if i==0:
@@ -142,7 +144,7 @@ def processMonument(params, source, countryconfig, conn, cursor):
 	    time.sleep(5)
     
     # The first key is assumed to be the primary key, check if it is it.
-    if contents.get(countryconfig.get('fields')[0].get('source')):
+    if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
 	updateMonument(contents, countryconfig, conn, cursor)
 	#print contents
 	#time.sleep(5)
