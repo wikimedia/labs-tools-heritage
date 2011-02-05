@@ -18,6 +18,9 @@ def connectDatabase():
     return (conn, cursor)
 
 def CH1903Converter(x, y):
+    if not(x.strip() and y.strip()):
+	# x or y is empty
+	return (0,0)
     x = float(x)
     y = float(y)
 
