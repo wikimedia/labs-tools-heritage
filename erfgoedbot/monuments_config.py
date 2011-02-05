@@ -16,6 +16,8 @@ countries = {
 	'rowTemplate' : 'Tabelrij erfgoed Vlaanderen',
 	'namespaces' : [0],
 	'table' : 'monuments_be-vlg',
+	'truncate' : False,
+	'primkey' : 'id',
 	'fields' : [
 	    {
 		'source' : 'id',
@@ -81,6 +83,8 @@ countries = {
 	'rowTemplate' : 'SIoCPoNaRS row',
 	'namespaces' : [0],
 	'table' : 'monuments_ch',
+	'truncate' : True,
+	'primkey' : 'KGS_nr',
 	'fields' : [
 	    {
 		'source' : 'KGS_nr',
@@ -126,6 +130,8 @@ countries = {
 	'rowTemplate' : 'Tabelrij rijksmonument',
 	'namespaces' : [0],
 	'table' : 'monuments_nl',
+	'truncate' : False,
+	'primkey' : 'objrijksnr',
 	'fields' : [
 	    {
 		'source' : 'objrijksnr',
@@ -217,6 +223,8 @@ countries = {
         'footerTemplate' : 'IGESPAR/rodapé',
 	'namespaces' : [102],
 	'table' : 'monuments_pt',
+	'truncate' : False,
+	'primkey' : 'id',
 	'fields' : [
 	    {
 		'source' : 'id',
