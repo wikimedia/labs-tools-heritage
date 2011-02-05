@@ -1,7 +1,7 @@
 /* Create table statement for the monuments in Switzerland */
 connect p_erfgoed_p sql.toolserver.org;
 CREATE TABLE `monuments_ch` (
-  `kgs_nr` int(11) NOT NULL DEFAULT '0',
+  `kgs_nr` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL DEFAULT '',
   `municipality` varchar(255) NOT NULL DEFAULT '',
