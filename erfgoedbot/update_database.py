@@ -171,6 +171,11 @@ def processCountry(countryconfig, conn, cursor):
     '''
     Process all the monuments of one country
     '''
+
+    if countryconfig.get('truncate'):
+	query = u"""TRUNCATE table `%s`""" % (countryconfig.get('table'),)
+	cursor.execute(query)
+
     site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
     rowTemplate = wikipedia.Page(site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
