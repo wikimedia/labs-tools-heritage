@@ -53,12 +53,16 @@ def convertField(field, contents):
 	return lon
     return u''
 
-def updateMonument(contents, countryconfig, conn, cursor):
+def updateMonument(contents, source, countryconfig, conn, cursor):
     '''
     FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
     '''
     fieldnames = []
     fieldvalues = []
+
+    # Source is the first field
+    fieldvalues.append(source)
+
     for field in countryconfig.get('fields'):
 	if field.get('dest'):
 	    fieldnames.append(field.get('dest'))
@@ -71,13 +75,11 @@ def updateMonument(contents, countryconfig, conn, cursor):
 	query = u"""INSERT INTO `%s`(""" % (countryconfig.get('table'),)
     else:
 	query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
-    i = 0
+
+    query = query + u"""`%s`""" % (u'source')
+
     for fieldname in fieldnames:
-	if i==0:
-	    query = query + u"""`%s`""" % (fieldname,)
-	else:
-	    query = query + u""", `%s`""" % (fieldname,)
-	i = i + 1
+	query = query + u""", `%s`""" % (fieldname,)
 
     query = query + u""") VALUES ("""
 
@@ -152,7 +154,7 @@ def processMonument(params, source, countryconfig, conn, cursor):
     
     # The first key is assumed to be the primary key, check if it is it.
     if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
-	updateMonument(contents, countryconfig, conn, cursor)
+	updateMonument(contents, source, countryconfig, conn, cursor)
 	#print contents
 	#time.sleep(5)
 
