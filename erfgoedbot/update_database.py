@@ -127,7 +127,8 @@ def processMonument(params, source, countryconfig, conn, cursor):
      
     # Get all the fields
     contents = {}
-    #contents['source'] = source.replace("'", "\\'")
+    # Add the source of information (permalink)
+    contents['source'] = source
     for field in countryconfig.get('fields'):
 	contents[field.get(u'source')]=u''
 
