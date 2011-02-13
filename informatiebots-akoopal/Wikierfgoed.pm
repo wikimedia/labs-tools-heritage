@@ -162,8 +162,12 @@ sub checkmdb {
 
   if ( ($tmp) = ( $artikel =~ m|www.molendatabase.nl/nederland/molen.php\?nummer=(\d+)|i)) {
     return "{{Link molendatabase-nl\|id=$tmp|label=$tmp}}";
+  } elsif ( ( $tmp ) = ( $artikel =~ m/\n\|[ \t]*molendatabase-nl-windmotoren[ \t]*=[ \t]*(\S[^\n]*)\n[\|\}]/ ) ) {
+    return "{{Link molendatabase-nl-windmotoren\|id=$tmp|label=wm$tmp}}";
   } elsif ( ( $tmp ) = ( $artikel =~ m/\n\|[ \t]*molendatabase-nl[ \t]*=[ \t]*(\S[^\n]*)\n[\|\}]/ ) ) {
     return "{{Link molendatabase-nl\|id=$tmp|label=$tmp}}";
+  } elsif ( ($tmp) = ( $artikel =~  m/{{Link molendatabase-nl-windmotoren\|id=(\d+)/i )) {
+    return "{{Link molendatabase-nl-windmotoren\|id=$tmp|label=wm$tmp}}";
   } elsif ( ($tmp) = ( $artikel =~  m/{{Link molendatabase-nl\|id=(\d+)/i )) {
     return "{{Link molendatabase-nl\|id=$tmp|label=$tmp}}";
   } else {
