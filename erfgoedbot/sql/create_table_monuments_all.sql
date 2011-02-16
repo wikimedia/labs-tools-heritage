@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 CREATE TABLE `monuments_all` (
   `country` varchar(10) NOT NULL DEFAULT '',
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` varchar(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL DEFAULT '',
   `municipality` varchar(255) NOT NULL DEFAULT '',
