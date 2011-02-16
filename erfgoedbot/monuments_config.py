@@ -283,4 +283,328 @@ countries = {
 	    },
 	],
     },
+    ('it-88', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BC Sard',
+	'rowTemplate' : 'Filera BC Sard',
+	'namespaces' : [0],
+	'table' : 'monuments_it-88_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+    ('es', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BIC',
+	'rowTemplate' : 'Filera BIC',
+	'namespaces' : [0],
+	'table' : 'monuments_es_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'bic',
+		'dest' : 'bic',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+    ('ad', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BIC And',
+	'rowTemplate' : 'Filera BIC And',
+	'namespaces' : [0],
+	'table' : 'monuments_ad_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'estil',
+		'dest' : 'estil',
+		'conv' : '',
+	    },
+            {
+		'source' : 'època',
+		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+    ('es-ct', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BCIN',
+	'rowTemplate' : 'Filera BCIN',
+	'namespaces' : [0],
+	'table' : 'monuments_es-ct_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'estil',
+		'dest' : 'estil',
+		'conv' : '',
+	    },
+            {
+		'source' : 'època',
+		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+    ('fr', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera MH',
+	'rowTemplate' : 'Filera MH',
+	'namespaces' : [0],
+	'table' : 'monuments_fr_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'època',
+		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
 }
+''' 
+    ('es-vc', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BIC Val',
+	'rowTemplate' : 'Filera BIC Val',
+	'namespaces' : [0],
+	'table' : 'monuments_es-vc_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : 'id',
+		'conv' : '',
+	    },
+            {
+		'source' : 'bic',
+		'dest' : 'bic',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'estil',
+		'dest' : 'estil',
+		'conv' : '',
+	    },
+            {
+		'source' : 'època',
+		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+'''
