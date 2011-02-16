@@ -512,7 +512,7 @@ countries = {
 		'conv' : '',
 	    },
             {
-		'source' : 'època',
+		'source' : u'època',
 		'dest' : 'epoca',
 		'conv' : '',
 	    },
