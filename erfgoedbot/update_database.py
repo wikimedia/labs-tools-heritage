@@ -217,22 +217,23 @@ def main():
     for arg in wikipedia.handleArgs():
 	if arg.startswith('-countrycode:'):
 	    countrycode = arg [len('-countrycode:'):]
-	if arg.startswith('-textfile:'):
+	elif arg.startswith('-textfile:'):
 	    textfile = arg [len('-textfile:'):]
 
     if countrycode:
-	if not mconfig.countries.get(countrycode):
-	    wikipedia.output(u'I have no config for countrycode "%s"' % (countrycode,))
+        lang = wikipedia.getSite().language()
+	if not mconfig.countries.get((countrycode, lang)):
+	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
 	    return False
-	wikipedia.output(u'Working on countrycode "%s"' % (countrycode,))
+	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 	if textfile:
 	    wikipedia.output(u'Going to work on textfile.')
-	    processTextfile(textfile, mconfig.countries.get(countrycode), conn, cursor)
+	    processTextfile(textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
 	else:
-	    processCountry(mconfig.countries.get(countrycode), conn, cursor)
+	    processCountry(mconfig.countries.get((countrycode, lang)), conn, cursor)
     else:
-	for countrycode, countryconfig in mconfig.countries.iteritems():
-	    wikipedia.output(u'Working on countrycode "%s"' % (countrycode,))
+	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 	    processCountry(countryconfig, conn, cursor)
     '''
 

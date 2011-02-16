@@ -9,7 +9,7 @@ db_server='sql.toolserver.org'
 db = 'p_erfgoed_p'
 
 countries = {
-    'be-vlg' : {
+    ('be-vlg', 'nl') : {
 	'project' : 'wikipedia',
 	'lang' : 'nl',
 	'headerTemplate' : 'Tabelkop erfgoed Vlaanderen',
@@ -76,7 +76,7 @@ countries = {
 	    },
 	],
     },
-    'ch' : {
+    ('ch', 'en') : {
 	'project' : 'wikipedia',
 	'lang' : 'en',
 	'headerTemplate' : 'SIoCPoNaRS header',
@@ -123,7 +123,7 @@ countries = {
 	    },
 	]
     },
-    'nl' : {
+    ('nl', 'nl') : {
         'project' : 'wikipedia',
 	'lang' : 'nl',
 	'headerTemplate' : 'Tabelkop rijksmonumenten',
@@ -215,7 +215,7 @@ countries = {
 	    },
 	],
     },
-    'pt' : {
+    ('pt', 'pt') : {
         'project' : 'wikipedia',
 	'lang' : 'pt',
 	'headerTemplate' : 'IGESPAR/cabeçalho',
