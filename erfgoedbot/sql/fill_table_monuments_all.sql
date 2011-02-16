@@ -1,9 +1,9 @@
 /* Create view for all country tables */
 connect p_erfgoed_p sql.toolserver.org;
 TRUNCATE TABLE monuments_all;
-REPLACE INTO `monuments_all`
 /* Vlaanderen */
-(SELECT 'be-vlg' AS `country`,
+REPLACE INTO `monuments_all`
+SELECT 'be-vlg' AS `country`,
 	`id` AS `id`,
         `objectnaam` AS `name`,
         `adres` AS `address`,
@@ -13,10 +13,10 @@ REPLACE INTO `monuments_all`
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`
-        FROM `monuments_be-vlg`)
-UNION ALL
+        FROM `monuments_be-vlg`;
 /* Switzerland */
-(SELECT 'ch' AS `country`,
+REPLACE INTO `monuments_all`
+SELECT 'ch' AS `country`,
 	`kgs_nr` AS `id`, 
 	`name` AS `name`,
 	`address` AS `address`,
@@ -26,10 +26,10 @@ UNION ALL
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_ch`)
-UNION ALL
+	FROM `monuments_ch`;
 /* Netherlands */
-(SELECT 'nl' AS `country`,
+REPLACE INTO `monuments_all`
+SELECT 'nl' AS `country`,
 	`objrijksnr` AS `id`, 
 	`objectnaam` AS `name`,
 	`adres` AS `address`,
@@ -39,10 +39,10 @@ UNION ALL
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_nl`)
-UNION ALL
+	FROM `monuments_nl`;
 /* Portugal */
-(SELECT 'pt' AS `country`,
+REPLACE INTO `monuments_all`
+SELECT 'pt' AS `country`,
 	`id` AS `id`, 
 	`designacoes` AS `name`,
 	'' AS `address`,
@@ -52,4 +52,4 @@ UNION ALL
 	`imagem` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_pt`);
+	FROM `monuments_pt`;
