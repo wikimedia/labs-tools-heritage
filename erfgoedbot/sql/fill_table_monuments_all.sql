@@ -1,6 +1,19 @@
 /* Create view for all country tables */
 connect p_erfgoed_p sql.toolserver.org;
 TRUNCATE TABLE monuments_all;
+/* Andorra in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'ad' AS `country`,
+	`id` AS `id`,
+        `nom` AS `name`,
+        '' AS `address`,
+        `lloc` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_ad_(ca)`;
 /* Vlaanderen */
 REPLACE INTO `monuments_all`
 SELECT 'be-vlg' AS `country`,
@@ -27,6 +40,71 @@ SELECT 'ch' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ch`;
+/* Spain in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'es' AS `country`,
+	`bic` AS `id`,
+        `nom` AS `name`,
+        '' AS `address`,
+        `lloc` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_es_(ca)`;
+/* Catalunya in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'es-ct' AS `country`,
+	`id` AS `id`,
+        `nom` AS `name`,
+        '' AS `address`,
+        `lloc` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_es-ct_(ca)`;
+/* French in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'fr' AS `country`,
+	`id` AS `id`,
+        `nom` AS `name`,
+        '' AS `address`,
+        `lloc` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_fr_(ca)`;
+/* Ireland in English */
+REPLACE INTO `monuments_all`
+SELECT 'ie' AS `country`,
+        `number` AS `id`,
+        `name` AS `name`,
+	'' AS `address`,
+	`townland` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`image` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_ie_(en)`;
+/* Sardinia in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'it-88' AS `country`,
+	`id` AS `id`,
+        `nom` AS `name`,
+        '' AS `address`,
+        `lloc` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_it-88_(ca)`;
 /* Netherlands */
 REPLACE INTO `monuments_all`
 SELECT 'nl' AS `country`,
