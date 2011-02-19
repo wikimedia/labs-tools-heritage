@@ -336,6 +336,58 @@ countries = {
 	    },
 	],
     },
+    ('ie', 'en') : {
+        'project' : 'wikipedia',
+	'lang' : 'en',
+	'headerTemplate' : 'NMI list header',
+	'rowTemplate' : 'NMI list item',
+	'namespaces' : [0],
+	'table' : 'monuments_ie_(en)',
+	'truncate' : False,
+	'primkey' : 'number',
+	'fields' : [
+	    {
+		'source' : 'number',
+		'dest' : 'number',
+		'conv' : '',
+	    },
+            {
+		'source' : 'name',
+		'dest' : 'name',
+		'conv' : '',
+	    },
+            {
+		'source' : 'description',
+		'dest' : 'description',
+		'conv' : '',
+	    },
+            {
+		'source' : 'townland',
+		'dest' : 'townland',
+		'conv' : '',
+	    },
+            {
+		'source' : 'county',
+		'dest' : 'county',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'image',
+		'dest' : 'image',
+		'conv' : '',
+	    },
+	],
+    },
     ('it-88', 'ca') : {
         'project' : 'wikipedia',
 	'lang' : 'ca',
