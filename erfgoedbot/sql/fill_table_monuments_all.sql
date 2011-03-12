@@ -5,9 +5,9 @@ TRUNCATE TABLE monuments_all;
 REPLACE INTO `monuments_all`
 SELECT 'ad' AS `country`,
 	`id` AS `id`,
-        `nom` AS `name`,
-        '' AS `address`,
-        `lloc` AS `municipality`,
+        `nomcoor` AS `name`,
+        `lloc` AS `address`,
+        '' AS `municipality`,
         `lat` AS `lat`,
         `lon` AS `lon`,
         `imatge` AS `image`,
