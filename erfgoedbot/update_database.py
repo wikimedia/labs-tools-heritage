@@ -140,17 +140,20 @@ def processMonument(params, source, countryconfig, conn, cursor):
 	# Remove leading or trailing spaces
 	field = field.strip()
 	value = value.strip()
-	#See if first part is in fields list
-	if field in contents:
-	    #Load it with Big fucking escape hack. Stupid mysql lib
-	    contents[field] = value # Do this somewhere else.replace("'", "\\'")
-	else:
-	    #FIXME: Include more information where it went wrong
-	    wikipedia.output(u'Found unknown field: %s' % field)
-	    print field
-	    print sep
-	    print value
-	    time.sleep(5)
+	
+	#Check first that field is not empty
+	if field:
+            #Is it in the fields list?
+            if field in contents:
+                #Load it with Big fucking escape hack. Stupid mysql lib
+                contents[field] = value # Do this somewhere else.replace("'", "\\'")
+            else:
+                #FIXME: Include more information where it went wrong
+                wikipedia.output(u'Found unknown field: %s' % field)
+                print field
+                print sep
+                print value
+                time.sleep(5)
     
     # The first key is assumed to be the primary key, check if it is it.
     if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
