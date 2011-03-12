@@ -84,7 +84,7 @@ SELECT 'es-vc' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`
-        FROM `monuments_es-ct_(ca)`;
+        FROM `monuments_es-vc_(ca)`;
 /* French in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'fr' AS `country`,
