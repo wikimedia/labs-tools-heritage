@@ -27,23 +27,30 @@ def getCount(query, cursor):
     return count
 
 def outputStatistics(statistics):
-    ouput = u'{| class="wikitable sortable"\n'
+    print statistics
+    output = u'{| class="wikitable sortable"\n'
     output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image\n'
 
     for country in sorted(statistics.keys()):
         for language in sorted(statistics.get(country).keys()):
+		#print country
+		#print language
+		#print statistics[country][language]
+
                 output = output + u'|-\n'
-                output = output + u'| %(country)s || %(lang)s || %(all)s '
-                output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>'
-                output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>'
-                output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>'
-                output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>'
+                output = output + u'| %(country)s || %(lang)s || %(all)s ' % statistics[country][language]
+                output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % statistics[country][language]
 
     output = output + u'|}\n'
-
+    site = wikipedia.getSite('commons', 'commons')
+    page = wikipedia.Page(site, u'Commons:Wiki_Loves_Monuments_2011/Monuments_database/Statistics')
     
-    print output
+    comment = u'Updating monument database statistics'
+    page.put(newtext = output, comment = comment)
 
 def getStatistics(country, language, conn, cursor):
     '''
@@ -65,11 +72,11 @@ def getStatistics(country, language, conn, cursor):
 	#print query % (country, language)
         result[stat] = getCount(query % (country, language), cursor)
 
-    result['namePercentage'] = 1.0 * result['name'] / result['all'] * 100
-    result['addressPercentage'] = 1.0 * result['address'] / result['all'] * 100
-    result['municipalityPercentage'] = 1.0 * result['municipality'] / result['all'] * 100
-    result['coordinatesPercentage'] = 1.0 * result['coordinates'] / result['all'] * 100
-    result['imagePercentage'] = 1.0 * result['image'] / result['all'] * 100
+    result['namePercentage'] = round(1.0 * result['name'] / result['all'] * 100, 2)
+    result['addressPercentage'] = round(1.0 * result['address'] / result['all'] * 100, 2)
+    result['municipalityPercentage'] = round(1.0 * result['municipality'] / result['all'] * 100, 2)
+    result['coordinatesPercentage'] = round(1.0 * result['coordinates'] / result['all'] * 100, 2)
+    result['imagePercentage'] = round(1.0 * result['image'] / result['all'] * 100, 2)
 
     return result
         
