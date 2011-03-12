@@ -6,6 +6,7 @@ CREATE TABLE `monuments_ad_(ca)` (
   `nom` varchar(255) NOT NULL DEFAULT '',
   `estil` varchar(255) NOT NULL DEFAULT '',
   `epoca` varchar(255) NOT NULL DEFAULT '',
+  `municipi` varchar(255) NOT NULL DEFAULT '',
   `lloc` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',

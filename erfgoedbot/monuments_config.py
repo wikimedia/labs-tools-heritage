@@ -40,11 +40,15 @@ countries = {
 		'conv' : '',
 	    },
             {
-		'source' : 'lloc',
-		'dest' : 'lloc',
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },            {
 		'source' : 'lat',
 		'dest' : 'lat',
 		'conv' : '',
@@ -56,7 +60,7 @@ countries = {
 	    },
             {
 		'source' : 'nomcoor',
-		'dest' : '',
+		'dest' : 'nomcoor',
 		'conv' : '',
 	    },
             {
