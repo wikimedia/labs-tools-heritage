@@ -1,6 +1,6 @@
-/* Create table statement for the Rijksmonumenten in the Netherlands table */
+/* Create table statement for the Rijksmonumenten in the Netherlands in Dutch */
 connect p_erfgoed_p sql.toolserver.org;
-CREATE TABLE `monuments_nl` (
+CREATE TABLE `monuments_nl_(nl)` (
   `objrijksnr` int(11) NOT NULL DEFAULT '0',
   `woonplaats` varchar(255) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',

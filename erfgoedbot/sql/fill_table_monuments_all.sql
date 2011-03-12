@@ -26,7 +26,7 @@ SELECT 'be-vlg' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`
-        FROM `monuments_be-vlg`;
+        FROM `monuments_be-vlg_(nl)`;
 /* Switzerland */
 REPLACE INTO `monuments_all`
 SELECT 'ch' AS `country`,
@@ -39,7 +39,7 @@ SELECT 'ch' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_ch`;
+	FROM `monuments_ch_(en)`;
 /* Spain in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es' AS `country`,
@@ -117,7 +117,7 @@ SELECT 'nl' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_nl`;
+	FROM `monuments_nl_(nl)`;
 /* Portugal */
 REPLACE INTO `monuments_all`
 SELECT 'pt' AS `country`,
@@ -130,4 +130,4 @@ SELECT 'pt' AS `country`,
 	`imagem` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_pt`;
+	FROM `monuments_pt_(pt)`;

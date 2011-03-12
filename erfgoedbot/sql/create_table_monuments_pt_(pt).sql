@@ -1,6 +1,6 @@
-/* Create table statement for the monuments in Portugal (IGESPAR) */
+/* Create table statement for the monuments in Portugal (IGESPAR) in Portugese */
 connect p_erfgoed_p sql.toolserver.org;
-CREATE TABLE `monuments_pt` (
+CREATE TABLE `monuments_pt_(pt)` (
   `id` int(11) NOT NULL DEFAULT '0',
   `designacoes` varchar(255) NOT NULL DEFAULT '',
   `categoria` varchar(255) NOT NULL DEFAULT '',
