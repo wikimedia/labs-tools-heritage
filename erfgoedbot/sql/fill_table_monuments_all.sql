@@ -3,7 +3,8 @@ connect p_erfgoed_p sql.toolserver.org;
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */
 REPLACE INTO `monuments_all`
-SELECT 'ad' AS `country`,
+SELECT 'ad' AS `country`, 
+       'ca' AS `lang`,
 	`id` AS `id`,
         `nomcoor` AS `name`,
         `lloc` AS `address`,
@@ -17,6 +18,7 @@ SELECT 'ad' AS `country`,
 /* Vlaanderen */
 REPLACE INTO `monuments_all`
 SELECT 'be-vlg' AS `country`,
+       'nl' AS `lang`,
 	`id` AS `id`,
         `objectnaam` AS `name`,
         `adres` AS `address`,
@@ -30,6 +32,7 @@ SELECT 'be-vlg' AS `country`,
 /* Switzerland */
 REPLACE INTO `monuments_all`
 SELECT 'ch' AS `country`,
+       'en' AS `lang`,
 	`kgs_nr` AS `id`, 
 	`name` AS `name`,
 	`address` AS `address`,
@@ -43,6 +46,7 @@ SELECT 'ch' AS `country`,
 /* Spain in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es' AS `country`,
+       'ca' AS `lang`,
 	`bic` AS `id`,
         `nom` AS `name`,
         '' AS `address`,
@@ -56,6 +60,7 @@ SELECT 'es' AS `country`,
 /* Catalunya in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es-ct' AS `country`,
+       'ca' AS `lang`,
 	`id` AS `id`,
         `nom` AS `name`,
         '' AS `address`,
@@ -69,6 +74,7 @@ SELECT 'es-ct' AS `country`,
 /* French in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'fr' AS `country`,
+       'ca' AS `lang`,
 	`id` AS `id`,
         `nom` AS `name`,
         '' AS `address`,
@@ -82,6 +88,7 @@ SELECT 'fr' AS `country`,
 /* Ireland in English */
 REPLACE INTO `monuments_all`
 SELECT 'ie' AS `country`,
+       'en' AS `lang`,
         `number` AS `id`,
         `name` AS `name`,
 	'' AS `address`,
@@ -95,6 +102,7 @@ SELECT 'ie' AS `country`,
 /* Sardinia in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'it-88' AS `country`,
+       'ca' AS `lang`,
 	`id` AS `id`,
         `nom` AS `name`,
         '' AS `address`,
@@ -108,6 +116,7 @@ SELECT 'it-88' AS `country`,
 /* Netherlands */
 REPLACE INTO `monuments_all`
 SELECT 'nl' AS `country`,
+       'nl' AS `lang`,
 	`objrijksnr` AS `id`, 
 	`objectnaam` AS `name`,
 	`adres` AS `address`,
@@ -121,6 +130,7 @@ SELECT 'nl' AS `country`,
 /* Portugal */
 REPLACE INTO `monuments_all`
 SELECT 'pt' AS `country`,
+       'pt' AS `lang`,
 	`id` AS `id`, 
 	`designacoes` AS `name`,
 	'' AS `address`,
