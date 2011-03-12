@@ -267,6 +267,11 @@ countries = {
 		'conv' : '',
 	    },
             {
+		'source' : 'municipi',
+		'dest' : 'municipi',
+		'conv' : '',
+	    },
+            {
 		'source' : 'lloc',
 		'dest' : 'lloc',
 		'conv' : '',
@@ -316,6 +321,11 @@ countries = {
             {
 		'source' : u'època',
 		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
@@ -415,6 +425,11 @@ countries = {
             {
 		'source' : 'nom',
 		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
@@ -639,6 +654,11 @@ countries = {
             {
 		'source' : u'època',
 		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
