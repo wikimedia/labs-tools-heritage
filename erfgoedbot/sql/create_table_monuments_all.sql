@@ -1,5 +1,6 @@
 /* Create view for all country tables */
 connect p_erfgoed_p sql.toolserver.org;
+DROP TABLE IF EXISTS monuments_all;
 CREATE TABLE `monuments_all` (
   `country` varchar(10) NOT NULL DEFAULT '',
   `lang` varchar(10) NOT NULL DEFAULT '',
