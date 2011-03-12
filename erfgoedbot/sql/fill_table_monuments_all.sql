@@ -127,6 +127,20 @@ SELECT 'it-88' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_it-88_(ca)`;
+/* Luxemburg in Luxemburgish */
+REPLACE INTO `monuments_all`
+SELECT 'lu' AS `country`,
+       'lb' AS `lang`,
+	`id` AS `id`,
+        `offiziellen_numm` AS `name`,
+        `lag` AS `address`,
+        `uertschaft` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `bild` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_lu_(lb)`;
 /* Netherlands */
 REPLACE INTO `monuments_all`
 SELECT 'nl' AS `country`,
