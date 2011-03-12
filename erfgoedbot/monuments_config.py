@@ -267,6 +267,73 @@ countries = {
 		'conv' : '',
 	    },
             {
+		'source' : 'municipi',
+		'dest' : 'municipi',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lloc',
+		'dest' : 'lloc',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nomcoor',
+		'dest' : 'nomcoor',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imatge',
+		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+        ('es-vc', 'ca') : {
+        'project' : 'wikipedia',
+	'lang' : 'ca',
+	'headerTemplate' : 'Capçalera BIC Val',
+	'rowTemplate' : 'Filera BIC Val',
+	'namespaces' : [0],
+	'table' : 'monuments_es-vc_(ca)',
+	'truncate' : False,
+	'primkey' : 'id',
+	'fields' : [
+	    {
+		'source' : 'idurl',
+		'dest' : 'idurl',
+		'conv' : '',
+	    },
+            {
+		'source' : 'bic',
+		'dest' : 'bic',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nom',
+		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'estil',
+		'dest' : 'estil',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
+		'conv' : '',
+	    },
+            {
 		'source' : 'lloc',
 		'dest' : 'lloc',
 		'conv' : '',
@@ -316,6 +383,11 @@ countries = {
             {
 		'source' : u'època',
 		'dest' : 'epoca',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
@@ -415,6 +487,11 @@ countries = {
             {
 		'source' : 'nom',
 		'dest' : 'nom',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipi',
+		'dest' : 'municipi',
 		'conv' : '',
 	    },
             {
@@ -606,66 +683,5 @@ countries = {
     },
 }
 ''' 
-    ('es-vc', 'ca') : {
-        'project' : 'wikipedia',
-	'lang' : 'ca',
-	'headerTemplate' : 'Capçalera BIC Val',
-	'rowTemplate' : 'Filera BIC Val',
-	'namespaces' : [0],
-	'table' : 'monuments_es-vc_(ca)',
-	'truncate' : False,
-	'primkey' : 'id',
-	'fields' : [
-	    {
-		'source' : 'id',
-		'dest' : 'id',
-		'conv' : '',
-	    },
-            {
-		'source' : 'bic',
-		'dest' : 'bic',
-		'conv' : '',
-	    },
-            {
-		'source' : 'nom',
-		'dest' : 'nom',
-		'conv' : '',
-	    },
-            {
-		'source' : 'estil',
-		'dest' : 'estil',
-		'conv' : '',
-	    },
-            {
-		'source' : u'època',
-		'dest' : 'epoca',
-		'conv' : '',
-	    },
-            {
-		'source' : 'lloc',
-		'dest' : 'lloc',
-		'conv' : '',
-	    },
-            {
-		'source' : 'lat',
-		'dest' : 'lat',
-		'conv' : '',
-	    },
-            {
-		'source' : 'lon',
-		'dest' : 'lon',
-		'conv' : '',
-	    },
-            {
-		'source' : 'nomcoor',
-		'dest' : 'nomcoor',
-		'conv' : '',
-	    },
-            {
-		'source' : 'imatge',
-		'dest' : 'imatge',
-		'conv' : '',
-	    },
-	],
-    },
+
 '''
