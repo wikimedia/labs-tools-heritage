@@ -71,6 +71,20 @@ SELECT 'es-ct' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_es-ct_(ca)`;
+/* Valencia in Catalan */
+REPLACE INTO `monuments_all`
+SELECT 'es-vc' AS `country`,
+       'ca' AS `lang`,
+	`idurl` AS `id`,
+        `nomcoor` AS `name`,
+        `lloc` AS `address`,
+        `municipi` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imatge` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_es-ct_(ca)`;
 /* French in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'fr' AS `country`,
