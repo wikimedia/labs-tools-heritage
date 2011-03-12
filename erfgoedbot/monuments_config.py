@@ -149,7 +149,7 @@ countries = {
 	'fields' : [
 	    {
 		'source' : 'KGS_nr',
-		'dest' : 'kgs_nr',
+		'dest' : '',
 		'conv' : '',
 	    },
 	    {
@@ -306,7 +306,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : 'monuments_es-vc_(ca)',
 	'truncate' : False,
-	'primkey' : 'id',
+	'primkey' : 'idurl',
 	'fields' : [
 	    {
 		'source' : 'idurl',

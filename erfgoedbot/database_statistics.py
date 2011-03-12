@@ -6,7 +6,7 @@ Update the statistics of the monuments database at http://commons.wikimedia.org/
 '''
 import sys, time
 import monuments_config as mconfig
-sys.path.append("/home/multichill/pywikipedia")
+sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
 
 def connectDatabase():
@@ -167,7 +167,7 @@ def processTextfile(textfile, countryconfig, conn, cursor):
 	processText(line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
 
 
-def getCount(cursor, query):
+def getCount(query, cursor):
     '''
     Return the result of the query
     '''
@@ -185,44 +185,48 @@ def getStatistics(country, language, conn, cursor):
     queries = {}
     result = {}
     
-    queries['all'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'""" 
-    queries['name'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT name=''"""
-    queries['address'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT address=''"""
-    queries['municipality'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT municipality=''"""
-    queries['coordinates'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT lat=0 AND NOT lon=0"""
-    queries['image'] = u""""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT image=''"""
+    queries['all'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'""" 
+    queries['name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT name=''"""
+    queries['address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT address=''"""
+    queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT municipality=''"""
+    queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT lat=0 AND NOT lon=0"""
+    queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT image=''"""
 
     for (stat, query) in queries.items():
-        result[stat] = getCount(query % (country, language))
+	print query % (country, language)
+        result[stat] = getCount(query % (country, language), cursor)
 
     return result
         
 def getLanguages(country, conn, cursor):
+    result = []
     query = u"""SELECT DISTINCT(lang) FROM monuments_all WHERE country='%s'"""
-
+    
+    print query % (country,)
     cursor.execute(query % (country,))
 
     while True:
         try:
             (language,) = cursor.fetchone()
-            yield country
+	    result.append(language)
         except TypeError:
             break
         
-    return    
+    return result
 
 def getCountries(conn, cursor):
+    result = []
     query = u"""SELECT DISTINCT(country) FROM monuments_all"""
     cursor.execute(query)
 
     while True:
         try:
             (country,) = cursor.fetchone()
-            yield country
+            result.append(country)
         except TypeError:
             break
 
-    return
+    return result
 
 def main():
     '''
@@ -236,7 +240,9 @@ def main():
     statistics = {}
 
     for country in getCountries(conn, cursor):
+	print country
         for language in getLanguages(country, conn, cursor):
+	    print language
             statistics[(country, language)] = getStatistics(country, language, conn, cursor)
 
     outputStatistics(statistics)
