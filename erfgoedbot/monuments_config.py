@@ -521,6 +521,66 @@ countries = {
 	    },
 	],
     },
+    ('lu', 'lb') : {
+        'project' : 'wikipedia',
+	'lang' : 'lb',
+	'headerTemplate' : 'Nationale Monumenter header',
+	'rowTemplate' : 'Nationale Monumenter row',
+	'namespaces' : [0],
+	'table' : 'monuments_lu_(lb)',
+	'truncate' : True,
+	'primkey' : 'lag',
+	'fields' : [
+	    {
+		'source' : 'id',
+		'dest' : '',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lag',
+		'dest' : 'lag',
+		'conv' : '',
+	    },
+            {
+		'source' : 'uertschaft',
+		'dest' : 'uertschaft',
+		'conv' : '',
+	    },            {
+		'source' : 'offiziellen_numm',
+		'dest' : 'offiziellen_numm',
+		'conv' : '',
+	    },
+            {
+		'source' : 'beschreiwung',
+		'dest' : 'beschreiwung',
+		'conv' : '',
+	    },
+            {
+		'source' : 'niveau',
+		'dest' : 'niveau',
+		'conv' : '',
+	    },
+            {
+		'source' : 'klasséiert_zënter',
+		'dest' : 'klasseiert_zenter',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+             {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },           {
+		'source' : 'bild',
+		'dest' : 'bild',
+		'conv' : '',
+	    },
+	],
+    },
     ('nl', 'nl') : {
         'project' : 'wikipedia',
 	'lang' : 'nl',
