@@ -561,8 +561,8 @@ countries = {
 		'conv' : '',
 	    },
             {
-		'source' : 'klasséiert_zënter',
-		'dest' : 'klasseiert_zenter',
+		'source' : u'klasséiert_zënter',
+		'dest' : u'klasseiert_zenter',
 		'conv' : '',
 	    },
             {
