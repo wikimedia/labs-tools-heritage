@@ -17,156 +17,6 @@ def connectDatabase():
     cursor = conn.cursor()
     return (conn, cursor)
 
-def updateMonument(contents, source, countryconfig, conn, cursor):
-    '''
-    FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
-    '''
-    fieldnames = []
-    fieldvalues = []
-
-    # Source is the first field
-    fieldvalues.append(source)
-
-    for field in countryconfig.get('fields'):
-	if field.get('dest'):
-	    fieldnames.append(field.get('dest'))
-	    #Do some conversions here
-	    if field.get('conv'):
-		fieldvalues.append(convertField(field, contents))
-	    else:
-		fieldvalues.append(contents.get(field.get('source')))
-    if countryconfig.get('truncate'):
-	query = u"""INSERT INTO `%s`(""" % (countryconfig.get('table'),)
-    else:
-	query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
-
-    query = query + u"""`%s`""" % (u'source')
-
-    for fieldname in fieldnames:
-	query = query + u""", `%s`""" % (fieldname,)
-
-    query = query + u""") VALUES ("""
-
-    j =0
-    for fieldvalue in fieldvalues:
-	if j==0:
-	    query = query + u"""%s""" # % (fieldvalue,)
-	else:
-	    query = query + u""", %s""" # % (fieldvalue,)
-	j = j + 1
-
-    query = query + u""")"""
-
-
-    #query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
-    #VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
-    #print query % tuple(fieldvalues)
-    cursor.execute(query, fieldvalues)
-    
-    #print contents
-    #print u'updating!'
-    #time.sleep(5)
-
-def processMonument(params, source, countryconfig, conn, cursor):
-    '''
-    Process a single instance of a monument row template
-    '''
-    
-    # The regexes to find all the fields
-    fields = [u'objrijksnr',
-	     u'woonplaats',
-             u'adres',
-             u'objectnaam',
-             u'type_obj',
-	     u'oorspr_functie',
-             u'bouwjaar',
-             u'architect',
-             u'cbs_tekst',
-             u'RD_x',
-             u'RD_y',
-             u'lat',
-             u'lon',
-	     u'image',
-             u'postcode', # Not used
-             u'buurt', # Not used
-	    ]
-     
-    # Get all the fields
-    contents = {}
-    # Add the source of information (permalink)
-    contents['source'] = source
-    for field in countryconfig.get('fields'):
-	contents[field.get(u'source')]=u''
-
-    for param in params:
-	#Split at =
-	(field, sep, value) = param.partition(u'=')
-	# Remove leading or trailing spaces
-	field = field.strip()
-	value = value.strip()
-	#See if first part is in fields list
-	if field in contents:
-	    #Load it with Big fucking escape hack. Stupid mysql lib
-	    contents[field] = value # Do this somewhere else.replace("'", "\\'")
-	else:
-	    #FIXME: Include more information where it went wrong
-	    wikipedia.output(u'Found unknown field: %s' % field)
-	    print field
-	    print sep
-	    print value
-	    time.sleep(5)
-    
-    # The first key is assumed to be the primary key, check if it is it.
-    if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
-	updateMonument(contents, source, countryconfig, conn, cursor)
-	#print contents
-	#time.sleep(5)
-
-def processText(text, source, countryconfig, conn, cursor, page=None):
-    '''
-    Process a text containing one or multiple instances of the monument row template
-    '''
-    if not page:
-	site = site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
-	page = wikipedia.Page(site, u'User:Multichill/Zandbak')
-    templates = page.templatesWithParams(thistxt=text)
-    for (template, params) in templates:
-	if template==countryconfig.get('rowTemplate'):
-	    #print template
-	    #print params
-	    processMonument(params, source, countryconfig, conn, cursor)
-	    #time.sleep(5)
-
-def processCountry(countryconfig, conn, cursor):
-    '''
-    Process all the monuments of one country
-    '''
-
-    if countryconfig.get('truncate'):
-	query = u"""TRUNCATE table `%s`""" % (countryconfig.get('table'),)
-	cursor.execute(query)
-
-    site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
-    rowTemplate = wikipedia.Page(site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
-
-    transGen = pagegenerators.ReferringPageGenerator(rowTemplate, onlyTemplateInclusion=True)
-    filteredGen = pagegenerators.NamespaceFilterPageGenerator(transGen, countryconfig.get('namespaces'))
-    pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
-    for page in pregenerator:
-	if page.exists() and not page.isRedirectPage():
-	    # Do some checking
-	    processText(page.get(), page.permalink(), countryconfig, conn, cursor, page=page)
-
-
-def processTextfile(textfile, countryconfig, conn, cursor):
-    '''
-    Process the contents of a text file containing one or more lines with the Tabelrij rijksmonument template
-    '''
-    file = open(textfile, 'r')
-    for line in file:
-	processText(line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
-
-
 def getCount(query, cursor):
     '''
     Return the result of the query
@@ -177,7 +27,23 @@ def getCount(query, cursor):
     return count
 
 def outputStatistics(statistics):
-    print statistics
+    ouput = u'{| class="wikitable sortable"\n'
+    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image\n'
+
+    for country in sorted(statistics.keys()):
+        for language in sorted(statistics.get(country).keys()):
+                output = output + u'|-\n'
+                output = output + u'| %(country)s || %(lang)s || %(all)s '
+                output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>'
+                output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>'
+                output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>'
+                output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>'
+                output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % statistics[country][language]
+
+    output = output + u'|}\n'
+
+    
+    print output
 
 def getStatistics(country, language, conn, cursor):
     '''
@@ -192,9 +58,18 @@ def getStatistics(country, language, conn, cursor):
     queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT lat=0 AND NOT lon=0"""
     queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT image=''"""
 
+    result['country'] = country
+    result['lang'] = language
+
     for (stat, query) in queries.items():
-	print query % (country, language)
+	#print query % (country, language)
         result[stat] = getCount(query % (country, language), cursor)
+
+    result['namePercentage'] = 1.0 * result['name'] / result['all'] * 100
+    result['addressPercentage'] = 1.0 * result['address'] / result['all'] * 100
+    result['municipalityPercentage'] = 1.0 * result['municipality'] / result['all'] * 100
+    result['coordinatesPercentage'] = 1.0 * result['coordinates'] / result['all'] * 100
+    result['imagePercentage'] = 1.0 * result['image'] / result['all'] * 100
 
     return result
         
@@ -202,7 +77,7 @@ def getLanguages(country, conn, cursor):
     result = []
     query = u"""SELECT DISTINCT(lang) FROM monuments_all WHERE country='%s'"""
     
-    print query % (country,)
+    #print query % (country,)
     cursor.execute(query % (country,))
 
     while True:
@@ -240,10 +115,9 @@ def main():
     statistics = {}
 
     for country in getCountries(conn, cursor):
-	print country
+	statistics[country] = {}
         for language in getLanguages(country, conn, cursor):
-	    print language
-            statistics[(country, language)] = getStatistics(country, language, conn, cursor)
+            statistics[country][language] = getStatistics(country, language, conn, cursor)
 
     outputStatistics(statistics)
     
