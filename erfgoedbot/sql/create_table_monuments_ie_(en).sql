@@ -1,5 +1,6 @@
 /* Create table statement for the monuments in Ireland */
 connect p_erfgoed_p sql.toolserver.org;
+DROP TABLE IF EXISTS `monuments_ie_(en)`;
 CREATE TABLE `monuments_ie_(en)` (
   `number` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',

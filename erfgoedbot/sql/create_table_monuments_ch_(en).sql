@@ -1,5 +1,6 @@
 /* Create table statement for the monuments in Switzerland in English */
 connect p_erfgoed_p sql.toolserver.org;
+DROP TABLE IF EXISTS `monuments_ch_(en)`;
 CREATE TABLE `monuments_ch_(en)` (
   `kgs_nr` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
