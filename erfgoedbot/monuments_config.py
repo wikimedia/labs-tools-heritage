@@ -72,7 +72,7 @@ countries = {
 	'headerTemplate' : 'Tabelkop erfgoed Vlaanderen',
 	'rowTemplate' : 'Tabelrij erfgoed Vlaanderen',
 	'namespaces' : [0],
-	'table' : 'monuments_be-vlg',
+	'table' : 'monuments_be-vlg_(nl)',
 	'truncate' : False,
 	'primkey' : 'id',
 	'fields' : [
@@ -139,7 +139,7 @@ countries = {
 	'headerTemplate' : 'SIoCPoNaRS header',
 	'rowTemplate' : 'SIoCPoNaRS row',
 	'namespaces' : [0],
-	'table' : 'monuments_ch',
+	'table' : 'monuments_ch_(en)',
 	'truncate' : True,
 	'primkey' : 'KGS_nr',
 	'fields' : [
@@ -441,7 +441,7 @@ countries = {
 	'headerTemplate' : 'Tabelkop rijksmonumenten',
 	'rowTemplate' : 'Tabelrij rijksmonument',
 	'namespaces' : [0],
-	'table' : 'monuments_nl',
+	'table' : 'monuments_nl_(nl)',
 	'truncate' : False,
 	'primkey' : 'objrijksnr',
 	'fields' : [
@@ -534,7 +534,7 @@ countries = {
 	'rowTemplate' : 'IGESPAR/linha',
         'footerTemplate' : 'IGESPAR/rodapé',
 	'namespaces' : [102],
-	'table' : 'monuments_pt',
+	'table' : 'monuments_pt_(pt)',
 	'truncate' : False,
 	'primkey' : 'id',
 	'fields' : [
