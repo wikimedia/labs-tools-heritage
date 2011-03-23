@@ -467,7 +467,7 @@ countries = {
 		'conv' : '',
 	    },
             {
-		'source' : 'titre coordonnées',
+		'source' : u'titre coordonnées',
 		'dest' : 'titre_coordonnees',
 		'conv' : '',
 	    },
