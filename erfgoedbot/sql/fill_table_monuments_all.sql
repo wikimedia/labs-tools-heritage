@@ -85,7 +85,7 @@ SELECT 'es-vc' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_es-vc_(ca)`;
-/* French in Catalan */
+/* France in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'fr' AS `country`,
        'ca' AS `lang`,
@@ -99,6 +99,20 @@ SELECT 'fr' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_fr_(ca)`;
+/* France in French */
+REPLACE INTO `monuments_all`
+SELECT 'fr' AS `country`,
+       'fr' AS `lang`,
+	`notice` AS `id`,
+        `monument` AS `name`,
+        `adresse` AS `address`,
+        `commune` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_fr_(fr)`;
 /* Ireland in English */
 REPLACE INTO `monuments_all`
 SELECT 'ie' AS `country`,
