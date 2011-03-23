@@ -417,6 +417,82 @@ countries = {
 	    },
 	],
     },
+    ('fr', 'fr') : {
+        'project' : 'wikipedia',
+	'lang' : 'fr',
+	'headerTemplate' : 'En-tête de tableau MH',
+	'rowTemplate' : 'Ligne de tableau MH',
+	'namespaces' : [0],
+	'table' : 'monuments_fr_(fr)',
+	'truncate' : False,
+	'primkey' : 'notice',
+	'fields' : [
+	    {
+		'source' : 'tri',
+		'dest' : 'tri',
+		'conv' : '',
+	    },
+            {
+		'source' : 'monument',
+		'dest' : 'monument',
+		'conv' : '',
+	    },
+            {
+		'source' : 'commune',
+		'dest' : 'commune',
+		'conv' : '',
+	    },
+            {
+		'source' : 'tri commune',
+		'dest' : 'tri commune',
+		'conv' : '',
+	    },
+            {
+		'source' : 'adresse',
+		'dest' : 'adresse',
+		'conv' : '',
+	    },
+            {
+		'source' : 'tri adresse',
+		'dest' : 'tri adresse',
+		'conv' : '',
+	    },            {
+		'source' : 'latitude',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'longitude',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'titre coordonnées',
+		'dest' : 'titre_coordonnees',
+		'conv' : '',
+	    },
+            {
+		'source' : 'notice',
+		'dest' : 'notice',
+		'conv' : '',
+	    },
+            {
+		'source' : 'protection',
+		'dest' : 'protection',
+		'conv' : '',
+	    },
+            {
+		'source' : 'date',
+		'dest' : 'date',
+		'conv' : '',
+	    },
+            {
+		'source' : 'image',
+		'dest' : 'image',
+		'conv' : '',
+	    },
+	],
+    },
     ('ie', 'en') : {
         'project' : 'wikipedia',
 	'lang' : 'en',
