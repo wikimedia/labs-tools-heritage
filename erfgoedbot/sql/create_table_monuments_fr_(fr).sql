@@ -1,7 +1,7 @@
 /* Create table statement for the monuments in France in French table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_fr_(fr)`;
-CREATE TABLE `monuments_fr_(ca)` (
+CREATE TABLE `monuments_fr_(fr)` (
   `tri` varchar(11) NOT NULL DEFAULT '0',
   `monument` varchar(255) NOT NULL DEFAULT '',
   `commune` varchar(255) NOT NULL DEFAULT '',
