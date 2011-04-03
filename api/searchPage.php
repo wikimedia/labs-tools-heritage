@@ -206,7 +206,7 @@ class SearchPage {
 		 */
 		$selectName = 'OutputLanguage';
 		global $I18N;
-		$options = $I18N->getLangNames();
+		$options = $I18N->getAvailableLangs();
 
 		/*
 		$options = array (
