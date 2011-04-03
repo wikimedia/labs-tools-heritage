@@ -205,13 +205,17 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'OutputLanguage';
-		//FIXME $options = $I18N->getLangNames();
+		global $I18N;
+		$options = $I18N->getLangNames();
+
+		/*
 		$options = array (
 			'en' => 'English',
 			'fr' => 'French',
 			'nl' => 'Dutch',
 			'pt' => 'Portugese',
 		);
+		 */
 
 		return $this->getSelect ( $selectName , $options );
 	}
