@@ -320,16 +320,16 @@ countries = {
 	'namespaces' : [0],
 	'table' : 'monuments_es-vc_(ca)',
 	'truncate' : False,
-	'primkey' : 'idurl',
+	'primkey' : 'bic',
 	'fields' : [
-	    {
-		'source' : 'idurl',
-		'dest' : 'idurl',
-		'conv' : '',
-	    },
             {
 		'source' : 'bic',
 		'dest' : 'bic',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'idurl',
+		'dest' : 'idurl',
 		'conv' : '',
 	    },
             {
