@@ -205,6 +205,10 @@ countries = {
 		'conv' : '',
 	    },
             {
+		'source' : 'tipus',
+		'dest' : 'tipus',
+		'conv' : '',
+	    },            {
 		'source' : 'municipi',
 		'dest' : 'municipi',
 		'conv' : '',

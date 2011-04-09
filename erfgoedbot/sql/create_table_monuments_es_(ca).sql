@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS `monuments_es_(ca)`;
 CREATE TABLE `monuments_es_(ca)` (
   `bic` int(11) NOT NULL DEFAULT '0',
   `nom` varchar(255) NOT NULL DEFAULT '',
+  `tipus` varchar(255) NOT NULL DEFAULT '',
   `municipi` varchar(255) NOT NULL DEFAULT '',
   `lloc` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
