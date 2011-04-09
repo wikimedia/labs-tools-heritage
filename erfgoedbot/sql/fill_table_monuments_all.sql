@@ -61,7 +61,7 @@ SELECT 'es' AS `country`,
 REPLACE INTO `monuments_all`
 SELECT 'es-ct' AS `country`,
        'ca' AS `lang`,
-	`id` AS `id`,
+	`bic` AS `id`,
         `nomcoor` AS `name`,
         `lloc` AS `address`,
         `municipi` AS `municipality`,
