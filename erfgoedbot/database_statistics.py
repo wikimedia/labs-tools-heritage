@@ -72,19 +72,11 @@ def getStatistics(country, language, conn, cursor):
 	#print query % (country, language)
         result[stat] = getCount(query % (country, language), cursor)
 
-    if result['all']==0:
-        # We don't want to have divisions by zero errors
-        result['namePercentage']=0.00
-        result['addressPercentage']=0.00
-        result['municipalityPercentage']=0.00
-        result['coordinatesPercentage']=0.00
-        result['imagePercentage']=0.00
-    else:
-        result['namePercentage'] = round(1.0 * result['name'] / result['all'] * 100, 2)
-        result['addressPercentage'] = round(1.0 * result['address'] / result['all'] * 100, 2)
-        result['municipalityPercentage'] = round(1.0 * result['municipality'] / result['all'] * 100, 2)
-        result['coordinatesPercentage'] = round(1.0 * result['coordinates'] / result['all'] * 100, 2)
-        result['imagePercentage'] = round(1.0 * result['image'] / result['all'] * 100, 2)
+    result['namePercentage'] = round(1.0 * result['name'] / result['all'] * 100, 2)
+    result['addressPercentage'] = round(1.0 * result['address'] / result['all'] * 100, 2)
+    result['municipalityPercentage'] = round(1.0 * result['municipality'] / result['all'] * 100, 2)
+    result['coordinatesPercentage'] = round(1.0 * result['coordinates'] / result['all'] * 100, 2)
+    result['imagePercentage'] = round(1.0 * result['image'] / result['all'] * 100, 2)
 
     return result
         
