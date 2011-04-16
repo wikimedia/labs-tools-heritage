@@ -763,6 +763,53 @@ countries = {
 	    },
 	],
     },
+    ('pl', 'pl') : {
+        'project' : 'wikipedia',
+	'lang' : 'pl',
+	'headerTemplate' : 'Lista zabytków góra',
+	'rowTemplate' : 'Zabytki wiersz',
+	'namespaces' : [0],
+	'table' : 'monuments_pl_(pl)',
+	'truncate' : True,
+	'primkey' : 'numer',
+	'fields' : [
+	    {
+		'source' : 'numer',
+		'dest' : 'numer',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'nazwa',
+		'dest' : 'nazwa',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'adres',
+		'dest' : 'adres',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'gmina',
+		'dest' : 'gmina',
+		'conv' : '',
+	    },
+	    {
+		'source' : u'szerokość',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+	    {
+		'source' : u'długość',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+	    {
+		'source' : u'zdjęcie',
+		'dest' : 'zdjecie',
+		'conv' : '',
+	    },
+	],
+    },
     ('pt', 'pt') : {
         'project' : 'wikipedia',
 	'lang' : 'pt',

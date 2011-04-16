@@ -169,6 +169,20 @@ SELECT 'nl' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_nl_(nl)`;
+/* Poland */
+REPLACE INTO `monuments_all`
+SELECT 'pl' AS `country`,
+       'pl' AS `lang`,
+	`numer` AS `id`, 
+	`nazwa` AS `name`,
+	`adres` AS `address`,
+	`gmina` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`zdjecie` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_pl_(pl)`;
 /* Portugal */
 REPLACE INTO `monuments_all`
 SELECT 'pt' AS `country`,
