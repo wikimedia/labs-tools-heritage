@@ -184,6 +184,58 @@ countries = {
 	    },
 	]
     },
+    ('ee', 'et') : {
+	'project' : 'wikipedia',
+	'lang' : 'et',
+	'headerTemplate' : 'KRR päis',
+	'rowTemplate' : 'KRR rida',
+	'namespaces' : [0],
+	'table' : 'monuments_ee_(et)',
+	'truncate' : False,
+	'primkey' : 'number',
+	'fields' : [
+	    {
+		'source' : 'number',
+		'dest' : 'number',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'nimi',
+		'dest' : 'nimi',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'liik',
+		'dest' : 'liik',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'aadress',
+		'dest' : 'aadress',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'NS',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'EW',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'pilt',
+		'dest' : 'pilt',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'commons',
+		'dest' : 'commons',
+		'conv' : '',
+	    },
+	]
+    },
     ('es', 'ca') : {
         'project' : 'wikipedia',
 	'lang' : 'ca',

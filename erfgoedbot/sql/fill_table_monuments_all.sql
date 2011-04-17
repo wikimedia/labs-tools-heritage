@@ -43,6 +43,20 @@ SELECT 'ch' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ch_(en)`;
+/* Estonia */
+REPLACE INTO `monuments_all`
+SELECT 'ee' AS `country`,
+       'et' AS `lang`,
+	`number` AS `id`, 
+	`nimi` AS `name`,
+	`aadress` AS `address`,
+	'' AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`pilt` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_ee_(et)`;
 /* Spain in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es' AS `country`,
