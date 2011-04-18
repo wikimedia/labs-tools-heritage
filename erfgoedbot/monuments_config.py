@@ -304,7 +304,7 @@ countries = {
 	'rowTemplate' : 'Fila BIC',
 	'namespaces' : [104],
 	'table' : 'monuments_es_(es)',
-	'truncate' : True,
+	'truncate' : False,
 	'primkey' : 'bic',
 	'fields' : [
 	    {
