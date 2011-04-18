@@ -244,7 +244,7 @@ countries = {
     ('es', 'ca') : {
         'project' : 'wikipedia',
 	'lang' : 'ca',
-	'headerTemplate' : 'Capçalera BIC',
+	'headerTemplate' : u'Capçalera BIC',
 	'rowTemplate' : 'Filera BIC',
 	'namespaces' : [0],
 	'table' : 'monuments_es_(ca)',
@@ -293,6 +293,73 @@ countries = {
             {
 		'source' : 'imatge',
 		'dest' : 'imatge',
+		'conv' : '',
+	    },
+	],
+    },
+    ('es', 'es') : {
+        'project' : 'wikipedia',
+	'lang' : 'es',
+	'headerTemplate' : 'Cabecera BIC',
+	'rowTemplate' : 'Fila BIC',
+	'namespaces' : [104],
+	'table' : 'monuments_es_(es)',
+	'truncate' : True,
+	'primkey' : 'bic',
+	'fields' : [
+	    {
+		'source' : 'bic',
+		'dest' : 'bic',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nombre',
+		'dest' : 'nombre',
+		'conv' : '',
+	    },
+            {
+		'source' : 'nombrecoor',
+		'dest' : 'nombrecoor',
+		'conv' : '',
+	    },
+            {
+		'source' : 'tipobic',
+		'dest' : 'tipobic',
+		'conv' : '',
+	    },
+            {
+		'source' : 'tipo',
+		'dest' : 'tipo',
+		'conv' : '',
+	    },
+            {
+		'source' : 'municipio',
+		'dest' : 'municipio',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lugar',
+		'dest' : 'lugar',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+            {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+            {
+		'source' : 'fecha',
+		'dest' : 'fecha',
+		'conv' : '',
+	    },
+            {
+		'source' : 'imagen',
+		'dest' : 'imagen',
 		'conv' : '',
 	    },
 	],
