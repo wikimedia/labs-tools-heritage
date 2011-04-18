@@ -6,6 +6,7 @@ CREATE TABLE `monuments_ee_(et)` (
   `nimi` varchar(255) NOT NULL DEFAULT '',
   `liik` varchar(255) NOT NULL DEFAULT '',
   `aadress` varchar(255) NOT NULL DEFAULT '',
+  `omavalitsus` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `pilt` varchar(255) NOT NULL DEFAULT '',

@@ -215,6 +215,11 @@ countries = {
 		'conv' : '',
 	    },
 	    {
+		'source' : 'omavalitsus',
+		'dest' : 'omavalitsus',
+		'conv' : '',
+	    },
+            {
 		'source' : 'NS',
 		'dest' : 'lat',
 		'conv' : '',
