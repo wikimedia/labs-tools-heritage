@@ -71,6 +71,21 @@ SELECT 'es' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_es_(ca)`;
+/* Spain in Spanish */
+REPLACE INTO `monuments_all`
+SELECT 'es' AS `country`,
+       'es' AS `lang`,
+	`bic` AS `id`,
+        `nombrecoor` AS `name`,
+        `lugar` AS `address`,
+        `municipio` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imagen` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_es_(es)`
+        WHERE tipobic='M';
 /* Catalunya in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es-ct' AS `country`,
