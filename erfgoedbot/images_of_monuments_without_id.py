@@ -62,7 +62,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 	if not image in ignoreList:
             # An image is in the category and is in the list of used images
             if withPhoto.get(image):
-                text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
+                added = addCommonsTemplate(image, commonsTemplate, withPhoto.get(image))
+                if not added:
+                    text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
             # An image is in the category and is not in the list of used images
             else:
                 text = text + u'File:%s\n' % (image,)
@@ -71,7 +73,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     for image in withPhoto:
         # Skip images which already have the templates and the ones in without templates to prevent duplicates
         if not image in ignoreList and not image in withTemplate and not image in withoutTemplate:
-            text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
+            added = addCommonsTemplate(image, commonsTemplate, withPhoto.get(image))
+            if not added:
+                text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
 	    
     text = text + u'</gallery>' 
     comment = u'Images without an id'
@@ -143,6 +147,27 @@ def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
             break
 
     return result    
+
+def addCommonsTemplate(image, commonsTemplate, identifier):
+    '''
+    Add the commonsTemplate with identifier to the image.
+    '''
+    site = wikipedia.getSite('commons', 'commons')
+    page = wikipedia.ImagePage(site, image)
+    if not page.exists() or page.isEmpty():
+        return False
+    
+    if commonsTemplate in page.templates():
+        return False
+
+    text = page.get()
+    newtext = u'{{%s|%s}}\n' % (commonsTemplate, identifier) + text
+
+    comment = u'Adding template %s based on usage in list' % (commonsTemplate,)
+
+    wikipedia.showDiff(text, newtext)
+    page.put(newtext, comment)
+    return True
 
 def main():
     countrycode = u''
