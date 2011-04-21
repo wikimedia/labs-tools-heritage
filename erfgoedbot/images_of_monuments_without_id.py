@@ -93,7 +93,9 @@ def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
 	try:
 	    row = cursor.fetchone()
 	    (image, id) = row
-	    result[image.replace(u' ', u'_')] = id
+	    image = image.replace(u' ', u'_') # Spaces are lowercase in the other database
+	    image = image[0].upper() + image[1:] # First char always needs to be uppercase
+	    result[image] = id
 	except TypeError:
 	    break
 
