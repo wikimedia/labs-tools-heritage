@@ -38,14 +38,17 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
 
-    # An image is in the category and is in the list
-    # An image is in the category and is not in the list
-    # An image is in the list, but not in the category
-
+    # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor)
+
+    # All items on Commons with the id template
+    withTemplate= getMonumentsWithTemplate(countrycode, lang, countryconfig, conn2, cursor2)
+
+    # All items on Commons in the monument tree without the id template
     withoutTemplate = getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn2, cursor2)
 
     print withPhoto
+    print withTemplate
     print withoutTemplate
 
     #incorrectTemplate = getRijksmonumentenWitIncorrectTemplate(conn2, cursor2)
@@ -55,10 +58,19 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     #for image in withoutTemplate + incorrectTemplate:
     for image in withoutTemplate:
 	#if not image in ignoreList:
+
+        # An image is in the category and is in the list of used images
 	if withPhoto.get(image):
 	    text = text + u'File:%s|{{tl|%s|%s}}\n' % (image, commonsTemplate, withPhoto.get(image))
+	# An image is in the category and is not in the list of used images
 	else:
 	    text = text + u'File:%s\n' % (image,)
+
+    # An image is in the list of used images, but not in the category
+    for image in withPhoto:
+        # Skip images which already have the templates and the ones in without templates to prevent duplicates
+        if not withTemplate.get(image) and not withoutTemplate.get(image):
+            text = text + u'File:%s|{{tl|%s|%s}}\n' % (image, commonsTemplate, withPhoto.get(image))
 	    
     text = text + u'</gallery>' 
     comment = u'Images without an id'
@@ -113,6 +125,30 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
 
     return result
 
+
+def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
+    '''
+    Get all images of monuments which already contain the template.
+    '''
+    result = []
+
+    commonsTrackerCategory = countryconfig.get('commonsTrackerCategory'). replace(u' ', u'_')
+
+    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to='%s' ORDER BY page_title ASC"""
+
+    print query % (commonsTrackerCategory,)
+
+    cursor.execute(query % (commonsTrackerCategory, commonsCategoryBase, commonsTemplate))
+
+    while True:
+        try:
+            row = cursor.fetchone()
+            (image,) = row
+            result.append(image.decode('utf-8'))
+        except TypeError:
+            break
+
+    return result    
 
 def getRijksmonumentenWitIncorrectTemplate(conn, cursor):
     result = []
