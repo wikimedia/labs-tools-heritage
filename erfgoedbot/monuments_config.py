@@ -251,6 +251,7 @@ countries = {
 	'lang' : 'ca',
 	'headerTemplate' : u'Capçalera BIC',
 	'rowTemplate' : 'Filera BIC',
+        'commonsTemplate' : 'BIC',
         'commonsTrackerCategory' : 'Cultural heritage monuments in Spain with known IDs',
         'commonsCategoryBase' : 'Cultural heritage monuments in Spain',
         'unusedImagesPage' : 'User:Multichill/Unused BIC',
