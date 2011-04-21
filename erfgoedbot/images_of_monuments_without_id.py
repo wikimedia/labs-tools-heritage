@@ -154,7 +154,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     '''
     site = wikipedia.getSite('commons', 'commons')
     page = wikipedia.ImagePage(site, image)
-    if not page.exists() or page.isEmpty():
+    if not page.exists() or page.isEmpty() or page.isRedirectPage():
         return False
     
     if commonsTemplate in page.templates():
