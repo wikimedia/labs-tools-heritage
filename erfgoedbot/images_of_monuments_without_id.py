@@ -2,9 +2,8 @@
 # -*- coding: utf-8  -*-
 '''
 
-Make a gallery of rijksmonumenten without an id at Commons
+Make a galleries of monuments without an id at Commons
 
-FIXME: Encoding issues.
 
 '''
 import sys
@@ -16,7 +15,8 @@ import MySQLdb, config, time
 
 def connectDatabase():
     '''
-    Connect to the rijksmonumenten mysql database, if it fails, go down in flames
+    Connect to the monuments mysql database, if it fails, go down in flames.
+    This database is utf-8 encoded.
     '''
     conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
     cursor = conn.cursor()
@@ -25,12 +25,16 @@ def connectDatabase():
 def connectDatabase2():
     '''
     Connect to the commons mysql database, if it fails, go down in flames
+    This database is latin1 encoded.
     '''
     conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+    '''
+    Work on a single country.
+    '''
     if not countryconfig.get('commonsTemplate'):
         # No template found, just skip silently.
         return False
@@ -47,30 +51,27 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     # All items on Commons in the monument tree without the id template
     withoutTemplate = getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn2, cursor2)
 
-    print withPhoto
-    print withTemplate
-    print withoutTemplate
+    # Get the image ignore list
+    # FIXME: Make an actual function of this instead of a static list.
+    ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
 
-    #incorrectTemplate = getRijksmonumentenWitIncorrectTemplate(conn2, cursor2)
-    #ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
-
+    # FIXME: Do something with a header template.
     text = u'<gallery>\n'
-    #for image in withoutTemplate + incorrectTemplate:
+    
     for image in withoutTemplate:
-	#if not image in ignoreList:
-
-        # An image is in the category and is in the list of used images
-	if withPhoto.get(image):
-	    text = text + u'File:%s|{{tl|%s|%s}}\n' % (image, commonsTemplate, withPhoto.get(image))
-	# An image is in the category and is not in the list of used images
-	else:
-	    text = text + u'File:%s\n' % (image,)
+	if not image in ignoreList:
+            # An image is in the category and is in the list of used images
+            if withPhoto.get(image):
+                text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
+            # An image is in the category and is not in the list of used images
+            else:
+                text = text + u'File:%s\n' % (image,)
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
         # Skip images which already have the templates and the ones in without templates to prevent duplicates
-        if not image in withTemplate and not image in withoutTemplate:
-            text = text + u'File:%s|{{tl|%s|%s}}\n' % (image, commonsTemplate, withPhoto.get(image))
+        if not image in ignoreList and not image in withTemplate and not image in withoutTemplate:
+            text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
 	    
     text = text + u'</gallery>' 
     comment = u'Images without an id'
@@ -81,13 +82,11 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     page.put(text, comment)
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
+    '''
+    Get a dictionary of images which are in the monuments database for a certain country/language combination.
+    '''
     result = {}
-
     query = u"""SELECT image, id FROM monuments_all WHERE NOT image='' AND country='%s' AND lang='%s'""";
-
-    print query % (countrycode, lang)
-
-
     cursor.execute(query % (countrycode, lang))
 
     while True:
@@ -101,18 +100,15 @@ def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     return result
 
 def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
-    result = []
-
+    '''
+    Get a list of images which are in the relevant monuments category tree, but don't contain the identification template.
+    '''
+    
     commonsCategoryBase = countryconfig.get('commonsCategoryBase'). replace(u' ', u'_')
     commonsTemplate = countryconfig.get('commonsTemplate'). replace(u' ', u'_')
 
+    result = []
     query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s') ORDER BY page_title ASC"""
-
-    print commonsCategoryBase
-    print commonsTemplate
-
-    print query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate)
-
     cursor.execute(query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate))
 
     while True:
@@ -125,19 +121,15 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
 
     return result
 
-
 def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
     '''
-    Get all images of monuments which already contain the template.
+    Get all images of monuments which already contain the identification template.
     '''
-    result = []
-
+    
     commonsTrackerCategory = countryconfig.get('commonsTrackerCategory'). replace(u' ', u'_')
-
+    
+    result = []
     query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to='%s' ORDER BY page_title ASC"""
-
-    print query % (commonsTrackerCategory,)
-
     cursor.execute(query % (commonsTrackerCategory,))
 
     while True:
@@ -150,27 +142,11 @@ def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
 
     return result    
 
-def getRijksmonumentenWitIncorrectTemplate(conn, cursor):
-    result = []
-    query = u"""SELECT DISTINCT(page_title) FROM categorylinks JOIN page ON cl_from=page_id WHERE cl_to='Rijksmonumenten_with_known_IDs' AND (cl_sortkey=' 000000-1' OR cl_sortkey=' 00000000' OR cl_sortkey=' 0000000?' OR cl_sortkey=' onbekend') AND page_namespace=6 AND page_is_redirect=0 ORDER BY page_title ASC"""
-
-    cursor.execute(query)
-
-    while True:
-        try:
-            row = cursor.fetchone()
-            (image,) = row
-            result.append(image.decode('utf-8'))
-        except TypeError:
-            break
-
-    return result
-
 def main():
-    # Connect database, we need that
     countrycode = u''
     conn = None
     cursor = None
+    # Connect database, we need that
     (conn, cursor) = connectDatabase()
     (conn2, cursor2) = connectDatabase2()
     
