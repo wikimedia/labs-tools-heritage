@@ -26,7 +26,7 @@ def connectDatabase2():
     '''
     Connect to the commons mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
+    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
 
@@ -69,7 +69,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
         # Skip images which already have the templates and the ones in without templates to prevent duplicates
-        if not withTemplate.get(image) and not withoutTemplate.get(image):
+        if not image in withTemplate and not image in withoutTemplate:
             text = text + u'File:%s|{{tl|%s|%s}}\n' % (image, commonsTemplate, withPhoto.get(image))
 	    
     text = text + u'</gallery>' 
@@ -78,7 +78,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     site = wikipedia.getSite(lang, u'wikipedia')
     page = wikipedia.Page(site, imagesWithoutIdPage)
     wikipedia.output(text)
-    #page.put(text, comment)
+    page.put(text, comment)
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     result = {}
@@ -138,7 +138,7 @@ def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
 
     print query % (commonsTrackerCategory,)
 
-    cursor.execute(query % (commonsTrackerCategory, commonsCategoryBase, commonsTemplate))
+    cursor.execute(query % (commonsTrackerCategory,))
 
     while True:
         try:
