@@ -8,6 +8,7 @@ FIXME: Encoding issues.
 
 '''
 import sys
+import monuments_config as mconfig
 sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, pagegenerators, catlib
 import re, imagerecat
@@ -29,7 +30,7 @@ def connectDatabase2():
     cursor = conn.cursor()
     return (conn, cursor)
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor):
+def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
     if not countryconfig.get('commonsTemplate'):
         # No template found, just skip silently.
         return False
@@ -37,8 +38,15 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
 
+    # An image is in the category and is in the list
+    # An image is in the category and is not in the list
+    # An image is in the list, but not in the category
+
     withPhoto = getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor)
     withoutTemplate = getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn2, cursor2)
+
+    print withPhoto
+    print withoutTemplate
 
     #incorrectTemplate = getRijksmonumentenWitIncorrectTemplate(conn2, cursor2)
     #ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
@@ -63,7 +71,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     result = {}
 
-    query = u"""SELECT image, id FROM monuments_all WHERE NOT image='' AND country=%s lang=%s""";
+    query = u"""SELECT image, id FROM monuments_all WHERE NOT image='' AND country='%s' AND lang='%s'""";
+
+    print query % (countrycode, lang)
 
 
     cursor.execute(query % (countrycode, lang))
@@ -84,9 +94,14 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     commonsCategoryBase = countryconfig.get('commonsCategoryBase'). replace(u' ', u'_')
     commonsTemplate = countryconfig.get('commonsTemplate'). replace(u' ', u'_')
 
-    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to=%s OR cl_to LIKE '""" + commonsCategoryBase +  """\_in\_%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s) ORDER BY page_title ASC"""
+    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s') ORDER BY page_title ASC"""
 
-    cursor.execute(query % (commonsCategoryBase, commonsTemplate))
+    print commonsCategoryBase
+    print commonsTemplate
+
+    print query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate)
+
+    cursor.execute(query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate))
 
     while True:
         try:
@@ -133,11 +148,11 @@ def main():
 	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
 	    return False
 	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
+	processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
 	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
 	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    processCountry(countrycode, lang, countryconfig, conn, cursor)
+	    processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
 
 
 if __name__ == "__main__":
