@@ -194,7 +194,7 @@ countries = {
 	'lang' : 'et',
 	'headerTemplate' : 'KRR päis',
 	'rowTemplate' : 'KRR rida',
-	'namespaces' : [0],
+	'namespaces' : [4],
 	'table' : 'monuments_ee_(et)',
 	'truncate' : False,
 	'primkey' : 'number',
