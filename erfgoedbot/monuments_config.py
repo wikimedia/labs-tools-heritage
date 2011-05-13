@@ -912,7 +912,7 @@ countries = {
 	'lang' : 'pl',
 	'headerTemplate' : 'Lista zabytków góra',
 	'rowTemplate' : 'Zabytki wiersz',
-	'namespaces' : [0],
+	'namespaces' : [102],
 	'table' : 'monuments_pl_(pl)',
 	'truncate' : True,
 	'primkey' : 'numer',
