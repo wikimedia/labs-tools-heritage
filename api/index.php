@@ -2,6 +2,7 @@
 /* Localization */
 require_once( '/home/krinkle/TsIntuition/ToolStart.php' );
 require_once( 'searchPage.php');
+require_once('/home/project/e/r/f/erfgoed/database.inc');
 
 $opts = array(
     'domain' => 'MonumentsAPI', // name of your main text-domain here
