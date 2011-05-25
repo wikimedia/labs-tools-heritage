@@ -171,6 +171,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
 
 def main():
     countrycode = u''
+    lang = u''
     conn = None
     cursor = None
     # Connect database, we need that
@@ -180,8 +181,11 @@ def main():
     for arg in wikipedia.handleArgs():
 	if arg.startswith('-countrycode:'):
 	    countrycode = arg [len('-countrycode:'):]
+	if arg.startswith('-lang:'):
+	    lang = arg [len('-lang:'):]
 
-    if countrycode:
+    if countrycode and not lang:
+        # looks like default lang is 'nl'
         lang = wikipedia.getSite().language()
 	if not mconfig.countries.get((countrycode, lang)):
 	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
