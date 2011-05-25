@@ -44,7 +44,7 @@ class Database {
 	static function define($server, $database, $username, $password) {
 		self::$singleton = new Database();
 		self::$singleton->db = @mysql_connect( $server, $username, $password );
-		if ( !$this->db ) {
+		if ( !self::$singleton->db ) {
 			return false;
 		}
 		return mysql_select_db( $database, $this->db );
