@@ -47,7 +47,7 @@ class Database {
 		if ( !self::$singleton->db ) {
 			return false;
 		}
-		return mysql_select_db( $database, $this->db );
+		return mysql_select_db( $database, self::$singleton->db );
 	}
 	
 	function quote($str) {
