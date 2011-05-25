@@ -25,14 +25,14 @@ class ApiMonuments extends ApiBase {
     		'action' => array( ApiBase::PARAM_DFLT => 'help',
     			ApiBase::PARAM_TYPE => array( 'search', 'statistics', 'help' ) ),
     		'callback' => array( ApiBase::PARAM_TYPE => 'callback' ),
-    		'limit' => array( ApiBase::PARAM_MIN = 0, ApiBase::PARAM_DFLT => 100,
+    		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_DFLT => 100,
     			ApiBase::PARAM_TYPE => 'integer' ),
     			
     		'action' => array( ApiBase::PARAM_DFLT => 'help', 
     			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics' ) ),
     			
-    		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
-    		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
+    		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+    		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
 	}
 	

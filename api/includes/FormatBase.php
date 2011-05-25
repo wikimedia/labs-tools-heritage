@@ -4,7 +4,7 @@
  * Base class for formatting
  * @author Platonides
  */
-class FormatBase {
+abstract class FormatBase {
 	protected $continueParams;
 	
 	function setContinueParams($params) {

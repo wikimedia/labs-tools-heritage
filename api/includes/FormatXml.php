@@ -11,12 +11,12 @@ class FormatXml extends FormatBase {
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
 		foreach ( $row as $name => $value ) {
-			if ( in_array( $name, $primaryKey ) {
+			if ( in_array( $name, $primaryKey ) ) {
 				$continue .= "|" . rawurlencode( $name );
 			}
 		}
 		$continue = substr( $continue, 1 );
-		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />'
+		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
 	}
 	
 	function outputRow($row) {

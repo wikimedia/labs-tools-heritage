@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Similar to MediaWiki ApiBaseç
+ * Similar to MediaWiki ApiBase
  * @author Platonides
  */
-class ApiBase {
+abstract class ApiBase {
 
 	const PARAM_DFLT = 0; // Default value of the parameter
 	const PARAM_ISMULTI = 1; // Boolean, do we accept more than one item for this parameter (e.g.: titles)?
