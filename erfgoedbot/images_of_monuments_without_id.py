@@ -9,9 +9,9 @@ Make a galleries of monuments without an id at Commons
 import sys
 import monuments_config as mconfig
 sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
-import wikipedia, config, pagegenerators, catlib
-import re, imagerecat
-import MySQLdb, config, time
+import wikipedia, config
+import MySQLdb, time
+##import re, imagerecat, pagegenerators, catlib
 
 def connectDatabase():
     '''
@@ -39,8 +39,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         # No template found, just skip silently.
         return False
     
-    commonsTemplate = countryconfig.get('commonsTemplate')
-    imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
+    commonsTemplate = unicode( countryconfig.get('commonsTemplate'), "utf-8" )
+    imagesWithoutIdPage = unicode( countryconfig.get('imagesWithoutIdPage'), "utf-8" )
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor)
@@ -111,7 +111,8 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     '''
     
     commonsCategoryBase = countryconfig.get('commonsCategoryBase'). replace(u' ', u'_')
-    commonsTemplate = countryconfig.get('commonsTemplate'). replace(u' ', u'_')
+    commonsTemplate = unicode( countryconfig.get('commonsTemplate'), "utf-8" )
+    commonsTemplate.replace(u' ', u'_')   
 
     result = []
     query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s') ORDER BY page_title ASC"""
