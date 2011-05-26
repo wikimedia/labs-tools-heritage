@@ -2,7 +2,14 @@
 # -*- coding: utf-8  -*-
 '''
 
-Make a galleries of monuments without an id at Commons
+Add monument-ID-templates to images on Commons -- based on the image usage in the lists -- and
+  make a galleries of monuments without an id at Commons
+
+Usage:
+# loop thtough all countries
+python images_of_monuments_without_id.py
+# work on specific country-lang
+python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 
 
 '''
