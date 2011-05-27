@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_es_(es)`;
 CREATE TABLE `monuments_es_(es)` (
-  `bic` int(11) NOT NULL DEFAULT '0',
+  `bic` varchar(25) NOT NULL DEFAULT '0',
   `nombre` varchar(255) NOT NULL DEFAULT '',
   `nombrecoor` varchar(255) NOT NULL DEFAULT '',
   `tipobic` varchar(255) NOT NULL DEFAULT '',

@@ -104,7 +104,7 @@ SELECT 'es-ct' AS `country`,
 REPLACE INTO `monuments_all`
 SELECT 'es-vc' AS `country`,
        'ca' AS `lang`,
-	`idurl` AS `id`,
+       `bic` AS `id`,
         `nomcoor` AS `name`,
         `lloc` AS `address`,
         `municipi` AS `municipality`,
