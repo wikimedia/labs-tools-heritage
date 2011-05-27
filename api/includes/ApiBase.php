@@ -88,5 +88,6 @@ abstract class ApiBase {
 	
 	function help() {
 		/* TODO: Write me! */
+		echo "This should show some help information. Collaborate writing it!";
 	}
 }
