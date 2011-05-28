@@ -71,12 +71,12 @@ class ApiMonuments extends ApiBase {
 		}
 		
 		foreach ( Monuments::$dbFields as $field ) {
-			$field = $this->getParam( "srwith$field" );
-			$where[] = $db->escapeIdentifier( $field ) . ' IS NOT NULL';
-		}
-		foreach ( Monuments::$dbFields as $field ) {
-			$field = $this->getParam( "srwithout$field" );
-			$where[] = $db->escapeIdentifier( $field ) . ' IS NULL';
+			if ( $this->getParam( "srwith$field" ) ) {
+				$where[] = $db->escapeIdentifier( $field ) . ' IS NOT NULL';
+			}
+			if ( $this->getParam( "srwithout$field" ) ) {
+				$where[] = $db->escapeIdentifier( $field ) . ' IS NULL';
+			}
 		}
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
