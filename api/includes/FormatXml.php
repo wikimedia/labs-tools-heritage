@@ -21,7 +21,7 @@ class FormatXml extends FormatBase {
 		$continue = '';
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $primaryKey ) ) {
-				$continue .= "|" . rawurlencode( $name );
+				$continue .= "|" . rawurlencode( $value );
 			}
 		}
 		$continue = substr( $continue, 1 );
