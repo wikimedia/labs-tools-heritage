@@ -19,10 +19,8 @@ class FormatXml extends FormatBase {
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
-		foreach ( $row as $name => $value ) {
-			if ( in_array( $name, $primaryKey ) ) {
-				$continue .= "|" . rawurlencode( $value );
-			}
+		foreach ( $primaryKey as $key ) {
+			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
 		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
