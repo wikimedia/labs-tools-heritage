@@ -23,14 +23,15 @@ class Database {
 		return substr( $l, 1 );
 	}
 	
-	function select($fields, $where, $orderBy, $limit) {
+	function select($fields, $where, $limit, $orderBy = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $this->dbName );
 		if ( count( $where ) > 0 ) {
 			$sql .= " WHERE " . implode( ' AND ', $where );
 		}
 		
-		$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
+		if ( $orderBy !== false )
+			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
 		$sql .= " LIMIT $limit";
 		
 		return new ResultWrapper( $this->query( $sql ) );
