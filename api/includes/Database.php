@@ -34,7 +34,7 @@ class Database {
 			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
 		$sql .= " LIMIT $limit";
 		
-		return new ResultWrapper( $db, $this->query( $sql ) );
+		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
 	
 	/* Mysql specific */
