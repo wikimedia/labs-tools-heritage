@@ -59,6 +59,7 @@ class ApiMonuments extends ApiBase {
 	
 	function search() {
 		$where = array();
+		$db = Database::getDb();
 		
 		$continue = $this->getParam( 'srcontinue' );
 		if ( $continue ) {
@@ -97,5 +98,6 @@ class ApiMonuments extends ApiBase {
 	
 	function statistics() {
 		// TODO: Code me
+		echo "Provide some statistics code here, please\n";
 	}
 }

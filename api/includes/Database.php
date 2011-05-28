@@ -8,7 +8,7 @@ class Database {
 	private static $singleton = null;
 	private $db, $dbName;
 	
-	function getDb() {
+	static function getDb() {
 		if ( is_null( self::$singleton ) ) {
 			throw new Exception( 'Database not available' );
 		}
