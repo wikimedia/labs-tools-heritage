@@ -40,6 +40,8 @@ class ApiMonuments extends ApiBase {
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 		}
+		
+		return $params;
 	}
 	
 	function execute() {
