@@ -39,7 +39,7 @@ abstract class ApiBase {
 							$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
 						}
 					} else {
-						$items = explode( '|', $_GET['name'] );
+						$items = explode( '|', $_GET[$name] );
 						$cache[$name] = array();
 						foreach ( $items as $item ) {
 							if ( in_array( $item, $p ) ) {
@@ -67,10 +67,10 @@ abstract class ApiBase {
 						$this->setError( 'bad-callback-name', $_GET[$name] );
 						$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
 					} else {
-						$cache[$name] = $_GET['name'];
+						$cache[$name] = $_GET[$name];
 					}
 				} elseif ( $p == 'string' ) {
-					$cache[$name] = $_GET['name'];
+					$cache[$name] = $_GET[$name];
 				} else {
 					throw new Exception( "Unknown param type $p" );
 				}
