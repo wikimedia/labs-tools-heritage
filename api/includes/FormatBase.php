@@ -11,10 +11,10 @@ abstract class FormatBase {
 		$this->continueParams = $params;
 	}
 
-	abstract function outputBegin($row);
+	abstract function outputBegin();
 	abstract function outputContinue($row, $continueKey, $primaryKey);
 	abstract function outputRow($row);
-	abstract function outputEnd($row);
+	abstract function outputEnd();
 
 	function output($result, $limit, $continueKey, $primaryKey) {
 		$this->outputBegin();

@@ -5,7 +5,7 @@
  * @author Platonides
  */
 class FormatXml extends FormatBase {
-	function outputBegin($row) {
+	function outputBegin() {
 		echo '<monuments>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -26,7 +26,7 @@ class FormatXml extends FormatBase {
 		}
 		echo ' />';
 	}
-	function outputEnd($row) {
+	function outputEnd() {
 		echo '</monuments>';
 	}
 }
