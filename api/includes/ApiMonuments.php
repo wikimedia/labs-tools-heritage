@@ -19,7 +19,7 @@ class ApiMonuments extends ApiBase {
 	function getAllowedParams() {
     	$params = array(
     		'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
-				ApiBase::PARAM_TYPE => Monuments::$dbFields ),
+				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
     		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
     			ApiBase::PARAM_TYPE => array( 'kml', 'gpx', 'poi', 'html', 'layar', 'json', 'xml', 'xmlfm' ) ),
     		'action' => array( ApiBase::PARAM_DFLT => 'help',
