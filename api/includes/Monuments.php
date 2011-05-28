@@ -7,7 +7,8 @@ class Monuments {
 	
 	static $dbServer = 'sql.toolserver.org';
 	static $dbUser = 'erfgoed';
-	static $dbTable = 'p_erfgoed_p';
+	static $dbDatabase = 'p_erfgoed_p';
+	static $dbTable = 'monuments_all';
 	
 	static $dbFields = array( 'country', 'lang', 'id', 'name', 'address', 'municipality', 
 'lat', 'lon', 'image', 'source', 'changed' );

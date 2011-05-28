@@ -92,7 +92,7 @@ class ApiMonuments extends ApiBase {
 		
 		$limit = $this->getParam( 'limit' );
 		
-		$res = $db->select( $this->getParam( 'props' ), $where, $limit + 1 );
+		$res = $db->select( $this->getParam( 'props' ), Monuments::$dbTable. $where, $limit + 1 );
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', Monuments::$dbPrimaryKey );
 	}
 	

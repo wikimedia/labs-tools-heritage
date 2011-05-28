@@ -6,7 +6,7 @@
  */
 class Database {
 	private static $singleton = null;
-	private $db, $dbName;
+	private $db;
 	
 	static function getDb() {
 		if ( is_null( self::$singleton ) ) {
@@ -23,9 +23,9 @@ class Database {
 		return substr( $l, 1 );
 	}
 	
-	function select($fields, $where, $limit, $orderBy = false) {
+	function select($fields, $table, $where, $limit, $orderBy = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
-			$this->escapeIdentifier( $this->dbName );
+			$this->escapeIdentifier( $table );
 		if ( count( $where ) > 0 ) {
 			$sql .= " WHERE " . implode( ' AND ', $where );
 		}
