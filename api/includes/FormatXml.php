@@ -11,7 +11,7 @@ class FormatXml extends FormatBase {
 	
 	function headers() {
 		parent::headers();
-		echo '<?xml version="1.1" encoding="UTF-8" ?>';
+		echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
 	}
 	
 	function outputBegin() {
