@@ -11,12 +11,14 @@ abstract class FormatBase {
 		$this->continueParams = $params;
 	}
 
+	abstract function getContentType();
 	abstract function outputBegin();
 	abstract function outputContinue($row, $continueKey, $primaryKey);
 	abstract function outputRow($row);
 	abstract function outputEnd();
 
 	function output($result, $limit, $continueKey, $primaryKey) {
+		header("Content-Type: " . $this->getContentType() );
 		$this->outputBegin();
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {

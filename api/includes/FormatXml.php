@@ -5,6 +5,10 @@
  * @author Platonides
  */
 class FormatXml extends FormatBase {
+	function getContentType() {
+		return "application/xml";
+	}
+	
 	function outputBegin() {
 		echo '<monuments>';
 	}
@@ -20,9 +24,9 @@ class FormatXml extends FormatBase {
 	}
 	
 	function outputRow($row) {
-		echo '<monument ';
+		echo '<monument';
 		foreach ( $row as $name => $value ) {
-			echo htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
+			echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
 		}
 		echo ' />';
 	}
