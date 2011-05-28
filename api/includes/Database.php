@@ -66,13 +66,11 @@ class Database {
 	
 	function fetchObject($wrapper) {
 		@$obj = mysql_fetch_object( $wrapper->result );
-		if ($obj === false) throw new Exception('mysql_fetch_object');
 		return $obj;
 	}
 	
 	function fetchRow($wrapper) {
 		@$obj = mysql_fetch_row( $wrapper->result );
-		if ($obj === false) throw new Exception('mysql_fetch_object');
 		return $obj;
 	}
 	
