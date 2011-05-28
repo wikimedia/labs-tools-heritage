@@ -26,10 +26,12 @@ class FormatXml extends FormatBase {
 		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
 	}
 	
-	function outputRow($row) {
+	function outputRow($row, $selectedItems) {
 		echo '<monument';
 		foreach ( $row as $name => $value ) {
-			echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
+			if ( in_array( $name, $selectedItems ) ) {
+				echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
+			}
 		}
 		echo ' />';
 	}
