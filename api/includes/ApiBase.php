@@ -8,7 +8,7 @@ abstract class ApiBase {
 
 	const PARAM_DFLT = 0; // Default value of the parameter
 	const PARAM_ISMULTI = 1; // Boolean, do we accept more than one item for this parameter (e.g.: titles)?
-	const PARAM_TYPE = 2; // Can be either a string type ['integer','string','callback'] or an array of allowed values
+	const PARAM_TYPE = 2; // Can be either a string type ['integer','string','boolean','callback'] or an array of allowed values
 	const PARAM_MAX = 3; // Max value allowed for a parameter. Only applies if TYPE='integer'
 	const PARAM_MIN = 5; // Lowest value allowed for a parameter. Only applies if TYPE='integer'
 
@@ -25,7 +25,7 @@ abstract class ApiBase {
 		if ( !isset( $cache[$name] ) ) {
 			$allowed = $this->getAllowedParams();
 			if ( !isset($allowed[$name]) ) {
-				throw new Exception( 'Asked for a parameter forbidden' );
+				throw new Exception( 'Asked for a forbidden parameter' );
 			}
 
 			if ( $_GET[$name] ) {

@@ -17,7 +17,7 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function getAllowedParams() {
-    	return array(
+    	$params = array(
     		'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields ),
     		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
@@ -34,6 +34,12 @@ class ApiMonuments extends ApiBase {
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
+    	
+    	foreach ( Monuments::$dbFields as $field ) {
+			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
+			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
+			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
+		}
 	}
 	
 	function execute() {
@@ -71,6 +77,7 @@ class ApiMonuments extends ApiBase {
 		}
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
+			if ( $value === false ) continue;
 			
 			if ( strpos( $value, '%' ) !== false ) {
 				$where[] = "'" . $db->escapeIdentifier( $field ) . '\' LIKE ' .
