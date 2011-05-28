@@ -80,6 +80,6 @@ class Database {
 	}
 	
 	function dataSeek($wrapper, $rowNumber) {
-		return mysql_data_seek( $wrapper, $rowNumber );
+		return mysql_data_seek( $wrapper->result, $rowNumber );
 	}
 }
