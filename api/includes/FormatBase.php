@@ -11,6 +11,10 @@ abstract class FormatBase {
 		$this->continueParams = $params;
 	}
 
+	function headers() {
+		header( "Content-Type: " . $this->getContentType() );
+	}
+
 	abstract function getContentType();
 	abstract function outputBegin();
 	abstract function outputContinue($row, $continueKey, $primaryKey);
@@ -18,7 +22,8 @@ abstract class FormatBase {
 	abstract function outputEnd();
 
 	function output($result, $limit, $continueKey, $primaryKey) {
-		header("Content-Type: " . $this->getContentType() );
+		$this->headers();
+		
 		$this->outputBegin();
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {

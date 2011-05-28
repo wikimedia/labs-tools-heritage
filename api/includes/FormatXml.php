@@ -9,6 +9,11 @@ class FormatXml extends FormatBase {
 		return "application/xml";
 	}
 	
+	function headers() {
+		parent::headers();
+		echo '<?xml version="1.1" encoding="UTF-8" ?>';
+	}
+	
 	function outputBegin() {
 		echo '<monuments>';
 	}

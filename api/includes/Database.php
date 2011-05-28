@@ -48,6 +48,8 @@ class Database {
 		if ( !self::$singleton->db ) {
 			return false;
 		}
+
+		$this->query( 'SET NAMES utf8' );
 		return mysql_select_db( $database, self::$singleton->db );
 	}
 	
