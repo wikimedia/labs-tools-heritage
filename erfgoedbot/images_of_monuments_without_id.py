@@ -122,8 +122,8 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     commonsTemplate.replace(u' ', u'_')   
 
     result = []
-    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to=%s OR cl_to LIKE %s_in_%%) AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s) ORDER BY page_title ASC"""
-    cursor.execute(query, (commonsCategoryBase, commonsCategoryBase, commonsTemplate))
+    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s') ORDER BY page_title ASC"""
+    cursor.execute(query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate))    
 
     while True:
         try:
