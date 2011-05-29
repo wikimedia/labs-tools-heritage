@@ -288,7 +288,7 @@ def addCoords(countrycode, lang, monument, coordconfig):
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
             wikipedia.showDiff(text, newtext)
-##FIXME            page.put(newtext, comment)
+            page.put(newtext, comment)
             return True
         else:
             return False
