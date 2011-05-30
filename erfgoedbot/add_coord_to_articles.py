@@ -53,13 +53,13 @@ class Monument:
 #Constructor with default arguments
    def __init__(self, id = None):
      self.id = id
-     self.name = None
-     self.country = None
-     self.wikilang = None
-     self.article = None
+     self.name = u''
+     self.country = u''
+     self.wikilang = u''
+     self.article = u''
      self.lat = None
      self.lon = None
-     self.source = None
+     self.source = u''
      
      
 # functions
@@ -123,6 +123,7 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
                     for sMon in monumentsWithArticle:
                         if (sMon.article == article_name):
                             monumentsWithArticle.remove(sMon)
+                            break
                 else:
                     articleNames.append(article_name)
                     aMonument.article = article_name
@@ -288,7 +289,9 @@ def addCoords(countrycode, lang, monument, coordconfig):
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
             wikipedia.showDiff(text, newtext)
-            page.put(newtext, comment)
+            modPage = wikipedia.input(u'Modify page: %s ([y]/n) ?' % (monument.article) )
+            if (modPage.lower == 'y' or modPage == ''):
+                page.put(newtext, comment)
             return True
         else:
             return False
