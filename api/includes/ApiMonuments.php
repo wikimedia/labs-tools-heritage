@@ -100,4 +100,68 @@ class ApiMonuments extends ApiBase {
 		// TODO: Code me
 		echo "Provide some statistics code here, please\n";
 	}
+    
+	function help() {
+		/* TODO: Expand me! */
+		echo '
+<html>
+<head>
+	<title>Monuments API</title>
+</head>
+<body>
+<pre>
+  
+  
+  <b>******************************************************************************************</b>
+  <b>**                                                                                      **</b>
+  <b>**              This is an auto-generated Monuments API documentation page              **</b>
+  <b>**                                                                                      **</b>
+  <b>**                            Documentation:                                            **</b>
+  **      <a href="http://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2011/Tools#Search_and_export_tool">http://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2011/Tools#Search_and_export_tool</a>                        **
+  <b>**                                                                                      **</b>
+  <b>******************************************************************************************</b>
+  
+  
+Parameters:
+  format         - The format of the output
+                   One value: kml, gpx, poi, html, layar, json, xml, xmlfm
+                   Default: xmlfm
+  action         - What action you would like to perform. 
+                   One value: search, statistics, help
+                   Default: help
+                   
+<b>*** *** *** *** *** *** *** *** *** ***  Modules  *** *** *** *** *** *** *** *** *** ***</b> 
+
+<b>* action=search *</b>
+
+Parameters:
+  srcountry       - Search for monuments in country. Supply the country code.
+  srlang          - Search for monuments in lang. Supply the language code.
+  srid            - Search for id.
+  srname          - Search for name.
+  sraddress       - Search for address.
+  srmunicipality  - Search for municipality.
+  srlat           - Search for latitude.
+  srlon           - Search for longitude.
+  srimage         - Search for imagename in monument lists.
+  srsource        - Search for source monument list wiki page.
+  srchanged       - Search for changed.
+  
+Examples:
+  <a href="api.php?action=search&amp;srname=%burgerhuizen%">api.php?action=search&amp;srname=%burgerhuizen%</a>
+  <a href="api.php?action=search&amp;srcountry=fr&amp;srlang=ca">api.php?action=search&amp;srcountry=fr&amp;srlang=ca</a>
+
+<b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
+
+<b>* format=xml *</b>
+  Output data in XML format
+
+Examples:
+  <a href="api.php?action=search&amp;format=xml">api.php?action=search&amp;format=xml</a>
+  
+</pre>
+</body>
+</html>
+        ';
+	}    
 }
