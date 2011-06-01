@@ -80,7 +80,7 @@ class FormatKml extends FormatBase {
             $desc = '';
             if ( isset($row->image) and $row->image ) {
                 $imgsize = 100;
-                $desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) '" align="right" />';
+                $desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) . '" align="right" />';
             }
             $desc .= '<ul>';
             foreach ( $row as $name => $value ) {
