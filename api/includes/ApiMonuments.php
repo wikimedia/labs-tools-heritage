@@ -81,7 +81,7 @@ class ApiMonuments extends ApiBase {
 			if ( $value === false ) continue;
 			
 			if ( strpos( $value, '%' ) !== false ) {
-				$where[] = "'" . $db->escapeIdentifier( $field ) . '\' LIKE ' .
+				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
 			} else {
 				$where[] = $db->escapeIdentifier( $field ) . '=' . $db->quote( $value );
