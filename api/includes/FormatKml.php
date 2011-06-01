@@ -32,9 +32,9 @@ class FormatKml extends FormatBase {
 	
 	function outputRow($row, $selectedItems) {
 		echo '<Placemark';
-        $placemarkId = $row['country'] . $row['lang'] . $row['id'];
+        $placemarkId = $row->country . $row->lang . $row->id;
         echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
-        echo '<name>' . htmlspecialchars( $row['name'] ) . '</name>';
+        echo '<name>' . htmlspecialchars( $row->name ) . '</name>';
         echo '<description>';
         //echo '<![CDATA[';
 		foreach ( $row as $name => $value ) {
@@ -44,13 +44,13 @@ class FormatKml extends FormatBase {
 		}
         //echo ']]>';
 		echo '</description>';
-        if ($row['image']) {
+        if ($row->image) {
             $styleUrl = '#monPicStyle';
         } else {
             $styleUrl = '#monumentStyle';
         }
         echo '<styleUrl>' . $styleUrl . '</styleUrl>';
-        echo '<Point><coordinates>' . $row['lon'] . ','  . $row['lat'] . '</coordinates></Point>';
+        echo '<Point><coordinates>' . $row->lon . ','  . $row->lat . '</coordinates></Point>';
 		echo '</Placemark>';
 	}
 	function outputEnd() {
