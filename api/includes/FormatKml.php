@@ -10,7 +10,44 @@ ini_set('display_errors', true);
 ini_set('html_errors', false);
 
 
+//functions
+
+
+function getImageFromCommons($filename, $size) {
+    $md5hash=md5(filename);
+    $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . urlencode($filename) . "/" . $size . "px-" . urlencode($filename);
+    return $url;
+}
+
+function processWikitext($wikilang, $text, $makelinks) {
+    /* Process the wikitext.
+     * If makelinks is true, make html links
+     * If makelinks is false, remove wikitext to produce normal text without links
+     */
+    $result = $text;
+    $differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
+    $simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
+    $wikiUrl = 'http://' . $wikilang . '.wikipedia.org/wiki/';
+    $differentLinkReplace = "'<a href='. $wikiUrl . rawurlencode('$1') . '>$2</a>'";
+    $simpleLinkReplace = "'<a href='. $wikiUrl . rawurlencode('$1') . '>$1</a>'";
+    if ( $makelinks ) {
+        $result = preg_replace($differentLinkRegex . "e", $differentLinkReplace, $result);
+        $result = preg_replace($simpleLinkRegex . "e", $simpleLinkReplace, $result);
+        $result = $result;
+    } else {
+        $result = preg_replace($differentLinkRegex, "$2", $result);
+        $result = preg_replace($simpleLinkRegex, "$1", $result);
+    }
+    return $result;
+}
+
+
+
+//class
+
 class FormatKml extends FormatBase {
+
+
 	function getContentType() {
 		return "application/vnd.google-earth.kml+xml";
 	}
@@ -31,28 +68,46 @@ class FormatKml extends FormatBase {
 	}
 	
 	function outputRow($row, $selectedItems) {
-		echo '<Placemark';
-        $placemarkId = $row->country . $row->lang . $row->id;
-        echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
-        echo '<name>' . htmlspecialchars( $row->name ) . '</name>';
-        echo '<description>';
-        //echo '<![CDATA[';
-		foreach ( $row as $name => $value ) {
-			if ( in_array( $name, $selectedItems ) ) {
-				echo ' ' . htmlspecialchars( $name ) . ' -- ' . htmlspecialchars( $value ) . '';
-			}
-		}
-        //echo ']]>';
-		echo '</description>';
-        if ($row->image) {
-            $styleUrl = '#monPicStyle';
-        } else {
-            $styleUrl = '#monumentStyle';
+        if ( isset($row->lon) and isset($row->lat) ) {
+            echo '<Placemark';
+            $placemarkId = $row->country . $row->lang . $row->id;
+            echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
+            if ( isset($row->name) ) {
+                $makeLinks = false;
+                echo '<name>' . htmlspecialchars( processWikitext($row->lang, $row->name, $makeLinks) ) . '</name>';
+            }
+            echo '<description>';
+            $desc = '';
+            if ( isset($row->image) and $row->image ) {
+                $imgsize = 100;
+                $desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) '" align="right" />';
+            }
+            $desc .= '<ul>';
+            foreach ( $row as $name => $value ) {
+                if ( in_array( $name, $selectedItems ) ) {
+                    if ($name != 'image') {
+                        //FIXME: all fields don't have to be fed into processWikitext()
+                        $makeLinks = true;
+                        $desc .= '<li> ' . $name . ' - ' . processWikitext($row->lang, $value, $makeLinks) . '</li>';
+                    }
+                }
+            }
+            $desc .= '</ul>';
+            //echo '<![CDATA[';
+            echo htmlspecialchars( $desc );
+            //echo ']]>';
+            echo '</description>';
+            if ( isset($row->image) and $row->image ) {
+                $styleUrl = '#monPicStyle';
+            } else {
+                $styleUrl = '#monumentStyle';
+            }
+            echo '<styleUrl>' . $styleUrl . '</styleUrl>';
+            echo '<Point><coordinates>' . $row->lon . ','  . $row->lat . '</coordinates></Point>';
+            echo '</Placemark>';
         }
-        echo '<styleUrl>' . $styleUrl . '</styleUrl>';
-        echo '<Point><coordinates>' . $row->lon . ','  . $row->lat . '</coordinates></Point>';
-		echo '</Placemark>';
 	}
+    
 	function outputEnd() {
 		 echo '</Document>';
 		echo '</kml>';
