@@ -3,7 +3,7 @@
 /**
  * Kml output type
  */
-class FormatXml extends FormatBase {
+class FormatKml extends FormatBase {
 	function getContentType() {
 		return "application/application/vnd.google-earth.kml+xml";
 	}
