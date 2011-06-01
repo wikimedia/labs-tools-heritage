@@ -12,7 +12,7 @@ ini_set('html_errors', false);
 
 class FormatKml extends FormatBase {
 	function getContentType() {
-		return "application/application/vnd.google-earth.kml+xml";
+		return "application/vnd.google-earth.kml+xml";
 	}
 	
 	function headers() {
