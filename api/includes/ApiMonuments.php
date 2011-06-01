@@ -91,7 +91,11 @@ class ApiMonuments extends ApiBase {
         
         if ( $this->getParam('bbox') ) {
             $bbox = $this->getParam('bbox');
-            ($bl_lon, $bl_lat, $tr_lon, $tr_lat) = preg_split('/,|\s/', $bbox);
+            $coords = preg_split('/,|\s/', $bbox);
+            $bl_lon = $coords[0];
+            $bl_lat = $coords[1];
+            $tr_lon = $coords[2];
+            $tr_lat = $coords[3];
             $where[] = 'lat BETWEEN ' . $db->quote( $bl_lat ) . ' AND ' . $db->quote( $tr_lat );
             $where[] = 'lon BETWEEN ' . $db->quote( $bl_lon ) . ' AND ' . $db->quote( $tr_lon );
         }
