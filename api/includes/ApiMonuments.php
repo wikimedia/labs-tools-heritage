@@ -30,6 +30,7 @@ class ApiMonuments extends ApiBase {
     			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics' ) ),
     			
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+    		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
     	
@@ -88,8 +89,15 @@ class ApiMonuments extends ApiBase {
 			}
 		}
         
+        if ( $this->getParam('bbox') ) {
+            $bbox = $this->getParam('bbox');
+            ($bl_lon, $bl_lat, $tr_lon, $tr_lat) = preg_split('/,|\s/', $bbox);
+            $where[] = 'lat BETWEEN ' . $db->quote( $bl_lat ) . ' AND ' . $db->quote( $tr_lat );
+            $where[] = 'lon BETWEEN ' . $db->quote( $bl_lon ) . ' AND ' . $db->quote( $tr_lon );
+        }
+
         //for kml get only monuments with coordinates
-        if ($this->getParam('format') == 'kml') {
+        if ( $this->getParam('format') == 'kml' ) {
             $where[] = 'lat<>0 AND lon<>0';
         }
 		
