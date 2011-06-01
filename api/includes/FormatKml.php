@@ -14,7 +14,7 @@ ini_set('html_errors', false);
 
 
 function getImageFromCommons($filename, $size) {
-    $md5hash=md5(filename);
+    $md5hash=md5($filename);
     $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . urlencode($filename) . "/" . $size . "px-" . urlencode($filename);
     return $url;
 }
