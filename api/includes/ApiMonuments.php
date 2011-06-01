@@ -87,12 +87,15 @@ class ApiMonuments extends ApiBase {
 				$where[] = $db->escapeIdentifier( $field ) . '=' . $db->quote( $value );
 			}
 		}
+        
+        //for kml get only monuments with coordinates
+        if ($this->getParam('format') == 'kml') {
+            $where[] = 'lat<>0 AND lon<>0';
+        }
 		
 		$limit = $this->getParam( 'limit' );
 		
-		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), 
-Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
-//		$res = $db->select( Monuments::$dbPrimaryKey + $this->getParam( 'props' ), Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
+		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), Monuments::$dbPrimaryKey );
 	}
 	
