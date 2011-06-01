@@ -22,8 +22,6 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
     		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
     			ApiBase::PARAM_TYPE => array( 'kml', 'gpx', 'poi', 'html', 'layar', 'json', 'xml', 'xmlfm' ) ),
-    		'action' => array( ApiBase::PARAM_DFLT => 'help',
-    			ApiBase::PARAM_TYPE => array( 'search', 'statistics', 'help' ) ),
     		'callback' => array( ApiBase::PARAM_TYPE => 'callback' ),
     		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => 200, 
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
@@ -84,15 +82,16 @@ class ApiMonuments extends ApiBase {
 			
 			if ( strpos( $value, '%' ) !== false ) {
 				$where[] = "'" . $db->escapeIdentifier( $field ) . '\' LIKE ' .
-					$db->quote( $field );
+					$db->quote( $value );
 			} else {
-				$where[] = $db->escapeIdentifier( $field ) . '=' . $db->quote( $field );
+				$where[] = $db->escapeIdentifier( $field ) . '=' . $db->quote( $value );
 			}
 		}
 		
 		$limit = $this->getParam( 'limit' );
 		
-$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
+		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), 
+Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
 //		$res = $db->select( Monuments::$dbPrimaryKey + $this->getParam( 'props' ), Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), Monuments::$dbPrimaryKey );
 	}
