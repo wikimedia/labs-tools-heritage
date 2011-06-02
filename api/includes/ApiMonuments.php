@@ -112,7 +112,7 @@ class ApiMonuments extends ApiBase {
 
         $orderby = array();
         if ( $this->getParam('format') == 'kml' ) {
-            $orderby[] = 'image DESC';
+            $orderby[] = 'image';
         } else {
             $orderby = Monuments::$dbPrimaryKey;
         }
