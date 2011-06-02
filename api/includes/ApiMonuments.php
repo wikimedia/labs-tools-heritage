@@ -31,6 +31,7 @@ class ApiMonuments extends ApiBase {
     			
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+    		'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
     	
@@ -89,8 +90,12 @@ class ApiMonuments extends ApiBase {
 			}
 		}
         
-        if ( $this->getParam('bbox') ) {
-            $bbox = $this->getParam('bbox');
+        if ( $this->getParam('bbox') or $this->getParam('BBOX') ) {
+            if ( $this->getParam('bbox') ) {
+                $bbox = $this->getParam('bbox');
+            } else {
+                $bbox = $this->getParam('BBOX');
+            }
             $coords = preg_split('/,|\s/', $bbox);
             $bl_lon = $coords[0];
             $bl_lat = $coords[1];
