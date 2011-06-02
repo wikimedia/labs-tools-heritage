@@ -109,10 +109,17 @@ class ApiMonuments extends ApiBase {
         if ( $this->getParam('format') == 'kml' ) {
             $where[] = 'lat<>0 AND lon<>0';
         }
-		
+
+        $orderby = array();
+        if ( $this->getParam('format') == 'kml' ) {
+            $orderby[] = 'image DESC';
+        } else {
+            $orderby = Monuments::$dbPrimaryKey;
+        }
+
 		$limit = $this->getParam( 'limit' );
 		
-		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where, Monuments::$dbPrimaryKey, $limit + 1 );
+		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where, $orderby, $limit + 1 );
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), Monuments::$dbPrimaryKey );
 	}
 	
