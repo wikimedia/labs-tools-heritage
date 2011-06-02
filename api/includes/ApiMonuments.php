@@ -58,6 +58,8 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function search() {
+        //FIXME: api.php?action=search&srmunicipality=v%F5ru    won't work
+        
 		$where = array();
 		$db = Database::getDb();
 		
@@ -90,6 +92,7 @@ class ApiMonuments extends ApiBase {
 			}
 		}
         
+        $bbox = '';
         if ( $this->getParam('bbox') or $this->getParam('BBOX') ) {
             if ( $this->getParam('bbox') ) {
                 $bbox = $this->getParam('bbox');
@@ -105,8 +108,8 @@ class ApiMonuments extends ApiBase {
             $where[] = 'lon BETWEEN ' . $db->quote( $bl_lon ) . ' AND ' . $db->quote( $tr_lon );
         }
 
-        //for kml get only monuments with coordinates
-        if ( $this->getParam('format') == 'kml' ) {
+        //for kml and bbox get only monuments with coordinates
+        if ( ($this->getParam('format') == 'kml') or $bbox ) {
             $where[] = 'lat<>0 AND lon<>0';
         }
 

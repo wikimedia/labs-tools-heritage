@@ -80,15 +80,23 @@ class FormatKml extends FormatBase {
             $desc = '';
             if ( isset($row->image) and $row->image ) {
                 $imgsize = 100;
+                $desc .= '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($row->image) . '">';
                 $desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) . '" align="right" />';
+                $desc .= '</a>';
             }
             $desc .= '<ul>';
+            $hasWikitext = array('name', 'address', 'municipality');
             foreach ( $row as $name => $value ) {
                 if ( in_array( $name, $selectedItems ) ) {
                     if ($name != 'image') {
-                        //FIXME: all fields don't have to be fed into processWikitext()
-                        $makeLinks = true;
-                        $desc .= '<li> ' . $name . ' - ' . processWikitext($row->lang, $value, $makeLinks) . '</li>';
+                        $desc .= '<li> ' . $name . ' - ';
+                        if ( in_array( $name, $hasWikitext ) ) {
+                            $makeLinks = true;
+                            $desc .= processWikitext($row->lang, $value, $makeLinks);
+                        } else {
+                            $desc .= $value;
+                        }
+                        $desc .= '</li>';
                     }
                 }
             }
