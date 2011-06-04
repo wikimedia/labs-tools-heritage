@@ -28,7 +28,7 @@ abstract class ApiBase {
 				throw new Exception( 'Asked for a forbidden parameter' );
 			}
 
-			if ( isset( $_GET[$name] ) ) {
+			if ( isset( $_GET[$name] ) and strlen( $_GET[$name] ) ) {
 				$p = $allowed[$name][ApiBase::PARAM_TYPE];
 				if ( is_array( $p ) ) {
 					if ( empty( $allowed[$name][ApiBase::PARAM_ISMULTI] ) ) {
