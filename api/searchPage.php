@@ -1,25 +1,43 @@
 <?php
+
+/*
+FIXME: how to register new I18N messages?
+'search-title'                'Monuments search'
+'search-monuments-database'   'Search the monuments database'
+*/
+
+
 class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
-    	public function getSearchPage() {
-        	$result = array ();
-        	$result[] = '<html>';
+    private $apiUrl = 'http://toolserver.org/~erfgoed/api/api.php';
+    private $I18N = NULL;
+    
+   function __construct($I18N) {
+       $this->I18N = $I18N;
+   }    
+    
+   	public function getSearchPage() {
+    
+       	$result = array ();
+       	$result[] = '<html>';
 		$result[] = '<head>';
-		/* FIXME search-title */
-        	$result[] = '<title>Monuments search mockup</title>';
-        	$result[] = '</head>';
+       	$result[] = '<title>'. _( 'search-title' ) .'</title>';
+       	$result[] = '</head>';
 		$result[] = '<body>';
-		/* FIXME search-monuments-database */
-        	$result[] = '<H1>Search the monuments database</H1>';
-        	$result = array_merge($result, $this->getSearchForm());
-        	$result[] = '</body>';
+       	$result[] = '<H1>'. _( 'search-monuments-database' ) .'</H1>';
+       	$result = array_merge($result, $this->getSearchForm());
+        $result[] = '<br/><hr/>';
+        $result[] = $this->I18N->getPromoBox();
+       	$result[] = '</body>';
 		$result[] = '</html>';
+
 		return implode ("\n", $result);
     }
 
-    	private function getSearchForm() {
+   	private function getSearchForm() {
 		$result = array ();
-		$result[] = '<form>';
+		$result[] = '<form action="'. $this->apiUrl .'">';
+        $result[] = '<input type="hidden" name="action" value="search">';
 		$result[] = '<table border="1">';
 		$result[] = '<tr>';
 		$result[] = '<th>' . _( 'search-table-th-field' ) . '</th>';
@@ -45,25 +63,25 @@ class SearchPage {
 		$result[] = '<tr>';
 		/* FIXME i18n name */
 		$result[] = '<td><label>Name</label></td>';
-		$result[] = '<td><input type="text" name="NameSearch" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="srname" ' . $this->fieldStyle . '"></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getNameSelect());
+	//$result = array_merge($result, $this->getNameSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
 		/* FIXME i18n address */
 		$result[] = '<td><label>Address</label></td>';
-		$result[] = '<td><input type="text" name="AddressSearch" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="sraddress" ' . $this->fieldStyle . '"></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getAddressSelect());
+	//$result = array_merge($result, $this->getAddressSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
 		/* FIXME i18n municipality */
 		$result[] = '<td><label>Municipality</label></td>';
-		$result[] = '<td><input type="text" name="MunicipalitySearch" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="srmunicipality" ' . $this->fieldStyle . '"></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getMunicipalitySelect());
+	//$result = array_merge($result, $this->getMunicipalitySelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -71,7 +89,7 @@ class SearchPage {
 		$result[] = '<td><label>Coordinates</label></td>';
 		$result[] = '<td><!-- Lat/lon bounding box --><!-- Lat/lon distance --></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getCoordinatesSelect());
+	//$result = array_merge($result, $this->getCoordinatesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -79,7 +97,7 @@ class SearchPage {
 		$result[] = '<td><label>Images</label></td>';
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';
-	        $result = array_merge($result, $this->getImagesSelect());
+	//$result = array_merge($result, $this->getImagesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -90,7 +108,7 @@ class SearchPage {
 		/* FIXME i18n output language */
 		$result[] = '<td><label>Output language</label></td>';
 		$result[] = '<td colspan="2">';
-	        $result = array_merge($result, $this->getOutputLanguageSelect());
+	        $result = array_merge( $result, $this->getOutputLanguageSelect() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -109,29 +127,45 @@ class SearchPage {
 		return $result;
 	}
     
-    	private function getCountriesFilter() {
+    private function getCountriesFilter() {
 		/*
 	 	* Pull the countries from the database and build a nice select box
 		 */
+
 		$result = array ();
-		$result[] = '<select multiple name="countries" size="5" ' . $this->fieldStyle . '">';
-		/*  FIXME Pull from database and localize */
-		$result[] = '<option value="fr" selected>France</option>';
-		$result[] = '<option value="nl" selected>Netherlands</option>';
-		$result[] = '<option value="pt" selected>Portugal</option>';
+		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '">';
+		$result[] = '<option value="" selected>All countries</option>';
+
+        $db = Database::getDb();
+        $sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
+        $qres = new ResultWrapper( $db, $db->query( $sql ) );
+		/*  FIXME localize */
+        foreach ( $qres as $row ) {
+            $result[] = '<option value="'. $row->country .'">'. $row->country .'</option>';
+        }
 		$result[] = '</select>';
+        
 		return $result;
-    	}
-    	private function getLanguagesFilter() {
+    }
+        
+    private function getLanguagesFilter() {
 		/*
 	 	 * Pull the languages from the database and build a nice select box
 		 */
 		$result = array ();
-		$result[] = '<select multiple name="languages" size="5" ' .$this->fieldStyle . '">';
+		$result[] = '<select name="srlang" ' .$this->fieldStyle . '">';
 		/* FIXME Pull from database and localize */
-		$result[] = '<option value="nl" selected>Dutch</option>';
-		$result[] = '<option value="pt" selected>Portugese</option>';
+		$result[] = '<option value="" selected>All languages</option>';
+
+        $db = Database::getDb();
+        $sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
+        $qres = new ResultWrapper( $db, $db->query( $sql ) );
+		/*  FIXME localize */
+        foreach ( $qres as $row ) {
+            $result[] = '<option value="'. $row->lang .'">'. $row->lang .'</option>';
+        }
 		$result[] = '</select>';
+
 		return $result;
 	}
 
@@ -204,9 +238,8 @@ class SearchPage {
 		/*
 		 *
 		 */
-		$selectName = 'OutputLanguage';
-		global $I18N;
-		$options = $I18N->getAvailableLangs();
+		$selectName = 'userlang';
+		$options = $this->I18N->getAvailableLangs();
 
 		/*
 		$options = array (
@@ -224,12 +257,13 @@ class SearchPage {
 		/*
 		 *
 		 */
-		$selectName = 'OutputFormat';
+		$selectName = 'format';
 		/* FIXME pull from formats */
 		// $options = $apiOutputFormats;
 		$options = array (
-			'dynamickml', 'Dynamic KML (Google Earth/Google Maps)',
-
+			'xml' => 'XML',
+			'dynamickml' => 'Dynamic KML (Google Earth/Google Maps)',
+			'kml' => 'Static KML (Google Earth/Google Maps)',
 		);
 
 		return $this->getSelect ( $selectName , $options );
