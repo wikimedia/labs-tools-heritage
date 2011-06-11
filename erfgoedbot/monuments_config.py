@@ -145,8 +145,8 @@ countries = {
     ('be-wal', 'nl') : {
 	'project' : 'wikipedia',
 	'lang' : 'nl',
-	'headerTemplate' : 'Tabelkop erfgoed Wallonië',
-	'rowTemplate' : 'Tabelrij erfgoed Wallonië',
+	'headerTemplate' : u'Tabelkop erfgoed Wallonië',
+	'rowTemplate' : u'Tabelrij erfgoed Wallonië',
         'commonsTemplate' : '',
         'commonsTrackerCategory' : '',
         'commonsCategoryBase' : '',
