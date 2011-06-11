@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_by_(be-x-old)`;
 CREATE TABLE `monuments_by_(be-x-old)` (
-  `id` int(8) NOT NULL DEFAULT '0',
+  `id` varchar(25) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL DEFAULT '',
   `date` varchar(255) NOT NULL DEFAULT '',
   `place` varchar(255) NOT NULL DEFAULT '',
