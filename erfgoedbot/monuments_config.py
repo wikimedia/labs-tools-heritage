@@ -237,7 +237,7 @@ countries = {
 	'namespaces' : [4],
 	'table' : u'monuments_by_(be-x-old)',
 	'truncate' : False,
-	'primkey' : u'id',
+	'primkey' : u'шыфр',
 	'fields' : [
 	    {
 		'source' : u'шыфр',
