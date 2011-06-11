@@ -58,7 +58,6 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function search() {
-        //FIXME: api.php?action=search&srmunicipality=v%F5ru    won't work
         
         if ( $this->getParam('format') == 'dynamickml' ) {
             #don't search just pass along the search parameters to kml network link file
@@ -91,7 +90,6 @@ class ApiMonuments extends ApiBase {
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
-//            $value = utf8_encode( urldecode( $value ) );
 			
 			if ( strpos( $value, '%' ) !== false ) {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
