@@ -7,7 +7,7 @@ CREATE TABLE `monuments_wal-vlg_(nl)` (
   `descr_nl` varchar(255) NOT NULL DEFAULT '',
   `descr_fr` varchar(255) NOT NULL DEFAULT '',
   `gemeente` varchar(255) NOT NULL DEFAULT '',
-  `deelgem` varchar(255) NOT NULL DEFAULT '',
+  `deelgemeente` varchar(255) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',
   `objtype` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',

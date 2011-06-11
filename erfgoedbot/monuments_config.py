@@ -183,8 +183,8 @@ countries = {
 		'conv' : '',
 	    },
 	    {
-		'source' : 'deelgem',
-		'dest' : 'deelgem',
+		'source' : 'deelgemeente',
+		'dest' : 'deelgemeente',
 		'conv' : '',
 	    },
 	    {
