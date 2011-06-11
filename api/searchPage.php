@@ -9,12 +9,12 @@ FIXME: how to register new I18N messages?
 
 class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
-    private $apiUrl = 'http://toolserver.org/~erfgoed/api/api.php';
+    private $apiUrl = 'api.php';
     private $I18N = NULL;
     
-   function __construct($I18N) {
+    function __construct($I18N) {
        $this->I18N = $I18N;
-   }    
+    }    
     
    	public function getSearchPage() {
     

@@ -91,6 +91,7 @@ class ApiMonuments extends ApiBase {
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
+            $value = utf8_encode( urldecode( $value ) );
 			
 			if ( strpos( $value, '%' ) !== false ) {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
