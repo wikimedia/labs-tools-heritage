@@ -1,7 +1,7 @@
 /* Create table statement for the Beschermd Erfgoed in Wallonië in Dutch */
 connect p_erfgoed_p sql.toolserver.org;
-DROP TABLE IF EXISTS `monuments_wal-vlg_(nl)`;
-CREATE TABLE `monuments_wal-vlg_(nl)` (
+DROP TABLE IF EXISTS `monuments_be-wal_(nl)`;
+CREATE TABLE `monuments_be-wal_(nl)` (
   `niscode` int(8) NOT NULL DEFAULT '0',
   `objcode` varchar(15) NOT NULL DEFAULT '0',
   `descr_nl` varchar(255) NOT NULL DEFAULT '',
