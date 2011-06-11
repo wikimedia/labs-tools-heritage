@@ -154,7 +154,7 @@ countries = {
         'imagesWithoutIdPage' : '',
 	'namespaces' : [0],
 	'table' : 'monuments_be-wal_(nl)',
-	'truncate' : False,
+	'truncate' : True, #FIXME: Add combined primkeys to the code
 	'primkey' : ('niscode', 'objcode'),
 	'fields' : [
 	    {
