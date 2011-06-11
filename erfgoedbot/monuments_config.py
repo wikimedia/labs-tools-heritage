@@ -142,6 +142,88 @@ countries = {
 	    },
 	],
     },
+    ('be-wal', 'nl') : {
+	'project' : 'wikipedia',
+	'lang' : 'nl',
+	'headerTemplate' : 'Tabelkop erfgoed Wallonië',
+	'rowTemplate' : 'Tabelrij erfgoed Wallonië',
+        'commonsTemplate' : '',
+        'commonsTrackerCategory' : '',
+        'commonsCategoryBase' : '',
+        'unusedImagesPage' : '',
+        'imagesWithoutIdPage' : '',
+	'namespaces' : [0],
+	'table' : 'monuments_be-wal_(nl)',
+	'truncate' : False,
+	'primkey' : ('niscode', 'objcode'),
+	'fields' : [
+	    {
+		'source' : 'niscode',
+		'dest' : 'niscode',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'objcode',
+		'dest' : 'objcode',
+		'conv' : '',
+	    },
+            {
+		'source' : 'descr_nl',
+		'dest' : 'descr_nl',
+		'conv' : '',
+	    },
+            {
+		'source' : 'descr_fr',
+		'dest' : 'descr_fr',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'gemeente',
+		'dest' : 'gemeente',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'deelgem',
+		'dest' : 'deelgem',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'adres',
+		'dest' : 'adres',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'objtype',
+		'dest' : 'objtype',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lat',
+		'dest' : 'lat',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'lon',
+		'dest' : 'lon',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'architect',
+		'dest' : 'architect',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'bouwjaar',
+		'dest' : 'bouwjaar',
+		'conv' : '',
+	    },
+	    {
+		'source' : 'image',
+		'dest' : 'image',
+		'conv' : '',
+	    },
+	],
+    },
     ('ch', 'en') : {
 	'project' : 'wikipedia',
 	'lang' : 'en',
