@@ -29,6 +29,19 @@ SELECT 'be-vlg' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_be-vlg_(nl)`;
+REPLACE INTO `monuments_all`
+SELECT 'be-wal' AS `country`,
+       'nl' AS `lang`,
+	CONCAT(`niscode`, '_', `objcode`) AS `id`,
+        `descr_nl` AS `name`,
+        `adres` AS `address`,
+        `gemeente` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_be-wal_(nl)`;
 /* Switzerland */
 REPLACE INTO `monuments_all`
 SELECT 'ch' AS `country`,
