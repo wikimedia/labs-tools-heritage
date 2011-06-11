@@ -29,6 +29,7 @@ SELECT 'be-vlg' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_be-vlg_(nl)`;
+/* Wallonie */
 REPLACE INTO `monuments_all`
 SELECT 'be-wal' AS `country`,
        'nl' AS `lang`,
@@ -42,6 +43,20 @@ SELECT 'be-wal' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_be-wal_(nl)`;
+/* Belarus */
+REPLACE INTO `monuments_all`
+SELECT 'by' AS `country`,
+       'be-x-old' AS `lang`,
+        `id` AS `id`,
+        `name` AS `name`,
+        `address` AS `address`,
+        `place` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_by_(be-x-old)`;
 /* Switzerland */
 REPLACE INTO `monuments_all`
 SELECT 'ch' AS `country`,
