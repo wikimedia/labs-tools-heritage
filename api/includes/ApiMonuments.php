@@ -161,7 +161,7 @@ class ApiMonuments extends ApiBase {
   
 Parameters:
   format         - The format of the output
-                   One value: kml, gpx, poi, html, layar, json, xml, xmlfm
+                   One value: dynamickml, kml, gpx, poi, html, layar, json, xml, xmlfm
                    Default: xmlfm
   action         - What action you would like to perform. 
                    One value: search, statistics, help
@@ -183,6 +183,9 @@ Parameters:
   srimage         - Search for imagename in monument lists.
   srsource        - Search for source monument list wiki page.
   srchanged       - Search for changed.
+  bbox            - left,bottom,right,top
+                    Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
+  
   
 Examples:
   <a href="api.php?action=search&amp;srname=%burgerhuizen%">api.php?action=search&amp;srname=%burgerhuizen%</a>
@@ -190,7 +193,19 @@ Examples:
 
 <b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
 
-<b>* format=xml *</b>
+<b>* format=dynamickml *</b>
+  Generate KML network link file.
+
+Examples:
+  <a href="api.php?action=search&amp;format=dynamickml">api.php?action=search&amp;format=dynamickml</a>
+
+  <b>* format=kml *</b>
+  Output data in KML format
+
+Examples:
+  <a href="api.php?action=search&amp;format=kml">api.php?action=search&amp;format=kml</a>
+
+  <b>* format=xml *</b>
   Output data in XML format
 
 Examples:
