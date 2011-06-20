@@ -5,42 +5,8 @@
  */
 
 
-error_reporting(E_ALL); 
-ini_set('display_errors', true);
-ini_set('html_errors', false);
-
-
 //functions
-
-
-function getImageFromCommons($filename, $size) {
-    $md5hash=md5($filename);
-    $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . urlencode($filename) . "/" . $size . "px-" . urlencode($filename);
-    return $url;
-}
-
-function processWikitext($wikilang, $text, $makelinks) {
-    /* Process the wikitext.
-     * If makelinks is true, make html links
-     * If makelinks is false, remove wikitext to produce normal text without links
-     */
-    $result = $text;
-    $differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
-    $simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
-    $wikiUrl = 'http://' . $wikilang . '.wikipedia.org/wiki/';
-    $differentLinkReplace = "'<a href=" . $wikiUrl ."' . rawurlencode('$1') . '>$2</a>'";
-    $simpleLinkReplace = "'<a href=". $wikiUrl ."' . rawurlencode('$1') . '>$1</a>'";
-    if ( $makelinks ) {
-        $result = preg_replace($differentLinkRegex . "e", $differentLinkReplace, $result);
-        $result = preg_replace($simpleLinkRegex . "e", $simpleLinkReplace, $result);
-        $result = $result;
-    } else {
-        $result = preg_replace($differentLinkRegex, "$2", $result);
-        $result = preg_replace($simpleLinkRegex, "$1", $result);
-    }
-    return $result;
-}
-
+require_once('CommonFunctions.php');
 
 
 //class
