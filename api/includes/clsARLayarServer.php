@@ -233,12 +233,7 @@ class clsARLayarServer extends clsBasicGeosearch {
 				$actions[] = array("uri" => $row[$this->layar_actions_uri_3],
 						   "label" => $row[$this->layar_actions_label_3]);
 			}
-			//if(isset($row[$this->layar_actions_uri_4])) {
-			//$uri4 = 'http://register.muinas.ee/?menuID=monument&action=view&id=' . $row['id'];
-			//$label4 = 'At registrant site';
-			//	$actions[] = array("uri" => $uri4,
-			//			   "label" => $label4);
-			//}		
+	
 			
 			$object = array( "baseURL" => $row[$this->layar_baseURL],
 				"full" => $row[$this->layar_full],
