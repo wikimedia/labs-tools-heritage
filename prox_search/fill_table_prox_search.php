@@ -50,6 +50,13 @@ if (!$result)
   die('Invalid query: ' . mysql_error());
 }
 
+$t_query = "TRUNCATE TABLE prox_search";
+$t_result = mysql_query($t_query);
+if (!$t_result) {
+	die('Invalid query: ' . mysql_error());
+}		
+
+		
 while ($row = @mysql_fetch_assoc($result)) {
 
 	if ( $row['lat'] >= -90 and $row['lat'] <= 90 and 
@@ -59,12 +66,6 @@ while ($row = @mysql_fetch_assoc($result)) {
 		$peano2 = $bg->generate_peano2($row['lat'], $row['lon']);
 		$peano1iv = $bg->generate_peano_iv($peano1);
 		$peano2iv = $bg->generate_peano_iv($peano2);
-	
-		$r_query = "TRUNCATE TABLE prox_search";
-		$r_result = mysql_query($r_query);
-		if (!$r_result) {
-			die('Invalid query: ' . mysql_error());
-		}		
 		
 		$r_query = sprintf("REPLACE INTO `prox_search` (mon_country, mon_lang, mon_id, lat, lon, int_peano1, int_peano2, int_peano1iv, int_peano2iv)
                      VALUES ('%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')",
