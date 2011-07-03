@@ -27,7 +27,7 @@ def getCount(query, cursor):
     return count
 
 def outputStatistics(statistics):
-    print statistics
+    #print statistics
     output = u'{| class="wikitable sortable"\n'
     output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image\n'
 

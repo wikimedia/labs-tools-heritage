@@ -150,10 +150,9 @@ def processMonument(params, source, countryconfig, conn, cursor):
             else:
                 #FIXME: Include more information where it went wrong
                 wikipedia.output(u'Found unknown field: %s' % field)
-                print field
-                print sep
-                print value
-                time.sleep(5)
+		wikipedia.output(u'Field: %s' % (field,))
+		wikipedia.output(u'Value: %s' % (value,))
+                #time.sleep(5)
     
     # The first key is assumed to be the primary key, check if it is it.
     if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):

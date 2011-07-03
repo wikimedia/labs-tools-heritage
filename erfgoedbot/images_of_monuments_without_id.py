@@ -46,8 +46,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         # No template found, just skip silently.
         return False
     
-    commonsTemplate = unicode( countryconfig.get('commonsTemplate'), "utf-8" )
-    imagesWithoutIdPage = unicode( countryconfig.get('imagesWithoutIdPage'), "utf-8" )
+    commonsTemplate = countryconfig.get('commonsTemplate')
+    imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor)
@@ -118,7 +118,7 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     '''
     
     commonsCategoryBase = countryconfig.get('commonsCategoryBase'). replace(u' ', u'_')
-    commonsTemplate = unicode( countryconfig.get('commonsTemplate'), "utf-8" )
+    commonsTemplate = countryconfig.get('commonsTemplate')
     commonsTemplate.replace(u' ', u'_')   
 
     result = []
