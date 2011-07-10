@@ -11,7 +11,8 @@ class DynamicKml {
         header( "Content-Type: application/vnd.google-earth.kml+xml" );
         $replCount = 1;
         $kml_url = htmlspecialchars( str_replace('format=dynamickml', 'format=kml', $request_url, $replCount) );
-        $desc = 'Cultural heritage monuments database for <a href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu>/a>';
+        $desc = 'Cultural heritage monuments database for <a 
+href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
         $desc = htmlspecialchars( $desc );
         $folderName = 'Wiki Loves Monuments';
         $folderName = htmlspecialchars( $folderName );
@@ -31,7 +32,7 @@ class DynamicKml {
    <Link>
     <href>' . $kml_url .'</href>
     <viewRefreshMode>onStop</viewRefreshMode>
-    <viewRefreshTime>0.5</viewRefreshTime>
+    <viewRefreshTime>1</viewRefreshTime>
     <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]</viewFormat>
     <viewBoundScale>0.9</viewBoundScale>
    </Link>
