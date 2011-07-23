@@ -1066,6 +1066,7 @@ countries = {
 	    },
 	],
     },
+    '''
     ('pl', 'pl') : {
         'project' : u'wikipedia',
 	'lang' : u'pl',
@@ -1113,6 +1114,7 @@ countries = {
 	    },
 	],
     },
+    '''
     ('pt', 'pt') : {
         'project' : u'wikipedia',
 	'lang' : u'pt',
