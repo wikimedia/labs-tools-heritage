@@ -90,6 +90,11 @@ countries = {
 		'dest' : u'id',
 		'conv' : u'',
 	    },
+            {
+		'source' : u'beschermd',
+		'dest' : u'beschermd',
+		'conv' : u'',
+	    },
 	    {
 		'source' : u'gemeente',
 		'dest' : u'gemeente',
