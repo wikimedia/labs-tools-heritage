@@ -81,7 +81,7 @@ countries = {
         'unusedImagesPage' : u'',
         'imagesWithoutIdPage' : u'',
 	'namespaces' : [0],
-	'table' : u'monuments_be-bru(nl)',
+	'table' : u'monuments_be-bru_(nl)',
 	'truncate' : False,
 	'primkey' : u'code',
 	'fields' : [
