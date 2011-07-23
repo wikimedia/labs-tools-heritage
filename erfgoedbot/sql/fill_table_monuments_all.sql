@@ -15,6 +15,20 @@ SELECT 'ad' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_ad_(ca)`;
+/* Brussel */
+REPLACE INTO `monuments_all`
+SELECT 'be-bru' AS `country`,
+       'nl' AS `lang`,
+	`code` AS `id`,
+        `omschrijving` AS `name`,
+        `adres` AS `address`,
+        `plaats` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_be-bru_(nl)`;
 /* Vlaanderen */
 REPLACE INTO `monuments_all`
 SELECT 'be-vlg' AS `country`,

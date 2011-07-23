@@ -70,6 +70,83 @@ countries = {
 	    },
 	],
     },
+    ('be-bru', 'nl') : {
+	'project' : u'wikipedia',
+	'lang' : u'nl',
+	'headerTemplate' : u'Tabelkop erfgoed Brussels Hoofdstedelijk Gewest',
+	'rowTemplate' : u'Tabelrij erfgoed Brussels Hoofdstedelijk Gewest',
+        'commonsTemplate' : u'',
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'',
+        'unusedImagesPage' : u'',
+        'imagesWithoutIdPage' : u'',
+	'namespaces' : [0],
+	'table' : u'monuments_be-bru(nl)',
+	'truncate' : False,
+	'primkey' : u'code',
+	'fields' : [
+	    {
+		'source' : u'omschrijving',
+		'dest' : u'omschrijving',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'plaats',
+		'dest' : u'plaats',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'adres',
+		'dest' : u'adres',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bouwjaar',
+		'dest' : u'bouwjaar',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bouwdoor',
+		'dest' : u'bouwdoor',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bouwstijl',
+		'dest' : u'bouwstijl',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'objtype',
+		'dest' : u'objtype',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'beschermd',
+		'dest' : u'beschermd',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'code',
+		'dest' : u'code',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'image',
+		'dest' : u'image',
+		'conv' : u'',
+	    },
+	],
+    },
     ('be-vlg', 'nl') : {
 	'project' : u'wikipedia',
 	'lang' : u'nl',
