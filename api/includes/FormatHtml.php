@@ -18,7 +18,7 @@ class FormatHtml extends FormatBase {
 		echo "\n";
 	}
 
-	private $isfirstrow = 0;
+	private $isTableOpen;
 	
 	function outputBegin() {
 		echo '<html>';$this->linebreak();
@@ -31,6 +31,8 @@ class FormatHtml extends FormatBase {
 		echo 'tr:hover { opacity:0.99; }';$this->linebreak();
 		echo 'tr#header { opacity:0.99; }';$this->linebreak();
 		echo "</style>\n</head>\n<body>\n<table>\n";
+		
+		$this->isFirstRow = true;
 	}
 	
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -39,30 +41,41 @@ class FormatHtml extends FormatBase {
 			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
-		echo '<td colspan="' . $this->selectedCount . '" style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></td>';
+		
+		echo '</table>';
+		$this->isTableOpen = false;
+		
+		echo '<p style="text-align:right;"><a href="' .
+			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></p>';
 	}
 	
 	function outputRow($row, $selectedItems) {
-		$this->selectedCount = count($selectedItems);
-		if (($this->isfirstrow)>=count($selectedItems)) { echo '<tr>'; }
-		else { echo '<tr id="header">'; }
+		if (!$this->isTableOpen) {
+			echo '<tr id="header">';
+			
+			foreach ( $row as $name => $value ) {
+				if ( in_array( $name, $selectedItems ) ) {
+					echo '<th>' . $name . '</th>'; $this->linebreak();
+				}
+			}
+			echo '</tr>';
+			$this->isTableOpen = true;
+		}
+		
+		echo '<tr>';
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
-			if (($this->isfirstrow)>=count($selectedItems)) {
-				if ( in_array( $name, $selectedItems ) ) {
-					echo '<td>' . htmlspecialchars( $value ) . '</td>';$this->linebreak();
-				}
-		     } else {
-				$this->isfirstrow += 1;
-				echo '<th>' . $name . '</th>';$this->linebreak();
-		     }
+			if ( in_array( $name, $selectedItems ) ) {
+				echo '<td>' . htmlspecialchars( $value ) . '</td>';$this->linebreak();
+			}
 		}
 		echo '</tr>';$this->linebreak();
 	}
 	
 	function outputEnd() {
-		echo "</table>\n</body>\n</html>";
+		if ($this->isTableOpen)
+			echo "</table>\n";
+
+		echo "</body>\n</html>";
 	}
 }
-
