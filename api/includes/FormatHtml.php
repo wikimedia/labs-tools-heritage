@@ -29,7 +29,7 @@ class FormatHtml extends FormatBase {
                 echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';$this->linebreak();
                 echo 'th { background:steelblue; }';$this->linebreak();
                 echo 'tr{ background:lightsteelblue; opacity:0.8; }';$this->linebreak();
-                echo 'tr:hover { opacity:0.99; }';$this->linebreak();
+                echo 'tr:hover { opacity:0.99;font-weight:bold; }';$this->linebreak();
                 echo 'tr#header { opacity:0.99; }';$this->linebreak();
                 echo "</style>\n</head>\n<body>\n<table>\n";
 	}
