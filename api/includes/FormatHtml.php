@@ -25,7 +25,7 @@ class FormatHtml extends FormatBase {
                 echo 'th { background:steelblue; }';
                 echo 'td { background:lightsteelblue; opacity:0.8; }';
                 echo 'td:hover { opacity:0.99; }';
-                echo '</style></head><body>';
+                echo '</style></head><body><table>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
@@ -51,7 +51,7 @@ class FormatHtml extends FormatBase {
 		echo '</tr>';
 	}
 	function outputEnd() {
-		echo '</body></html>';
+		echo '</table></body></html>';
 	}
 }
 
