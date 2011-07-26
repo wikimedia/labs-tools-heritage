@@ -83,12 +83,12 @@ class FormatHtml extends FormatBase {
 	 * Make this a nice link if it is a url (source column)
 	 */
 	static function prettifyUrls($text) {
-		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org/w/index.php?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)', $name, $m ) ) {
+		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org/w/index.php?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)', $text, $m ) ) {
 			// Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org
 			return '<a href="' . htmlspecialchars( $m[1] . '&oldid=' . $m[2] ) . '">' . htmlspecialchars( $m[1] . ': ' . $m[2] ) . '</a>';
 		} else {
 			// Normal text
-			return htmlspecialchars( $value );
+			return htmlspecialchars( $text );
 		}
 	}
 }
