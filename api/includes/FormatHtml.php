@@ -40,7 +40,7 @@ class FormatHtml extends FormatBase {
 		}
 		$continue = substr( $continue, 1 );
 		echo '<td colspan="' . $this->selectedCount . '" style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></td>';
+			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></td>';
 	}
 	
 	function outputRow($row, $selectedItems) {
