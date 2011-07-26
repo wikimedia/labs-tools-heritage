@@ -4,14 +4,14 @@ error_reporting(E_ALL);
  * HTML output type, based on XML
  * @author Joancreus (jcreus), based on Platonides work 
  */
-class FormatXml extends FormatBase {
+class FormatHtml extends FormatBase {
 	function getContentType() {
 		return "text/html";
 	}
 	
 	function headers() {
 		parent::headers();
-		echo '<!DOCTYPE HTML
+                echo '<!DOCTYPE HTML
     PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">';
 	}
@@ -27,7 +27,7 @@ class FormatXml extends FormatBase {
 			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
-		//echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
+		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
 	}
 	
 	function outputRow($row, $selectedItems) {
@@ -48,3 +48,4 @@ class FormatXml extends FormatBase {
 		echo '</body>\n</html>';
 	}
 }
+
