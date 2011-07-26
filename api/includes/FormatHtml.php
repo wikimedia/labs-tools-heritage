@@ -20,11 +20,11 @@ class FormatHtml extends FormatBase {
 	
 	function outputBegin() {
 		echo '<html>';
-                echo '<head><style type="text/css">\n';
-                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }\n';
-                echo 'th { background:steelblue; }\n';
-                echo 'td { background:lightsteelblue; opacity:0.8; }\n';
-                echo 'td:hover { opacity:0.99; }\n';
+                echo '<head><style type="text/css">';
+                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';
+                echo 'th { background:steelblue; }';
+                echo 'td { background:lightsteelblue; opacity:0.8; }';
+                echo 'td:hover { opacity:0.99; }';
                 echo '</style></head><body>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -51,7 +51,7 @@ class FormatHtml extends FormatBase {
 		echo '</tr>';
 	}
 	function outputEnd() {
-		echo '</body>\n</html>';
+		echo '</body></html>';
 	}
 }
 
