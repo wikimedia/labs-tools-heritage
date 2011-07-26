@@ -92,6 +92,9 @@ abstract class ApiBase {
 				$p[$name] = $params[$name];
 			} elseif ( isset( $_GET[$name] ) ) {
 				$p[$name] = $this->getParam($name);
+				if ( is_array( $p[$name] ) ) {
+					$p[$name] = implode( '|', $p[$name] );
+				}
 			}
 		}
 		
