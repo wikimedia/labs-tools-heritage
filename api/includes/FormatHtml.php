@@ -39,7 +39,8 @@ class FormatHtml extends FormatBase {
 			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
-		echo '<td colspan="'.$this->selectedCount.'" style="text-align:right;"><a href="'.$_SERVER['REQUEST_URI'].'&' . $continueKey . '=' . htmlspecialchars( $continue ) . '">next page</a></td>';
+                $url = preg_replace ('&srcontinue=.*?$' ,'', $_SERVER['REQUEST_URI']);
+		echo '<td colspan="'.$this->selectedCount.'" style="text-align:right;"><a href="'.$url.'&' . $continueKey . '=' . htmlspecialchars( $continue ) . '">next page</a></td>';
 	}
 	
 	function outputRow($row, $selectedItems) {
