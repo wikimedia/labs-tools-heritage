@@ -5,7 +5,13 @@
  * @author Platonides
  */
 abstract class FormatBase {
+	
+	protected $api;
 	protected $continueParams;
+	
+	function __construct(ApiBase $api) {
+		$this->api = $api;
+	}
 	
 	function setContinueParams($params) {
 		$this->continueParams = $params;

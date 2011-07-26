@@ -81,9 +81,25 @@ abstract class ApiBase {
 		return $cache[$name];
 	}
 	
+	/**
+	 * Returns the url for this page.
+	 * If $params is an array, they override existing values
+	 */
+	function getUrl($params = false) {
+		$p = array();
+		foreach ($this->getAllowedParams() as $name => $value) {
+			if (isset($params[$name])) {
+				$p[$name] = $params[$name];
+			} elseif ( isset( $_GET[$name] ) ) {
+				$p[$name] = $this->getParam($name);
+			}
+		}
+		return $_SERVER["SCRIPT_NAME"] . '?' . http_build_query( $p, '', '&amp;', PHP_QUERY_RFC3986 );
+	}
+	
 	function getFormatter() {
 		$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
-		return new $formatter;
+		return new $formatter( $this );
 	}
 	
 	function help() {
