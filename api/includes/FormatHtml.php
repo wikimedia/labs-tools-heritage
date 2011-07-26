@@ -39,10 +39,11 @@ class FormatHtml extends FormatBase {
 			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
-		echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
+		echo '<td colspan="'.$this->selectedCount.'" style="text-align:right;"><a href="'.$_SERVER['REQUEST_URI'].'&' . $continueKey . '="' . htmlspecialchars( $continue ) . '">next page</a></td>';
 	}
 	
 	function outputRow($row, $selectedItems) {
+                $this->selectedCount = count($selectedItems);
 		if (($this->isfirstrow)>=count($selectedItems)) { echo '<tr>'; }
                 else { echo '<tr id="header">'; }
                 $this->linebreak();
