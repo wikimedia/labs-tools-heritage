@@ -23,8 +23,8 @@ class FormatHtml extends FormatBase {
                 echo '<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><style type="text/css">';
                 echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';
                 echo 'th { background:steelblue; }';
-                echo 'td { background:lightsteelblue; opacity:0.8; }';
-                echo 'td:hover { opacity:0.99; }';
+                echo 'tr{ background:lightsteelblue; opacity:0.8; }';
+                echo 'tr:hover { opacity:0.99; }';
                 echo '</style></head><body><table>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
