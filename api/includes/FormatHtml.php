@@ -16,7 +16,7 @@ class FormatHtml extends FormatBase {
      "http://www.w3.org/TR/html4/loose.dtd">';
 	}
 
-        private $isfirstrow = true;
+        private $isfirstrow = 0;
 	
 	function outputBegin() {
 		echo '<html>';
@@ -39,12 +39,12 @@ class FormatHtml extends FormatBase {
 	function outputRow($row, $selectedItems) {
 		echo '<tr>';
 		foreach ( $row as $name => $value ) {
-                     if (!$this->isfirstrow) {
+                     if (($this->isfirstrow)>=count($selectedItems)) {
 			if ( in_array( $name, $selectedItems ) ) {
 				echo '<td>' . htmlspecialchars( $value ) . '</td>';
 			}
                      } else {
-                        $this->isfirstrow = false;
+                        $this->isfirstrow += 1;
                         echo '<th>' . $name . '</th>';
                      }
 		}
