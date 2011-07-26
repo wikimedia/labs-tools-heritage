@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(E_ALL);
 /**
  * HTML output type, based on XML
  * @author Joancreus (jcreus), based on Platonides work 
