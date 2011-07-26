@@ -25,7 +25,7 @@ class FormatHtml extends FormatBase {
                 echo 'th { background:steelblue; }\n';
                 echo 'td { background:lightsteelblue; opacity:0.8; }\n';
                 echo 'td:hover { opacity:0.99; }\n';
-                echo '</style></head><body>
+                echo '</style></head><body>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
