@@ -95,10 +95,10 @@ abstract class ApiBase {
 			}
 		}
 		
-		if ( version_compare( PHP_VERSION, '5.3.6', '>=' ) ) {
-			$query = http_build_query( $p, '', '&amp;', PHP_QUERY_RFC3986 );
+		if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
+			$query = http_build_query( $p, '', '&', PHP_QUERY_RFC3986 );
 		} else {
-			$query = http_build_query( $p, '', '&amp;' );
+			$query = http_build_query( $p, '', '&' );
 		}
 		return $_SERVER["SCRIPT_NAME"] . "?$query";
 	}
