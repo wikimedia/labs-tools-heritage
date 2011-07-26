@@ -25,6 +25,7 @@ class FormatHtml extends FormatBase {
                 echo 'th { background:steelblue; }';
                 echo 'tr{ background:lightsteelblue; opacity:0.8; }';
                 echo 'tr:hover { opacity:0.99; }';
+                echo 'tr#header { opacity:0.99; }';
                 echo '</style></head><body><table>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -37,7 +38,8 @@ class FormatHtml extends FormatBase {
 	}
 	
 	function outputRow($row, $selectedItems) {
-		echo '<tr>';
+		if (($this->isfirstrow)>=count($selectedItems)) { echo '<tr>'; }
+                else { echo '<tr id="header">'; }
 		foreach ( $row as $name => $value ) {
                      if (($this->isfirstrow)>=count($selectedItems)) {
 			if ( in_array( $name, $selectedItems ) ) {
