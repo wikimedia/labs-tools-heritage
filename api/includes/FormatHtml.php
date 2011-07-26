@@ -22,14 +22,16 @@ class FormatHtml extends FormatBase {
         private $isfirstrow = 0;
 	
 	function outputBegin() {
-		echo '<html>';
-                echo '<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><style type="text/css">';
+		echo '<html>';$this->linebreak();
+                echo '<head>';$this->linebreak();
+                echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';$this->linebreak();
+                echo '<style type="text/css">';$this->linebreak();
                 echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';$this->linebreak();
                 echo 'th { background:steelblue; }';$this->linebreak();
                 echo 'tr{ background:lightsteelblue; opacity:0.8; }';$this->linebreak();
                 echo 'tr:hover { opacity:0.99; }';$this->linebreak();
                 echo 'tr#header { opacity:0.99; }';$this->linebreak();
-                echo "</style>\n</head>\n<body>\n<table>";
+                echo "</style>\n</head>\n<body>\n<table>\n";
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
