@@ -94,7 +94,13 @@ abstract class ApiBase {
 				$p[$name] = $this->getParam($name);
 			}
 		}
-		return $_SERVER["SCRIPT_NAME"] . '?' . http_build_query( $p, '', '&amp;', PHP_QUERY_RFC3986 );
+		
+		if ( version_compare( PHP_VERSION, '5.3.6', '>=' ) ) {
+			$query = http_build_query( $p, '', '&amp;', PHP_QUERY_RFC3986 );
+		} else {
+			$query = http_build_query( $p, '', '&amp;' );
+		}
+		return $_SERVER["SCRIPT_NAME"] . "?$query";
 	}
 	
 	function getFormatter() {
