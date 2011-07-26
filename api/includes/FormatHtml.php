@@ -20,7 +20,7 @@ class FormatHtml extends FormatBase {
 	
 	function outputBegin() {
 		echo '<html>';
-                echo '<head><style type="text/css">';
+                echo '<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><style type="text/css">';
                 echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';
                 echo 'th { background:steelblue; }';
                 echo 'td { background:lightsteelblue; opacity:0.8; }';
