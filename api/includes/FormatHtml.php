@@ -15,18 +15,21 @@ class FormatHtml extends FormatBase {
     PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
      "http://www.w3.org/TR/html4/loose.dtd">';
 	}
+        function linebreak() {
+                echo "\n";
+        }
 
         private $isfirstrow = 0;
 	
 	function outputBegin() {
 		echo '<html>';
                 echo '<head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><style type="text/css">';
-                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';
-                echo 'th { background:steelblue; }';
-                echo 'tr{ background:lightsteelblue; opacity:0.8; }';
-                echo 'tr:hover { opacity:0.99; }';
-                echo 'tr#header { opacity:0.99; }';
-                echo '</style></head><body><table>';
+                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';$this->linebreak();
+                echo 'th { background:steelblue; }';$this->linebreak();
+                echo 'tr{ background:lightsteelblue; opacity:0.8; }';$this->linebreak();
+                echo 'tr:hover { opacity:0.99; }';$this->linebreak();
+                echo 'tr#header { opacity:0.99; }';$this->linebreak();
+                echo "</style>\n</head>\n<body>\n<table>";
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
@@ -40,20 +43,21 @@ class FormatHtml extends FormatBase {
 	function outputRow($row, $selectedItems) {
 		if (($this->isfirstrow)>=count($selectedItems)) { echo '<tr>'; }
                 else { echo '<tr id="header">'; }
+                $this->linebreak();
 		foreach ( $row as $name => $value ) {
                      if (($this->isfirstrow)>=count($selectedItems)) {
 			if ( in_array( $name, $selectedItems ) ) {
-				echo '<td>' . htmlspecialchars( $value ) . '</td>';
+				echo '<td>' . htmlspecialchars( $value ) . '</td>';$this->linebreak();
 			}
                      } else {
                         $this->isfirstrow += 1;
-                        echo '<th>' . $name . '</th>';
+                        echo '<th>' . $name . '</th>';$this->linebreak();
                      }
 		}
-		echo '</tr>';
+		echo '</tr>';$this->linebreak();
 	}
 	function outputEnd() {
-		echo '</table></body></html>';
+		echo "</table>\n</body>\n</html>";
 	}
 }
 
