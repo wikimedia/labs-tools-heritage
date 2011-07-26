@@ -21,7 +21,7 @@ class FormatHtml extends FormatBase {
 	function outputBegin() {
 		echo '<html>';
                 echo '<head><style type="text/css">\n';
-                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }\n'
+                echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }\n';
                 echo 'th { background:steelblue; }\n';
                 echo 'td { background:lightsteelblue; opacity:0.8; }\n';
                 echo 'td:hover { opacity:0.99; }\n';
