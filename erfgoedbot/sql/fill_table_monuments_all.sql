@@ -47,7 +47,7 @@ SELECT 'be-vlg' AS `country`,
 REPLACE INTO `monuments_all`
 SELECT 'be-wal' AS `country`,
        'nl' AS `lang`,
-	CONCAT(`niscode`, '_', `objcode`) AS `id`,
+	CONCAT(`niscode`, '-', `objcode`) AS `id`,
         `descr_nl` AS `name`,
         `adres` AS `address`,
         `gemeente` AS `municipality`,
