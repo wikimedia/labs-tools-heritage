@@ -98,7 +98,7 @@ class FormatHtml extends FormatBase {
           $img = str_replace(" ","_",$img);
           $md5 = md5($img);
 
-          $url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.$img.'/150px-'.$img;
+          $url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.$img.'/100px-'.$img;
           return '<a href="http://commons.wikimedia.org/wiki/File:'.$img.'"><img src="'.$url.'"></a>';
          }
         }
