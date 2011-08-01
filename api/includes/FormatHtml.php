@@ -66,7 +66,8 @@ class FormatHtml extends FormatBase {
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
-				echo '<td>' . self::prettifyUrls( $value ) . '</td>';$this->linebreak();
+				if ($name != "image") { echo '<td>' . self::prettifyUrls( $value ) . '</td>';$this->linebreak(); }
+                                else { echo '<td>' . self::genImage($value) . '</td>';$this->linebreak(); }
 			}
 		}
 		echo '</tr>';$this->linebreak();
@@ -84,11 +85,17 @@ class FormatHtml extends FormatBase {
 	 */
 	static function prettifyUrls($text) {
 		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org\/w\/index.php\?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)/', $text, $m ) ) {
-			// Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org
+			/* Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org */
 			return '<a href="' . htmlspecialchars( $m[1] . '&oldid=' . $m[4] ) . '">' . htmlspecialchars( $m[2] . ': ' . str_replace( '_', ' ', $m[3] ) ) . '</a>';
 		} else {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
 	}
+
+        static function genImage($img) {
+          $md5 = md5($img);
+          $url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).$img.'/150px-'.$img;
+          return '<a href="http://commons.wikimedia.org/wiki/File:'.$img.'"><img src="'.$url.'"></a>';
+        }
 }
