@@ -264,6 +264,7 @@ class SearchPage {
 			'xml' => 'XML',
 			'dynamickml' => 'Dynamic KML (Google Earth/Google Maps)',
 			'kml' => 'Static KML (Google Earth/Google Maps)',
+                        'html' => 'HTML table'
 		);
 
 		return $this->getSelect ( $selectName , $options );
