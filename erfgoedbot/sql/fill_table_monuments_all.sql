@@ -15,6 +15,20 @@ SELECT 'ad' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_ad_(ca)`;
+/* Austria in German */
+REPLACE INTO `monuments_all`
+SELECT 'at' AS `country`, 
+       'de' AS `lang`,
+	`objektid` AS `id`,
+        `name` AS `name`,
+        `adresse` AS `address`,
+        `katastralgemeinde` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `foto` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_at_(de)`;
 /* Brussel */
 REPLACE INTO `monuments_all`
 SELECT 'be-bru' AS `country`,
