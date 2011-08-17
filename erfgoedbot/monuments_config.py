@@ -1447,5 +1447,68 @@ countries = {
 		'conv' : u'',
 	    },
         ],
-    }
+    },
+    ('sv', 'sv') : {
+        'project' : u'wikipedia',
+	'lang' : u'ro',
+	'headerTemplate' : u'BBR', #Confusing
+	'rowTemplate' : u'BBR',
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'Monument istoric',
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'',
+        'unusedImagesPage' : u'',
+        'imagesWithoutIdPage' : u'',
+	'namespaces' : [0],
+	'table' : u'monuments_sv_(sv)',
+	'truncate' : False, 
+	'primkey' : u'bbr',
+	'fields' : [
+	    {
+		'source' : u'namn',
+		'dest' : u'namn',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'funktion',
+		'dest' : u'funktion',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'byggår',
+		'dest' : u'byggar',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'arkitekt',
+		'dest' : u'arkitekt',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'plats',
+		'dest' : u'plats',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bbr',
+		'dest' : u'bbr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'long',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bild',
+		'dest' : u'bild',
+		'conv' : u'',
+	    },
+        ],
+    },
 }

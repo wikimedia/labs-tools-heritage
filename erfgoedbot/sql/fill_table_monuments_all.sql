@@ -296,3 +296,17 @@ SELECT 'ro' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ro_(ro)`;
+/* Sweden */
+REPLACE INTO `monuments_all`
+SELECT 'sv' AS `country`,
+       'sv' AS `lang`,
+	`bbr` AS `id`, 
+	`namn` AS `name`,
+	'' AS `address`,
+	`plats` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`bild` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_sv_(sv)`;
