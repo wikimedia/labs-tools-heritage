@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_at_(de)`;
 CREATE TABLE `monuments_at_(de)` (
-  `objektid` int(11) NOT NULL DEFAULT '0',
+  `objektid` varchar(11) NOT NULL DEFAULT '0',
   `foto` varchar(255) NOT NULL DEFAULT '',
   `fotobeschreibung` varchar(255) NOT NULL DEFAULT '',
   `commonscat` varchar(255) NOT NULL DEFAULT '',
