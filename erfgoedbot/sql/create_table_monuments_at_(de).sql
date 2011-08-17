@@ -19,6 +19,7 @@ CREATE TABLE `monuments_at_(de)` (
   `bearbeitungsdatum` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
+  `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ObjektID`),
   KEY `latitude` (`lat`),
