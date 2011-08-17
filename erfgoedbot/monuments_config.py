@@ -1450,7 +1450,7 @@ countries = {
     },
     ('sv', 'sv') : {
         'project' : u'wikipedia',
-	'lang' : u'ro',
+	'lang' : u'sv',
 	'headerTemplate' : u'BBR', #Confusing
 	'rowTemplate' : u'BBR',
         'footerTemplate' : u'',
