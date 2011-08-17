@@ -71,10 +71,9 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
 		fieldvalues.append(convertField(field, contents))
 	    else:
 		fieldvalues.append(contents.get(field.get('source')))
-    if countryconfig.get('truncate'):
-	query = u"""INSERT INTO `%s`(""" % (countryconfig.get('table'),)
-    else:
-	query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
+
+
+    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
 
     query = query + u"""`%s`""" % (u'source')
 
