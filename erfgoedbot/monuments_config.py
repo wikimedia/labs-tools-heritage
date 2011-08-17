@@ -73,6 +73,109 @@ countries = {
 	    },
 	],
     },
+    ('at', 'de') : {
+        'project' : u'wikipedia',
+	'lang' : u'de',
+	'headerTemplate' : u'Denkmalliste Österreich Tabellenkopf',
+	'rowTemplate' : u'Denkmalliste Österreich Tabellenzeile',
+        'footerTemplate' : u'Denkmalliste Österreich Tabellenfuß',
+        'commonsTemplate' : u'Denkmalgeschütztes Objekt Österreich',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Austria with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Austria',
+        'unusedImagesPage' : u'User:Multichill/Unused Denkmal Österreich',
+        'imagesWithoutIdPage' : u'User:Multichill/Denkmal Österreich without ID',
+	'namespaces' : [0],
+	'table' : u'monuments_at_(de)',
+	'truncate' : True, # Not sure, could be False
+	'primkey' : u'ObjektID',
+	'fields' : [
+	    {
+		'source' : u'Foto',
+		'dest' : u'foto',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Fotobeschreibung',
+		'dest' : u'fotobeschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Commonscat',
+		'dest' : u'commonscat',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'Name',
+		'dest' : u'name',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Artikel',
+		'dest' : u'artikel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Anzeige-Name',
+		'dest' : u'anzeige-Name',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse-Sort',
+		'dest' : u'adresse-sort',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Breitengrad',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Längengrad',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Region-ISO',
+		'dest' : u'region-iso',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Katastralgemeinde',
+		'dest' : u'katastralgemeinde',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Grundstücksnummer',
+		'dest' : u'grundstucksnummer',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Status',
+		'dest' : u'status',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschreibung',
+		'dest' : u'beschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'ObjektID',
+		'dest' : u'objektid',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Bearbeitungsdatum',
+		'dest' : u'bearbeitungsdatum',
+		'conv' : u'',
+	    },
+	],
+    },
     ('be-bru', 'nl') : {
 	'project' : u'wikipedia',
 	'lang' : u'nl',
