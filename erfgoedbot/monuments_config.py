@@ -1451,7 +1451,7 @@ countries = {
     ('sv', 'sv') : {
         'project' : u'wikipedia',
 	'lang' : u'sv',
-	'headerTemplate' : u'BBR', #Confusing
+	'headerTemplate' : u'', #Confusing
 	'rowTemplate' : u'BBR',
         'footerTemplate' : u'',
         'commonsTemplate' : u'Monument istoric',
