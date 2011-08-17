@@ -1431,6 +1431,11 @@ countries = {
 		'dest' : u'lat',
 		'conv' : u'',
 	    },
+            {
+		'source' : u'Coordonate',
+		'dest' : u'',
+		'conv' : u'',
+	    },
 	    {
 		'source' : u'Lon',
 		'dest' : u'lon',
@@ -1441,6 +1446,6 @@ countries = {
 		'dest' : u'imagine',
 		'conv' : u'',
 	    },
-	],
+        ],
     }
 }
