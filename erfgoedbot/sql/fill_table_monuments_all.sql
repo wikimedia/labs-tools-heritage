@@ -282,3 +282,17 @@ SELECT 'pt' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_pt_(pt)`;
+/* Romania */
+REPLACE INTO `monuments_all`
+SELECT 'ro' AS `country`,
+       'ro' AS `lang`,
+	`cod` AS `id`, 
+	`denumire` AS `name`,
+	`adresa` AS `address`,
+	`localitate` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`imagine` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_ro_(ro)`;
