@@ -8,6 +8,7 @@ CREATE TABLE `monuments_sv_(sv)` (
   `byggar` varchar(255) NOT NULL DEFAULT '',
   `arkitekt`  varchar(255) NOT NULL DEFAULT '',
   `plats` varchar(255) NOT NULL DEFAULT '',
+  `kommun` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `bild` varchar(255) NOT NULL DEFAULT '',

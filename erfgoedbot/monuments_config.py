@@ -1489,6 +1489,11 @@ countries = {
 		'dest' : u'plats',
 		'conv' : u'',
 	    },
+            {
+		'source' : u'kommun',
+		'dest' : u'kommun',
+		'conv' : u'',
+	    },
 	    {
 		'source' : u'bbr',
 		'dest' : u'bbr',
