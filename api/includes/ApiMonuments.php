@@ -185,6 +185,8 @@ Parameters:
   srchanged       - Search for changed.
   bbox            - left,bottom,right,top
                     Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
+  limit           - [integer] (the maximum number of results you will get back
+  props           - [country|lang|id|name|address|municipality|lat|lon|image|source|changed]: the properties which should be returned. (By default all of them.)
   
   
 Examples:
@@ -192,13 +194,22 @@ Examples:
   <a href="api.php?action=search&amp;srcountry=fr&amp;srlang=ca">api.php?action=search&amp;srcountry=fr&amp;srlang=ca</a>
 
 <b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
-
-<b>* format=dynamickml *</b>
+ 
+  <b>* format=dynamickml *</b>
   Generate KML network link file.
 
 Examples:
   <a href="api.php?action=search&amp;format=dynamickml">api.php?action=search&amp;format=dynamickml</a>
 
+  <b>* format=html *</b>
+  Output data in HTML format.
+  
+  <b>* format=json *</b>
+  Output data in JSON format.
+
+Parameters:
+  callback       - If specified, wraps the output into a given function call.
+  
   <b>* format=kml *</b>
   Output data in KML format
 
