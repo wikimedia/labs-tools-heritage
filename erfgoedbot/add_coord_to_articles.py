@@ -284,7 +284,7 @@ def addCoords(countrycode, lang, monument, coordconfig):
 
         if text != newtext:
             wikilist = u''
-            matchWikipage = re.match("title=(.+?)&", monument.source)
+            matchWikipage = re.search("title=(.+?)&", monument.source)
             if (matchWikipage and matchWikipage.group(1)): 
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
