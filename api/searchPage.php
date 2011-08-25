@@ -97,6 +97,7 @@ class SearchPage {
 		$result[] = '<td><label>Images</label></td>';
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';
+		$result[] = '<input type="checkbox" name="srwithoutimages" id="srwithoutimages" value="1"><label for="srwithoutimages">Only monuments without images</label>'; // FIXME: i18n
 	//$result = array_merge($result, $this->getImagesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
