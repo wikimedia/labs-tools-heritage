@@ -272,15 +272,15 @@ class SearchPage {
 	}
 
 
-	private function getSelect ( $selectName , $options ) {
+	private function getSelect ( $selectName, $options, $selected = false ) {
 		/*
 		 * 
 		 */
 		$result = array();
-		$result[] = '<select name="' . $selectName . '" ' . $this->fieldStyle . '">';
-		/* FIXME selected */
+		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '">';
 		foreach ( $options as $value => $name ) {
-			$result[] = '<option value="' . $value . '" >' . $name . '</option>';
+			$result[] = '<option value="' . htmlspecialchars( $value ) . '"' .
+				( $name === $selected ? ' selected="selected"' : '' ) .	'>' . htmlspecialchars( $name ) . '</option>';
 		}
 		$result[] = '</select>';
 		return $result;
