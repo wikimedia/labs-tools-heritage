@@ -14,6 +14,7 @@ if (!$dbStatus) {
 	$db = Database::getDb();
     
 header ('Content-type: text/html; charset=utf-8');
+$dupe_limit = 1000;
 
 if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$country = $_GET["country"];
@@ -28,11 +29,12 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 		$date = $row->changed;
 	}
 
-	print '<h1>Duplicate IDs in wikilists, as of '. $date .'</h1>';
+	print '<h1>Duplicate IDs in wikilists, as of '. $date .', with limit '. $dupe_limit .'</h1>';
 	print '<table>';
-	$sql = sprintf("SELECT count(*) AS count, id FROM `id_dump` WHERE (`country` = '%s' AND `lang`='%s') GROUP BY id HAVING count>1 ORDER BY `id_dump`.`id` ASC LIMIT 1000",
+	$sql = sprintf("SELECT count(*) AS count, id FROM `id_dump` WHERE (`country` = '%s' AND `lang`='%s') GROUP BY id HAVING count>1 ORDER BY `id_dump`.`id` ASC LIMIT %s",
                  $country,
-                 $lang);
+                 $lang,
+				 $dupe_limit);
 	$qres = new ResultWrapper( $db, $db->query( $sql ) );
 
 	foreach ( $qres as $row ) {
