@@ -90,7 +90,7 @@ abstract class ApiBase {
 		foreach ($this->getAllowedParams() as $name => $value) {
 			if (isset($params[$name])) {
 				$p[$name] = $params[$name];
-			} elseif ( isset( $_GET[$name] ) ) {
+			} elseif ( isset( $_GET[$name] ) and strlen( $_GET[$name] ) ) {
 				$p[$name] = $this->getParam($name);
 				if ( is_array( $p[$name] ) ) {
 					$p[$name] = implode( '|', $p[$name] );
