@@ -107,7 +107,7 @@ abstract class ApiBase {
 	}
 	
 	function getFullUrl($params = false) {
-		$url =  $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' );
+		$url =  $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://';
 		if ( isset( $_SERVER["HTTP_HOST"] ) ) {
 			$url .= $_SERVER["HTTP_HOST"];
 		} else {
