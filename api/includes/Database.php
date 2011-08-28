@@ -30,7 +30,8 @@ class Database {
 			$sql .= " WHERE " . implode( ' AND ', $where );
 		}
 		
-		$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
+		if ( $orderBy )
+			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
 		$sql .= " LIMIT $limit";
 		
 		return new ResultWrapper( $this, $this->query( $sql ) );

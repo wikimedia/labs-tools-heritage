@@ -21,10 +21,7 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$lang = $_GET["lang"];
 
 	$date = '';
-	$sql = sprintf("SELECT changed FROM `id_dump` WHERE (`country` = '%s' AND `lang`='%s') LIMIT 1",
-                 $country,
-                 $lang);
-	$qres = new ResultWrapper( $db, $db->query( $sql ) );
+	$qres = $db->select( array( 'changed' ), 'id_dump', array( 'country' => $country, 'lang' => $lang ), false, 1);
 	foreach ( $qres as $row ) {
 		$date = $row->changed;
 	}
