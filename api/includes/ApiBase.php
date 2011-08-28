@@ -106,6 +106,16 @@ abstract class ApiBase {
 		return $_SERVER["SCRIPT_NAME"] . "?$query";
 	}
 	
+	function getFullUrl($params = false) {
+		$url =  $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' );
+		if ( isset( $_SERVER["HTTP_HOST"] ) ) {
+			$url .= $_SERVER["HTTP_HOST"];
+		} else {
+			$url .= $_SERVER["SERVER_NAME"];
+		}
+		return $url . $this->getUrl( $params );
+	}
+	
 	function getFormatter() {
 		$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
 		return new $formatter( $this );
