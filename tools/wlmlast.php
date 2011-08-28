@@ -1,4 +1,9 @@
 <?php
+/* Tool to get the latest uploaded files for Wiki Loves Monuments
+ * By default from http://commons.wikimedia.org/wiki/Category:Images_from_Wiki_Loves_Monuments_2011
+ * if country if given, one of the subcategories.
+ * TODO: Implement subcats
+ */
 header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
 header('Content-type: text/javascript;; charset=utf-8');
@@ -24,7 +29,7 @@ function getLatest($size, $number){
     AND page_namespace =6
     AND page_is_redirect=0
     AND cl_to='Images_from_Wiki_Loves_Monuments_2011'
-    ORDER BY RAND()
+    ORDER BY rc_timestamp DESC
     LIMIT " . $number);
     
     $returnResult = array();
