@@ -120,9 +120,12 @@ class ApiMonuments extends ApiBase {
             $where[] = 'lat<>0 AND lon<>0';
         }
 
+        /* FIXME: User should be able to set sort fields and order */
         $orderby = array();
         if ( $this->getParam('format') == 'kml' ) {
             $orderby = array('image', 'id'); /* FIXME: Randomize the KML output. */
+        if ( $this->getParam('format') == 'html' ) {
+            $orderby = array('country', 'municipality', 'address');
         } else {
             $orderby = Monuments::$dbPrimaryKey;
         }
