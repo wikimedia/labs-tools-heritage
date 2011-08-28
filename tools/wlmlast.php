@@ -7,7 +7,7 @@
 header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
 header('Content-type: text/javascript;; charset=utf-8');
-function getLatest($size, $number){
+function getLatest($size, $number, $country){
     $ts_pw = posix_getpwuid(posix_getuid());
     $ts_mycnf = parse_ini_file($ts_pw['dir'] . "/.my.cnf");
     $db = new mysqli('commonswiki-p.rrdb.toolserver.org',
@@ -17,6 +17,12 @@ function getLatest($size, $number){
     $db->set_charset('utf-8');
     unset($ts_mycnf);
     unset($ts_pw);
+    
+    if($country) {
+	$category = 'Images_from_Wiki_Loves_Monuments_2011_in_' . $db->real_escape_string($country);
+    } else {
+	$category = 'Images_from_Wiki_Loves_Monuments_2011';
+    }
 
     $result = $db->query("SELECT rc_title, img_width, img_user_text, img_timestamp
     FROM recentchanges
@@ -28,7 +34,7 @@ function getLatest($size, $number){
     AND rc_log_action='upload'
     AND page_namespace =6
     AND page_is_redirect=0
-    AND cl_to='Images_from_Wiki_Loves_Monuments_2011'
+    AND cl_to='" . $category . "'
     ORDER BY rc_timestamp DESC
     LIMIT " . $number);
     
@@ -68,7 +74,12 @@ if (isset($_GET["number"])) {
 	$number = $max_number;
     }
 }
+$country = '';
+if (isset($_GET["country"])) {
+    $country = $_GET["country"];
+}
 
-$jsonData = getLatest($size, $number);
+
+$jsonData = getLatest($size, $number, $country);
 echo $_GET['callback'] . '(' . $jsonData . ');';
 
