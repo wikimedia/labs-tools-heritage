@@ -48,9 +48,9 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$sql = "SELECT DISTINCT `country`, `lang` FROM `id_dump`";
 	$qres = new ResultWrapper( $db, $db->query( $sql ) );
 	foreach ( $qres as $row ) {
-		print '* <a href="' . $_SERVER['PHP_SELF'] . '?country=' . $row->country. '&lang=' . $row->lang .'">'. $row->country . ' ('. $row->lang . ')</a><br/>';
+		print '* <a href="id_checker.php?country=' . htmlspecialchars( $row->country ) . '&lang=' . htmlspecialchars( $row->lang ) .'">'. htmlspecialchars( $row->country ) . ' ('. htmlspecialchars( $row->lang ) . ')</a><br/>';
 	}
 
 }
 
-?>
+
