@@ -4,6 +4,9 @@ error_reporting(E_ALL);
  * HTML output type, based on XML
  * @author Joancreus (jcreus), based on Platonides work 
  */
+//functions: processWikitext
+require_once('CommonFunctions.php');
+
 class FormatHtml extends FormatBase {
 	function getContentType() {
 		return "text/html";
@@ -62,12 +65,25 @@ class FormatHtml extends FormatBase {
 			$this->isTableOpen = true;
 		}
 		
+		$hasWikitext = array('name', 'address', 'municipality');
+		
 		echo '<tr>';
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
+			$cellData = '';
 			if ( in_array( $name, $selectedItems ) ) {
-				if ($name != "image") { echo '<td>' . self::prettifyUrls( $value ) . '</td>';$this->linebreak(); }
-                                else { echo '<td>' . self::genImage($value) . '</td>';$this->linebreak(); }
+				if ($name == "image") { 
+					$cellData = self::genImage($value);
+				} elseif ($name == "source") {
+					$cellData = self::prettifyUrls( $value ); 
+				} elseif ( in_array( $name, $hasWikitext ) ) {
+					$makeLinks = true;
+					$cellData = processWikitext($row->lang, $value, $makeLinks);
+				} else {
+					$cellData = $value;
+				}
+				
+				echo '<td>' . $cellData . '</td>';$this->linebreak(); 
 			}
 		}
 		echo '</tr>';$this->linebreak();
