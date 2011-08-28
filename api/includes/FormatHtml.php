@@ -80,7 +80,7 @@ class FormatHtml extends FormatBase {
 					$makeLinks = true;
 					$cellData = processWikitext($row->lang, $value, $makeLinks);
 				} else {
-					$cellData = $value;
+					$cellData = htmlspecialchars( $value );
 				}
 				
 				echo '<td>' . $cellData . '</td>';$this->linebreak(); 
