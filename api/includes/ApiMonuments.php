@@ -122,7 +122,7 @@ class ApiMonuments extends ApiBase {
 
         $orderby = array();
         if ( $this->getParam('format') == 'kml' ) {
-            $orderby = array('RAND()'); /* Randomize the KML output. FIXME: Cleaner solution */
+            $orderby = array('image', 'id'); /* FIXME: Randomize the KML output. */
         } else {
             $orderby = Monuments::$dbPrimaryKey;
         }
