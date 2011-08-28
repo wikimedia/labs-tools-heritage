@@ -32,7 +32,7 @@ class FormatCsv extends FormatBase {
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
 				if ( $needComma ) echo ',';
-				echo '"' . str_replace( '"', '""', $value ) . '"';
+				echo '"' . str_replace( '"', '""', $value ) . '"' . "\n";
 				$needComma = true;
 			}
 		}
