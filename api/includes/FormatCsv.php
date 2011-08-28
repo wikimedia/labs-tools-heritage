@@ -24,7 +24,7 @@ class FormatXml extends FormatBase {
 		}
 		$continue = substr( $continue, 1 );
 		
-		echo '>> Continue at ' . $this->api->getUrl( array( $continueKey => $continue );
+		echo '>> Continue at ' . $this->api->getUrl( array( $continueKey => $continue ) );
 	}
 	
 	function outputRow($row, $selectedItems) {
