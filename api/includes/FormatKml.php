@@ -52,9 +52,10 @@ class FormatKml extends FormatBase {
             }
             $desc .= '<ul>';
             $hasWikitext = array('name', 'address', 'municipality');
+            $listFields = array('id', 'name', 'address', 'municipality');
             foreach ( $row as $name => $value ) {
                 if ( in_array( $name, $selectedItems ) ) {
-                    if ($name != 'image') {
+                    if ( in_array( $name, $listFields ) ) {
                         $desc .= '<li> ' . $name . ' - ';
                         if ( in_array( $name, $hasWikitext ) ) {
                             $makeLinks = true;
