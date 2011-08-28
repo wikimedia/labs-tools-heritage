@@ -4,7 +4,7 @@
  * Csv output type
  * @author Platonides
  */
-class FormatXml extends FormatBase {
+class FormatCsv extends FormatBase {
 	function getContentType() {
 		return "text/csv";
 	}
