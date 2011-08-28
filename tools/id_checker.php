@@ -35,14 +35,11 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$qres = new ResultWrapper( $db, $db->query( $sql ) );
 
 	foreach ( $qres as $row ) {
-		print '<tr><td>' . $row->id . '</td><td></td></tr>';
-		$dsql = sprintf("SELECT `source` FROM `id_dump` WHERE (`country` = '%s' AND `lang`='%s' AND `id`='%s')",
-                 $country,
-                 $lang,
-                 $row->id);
-		$dres = new ResultWrapper( $db, $db->query( $dsql ) );
+		print '<tr><td>' . htmlspecialchars( $row->id ) . '</td><td></td></tr>';
+
+		$dres = $db->select( array( 'source' ), 'id_dump', array( 'country' => $country, 'lang' => $lang, 'id' => $row->id ) );
 		foreach ( $dres as $drow ) {
-			print '<tr><td></td><td><a href="'. $drow->source .'">' . $drow->source . '</a></td></tr>';
+			print '<tr><td></td><td><a href="'. htmlspecialchars( $drow->source ) .'">' . htmlspecialchars( $drow->source ) . '</a></td></tr>';
 		}
 	}
 	print '</table>';

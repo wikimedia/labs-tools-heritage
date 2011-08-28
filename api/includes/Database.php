@@ -23,7 +23,7 @@ class Database {
 		return substr( $l, 1 );
 	}
 	
-	function select($fields, $table, $where, $orderBy, $limit) {
+	function select($fields, $table, $where, $orderBy = false, $limit = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $table );
 		if ( count( $where ) > 0 ) {
@@ -32,7 +32,8 @@ class Database {
 		
 		if ( $orderBy )
 			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
-		$sql .= " LIMIT $limit";
+		if ( $limit )
+			$sql .= " LIMIT $limit";
 		
 		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
