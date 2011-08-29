@@ -34,7 +34,7 @@ class FormatWikitable extends FormatBase {
 		}
 		$continue = substr( $continue, 1 );
 		
-		echo '</table>';
+		echo ' |}';
 		$this->isTableOpen = false;
 		
 		echo '<p style="text-align:right;"><a href="' .
@@ -52,7 +52,7 @@ class FormatWikitable extends FormatBase {
 			}
 			$this->isTableOpen = true;
 		}
-		echo '|-';$this->linebreak();
+		echo '|-';
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
 			$cellData = '';
