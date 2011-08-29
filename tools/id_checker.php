@@ -21,7 +21,10 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$lang = $_GET["lang"];
 
 	$date = '';
-	$qres = $db->select( array( 'changed' ), 'id_dump', array( 'country' => $country, 'lang' => $lang ), false, 1);
+	$where = array();
+	$where[] = $db->escapeIdentifier( 'country' ) . '=' . $db->quote( $country );
+	$where[] = $db->escapeIdentifier( 'lang' ) . '=' . $db->quote( $lang );
+	$qres = $db->select( array( 'changed' ), 'id_dump', $where, false, 1);
 	foreach ( $qres as $row ) {
 		$date = $row->changed;
 	}
