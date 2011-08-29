@@ -37,8 +37,8 @@ class FormatWikitable extends FormatBase {
 		echo '|}';$this->linebreak();
 		$this->isTableOpen = false;
 		
-		echo '<p style="text-align:right;">[' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . ' next page]</p>';
+		echo '<p style="text-align:right;">[http://toolserver.org' .
+			 $this->api->getUrl( array( $continueKey => $continue ) ) . ' next page]</p>';
 	}
 	
 	function outputRow($row, $selectedItems) {
