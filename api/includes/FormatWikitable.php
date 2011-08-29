@@ -9,7 +9,7 @@ require_once('CommonFunctions.php');
 
 class FormatWikitable extends FormatBase {
 	function getContentType() {
-		return "text/plain";
+		return "text/plain;charset=UTF-8";
 	}
 	
 	function headers() {
