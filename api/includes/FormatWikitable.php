@@ -1,7 +1,7 @@
 <?php
 error_reporting(E_ALL);
 /**
- * HTML output type, based on XML
+ * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work 
  */
 //functions: processWikitext
@@ -43,7 +43,7 @@ class FormatWikitable extends FormatBase {
 	
 	function outputRow($row, $selectedItems) {
 		if (!$this->isTableOpen) {
-			echo '|-';$this->linebreak();
+			//echo '|-';$this->linebreak();
 			
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
@@ -52,7 +52,6 @@ class FormatWikitable extends FormatBase {
 			}
 			$this->isTableOpen = true;
 		}
-	        echo 'newrow';	
 		echo '|-';$this->linebreak();
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
