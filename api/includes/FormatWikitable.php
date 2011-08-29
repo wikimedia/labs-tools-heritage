@@ -34,11 +34,11 @@ class FormatWikitable extends FormatBase {
 		}
 		$continue = substr( $continue, 1 );
 		
-		echo ' |}';
+		echo '|}';$this->linebreak();
 		$this->isTableOpen = false;
 		
-		echo '<p style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></p>';
+		echo '<p style="text-align:right;">[' .
+			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . ' next page]</p>';
 	}
 	
 	function outputRow($row, $selectedItems) {
@@ -80,7 +80,7 @@ class FormatWikitable extends FormatBase {
 	static function prettifyUrls($text) {
 		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org\/w\/index.php\?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)/', $text, $m ) ) {
 			/* Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org */
-			return '[' . htmlspecialchars( $m[1] . '&oldid=' . $m[4] ) . htmlspecialchars( $m[2] . ': ' . str_replace( '_', ' ', $m[3] ) ) . ']';
+			return '[' . htmlspecialchars( $m[1] . '&oldid=' . $m[4] ) .' '. htmlspecialchars( $m[2] . ': ' . str_replace( '_', ' ', $m[3] ) ) . ']';
 		} else {
 			// Normal text
 			return htmlspecialchars( $text );
