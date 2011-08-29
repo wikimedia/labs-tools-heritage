@@ -13,8 +13,9 @@ class FormatCsv extends FormatBase {
 		parent::headers();
 	}
 	
-	function outputBegin() {
-
+	function outputBegin($selectedItems) {
+		$selectedItems = array_map( 'self::csvQuote', $selectedItems );
+		echo implode( ',', $selectedItems );
 	}
 	
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -32,7 +33,7 @@ class FormatCsv extends FormatBase {
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
 				if ( $needComma ) echo ',';
-				echo '"' . str_replace( '"', '""', $value ) . '"';
+				echo self::csvQuote( $value );
 				$needComma = true;
 			}
 		}
@@ -41,5 +42,9 @@ class FormatCsv extends FormatBase {
 	
 	function outputEnd() {
 
+	}
+	
+	static function csvQuote($text) {
+		return '"' . str_replace( '"', '""', $text ) . '"';
 	}
 }

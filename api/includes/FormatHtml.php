@@ -23,7 +23,7 @@ class FormatHtml extends FormatBase {
 
 	private $isTableOpen;
 	
-	function outputBegin() {
+	function outputBegin($selectedItems) {
 		echo '<html>';$this->linebreak();
 		echo '<head>';$this->linebreak();
 		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';$this->linebreak();

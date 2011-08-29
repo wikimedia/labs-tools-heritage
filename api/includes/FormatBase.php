@@ -22,7 +22,7 @@ abstract class FormatBase {
 	}
 
 	abstract function getContentType();
-	abstract function outputBegin();
+	abstract function outputBegin($selectedItems);
 	abstract function outputContinue($row, $continueKey, $primaryKey);
 	abstract function outputRow($row, $selectedItems);
 	abstract function outputEnd();
@@ -30,7 +30,7 @@ abstract class FormatBase {
 	function output($result, $limit, $continueKey, $selectedItems, $primaryKey) {
 		$this->headers();
 		
-		$this->outputBegin();
+		$this->outputBegin( $selectedItems );
         $count = 0;
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {

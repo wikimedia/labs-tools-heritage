@@ -22,7 +22,7 @@ class FormatWikitable extends FormatBase {
 
 	private $isTableOpen;
 	
-	function outputBegin() {
+	function outputBegin($selectedItems) {
 	        echo '{|class="wikitable" style="width:100%;"';$this->linebreak();	
 		$this->isFirstRow = true;
 	}

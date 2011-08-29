@@ -23,7 +23,7 @@ class FormatKml extends FormatBase {
 		echo '<?xml version="1.0" encoding="UTF-8"?>';
 	}
 	
-	function outputBegin() {
+	function outputBegin($selectedItems) {
 		echo '<kml xmlns="http://www.opengis.net/kml/2.2">';
         echo '<Document>
         <Style id="monumentStyle"><IconStyle id="monumentIcon"><Icon><href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>

@@ -14,7 +14,7 @@ class FormatXml extends FormatBase {
 		echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
 	}
 	
-	function outputBegin() {
+	function outputBegin($selectedItems) {
 		echo '<monuments>';
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {

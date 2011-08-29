@@ -18,7 +18,7 @@ class FormatJson extends FormatBase {
 		return 'application/json';
 	}
 	
-	function outputBegin() {
+	function outputBegin($selectedItems) {
 		$this->returnJSONArray = array();
 	}
 
