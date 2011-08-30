@@ -536,7 +536,7 @@ countries = {
 	'lang' : u'de',
 	'headerTemplate' : u'Denkmalliste Bergheim Tabellenkopf',
 	'rowTemplate' : u'Denkmalliste Bergheim Tabellenzeile',
-        'commonsTemplate' : u'Kulturdenkmal',
+        'commonsTemplate' : u'Kulturdenkmal Bergheim',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Bergheim with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Bergheim',
         'unusedImagesPage' : u'Commons:Wiki Loves Monuments 2011 in Germany/WLM Bergheim/unused images',
