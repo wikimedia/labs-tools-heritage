@@ -310,3 +310,17 @@ SELECT 'sv' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_sv_(sv)`;
+/* Bergheim, NRW, Germany in German */
+REPLACE INTO `monuments_all`
+SELECT 'de-nrw-bm' AS `country`, 
+       'de' AS `lang`,
+	`nummer` AS `id`,
+        `bezeichnung` AS `name`,
+        `adresse` AS `address`,
+        `ortsteil` AS `municipality`,
+        `ns` AS `lat`,
+        `ew` AS `lon`,
+        `bild` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_de-nrw-bm_(de)`;
