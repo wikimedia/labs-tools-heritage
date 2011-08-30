@@ -531,6 +531,88 @@ countries = {
 	    },
 	]
     },
+ ('de-nrw-bm', 'de') : {
+        'project' : u'wikipedia',
+	'lang' : u'de',
+	'headerTemplate' : u'Denkmalliste Bergheim Tabellenkopf',
+	'rowTemplate' : u'Denkmalliste Bergheim Tabellenzeile',
+        'commonsTemplate' : u'Kulturdenkmal',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Bergheim with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Bergheim',
+        'unusedImagesPage' : u'Commons:Wiki Loves Monuments 2011 in Germany/WLM Bergheim/unused images',
+        'imagesWithoutIdPage' : u'Commons:Wiki Loves Monuments 2011 in Germany/WLM Bergheim/without id',
+	'namespaces' : [0],
+	'table' : u'monuments_de-nrw-bm_(de)',
+	'truncate' : False, # Not all ids are filled, just overwrite it
+	'primkey' : u'Nummer',
+	'fields' : [
+	    {
+		'source' : u'Bild',
+		'dest' : u'bild',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Commonscat',
+		'dest' : u'commonscat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'Bezeichnung',
+		'dest' : u'bezeichnung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Ortsteil',
+		'dest' : u'ortsteil',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'NS',
+		'dest' : u'ns',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'EW',
+		'dest' : u'ew',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Nummer',
+		'dest' : u'nummer',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Artikel',
+		'dest' : u'artikel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschreibung',
+		'dest' : u'beschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Bauzeit',
+		'dest' : u'bauzeit',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Eintragung',
+		'dest' : u'eintragung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Aktenzeichen',
+		'dest' : u'aktenzeichen',
+		'conv' : u'',
+	    },
+	],
+    },
     ('ee', 'et') : {
 	'project' : u'wikipedia',
 	'lang' : u'et',
