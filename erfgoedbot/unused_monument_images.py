@@ -29,7 +29,7 @@ def connectDatabase2():
     '''
     Connect to the commons mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
+    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
 
