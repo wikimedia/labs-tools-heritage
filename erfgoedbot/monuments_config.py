@@ -531,7 +531,171 @@ countries = {
 	    },
 	]
     },
- ('de-nrw-bm', 'de') : {
+    ('dk-bygninger', 'da') : {
+        'project' : u'wikipedia',
+	'lang' : u'da',
+	'headerTemplate' : u'Tabelheader FBB',
+	'rowTemplate' : u'Tabelrække FBB',
+        'commonsTemplate' : u'',
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'Listed buildings in Denmark',
+        'unusedImagesPage' : u'',
+        'imagesWithoutIdPage' : u'',
+	'namespaces' : [0],
+	'table' : u'monuments_dk-bygninger_(da)',
+	'truncate' : False,
+	'primkey' : u'systemnrbyg',
+	'fields' : [
+	    {
+		'source' : u'sagsnavn',
+		'dest' : u'sagsnavn',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'komplekstype',
+		'dest' : u'komplekstype',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'opførelsesår',
+		'dest' : u'opforelsesar',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'postnr',
+		'dest' : u'postnr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'by',
+		'dest' : u'by',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'kommunenr',
+		'dest' : u'kommunenr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'ejendomsnr',
+		'dest' : u'ejendomsnr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'bygningsnr',
+		'dest' : u'bygningsnr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'systemnrbyg',
+		'dest' : u'systemnrbyg',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'fredår',
+		'dest' : u'fredar',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'sagsnr',
+		'dest' : u'sagsnr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'billede',
+		'dest' : u'billede',
+		'conv' : u'',
+	    },
+	],
+    },
+    ('dk-fortidsminder', 'da') : {
+        'project' : u'wikipedia',
+	'lang' : u'da',
+	'headerTemplate' : u'Tabelheader FF',
+	'rowTemplate' : u'Tabelrække FF',
+        'commonsTemplate' : u'',
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'Archaeological monuments in Denmark',
+        'unusedImagesPage' : u'',
+        'imagesWithoutIdPage' : u'',
+	'namespaces' : [0],
+	'table' : u'monuments_dk-fortidsminder_(da)',
+	'truncate' : False,
+	'primkey' : u'fredningsnummer',
+	'fields' : [
+	    {
+		'source' : u'stednavn',
+		'dest' : u'stednavn',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'type',
+		'dest' : u'type',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'datering',
+		'dest' : u'datering',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'seværdighed',
+		'dest' : u'sevaedighed',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'systemnummer',
+		'dest' : u'systemnummer',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'anlnr',
+		'dest' : u'anlnr',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'fredningsnummer',
+		'dest' : u'fredningsnummer',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'billede',
+		'dest' : u'billede',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'bemærkning',
+		'dest' : u'bemaerkning',
+		'conv' : u'',
+	    },
+	],
+    },
+    ('de-nrw-bm', 'de') : {
         'project' : u'wikipedia',
 	'lang' : u'de',
 	'headerTemplate' : u'Denkmalliste Bergheim Tabellenkopf',
