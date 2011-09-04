@@ -544,7 +544,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_dk-bygninger_(da)',
 	'truncate' : True, #FIXME: Add combined primkeys to the code
-	'primkey' : (u'kommunenr', u'ejendomsnr', u'systemnrbyg'),
+	'primkey' : (u'kommunenr', u'ejendomsnr', u'bygningsnr'),
 	'fields' : [
 	    {
 		'source' : u'sagsnavn',

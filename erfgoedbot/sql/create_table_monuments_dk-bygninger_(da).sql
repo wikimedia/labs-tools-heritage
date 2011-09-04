@@ -19,7 +19,7 @@ CREATE TABLE `monuments_dk-bygninger_(da)` (
   `billede` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`kommunenr`, `ejendomsnr`, `systemnrbyg`),
+  PRIMARY KEY (`kommunenr`, `ejendomsnr`, `bygningsnr`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -103,7 +103,7 @@ SELECT 'ch' AS `country`,
 REPLACE INTO `monuments_all`
 SELECT 'dk-bygninger' AS `country`,
        'da' AS `lang`,
-	CONCAT(`sagsnr`, '-', `bygningsnr`) AS `id`, 
+	CONCAT(`kommunenr`, '-', `ejendomsnr`, '-', `bygningsnr`) AS `id`, 
 	`sagsnavn` AS `name`,
 	`adresse` AS `address`,
 	`by` AS `municipality`,
