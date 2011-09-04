@@ -9,7 +9,7 @@ CREATE TABLE `monuments_no_(no)` (
   `datering` varchar(128) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
-  `kommunenr`  int(10) NOT NULL DEFAULT '',
+  `kommunenr`  int(10) NOT NULL DEFAULT '0',
   `kommune` varchar(255) NOT NULL DEFAULT '',
   `vernetype` varchar(255) NOT NULL DEFAULT '',
   `kat` varchar(255) NOT NULL DEFAULT '',
