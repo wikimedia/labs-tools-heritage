@@ -15,7 +15,7 @@ CREATE TABLE `monuments_dk-fortidsminder_(da)` (
   `bemaerkning` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`fredningsnummer`),
+  PRIMARY KEY (`systemnummer`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

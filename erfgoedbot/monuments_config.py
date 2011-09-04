@@ -544,7 +544,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_dk-bygninger_(da)',
 	'truncate' : False,
-	'primkey' : u'systemnrbyg',
+	'primkey' : u'sagsnr',
 	'fields' : [
 	    {
 		'source' : u'sagsnavn',
@@ -636,7 +636,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_dk-fortidsminder_(da)',
 	'truncate' : False,
-	'primkey' : u'fredningsnummer',
+	'primkey' : u'systemnummer',
 	'fields' : [
 	    {
 		'source' : u'stednavn',
