@@ -38,6 +38,7 @@
             var a = document.createElement( 'a' );
             a.href = photo.url;
             a.target = '_top';
+            a.title = 'By: ' + photo.uploader;
             a.style.backgroundImage = 'url("' + thumb + '")';
             li.appendChild(a);
 
