@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html><head>
+<?php
+$size=150;
+if (isset($_GET["size"])) {
+    $size=(int)$_GET["size"];
+}
+$margin = intval(10*$size/150); // allow scaled margin
+?><html><head>
     <title></title>
     <style>
-        #photos-wlm {
-            margin: 0;
-            padding: 0;
-        }
+    * {
+        margin:0;
+        padding:0;
+    }
+    #photos-wlm {
+        margin: 0;
+        padding: 0;
+    }
 
-        #photos-wlm li {
-            list-style-type: none;
-        }
+    #photos-wlm li {
+        list-style-type: none;
+    }
 
-        #photos-wlm a {
-            float: left;
-            width: 150px;
-            height: 150px;
-            margin: 10px;
-            background-repeat: no-repeat;
-            background-position: center center;
-        }
+    #photos-wlm a {
+        float: left;
+        width: <?php echo $size; ?>px;
+        height: <?php echo $size; ?>px;
+        margin: 9px;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
     </style>
 <body>
 
@@ -31,15 +41,14 @@
 
     function jscallback(data) {
         for (var i = 0, l = data.length; i < l; i++) {
-            var photo = data[i],
-                thumb = (photo.image + "/150px-.jpg").replace("commons/", "commons/thumb/");
-
+            var photo = data[i];
+            
             var li = document.createElement( 'li' );
             var a = document.createElement( 'a' );
             a.href = photo.url;
             a.target = '_top';
             a.title = 'By: ' + photo.uploader;
-            a.style.backgroundImage = 'url("' + thumb + '")';
+            a.style.backgroundImage = 'url("' + photo.image + '")';
             li.appendChild(a);
 
             photos.appendChild(li);
@@ -49,7 +58,9 @@
     function loadPhotos() {
         var s = document.createElement('script');
         s.id = 'achterkamer';
-        s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback<?php if (isset($_GET['country'])) { echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); } if (isset($_GET['number'])) { echo '&number=' . htmlspecialchars(urlencode($_GET['number'])); } ?>';
+        s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback';
+        s.src = 'http://toolserver.org/~ntavares/patrimonio/tools/wlmlast.php?callback=jscallback';
+        s.src = s.src + '<?php if (isset($_GET['country'])) { echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); } if (isset($_GET['number'])) { echo '&number=' . htmlspecialchars(urlencode($_GET['number'])); } if (isset($_GET['size'])) { echo '&size=' . htmlspecialchars(urlencode($_GET['size'])); } ?>';
         document.getElementsByTagName("head")[0].appendChild(s);
     }
     if (photosDiv) {
