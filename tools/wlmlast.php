@@ -37,30 +37,32 @@ function getLatest($size, $number, $country){
     AND cl_to='" . $category . "'
     ORDER BY rc_timestamp DESC
     LIMIT " . $number);
-
+    
     $returnResult = array();
     $firstrow = True; 
 
     while ($row = $result->fetch_assoc()) {
-	    $upload = array();
-	    $upload['title'] = $row['rc_title'];
-	    $upload['uploader'] = $row['img_user_text'];
-	    $upload['size'] = $size;
-	    $upload['timestamp'] = $row['img_timestamp'];
-	    $upload['url'] = "http://commons.wikimedia.org/wiki/Image:" . $row['rc_title'];
+	$upload = array();
+	$upload['title'] = $row['rc_title'];
+	$upload['uploader'] = $row['img_user_text'];
+	$upload['timestamp'] = $row['img_timestamp'];
+	$upload['url'] = "http://commons.wikimedia.org/wiki/Image:" . $row['rc_title'];
 
-	    $hash = md5($row['rc_title']);
-	    $fullimg = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
-	    //$thumbprefix = "http://upload.wikimedia.org/wikipedia/commons/thumb/"  . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
-
-        $upload['image'] = $fullimg . '/' .  (int)$size . 'px-.jpg';
-    	$returnResult[]=$upload;
+	$hash = md5($row['rc_title']);
+	$fullimg = "http://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+	$thumbprefix = "http://upload.wikimedia.org/wikipedia/commons/thumb/"  . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+    
+	if (!($size==-1) && $size < $row['img_width']) {
+	    $upload['image'] = $thumbprefix . "/" .  (int)$_GET["size"] . "px-" . $title;
+	} else {
+	    $upload['image'] = $fullimg;
+	}
+	$returnResult[]=$upload;
     }
-
     return json_encode($returnResult);
 }
 
-$size=150;
+$size=-1;
 if (isset($_GET["size"])) {
     $size=(int)$_GET["size"];
 }
