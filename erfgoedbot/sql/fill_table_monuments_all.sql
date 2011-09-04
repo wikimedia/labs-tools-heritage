@@ -99,6 +99,34 @@ SELECT 'ch' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ch_(en)`;
+/* Denmark bygninger */
+REPLACE INTO `monuments_all`
+SELECT 'dk-bygninger' AS `country`,
+       'da' AS `lang`,
+	`systemnrbyg` AS `id`, 
+	`sagsnavn` AS `name`,
+	`adresse` AS `address`,
+	`by` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`billede` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_dk-bygninger_(da)`;
+/* Denmark fortidsminder */
+REPLACE INTO `monuments_all`
+SELECT 'dk-fortidsminder' AS `country`,
+       'da' AS `lang`,
+	`fredningsnummer` AS `id`, 
+	`stednavn` AS `name`,
+	'' AS `address`,
+	'' AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`billede` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_dk-fortidsminder_(da)`;
 /* Bergheim, NRW, Germany in German */
 REPLACE INTO `monuments_all`
 SELECT 'de-nrw-bm' AS `country`, 
