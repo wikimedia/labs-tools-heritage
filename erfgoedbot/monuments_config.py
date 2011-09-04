@@ -544,7 +544,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_dk-bygninger_(da)',
 	'truncate' : False,
-	'primkey' : (u'sagsnr', u'bygningsnr'),
+	'primkey' : (u'kommunenr', u'ejendomsnr', u'systemnrbyg'),
 	'fields' : [
 	    {
 		'source' : u'sagsnavn',
