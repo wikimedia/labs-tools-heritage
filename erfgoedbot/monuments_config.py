@@ -636,7 +636,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_dk-fortidsminder_(da)',
 	'truncate' : False,
-	'primkey' : u'systemnummer',
+	'primkey' : (u'systemnummer', u'bygningsnr'),
 	'fields' : [
 	    {
 		'source' : u'stednavn',
