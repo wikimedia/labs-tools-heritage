@@ -40,6 +40,10 @@ class ApiMonuments extends ApiBase {
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 		}
+
+        $params['stcountry'] = array( ApiBase::PARAM_DFLT => 'pt', ApiBase::PARAM_TYPE => 'string' );
+        $params['stitem'] = array( ApiBase::PARAM_DFLT => Statistics::$aItems,
+            ApiBase::PARAM_TYPE => Statistics::$aItems, ApiBase::PARAM_ISMULTI => true );
 		
 		return $params;
 	}
@@ -137,8 +141,13 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function statistics() {
-		// TODO: Code me
-		echo "Provide some statistics code here, please\n";
+		$st = new Statistics( $db = Database::getDb() );
+        $items = $this->getParam( 'stitem' );
+        $filters = explode('|', $this->getParam('stcountry'));
+        $limit = $this->getParam( 'limit' );
+
+        $r = $st->retrieveReport($items, $filters, $limit);
+        $this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
 	}
     
 	function help() {
@@ -188,13 +197,25 @@ Parameters:
   srchanged       - Search for changed.
   bbox            - left,bottom,right,top
                     Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
-  limit           - [integer] (the maximum number of results you will get back
+  limit           - [integer]: the maximum number of results you will get back
   props           - [country|lang|id|name|address|municipality|lat|lon|image|source|changed]: the properties which should be returned. (By default all of them.)
   
   
 Examples:
   <a href="api.php?action=search&amp;srname=%burgerhuizen%">api.php?action=search&amp;srname=%burgerhuizen%</a>
   <a href="api.php?action=search&amp;srcountry=fr&amp;srlang=ca">api.php?action=search&amp;srcountry=fr&amp;srlang=ca</a>
+
+<b>* action=statistics *</b>
+
+Parameters:
+  stcountry       - Statistics for country. Supply the country code.
+  stitem          - [total|name|name_pct|address|address_pct|municipality|municipality_pct|image|image_pct|coordinates|coordinates_pct]: the stats fields which should be returned (By default, all of them).
+  limit           - [integer]: the maximum number of results you will get back (0 for all)
+  
+  
+Examples:
+  <a href="api.php?action=statistics&stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&stcountry=pt&format=html&limit=0">api.php?action=statistics&amp;stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&amp;stcountry=pt&amp;format=html&amp;limit=0</a>
+  <a href="api.php?action=statistics&stcountry=pt&format=csv&limit=0">api.php?action=statistics&amp;stcountry=pt&amp;format=csv&amp;limit=0</a>
 
 <b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
  

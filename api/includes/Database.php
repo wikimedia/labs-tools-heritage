@@ -27,14 +27,13 @@ class Database {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $table );
 		if ( count( $where ) > 0 ) {
-			$sql .= " WHERE " . implode( ' AND ', $where );
+			$sql .= " WHERE (" . implode( ') AND (', $where ).")";
 		}
 		
 		if ( $orderBy )
 			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
 		if ( $limit )
 			$sql .= " LIMIT $limit";
-		
 		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
 	
@@ -55,7 +54,7 @@ class Database {
 	}
 	
 	function quote($str) {
-		return "'" . mysql_real_escape_string( $str, $this->db ) . "'";
+		return "'" . $this->sanitize( $str ) . "'";
 	}
 	
 	function escapeIdentifier($str) {
@@ -76,6 +75,11 @@ class Database {
 		return $obj;
 	}
 	
+	function fetchAssoc($wrapper) {
+		@$obj = mysql_fetch_assoc( $wrapper->result );
+		return $obj;
+	}
+	
 	function freeResult($wrapper) {
 		/* No-op*/
 	}
@@ -83,4 +87,8 @@ class Database {
 	function dataSeek($wrapper, $rowNumber) {
 		return mysql_data_seek( $wrapper->result, $rowNumber );
 	}
+
+    function sanitize($sSQL) {
+        return mysql_real_escape_string( $sSQL, $this->db );
+    }
 }

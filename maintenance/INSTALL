@@ -1,0 +1,13 @@
+CREATE TABLE `statistics` (
+  `day` date NOT NULL,
+  `item` varchar(50) NOT NULL,
+  `idx` varchar(100) NOT NULL,
+  `value` varchar(16) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`day`,`item`,`idx`),
+  KEY `idx_day_idx` (`day`,`idx`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE monuments_all ADD INDEX idx_ctry_municp(country,municipality);
+
+

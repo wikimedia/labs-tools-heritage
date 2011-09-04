@@ -33,6 +33,17 @@ class FormatHtml extends FormatBase {
 		echo 'tr{ background:lightsteelblue; opacity:0.8; }';$this->linebreak();
 		echo 'tr:hover { opacity:0.99; }';$this->linebreak();
 		echo 'tr#header { opacity:0.99; }';$this->linebreak();
+        echo 'td.ht0 { background-color: #f00; }';$this->linebreak();
+        echo 'td.ht1 { background-color: #f30; }';$this->linebreak();
+        echo 'td.ht2 { background-color: #f60; }';$this->linebreak();
+        echo 'td.ht3 { background-color: #f90; }';$this->linebreak();
+        echo 'td.ht4 { background-color: #fc0; }';$this->linebreak();
+        echo 'td.ht5 { background-color: #ff0; }';$this->linebreak();
+        echo 'td.ht6 { background-color: #cf0; }';$this->linebreak();
+        echo 'td.ht7 { background-color: #9f0; }';$this->linebreak();
+        echo 'td.ht8 { background-color: #6f0; }';$this->linebreak();
+        echo 'td.ht9 { background-color: #3f0; }';$this->linebreak();
+        echo 'td.ht10 { background-color: #0f0; }';$this->linebreak();
 		echo "</style>\n</head>\n<body>\n<table>\n";
 		
 		$this->isFirstRow = true;
@@ -70,6 +81,7 @@ class FormatHtml extends FormatBase {
 		echo '<tr>';
 		$this->linebreak();
 		foreach ( $row as $name => $value ) {
+            $tdattrs = '';
 			$cellData = '';
 			if ( in_array( $name, $selectedItems ) ) {
 				if ($name == "image") { 
@@ -78,12 +90,21 @@ class FormatHtml extends FormatBase {
 					$cellData = self::prettifyUrls( $value ); 
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
-					$cellData = processWikitext($row->lang, $value, $makeLinks);
+                    // not all datasets are ResultWrapper
+                    if ( is_object($row) && isset($row->lang) ) {
+                        $lang = $row->lang;
+                    } else { // assume $row is array
+                        $lang = $row['lang'];
+                    }
+                    $cellData = processWikitext($lang, $value, $makeLinks);
+				} elseif (strpos(strrev($name),'tcp_') === 0) { // capture Statistics _pct fields
+                    $tdattrs = ' class="ht'.(intval($value/10)).'"';
+                    $cellData = $value.' %';
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}
 				
-				echo '<td>' . $cellData . '</td>';$this->linebreak(); 
+				echo '<td'.$tdattrs.'>' . $cellData . '</td>';$this->linebreak(); 
 			}
 		}
 		echo '</tr>';$this->linebreak();
