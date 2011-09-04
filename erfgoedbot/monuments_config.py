@@ -1382,6 +1382,11 @@ countries = {
 		'dest' : u'lon',
 		'conv' : u'',
 	    },
+            {
+		'source' : u'koordynaty', # To get rid of errors
+		'dest' : u'koordynaty',
+		'conv' : u'',
+	    },
 	    {
 		'source' : u'zdjęcie',
 		'dest' : u'zdjecie',

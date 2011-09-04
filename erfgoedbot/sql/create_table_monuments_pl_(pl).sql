@@ -8,6 +8,7 @@ CREATE TABLE `monuments_pl_(pl)` (
   `gmina` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
+  `koordynaty` varchar(255) NOT NULL DEFAULT '',
   `zdjecie` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
