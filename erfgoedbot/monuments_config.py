@@ -543,7 +543,7 @@ countries = {
         'imagesWithoutIdPage' : u'',
 	'namespaces' : [0],
 	'table' : u'monuments_dk-bygninger_(da)',
-	'truncate' : False,
+	'truncate' : True, #FIXME: Add combined primkeys to the code
 	'primkey' : (u'kommunenr', u'ejendomsnr', u'systemnrbyg'),
 	'fields' : [
 	    {
