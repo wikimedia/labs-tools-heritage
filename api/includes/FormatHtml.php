@@ -27,24 +27,9 @@ class FormatHtml extends FormatBase {
 		echo '<html>';$this->linebreak();
 		echo '<head>';$this->linebreak();
 		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';$this->linebreak();
-		echo '<style type="text/css">';$this->linebreak();
-		echo 'td, th,table { border: 1px solid gray; border-collapse: collapse; }';$this->linebreak();
-		echo 'th { background:steelblue; }';$this->linebreak();
-		echo 'tr{ background:lightsteelblue; opacity:0.8; }';$this->linebreak();
-		echo 'tr:hover { opacity:0.99; }';$this->linebreak();
-		echo 'tr#header { opacity:0.99; }';$this->linebreak();
-        echo 'td.ht0 { background-color: #f00; }';$this->linebreak();
-        echo 'td.ht1 { background-color: #f30; }';$this->linebreak();
-        echo 'td.ht2 { background-color: #f60; }';$this->linebreak();
-        echo 'td.ht3 { background-color: #f90; }';$this->linebreak();
-        echo 'td.ht4 { background-color: #fc0; }';$this->linebreak();
-        echo 'td.ht5 { background-color: #ff0; }';$this->linebreak();
-        echo 'td.ht6 { background-color: #cf0; }';$this->linebreak();
-        echo 'td.ht7 { background-color: #9f0; }';$this->linebreak();
-        echo 'td.ht8 { background-color: #6f0; }';$this->linebreak();
-        echo 'td.ht9 { background-color: #3f0; }';$this->linebreak();
-        echo 'td.ht10 { background-color: #0f0; }';$this->linebreak();
-		echo "</style>\n</head>\n<body>\n<table>\n";
+		echo '<link media="all" type="text/css" href="/~ntavares/patrimonio/api/jscss/style.css" rel="stylesheet">';$this->linebreak();
+		echo '<script src="/~ntavares/patrimonio/api/jscss/custom.js" type="text/javascript"></script>';
+        echo "</head>\n<body>\n<table class=\"sortable\" id=\"sortable_table_id_0\">\n";
 		
 		$this->isFirstRow = true;
 	}
@@ -69,7 +54,8 @@ class FormatHtml extends FormatBase {
 			
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
-					echo '<th>' . $name . '</th>'; $this->linebreak();
+                    //$label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
+					echo '<th class="sortheader">' . $name . '</th>'; $this->linebreak();
 				}
 			}
 			echo '</tr>';
@@ -99,7 +85,7 @@ class FormatHtml extends FormatBase {
                     $cellData = processWikitext($lang, $value, $makeLinks);
 				} elseif (strpos(strrev($name),'tcp_') === 0) { // capture Statistics _pct fields
                     $tdattrs = ' class="ht'.(intval($value/10)).'"';
-                    $cellData = $value.' %';
+                    $cellData = $value; //.' %' // this will break sorting! :(;
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}

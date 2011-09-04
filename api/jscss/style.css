@@ -1,0 +1,21 @@
+td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: sans-serif; font-size: 12px;}
+th { background:steelblue; }
+tr{ background:lightsteelblue; opacity:0.8; }
+tr:hover { opacity:0.99; }
+tr#header { opacity:0.99; }
+td.ht0 { background-color: #f00; }
+td.ht1 { background-color: #f30; }
+td.ht2 { background-color: #f60; }
+td.ht3 { background-color: #f90; }
+td.ht4 { background-color: #fc0; }
+td.ht5 { background-color: #ff0; }
+td.ht6 { background-color: #cf0; }
+td.ht7 { background-color: #9f0; }
+td.ht8 { background-color: #6f0; }
+td.ht9 { background-color: #3f0; }
+td.ht10 { background-color: #0f0; }
+img { 
+    border: medium none;
+    vertical-align: middle;
+}
+
