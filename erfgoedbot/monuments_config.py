@@ -539,8 +539,8 @@ countries = {
         'commonsTemplate' : u'Kulturdenkmal Bergheim',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Bergheim with known ID',
         'commonsCategoryBase' : u'Cultural heritage monuments in Bergheim',
-        'unusedImagesPage' : u'Commons:Wiki Loves Monuments 2011 in Germany/WLM Bergheim/unused images',
-        'imagesWithoutIdPage' : u'Commons:Wiki Loves Monuments 2011 in Germany/WLM Bergheim/without id',
+        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments Bergheim/Ungenutzte Bilder',
+        'imagesWithoutIdPage' : u'Wikipedia:Wiki Loves Monuments Bergheim/Bilder ohne Nummer',
 	'namespaces' : [0],
 	'table' : u'monuments_de-nrw-bm_(de)',
 	'truncate' : False, # Not all ids are filled, just overwrite it
