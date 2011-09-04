@@ -38,7 +38,7 @@ def outputStatistics(statistics):
 		#print statistics[country][language]
 
                 output = output + u'|-\n'
-                output = output + u'| [http://toolserver.org/~erfgoed/api/api.php?action=statistics&stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[country][language]
+                output = output + u'| [http://toolserver.org/~erfgoed/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[country][language]
                 output = output + u'|| %(lang)s || %(all)s ' % statistics[country][language]
                 output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % statistics[country][language]
