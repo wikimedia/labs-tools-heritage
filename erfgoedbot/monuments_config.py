@@ -1506,6 +1506,93 @@ countries = {
 	    },
 	],
     },
+    ('no', 'no') : {
+        'project' : u'wikipedia',
+	'lang' : u'no',
+	'headerTemplate' : u'Kulturminner header',
+	'rowTemplate' : u'Kulturminner row',
+        'commonsTemplate' : u'Monument Norge',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Norway with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Norway',
+        'unusedImagesPage' : u'User:Multichill/Unused monument photos',
+        'imagesWithoutIdPage' : u'User:Multichill/Monument photos without an ID',
+	'namespaces' : [4],
+	'table' : u'monuments_no_(no)',
+	'truncate' : False,
+	'primkey' : u'id',
+	'fields' : [
+	    {
+		'source' : u'id',
+		'dest' : u'id',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'navn',
+		'dest' : u'navn',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'artikkel',
+		'dest' : u'artikkel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'kategori',
+		'dest' : u'kategori',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'datering',
+		'dest' : u'datering',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'kommunenr',
+		'dest' : u'kommunenr',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'kommune',
+		'dest' : u'kommune',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'vernetype',
+		'dest' : u'vernetype',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'kat',
+		'dest' : u'kat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'tilrettel',
+		'dest' : u'tilrettel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'verdensarv',
+		'dest' : u'verdensarv',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'bilde',
+		'dest' : u'bilde',
+		'conv' : u'',
+	    },
+	],
+    },
     ('pl', 'pl') : {
         'project' : u'wikipedia',
 	'lang' : u'pl',
