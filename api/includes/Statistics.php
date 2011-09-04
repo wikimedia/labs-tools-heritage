@@ -120,62 +120,8 @@ class Statistics {
     }
 
 
-    function lazyOutput() {
-        echo '<table id="chart_'.md5(implode($this->getSanitizedParam('item'))).'">';
-        // get columns
-        if ( $this->getSanitizedParam('groupby')==='item' ) {
-            echo '<tr><th>country</th><th>municipality</th>';
-        } else {
-            echo '<tr><th>item</th>';
-        }
-        foreach ($this->axis['columns'] as $col) {
-            if ( $this->getSanitizedParam('groupby')==='item' ) {
-                $col = substr($col, strlen(Statistics::fieldPrefix));
-            }
-            echo '<th>'.$col.'</th>';
-        }
-        echo '</tr>';
-        // get rows
-        $cl = 'odd';
-        foreach ($this->report as $rowitem => $rowdata) {
-            if ( $cl == 'odd' ) { 
-                $cl = 'even';
-            } else {
-                $cl = 'odd';
-            }
-            
-            echo '<tr class="'.$cl.'">';
-            if ( $this->getSanitizedParam('groupby')==='item' ) {
-                list($country,$rowitem) = explode(':', $rowitem, 2);
-                echo '<td class="idx">'.$country.'</td>';
-            } else {
-                $rowitem = substr($rowitem, strlen(Statistics::$fieldPrefix));
-            }
-            echo '<td class="idx">'.$rowitem.'</td>';
-            foreach ($this->axis['columns'] as $i) { // automatic sort
-                $suffix = '';
-                $tdclass = '';
-                if ( (($this->getSanitizedParam('groupby')==='item') and strrpos($i, '_pct'))
-                    or (($this->getSanitizedParam('groupby')==='country') and strrpos($rowitem, '_pct')) ) {
-                    $suffix = ' %';
-                    if ( $this->getSanitizedParam('color') === 'heatpct' ) {
-                        $tdclass = ' class="ht'.(intval($rowdata[$i]/10)).'"';
-                    }
-                }
-                echo '<td'.$tdclass.'>'.$rowdata[$i].$suffix.'</td>';
-            }
-            echo '</tr>';
-        }
-        print '</table>';
-    }
-
     function getAxis($sAxis) {
         return $this->axis[$sAxis];
-    }
-
-    function output() {
-        $this->retrieveReport();
-        $this->lazyOutput();
     }
 
 }

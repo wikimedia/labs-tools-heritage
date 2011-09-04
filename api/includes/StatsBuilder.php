@@ -5,7 +5,7 @@
  *
  * Needs the DB table and adjustments described in INSTALL
  *
- * May be optimized by INSERTing in batches
+ * NOTE May be optimized by INSERTing in batches
  */
 
 
@@ -31,8 +31,8 @@ class StatsBuilder extends Statistics {
     var $aFields = null; // built on constructor, to allow Statistics::$fieldPrefix
 
     /** Indicates where report should be built in RAM
-    * false - more RAM, but traceable;
-    * true - much less RAM, no traceability, not necessarily faster?
+    * true - more RAM, but traceable;
+    * false - much less RAM, no traceability, not necessarily faster?
     */
     static $bBuildInRAM = true;  
 
@@ -54,7 +54,7 @@ class StatsBuilder extends Statistics {
         //   INSERT DELAYED should be used only for INSERT statements that specify value lists. 
         //   The server ignores DELAYED for INSERT ... SELECT or INSERT ... ON DUPLICATE KEY UPDATE statements.
         // Anyway, from the benchmarks, there was no actual gain.
-	    $sql = 'INSERT INTO '.Statistics::$dbTable.' VALUES(CURRENT_DATE(),"'.$item.'","'.$index.'","'.$value.'") ON DUPLICATE KEY UPDATE value = "'.$value.'"';
+	    $sql = 'INSERT INTO '.Statistics::$dbTable.' VALUES("'.$this->getLatestDay().'","'.$item.'","'.$index.'","'.$value.'") ON DUPLICATE KEY UPDATE value = "'.$value.'"';
         //$this->debug("  + SQL: $sql");
 	    return $this->db->query($sql);
     }
@@ -64,8 +64,8 @@ class StatsBuilder extends Statistics {
      * Wipe "Latest Day" statistics (removing changing) 
      */
     private function clearLatestData() {
-        $this->debug('Clearing latest stats');
-        $sql = 'DELETE FROM '.Statistics::$dbTable.' WHERE day = CURRENT_DATE()';
+        $this->debug('Clearing latest stats: '.$this->getLatestDay());
+        $sql = 'DELETE FROM '.Statistics::$dbTable.' WHERE day = "'.$this->getLatestDay().'"';
         $this->db->query($sql);
     }
 

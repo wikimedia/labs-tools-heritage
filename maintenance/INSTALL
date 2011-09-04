@@ -8,6 +8,6 @@ CREATE TABLE `statistics` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
-ALTER TABLE monuments_all ADD INDEX idx_ctry_municp(country,municipality);
+-- ALTER TABLE monuments_all ADD INDEX idx_ctry_municp(country,municipality);
 
 
