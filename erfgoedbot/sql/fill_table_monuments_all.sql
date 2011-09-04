@@ -99,6 +99,20 @@ SELECT 'ch' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ch_(en)`;
+/* Bergheim, NRW, Germany in German */
+REPLACE INTO `monuments_all`
+SELECT 'de-nrw-bm' AS `country`, 
+    'de' AS `lang`,
+	`nummer` AS `id`,
+    `bezeichnung` AS `name`,
+    `adresse` AS `address`,
+    `ortsteil` AS `municipality`,
+    `ns` AS `lat`,
+    `ew` AS `lon`,
+    `bild` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_de-nrw-bm_(de)`;
 /* Estonia */
 REPLACE INTO `monuments_all`
 SELECT 'ee' AS `country`,
@@ -298,7 +312,7 @@ SELECT 'ro' AS `country`,
 	FROM `monuments_ro_(ro)`;
 /* Sweden */
 REPLACE INTO `monuments_all`
-SELECT 'sv' AS `country`,
+SELECT 'se' AS `country`,
        'sv' AS `lang`,
 	`bbr` AS `id`, 
 	`namn` AS `name`,
@@ -309,18 +323,4 @@ SELECT 'sv' AS `country`,
 	`bild` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`
-	FROM `monuments_sv_(sv)`;
-/* Bergheim, NRW, Germany in German */
-REPLACE INTO `monuments_all`
-SELECT 'de-nrw-bm' AS `country`, 
-       'de' AS `lang`,
-	`nummer` AS `id`,
-        `bezeichnung` AS `name`,
-        `adresse` AS `address`,
-        `ortsteil` AS `municipality`,
-        `ns` AS `lat`,
-        `ew` AS `lon`,
-        `bild` AS `image`,
-        `source` AS `source`,
-        `changed` AS `changed`
-        FROM `monuments_de-nrw-bm_(de)`;
+	FROM `monuments_se_(sv)`;

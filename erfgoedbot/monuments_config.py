@@ -1530,19 +1530,19 @@ countries = {
 	    },
         ],
     },
-    ('sv', 'sv') : {
+    ('se', 'sv') : {
         'project' : u'wikipedia',
 	'lang' : u'sv',
 	'headerTemplate' : u'', #Confusing
 	'rowTemplate' : u'BBR',
         'footerTemplate' : u'',
-        'commonsTemplate' : u'Monument istoric',
-        'commonsTrackerCategory' : u'',
-        'commonsCategoryBase' : u'',
-        'unusedImagesPage' : u'',
-        'imagesWithoutIdPage' : u'',
+        'commonsTemplate' : u'Fornminne',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Sweden with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Sweden',
+        'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
+        'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
 	'namespaces' : [0],
-	'table' : u'monuments_sv_(sv)',
+	'table' : u'monuments_se_(sv)',
 	'truncate' : False, 
 	'primkey' : u'bbr',
 	'fields' : [
