@@ -46,7 +46,7 @@ $margin = intval(10*$size/150); // allow scaled margin
             var li = document.createElement( 'li' );
             var a = document.createElement( 'a' );
             a.href = photo.url;
-            a.target = '_top';
+            a.target = '_blank';
             a.title = 'By: ' + photo.uploader;
             a.style.backgroundImage = 'url("' + photo.image + '")';
             li.appendChild(a);
