@@ -1,8 +1,8 @@
 /* Create table statement for monuments in Sweden in Swedish */
 connect p_erfgoed_p sql.toolserver.org;
-DROP TABLE IF EXISTS `monuments_sv_(sv)`;
-CREATE TABLE `monuments_sv_(sv)` (
-  `bbr` int(25) NOT NULL DEFAULT '0',
+DROP TABLE IF EXISTS `monuments_se_(sv)`;
+CREATE TABLE `monuments_se_(sv)` (
+  `bbr` varchar(25) NOT NULL DEFAULT '0',
   `namn` varchar(255) NOT NULL DEFAULT '',
   `funktion` varchar(255) NOT NULL DEFAULT '',
   `byggar` varchar(255) NOT NULL DEFAULT '',
