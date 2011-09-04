@@ -48,7 +48,7 @@
     function loadPhotos() {
         var s = document.createElement('script');
         s.id = 'achterkamer';
-        s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback<?php if (isset($_GET['country'])) echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); ?>';
+        s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback<?php if (isset($_GET['country'])) { echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); } if (isset($_GET['number'])) { echo '&number=' . htmlspecialchars(urlencode($_GET['number'])); } ?>';
         document.getElementsByTagName("head")[0].appendChild(s);
     }
     if (photosDiv) {
