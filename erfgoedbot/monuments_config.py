@@ -695,7 +695,7 @@ countries = {
 	    },
 	],
     },
-('de-he', 'de') : {
+    ('de-he', 'de') : {
         'project' : u'wikipedia',
 	'lang' : u'de',
 	'headerTemplate' : u'Denkmalliste Hessen Tabellenkopf',
