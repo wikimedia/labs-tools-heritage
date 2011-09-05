@@ -23,11 +23,22 @@ class Database {
 		return substr( $l, 1 );
 	}
 	
+	function implodeConds($where, $glue) {
+		$text = '';
+		foreach ($where as $key => $value) {
+			if ( is_int( $key ) )
+				$text .= $value . $glue;
+			else
+				$text .= $this->implodeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
+		}
+		return substr( $text, 0, -strlen( $glue ) );
+	}
+	
 	function select($fields, $table, $where, $orderBy = false, $limit = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $table );
 		if ( count( $where ) > 0 ) {
-			$sql .= " WHERE (" . implode( ') AND (', $where ).")";
+			$sql .= " WHERE (" . $this->implodeConds( $where, ') AND (' ) . ')';
 		}
 		
 		if ( $orderBy )
