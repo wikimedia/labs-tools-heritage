@@ -21,10 +21,7 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	$lang = $_GET["lang"];
 
 	$date = '';
-	$where = array();
-	$where[] = $db->escapeIdentifier( 'country' ) . '=' . $db->quote( $country );
-	$where[] = $db->escapeIdentifier( 'lang' ) . '=' . $db->quote( $lang );
-	$qres = $db->select( array( 'changed' ), 'id_dump', $where, false, 1);
+	$qres = $db->select( array( 'changed' ), 'id_dump', array( 'country' => $country, 'lang' => $lang ), false, 1);
 	foreach ( $qres as $row ) {
 		$date = $row->changed;
 	}
@@ -40,11 +37,7 @@ if (isset($_GET["country"]) AND isset($_GET["lang"])) {
 	foreach ( $qres as $row ) {
 		print '<tr><td>' . htmlspecialchars( $row->id ) . '</td><td></td></tr>';
 
-		$where = array();
-		$where[] = $db->escapeIdentifier( 'country' ) . '=' . $db->quote( $country );
-		$where[] = $db->escapeIdentifier( 'lang' ) . '=' . $db->quote( $lang );
-		$where[] = $db->escapeIdentifier( 'id' ) . '=' . $db->quote( $row->id );
-		$dres = $db->select( array( 'source' ), 'id_dump', $where );
+		$dres = $db->select( array( 'source' ), 'id_dump', array( 'country' => $country, 'lang' => $lang, 'id' => $row->id ) );
 		foreach ( $dres as $drow ) {
 			print '<tr><td></td><td><a href="'. htmlspecialchars( $drow->source ) .'">' . htmlspecialchars( $drow->source ) . '</a></td></tr>';
 		}
