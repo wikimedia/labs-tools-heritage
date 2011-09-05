@@ -1,4 +1,4 @@
-td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: sans-serif; font-size: 12px;}
+td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: sans-serif;}
 th { background:steelblue; }
 tr{ background:lightsteelblue; opacity:0.8; }
 tr:hover { opacity:0.99; }
