@@ -31,10 +31,44 @@ header('Content-type: text/html;; charset=utf-8');
         background-repeat: no-repeat;
         background-position: center center;
     }
+<?php
+    if (isset($_GET['width'])) {
+        echo 'table { width: '.$_GET['width']."; }\n\n";
+    }
+?>
+    td {
+        text-align: right;
+    }
+    td.lbl {
+        text-align: left;
+    }
     </style>
+    <link media="all" type="text/css" href="/~ntavares/patrimonio/api/jscss/style.css" rel="stylesheet">
+    <script src="/~ntavares/patrimonio/api/jscss/custom.js" type="text/javascript"></script>
 <body>
 
 <?
+$i18n = array(
+    'pt' => array(
+        'Participant' => 'Participante',
+        'Participating in' => 'Participa em',
+        'Submissions' => 'Fotografias',
+        'Accepted'    => 'Validadas',
+        'Images'      => 'Lista de imagens',
+        'Country'     => 'Pa&iacute;s',
+        'Different Users'     => 'Participantes distintos',
+        'User Ratio'  => 'Rácio por utilizador',
+    ),
+);
+
+function _T($lbl) {
+    global $i18n, $lang;
+    if (isset($i18n[$lang][$lbl])) {
+        return $i18n[$lang][$lbl];
+    }
+    return $lbl;
+}
+
 function getUserRankings($limit, $country, $showopts){
     //print "showopts: ".implode('|',$showopts)."\n";
     $ts_pw = posix_getpwuid(posix_getuid());
@@ -106,29 +140,29 @@ function getUserRankings($limit, $country, $showopts){
 
     $result = $db->query($sql);
 
-    echo '<table>';
-    echo '<tr><th>Participant</th><th>Submissions</th><th>Accepted</th>';
+    echo '<table class="sortable">';
+    echo '<tr><th>'._T('Participant').'</th><th>'._T('Submissions').'</th><th>'._T('Accepted').'</th>';
     if ( !$country ) {
-        echo '<th>Participating in</th>';
+        echo '<th>'._T('Participating in').'</th>';
     }
     if ( in_array('images', $showopts) ) {
-        echo '<th>Images</th>';
+        echo '<th>'._T('Images').'</th>';
     }
     echo '</tr>';
     while ($row = $result->fetch_assoc()) {
         if ( in_array('links', $showopts) ) {
-                $username = '<a href="http://commons.wikimedia.org/wiki/Special:Contributions/'.$row['user_name'].'">'.$row['user_name'].'</a>';
+                $username = '<a target="_blank" href="http://commons.wikimedia.org/wiki/Special:Contributions/'.$row['user_name'].'">'.$row['user_name'].'</a>';
         } else {
                 $username = $row['user_name'];
         }
-        echo '<tr><td>'.$username.'</td>';
+        echo '<tr><td class="lbl">'.$username.'</td>';
         echo '<td>'.$row['total'].'</td><td>'.$row['reviewed'].'</td>';
         if ( !$country ) {
             $countries = explode('[,]', $row['countries']);
             $countries_a = array();
             for($i=0;$i<count($countries);$i++) {  
                 if ( in_array('links', $showopts) ) {
-                    $countries_a[] .= '<a href="rankings.php?limit='.$limit.'&show='.implode('|',$showopts).'&country='.$countries[$i].'">'.$countries[$i].'</a>';
+                    $countries_a[] .= '<a target="_blank" href="rankings.php?limit='.$limit.'&show='.implode('|',$showopts).'&country='.$countries[$i].'">'.$countries[$i].'</a>';
                 } else {
                     $countries_a[] .= $countries[$i];
                 }
@@ -146,7 +180,7 @@ function getUserRankings($limit, $country, $showopts){
             }
             $images_a = array();
             for($i=0;$i<count($images);$i++) {
-                $images_a[] = '<a href="http://commons.wikimedia.org/wiki/Image:'.$images[$i].'">['.($i+1).']</a>';
+                $images_a[] = '<a target="_blank" href="http://commons.wikimedia.org/wiki/Image:'.$images[$i].'">['.($i+1).']</a>';
             }
             echo '<td><small>'.implode(', ', $images_a).'</small>'.$endmarker.'</td>';
         }
@@ -195,21 +229,21 @@ function getCountryRankings($limit, $showopts) {
 
     $result = $db->query($sql);
 
-    echo '<table>';
-    echo '<tr><th>Country</th><th>Submissions</th><th>Different Users</th><th>User Ratio</th></tr>';
+    echo '<table class="sortable">';
+    echo '<tr><th>'._T('Country').'</th><th>'._T('Submissions').'</th><th>'._T('Different Users').'</th><th>'._T('User Ratio').' (%)</th></tr>';
     while ($row = $result->fetch_assoc()) {
         if ( in_array('links', $showopts) ) {
-                $country = '<a href="http://commons.wikimedia.org/wiki/Commons:Wiki Loves Monuments 2011 in '.$row['country'].'">'.$row['country'].'</a>';
-                $images = '<a href="http://commons.wikimedia.org/wiki/Category:Images from Wiki Loves Monuments 2011 in '.$row['country'].'">'.$row['n_images'].'</a>';
+                $country = '<a target="_blank" href="rankings.php?limit='.$limit.'&show='.implode('|',$showopts).'&country='.$row['country'].'">'.$row['country'].'</a>';
+                $images = '<a target="_blank" href="http://commons.wikimedia.org/wiki/Category:Images from Wiki Loves Monuments 2011 in '.$row['country'].'">'.$row['n_images'].'</a>';
         } else {
                 $country = $row['country'];
                 $images = $row['n_images'];
         }
         $users = $row['n_users'];
-        $user_ratio = sprintf("%.2f", $row['user_ratio']).' %';
+        $user_ratio = sprintf("%.2f", $row['user_ratio']); // .' %'; // this breaks sorting :(
 
         echo '<tr>';
-        echo '<td>'.$country.'</td>';
+        echo '<td class="lbl">'.$country.'</td>';
         echo '<td>'.$images.'</td>';
         echo '<td>'.$users.'</td>';
         echo '<td>'.$user_ratio.'</td>';
@@ -223,6 +257,11 @@ function getCountryRankings($limit, $showopts) {
 $limit = 30;
 if (isset($_GET['limit'])) {
     $limit = $_GET['limit'];
+}
+
+$lang = 'en';
+if (isset($_GET['lang'])) {
+    $lang = $_GET['lang'];
 }
 
 $show = ''; // images
