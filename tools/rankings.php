@@ -90,6 +90,7 @@ function getUserRankings($limit, $country, $showopts){
                 , COUNT(1) AS total
                 , SUM(IF(cl2.cl_to IS NULL, 0, 1)) AS reviewed
                 , GROUP_CONCAT(DISTINCT p.page_title SEPARATOR "[,]") AS images
+                , INSTR(GROUP_CONCAT(DISTINCT ug.ug_group), "bot") AS found_bot
             FROM categorylinks cl 
             LEFT JOIN categorylinks cl2 ON cl2.cl_from = cl.cl_from
                 AND cl2.cl_to = "'.$categoryr.'"
@@ -98,8 +99,10 @@ function getUserRankings($limit, $country, $showopts){
                 AND p.page_is_redirect = 0
             JOIN image i ON i.img_name = p.page_title
             JOIN user u ON u.user_id = i.img_user
+            LEFT JOIN user_groups ug ON ug.ug_user = u.user_id
             WHERE cl.cl_to = "'.$category.'"
             GROUP BY u.user_name
+            HAVING found_bot <= 0 OR found_bot IS NULL
             ORDER BY total DESC
             LIMIT '.$limit;
     } else {
@@ -115,6 +118,7 @@ function getUserRankings($limit, $country, $showopts){
                 , GROUP_CONCAT(DISTINCT cl3.country SEPARATOR "[,]") AS countries
                 , count(DISTINCT cl3.country) AS n_countries
                 , GROUP_CONCAT(DISTINCT p.page_title SEPARATOR "[,]") AS images
+                , INSTR(GROUP_CONCAT(DISTINCT ug.ug_group), "bot") AS found_bot
             FROM categorylinks cl 
             LEFT JOIN categorylinks cl2 ON cl2.cl_from = cl.cl_from
                 AND cl2.cl_to = "Reviewed images_from_Wiki_Loves_Monuments_2011"
@@ -129,9 +133,10 @@ function getUserRankings($limit, $country, $showopts){
                 AND p.page_is_redirect = 0
             JOIN image i ON i.img_name = p.page_title
             JOIN user u ON u.user_id = i.img_user
-            JOIN user_groups ug ON ug.ug_user = u.user_id AND ug.ug_group <> "bot"
+            LEFT JOIN user_groups ug ON ug.ug_user = u.user_id
             WHERE cl.cl_to = "Images_from_Wiki_Loves_Monuments_2011"
             GROUP BY u.user_name
+            HAVING found_bot <= 0 OR found_bot IS NULL
             ORDER BY /* n_countries DESC, */ total DESC
             LIMIT '.$limit;
     }
