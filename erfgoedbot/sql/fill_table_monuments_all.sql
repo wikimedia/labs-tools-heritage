@@ -141,6 +141,20 @@ SELECT 'de-nrw-bm' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_de-nrw-bm_(de)`;
+/* Hessen, Germany in German */
+REPLACE INTO `monuments_all`
+SELECT 'de-he' AS `country`, 
+    'de' AS `lang`,
+	`nummer` AS `id`,
+    `bezeichnung` AS `name`,
+    `adresse` AS `address`,
+    `stadt` AS `municipality`,
+    `ns` AS `lat`,
+    `ew` AS `lon`,
+    `bild` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_de-he_(de)`;
 /* Estonia */
 REPLACE INTO `monuments_all`
 SELECT 'ee' AS `country`,
