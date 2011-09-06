@@ -1042,6 +1042,11 @@ countries = {
 		'dest' : u'imagen',
 		'conv' : u'',
 	    },
+           {
+               'source' : u'title',
+               'dest' : u'title',
+               'conv' : u'',
+            },
 	],
     },
     ('es-ct', 'ca') : {

@@ -102,7 +102,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
     #print u'updating!'
     #time.sleep(5)
 
-def processMonument(params, source, countryconfig, conn, cursor):
+def processMonument(params, source, countryconfig, conn, cursor, title):
     '''
     Process a single instance of a monument row template
     '''
@@ -132,6 +132,7 @@ def processMonument(params, source, countryconfig, conn, cursor):
     contents['source'] = source
     for field in countryconfig.get('fields'):
 	contents[field.get(u'source')]=u''
+    contents['title'] = title
 
     for param in params:
 	#Split at =
@@ -171,7 +172,7 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	if template==countryconfig.get('rowTemplate'):
 	    #print template
 	    #print params
-	    processMonument(params, source, countryconfig, conn, cursor)
+	    processMonument(params, source, countryconfig, conn, cursor, page.title(True))
 	    #time.sleep(5)
 
 def processCountry(countryconfig, conn, cursor):
