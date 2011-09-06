@@ -149,7 +149,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title):
                 contents[field] = value # Do this somewhere else.replace("'", "\\'")
             else:
                 #FIXME: Include more information where it went wrong
-                wikipedia.output(u'Found unknown field: %s' % field)
+                wikipedia.output(u'Found unknown field: %s on page %s' % (field, title) )
 		wikipedia.output(u'Field: %s' % (field,))
 		wikipedia.output(u'Value: %s' % (value,))
                 #time.sleep(5)
