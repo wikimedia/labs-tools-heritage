@@ -12,6 +12,7 @@ CREATE TABLE `monuments_es_(ca)` (
   `nomcoor` varchar(255) NOT NULL DEFAULT '',
   `imatge` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
+  `title`  varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`bic`),
   KEY `latitude` (`lat`),

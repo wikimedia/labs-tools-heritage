@@ -970,6 +970,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+           {
+               'source' : u'title',
+               'dest' : u'title',
+               'conv' : u'',
+            },
 	],
     },
     ('es', 'es') : {
@@ -1122,6 +1127,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+           {
+               'source' : u'title',
+               'dest' : u'title',
+               'conv' : u'',
+            },
 	],
     },
         ('es-vc', 'ca') : {
@@ -1187,6 +1197,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+           {
+               'source' : u'title',
+               'dest' : u'title',
+               'conv' : u'',
+            },
 	],
     },
     ('fr', 'ca') : {
