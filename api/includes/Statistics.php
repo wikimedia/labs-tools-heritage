@@ -10,30 +10,15 @@ ini_set('display_errors', 1);
 ini_set('error_reporting', E_ALL);
 
 
-class Statistics {
+class Statistics extends StatisticsBase {
     static $dbTable = 'statistics';
-    var $db = null;
     var $report = array();
     var $axis = array();
     static $fieldPrefix = 'st_';
 
     var $lastDay = '';
-    var $_errorMsg = '';
-
-    var $__bDebug = true;
-
     static $aItems = array('address', 'address_pct', 'coordinates', 'coordinates_pct', 'image', 'image_pct', 'municipality', 'municipality_pct', 'name', 'name_pct', 'total' );
 
-    function __construct($oDB = null) {
-        $this->db = $oDB;
-    }
-
-
-    function debug($msg) {
-        if ( $this->__bDebug ) {
-            print "[d] ".$msg."\n";
-        }
-    }
 
     function getLatestDay() {
         if ( empty($this->lastDay) ) {
@@ -46,19 +31,6 @@ class Statistics {
         return $this->lastDay;
     }
 
-
-    // TODO
-    function getSanitizedParam($sParam) {
-        return isset($_GET[$sParam])?$_GET[$sParam]:false;
-    }
-
-    private function setErrorMsg($msg) {
-        $this->_errorMsg = $msg;
-    }
-
-    public function getErrorMsg() {
-        return $this->_errorMsg;
-    }
 
     function retrieveReport($aItems, $aFilters, $sLimit, $groupby = 'item') {
         //$this->debug('retrieveReport() started.');
