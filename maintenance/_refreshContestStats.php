@@ -26,7 +26,10 @@ DatabaseExt::initialize(Monuments::$dbServer, Monuments::$dbDatabase,
 	Monuments::$dbUser, $toolserver_password, 'latin1' );
 
 $stb = new ContestStatsBuilder( DatabaseExt::getDb() );
-
+if ( !$stb->openExclusiveLock() ) {
+    print "Exclusive Lock active: it seems there is one instance running already\n";
+    die(0);
+}
 $stb->clearLatestData();
 $stb->debug('Resuming update from: '.$stb->getLatestTimestamp());
 
@@ -51,4 +54,6 @@ if ( !$stb->updateWlmEmptyIds() ) {
     print $stb->getErrorMsg()."\n";
     die(0);
 }
-$stb->printStats();;
+$stb->printStats();
+$stb->closeExclusiveLock();
+
