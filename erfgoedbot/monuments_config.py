@@ -1134,7 +1134,89 @@ countries = {
             },
 	],
     },
-        ('es-vc', 'ca') : {
+    ('es-gl', 'gl') : {
+        'project' : u'wikipedia',
+	'lang' : u'gl',
+	'headerTemplate' : u'BIC-comezo',
+	'rowTemplate' : u'BIC',
+        'commonsTemplate' : u'BIC',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Spain with known IDs',
+        'commonsCategoryBase' : u'Category:Cultural heritage monuments in Galicia (Spain)',
+        'unusedImagesPage' : u'User:Multichill/Unused BIC',
+        'imagesWithoutIdPage' : u'User:Multichill/BIC without id',
+	'namespaces' : [0],
+	'table' : u'monuments_es-gl_(gl)',
+	'truncate' : False,
+	'primkey' : u'bic',
+	'fields' : [
+	    {
+		'source' : u'id',
+		'dest' : u'bic',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'idurl',
+		'dest' : u'idurl',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'nomeoficial',
+		'dest' : u'nomeoficial',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'outrosnomes',
+		'dest' : u'outrosnomes',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'paxina',
+		'dest' : u'paxina',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'concello',
+		'dest' : u'concello',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'lugar',
+		'dest' : u'lugar',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'notas',
+		'dest' : u'notas',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'data_declaracion',
+		'dest' : u'data_declaracion',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'imaxe',
+		'dest' : u'imaxe',
+		'conv' : u'',
+	    },
+           {
+               'source' : u'title',
+               'dest' : u'title',
+               'conv' : u'',
+            },
+	],
+    },
+    ('es-vc', 'ca') : {
         'project' : u'wikipedia',
 	'lang' : u'ca',
 	'headerTemplate' : u'Capçalera BIC Val',
