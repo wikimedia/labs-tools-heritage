@@ -1147,7 +1147,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_es-gl_(gl)',
 	'truncate' : False,
-	'primkey' : u'bic',
+	'primkey' : u'id',
 	'fields' : [
 	    {
 		'source' : u'id',
