@@ -174,6 +174,10 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	    #print params
 	    processMonument(params, source, countryconfig, conn, cursor, page.title(True))
 	    #time.sleep(5)
+	elif template == u'Commonscat' and len(params)>=1:
+	    query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
+	    cursor.execute(query, (countryconfig.get('lang'), page.title(True), params[0]))
+ 
 
 def processCountry(countryconfig, conn, cursor):
     '''
