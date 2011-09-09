@@ -1250,6 +1250,11 @@ countries = {
 		'conv' : u'',
 	    },
             {
+		'source' : u'època',
+		'dest' : u'època',
+		'conv' : u'',
+	    },
+            {
 		'source' : u'municipi',
 		'dest' : u'municipi',
 		'conv' : u'',
