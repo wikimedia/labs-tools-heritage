@@ -18,7 +18,7 @@ class ContestStatsBuilder extends ContestStatistics {
     private $latest_timestamp = '20110901000000';
 
     private $__mutex = null;
-    private $__mutex_file = '/tmp/wlm.contenst.lock';
+    private $__mutex_file = '/tmp/wlm.contest.lock';
     private $uiFeedback = 15;
 
     function __construct($oDB = null) {
@@ -27,11 +27,10 @@ class ContestStatsBuilder extends ContestStatistics {
 
     function openExclusiveLock() {
         $this->debug('Opening ExclusiveLock');
-        $mutex = @fopen($this->__mutex_file, 'r');
-        if ( $mutex ) {
+        $this->__mutex = @fopen($this->__mutex_file, 'x');
+        if ( !$this->__mutex ) {
             return false;
         }
-        $this->__mutex = fopen($this->__mutex_file, 'w');
         return true;
     }
 
