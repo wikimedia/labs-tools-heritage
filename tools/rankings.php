@@ -73,7 +73,8 @@ function getUserRankings($limit, $country, $showopts){
     //print "showopts: ".implode('|',$showopts)."\n";
     $ts_pw = posix_getpwuid(posix_getuid());
     $ts_mycnf = parse_ini_file($ts_pw['dir'] . "/.my.cnf");
-    $db = new mysqli('commonswiki-p.rrdb.toolserver.org',
+//    $db = new mysqli('commonswiki-p.rrdb.toolserver.org',
+    $db = new mysqli('sql-s2-rr.toolserver.org',
                      $ts_mycnf['user'],
 		  $ts_mycnf['password'],
 		    'commonswiki_p');
@@ -156,7 +157,7 @@ function getUserRankings($limit, $country, $showopts){
     echo '</tr>';
     while ($row = $result->fetch_assoc()) {
         if ( in_array('links', $showopts) ) {
-                $username = '<a target="_blank" href="http://commons.wikimedia.org/wiki/Special:Contributions/'.$row['user_name'].'">'.$row['user_name'].'</a>';
+                $username = '<a target="_blank" href="http://commons.wikimedia.org/wiki/Special:ListFiles/'.$row['user_name'].'">'.$row['user_name'].'</a>';
         } else {
                 $username = $row['user_name'];
         }
