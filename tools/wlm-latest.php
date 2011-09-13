@@ -59,7 +59,6 @@ $margin = intval(10*$size/150); // allow scaled margin
         var s = document.createElement('script');
         s.id = 'achterkamer';
         s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback';
-        s.src = 'http://toolserver.org/~ntavares/patrimonio/tools/wlmlast.php?callback=jscallback';
         s.src = s.src + '<?php if (isset($_GET['country'])) { echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); } if (isset($_GET['number'])) { echo '&number=' . htmlspecialchars(urlencode($_GET['number'])); } if (isset($_GET['size'])) { echo '&size=' . htmlspecialchars(urlencode($_GET['size'])); } ?>';
         document.getElementsByTagName("head")[0].appendChild(s);
     }
