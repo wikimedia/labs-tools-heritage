@@ -54,8 +54,6 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     for catSortKey in sorted(photos.keys()):
         try:
             monumentId = unicode(catSortKey, 'utf-8')
-            mLines = monumentId.splitlines()
-            monumentId = mLines[0]
             monumentId = monumentId[1:]
             monumentId = re.sub("^0+", "", monumentId)
             if monumentId in withoutPhoto:
@@ -98,7 +96,7 @@ def getMonumentsWithoutPhoto(countrycode, lang, conn, cursor):
 def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     result = {}
 
-    query = u"""SELECT page_title, cl_sortkey FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s""";
+    query = u"""SELECT page_title, cl_sortkey_prefix FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s""";
 
     cursor.execute(query, (commonsTrackerCategory,))
 
