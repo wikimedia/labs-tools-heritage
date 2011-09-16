@@ -156,6 +156,7 @@ SELECT 'de-he' AS `country`,
 	`changed` AS `changed`
 	FROM `monuments_de-he_(de)`;
 /* Cologne, Germany in German */
+/*
 REPLACE INTO `monuments_all`
 SELECT 'de-nrw-k' AS `country`, 
     'de' AS `lang`,
@@ -169,6 +170,7 @@ SELECT 'de-nrw-k' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_de-nrw-k_(de)`;
+*/
 /* Estonia */
 REPLACE INTO `monuments_all`
 SELECT 'ee' AS `country`,
