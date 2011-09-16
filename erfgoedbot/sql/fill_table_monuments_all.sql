@@ -226,6 +226,20 @@ SELECT 'es-ct' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`
         FROM `monuments_es-ct_(ca)`;
+/* Galicia province (Spain) in Galician */
+REPLACE INTO `monuments_all`
+SELECT 'es' AS `country`,
+       'gl' AS `lang`,
+	`bic` AS `id`,
+        `nomeoficial` AS `name`,
+        `lugar` AS `address`,
+        `concello` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `imaxe` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`
+        FROM `monuments_es-ct_(ca)`;
 /* Valencia in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es-vc' AS `country`,
