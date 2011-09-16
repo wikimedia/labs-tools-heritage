@@ -241,7 +241,7 @@ SELECT 'es' AS `country`,
         `imaxe` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`
-        FROM `monuments_es-ct_(ca)`;
+        FROM `monuments_es-gl_(gl)`;
 /* Valencia in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es-vc' AS `country`,
