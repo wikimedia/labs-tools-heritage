@@ -849,6 +849,73 @@ countries = {
 	    },
 	],
     },
+    ('de-nrw-k', 'de') : {
+        'project' : u'wikipedia',
+	'lang' : u'de',
+	'headerTemplate' : u'Denkmalliste Köln Tabellenkopf',
+	'rowTemplate' : u'Denkmalliste Köln Tabellenzeile',
+        'commonsTemplate' : u'Kulturdenkmal Köln',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Cologne with known ID',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Cologne',
+        'unusedImagesPage' : u'Benutzer:Elya/Ungenutzte Bilder',
+        'imagesWithoutIdPage' : u'Benutzer:Elya/Bilder ohne Nummer',
+	'namespaces' : [0],
+	'table' : u'monuments_de-nrw-k_(de)',
+	'truncate' : False, # Not all ids are filled, just overwrite it
+	'primkey' : u'Nummer',
+	'fields' : [
+	    {
+		'source' : u'Bild',
+		'dest' : u'bild',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Commonscat',
+		'dest' : u'commonscat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'Bezeichnung',
+		'dest' : u'bezeichnung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Ortsteil',
+		'dest' : u'ortsteil',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'NS',
+		'dest' : u'ns',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'EW',
+		'dest' : u'ew',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Nummer_Denkmalliste',
+		'dest' : u'nummer_denkmalliste',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Bauzeit',
+		'dest' : u'bauzeit',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschreibung',
+		'dest' : u'beschreibung',
+		'conv' : u'',
+	    },
+	],
+    },
     ('ee', 'et') : {
 	'project' : u'wikipedia',
 	'lang' : u'et',
