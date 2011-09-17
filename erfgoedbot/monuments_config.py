@@ -862,7 +862,7 @@ countries = {
 	'namespaces' : [0],
 	'table' : u'monuments_de-nrw-k_(de)',
 	'truncate' : False, # Not all ids are filled, just overwrite it
-	'primkey' : u'Nummer',
+	'primkey' : u'Nummer_Denkmalliste',
 	'fields' : [
 	    {
 		'source' : u'Bild',
