@@ -14,7 +14,7 @@ CREATE TABLE `monuments_de-nrw-k_(de)` (
   `ew` double NOT NULL DEFAULT '0',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`nummer`),
+  PRIMARY KEY (`nummer_denkmalliste`),
   KEY `latitude` (`ns`),
   KEY `longitude` (`ew`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
