@@ -50,14 +50,16 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
 JOIN templatelinks ON page_id=tl_from
 JOIN categorylinks ON page_id=cl_from
 WHERE page_namespace=6 AND page_is_redirect=0
-AND tl_namespace=10 AND tl_title=%(commonsTemplate)%
-AND cl_to=%(commonsTrackerCategory)s
+AND tl_namespace=10 AND tl_title=%s
+AND cl_to=%s
 AND NOT EXISTS(
 SELECT * FROM categorylinks AS loccat
 WHERE page_id=loccat.cl_from
 AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
+    commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
+    commonsTrackerCategory = countryconfig.get('commonsTrackerCategory').replace(u' ', u'_')
 
-    cursor2.execute(query % countryconfig)
+    cursor2.execute(query, (commonsTemplate, commonsTrackerCategory))
 
     while True:
         try:
@@ -66,7 +68,7 @@ AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
             # Nothing left
             break
         if pageName:
-            page = pywikibot.Page(site, unicode(pageName, 'utf-8'))
+	    page = wikipedia.Page(site, 'File:' + unicode(pageName, 'utf-8'))
             try:
                 monumentId = unicode(sortkey, 'utf-8')
                 # Just want the first line
@@ -82,11 +84,12 @@ AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
 
                 
 def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor):
-    wikipedia.output(u'Working on: %s' % page.title())
+    wikipedia.output(u'Working on: %s with id %s' % (page.title(), monumentId))
 
     # First check if the identifier returns something useful
     coordinates = getCoordinates(monumentId, countrycode, lang, conn, cursor)
     if not coordinates:
+	wikipedia.output(u'File contains an unknown identifier: %s' %monumentId)
 	return False
     
     (lat, lon, source) = coordinates
@@ -96,10 +99,6 @@ def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor
 
     if u'Location' in page.templates() or u'Location dec' in page.templates() or u'Object location' in page.templates() or u'Object location dec' in page.templates():
 	wikipedia.output(u'Location template already found at: %s' % page.title())
-	return False
-
-    if not u'Rijksmonument' in page.templates():
-	wikipedia.output(u'Rijksmonument template not found at: %s' % page.title())
 	return False
 
     locationTemplate = u'{{Object location dec|%s|%s|region:%s_type:landmark_scale:1500}}<!-- Location from %s -->' % (lat, lon, countrycode.upper(), source)
@@ -119,10 +118,9 @@ AND country=%s
 AND lang=%s
 AND NOT lat=0 AND NOT lon=0
 AND NOT lat='' AND NOT lon=0
-AND NOT lat=NULL AND NOT lon=NULL
 LIMIT 1""";
 
-    cursor.execute(query % (monumentId, countrycode, lang,))
+    cursor.execute(query, (monumentId, countrycode, lang,))
 
     try:
 	row = cursor.fetchone()
@@ -139,8 +137,7 @@ def addLocation (page, locationTemplate):
     newtext = putAfterTemplate (page, u'Information', locationTemplate, loose=True)
     
     wikipedia.showDiff(oldtext, newtext)
-    #FIXME: Test and enable
-    #page.put(newtext, comment)
+    page.put(newtext, comment)
 
 
 def putAfterTemplate (page, template, toadd, loose=True):
