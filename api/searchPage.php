@@ -1,12 +1,5 @@
 <?php
 
-/*
-FIXME: how to register new I18N messages?
-'search-title'                'Monuments search'
-'search-monuments-database'   'Search the monuments database'
-*/
-
-
 class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
     private $apiUrl = 'api.php';
