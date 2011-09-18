@@ -57,11 +57,11 @@ SELECT * FROM categorylinks AS loccat
 WHERE page_id=loccat.cl_from
 AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
 
-    cursor.execute(query % countryconfig)
+    cursor2.execute(query % countryconfig)
 
     while True:
         try:
-            pageName, sortkey = cursor.fetchone()
+            pageName, sortkey = cursor2.fetchone()
         except TypeError:
             # Nothing left
             break
