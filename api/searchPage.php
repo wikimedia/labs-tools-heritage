@@ -2,35 +2,34 @@
 
 class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
-    private $apiUrl = 'api.php';
-    private $I18N = NULL;
+	private $apiUrl = 'api.php';
+	private $I18N = NULL;
     
-    function __construct($I18N) {
-       $this->I18N = $I18N;
-    }    
+	function __construct($I18N) {
+		$this->I18N = $I18N;
+	}
     
-   	public function getSearchPage() {
-    
-       	$result = array ();
-       	$result[] = '<html>';
+	public function getSearchPage() {
+		$result = array ();
+		$result[] = '<html>';
 		$result[] = '<head>';
-       	$result[] = '<title>'. _( 'search-title' ) .'</title>';
-       	$result[] = '</head>';
+		$result[] = '<title>'. _( 'search-title' ) .'</title>';
+		$result[] = '</head>';
 		$result[] = '<body>';
-       	$result[] = '<H1>'. _( 'search-monuments-database' ) .'</H1>';
-       	$result = array_merge($result, $this->getSearchForm());
-        $result[] = '<br/><hr/>';
-        $result[] = $this->I18N->getPromoBox();
-       	$result[] = '</body>';
+		$result[] = '<H1>'. _( 'search-monuments-database' ) .'</H1>';
+		$result = array_merge($result, $this->getSearchForm());
+		$result[] = '<br/><hr/>';
+		$result[] = $this->I18N->getPromoBox();
+		$result[] = '</body>';
 		$result[] = '</html>';
 
 		return implode ("\n", $result);
-    }
+	}
 
    	private function getSearchForm() {
 		$result = array ();
 		$result[] = '<form action="'. $this->apiUrl .'">';
-        $result[] = '<input type="hidden" name="action" value="search">';
+		$result[] = '<input type="hidden" name="action" value="search">';
 		$result[] = '<table border="1">';
 		$result[] = '<tr>';
 		$result[] = '<th>' . _( 'search-table-th-field' ) . '</th>';
@@ -121,28 +120,28 @@ class SearchPage {
 		return $result;
 	}
     
-    private function getCountriesFilter() {
+	private function getCountriesFilter() {
 		/*
-	 	* Pull the countries from the database and build a nice select box
+		 * Pull the countries from the database and build a nice select box
 		 */
 
 		$result = array ();
 		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '">';
 		$result[] = '<option value="" selected>All countries</option>';
 
-        $db = Database::getDb();
-        $sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
-        $qres = new ResultWrapper( $db, $db->query( $sql ) );
+		$db = Database::getDb();
+		$sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
+		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/*  FIXME localize */
-        foreach ( $qres as $row ) {
-            $result[] = '<option value="'. $row->country .'">'. $row->country .'</option>';
-        }
+		foreach ( $qres as $row ) {
+			$result[] = '<option value="'. $row->country .'">'. $row->country .'</option>';
+		}
 		$result[] = '</select>';
-        
+
 		return $result;
-    }
+	}
         
-    private function getLanguagesFilter() {
+	private function getLanguagesFilter() {
 		/*
 	 	 * Pull the languages from the database and build a nice select box
 		 */
@@ -151,13 +150,13 @@ class SearchPage {
 		/* FIXME Pull from database and localize */
 		$result[] = '<option value="" selected>All languages</option>';
 
-        $db = Database::getDb();
-        $sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
-        $qres = new ResultWrapper( $db, $db->query( $sql ) );
+		$db = Database::getDb();
+		$sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
+		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/*  FIXME localize */
-        foreach ( $qres as $row ) {
-            $result[] = '<option value="'. $row->lang .'">'. $row->lang .'</option>';
-        }
+		foreach ( $qres as $row ) {
+			$result[] = '<option value="'. $row->lang .'">'. $row->lang .'</option>';
+		}
 		$result[] = '</select>';
 
 		return $result;
