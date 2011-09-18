@@ -2,26 +2,96 @@
 # -*- coding: utf-8  -*-
 '''
 
-Bot to add {{Object location dec}} to rijksmonumenten. Location is based on information from the nl Wikipedia.
+Bot to add {{Object location dec}} to monuments. Location is based on information from the monuments database.
 
 '''
 import sys
-sys.path.append("/home/multichill/pywikipedia")
+import monuments_config as mconfig
+sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, pagegenerators, catlib
 import re, imagerecat
 import MySQLdb, config, time
 
 def connectDatabase():
     '''
-    Connect to the mysql database, if it fails, go down in flames
+    Connect to the monuments mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect('sql.toolserver.org', db='p_erfgoed_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
+    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
     cursor = conn.cursor()
     return (conn, cursor)
 
-def locateImage(page, conn, cursor):
+
+def connectDatabase2():
+    '''
+    Connect to the commons mysql database, if it fails, go down in flames
+    '''
+    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
+    cursor = conn.cursor()
+    return (conn, cursor)
+
+
+def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+    '''
+    Locate images in a single country.
+    '''
+    if not countryconfig.get('commonsTemplate') or not countryconfig.get('commonsTrackerCategory'):
+        # Not possible for this country. Silently return
+        return False
+
+    for (page, monumentId) in getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
+	locationTemplate = locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor)
+	if locationTemplate:
+	    addLocation(page, locationTemplate)
+
+
+def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
+    site = wikipedia.getSite(u'commons', u'commons')
+    query = """SELECT  page_title, cl_sortkey FROM page
+JOIN templatelinks ON page_id=tl_from
+JOIN categorylinks ON page_id=cl_from
+WHERE page_namespace=6 AND page_is_redirect=0
+AND tl_namespace=10 AND tl_title=%(commonsTemplate)%
+AND cl_to=%(commonsTrackerCategory)s
+AND NOT EXISTS(
+SELECT * FROM categorylinks AS loccat
+WHERE page_id=loccat.cl_from
+AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
+
+    cursor.execute(query % countryconfig)
+
+    while True:
+        try:
+            pageName, sortkey = cursor.fetchone()
+        except TypeError:
+            # Nothing left
+            break
+        if pageName:
+            page = pywikibot.Page(site, unicode(pageName, 'utf-8'))
+            try:
+                monumentId = unicode(sortkey, 'utf-8')
+                # Just want the first line
+                mLines = monumentId.splitlines()
+                monumentId = mLines[0]
+                # Not clear why this is done
+                monumentId = monumentId[1:]
+                # Remove leading zero's
+                monumentId = re.sub("^0+", "", monumentId)
+                yield (page, monumentId)
+            except ValueError:
+                wikipedia.output(u'Got value error for %s' % (monumentId,))
+
+                
+def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor):
     wikipedia.output(u'Working on: %s' % page.title())
+
+    # First check if the identifier returns something useful
+    coordinates = getCoordinates(monumentId, countrycode, lang, conn, cursor)
+    if not coordinates:
+	return False
     
+    (lat, lon, source) = coordinates
+
+    # Ok. We know we have coordinates. Now check to be sure to see if there's not already a template on the page.
     templates = page.templates()
 
     if u'Location' in page.templates() or u'Location dec' in page.templates() or u'Object location' in page.templates() or u'Object location dec' in page.templates():
@@ -32,57 +102,46 @@ def locateImage(page, conn, cursor):
 	wikipedia.output(u'Rijksmonument template not found at: %s' % page.title())
 	return False
 
-    rijksmonumentid=-1
-    
-    for (template, params) in page.templatesWithParams():
-	if template==u'Rijksmonument':
-	    if len(params)==1:
-		try:
-		    rijksmonumentid = int(params[0])
-		except ValueError:
-		    wikipedia.output(u'Unable to extract a valid id')
-		break
-
-    if (rijksmonumentid < 0 or 600000 < rijksmonumentid ):
-	wikipedia.output(u'Invalid id')
-	return False
-		
-    coordinates = getCoordinates(rijksmonumentid, conn, cursor)
-    if not coordinates:
-	return False
-    
-    (lat, lon, source) = coordinates
-
-    locationTemplate = u'{{Object location dec|%s|%s|region:NL_type:landmark_scale:1500}}<!-- Location from %s -->' % (lat, lon, source)
+    locationTemplate = u'{{Object location dec|%s|%s|region:%s_type:landmark_scale:1500}}<!-- Location from %s -->' % (lat, lon, countrycode.upper(), source)
 
     return locationTemplate
 
-def addLocation (page, locationTemplate):
-    oldtext = page.get()
 
-    comment = u'Adding object location based on Rijksmonument identifier'
-
-    newtext = putAfterTemplate (page, u'Information', locationTemplate, loose=True)
-    
-    wikipedia.showDiff(oldtext, newtext)
-    page.put(newtext, comment)
-
-
-def getCoordinates(rijksmonumentid, conn, cursor):
+def getCoordinates(monumentId, countrycode, lang, conn, cursor):
     '''
     Get coordinates from the erfgoed database
     '''
     result = None
 
-    query = u"""SELECT lat, lon, source FROM monumenten WHERE objrijksnr=%s LIMIT 1""";
+    query = u"""SELECT lat, lon, source FROM monuments_all
+WHERE id=%s
+AND country=%s
+AND lang=%s
+AND NOT lat=0 AND NOT lon=0
+AND NOT lat='' AND NOT lon=0
+AND NOT lat=NULL AND NOT lon=NULL
+LIMIT 1""";
 
-    cursor.execute(query % (rijksmonumentid,))
+    cursor.execute(query % (monumentId, countrycode, lang,))
 
     try:
 	row = cursor.fetchone()
 	return row
     except TypeError:
 	return False
+
+
+def addLocation (page, locationTemplate):
+    oldtext = page.get()
+
+    comment = u'Adding object location based on monument identifier'
+
+    newtext = putAfterTemplate (page, u'Information', locationTemplate, loose=True)
+    
+    wikipedia.showDiff(oldtext, newtext)
+    #FIXME: Test and enable
+    #page.put(newtext, comment)
+
 
 def putAfterTemplate (page, template, toadd, loose=True):
     '''
@@ -141,45 +200,33 @@ def putAfterTemplate (page, template, toadd, loose=True):
     
     return newtext
 
-def getRijksmonumentWithoutLocation():
-    query = """SELECT page_namespace, page_title FROM page
-JOIN templatelinks ON page_id=tl_from
-WHERE page_namespace=6 AND page_is_redirect=0
-AND tl_namespace=10 AND tl_title='Rijksmonument'
-AND NOT EXISTS(
-SELECT * FROM categorylinks
-WHERE page_id=cl_from
-AND cl_to='Media_with_locations')""";
-
-    result = pagegenerators.MySQLPageGenerator(query)
-    return result
-
 
 def main():
+    countrycode = u''
     wikipedia.setSite(wikipedia.getSite(u'commons', u'commons'))
 
     # Connect database, we need that
-    conn = None
-    cursor = None
     (conn, cursor) = connectDatabase()
+    (conn2, cursor2) = connectDatabase2()
 
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
 
     for arg in wikipedia.handleArgs():
-	genFactory.handleArg(arg)
-
-    generator = genFactory.getCombinedGenerator()
-
-    if not generator:
-	generator = getRijksmonumentWithoutLocation()
+        if arg.startswith('-countrycode:'):
+            countrycode = arg [len('-countrycode:'):]
     
-    # Get a preloading generator with only images
-    pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
-    for page in pgenerator:
-	locationTemplate = locateImage(page, conn, cursor)
-	if locationTemplate:
-	    addLocation(page, locationTemplate)
+    if countrycode:
+        lang = wikipedia.getSite().language()
+	if not mconfig.countries.get((countrycode, lang)):
+	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+	    return False
+	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+	locateCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor, conn2, cursor2)
+    else:
+	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+	    locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
 
 if __name__ == "__main__":
     try:
