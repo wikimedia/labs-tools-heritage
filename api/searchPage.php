@@ -161,7 +161,7 @@ class SearchPage {
 			$option = '<option value="'. htmlspecialchars($row->lang) .'"';
 			if (@$_GET['lang'] == $row->lang) $option .= ' selected="selected"';
 			$option .= '>'. htmlspecialchars($row->lang) .'</option>';
-			$result[] = $option:
+			$result[] = $option;
 		}
 		$result[] = '</select>';
 
