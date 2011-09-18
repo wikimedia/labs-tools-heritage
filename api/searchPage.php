@@ -127,14 +127,17 @@ class SearchPage {
 
 		$result = array ();
 		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '">';
-		$result[] = '<option value="" selected>All countries</option>';
+		$result[] = '<option value="">' . _html('filter-all-countries') . '</option>';
 
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/*  FIXME localize */
 		foreach ( $qres as $row ) {
-			$result[] = '<option value="'. $row->country .'">'. $row->country .'</option>';
+			$option = '<option value="'. htmlspecialchars($row->country) . '"';
+			if (@$_GET['country'] == $row->country)) $option .= ' selected="selected"';
+			$option .= '>'. htmlspecialchars($row->country) .'</option>';
+			$result[] = $option;
 		}
 		$result[] = '</select>';
 
@@ -148,14 +151,17 @@ class SearchPage {
 		$result = array ();
 		$result[] = '<select name="srlang" ' .$this->fieldStyle . '">';
 		/* FIXME Pull from database and localize */
-		$result[] = '<option value="" selected>All languages</option>';
+		$result[] = '<option value="">' . _html('filter-all-languages') . '</option>';
 
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/*  FIXME localize */
 		foreach ( $qres as $row ) {
-			$result[] = '<option value="'. $row->lang .'">'. $row->lang .'</option>';
+			$option = '<option value="'. htmlspecialchars($row->lang) .'"';
+			if (@$_GET['lang'] == $row->lang)) $option .= ' selected="selected"';
+			$option .= '>'. htmlspecialchars($row->lang) .'</option>';
+			$result[] = $option:
 		}
 		$result[] = '</select>';
 
@@ -243,7 +249,7 @@ class SearchPage {
 		);
 		 */
 
-		return $this->getSelect ( $selectName , $options );
+		return $this->getSelect ( $selectName , $options, $this->I18N->getLang() );
 	}
 
 	private function getOutputFormatSelect() {
