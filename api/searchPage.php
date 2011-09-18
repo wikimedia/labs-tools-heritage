@@ -279,7 +279,7 @@ class SearchPage {
 		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '">';
 		foreach ( $options as $value => $name ) {
 			$result[] = '<option value="' . htmlspecialchars( $value ) . '"' .
-				( $name === $selected ? ' selected="selected"' : '' ) .	'>' . htmlspecialchars( $name ) . '</option>';
+				( $value === $selected ? ' selected="selected"' : '' ) .	'>' . htmlspecialchars( $name ) . '</option>';
 		}
 		$result[] = '</select>';
 		return $result;
