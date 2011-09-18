@@ -55,7 +55,7 @@ class SearchPage {
 		$result[] = '<tr>';
 		/* FIXME i18n name */
 		$result[] = '<td><label>Name</label></td>';
-		$result[] = '<td><input type="text" name="srname" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="srname" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	//$result = array_merge($result, $this->getNameSelect());
 		$result[] = '</td>';
@@ -63,7 +63,7 @@ class SearchPage {
 		$result[] = '<tr>';
 		/* FIXME i18n address */
 		$result[] = '<td><label>Address</label></td>';
-		$result[] = '<td><input type="text" name="sraddress" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="sraddress" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	//$result = array_merge($result, $this->getAddressSelect());
 		$result[] = '</td>';
@@ -71,7 +71,7 @@ class SearchPage {
 		$result[] = '<tr>';
 		/* FIXME i18n municipality */
 		$result[] = '<td><label>Municipality</label></td>';
-		$result[] = '<td><input type="text" name="srmunicipality" ' . $this->fieldStyle . '"></td>';
+		$result[] = '<td><input type="text" name="srmunicipality" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	//$result = array_merge($result, $this->getMunicipalitySelect());
 		$result[] = '</td>';
@@ -126,7 +126,7 @@ class SearchPage {
 		 */
 
 		$result = array ();
-		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '">';
+		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '>';
 		$result[] = '<option value="">' . _html('filter-all-countries') . '</option>';
 
 		$db = Database::getDb();
@@ -149,7 +149,7 @@ class SearchPage {
 	 	 * Pull the languages from the database and build a nice select box
 		 */
 		$result = array ();
-		$result[] = '<select name="srlang" ' .$this->fieldStyle . '">';
+		$result[] = '<select name="srlang" ' .$this->fieldStyle . '>';
 		/* FIXME Pull from database and localize */
 		$result[] = '<option value="">' . _html('filter-all-languages') . '</option>';
 
@@ -276,7 +276,7 @@ class SearchPage {
 		 * 
 		 */
 		$result = array();
-		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '">';
+		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '>';
 		foreach ( $options as $value => $name ) {
 			$result[] = '<option value="' . htmlspecialchars( $value ) . '"' .
 				( $value === $selected ? ' selected="selected"' : '' ) .	'>' . htmlspecialchars( $name ) . '</option>';
