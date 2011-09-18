@@ -200,7 +200,6 @@ def putAfterTemplate (page, template, toadd, loose=True):
 
 def main():
     countrycode = u''
-    wikipedia.setSite(wikipedia.getSite(u'commons', u'commons'))
 
     # Connect database, we need that
     (conn, cursor) = connectDatabase()
@@ -212,9 +211,11 @@ def main():
     for arg in wikipedia.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg [len('-countrycode:'):]
+
+    lang = wikipedia.getSite().language()
+    wikipedia.setSite(wikipedia.getSite(u'commons', u'commons'))
     
     if countrycode:
-        lang = wikipedia.getSite().language()
 	if not mconfig.countries.get((countrycode, lang)):
 	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
 	    return False
