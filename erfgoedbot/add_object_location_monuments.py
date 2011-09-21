@@ -46,7 +46,7 @@ def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2
 
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
     site = wikipedia.getSite(u'commons', u'commons')
-    query = """SELECT  page_title, cl_sortkey FROM page
+    query = u"""SELECT  page_title, cl_sortkey FROM page
 JOIN templatelinks ON page_id=tl_from
 JOIN categorylinks ON page_id=cl_from
 WHERE page_namespace=6 AND page_is_redirect=0
@@ -59,7 +59,7 @@ AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get('commonsTrackerCategory').replace(u' ', u'_')
 
-    cursor2.execute(query, (commonsTemplate, commonsTrackerCategory))
+    cursor2.execute(query, (commonsTemplate.encode('utf-8'), commonsTrackerCategory.encode('utf-8')))
 
     while True:
         try:
