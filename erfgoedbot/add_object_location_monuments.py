@@ -223,8 +223,11 @@ def main():
 	locateCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
 	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+            if not countryconfig.get('autoGeocode'):
+                wikipedia.output(u'"%s" in language "%s" is not supported in auto geocode mode (yet).' % (countrycode, lang))
+            else:
+                wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+                locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
 
 if __name__ == "__main__":
     try:

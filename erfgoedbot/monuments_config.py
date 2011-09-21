@@ -1663,6 +1663,7 @@ countries = {
         'commonsTemplate' : u'Rijksmonument',
         'commonsTrackerCategory' : u'Rijksmonumenten with known IDs',
         'commonsCategoryBase' : u'Rijksmonumenten',
+        'autoGeocode' : True,
         'unusedImagesPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto\'s',
         'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s zonder id',
 	'namespaces' : [0],
