@@ -1423,11 +1423,17 @@ countries = {
 	'lang' : u'fr',
 	'headerTemplate' : u'En-tête de tableau MH',
 	'rowTemplate' : u'Ligne de tableau MH',
+        'commonsTemplate' : u'Mérimée',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in France with known IDs',
+        'commonsCategoryBase' : u'Monuments historiques in France',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'User:Multichill/Unused monument photos',
+        'imagesWithoutIdPage' : u'User:Multichill/Monument photos without an ID',
 	'namespaces' : [0],
 	'table' : u'monuments_fr_(fr)',
 	'truncate' : False,
 	'primkey' : u'notice',
-	'fields' : [
+        'fields' : [
 	    {
 		'source' : u'tri',
 		'dest' : u'tri',
