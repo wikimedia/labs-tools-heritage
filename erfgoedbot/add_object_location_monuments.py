@@ -74,10 +74,10 @@ AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
                 # Just want the first line
                 mLines = monumentId.splitlines()
                 monumentId = mLines[0]
-                # Not clear why this is done
-                monumentId = monumentId[1:]
+                # Remove leading and trailing spaces
+                monumentId = monumentId.strip()
                 # Remove leading zero's
-                monumentId = re.sub("^0+", "", monumentId)
+                monumentId = monumentId.lstrip(u'0')
                 yield (page, monumentId)
             except ValueError:
                 wikipedia.output(u'Got value error for %s' % (monumentId,))

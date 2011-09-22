@@ -54,10 +54,13 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     for catSortKey in sorted(photos.keys()):
         try:
             monumentId = unicode(catSortKey, 'utf-8')
+            # Just want the first line
             mLines = monumentId.splitlines()
             monumentId = mLines[0]
-            monumentId = monumentId[1:]
-            monumentId = re.sub("^0+", "", monumentId)
+            # Remove leading and trailing spaces
+            monumentId = monumentId.strip()
+            # Remove leading zero's
+            monumentId = monumentId.lstrip(u'0')
             if monumentId in withoutPhoto:
                 m = re.search('^(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
