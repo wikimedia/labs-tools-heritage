@@ -394,6 +394,20 @@ SELECT 'ro' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_ro_(ro)`;
+/* Russia */
+REPLACE INTO `monuments_all`
+SELECT 'ru' AS `country`,
+       'ru' AS `lang`,
+	`id` AS `id`, 
+	`name` AS `name`,
+	`address` AS `address`,
+	`region` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`image` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_ru_(ru)`;
 /* Sweden */
 REPLACE INTO `monuments_all`
 SELECT 'se' AS `country`,
