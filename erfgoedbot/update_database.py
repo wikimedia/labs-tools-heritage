@@ -4,7 +4,7 @@
 Update the monuments database either from a text file or from some wiki page(s)
 
 '''
-import sys, time
+import sys, time, warnings
 import monuments_config as mconfig
 sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
@@ -96,8 +96,13 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
     #query = u"""REPLACE INTO monumenten(objrijksnr, woonplaats, adres, objectnaam, type_obj, oorspr_functie, bouwjaar, architect, cbs_tekst, RD_x, RD_y, lat, lon, image, source)
     #VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')""";
     #print query % tuple(fieldvalues)
-    cursor.execute(query, fieldvalues)
-    
+    with warnings.catch_warnings(record=True) as w:
+      warnings.simplefilter("always")
+      cursor.execute(query, fieldvalues)
+
+      if len(w) == 1:
+        print w[-1].message, " when running ", query % tuple(fieldvalues)
+      
     #print contents
     #print u'updating!'
     #time.sleep(5)
