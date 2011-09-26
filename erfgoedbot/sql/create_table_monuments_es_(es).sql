@@ -11,6 +11,7 @@ CREATE TABLE `monuments_es_(es)` (
   `lugar` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
+  `id_aut` varchar(21) NOT NULL DEFAULT '',
   `fecha` varchar(255) NOT NULL DEFAULT '',
   `imagen` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
