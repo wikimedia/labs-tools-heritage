@@ -8,7 +8,7 @@ CREATE TABLE `monuments_es_(es)` (
   `tipobic` varchar(255) NOT NULL DEFAULT '',
   `tipo` varchar(255) NOT NULL DEFAULT '',
   `municipio` varchar(255) NOT NULL DEFAULT '',
-  `lugar` varchar(255) NOT NULL DEFAULT '',
+  `lugar` varchar(400) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `id_aut` varchar(21) NOT NULL DEFAULT '',
