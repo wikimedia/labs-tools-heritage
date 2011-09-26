@@ -139,7 +139,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title):
 	(field, sep, value) = param.partition(u'=')
 	# Remove leading or trailing spaces
 	field = field.strip()
-	value = value.split("<ref>")[0].strip()
+	value = value.split("<ref")[0].strip()
 	
 	#Check first that field is not empty
 	if field:
