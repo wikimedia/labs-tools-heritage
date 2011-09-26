@@ -1002,6 +1002,11 @@ countries = {
 		'conv' : u'',
 	    },
             {
+		'source' : u'idurl',
+		'dest' : u'idurl',
+		'conv' : u'',
+	    },
+            {
 		'source' : u'nom',
 		'dest' : u'nom',
 		'conv' : u'',
