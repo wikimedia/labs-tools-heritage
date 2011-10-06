@@ -55,6 +55,18 @@ flickr_allowed_license = {
     8 : True,  # United States Government Work
 }
 
+templates_for_flickr_license = {
+    0 : u'{{copyvio|Flickr, licensed as "All Rights Reserved" which is not a free license --~~~~}}\n', # All Rights Reserved
+    1 : u'{{copyvio|Flickr, licensed as "Creative Commons Attribution-NonCommercial-ShareAlike" which is not a free license --~~~~}}\n', # Creative Commons Attribution-NonCommercial-ShareAlike License
+    2 : u'{{copyvio|Flickr, licensed as "Creative Commons Attribution-NonCommercial" which is not a free license --~~~~}}\n', # Creative Commons Attribution-NonCommercial-ShareAlike License
+    3 : u'{{copyvio|Flickr, licensed as "Creative Commons Attribution-NonCommercial-NoDerivs" which is not a free license --~~~~}}\n', # Creative Commons Attribution-NonCommercial-ShareAlike License
+    4 : u'{{cc-by-2.0}}',  # Creative Commons Attribution License
+    5 : u'{{cc-by-sa-2.0}}',  # Creative Commons Attribution License
+    6 : u'{{copyvio|Flickr, licensed as "Creative Commons Attribution-NoDerivs" which is not a free license --~~~~}}\n', # Creative Commons Attribution-NonCommercial-ShareAlike License
+    7 : u'{{Flickr-no known copyright restrictions}}',  # No known copyright restrictions
+    8 : u'{{PD-USGov}}',  # United States Government Work
+}
+
 ripper_config = {
     'country': u'es',
     'lang': u'es',
@@ -89,12 +101,17 @@ def getPhoto(flickr = None, photo_id = ''):
 	photo = {}
 	photo['photo_id'] = photo_id
 	photo['url'] = getPhotoUrl(photoSizes)
-	photo['license'] = photoInfo.find('photo').attrib['license'] # Numeric value
+	photo['license'] = int(photoInfo.find('photo').attrib['license']) # Numeric value
 	photo['title'] = photoInfo.find('photo').find('title').text
+	if photo['title'] is not None:
+		photo['title'] = photo['title'].strip()
+	photo['user_id'] = photoInfo.find('photo').find('owner').attrib['nsid']
 	photo['username'] = photoInfo.find('photo').find('owner').attrib['username']
 	photo['realname'] = photoInfo.find('photo').find('owner').attrib['realname']
 	photo['location'] = photoInfo.find('photo').find('owner').attrib['location']
 	photo['description'] = photoInfo.find('photo').find('description').text
+	photo['date_taken'] = photoInfo.find('photo').find('dates').attrib['taken']
+	photo['date_posted'] = photoInfo.find('photo').find('dates').attrib['posted']
 	photo['tags'] = getTags(photoInfo)
 	
 	location = photoInfo.find('photo').find('location')
@@ -170,6 +187,67 @@ def getFlinfoDescription(photo_id = 0):
         "http://wikipedia.ramselehof.de/flinfo.php?%s" % parameters).read()
 
     return rawDescription.decode('utf-8')
+
+def getDescription(photo):
+	'''
+	Get the description, similar to flinfo, but without connecting to a remote server
+	 Differences with flinfo:
+	  * flinfo doesn't show seconds for the date
+	  * flinfo converts some tags into categories
+	  * This doesn't undo html entities (but MediaWiki will!)
+	'''
+	
+	author = u'[http://www.flickr.com/people/' + photo['user_id'] + ' '
+	
+	if photo['realname']:
+		author += photo['realname']
+	else:
+		author += photo['username']
+	author += ']'
+	if photo['location']:
+		author += u' from ' + photo['location']
+	
+	if photo['description'] is not None:
+		desc = photo['description']
+	elif photo['title'] is not None:
+		desc = photo['title']
+	else:
+		desc = u''
+	
+	if photo['title'] is not None:
+		source = photo['title']
+	else:
+		source = 'Flickr'
+	
+	# Don't create wikilinks by error
+	desc = desc.replace('[', '&#x5B;')
+	desc = desc.replace(']', '&#x5D;')
+	
+	desc = re.sub('<a href="([^"]+)"(?: target="_blank")?(?: rel="nofollow")?>([^<]*)</a>', '[\\1 \\2]', desc) # Convert html links to wikitext
+	desc = re.sub('<b>([^"]+)</b>', "'''\\1'''", desc) # Convert html bold to wikitext
+	desc = re.sub('<i>([^"]+)</i>', "''\\1''", desc) # Convert html italic to wikitext
+	
+	description = u'''{{Information
+|Description=%s
+|Source=[%s %s]
+|Date=%s
+|Author=%s
+|Permission=
+|other_versions=
+}}
+''' % (desc, photo['photopage'], source, photo['date_taken'], author)
+	
+	try:
+		description += u"{{Location dec|" + photo['latitude'] + "|" + photo['longitude'] + "|source:Flickr}}\n"
+	except:
+		True
+
+	description += u"\n=={{int:license-header}}==\n"
+	description += templates_for_flickr_license[photo['license']]
+	description += u"\n{{flickrreview}}\n"
+	description += u"\n{{subst:unc}}\n" # Mark the file as uncategorized
+	
+	return description
 
 def getFilename(photo=None, site=pywikibot.getSite(u'commons', u'commons'),
                 project=u'Flickr'):
@@ -272,6 +350,30 @@ def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
     description = description.replace(u'\r\n', u'\n')
     description = re.sub(u'BIC=([A-Za-záÁéÉíÍóÓúÚ ]+)\nID=(RI-[0-9-]+)\n?', u'\\1 (\\2)', description) # Formato usado por la Universidad de Alcalá
     return description
+
+def compareDescriptions(photo):
+	import io
+	flinfoDescription = getFlinfoDescription(photo['photo_id'])
+	description = getDescription(photo)
+	
+	flinfoDescription = re.sub('(\\[\\[Category:[^\\]]+\\]\\]\n)+', '{{subst:unc}}', flinfoDescription).strip()
+	description = re.sub('(Date=[0-9-]+ [0-9-]+:[0-9-]+):[0-9-]+', '\\1', description).strip()
+	if (flinfoDescription == description):
+		print photo['photo_id'], " equal\n"
+		return
+	print photo['photo_id'], " differs:\n"
+	
+	f = io.open(photo['photo_id'] + '-flinfo.txt', 'w')
+	f.write(flinfoDescription)
+	f.close()
+	f = io.open(photo['photo_id'] + '-info.txt', 'w')
+	f.write(description)
+	f.close()
+	
+	pywikibot.output(flinfoDescription)
+	pywikibot.output("//****//\n")
+	pywikibot.output(description)
+	return
 
 def processPhoto(photo, flickrreview=False, reviewer=u'',
                  override=u'', addCategory=u'', removeCategories=False,
@@ -631,9 +733,10 @@ def main():
         for photo_id in getPhotos(flickr, user_id, group_id, photoset_id,
                                   start_id, end_id, tags):
             photo = getPhoto(flickr, photo_id)
-            uploadedPhotos += processPhoto(photo, flickrreview,
-                                           reviewer, override, addCategory,
-                                           removeCategories, autonomous)
+            compareDescriptions(photo)
+            #uploadedPhotos += processPhoto(photo, flickrreview,
+            #                               reviewer, override, addCategory,
+            #                               removeCategories, autonomous)
             totalPhotos += 1
     else:
         usage()
