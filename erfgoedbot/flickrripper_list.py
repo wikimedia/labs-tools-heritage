@@ -297,7 +297,7 @@ def processPhoto(photo, flickrreview=False, reviewer=u'',
             #pywikibot.output(photoDescription)
             if not autonomous:
                 (newPhotoDescription, newFilename, skip) = Tkdialog(
-                    photoDescription, photo, filename).run()
+                    photoDescription, photoStream, filename).run()
             else:
                 newPhotoDescription = photoDescription
                 newFilename = filename
