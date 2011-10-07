@@ -90,6 +90,8 @@ def getPhoto(flickr = None, photo_id = ''):
         try:
             photoInfo = flickr.photos_getInfo(photo_id=photo_id)
             #xml.etree.ElementTree.dump(photoInfo)
+            
+            # TODO: Replace this call with the attributes of the <photo> tag. See http://www.flickr.com/services/api/misc.urls.html
             photoSizes = flickr.photos_getSizes(photo_id=photo_id)
             #xml.etree.ElementTree.dump(photoSizes)
             gotPhoto = True
