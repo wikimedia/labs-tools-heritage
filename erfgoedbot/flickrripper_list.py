@@ -507,7 +507,7 @@ class Tkdialog:
         return (self.photoDescription, self.filename, self.skip)
 
 
-def getPhotos(flickr=None, user_id=u'', group_id=u'', photoset_id=u'',
+def getPhotoIds(flickr=None, user_id=u'', group_id=u'', photoset_id=u'',
               start_id='', end_id='', tags=u''):
     ''' Loop over a set of Flickr photos. '''
     result = []
@@ -607,6 +607,14 @@ def getPhotos(flickr=None, user_id=u'', group_id=u'', photoset_id=u'',
                     pywikibot.output(u'Flickr api problem, sleeping')
                     time.sleep(30)
 
+    return
+
+def getPhotos(flickr=None, user_id=u'', group_id=u'', photoset_id=u'',
+              start_id='', end_id='', tags=u''):
+
+    for photo_id in getPhotoIds(flickr, user_id, group_id, photoset_id,
+                                  start_id, end_id, tags):
+        yield getPhoto(flickr, photo_id)
     return
 
 def usage():
@@ -730,9 +738,8 @@ def main():
         group_id = ripper_config['group']
 
     if user_id or group_id or photoset_id:
-        for photo_id in getPhotos(flickr, user_id, group_id, photoset_id,
+        for photo in getPhotos(flickr, user_id, group_id, photoset_id,
                                   start_id, end_id, tags):
-            photo = getPhoto(flickr, photo_id)
             compareDescriptions(photo)
             #uploadedPhotos += processPhoto(photo, flickrreview,
             #                               reviewer, override, addCategory,
