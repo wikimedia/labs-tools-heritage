@@ -657,6 +657,7 @@ def main():
     totalPhotos = 0
     uploadedPhotos = 0
     json_in = False
+    json_out = False
 
     # Do we mark the images as reviewed right away?
     if config.flickr['review']:
@@ -740,6 +741,14 @@ def main():
                     u'What json file do you want to read from?')
             else:
                 json_in = arg[8:]
+        elif arg.startswith('-jsonout'):
+            if len(arg) == 8:
+                json_out = pywikibot.input(
+                    u'What json file do you want to write to?')
+            else:
+                json_out = arg[9:]
+            json_out = io.open(json_out, 'wb')
+            json_out.write('[')
         else:
             pywikibot.output(u'Bad argument `%s\' given' % arg)
             return        
@@ -759,12 +768,25 @@ def main():
         usage()
         return
      
+    first = True
     for photo in iterator:
+        if json_out:
+            if not first:
+                json_out.write(',\n')
+            json_out.write(json.dumps(photo))
+            first = False
+        
+        if True:
             compareDescriptions(photo)
             #uploadedPhotos += processPhoto(photo, flickrreview,
             #                               reviewer, override, addCategory,
             #                               removeCategories, autonomous)
             totalPhotos += 1
+    
+    if json_out:
+        json_out.write(']')
+        json_out.close()
+    
     pywikibot.output(u'Finished running')
     pywikibot.output(u'Total photos: ' + str(totalPhotos))
     pywikibot.output(u'Uploaded photos: ' + str(uploadedPhotos))
