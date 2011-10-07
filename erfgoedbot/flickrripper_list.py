@@ -42,6 +42,7 @@ import flickrapi                  # see: http://stuvel.eu/projects/flickrapi
 import xml.etree.ElementTree
 from Tkinter import *
 from PIL import Image, ImageTk    # see: http://www.pythonware.com/products/pil/
+import io, json
 
 flickr_allowed_license = {
     0 : False, # All Rights Reserved
@@ -352,7 +353,6 @@ def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
     return description
 
 def compareDescriptions(photo):
-	import io
 	flinfoDescription = getFlinfoDescription(photo['photo_id'])
 	description = getDescription(photo)
 	
@@ -656,6 +656,7 @@ def main():
     autonomous = False
     totalPhotos = 0
     uploadedPhotos = 0
+    json_in = False
 
     # Do we mark the images as reviewed right away?
     if config.flickr['review']:
@@ -733,20 +734,37 @@ def main():
             removeCategories = True
         elif arg == '-autonomous':
             autonomous = True
+        elif arg.startswith('-jsonin'):
+            if len(arg) == 7:
+                json_in = pywikibot.input(
+                    u'What json file do you want to read from?')
+            else:
+                json_in = arg[8:]
+        else:
+            pywikibot.output(u'Bad argument `%s\' given' % arg)
+            return        
 			
     if group_id == u'':
         group_id = ripper_config['group']
 
-    if user_id or group_id or photoset_id:
-        for photo in getPhotos(flickr, user_id, group_id, photoset_id,
-                                  start_id, end_id, tags):
+    iterator = None
+    if json_in:
+        f = io.open(json_in, 'r')
+        iterator = iter(json.load(f))
+        f.close()
+    elif user_id or group_id or photoset_id:
+        iterator = iter(getPhotos(flickr, user_id, group_id, photoset_id,
+                                  start_id, end_id, tags))
+    else:
+        usage()
+        return
+     
+    for photo in iterator:
             compareDescriptions(photo)
             #uploadedPhotos += processPhoto(photo, flickrreview,
             #                               reviewer, override, addCategory,
             #                               removeCategories, autonomous)
             totalPhotos += 1
-    else:
-        usage()
     pywikibot.output(u'Finished running')
     pywikibot.output(u'Total photos: ' + str(totalPhotos))
     pywikibot.output(u'Uploaded photos: ' + str(uploadedPhotos))
