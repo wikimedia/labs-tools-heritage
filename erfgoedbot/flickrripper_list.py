@@ -307,9 +307,9 @@ def cleanUpTitle(title):
     title = title.replace(u" ", u"_")
     return title
 
-def getMonumentId(photoInfo):
+def getMonumentId(photo):
     prog = re.compile(ripper_config['monument_regexp'])
-    for tag in getTags(photoInfo):
+    for tag in photo['tags']:
         print tag
         m = prog.match(tag.upper())
         if m <> None:
@@ -317,15 +317,15 @@ def getMonumentId(photoInfo):
     return u'';
 
 def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
-                     override=u'', addCategory=u'', removeCategories=False, photoInfo=None):
+                     override=u'', addCategory=u'', removeCategories=False, photo):
     ''' Build the final description for the image. The description is based on
     the info from flickrinfo and improved.
 
     '''
     description = flinfoDescription
     description = description.replace(u'|Description=', u'|Description={{' + ripper_config['lang'] + '|1=');
-    print "monument", getMonumentId(photoInfo)
-    description = description.replace(u'\n|Source=', u'}}\n{{' + ripper_config['monument_template'] + '|' + getMonumentId(photoInfo) + '}}\n|Source=');
+    print "monument", getMonumentId(photo)
+    description = description.replace(u'\n|Source=', u'}}\n{{' + ripper_config['monument_template'] + '|' + getMonumentId(photo) + '}}\n|Source=');
     if removeCategories:
         description = pywikibot.removeCategoryLinks(description,
                                                     pywikibot.getSite(
@@ -394,7 +394,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                                                 flickrreview, reviewer,
                                                 override, addCategory,
                                                 removeCategories,
-                                                photoInfo)
+                                                photo)
             #pywikibot.output(photoDescription)
             if not autonomous:
                 (newPhotoDescription, newFilename, skip) = Tkdialog(
