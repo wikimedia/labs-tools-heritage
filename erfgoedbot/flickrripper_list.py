@@ -766,10 +766,14 @@ def main():
         elif arg.startswith('-action'):
             if len(arg) == 7:
                 action = pywikibot.input(
-                    u'What action do you want to perform (read/showurl/upload)?')
+                    u'What action do you want to perform (read/showurl/download/upload)?')
             else:
                 action = arg[8:]
-            action = { 'read': 0, 'showurl': 1, 'upload': 3 }.get(action, u'upload')
+            action = { 'read': 0, 'showurl': 1, 'download': 2, 'upload': 3, 'error': -1 }.get(action, 'error')
+            if action == -1:
+                pywikibot.output(u'Wrong action given')
+                return
+
         elif arg.startswith('-imagedir'):
             if len(arg) == 9:
                 imagedir = pywikibot.input(
@@ -806,11 +810,12 @@ def main():
         if action == 1:
 			print photo['url']
         
-        if action > 2:
+        if action >= 2:
             if isAllowedLicense(photo) or override:
                 photoStream = downloadPhoto(photo['url'], imagedir)
                 
-                uploadedPhotos += processPhoto(photo, photoStream, flickrreview,
+                if action >= 3:
+                    uploadedPhotos += processPhoto(photo, photoStream, flickrreview,
                                            reviewer, override, addCategory,
                                            removeCategories, autonomous)
             totalPhotos += 1
