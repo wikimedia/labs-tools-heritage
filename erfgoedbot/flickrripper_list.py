@@ -377,13 +377,10 @@ def compareDescriptions(photo):
 	pywikibot.output(description)
 	return
 
-def processPhoto(photo, flickrreview=False, reviewer=u'',
+def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                  override=u'', addCategory=u'', removeCategories=False,
                  autonomous=False):
-    ''' Process a single Flickr photo '''
-    
-    if  isAllowedLicense(photo) or override:
-        photoStream = downloadPhoto(photo['url'])
+        ''' Process a single Flickr photo '''
         
         #Don't upload duplicate images, should add override option
         duplicates = findDuplicateImages(photoStream)
@@ -423,8 +420,8 @@ def processPhoto(photo, flickrreview=False, reviewer=u'',
                                          verifyDescription=False)
                 bot.upload_image(debug=False)
                 return 1
-    return 0
 
+        return 0
 
 class Tkdialog:
     ''' The user dialog. '''
@@ -790,7 +787,10 @@ def main():
 			print photo['url']
         
         if action > 2:
-            uploadedPhotos += processPhoto(photo, flickrreview,
+            if isAllowedLicense(photo) or override:
+                photoStream = downloadPhoto(photo['url'])
+                
+                uploadedPhotos += processPhoto(photo, photoStream, flickrreview,
                                            reviewer, override, addCategory,
                                            removeCategories, autonomous)
             totalPhotos += 1
