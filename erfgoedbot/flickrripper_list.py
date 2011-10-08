@@ -316,8 +316,8 @@ def getMonumentId(photo):
             return m.group(1)
     return u'';
 
-def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
-                     override=u'', addCategory=u'', removeCategories=False, photo):
+def buildDescription(photo, flinfoDescription=u'', flickrreview=False, reviewer=u'',
+                     override=u'', addCategory=u'', removeCategories=False):
     ''' Build the final description for the image. The description is based on
     the info from flickrinfo and improved.
 
@@ -390,11 +390,10 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
             filename = getFilename(photo)
             flinfoDescription = getFlinfoDescription(photo['photo_id'])
             pywikibot.output(flinfoDescription)
-            photoDescription = buildDescription(flinfoDescription,
+            photoDescription = buildDescription(photo, flinfoDescription,
                                                 flickrreview, reviewer,
                                                 override, addCategory,
-                                                removeCategories,
-                                                photo)
+                                                removeCategories)
             #pywikibot.output(photoDescription)
             if not autonomous:
                 (newPhotoDescription, newFilename, skip) = Tkdialog(
