@@ -43,6 +43,7 @@ import xml.etree.ElementTree
 from Tkinter import *
 from PIL import Image, ImageTk    # see: http://www.pythonware.com/products/pil/
 import io, json
+import os, posixpath
 
 flickr_allowed_license = {
     0 : False, # All Rights Reserved
@@ -148,14 +149,26 @@ def getPhotoUrl(photoSizes = None):
         url = size.attrib['source']
     return url
 
-def downloadPhoto(photoUrl = ''):
+def downloadPhoto(photoUrl = '', imagedir = False):
     '''
     Download the photo and store it in a StrinIO.StringIO object.
 
     TODO: Add exception handling
 
     '''
+    
+    filename = False
+    if imagedir:
+        filename = os.path.join(imagedir,posixpath.basename(urllib.url2pathname(photoUrl)))
+        
+        if os.path.exists(filename):
+            return StringIO.StringIO(io.open(filename, "rb").read())
+    
     imageFile=urllib.urlopen(photoUrl).read()
+    
+    if filename:
+        io.open(filename, "wb").write(imageFile)
+    
     return StringIO.StringIO(imageFile)
 
 def findDuplicateImages(photoStream=None,
@@ -656,6 +669,7 @@ def main():
     uploadedPhotos = 0
     json_in = False
     json_out = False
+    imagedir = False
     action = 3
 
     # Do we mark the images as reviewed right away?
@@ -755,6 +769,12 @@ def main():
             else:
                 action = arg[8:]
             action = { 'read': 0, 'showurl': 1, 'upload': 3 }.get(action, u'upload')
+        elif arg.startswith('-imagedir'):
+            if len(arg) == 9:
+                imagedir = pywikibot.input(
+                    u'Which folder should be used to save/load the images?')
+            else:
+                imagedir = arg[10:]
         else:
             pywikibot.output(u'Bad argument `%s\' given' % arg)
             return        
@@ -787,7 +807,7 @@ def main():
         
         if action > 2:
             if isAllowedLicense(photo) or override:
-                photoStream = downloadPhoto(photo['url'])
+                photoStream = downloadPhoto(photo['url'], imagedir)
                 
                 uploadedPhotos += processPhoto(photo, photoStream, flickrreview,
                                            reviewer, override, addCategory,
