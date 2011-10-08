@@ -401,7 +401,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
             pywikibot.output(u'Found duplicate image at %s' % duplicates.pop())
         else:
             filename = getFilename(photo)
-            flinfoDescription = getFlinfoDescription(photo['photo_id'])
+            flinfoDescription = getDescription(photo['photo_id'])
             pywikibot.output(flinfoDescription)
             photoDescription = buildDescription(photo, flinfoDescription,
                                                 flickrreview, reviewer,
