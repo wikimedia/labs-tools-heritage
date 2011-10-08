@@ -430,6 +430,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                                          useFilename=newFilename,
                                          keepFilename=True,
                                          verifyDescription=False)
+                bot._contents = photoStream.getvalue()
                 bot.upload_image(debug=False)
                 return 1
 
