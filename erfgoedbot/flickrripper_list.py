@@ -283,11 +283,11 @@ def getFilename(photo=None, site=pywikibot.getSite(u'commons', u'commons'),
     baseFilename = u'%s' % (title)
     print baseFilename
 
-    if pywikibot.Page(site, u'%s.jpg'
+    if pywikibot.Page(site, u'File:%s.jpg'
                       % (baseFilename) ).exists():
-        i = 1
+        i = 2
         while True:
-            if (pywikibot.Page(site, u'%s (%s).jpg'
+            if (pywikibot.Page(site, u'File:%s (%s).jpg'
                                % (baseFilename, str(i))).exists()):
                 i = i + 1
             else:
