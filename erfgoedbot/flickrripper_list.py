@@ -273,7 +273,7 @@ def getFilename(photo=None, site=pywikibot.getSite(u'commons', u'commons'),
     '''
     username = photo['username']
     title = photo['title']
-    if title and not re.match('^IMG_\d+$', title):
+    if title and not re.match('^(IMG|DSC)_\d+$', title):
         title =  cleanUpTitle(title)
     elif photo['description']:
         title =  cleanUpTitle(photo['description'])
