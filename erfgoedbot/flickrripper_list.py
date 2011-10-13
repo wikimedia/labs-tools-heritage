@@ -400,7 +400,8 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
         if duplicates:
             pywikibot.output(u'Found duplicate image at %s' % duplicates.pop())
         else:
-            filename = getFilename(photo)
+            site=pywikibot.getSite(u'commons', u'commons')
+            filename = getFilename(photo, site)
             flinfoDescription = getDescription(photo)
             pywikibot.output(flinfoDescription)
             photoDescription = buildDescription(photo, flinfoDescription,
@@ -409,12 +410,22 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                                                 removeCategories)
             #pywikibot.output(photoDescription)
             if not autonomous:
-                (newPhotoDescription, newFilename, skip) = Tkdialog(
-                    photoDescription, photoStream, filename).run()
+                while True:
+                    (newPhotoDescription, newFilename, skip) = Tkdialog(
+                        photoDescription, photoStream, filename).run()
+                    
+                    if skip or newFilename == filename:
+                        break
+                    if not pywikibot.Page(site, u'File:' + newFilename).exists():
+                        break
+                    filename = newFilename # Show the dialog again to choose a different filename
+                    photoDescription = newPhotoDescription
+                    photoStream = StringIO.StringIO(photoStream.getvalue())
             else:
                 newPhotoDescription = photoDescription
                 newFilename = filename
                 skip = False
+        
         #pywikibot.output(newPhotoDescription)
         #if (pywikibot.Page(title=u'File:'+ filename, site=pywikibot.getSite()).exists()):
         # I should probably check if the hash is the same and if not upload it under a different name
