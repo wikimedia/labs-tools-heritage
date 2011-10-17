@@ -414,7 +414,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
             if not autonomous:
                 while True:
                     (newPhotoDescription, newFilename, skip) = Tkdialog(
-                        photoDescription, photoStream, filename).run()
+                        photoDescription, photoStream, filename, u' '.join(photo['tags'])).run()
                     
                     if skip or newFilename == filename:
                         break
@@ -451,7 +451,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
 
 class Tkdialog:
     ''' The user dialog. '''
-    def __init__(self, photoDescription, photo, filename):
+    def __init__(self, photoDescription, photo, filename, tags = u''):
         self.root=Tk()
         #"%dx%d%+d%+d" % (width, height, xoffset, yoffset)
         self.root.geometry("%ix%i+0+0"%(config.tkhorsize, config.tkvertsize))
@@ -482,6 +482,11 @@ class Tkdialog:
         self.descriptionField.insert(END, photoDescription)
         self.descriptionField.config(state=NORMAL, height=12, width=100, padx=0, pady=0, wrap=WORD, yscrollcommand=self.descriptionScrollbar.set)
         self.descriptionScrollbar.config(command=self.descriptionField.yview)
+        
+        # Show flickr tags for reference on description
+        self.tagsLabel=Label(self.root,text=u"Flickr tags")
+        self.tagsField=Entry(self.root, width=100)
+        self.tagsField.insert(END, tags)
 
         # The buttons
         self.okButton=Button(self.root, text="OK", command=self.okFile)
@@ -500,10 +505,15 @@ class Tkdialog:
         self.filenameLabel.grid(row=13, column=0)
         self.filenameField.grid(row=13, column=1, columnspan=3)
 
+        # The tags
+        self.tagsLabel.grid(row=14, column=0)
+        self.tagsField.grid(row=14, column=1, columnspan=3)
+
         # The description
-        self.descriptionLabel.grid(row=14, column=0)
-        self.descriptionField.grid(row=14, column=1, columnspan=3)
-        self.descriptionScrollbar.grid(row=14, column=5)
+        self.descriptionLabel.grid(row=15, column=0)
+        self.descriptionField.grid(row=15, column=1, columnspan=3)
+        self.descriptionScrollbar.grid(row=15, column=5)
+        
 
     def getImage(self, photo, width, height):
         ''' Take the StringIO object and build an imageTK thumbnail '''
