@@ -2193,7 +2193,7 @@ countries = {
         'commonsCategoryBase' : u'National Register of Historic Places',
         'autoGeocode' : False,
         'unusedImagesPage' : u'', # u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
-        'imagesWithoutIdPage' : u'' # u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
+        'imagesWithoutIdPage' : u'', # u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
 	'namespaces' : [0, 2], # Also user for testing
 	'table' : u'monuments_us_(en)',
 	'truncate' : True,
