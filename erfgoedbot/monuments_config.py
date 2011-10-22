@@ -2194,7 +2194,7 @@ countries = {
         'autoGeocode' : False,
         'unusedImagesPage' : u'', # u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
         'imagesWithoutIdPage' : u'', # u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
-	'namespaces' : [0, 2], # Also user for testing
+	'namespaces' : [0],
 	'table' : u'monuments_us_(en)',
 	'truncate' : True,
 	'primkey' : u'refnum',
