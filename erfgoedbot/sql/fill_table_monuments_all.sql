@@ -422,3 +422,17 @@ SELECT 'se' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`
 	FROM `monuments_se_(sv)`;
+/* United States */
+REPLACE INTO `monuments_all`
+SELECT 'us' AS `country`,
+       'en' AS `lang`,
+	`refnum` AS `id`, 
+	`name` AS `name`,
+	`address` AS `address`,
+	`city` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`image` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`
+	FROM `monuments_us_(en)`;

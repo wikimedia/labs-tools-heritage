@@ -2183,4 +2183,97 @@ countries = {
 	    },
         ],
     },
+    ('us', 'en') : {
+        'project' : u'wikipedia',
+	'lang' : u'en',
+	'headerTemplate' : u'NRHP header',
+	'rowTemplate' : u'NRHP row',
+        'commonsTemplate' : u'NRHP',
+        'commonsTrackerCategory' : u'National Register of Historic Places with known IDs',
+        'commonsCategoryBase' : u'National Register of Historic Places',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'', # u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
+        'imagesWithoutIdPage' : u'' # u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
+	'namespaces' : [0, 2], # Also user for testing
+	'table' : u'monuments_us_(en)',
+	'truncate' : True,
+	'primkey' : u'refnum',
+	'fields' : [
+	    {
+		'source' : u'pos',
+		'dest' : u'pos',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'refnum',
+		'dest' : u'refnum',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'type',
+		'dest' : u'type',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'article',
+		'dest' : u'article',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'name',
+		'dest' : u'name',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'address',
+		'dest' : u'address',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'city',
+		'dest' : u'city',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'county',
+		'dest' : u'county',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'state',
+		'dest' : u'state',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'showcounty',
+		'dest' : u'',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'date',
+		'dest' : u'date',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'image',
+		'dest' : u'image',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lat',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'lon',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'description',
+		'dest' : u'description',
+		'conv' : u'',
+	    },
+	],
+    },
 }
