@@ -77,7 +77,7 @@ class Statistics extends StatisticsBase {
             $idxs[$row[$gi]] = 1;
             list($country,$municipality) = explode(':', $row[$gi], 2);
             $this->report[$row[$gi]]['country'] = $country;
-            $this->report[$row[$gi]]['lang'] = $lang;
+            $this->report[$row[$gi]]['lang'] = $country == 'us' ? 'en' : $country;
             $this->report[$row[$gi]]['municipality'] = $municipality;
             $this->report[$row[$gi]][$row[$gc]] = $row['value'];
 	    }
