@@ -427,7 +427,7 @@ REPLACE INTO `monuments_all`
 SELECT 'us' AS `country`,
        'en' AS `lang`,
 	`refnum` AS `id`, 
-	`name` AS `name`,
+	CONCAT('[[', `article`, '|', `name`, ']]') AS `name`,
 	CONCAT(`address`, ' ', `city`) AS `address`,
 	`county` AS `municipality`,
 	`lat` AS `lat`,
