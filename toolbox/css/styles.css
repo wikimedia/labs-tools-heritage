@@ -1,0 +1,355 @@
+/* reset browser defaults */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* start website styles */
+
+/* colors: 
+	#8f0000 wlm red 
+
+
+*/ 
+
+body {
+	background-color: #fff;
+	background-image: url(../img/bg_stripes.png);
+	background-repeat: repeat;
+	height: 100%;
+	
+	}
+
+
+div#wrapper {
+	width: 960px;
+	background-color: #fff;
+	margin-top: 15px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 1px;
+	margin-bottom: 110px; /* must correspond to the height of the footer  */ 
+	padding-bottom: 15px;
+	-moz-border-radius-topleft: 8px;
+-moz-border-radius-topright: 8px;
+-moz-border-radius-bottomright: 0px;
+-moz-border-radius-bottomleft: 0px;
+border-top-left-radius: 8px;
+border-top-right-radius: 8px;
+border-bottom-right-radius: 0px;
+border-bottom-left-radius: 0px; 
+-webkit-box-shadow: 4px 4px 8px #808080;
+-moz-box-shadow: 4px 4px 8px #808080;
+box-shadow: 4px 4px 8px #808080;
+	}
+
+div#header {
+	margin-top: 19px;
+	margin-left: 20px;
+	margin-right: 20px;
+		}
+div#header h1,
+div#header div#random-banner {
+	margin-left: 225px;
+	}
+img#wlm-logo {
+	float: left;
+	margin-left: 20px;
+	}
+div#header h1 {
+	font-size: 16px;
+	margin-bottom: 5px;
+	}
+div#header h1 span {
+	font-weight: bold;
+	color:#9e0101;
+	}
+
+div#maincontainer {
+	clear: left;
+	margin-left: 20px;
+	margin-top: 50px;
+	}
+div#leftnav {
+	width: 200px;
+	float: left;
+	margin-left: 20px;
+	
+	}
+div#content {
+	margin-left: 235px;
+	margin-right: 150px
+
+	}
+
+div#content h2 {
+	font-size: 32px;
+	color: #9e0101;
+	margin-bottom: 5px;
+	}
+div#content h3 {
+	font-size: 22px;
+	color: #a9a2a2;
+	margin-bottom: 20px;
+	}
+div#content h4 {
+	color: #000;
+	font-weight: bold;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	}
+
+div#leftnav ul li,
+div#leftnav ul a
+ {
+	font-size: 14px;
+	font-weight: bold;
+	color: #9e0101;
+	text-decoration: none;
+	margin-bottom: 15px;
+	}
+div#leftnav ul li ul {
+	margin-left: 10px;
+	}
+div#leftnav ul li ul li,
+div#leftnav ul li ul li a {
+	color: #000;
+	font-weight: normal;
+	font-size: 13px;
+	margin-bottom: 3px;
+	}
+div#leftnav ul li ul li span {
+	font-weight: bold;;
+	}
+
+
+
+div#footer {
+    background-color: #d7d7cd;
+    
+    bottom: 0;
+    color: #000;
+    font-size: 11px;
+    height: 110px;
+    left: 0;
+    overflow: hidden;
+    padding: 3px 0 7px;
+    position: fixed;
+    width: 100%;
+    z-index: 998;
+	}
+
+
+div#footer div#extramenu {
+	margin-left: auto;
+	margin-right: auto;
+	width: 705px;
+	padding-left: 255px;
+	margin-top: 5px;
+	}
+
+div#footer a:link,
+div#footer a:visited
+ {
+	color: #000;
+	
+	}
+div#footer div#extramenu ul {
+	width: 200px;
+	float: left;
+	margin-right: 15px;
+
+	}
+
+div#footer div#extramenu ul li {
+	height: 27px;
+	font-size: 11px;
+ 		}
+div#footer a:link,
+div#footer a:visited {
+	text-decoration: none;
+	font-size: 12px;
+	}
+div#footer a:hover,
+div#footer a:active {
+	text-decoration: underline;
+	}
+
+div#footer a.icon {
+	padding-left: 32px;
+	background-repeat: no-repeat;
+	background-position: left 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: block;
+	}
+
+div#footer a#wikipedia {
+	background-image: url(../img/logo-wikipedia-27px.png;)
+	}
+div#footer a#wikimedia {
+	background-image: url(../img/logo-wikimedia-27px.png;)
+	}
+
+/* some typo */
+h1,h2,h3 {
+	font-family: Georgia, Cambria, Times, Times New Roman, serif;
+	color: #000;
+	font-weight: normal;
+	}
+
+
+h4, h5, h6, p, td, li, a {
+	font-family: Helvetica, Calibri, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 135%;
+	}
+
+/******** SPLASH PAGE  ************/
+
+body#splashpage div#header h1 {
+	font-size: 30px;
+	color: #6c6a69;	
+	padding-top: 50px;
+	line-height: 200%;
+	margin-left:300px;
+	
+	}
+body#splashpage div#header h1 span {
+font-size: 42px;
+color: #8f0000 ;
+font-weight: normal;
+	}
+body#splashpage div#header h1 span#puzzleball {
+	padding-right: 35px;
+	padding-top: 25px;
+	background-image: url(../img/logo-wikipedia-40px.png;);
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+
+
+body#splashpage div#maincontainer {
+	margin-top: 20px;
+	}
+
+
+body#splashpage div#footer div#extramenu {
+	margin-left: auto;
+	margin-right: auto;
+	width: 900px;
+	padding-left: 30px;
+	margin-top: 5px;
+	}
+
+body#splashpage div#footer div#extramenu ul li {
+	padding-bottom:2px;
+	height: auto;
+		}
+body#splashpage div#footer div#extramenu ul li a {
+	padding: 0;
+		font-size: 16px;
+	font-weight: bold;
+	color: #8f0000
+	}
+
+body#splashpage div#footer div#extramenu ul li ul li a {
+	font-size: 12px;
+	color: #000;
+	font-weight: normal;
+	line-height: 120%;
+	}
+/* splash images carousel */ 
+
+
+
+.stepcarousel{
+position: relative; /*leave this value alone*/
+overflow: scroll; /*leave this value alone*/
+width: 900px; /*Width of Carousel Viewer itself*/
+height: 300px; /*Height should enough to fit largest content's height*/
+-moz-border-radius: 8px;
+border-radius: 8px; 
+
+left:10px;
+}
+
+.stepcarousel .belt{
+position: absolute; /*leave this value alone*/
+left: 0;
+top: 0;
+}
+
+.stepcarousel .panel{
+float: left; /*leave this value alone*/
+overflow: hidden; /*clip content that go outside dimensions of holding panel DIV*/
+margin: 0px; /*margin around each panel*/
+width: 900px; /*Width of each panel holding each content. If removed, widths should be individually defined on each content DIV then. */
+}
+.stepcarousel .panel p.attribution {
+	position: absolute;
+	bottom:5px;
+	right: 40px;
+	color: #fff;
+	font-size: 12px;
+	}
+.stepcarousel .panel p.attribution a:link,
+.stepcarousel .panel p.attribution a:visited {
+	color: #fff;
+		font-size: 12px;
+text-decoration: underline;
+	
+	}
+.stepcarousel .panel p.dark,
+.stepcarousel .panel p.dark a:link,
+.stepcarousel .panel p.dark a:visited {
+	color: #000;
+	font-weight: bold;
+	}
