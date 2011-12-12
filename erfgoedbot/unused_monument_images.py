@@ -61,6 +61,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             monumentId = monumentId.strip()
             # Remove leading zero's
             monumentId = monumentId.lstrip(u'0')
+	    # All uppercase, same happens in other list
+	    monumentId = monumentId.upper()
             if monumentId in withoutPhoto:
                 m = re.search('^(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
@@ -92,7 +94,8 @@ def getMonumentsWithoutPhoto(countrycode, lang, conn, cursor):
         try:
             row = cursor.fetchone()
             (id, source) = row
-            result[id] = source
+	    # To uppercase, same happens in the other list
+            result[id.upper()] = source
         except TypeError:
             break
 
