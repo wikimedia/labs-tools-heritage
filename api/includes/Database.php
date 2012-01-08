@@ -29,7 +29,7 @@ class Database {
 			if ( is_int( $key ) )
 				$text .= $value . $glue;
 			else
-				$text .= $this->implodeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
+				$text .= $this->escapeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
 		}
 		return substr( $text, 0, -strlen( $glue ) );
 	}
