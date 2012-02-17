@@ -1,9 +1,14 @@
 <?php
 
+
 function getImageFromCommons($filename, $size) {
-    $md5hash=md5($filename);
-    $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . urlencode($filename) . "/" . $size . "px-" . urlencode($filename);
-    return $url;
+    if ($filename and $size) {
+        $md5hash=md5($filename);
+        $filename = str_replace(' ', '_', $filename);
+        //urlencode($filename);
+        $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . $filename . "/" . $size . "px-" . $filename;
+        return $url;
+    }
 }
 
 function processWikitext($wikilang, $text, $makelinks) {
