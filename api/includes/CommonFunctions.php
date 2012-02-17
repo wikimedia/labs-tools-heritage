@@ -1,5 +1,6 @@
 <?php
-
+//FIXME: functions used in API should be moved to some(?) class
+// these functions are also used by /layar scripts
 
 function getImageFromCommons($filename, $size) {
     if ($filename and $size) {
