@@ -27,6 +27,7 @@ SELECT 'at' AS `country`,
         `lon` AS `lon`,
         `foto` AS `image`,
         `source` AS `source`,
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
         `changed` AS `changed`
         FROM `monuments_at_(de)`;
 /* Brussel */
