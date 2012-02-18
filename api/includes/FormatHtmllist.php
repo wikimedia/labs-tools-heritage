@@ -52,12 +52,12 @@ class FormatHtmllist extends FormatBase {
         foreach ( $row as $name => $value ) {
             if ( in_array( $name, $selectedItems ) ) {
                 if ( in_array( $name, $listFields ) ) {
-                    $desc .= '<li> ' . $name . ': ';
+                    $desc .= '<li> ' . htmlspecialchars($name) . ': ';
                     if ( in_array( $name, $hasWikitext ) ) {
                         $makeLinks = true;
-                        $desc .= processWikitext($row->lang, $value, $makeLinks);
+                        $desc .= htmlspecialchars( processWikitext($row->lang, $value, $makeLinks) );
                     } else {
-                        $desc .= $value;
+                        $desc .= htmlspecialchars( $value );
                     }
                     $desc .= '</li>';
                 }
@@ -71,11 +71,11 @@ class FormatHtmllist extends FormatBase {
 			if (preg_match("/^(.+?)&/", $row->source, $matches) ) { 
 				$wikiListUrl = $matches[1];
 				$desc .= '<li><a href="' . $wikiListUrl. '">Source monuments list in Wikipedia</a></li>';
-			} 			
+			} 
 		}
         
         $desc .= '</ul>';
-        echo htmlspecialchars( $desc );
+        echo $desc;
 	}
 	
 	function outputEnd() {
