@@ -47,11 +47,10 @@ class FormatHtmllist extends FormatBase {
 
         $desc .= '<ul>';
         $hasWikitext = array('name', 'address', 'municipality');
-        //FIXME only use $listFields, if all fields are selected by default
-        $listFields = array('id', 'name', 'address', 'municipality');
+        $sepListedFields = array('image', 'lat', 'lon', 'source');
         foreach ( $row as $name => $value ) {
             if ( in_array( $name, $selectedItems ) ) {
-                if ( in_array( $name, $listFields ) ) {
+                if ( !in_array( $name, $sepListedFields ) ) {
                     $desc .= '<li> ' . htmlspecialchars($name) . ': ';
                     if ( in_array( $name, $hasWikitext ) ) {
                         $makeLinks = true;
