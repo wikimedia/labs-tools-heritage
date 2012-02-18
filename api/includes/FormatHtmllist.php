@@ -25,8 +25,12 @@ class FormatHtmllist extends FormatBase {
 	}
     
     function outputTitle( $result, $numRows ) {
+        
         if ($numRows == 1) {
-            $title = htmlspecialchars(  processWikitext('', $result[0]['name'], false) );
+            foreach ( $result as $row ) {
+                $title = htmlspecialchars(  processWikitext('', $row['name'], false) );
+                break;
+            }
         } else {
             $title = 'Monuments list';
         }
