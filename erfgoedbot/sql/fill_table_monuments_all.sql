@@ -465,5 +465,5 @@ SELECT 'us' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        REPLACE( `article`,  ' ',  '_' ) AS `monument_article`
 	FROM `monuments_us_(en)`;
