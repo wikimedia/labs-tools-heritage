@@ -149,7 +149,7 @@ SELECT 'de-nrw-bm' AS `country`,
     `bild` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`
 	FROM `monuments_de-nrw-bm_(de)`;
 /* Hessen, Germany in German */
 REPLACE INTO `monuments_all`
@@ -164,7 +164,7 @@ SELECT 'de-he' AS `country`,
     `bild` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`
 	FROM `monuments_de-he_(de)`;
 /* Cologne, Germany in German */
 REPLACE INTO `monuments_all`
