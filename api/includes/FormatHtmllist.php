@@ -17,19 +17,22 @@ class FormatHtmllist extends FormatBase {
 		echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 	}
 	
-	function outputBegin( $selectedItems, $numRows, $result) {
+	function outputBegin( $selectedItems ) {
+		echo '<html>';
+		echo '<head>';
+		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
+		
+	}
+    
+    function outputTitle( $result, $numRows ) {
         if ($numRows == 1) {
             $title = htmlspecialchars(  processWikitext('', $result[0]['name'], false) );
         } else {
             $title = 'Monuments list';
         }
-		echo '<html>';
-		echo '<head>';
-		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
         echo '<title>'. $title .'</title>';
         echo "</head>\n<body>\n";
-		
-	}
+    }
 	
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
@@ -91,7 +94,8 @@ class FormatHtmllist extends FormatBase {
 		$this->headers();
 		
         $numRows = $result->numRows();
-		$this->outputBegin( $selectedItems, $numRows, $result);
+		$this->outputBegin( $selectedItems );
+        $this->outputTitle( $result, $numRows );
         $count = 0;
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {
