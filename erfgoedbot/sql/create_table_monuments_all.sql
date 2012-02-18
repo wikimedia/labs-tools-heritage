@@ -12,8 +12,8 @@ CREATE TABLE `monuments_all` (
   `lon` double NOT NULL DEFAULT '0',
   `image` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `monument_article` VARCHAR(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `monument_article` VARCHAR(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`country`, `lang`, `id`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
