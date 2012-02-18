@@ -26,9 +26,12 @@ class FormatHtmllist extends FormatBase {
     
     function outputTitle( $result, $numRows ) {
         
+        $title = '';
         if ($numRows == 1) {
             foreach ( $result as $row ) {
-                $title = htmlspecialchars(  processWikitext('', $row['name'], false) );
+                if ( isset($row->name) and $row->name ) {
+                    $title = htmlspecialchars(  processWikitext('', $row->name, false) );
+                }
                 break;
             }
         } else {
