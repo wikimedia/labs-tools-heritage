@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('html_errors', false);
 
-require('/home/project/e/r/f/erfgoed/public_html/api/includes/clsBasicGeosearch.php');
+require('clsBasicGeosearch.php');
 
 
 function connect_monuments_db() {
