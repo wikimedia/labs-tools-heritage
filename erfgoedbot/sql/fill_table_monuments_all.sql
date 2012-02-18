@@ -375,7 +375,7 @@ SELECT 'no' AS `country`,
 	`bilde` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        REPLACE( `artikkel`,  ' ',  '_' ) AS `monument_article`
 	FROM `monuments_no_(no)`;
 /* Poland */
 REPLACE INTO `monuments_all`
