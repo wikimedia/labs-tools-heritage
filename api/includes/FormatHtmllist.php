@@ -37,6 +37,7 @@ class FormatHtmllist extends FormatBase {
 	}
 	
 	function outputRow($row, $selectedItems) {
+        $desc = '';
         if ( isset($row->image) and $row->image ) {
             $imgsize = 100;
             $desc .= '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($row->image) . '">';
