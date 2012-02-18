@@ -36,6 +36,11 @@ $bg = new clsBasicGeosearch();
 
 connect_monuments_db();
 
+//$t_query = "TRUNCATE TABLE prox_search";
+//$t_result = mysql_query($t_query);
+//if (!$t_result) {
+//	die('Invalid query: ' . mysql_error());
+//}
 
 $query = "SELECT `country`, `lang`, `id`, `lat`, `lon`
        FROM `monuments_all`
@@ -50,11 +55,6 @@ if (!$result)
   die('Invalid query: ' . mysql_error());
 }
 
-$t_query = "TRUNCATE TABLE prox_search";
-$t_result = mysql_query($t_query);
-if (!$t_result) {
-	die('Invalid query: ' . mysql_error());
-}		
 
 		
 while ($row = @mysql_fetch_assoc($result)) {
