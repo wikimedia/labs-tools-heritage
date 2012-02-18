@@ -17,10 +17,16 @@ class FormatHtmllist extends FormatBase {
 		echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 	}
 	
-	function outputBegin($selectedItems) {
+	function outputBegin( $selectedItems, $numRows, $result) {
+        if ($numRows == 1) {
+            $title = htmlspecialchars(  processWikitext('', $result[0]['name'], false) );
+        } else {
+            $title = 'Monuments list';
+        }
 		echo '<html>';
 		echo '<head>';
 		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
+        echo '<title>'. $title .'</title>';
         echo "</head>\n<body>\n";
 		
 	}
@@ -84,7 +90,8 @@ class FormatHtmllist extends FormatBase {
 	function output($result, $limit, $continueKey, $selectedItems, $primaryKey) {
 		$this->headers();
 		
-		$this->outputBegin( $selectedItems );
+        $numRows = $result->numRows();
+		$this->outputBegin( $selectedItems, $numRows, $result);
         $count = 0;
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {
@@ -96,17 +103,5 @@ class FormatHtmllist extends FormatBase {
 		$this->outputEnd();
 	}
 
-	/**
-	 * Make this a nice link if it is a url (source column)
-	 */
-	static function prettifyUrls($text) {
-		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org\/w\/index.php\?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)/', $text, $m ) ) {
-			/* Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org */
-			return '<a href="' . htmlspecialchars( $m[1] . '&oldid=' . $m[4] ) . '">' . htmlspecialchars( $m[2] . ': ' . str_replace( '_', ' ', $m[3] ) ) . '</a>';
-		} else {
-			// Normal text
-			return htmlspecialchars( $text );
-		}
-	}
 
 }
