@@ -55,7 +55,7 @@ class FormatHtmllist extends FormatBase {
                     $desc .= '<li> ' . htmlspecialchars($name) . ': ';
                     if ( in_array( $name, $hasWikitext ) ) {
                         $makeLinks = true;
-                        $desc .= htmlspecialchars( processWikitext($row->lang, $value, $makeLinks) );
+                        $desc .= processWikitext($row->lang, $value, $makeLinks);
                     } else {
                         $desc .= htmlspecialchars( $value );
                     }
