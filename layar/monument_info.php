@@ -11,7 +11,7 @@ ini_set('html_errors', false);
 
 require dirname( dirname( __FILE__ ) ) . '/api/autoloader.php';
 require dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
-require_once( dirname( dirname( __FILE__ ) ) . '/api/includes/CommonFunctions.php' );
+require_once( '/home/project/e/r/f/erfgoed/prox_search/CommonFunctions.php' );
 
 //uses id field from monuments_all table
 function getRegistrantUrl($lang, $monumentId) {
