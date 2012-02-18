@@ -33,6 +33,7 @@ Author: Peter Abrahamson  peter@atomjump.com  18 Feb 09. Document last update 4 
 // functions
 
 require_once('CommonFunctions.php');
+require_once( 'clsBasicGeosearch.php' );
 
 
 //class
