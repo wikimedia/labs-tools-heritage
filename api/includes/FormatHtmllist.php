@@ -62,12 +62,18 @@ class FormatHtmllist extends FormatBase {
         }
 
         if ( isset($row->name) and $row->name ) {
-            $makeLinks = true;
-            $desc .= '<h2>'. processWikitext($row->lang, $row->name, $makeLinks) . '</h2>';
+            if ( isset($row->monument_article) and $row->monument_article ) {
+                $makeLinks = false;
+                $article_url = 'http://'. $row['lang'] .'.wikipedia.org/wiki/'. htmlspecialchars( $row->monument_article );
+                $desc .= '<h2><a href="'. $article_url .'">'. processWikitext($row->lang, $row->name, $makeLinks) . '</a></h2>';
+            } else {
+                $makeLinks = true;
+                $desc .= '<h2>'. processWikitext($row->lang, $row->name, $makeLinks) . '</h2>';
+            }
         }
         $desc .= '<ul>';
         $hasWikitext = array('address', 'municipality');
-        $sepListedFields = array('name', 'image', 'lat', 'lon', 'source');
+        $sepListedFields = array('name', 'image', 'lat', 'lon', 'source', 'monument_article');
         foreach ( $row as $name => $value ) {
             if ( in_array( $name, $selectedItems ) ) {
                 if ( !in_array( $name, $sepListedFields ) ) {
