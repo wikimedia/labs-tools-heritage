@@ -1,4 +1,5 @@
 /* Create view for all country tables */
+/* WIKILINK comments notify postprocessor to extract wikilinks from these fields */
 connect p_erfgoed_p sql.toolserver.org;
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */
@@ -375,7 +376,7 @@ SELECT 'no' AS `country`,
 	`bilde` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        `artikkel` AS `monument_article`
+        `artikkel` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_no_(no)`;
 /* Poland */
 REPLACE INTO `monuments_all`
