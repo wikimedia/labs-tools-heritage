@@ -11,7 +11,7 @@ class Monuments {
 	static $dbTable = 'monuments_all';
 	
 	static $dbFields = array( 'country', 'lang', 'id', 'name', 'address', 'municipality', 
-'lat', 'lon', 'image', 'source', 'changed' );
+'lat', 'lon', 'image', 'source', 'monument_article', 'changed' );
 
 	static $dbPrimaryKey = array( 'country', 'lang', 'id' );
 }
