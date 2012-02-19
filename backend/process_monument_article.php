@@ -87,8 +87,8 @@ if ( $get_wikilinks_arr ) {
         $update_count = 0;
         $query = sprintf("SELECT monument_article, id FROM `monuments_all` 
         WHERE monument_article <> '' AND country = '%s' AND lang = '%s'",
-                 $get_wikilink['country'],
-                 $get_wikilink['lang'] );
+                 mysql_real_escape_string( $get_wikilink['country'] ),
+                 mysql_real_escape_string( $get_wikilink['lang'] ) );
    
         $result = mysql_query($query);
 
@@ -109,9 +109,9 @@ if ( $get_wikilinks_arr ) {
             
                 $update_query = sprintf("UPDATE `monuments_all` SET monument_article = '%s'
                     WHERE country = '%s' AND lang = '%s' AND id = '%s'",
-                    $wikilink,
-                    $get_wikilink['country'],
-                    $get_wikilink['lang'],
+                    mysql_real_escape_string( $wikilink ),
+                    mysql_real_escape_string( $get_wikilink['country'] ),
+                    mysql_real_escape_string( $get_wikilink['lang'] ),
                     $row['id']);
                 $r_result = mysql_query($update_query);
                 if (!$r_result) {
