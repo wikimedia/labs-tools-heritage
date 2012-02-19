@@ -9,10 +9,9 @@ ini_set('html_errors', false);
 
 //functions
 
-function mb_ucasefirst($str) { 
-    $str[0] = mb_strtoupper($str[0]); 
-    return $str; 
-} 
+function mb_ucasefirst($str, $enc = 'utf-8') {
+    return mb_strtoupper(mb_substr($str, 0, 1, $enc), $enc).mb_substr($str, 1, mb_strlen($str, $enc), $enc);
+}
 
 function connect_monuments_db() {
     $host = 'sql.toolserver.org';
