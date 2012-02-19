@@ -15,7 +15,7 @@ SELECT 'ad' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_ad_(ca)`;
 /* Austria in German */
 REPLACE INTO `monuments_all`
@@ -45,7 +45,7 @@ SELECT 'be-bru' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `omschrijving` AS `monument_article`         /* WIKILINK */
         FROM `monuments_be-bru_(nl)`;
 /* Vlaanderen */
 REPLACE INTO `monuments_all`
@@ -60,7 +60,7 @@ SELECT 'be-vlg' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `objectnaam` AS `monument_article`         /* WIKILINK */
         FROM `monuments_be-vlg_(nl)`;
 /* Wallonie */
 REPLACE INTO `monuments_all`
@@ -75,7 +75,7 @@ SELECT 'be-wal' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `descr_nl` AS `monument_article`         /* WIKILINK */
         FROM `monuments_be-wal_(nl)`;
 /* Belarus */
 REPLACE INTO `monuments_all`
@@ -90,7 +90,7 @@ SELECT 'by' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `name` AS `monument_article`         /* WIKILINK */
         FROM `monuments_by_(be-x-old)`;
 /* Switzerland */
 REPLACE INTO `monuments_all`
@@ -105,7 +105,7 @@ SELECT 'ch' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `name` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_ch_(en)`;
 /* Denmark bygninger */
 REPLACE INTO `monuments_all`
@@ -120,7 +120,7 @@ SELECT 'dk-bygninger' AS `country`,
 	`billede` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `sagsnavn` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_dk-bygninger_(da)`;
 /* Denmark fortidsminder */
 REPLACE INTO `monuments_all`
@@ -135,7 +135,7 @@ SELECT 'dk-fortidsminder' AS `country`,
 	`billede` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `stednavn` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_dk-fortidsminder_(da)`;
 /* Bergheim, NRW, Germany in German */
 REPLACE INTO `monuments_all`
@@ -180,7 +180,7 @@ SELECT 'de-nrw-k' AS `country`,
     `bild` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `bezeichnung` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_de-nrw-k_(de)`;
 /* Estonia */
 REPLACE INTO `monuments_all`
@@ -195,7 +195,7 @@ SELECT 'ee' AS `country`,
 	`pilt` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `nimi` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_ee_(et)`;
 /* Spain in Catalan */
 REPLACE INTO `monuments_all`
@@ -210,7 +210,7 @@ SELECT 'es' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_es_(ca)`;
 /* Spain in Spanish */
 REPLACE INTO `monuments_all`
@@ -225,7 +225,7 @@ SELECT 'es' AS `country`,
         `imagen` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nombre` AS `monument_article`         /* WIKILINK */
         FROM `monuments_es_(es)`
         WHERE tipobic='M';
 /* Catalunya in Catalan */
@@ -241,7 +241,7 @@ SELECT 'es-ct' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_es-ct_(ca)`;
 /* Galicia province (Spain) in Galician */
 REPLACE INTO `monuments_all`
@@ -256,7 +256,7 @@ SELECT 'es' AS `country`,
         `imaxe` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nomeoficial` AS `monument_article`         /* WIKILINK */
         FROM `monuments_es-gl_(gl)`;
 /* Valencia in Catalan */
 REPLACE INTO `monuments_all`
@@ -271,7 +271,7 @@ SELECT 'es-vc' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_es-vc_(ca)`;
 /* France in Catalan */
 REPLACE INTO `monuments_all`
@@ -286,7 +286,7 @@ SELECT 'fr' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_fr_(ca)`;
 /* France in French */
 REPLACE INTO `monuments_all`
@@ -301,7 +301,7 @@ SELECT 'fr' AS `country`,
         `image` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `monument` AS `monument_article`         /* WIKILINK */
         FROM `monuments_fr_(fr)`;
 /* Ireland in English */
 REPLACE INTO `monuments_all`
@@ -316,7 +316,7 @@ SELECT 'ie' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `name` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_ie_(en)`;
 /* Sardinia in Catalan */
 REPLACE INTO `monuments_all`
@@ -331,7 +331,7 @@ SELECT 'it-88' AS `country`,
         `imatge` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_it-88_(ca)`;
 /* Luxemburg in Luxemburgish */
 REPLACE INTO `monuments_all`
@@ -346,7 +346,7 @@ SELECT 'lu' AS `country`,
         `bild` AS `image`,
         `source` AS `source`,
         `changed` AS `changed`,
-        '' AS `monument_article`
+        `offiziellen_numm` AS `monument_article`         /* WIKILINK */
         FROM `monuments_lu_(lb)`;
 /* Netherlands */
 REPLACE INTO `monuments_all`
@@ -361,7 +361,7 @@ SELECT 'nl' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `objectnaam` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_nl_(nl)`;
 /* Norway */
 REPLACE INTO `monuments_all`
@@ -391,7 +391,7 @@ SELECT 'pl' AS `country`,
 	`zdjecie` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `nazwa` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_pl_(pl)`;
 /* Portugal */
 REPLACE INTO `monuments_all`
@@ -406,7 +406,7 @@ SELECT 'pt' AS `country`,
 	`imagem` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `designacoes` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_pt_(pt)`;
 /* Romania */
 REPLACE INTO `monuments_all`
@@ -421,7 +421,7 @@ SELECT 'ro' AS `country`,
 	`imagine` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `denumire` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_ro_(ro)`;
 /* Russia */
 REPLACE INTO `monuments_all`
@@ -436,7 +436,7 @@ SELECT 'ru' AS `country`,
 	`image` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `name` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_ru_(ru)`;
 /* Sweden */
 REPLACE INTO `monuments_all`
@@ -451,7 +451,7 @@ SELECT 'se' AS `country`,
 	`bild` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-        '' AS `monument_article`
+        `namn` AS `monument_article`         /* WIKILINK */
 	FROM `monuments_se_(sv)`;
 /* United States */
 REPLACE INTO `monuments_all`
