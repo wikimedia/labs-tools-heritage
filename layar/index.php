@@ -65,7 +65,7 @@ $params = array('latitude' => $ly->layar_latitude,		//Latitude in decimal degree
 				 allm.municipality AS municipality, 
 				 allm.name AS name, 
 				 allm.image AS image,
-                 allm.monument_article AS monument_article
+                 allm.monument_article AS monument_article,
 				  0 AS type			
 				  ",				//Type 0 is the default black circle, 1 = first entered type
 		'custom_join' => $joinSql,
