@@ -104,7 +104,7 @@ if ( $get_wikilinks_arr ) {
                     $wikilink = $matches[1];
                     $wikilink = str_replace(" ", "_" , $wikilink);
                     #wikipedia page titles should be upper case first
-                    $wikilink = mb_ucasefirst($str);
+                    $wikilink = mb_ucasefirst($wikilink);
                 }
             
                 $update_query = sprintf("UPDATE `monuments_all` SET monument_article = '%s'
