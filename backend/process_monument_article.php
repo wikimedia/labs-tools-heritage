@@ -100,7 +100,7 @@ if ( $get_wikilinks_arr ) {
 
             if ( $row['monument_article'] ) {
                 $wikilink = '';
-                if ( preg_match("/\[\[(.+?)(\||\])/", $row['monument_article'], $matches) ) {
+                if ( preg_match("/\[\[(.+?)(\||\]\])/", $row['monument_article'], $matches) ) {
                     $wikilink = $matches[1];
                     $wikilink = str_replace(" ", "_" , $wikilink);
                     #wikipedia page titles should be upper case first

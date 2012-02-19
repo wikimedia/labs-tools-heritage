@@ -223,9 +223,9 @@ class clsARLayarServer extends clsBasicGeosearch {
 						   "autoTriggerOnly" => $autoTriggerOnly,
 						   "layerURL" => $row[$this->layar_layerURL]);  //This is a lightrod addition
 			//}
-			if (preg_match("/\[\[(.+?)(\||\]\])/", $row['name'], $matches) ) { 
+			if ( $row['monument_article'] ) { 
 				$wikiUrl = 'http://'. $row['lang'] .'.wikipedia.org/wiki/';
-				$articleUrl = $wikiUrl . replaceSpaces($matches[1]);
+				$articleUrl = $wikiUrl . $row['monument_article'];
 				$wikiLabel = 'wikipedia';
 				$actions[] = array("uri" => $articleUrl,
 						   "label" => $wikiLabel);
