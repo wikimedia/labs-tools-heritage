@@ -215,7 +215,7 @@ class clsARLayarServer extends clsBasicGeosearch {
 					$autoTriggerOnly = false;
 				} 	 
 			
-                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. $row['country'] . '&srlang=' . $row['lang'] . '&srid='. $row['id'] .'&props=image|name|address|municipality|lat|lon|id|country|source';
+                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. $row['country'] . '&srlang=' . $row['lang'] . '&srid='. $row['id'] .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article';
 				$main_label = 'info';
 				$actions[] = array("uri" => $main_uri,
 						   "label" =>  $main_label,
@@ -225,11 +225,11 @@ class clsARLayarServer extends clsBasicGeosearch {
 			//}
 			if ( $row['monument_article'] ) { 
 				$wikiUrl = 'http://'. $row['lang'] .'.wikipedia.org/wiki/';
-				$articleUrl = $wikiUrl . $row['monument_article'];
+				$articleUrl = $wikiUrl . htmlspecialchars( $row['monument_article'] );
 				$wikiLabel = 'wikipedia';
 				$actions[] = array("uri" => $articleUrl,
 						   "label" => $wikiLabel);
-			}			
+			}
 			if(isset($row[$this->layar_actions_uri_3])) {
 				$actions[] = array("uri" => $row[$this->layar_actions_uri_3],
 						   "label" => $row[$this->layar_actions_label_3]);
