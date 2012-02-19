@@ -64,7 +64,7 @@ class FormatHtmllist extends FormatBase {
         if ( isset($row->name) and $row->name ) {
             if ( isset($row->monument_article) and $row->monument_article ) {
                 $makeLinks = false;
-                $article_url = 'http://'. $row['lang'] .'.wikipedia.org/wiki/'. htmlspecialchars( $row->monument_article );
+                $article_url = 'http://'. $row->lang .'.wikipedia.org/wiki/'. htmlspecialchars( $row->monument_article );
                 $desc .= '<h2><a href="'. $article_url .'">'. processWikitext($row->lang, $row->name, $makeLinks) . '</a></h2>';
             } else {
                 $makeLinks = true;
