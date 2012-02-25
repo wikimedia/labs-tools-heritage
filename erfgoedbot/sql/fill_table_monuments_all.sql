@@ -333,6 +333,21 @@ SELECT 'it-88' AS `country`,
         `changed` AS `changed`,
         `nom` AS `monument_article`         /* WIKILINK */
         FROM `monuments_it-88_(ca)`;
+/* South Tyrol in German */
+REPLACE INTO `monuments_all`
+SELECT 'it-bz' AS `country`, 
+       'de' AS `lang`,
+	`objektid` AS `id`,
+        `name` AS `name`,
+        `adresse` AS `address`,
+        `katastralgemeinde` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `foto` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`
+        FROM `monuments_it-bz_(de)`;
 /* Luxemburg in Luxemburgish */
 REPLACE INTO `monuments_all`
 SELECT 'lu' AS `country`,
