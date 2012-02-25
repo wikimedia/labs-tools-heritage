@@ -1614,6 +1614,105 @@ countries = {
 	    },
 	],
     },
+('it-bz', 'de') : {
+        'project' : u'wikipedia',
+	'lang' : u'de',
+	'headerTemplate' : u'Denkmalliste Südtirol Tabellenkopf',
+	'rowTemplate' : u'Denkmalliste Südtirol Tabellenzeile',
+        'footerTemplate' : u'Denkmalliste Südtirol Tabellenfuß',
+        'commonsTemplate' : u'Denkmalgeschütztes Objekt Südtirol',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in South Tyrol with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in South Tyrol',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Portal:Südtirol/Mitmachen/WLM2012/Ungenutzte Bilder',
+        'imagesWithoutIdPage' : u'Portal:Südtirol/Mitmachen/WLM2012/Bilder ohne ID',
+	'namespaces' : [0],
+	'table' : u'monuments_it-bz_(de)',
+	'truncate' : False, # Not all ids are filled, just overwrite it
+	'primkey' : u'ObjektID',
+	'fields' : [
+	    {
+		'source' : u'Foto',
+		'dest' : u'foto',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Fotobeschreibung',
+		'dest' : u'fotobeschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Commonscat',
+		'dest' : u'commonscat',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'Name',
+		'dest' : u'name',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Artikel',
+		'dest' : u'artikel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Anzeige-Name',
+		'dest' : u'anzeige-Name',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Adresse-Sort',
+		'dest' : u'adresse-sort',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Breitengrad',
+		'dest' : u'lat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Längengrad',
+		'dest' : u'lon',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Region-ISO',
+		'dest' : u'region-iso',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Katastralgemeinde',
+		'dest' : u'katastralgemeinde',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Eintragung Datum',
+		'dest' : u'eintragung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschluss',
+		'dest' : u'beschluss',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschreibung',
+		'dest' : u'beschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'ObjektID',
+		'dest' : u'objektid',
+		'conv' : u'',
+	    },
+	],
+    },
     ('lu', 'lb') : {
         'project' : u'wikipedia',
 	'lang' : u'lb',
