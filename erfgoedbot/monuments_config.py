@@ -698,6 +698,78 @@ countries = {
 	    },
 	],
     },
+('de-by', 'de') : {
+        'project' : u'wikipedia',
+	'lang' : u'de',
+	'headerTemplate' : u'Denkmalliste Bayern Tabellenkopf',
+	'rowTemplate' : u'Denkmalliste Bayern Tabellenzeile',
+        'commonsTemplate' : u'Kulturdenkmal Bayern',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Bavaria with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Bavaria',
+        'unusedImagesPage' : u'Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Bayern/Ungenutzte Bilder',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Bayern/Bilder ohne Nummer',
+	'namespaces' : [0],
+	'table' : u'monuments_de-by_(de)',
+	'truncate' : False, # Not all ids are filled, just overwrite it
+	'primkey' : u'Nummer',
+	'fields' : [
+	    {
+		'source' : u'Adresse',
+		'dest' : u'adresse',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'NS',
+		'dest' : u'ns',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'EW',
+		'dest' : u'ew',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'Bezeichnung',
+		'dest' : u'bezeichnung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Artikel',
+		'dest' : u'artikel',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Beschreibung',
+		'dest' : u'beschreibung',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Nummer',
+		'dest' : u'nummer',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Bild',
+		'dest' : u'bild',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Commonscat',
+		'dest' : u'commonscat',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'StadtOderGemeinde',
+		'dest' : u'stadt',
+		'conv' : u'',
+	    },
+	    {
+		'source' : u'Ortsteil',
+		'dest' : u'ortsteil',
+		'conv' : u'',
+	    },
+	],
+    },
     ('de-he', 'de') : {
         'project' : u'wikipedia',
 	'lang' : u'de',
