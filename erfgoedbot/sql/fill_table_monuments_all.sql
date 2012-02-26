@@ -152,6 +152,21 @@ SELECT 'de-nrw-bm' AS `country`,
 	`changed` AS `changed`,
         REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`
 	FROM `monuments_de-nrw-bm_(de)`;
+/* Bavaria, Germany in German */
+REPLACE INTO `monuments_all`
+SELECT 'de-by' AS `country`, 
+    'de' AS `lang`,
+	`nummer` AS `id`,
+    `bezeichnung` AS `name`,
+    `adresse` AS `address`,
+    `stadt` AS `municipality`,
+    `ns` AS `lat`,
+    `ew` AS `lon`,
+    `bild` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`
+	FROM `monuments_de-by_(de)`;
 /* Hessen, Germany in German */
 REPLACE INTO `monuments_all`
 SELECT 'de-he' AS `country`, 
