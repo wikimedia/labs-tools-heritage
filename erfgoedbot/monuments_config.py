@@ -1876,6 +1876,11 @@ countries = {
 		'dest' : u'adres',
 		'conv' : u'',
 	    },
+            {
+		'source' : u'adres_sort',
+		'dest' : u'',
+		'conv' : u'',
+	    },
 	    {
 		'source' : u'objectnaam',
 		'dest' : u'objectnaam',
@@ -1896,9 +1901,19 @@ countries = {
 		'dest' : u'bouwjaar',
 		'conv' : u'',
 	    },
-	    {
+            {
+		'source' : u'bouwjaar_sort',
+		'dest' : u'',
+		'conv' : u'',
+	    },
+            {
 		'source' : u'architect',
 		'dest' : u'architect',
+		'conv' : u'',
+	    },
+            {
+		'source' : u'architect_sort',
+		'dest' : u'',
 		'conv' : u'',
 	    },
 	    {
