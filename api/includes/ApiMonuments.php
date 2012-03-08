@@ -226,7 +226,10 @@ Examples:
   <a href="api.php?action=search&amp;format=dynamickml">api.php?action=search&amp;format=dynamickml</a>
 
   <b>* format=html *</b>
-  Output data in HTML format.
+  Output data in HTML format. Table layout.
+
+  <b>* format=htmllist *</b>
+  Output data in HTML format. List layout.
   
   <b>* format=json *</b>
   Output data in JSON format.
