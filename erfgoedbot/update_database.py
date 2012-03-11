@@ -3,6 +3,13 @@
 '''
 Update the monuments database either from a text file or from some wiki page(s)
 
+Usage:
+# loop through all countries
+python update_database.py
+
+# work on specific country-lang
+python update_database.py -countrycode:XX -lang:YY    
+
 '''
 import sys, time, warnings
 import monuments_config as mconfig
@@ -55,12 +62,13 @@ def convertField(field, contents):
 
 def updateMonument(contents, source, countryconfig, conn, cursor):
     '''
-    FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
     '''
+
     fieldnames = []
     fieldvalues = []
 
     # Source is the first field
+    fieldnames.append(u'source')
     fieldvalues.append(source)
 
     for field in countryconfig.get('fields'):
@@ -75,20 +83,17 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
 
     query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
 
-    query = query + u"""`%s`""" % (u'source')
-
+    delimiter = u''
     for fieldname in fieldnames:
-	query = query + u""", `%s`""" % (fieldname,)
+        query = query + delimiter + u"""`%s`""" % (fieldname,)
+        delimiter = u', '
 
     query = query + u""") VALUES ("""
 
-    j =0
+    delimiter = u''
     for fieldvalue in fieldvalues:
-	if j==0:
-	    query = query + u"""%s""" # % (fieldvalue,)
-	else:
-	    query = query + u""", %s""" # % (fieldvalue,)
-	j = j + 1
+        query = query + delimiter + u"""%s""" # % (fieldvalue,)
+        delimiter = u', '
 
     query = query + u""")"""
 
@@ -111,26 +116,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title):
     '''
     Process a single instance of a monument row template
     '''
-    
-    # The regexes to find all the fields
-    fields = [u'objrijksnr',
-	     u'woonplaats',
-             u'adres',
-             u'objectnaam',
-             u'type_obj',
-	     u'oorspr_functie',
-             u'bouwjaar',
-             u'architect',
-             u'cbs_tekst',
-             u'RD_x',
-             u'RD_y',
-             u'lat',
-             u'lon',
-	     u'image',
-             u'postcode', # Not used
-             u'buurt', # Not used
-	    ]
-     
+         
     # Get all the fields
     contents = {}
     # Add the source of information (permalink)
