@@ -48,16 +48,30 @@ def CH1903Converter(x, y):
     
     return (lat, lon)
 
+def extractWikilink(text):
+    articleName = u''
+    result = re.match("\[\[(.+?)(\||\]\])", text)
+    if (result and result.group(1)): 
+        articleName = result.group(1)
+        articleName = articleName.replace(u' ', u'_')
+        articleName = articleName.capitalize()
+
+    return articleName
+   
 def convertField(field, contents):
     '''
     Convert a field
     '''
-    if field.get('conv')=='CH1903ToLat':
-	(lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
-	return lat
-    elif field.get('conv')=='CH1903ToLon':
-	(lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
-	return lon
+    
+    if field.get('conv') == 'extractWikilink':
+        return extractWikilink( contents.get(field.get('source')) )
+    elif field.get('conv') == 'CH1903ToLat':
+        (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
+        return lat
+    elif field.get('conv') == 'CH1903ToLon':
+        (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
+        return lon
+        
     return u''
 
 def updateMonument(contents, source, countryconfig, conn, cursor):

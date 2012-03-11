@@ -1051,6 +1051,11 @@ countries = {
 		'dest' : u'commons',
 		'conv' : u'',
 	    },
+	    {
+		'source' : u'nimi',
+		'dest' : u'monument_article',
+		'conv' : u'extractWikilink',
+	    },
 	]
     },
     ('es', 'ca') : {
