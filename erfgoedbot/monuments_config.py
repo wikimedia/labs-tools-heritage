@@ -71,6 +71,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('at', 'de') : {
@@ -252,6 +257,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'omschrijving',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('be-vlg', 'nl') : {
@@ -330,6 +340,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'objectnaam',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('be-wal', 'nl') : {
@@ -413,6 +428,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'descr_nl',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('by', 'be-x-old') : {
@@ -485,6 +505,11 @@ countries = {
 		'dest' : u'',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'name',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('ch', 'en') : {
@@ -532,6 +557,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'name',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	]
     },
     ('dk-bygninger', 'da') : {
@@ -624,6 +654,11 @@ countries = {
 		'dest' : u'billede',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'sagsnavn',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('dk-fortidsminder', 'da') : {
@@ -696,6 +731,11 @@ countries = {
 		'dest' : u'bemaerkning',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'stednavn',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
 ('de-by', 'de') : {
@@ -989,6 +1029,11 @@ countries = {
 		'dest' : u'beschreibung',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'bezeichnung',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('ee', 'et') : {
@@ -1122,11 +1167,16 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
-           {
-               'source' : u'title',
-               'dest' : u'title',
-               'conv' : u'',
-            },
+        {
+        'source' : u'title',
+        'dest' : u'title',
+        'conv' : u'',
+        },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('es', 'es') : {
@@ -1209,6 +1259,11 @@ countries = {
                'dest' : u'title',
                'conv' : u'',
             },
+        {
+        'source' : u'nombre',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('es-ct', 'ca') : {
@@ -1289,6 +1344,11 @@ countries = {
                'dest' : u'title',
                'conv' : u'',
             },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('es-gl', 'gl') : {
@@ -1371,6 +1431,11 @@ countries = {
                'dest' : u'title',
                'conv' : u'',
             },
+        {
+        'source' : u'nomeoficial',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('es-vc', 'ca') : {
@@ -1446,6 +1511,11 @@ countries = {
                'dest' : u'title',
                'conv' : u'',
             },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('fr', 'ca') : {
@@ -1503,6 +1573,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('fr', 'fr') : {
@@ -1585,6 +1660,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'monument',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('ie', 'en') : {
@@ -1637,6 +1717,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'name',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('it-88', 'ca') : {
@@ -1689,6 +1774,11 @@ countries = {
 		'dest' : u'imatge',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'nom',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
 ('it-bz', 'de') : {
@@ -1848,6 +1938,11 @@ countries = {
 		'dest' : u'bild',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'offiziellen_numm',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('nl', 'nl') : {
@@ -1961,6 +2056,11 @@ countries = {
 		'dest' : u'',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'objectnaam',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('no', 'no') : {
@@ -2048,6 +2148,11 @@ countries = {
 		'dest' : u'bilde',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'artikkel',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('pl', 'pl') : {
@@ -2100,6 +2205,11 @@ countries = {
 		'dest' : u'zdjecie',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'nazwa',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('pt', 'pt') : {
@@ -2173,6 +2283,11 @@ countries = {
 		'dest' : u'imagem',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'designacoes',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('ro', 'ro') : {
@@ -2241,6 +2356,11 @@ countries = {
 		'dest' : u'imagine',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'denumire',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
         ],
     },
     ('ru', 'ru') : {
@@ -2304,6 +2424,11 @@ countries = {
 		'dest' : u'image',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'name',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
 	],
     },
     ('se', 'sv') : {
@@ -2372,6 +2497,11 @@ countries = {
 		'dest' : u'bild',
 		'conv' : u'',
 	    },
+        {
+        'source' : u'namn',
+        'dest' : u'monument_article',
+        'conv' : u'extractWikilink',
+        },
         ],
     },
     ('us', 'en') : {
