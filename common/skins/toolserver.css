@@ -1,0 +1,6 @@
+.cluster-ok { color: green; list-style: url(http://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Green_Light_Icon.svg/16px-Green_Light_Icon.svg.png) }
+.cluster-info { color: blue; list-style: url(http://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Blue_Light_Icon.svg/16px-Blue_Light_Icon.svg.png) }
+.cluster-warn { color: olive; list-style: url(http://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Yellow_Light_Icon.svg/16px-Yellow_Light_Icon.svg.png) }
+.cluster-erro, .cluster-down { color: red; list-style: url(http://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Red_Light_Icon.svg/16px-Red_Light_Icon.svg.png) }
+.cluster-unknown, .cluster-missing { color: purple; list-style: url(http://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Purple_Light_Icon.svg/16px-Purple_Light_Icon.svg.png) }
+.cluster-status { list-style-position: inside; }
