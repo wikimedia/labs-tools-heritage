@@ -6,8 +6,8 @@
  */
  
 define( 'MEDIAWIKI', 1 );
-require_once dirname( dirname( __FILE__ ) ) . "/common/lib.php";
-require_once dirname( dirname( __FILE__ ) ) . "/common/skin.php";
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . "/common/lib.php";
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . "/common/skin.php";
 
 $wgServer = 'http://commons.wikimedia.org';
 $wgArticlePath = '/wiki/$1';
