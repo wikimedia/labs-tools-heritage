@@ -48,13 +48,16 @@ def CH1903Converter(x, y):
     
     return (lat, lon)
 
+def ucfirst(text):
+    return text[0].upper() + text[1:]
+    
 def extractWikilink(text):
     articleName = u''
     result = re.match("\[\[(.+?)(\||\]\])", text)
     if (result and result.group(1)): 
         articleName = result.group(1)
         articleName = articleName.replace(u' ', u'_')
-        articleName = articleName.capitalize()
+        articleName = ucfirst(articleName)
 
     return articleName
    
