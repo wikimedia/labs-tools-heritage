@@ -49,7 +49,10 @@ def CH1903Converter(x, y):
     return (lat, lon)
 
 def ucfirst(text):
-    return text[0].upper() + text[1:]
+    if (text):
+        return text[0].upper() + text[1:]
+    else:
+        return ''
     
 def extractWikilink(text):
     articleName = u''
