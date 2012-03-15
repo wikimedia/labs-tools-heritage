@@ -64,16 +64,6 @@ def extractWikilink(text):
 
     return articleName
 
-def generateRegistrantUrl(text):
-    articleName = u''
-    result = re.match("\[\[(.+?)(\||\]\])", text)
-    if (result and result.group(1)): 
-        articleName = result.group(1)
-        articleName = articleName.replace(u' ', u'_')
-        articleName = ucfirst(articleName)
-
-    return articleName
-
 def convertField(field, contents, registrantUrlBase = u''):
     '''
     Convert a field
@@ -82,7 +72,7 @@ def convertField(field, contents, registrantUrlBase = u''):
     if field.get('conv') == 'extractWikilink':
         return extractWikilink( contents.get(field.get('source')) )
     elif field.get('conv') == 'generateRegistrantUrl' and registrantUrlBase:
-        return registrantUrlBase + contents.get(field.get('source'))
+        return registrantUrlBase.replace(u'<IDFIELD>', contents.get(field.get('source')))
     elif field.get('conv') == 'CH1903ToLat':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lat
