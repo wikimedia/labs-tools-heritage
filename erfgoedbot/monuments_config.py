@@ -1046,6 +1046,7 @@ countries = {
         'commonsCategoryBase' : u'Cultural heritage monuments in Estonia',
         'unusedImagesPage' : u'Vikipeedia:Vikiprojekt_Kultuuripärand/Kasutamata kultuurimälestiste pildid',
         'imagesWithoutIdPage' : u'Vikipeedia:Vikiprojekt_Kultuuripärand/Ilma registri numbrita pildid',    
+        'registrantUrlBase' : u'http://register.muinas.ee/?menuID=monument&action=view&id=',    
 	'namespaces' : [4],
 	'table' : u'monuments_ee_(et)',
 	'truncate' : False,
@@ -1100,6 +1101,11 @@ countries = {
 		'source' : u'nimi',
 		'dest' : u'monument_article',
 		'conv' : u'extractWikilink',
+	    },
+	    {
+		'source' : u'number',
+		'dest' : u'registrant_url',
+		'conv' : u'generateRegistrantUrl',
 	    },
 	]
     },

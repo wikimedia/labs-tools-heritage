@@ -63,14 +63,26 @@ def extractWikilink(text):
         articleName = ucfirst(articleName)
 
     return articleName
-   
-def convertField(field, contents):
+
+def generateRegistrantUrl(text):
+    articleName = u''
+    result = re.match("\[\[(.+?)(\||\]\])", text)
+    if (result and result.group(1)): 
+        articleName = result.group(1)
+        articleName = articleName.replace(u' ', u'_')
+        articleName = ucfirst(articleName)
+
+    return articleName
+
+def convertField(field, contents, registrantUrlBase = u''):
     '''
     Convert a field
     '''
     
     if field.get('conv') == 'extractWikilink':
         return extractWikilink( contents.get(field.get('source')) )
+    elif field.get('conv') == 'generateRegistrantUrl' and registrantUrlBase:
+        return registrantUrlBase + contents.get(field.get('source'))
     elif field.get('conv') == 'CH1903ToLat':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lat
@@ -92,13 +104,14 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
     fieldvalues.append(source)
 
     for field in countryconfig.get('fields'):
-	if field.get('dest'):
-	    fieldnames.append(field.get('dest'))
-	    #Do some conversions here
-	    if field.get('conv'):
-		fieldvalues.append(convertField(field, contents))
-	    else:
-		fieldvalues.append(contents.get(field.get('source')))
+        if field.get('dest'):
+            fieldnames.append(field.get('dest'))
+            #Do some conversions here
+            if field.get('conv'):
+                registrantUrlBase = countryconfig.get('registrantUrlBase')
+                fieldvalues.append( convertField(field, contents, registrantUrlBase) )
+            else:
+                fieldvalues.append(contents.get(field.get('source')))
 
 
     query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
@@ -142,7 +155,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title):
     # Add the source of information (permalink)
     contents['source'] = source
     for field in countryconfig.get('fields'):
-	contents[field.get(u'source')]=u''
+        contents[field.get(u'source')]=u''
     contents['title'] = title
 
     for param in params:
