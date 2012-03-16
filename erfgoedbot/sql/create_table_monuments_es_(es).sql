@@ -1,7 +1,7 @@
 /* Create table statement for the Rijksmonumenten in Spain in Spanish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_es_(es)`;
-CREATE TABLE `monuments_es_(es)` (
+CREATE TABLE IF NOT EXISTS `monuments_es_(es)` (
   `bic` varchar(25) NOT NULL DEFAULT '0',
   `nombre` varchar(255) NOT NULL DEFAULT '',
   `nombrecoor` varchar(255) NOT NULL DEFAULT '',
@@ -11,12 +11,13 @@ CREATE TABLE `monuments_es_(es)` (
   `lugar` varchar(400) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
-  `id_aut` varchar(21) NOT NULL DEFAULT '',
   `fecha` varchar(255) NOT NULL DEFAULT '',
   `imagen` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `title`  varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `title` varchar(255) NOT NULL,
+  `id_aut` varchar(21) NOT NULL DEFAULT '',
+  `monument_article` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`bic`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)

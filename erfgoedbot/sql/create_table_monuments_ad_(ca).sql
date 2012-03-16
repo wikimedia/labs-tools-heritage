@@ -13,7 +13,9 @@ CREATE TABLE `monuments_ad_(ca)` (
   `nomcoor` varchar(255) NOT NULL DEFAULT '',
   `imatge` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `monument_article` varchar(255) NOT NULL DEFAULT '',
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)

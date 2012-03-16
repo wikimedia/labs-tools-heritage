@@ -1,7 +1,7 @@
 /* Create table statement for the Monuments in Austria in German */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_it-bz_(de)`;
-CREATE TABLE `monuments_it-bz_(de)` (
+CREATE TABLE IF NOT EXISTS `monuments_it-bz_(de)` (
   `objektid` varchar(11) NOT NULL DEFAULT '0',
   `foto` varchar(255) NOT NULL DEFAULT '',
   `fotobeschreibung` varchar(255) NOT NULL DEFAULT '',
@@ -20,8 +20,9 @@ CREATE TABLE `monuments_it-bz_(de)` (
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ObjektID`),
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`objektid`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

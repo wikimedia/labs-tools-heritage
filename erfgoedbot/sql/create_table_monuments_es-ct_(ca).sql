@@ -1,7 +1,7 @@
 /* Create table statement for the monuments in Catalunya in Catalan table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_es-ct_(ca)`;
-CREATE TABLE `monuments_es-ct_(ca)` (
+CREATE TABLE IF NOT EXISTS `monuments_es-ct_(ca)` (
   `bic` varchar(25) NOT NULL DEFAULT '0',
   `idurl` varchar(255) NOT NULL DEFAULT '',
   `bcin` varchar(255) NOT NULL DEFAULT '0',
@@ -15,8 +15,10 @@ CREATE TABLE `monuments_es-ct_(ca)` (
   `nomcoor` varchar(255) NOT NULL DEFAULT '',
   `imatge` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `title`  varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `title` varchar(255) NOT NULL,
+  `monument_article` varchar(255) NOT NULL DEFAULT '',
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`bic`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
