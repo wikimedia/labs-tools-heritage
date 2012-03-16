@@ -123,9 +123,23 @@ require_once ( "geo_param.php" ) ;
 $lang=addslashes(urldecode($_GET[lang]));
 $srcountry=addslashes(urldecode($_GET[srcountry]));
 $srlang=addslashes(urldecode($_GET[srlang]));
+$srid=addslashes(urldecode($_GET[srid]));
+$srname=addslashes(urldecode($_GET[srname]));
+$sraddress=addslashes(urldecode($_GET[sraddress]));
+$srmunicipality=addslashes(urldecode($_GET[srmunicipality]));
+$srsource=addslashes(urldecode($_GET[srsource]));
+$srwithoutimage=addslashes(urldecode($_GET[srwithoutimage]));
+$limit=addslashes(urldecode($_GET[limit]));
 
 if ($srcountry<>""){$srcountryex="&srcountry=".$srcountry;}
 if ($srlang<>""){$srlangex="&srlang=".$srlang;}
+if ($srid<>""){$sridex="&srid=".$srid;}
+if ($srname<>""){$srnameex="&srname=".$srname;}
+if ($sraddress<>""){$sraddressex="&sraddress=".$sraddress;}
+if ($srmunicipality<>""){$srmunicipalityex="&srmunicipality=".$srmunicipality;}
+if ($srsource<>""){$srsourceex="&srsource=".$srsource;}
+if ($srwithoutimage<>""){$srwithoutimageex="&srwithoutimage=".$srwithoutimage;}
+if ($limit<>""){$limitex="&limit=".$limit;}
 
 if ( isset ( $_REQUEST['params'] ) ) {
 	$p = new geo_param(  $_REQUEST['params'] , "Dummy" ); ;
@@ -248,7 +262,7 @@ var pois = new OpenLayers.Layer.Vector("Monuments", {
 		projection: new OpenLayers.Projection("EPSG:4326"),
 		strategies: [bboxStrategy],
 		protocol: new OpenLayers.Protocol.HTTP({
-				url: "http://toolserver.org/%7Eerfgoed/api/api.php?action=search&format=kml<?php echo $srcountryex.$srlangex;?>",
+				url: "http://toolserver.org/%7Eerfgoed/api/api.php?action=search&format=kml<?php echo $srcountryex.$srlangex.$sridex.$srnameex.$sraddressex.$srmunicipalityex.$srsourceex.$srwithoutimageex.$limitex;?>",
 				/* url: "./getMonument.php",*/
 				/*url: "http://toolserver.org/~para/GeoCommons/kml.php?f=photos&simple",*/
 				/*url: "http://toolserver.org/~kolossos/geoworld/marks.php?LANG=<?php echo $lang;?>",*/
