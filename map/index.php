@@ -234,18 +234,6 @@ echo "<!--- //position:".$position." --->\n";
 				var osm = new OpenLayers.Layer.OSM.Toolserver('osm');
 				map.addLayer(osm);
 
-					
-				// add the osm.org layers
-				map.addLayer(new OpenLayers.Layer.OSM.Mapnik("osm.org mapnik"), {visibility: false});
-				
-				map.addLayer(new OpenLayers.Layer.OSM.Toolserver('hikebike'));
-				
-				map.addLayer(new OpenLayers.Layer.OSM.Toolserver('germany'));
-
-			      	map.addLayer(new OpenLayers.Layer.OSM(
-					'Cycle-map', 
-					'http://c.tile.opencyclemap.org/cycle/${z}/${x}/${y}.png'
-				));
 
 
 
@@ -253,9 +241,6 @@ echo "<!--- //position:".$position." --->\n";
         ratio : 1.1,
         resFactor: 1
     });	
-//var  strategy;
-//strategy = new OpenLayers.Strategy.Cluster();
-
 
 var pois = new OpenLayers.Layer.Vector("Monuments", {
 		attribution:' <a href="http://commons.wikimedia.org/wiki/Wiki_Loves_Monuments">Wiki Loves Monuments</a>',
@@ -263,10 +248,6 @@ var pois = new OpenLayers.Layer.Vector("Monuments", {
 		strategies: [bboxStrategy],
 		protocol: new OpenLayers.Protocol.HTTP({
 				url: "http://toolserver.org/%7Eerfgoed/api/api.php?action=search&format=kml<?php echo $srcountryex.$srlangex.$sridex.$srnameex.$sraddressex.$srmunicipalityex.$srsourceex.$srwithoutimageex.$limitex;?>",
-				/* url: "./getMonument.php",*/
-				/*url: "http://toolserver.org/~para/GeoCommons/kml.php?f=photos&simple",*/
-				/*url: "http://toolserver.org/~kolossos/geoworld/marks.php?LANG=<?php echo $lang;?>",*/
-				/*url: "GeoworldProxy?lang=de",*/
 				format: new OpenLayers.Format.KML({
                            extractStyles: true, 
                            extractAttributes: true
@@ -275,22 +256,6 @@ var pois = new OpenLayers.Layer.Vector("Monuments", {
 	});
       
     map.addLayer(pois);
-
-
-map.addLayer(new OpenLayers.Layer.OSM(
-					'hillshading', 
-					'http://toolserver.org/~cmarqu/hill/${z}/${x}/${y}.png',
-                    {
-						displayOutsideMaxExtent: true, 
-						isBaseLayer: false,
-						transparent: true, 
-						visibility: false, 
-						numZoomLevels: 16
-					}
-				));
-
-
-
 
     var feature = null;
     var highlightFeature = null;
@@ -406,12 +371,6 @@ map.addLayer(new OpenLayers.Layer.OSM(
 
 
 
-
-
-
-
-
-
 				// default zoon
 				var zoom = 12;
 			        
@@ -458,8 +417,6 @@ map.addLayer(new OpenLayers.Layer.OSM(
 					// move to
 					map.setCenter(center, zoom);
 				}
-     var markers = new OpenLayers.Layer.Markers( "Markers" );
-            map.addLayer(markers);
 
             var size = new OpenLayers.Size(16,16);
             var offset = new OpenLayers.Pixel(-(size.w/2), -(size.h/2));
