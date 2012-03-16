@@ -11,6 +11,7 @@ class FormatCsv extends FormatBase {
 	
 	function headers() {
 		parent::headers();
+		header('Content-Disposition: attachment; filename="monuments.csv"');
 	}
 	
 	function outputBegin($selectedItems) {
