@@ -8,6 +8,9 @@ error_reporting(E_ALL);
 require_once('CommonFunctions.php');
 
 class FormatHtmllist extends FormatBase {
+
+    private $rowNumberIsOdd = 0;
+
 	function getContentType() {
 		return "text/html";
 	}
@@ -17,12 +20,18 @@ class FormatHtmllist extends FormatBase {
 		echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
 	}
 	
-	function outputBegin( $selectedItems ) {
-		echo '<html>';
-		echo '<head>';
-		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
-		
-	}
+    function outputBegin( $selectedItems ) {
+        echo '<html>';
+        echo '<head>';
+        echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
+        echo '<style type="text/css">';
+        echo '.main { max-width:540px; }
+              .row { padding:8px; }
+              .oddRow { background-color:#F1F1F1; }
+              .evenRow { background-color:#F9F9F9; }';
+        echo '</style>';
+
+    }
     
     function outputTitle( $result, $numRows ) {
         
@@ -39,6 +48,7 @@ class FormatHtmllist extends FormatBase {
         }
         echo '<title>'. $title .'</title>';
         echo "</head>\n<body>\n";
+        echo '<div class="main">';
     }
 	
 	function outputContinue($row, $continueKey, $primaryKey) {
@@ -54,6 +64,14 @@ class FormatHtmllist extends FormatBase {
 	
 	function outputRow($row, $selectedItems) {
         $desc = '';
+        $this->rowNumberIsOdd = 1 - $this->rowNumberIsOdd;
+        
+        if ( $this->rowNumberIsOdd ) {
+            $desc .= '<div class="row oddRow">';
+        } else {
+            $desc .= '<div class="row evenRow">';
+        }
+        
         if ( isset($row->image) and $row->image ) {
             $imgsize = 100;
             $desc .= '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($row->image) . '">';
@@ -100,12 +118,15 @@ class FormatHtmllist extends FormatBase {
 		}
         
         $desc .= '</ul>';
+        $desc .= '</div>';
+        
         echo $desc;
 	}
 	
-	function outputEnd() {
-		echo "</body>\n</html>";
-	}
+    function outputEnd() {
+        echo '</div>';
+        echo "</body>\n</html>";
+    }
 	
 	function output($result, $limit, $continueKey, $selectedItems, $primaryKey) {
 		$this->headers();
