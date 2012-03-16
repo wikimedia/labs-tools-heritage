@@ -82,10 +82,10 @@ abstract class ApiBase {
 	}
 	
 	/**
-	 * Returns the url for this page.
+	 * Returns an array with all the parameters
 	 * If $params is an array, they override existing values
 	 */
-	function getUrl($params = false) {
+	function getParams($params = false) {
 		$p = array();
 		foreach ($this->getAllowedParams() as $name => $value) {
 			if (isset($params[$name])) {
@@ -97,6 +97,15 @@ abstract class ApiBase {
 				}
 			}
 		}
+		return $p;
+	}
+
+	/**
+	 * Returns the url for this page.
+	 * If $params is an array, they override existing values
+	 */
+	function getUrl($params = false) {
+		$p = $this->getParams($params);
 		
 		if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
 			$query = http_build_query( $p, '', '&', PHP_QUERY_RFC3986 );
