@@ -21,7 +21,7 @@ class ApiMonuments extends ApiBase {
     		'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
     		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
-    			ApiBase::PARAM_TYPE => array( 'csv', 'dynamickml', 'kml', 'gpx', 'poi', 'html', 'htmllist', 'layar', 'json', 'xml', 'xmlfm', 'wikitable' ) ),
+    			ApiBase::PARAM_TYPE => array( 'csv', 'dynamickml', 'kml', 'gpx', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
     		'callback' => array( ApiBase::PARAM_TYPE => 'callback' ),
     		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => 5000, 
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
