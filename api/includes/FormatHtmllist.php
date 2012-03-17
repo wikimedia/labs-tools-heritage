@@ -91,7 +91,7 @@ class FormatHtmllist extends FormatBase {
         }
         $desc .= '<ul>';
         $hasWikitext = array('address', 'municipality');
-        $sepListedFields = array('name', 'image', 'lat', 'lon', 'source', 'monument_article');
+        $sepListedFields = array('name', 'image', 'lat', 'lon', 'source', 'monument_article', 'registrant_url');
         foreach ( $row as $name => $value ) {
             if ( in_array( $name, $selectedItems ) ) {
                 if ( !in_array( $name, $sepListedFields ) ) {
@@ -100,7 +100,14 @@ class FormatHtmllist extends FormatBase {
                         $makeLinks = true;
                         $desc .= processWikitext($row->lang, $value, $makeLinks);
                     } else {
-                        $desc .= htmlspecialchars( $value );
+                        if ( strcmp($name, 'id') == 0 and 
+                               isset($row->registrant_url) and $row->registrant_url) {
+                            $desc .= '<a href="' . htmlspecialchars( $row->registrant_url ) . '">';
+                            $desc .= htmlspecialchars( $value );
+                            $desc .= '</a>';
+                        } else {
+                            $desc .= htmlspecialchars( $value );
+                        }
                     }
                     $desc .= '</li>';
                 }
