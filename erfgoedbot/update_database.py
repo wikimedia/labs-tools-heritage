@@ -72,7 +72,7 @@ def convertField(field, contents, countryconfig):
     if field.get('conv') == 'extractWikilink':
         return extractWikilink( contents.get(field.get('source')) )
     elif field.get('conv') == 'generateRegistrantUrl' and countryconfig.get('registrantUrlBase'):
-        return countryconfig.get('registrantUrlBase').replace(u'<IDFIELD>', contents.get(field.get('source')))
+        return countryconfig.get('registrantUrlBase') % (contents.get(field.get('source')),)
     elif field.get('conv') == 'CH1903ToLat':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lat
