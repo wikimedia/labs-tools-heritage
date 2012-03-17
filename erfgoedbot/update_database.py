@@ -64,15 +64,15 @@ def extractWikilink(text):
 
     return articleName
 
-def convertField(field, contents, registrantUrlBase = u''):
+def convertField(field, contents, countryconfig):
     '''
     Convert a field
     '''
     
     if field.get('conv') == 'extractWikilink':
         return extractWikilink( contents.get(field.get('source')) )
-    elif field.get('conv') == 'generateRegistrantUrl' and registrantUrlBase:
-        return registrantUrlBase.replace(u'<IDFIELD>', contents.get(field.get('source')))
+    elif field.get('conv') == 'generateRegistrantUrl' and countryconfig.get('registrantUrlBase'):
+        return countryconfig.get('registrantUrlBase').replace(u'<IDFIELD>', contents.get(field.get('source')))
     elif field.get('conv') == 'CH1903ToLat':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lat
@@ -98,8 +98,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
             fieldnames.append(field.get('dest'))
             #Do some conversions here
             if field.get('conv'):
-                registrantUrlBase = countryconfig.get('registrantUrlBase')
-                fieldvalues.append( convertField(field, contents, registrantUrlBase) )
+                fieldvalues.append( convertField(field, contents, countryconfig) )
             else:
                 fieldvalues.append(contents.get(field.get('source')))
 
