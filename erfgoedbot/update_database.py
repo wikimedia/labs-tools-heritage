@@ -134,7 +134,34 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
     #print u'updating!'
     #time.sleep(5)
 
-def processMonument(params, source, countryconfig, conn, cursor, title):
+def processHeader(params, countryconfig):
+    '''
+    Get the defaults for the row templates. Return all fields that seem to be valid. Ignore other fields.
+    '''
+
+    contents = {}
+    validFields = []
+
+    for field in countryconfig.get('fields'):
+        validFields.append(field.get(u'source'))
+
+    for param in params:
+	#Split at =
+	(field, sep, value) = param.partition(u'=')
+	# Remove leading or trailing spaces
+	field = field.strip()
+	value = value.split("<ref")[0].strip()
+	
+	#Check first that field is not empty
+	if field:
+            #Is it in the fields list?
+            if field in validFields:
+                contents[field] = value
+
+    return contents
+
+
+def processMonument(params, source, countryconfig, conn, cursor, title, headerDefaults):
     '''
     Process a single instance of a monument row template
     '''
@@ -144,7 +171,11 @@ def processMonument(params, source, countryconfig, conn, cursor, title):
     # Add the source of information (permalink)
     contents['source'] = source
     for field in countryconfig.get('fields'):
-        contents[field.get(u'source')]=u''
+        if field.get(u'source') in headerDefaults:
+            contents[field.get(u'source')] = headerDefaults.get(field.get(u'source'))
+        else:
+            contents[field.get(u'source')]=u''
+    
     contents['title'] = title
 
     for param in params:
@@ -181,11 +212,15 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	site = site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
 	page = wikipedia.Page(site, u'User:Multichill/Zandbak')
     templates = page.templatesWithParams(thistxt=text)
+    headerDefaults = {}
+    
     for (template, params) in templates:
+        if template==countryconfig.get('headerTemplate'):
+            headerDefaults = processHeader(params, countryconfig)
 	if template==countryconfig.get('rowTemplate'):
 	    #print template
 	    #print params
-	    processMonument(params, source, countryconfig, conn, cursor, page.title(True))
+	    processMonument(params, source, countryconfig, conn, cursor, page.title(True), headerDefaults)
 	    #time.sleep(5)
 	elif template == u'Commonscat' and len(params)>=1:
 	    query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
