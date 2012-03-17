@@ -215,7 +215,7 @@ class clsARLayarServer extends clsBasicGeosearch {
 					$autoTriggerOnly = false;
 				} 	 
 			
-                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. $row['country'] . '&srlang=' . $row['lang'] . '&srid='. $row['id'] .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article';
+                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. $row['country'] . '&srlang=' . $row['lang'] . '&srid='. $row['id'] .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article|registrant_url';
 				$main_label = 'info';
 				$actions[] = array("uri" => $main_uri,
 						   "label" =>  $main_label,
