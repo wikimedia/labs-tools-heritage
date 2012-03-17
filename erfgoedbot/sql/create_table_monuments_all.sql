@@ -14,6 +14,7 @@ CREATE TABLE `monuments_all` (
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `monument_article` VARCHAR(255) NOT NULL DEFAULT '',
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`country`, `lang`, `id`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
