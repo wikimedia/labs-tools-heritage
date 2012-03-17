@@ -29,7 +29,7 @@ def getCount(query, cursor):
 def outputStatistics(statistics):
     #print statistics
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image\n'
+    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image !! source pages\n'
 
     totals = {}
 
@@ -39,6 +39,7 @@ def outputStatistics(statistics):
     totals['municipality'] = 0
     totals['coordinates'] = 0
     totals['image'] = 0
+    totals['source'] = 0
 
     for country in sorted(statistics.keys()):
         for language in sorted(statistics.get(country).keys()):
@@ -53,7 +54,8 @@ def outputStatistics(statistics):
                 output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[country][language]
-                output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % statistics[country][language]
+                output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % statistics[country][language]
+		output = output + u'|| %(source)s\n' % statistics[country][language]
 
 		totals['all'] = totals['all'] + statistics[country][language]['all']
 		totals['name'] = totals['name'] + statistics[country][language]['name']
@@ -61,6 +63,7 @@ def outputStatistics(statistics):
 		totals['municipality'] = totals['municipality'] + statistics[country][language]['municipality']
 		totals['coordinates'] = totals['coordinates'] + statistics[country][language]['coordinates']
 		totals['image'] = totals['image'] + statistics[country][language]['image']
+		totals['source'] = totals['source'] + statistics[country][language]['source']
 
 
 
@@ -77,7 +80,8 @@ def outputStatistics(statistics):
     output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % totals
     output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % totals
     output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % totals
-    output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % totals
+    output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % totals
+    output = output + u'|| %(source)s\n' % totals
 
     output = output + u'|}\n'
     site = wikipedia.getSite('commons', 'commons')
@@ -98,6 +102,7 @@ def getStatistics(country, language, conn, cursor):
     queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT municipality=''"""
     queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT lat=0 AND NOT lon=0"""
     queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT image=''"""
+    queries['source'] = u"""SELECT COUNT(DISTINCT(source)) FROM monuments_all WHERE country='%s' AND lang='%s'"""
 
     result['country'] = country
     result['lang'] = language
