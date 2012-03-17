@@ -31,6 +31,15 @@ def outputStatistics(statistics):
     output = u'{| class="wikitable sortable"\n'
     output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image\n'
 
+    totals = {}
+
+    totals['all'] = 0
+    totals['name'] = 0
+    totals['address'] = 0
+    totals['municipality'] = 0
+    totals['coordinates'] = 0
+    totals['image'] = 0
+
     for country in sorted(statistics.keys()):
         for language in sorted(statistics.get(country).keys()):
 		#print country
@@ -45,6 +54,30 @@ def outputStatistics(statistics):
                 output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % statistics[country][language]
+
+		totals['all'] = totals['all'] + statistics[country][language]['all']
+		totals['name'] = totals['name'] + statistics[country][language]['name']
+		totals['address'] = totals['address'] + statistics[country][language]['address']
+		totals['municipality'] = totals['municipality'] + statistics[country][language]['municipality']
+		totals['coordinates'] = totals['coordinates'] + statistics[country][language]['coordinates']
+		totals['image'] = totals['image'] + statistics[country][language]['image']
+
+
+
+    totals['namePercentage'] = round(1.0 * totals['name'] / totals['all'] * 100, 2)
+    totals['addressPercentage'] = round(1.0 * totals['address'] / totals['all'] * 100, 2)
+    totals['municipalityPercentage'] = round(1.0 * totals['municipality'] / totals['all'] * 100, 2)
+    totals['coordinatesPercentage'] = round(1.0 * totals['coordinates'] / totals['all'] * 100, 2)
+    totals['imagePercentage'] = round(1.0 * totals['image'] / totals['all'] * 100, 2)
+
+    output = output + u'|-\n'
+    output = output + u'| '
+    output = output + u'|| || %(all)s' % totals
+    output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % totals
+    output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % totals
+    output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % totals
+    output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % totals
+    output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>\n' % totals
 
     output = output + u'|}\n'
     site = wikipedia.getSite('commons', 'commons')
