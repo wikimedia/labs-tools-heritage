@@ -175,7 +175,7 @@ SELECT 'de-by' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`,
         REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url`
 	FROM `monuments_de-by_(de)`;
 /* Hessen, Germany in German */
 REPLACE INTO `monuments_all`
@@ -255,7 +255,7 @@ SELECT 'es' AS `country`,
         `source` AS `source`,
         `changed` AS `changed`,
         `monument_article` AS `monument_article`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url`
         FROM `monuments_es_(es)`
         WHERE tipobic='M';
 /* Catalunya in Catalan */
@@ -496,7 +496,7 @@ SELECT 'ru' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url`
 	FROM `monuments_ru_(ru)`;
 /* Sweden */
 REPLACE INTO `monuments_all`
@@ -528,5 +528,5 @@ SELECT 'us' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`,
         REPLACE( `article`,  ' ',  '_' ) AS `monument_article`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url`
 	FROM `monuments_us_(en)`;
