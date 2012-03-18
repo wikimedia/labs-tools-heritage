@@ -12,6 +12,8 @@ CREATE TABLE IF NOT EXISTS `monuments_it-bz_(de)` (
   `adresse` varchar(255) NOT NULL DEFAULT '',
   `adresse-sort` varchar(255) NOT NULL DEFAULT '',
   `region-iso` varchar(255) NOT NULL DEFAULT '',
+  `gemeinde` varchar(255) NOT NULL DEFAULT '',
+  `gemeindekennzahl` int(15) NOT NULL DEFAULT '',
   `katastralgemeinde` varchar(255) NOT NULL DEFAULT '',
   `status` varchar(255) NOT NULL DEFAULT '',
   `beschreibung` varchar(255) NOT NULL DEFAULT '',

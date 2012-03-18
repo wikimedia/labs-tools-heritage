@@ -768,7 +768,7 @@ countries = {
             },
         ],
     },
-('de-by', 'de') : {
+    ('de-by', 'de') : {
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Bayern Tabellenkopf',
@@ -1930,6 +1930,16 @@ countries = {
             {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Gemeinde',
+                'dest' : u'gemeinde',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Gemeindekennzahl',
+                'dest' : u'gemeindekennzahl',
                 'conv' : u'',
             },
             {
