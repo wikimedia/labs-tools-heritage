@@ -27,8 +27,8 @@
   <ul class="first">
   	<li><a href="#">Home</a>
 	    <ul>
-	    	<li><a href="statistics.html">Statistics</a></li>
-	    	<li><a href="search.html">Search Form</a></li>
+	    	<li><a href="statistics.php">Statistics</a></li>
+	    	<li><a href="search.php">Search Form</a></li>
 	    </ul>
 	   </li>
 	  </ul>  

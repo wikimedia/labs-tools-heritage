@@ -25,10 +25,10 @@
 	  
 <div id="leftnav">
   <ul class="first">
-  	<li><a href="index.html">Home</a>
+  	<li><a href="index.php">Home</a>
 	    <ul>
-	    	<li><a href="statistics.html">Statistics</a></li>
-	    	<li><a href="search.html">Search Form</a></li>
+	    	<li><a href="statistics.php">Statistics</a></li>
+	    	<li><a href="search.php">Search Form</a></li>
 	    </ul>
 	   </li>
 	  </ul>  
