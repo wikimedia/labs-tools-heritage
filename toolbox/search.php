@@ -1,4 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+
+/* Localization. */
+require_once( '/home/project/i/n/t/intuition/ToolserverI18N/ToolStart.php' );
+
+$opts = array(
+    'domain' => 'MonumentsAPI', // name of your main text-domain here
+    'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
+);
+$I18N = new TsIntuition( $opts );
+
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -71,7 +82,7 @@ Format		</label>
 		</td>
 	</tr>
 		<th><label for="stitems">
-Country	</label>
+<?php echo _('db-field-country') ?>	</label>
 		</th>
 		<td>
 		<select id="srcountry" name="srcountry" multiple="multiple" size="5">
@@ -112,7 +123,7 @@ Country	</label>
 	<tr>
 		<th>
 			<label for="srname">
-			Monument's name<br />	 <small>use %term or term% or %term% for fuzzy search </small>
+<?php echo _('db-field-name') ?><br />	 <small>use %term or term% or %term% for fuzzy search </small>
 			</label>
 		</th>
 		<td>
@@ -122,7 +133,7 @@ Country	</label>
 	<tr>
 		<th>
 			<label for="srid">
-			Monument's ID
+<?php echo _('db-field-id') ?>
 			</label>
 		</th>
 		<td>
@@ -132,7 +143,7 @@ Country	</label>
 	<tr>
 		<th>
 			<label for="srname">
-			Monument's address
+<?php echo _('db-field-address') ?>
 			</label>
 		</th>
 		<td>
@@ -142,7 +153,7 @@ Country	</label>
 	<tr>
 		<th>
 			<label for="srmunicipality">
-			Monument's municipality
+<?php echo _('db-field-municipality') ?>
 			</label>
 		</th>
 		<td>
@@ -165,17 +176,17 @@ Items		</label>
 		</th>
 		<td>
 		<select id="props-filler" multiple="multiple" size="5">
-			<option value="country" selected="selected"> country </option>
-			<option value="lang" selected="selected"> lang </option>
-			<option value="id" selected="selected"> id </option>
-			<option value="name" selected="selected"> name </option>
-			<option value="address" selected="selected"> address </option>
-			<option value="municipality" selected="selected"> municipality </option>
-			<option value="lat" selected="selected"> lat </option>
-			<option value="lon" selected="selected"> lon </option>
-			<option value="image" selected="selected"> image </option>
-			<option value="source" selected="selected"> source </option>
-			<option value="changed" selected="selected"> changed </option>
+			<option value="country" selected="selected"> <?php echo _('db-field-country') ?> </option>
+			<option value="lang" selected="selected"> <?php echo _('db-field-lang') ?> </option>
+			<option value="id" selected="selected"> <?php echo _('db-field-id') ?> </option>
+			<option value="name" selected="selected"> <?php echo _('db-field-name') ?> </option>
+			<option value="address" selected="selected"> <?php echo _('db-field-address') ?> </option>
+			<option value="municipality" selected="selected"> <?php echo _('db-field-municipality') ?> </option>
+			<option value="lat" selected="selected"> <?php echo _('db-field-lat') ?> </option>
+			<option value="lon" selected="selected"> <?php echo _('db-field-lon') ?> </option>
+			<option value="image" selected="selected"> <?php echo _('db-field-image') ?> </option>
+			<option value="source" selected="selected"> <?php echo _('db-field-source') ?> </option>
+			<option value="changed" selected="selected"> <?php echo _('db-field-changed') ?> </option>
 		</select>
 		<input type="hidden" name="props" value="" id="props" />
 		</td>
