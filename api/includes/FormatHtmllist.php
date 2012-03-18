@@ -59,7 +59,7 @@ class FormatHtmllist extends FormatBase {
 		$continue = substr( $continue, 1 );
 		
 		echo '<p style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">next page</a></p>';
+			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">' . _('next-page') . '</a></p>';
 	}
 	
 	function outputRow($row, $selectedItems) {
@@ -95,10 +95,10 @@ class FormatHtmllist extends FormatBase {
         foreach ( $row as $name => $value ) {
             if ( in_array( $name, $selectedItems ) ) {
                 if ( !in_array( $name, $sepListedFields ) ) {
-                    $desc .= '<li> ' . htmlspecialchars($name) . ': ';
+                    $desc .= '<li> ' . htmlspecialchars(_('db-field-' . $name ) ) . ': ';
                     if ( in_array( $name, $hasWikitext ) ) {
                         $makeLinks = true;
-                        $desc .= processWikitext($row->lang, $value, $makeLinks);
+			$desc .= processWikitext($row->lang, $value, $makeLinks);
                     } else {
                         if ( strcmp($name, 'id') == 0 and 
                                isset($row->registrant_url) and $row->registrant_url) {
@@ -114,13 +114,13 @@ class FormatHtmllist extends FormatBase {
              }
         }
 		if ( isset($row->lat) and $row->lat ) {
-			$desc .= '<li>location: ' . $row->lat . ', ' . $row->lon . '</li>';
+			$desc .= '<li>' . _('location') . ': ' . $row->lat . ', ' . $row->lon . '</li>';
 		}
 
 		if ( isset($row->source) and $row->source ) {
 			if (preg_match("/^(.+?)&/", $row->source, $matches) ) { 
 				$wikiListUrl = $matches[1];
-				$desc .= '<li><a href="' . $wikiListUrl. '">Source monuments list in Wikipedia</a></li>';
+				$desc .= '<li><a href="' . $wikiListUrl. '">' . _('source-monuments-list-on-wikipedia') . '</a></li>';
 			} 
 		}
         
