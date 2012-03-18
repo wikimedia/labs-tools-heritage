@@ -56,7 +56,7 @@ class FormatKml extends FormatBase {
             foreach ( $row as $name => $value ) {
                 if ( in_array( $name, $selectedItems ) ) {
                     if ( in_array( $name, $listFields ) ) {
-                        $desc .= '<li> ' . $name . ' - ';
+                        $desc .= '<li> ' . _('db-field-' . $name ) . ' - ';
                         if ( in_array( $name, $hasWikitext ) ) {
                             $makeLinks = true;
                             $desc .= processWikitext($row->lang, $value, $makeLinks);
