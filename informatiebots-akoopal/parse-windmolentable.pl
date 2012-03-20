@@ -83,7 +83,7 @@ my @provincies = ("Groningen", "Friesland", "Drenthe", "Overijssel", "Gelderland
 EOF
 
 foreach my $provincie (@provincies) {
-  $provincielijst = "Sjabloon:Lijst van windmolens in $provincie/Data";
+  $provincielijst = "Sjabloon:Tabeldata lijst van windmolens in $provincie";
   $pagina = $editor->get_text($provincielijst);
 
   if ( $pagina eq "2" ) {
@@ -202,7 +202,7 @@ EOF
 	# Artikel heeft monumentnummer in de infobox
 	if ( $object =~ m/\n\|[ \t]*monumentnummer[ \t]*=/ ) {
 	  if ( ( $tmp ) = ( $object =~ m/\n\|[ \t]*monumentnummer[ \t]*=[ \t]*(\S[^\n]*)\n[\|\}]/ ) ) {
-	    $infobox_monumentnummer = "{{Link kich.nl|id=$tmp|label=$tmp}}";
+	    $infobox_monumentnummer = "{{Link rijksmonument|id=$tmp|label=$tmp}}";
 	  } else {
 	    $infobox_monumentnummer = "leeg";
 	  }

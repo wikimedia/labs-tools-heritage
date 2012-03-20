@@ -74,7 +74,7 @@ my @provincies = ("Overijssel", "Gelderland", "Noord-Brabant", "Limburg" );
 EOF
 
   foreach my $provincie (@provincies) {
-    $provincielijst = "Sjabloon:Lijst van watermolens in $provincie/Data";
+    $provincielijst = "Sjabloon:Tabeldata lijst van watermolens in $provincie";
     $pagina = $editor->get_text($provincielijst);
 
     if ( $pagina eq "2" ) {

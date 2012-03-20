@@ -71,7 +71,7 @@ sub checkcommonscat {
   $tmp2 = $commonseditor->get_text("Category:$tmp");
 
   if ( $tmp2 eq "2" ) {
-    return "[[commons:Category:$tmp|{{color|#CC2200|$tmp}}]]";
+    return "[[commons:Category:$tmp|{{Tekstkleur|#CC2200|$tmp}}]]";
   } else {
     return "[[commons:Category:$tmp|$tmp]]";
   }
@@ -95,33 +95,33 @@ sub checkcoordinaten {
     if ( $coordinatennl eq "S" ) { $coordinatenn *= -1 };
     $coordinatene += $coordinatenem/60 + $coordinatenes/3600;
     if ( $coordinatenel eq "W" ) { $coordinatene *= -1 };
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatennm, $coordinatennl, $coordinatene, $coordinatenem, $coordinatenel ) = $artikel =~  m/\{\{[cC]o.rdinaten\|([\d\.]+)_([\d\.]+)_([NS])_([\d\.]+)_([\d\.]+)_([EW])_([Tt]ype|[Zz]oom|[Ss]cale|[[Rr]egion)/ ) {
     $coordinatenn += $coordinatennm/60;
     if ( $coordinatennl eq "S" ) { $coordinatenn *= -1 };
     $coordinatene += $coordinatenem/60;
     if ( $coordinatenel eq "W" ) { $coordinatene *= -1 };
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatennl, $coordinatene, $coordinatenel ) = $artikel =~  m/\{\{[cC]o.rdinaten\|([\d\.]+)_([NS])_([\d\.]+)_([EW])_([Tt]ype|[Zz]oom|[Ss]cale|[[Rr]egion)/ ) {
     if ( $coordinatennl eq "S" ) { $coordinatenn *= -1 };
     if ( $coordinatenel eq "W" ) { $coordinatene *= -1 };
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatene ) = $artikel =~  m/\{\{[cC]oor[ _]title[ _]dec\|([\d\.]+)\|([\d\.]+)\|/ ) {
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatene ) = $artikel =~  m/\{\{[cC]o.rdinaten[ _]dec\|([\d\.]+)\|([\d\.]+)\|/ ) {
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatennm, $coordinatenns, $coordinatennl, $coordinatene, $coordinatenem, $coordinatenes, $coordinatenel ) = $artikel =~  m/\{\{[cC]o.r[ _]title[ _]dms\|([\d\.]+)\|([\d\.]+)\|([\d\.]+)\|([NS])\|([\d\.]+)\|([\d\.]+)\|([\d\.]+)\|([EW])\|/ ) {
     $coordinatenn += $coordinatennm/60 + $coordinatenns/3600;
     if ( $coordinatennl eq "S" ) { $coordinatenn *= -1 };
     $coordinatene += $coordinatenem/60 + $coordinatenes/3600;
     if ( $coordinatenel eq "W" ) { $coordinatene *= -1 };
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } elsif ( ( $coordinatenn, $coordinatennm, $coordinatennl, $coordinatene, $coordinatenem, $coordinatenel ) = $artikel =~  m/\{\{[cC]o.r[ _]title[ _]dm\|([\d\.]+)\|([\d\.]+)\|([NS])\|([\d\.]+)\|([\d\.]+)\|([EW])\|/ ) {
     $coordinatenn += $coordinatennm/60;
     if ( $coordinatennl eq "S" ) { $coordinatenn *= -1 };
     $coordinatene += $coordinatenem/60;
     if ( $coordinatenel eq "W" ) { $coordinatene *= -1 };
-    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|zoom:15}}";
+    $coordinaten = "{{coor dec|$coordinatenn|$coordinatene|scale:12500}}";
   } else {
     $coordinaten='Nee';
   }
@@ -146,7 +146,7 @@ sub checkdhm {
   my $tmp;
 
   if ( ($tmp) = ( $artikel =~  m|www.molens.nl/dbase/molen.php\?[^ ]*molenid=(\d+)|i )) {
-    return $tmp;
+    return "{{Link molendatabase-Hollandsche Molen\|id=$tmp|label=$tmp}}";
   } elsif ( ( $tmp ) = ( $artikel =~ m/\n\|[ \t]*molendatabase-Hollandsche Molen[ \t]*=[ \t]*(\S[^\n]*)\n[\|\}]/ ) ) {
     return "{{Link molendatabase-Hollandsche Molen\|id=$tmp|label=$tmp}}";
   } elsif ( ($tmp) = ( $artikel =~  m/{{Link molendatabase-Hollandsche Molen\|id=(\d+)/i )) {
