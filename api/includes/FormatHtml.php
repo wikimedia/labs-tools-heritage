@@ -29,7 +29,7 @@ class FormatHtml extends FormatBase {
 		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';$this->linebreak();
 		echo '<link media="all" type="text/css" href="/~erfgoed/api/jscss/style.css" rel="stylesheet">';$this->linebreak();
 		echo '<script src="/~erfgoed/api/jscss/custom.js" type="text/javascript"></script>';
-        echo "</head>\n<body>\n<table class=\"sortable\" id=\"sortable_table_id_0\">\n";
+        echo "</head>\n<body>\n<table class=\"sortable wlm-result\" id=\"sortable_table_id_0\">\n";
 		
 		$this->isFirstRow = true;
 	}
