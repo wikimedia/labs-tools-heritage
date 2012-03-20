@@ -73,9 +73,10 @@ Format		</label>
 			<option value="html"> html </option>
 			<option value="poi"> poi </option>
 			<option value="gpx"> gpx </option>
-			<option value="kml"> kml </option>
+			<option value="googlemaps"> googlemaps </option>			<option value="kml"> kml </option>
 			<option value="layar"> layar </option>
 			<option value="json"> json </option>
+			<option value="osm"> osm </option>
 			<option value="xml"> xml</option>
 			<option value="xmlfm"> xmlfm </option>
 		</select>
@@ -85,7 +86,7 @@ Format		</label>
 <?php echo _('db-field-country') ?>	</label>
 		</th>
 		<td>
-		<select id="srcountry" name="srcountry" multiple="multiple" size="5">
+		<select id="country-filler" multiple="multiple" size="5">
 			<option value="">All</option>
 			<option value="AD">AD</option>
 			<option value="AT">AT</option>
@@ -116,6 +117,8 @@ Format		</label>
 			<option value="SE">SE</option>
 			<option value="US">US</option>
 		</select>
+		<input type="hidden" name="srcountries" value="" id="srcountries" />
+		
 		</td>
 	</tr>
 		</td>
@@ -142,7 +145,7 @@ Format		</label>
 	</tr>
 	<tr>
 		<th>
-			<label for="srname">
+			<label for="sraddress">
 <?php echo _('db-field-address') ?>
 			</label>
 		</th>
@@ -167,7 +170,7 @@ Format		</label>
   						</label>
 		</th>
 		<td>
-		<input name="srwithoutimage" type="checkbox" id="srwithoutimage"  /> yes
+		<input name="srwithoutimage" type="checkbox" id="srwithoutimage" value="1"  /> yes
 		</td>
 	</tr>
 		<tr>
@@ -192,7 +195,6 @@ Items		</label>
 		</td>
 	</tr>
 
-<!-- props=lon&props=image  must be props=lon|image|... --> 
 		<tr>
 		<th>
 			<label for="#">
@@ -206,27 +208,37 @@ Items		</label>
 		<td colspan="2">
 			<label for="srname">
 Output URL <small>for easy copy + paste</small>			</label><br/>
-		<input name="#" type="text" id="url" value="" />
-
+		<textarea name="#" id="url" rows="3" style="width:520px;"></textarea>
 		</td>
 	</tr>
 	
 </table>
 
 </form>
+<!-- props=lon&props=image  must be props=lon|image|... --> 
+
 
 <script type="text/javascript">
-	$('#props-filler').change(function(){
-     props = $(this).val();
-     props = String(props);
-	   props = props.split(",");
-     newprops = props.join('|');
+   function displayVals() {
+      var format = "format=" + $("#format").val();
+      var props =  "props="+ ($("#props-filler").val() || []).join('|');
+       var countries = ($("#country-filler").val() || []).join('|').toLowerCase(); 
+      var srcountries = "srcountries=" + countries;
+      var srname = "srname=" + $("#srname").val();
+      var srid = "srid=" + $("#srid").val();
+      var sraddress = "sraddress=" + $("#sraddress").val();
+      var srmunicipality = "srmunicipality=" + $("#srmunicipality").val();
+      var srwithoutimage = ($("#srwithoutimage:checked").val() == 1) ?  "srwithoutimage=" + $("#srwithoutimage:checked").val() : "";
+      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100&" + format + "&" + srname + "&" + srid + "&" + sraddress + "&" + srmunicipality + "&" + srcountries + "&" + props + "&" + srwithoutimage);
+	$('#url').val(url);
+	 $('#props').val(($("#props-filler").val() || []).join('|'));
+    $('#srcountries').val(countries);
+    }
 
-	   $('#props').val(newprops);
-		 		 
-	});
-
-	
+    $("select").change(displayVals);
+    $("input").change(displayVals);
+    displayVals();
+    
 </script>
 </div><!-- end content --> 
 </div><!-- end maincontainer --> 		
@@ -235,8 +247,6 @@ Output URL <small>for easy copy + paste</small>			</label><br/>
 <br style="clear:left;" />
 				</div> <!-- end wrapper -->
 
-
-  
 </body>
 </html>
 
