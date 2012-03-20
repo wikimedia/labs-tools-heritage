@@ -1,4 +1,5 @@
-td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: sans-serif;}
+
+td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;}
 th { background:steelblue; }
 tr{ background:lightsteelblue; opacity:0.8; }
 tr:hover { opacity:0.99; }
@@ -19,3 +20,35 @@ img {
     vertical-align: middle;
 }
 
+/* some overrides for the toolbox search result, keep above selectors, maybe needed at other place */
+
+table.wlm-result {
+ font-size:12px;
+ background-color:#efefef;
+ border-collapse:collapse;
+}
+table.wlm-result tr {
+ opacity:1;
+}
+table.wlm-result th {
+ background-color:#A90000;
+ white-space:nowrap;
+ color:#fff;
+}
+table.wlm-result td {
+ color:#333;
+ border:2px solid #fff;
+ padding:2px;
+ background-color:#efefef;
+ opacity:1;
+}
+table.wlm-result tr:hover td {
+ background-color:#fff;
+  opacity:1;
+}
+table.wlm-result td img {
+ margin:-2px;
+}
+table.wlm-result th a.sortheader {
+ margin-left:2px;
+}

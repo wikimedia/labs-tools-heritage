@@ -150,10 +150,10 @@ function getInnerText( el ) {
  * @todo support all accepted date formats (bug 8226)
  */
 
-var ts_image_path = 'https://bits.wikimedia.org/skins-1.17/common/images/';
-var ts_image_up = 'sort_up.gif';
-var ts_image_down = 'sort_down.gif';
-var ts_image_none = 'sort_none.gif';
+var ts_image_path = 'http://toolserver.org/~erfgoed/toolbox/img/';
+var ts_image_up = 'Sort_up.gif';
+var ts_image_down = 'Sort_down.gif';
+var ts_image_none = 'Sort_none.gif';
 var ts_europeandate = true; // The non-American-inclined can change to "true"
 var ts_alternate_row_colors = false;
 var ts_number_transform_table = null;
