@@ -219,26 +219,28 @@ Output URL <small>for easy copy + paste</small>			</label><br/>
 
 
 <script type="text/javascript">
-   function displayVals() {
-      var format = "format=" + $("#format").val();
-      var props =  "props="+ ($("#props-filler").val() || []).join('|');
-       var countries = ($("#country-filler").val() || []).join('|').toLowerCase(); 
-      var srcountries = "srcountries=" + countries;
-      var srname = "srname=" + $("#srname").val();
-      var srid = "srid=" + $("#srid").val();
-      var sraddress = "sraddress=" + $("#sraddress").val();
-      var srmunicipality = "srmunicipality=" + $("#srmunicipality").val();
-      var srwithoutimage = ($("#srwithoutimage:checked").val() == 1) ?  "srwithoutimage=" + $("#srwithoutimage:checked").val() : "";
-      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100&" + format + "&" + srname + "&" + srid + "&" + sraddress + "&" + srmunicipality + "&" + srcountries + "&" + props + "&" + srwithoutimage);
+     function displayVals() {
+     /* get and convert values for on-the-fly query string */ 
+      var format = "&format=" + $("#format").val();
+      var props =  "&props="+ ($("#props-filler").val() || []).join('|');
+       	var countries = ($("#country-filler").val() || []).join('|').toLowerCase(); 
+      var srcountries = "&srcountries=" + countries;
+      var srname = ($("#srname").val() != "") ? "&srname=" + $("#srname").val() : "";
+      var srid = ($("#srid").val() != "") ? "&srid=" + $("#srid").val() : "";
+      var sraddress = ($("#sraddress").val() != "") ? "&sraddress=" + $("#sraddress").val() : "";
+      var srmunicipality = ($("#srmunicipality").val() != "") ? "&srmunicipality=" + $("#srmunicipality").val() : "";
+      var srwithoutimage = ($("#srwithoutimage:checked").val() == 1) ?  "&srwithoutimage=" + $("#srwithoutimage:checked").val() : "";
+      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100" + format + srname + srid + sraddress + srmunicipality + srcountries + props + srwithoutimage);
 	$('#url').val(url);
+	
+	 /* set hidden fields values for proper GET request */  
 	 $('#props').val(($("#props-filler").val() || []).join('|'));
     $('#srcountries').val(countries);
     }
 
     $("select").change(displayVals);
     $("input").change(displayVals);
-    displayVals();
-    
+    displayVals();    
 </script>
 </div><!-- end content --> 
 </div><!-- end maincontainer --> 		
