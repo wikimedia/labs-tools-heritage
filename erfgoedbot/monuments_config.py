@@ -561,6 +561,11 @@ countries = {
                 'conv' : u'',
             },
             {
+                'source' : u'canton',
+                'dest' : u'canton',
+                'conv' : u'',
+            },
+            {
                 'source' : u'CH1903_X',
                 'dest' : u'lat',
                 'conv' : u'CH1903ToLat',

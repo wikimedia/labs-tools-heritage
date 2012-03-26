@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `monuments_ch_(en)` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL DEFAULT '',
   `municipality` varchar(255) NOT NULL DEFAULT '',
+  `canton` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `image` varchar(255) NOT NULL DEFAULT '',
