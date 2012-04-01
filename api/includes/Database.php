@@ -26,10 +26,25 @@ class Database {
 	function implodeConds($where, $glue) {
 		$text = '';
 		foreach ($where as $key => $value) {
-			if ( is_int( $key ) )
+			if ( is_int( $key ) ) {
 				$text .= $value . $glue;
-			else
-				$text .= $this->escapeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
+			} else {
+				
+				if ( is_array( $value ) ) {
+					if ( count( $value ) > 0 ) {
+						$text .= $this->escapeIdentifier( $key ) . ' IN (' . $this->quote( $value[0] );
+						for ( $i = 1; $i < count( $value ); $i++ )
+							$text .= ', ' . $this->quote( $value[$i] );
+						$text .= ')' . $glue;
+					} else {
+						$value = $value[0];
+					}
+				}
+				
+				if ( !is_array( $value ) ) {
+					$text .= $this->escapeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
+				}
+			}
 		}
 		return substr( $text, 0, -strlen( $glue ) );
 	}
