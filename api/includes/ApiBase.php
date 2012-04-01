@@ -116,7 +116,6 @@ abstract class ApiBase {
 	}
 	
 	function getFullUrl($params = false) {
-		// FIXME: Not sure if this is the right field to figure out https
 		if ( isset( $_SERVER['HTTPS'] ) && ( $_SERVER['HTTPS'] == 'on' ) ) {
 			$url = 'https://';
 		} else {
