@@ -36,7 +36,7 @@ class ApiMonuments extends ApiBase {
     	);
     	
     	foreach ( Monuments::$dbFields as $field ) {
-			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
+			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_ISMULTI => true );
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 		}
@@ -99,7 +99,11 @@ class ApiMonuments extends ApiBase {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
 			} else {
-				$where[] = $db->escapeIdentifier( $field ) . '=' . $db->quote( $value );
+				if ( is_string( $value ) ) {
+					$value = explode( '|', $value );
+				}
+				
+				$where[$field] = $value;
 			}
 		}
         
