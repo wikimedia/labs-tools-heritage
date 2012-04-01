@@ -70,7 +70,13 @@ abstract class ApiBase {
 						$cache[$name] = $_GET[$name];
 					}
 				} elseif ( $p == 'string' ) {
-					$cache[$name] = $_GET[$name];
+					if ( empty( $allowed[$name][ApiBase::PARAM_ISMULTI] ) ) {
+						$cache[$name] = (string)$_GET[$name];
+					} elseif ( is_array( $_GET[$name] ) ) {
+						$cache[$name] = $_GET[$name];
+					} else {
+						$cache[$name] = explode( '|', $_GET[$name] );
+					}
 				} else {
 					throw new Exception( "Unknown param type $p" );
 				}
