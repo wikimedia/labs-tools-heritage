@@ -117,7 +117,7 @@ Format		</label>
 			<option value="SE">SE</option>
 			<option value="US">US</option>
 		</select>
-		<input type="hidden" name="srcountries" value="" id="srcountries" />
+		<input type="hidden" name="srcountry" value="" id="srcountry" />
 		
 		</td>
 	</tr>
@@ -224,18 +224,18 @@ Output URL <small>for easy copy + paste</small>			</label><br/>
       var format = "&format=" + $("#format").val();
       var props =  "&props="+ ($("#props-filler").val() || []).join('|');
        	var countries = ($("#country-filler").val() || []).join('|').toLowerCase(); 
-      var srcountries = "&srcountries=" + countries;
+      var srcountry = "&srcountry=" + countries;
       var srname = ($("#srname").val() != "") ? "&srname=" + $("#srname").val() : "";
       var srid = ($("#srid").val() != "") ? "&srid=" + $("#srid").val() : "";
       var sraddress = ($("#sraddress").val() != "") ? "&sraddress=" + $("#sraddress").val() : "";
       var srmunicipality = ($("#srmunicipality").val() != "") ? "&srmunicipality=" + $("#srmunicipality").val() : "";
       var srwithoutimage = ($("#srwithoutimage:checked").val() == 1) ?  "&srwithoutimage=" + $("#srwithoutimage:checked").val() : "";
-      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100" + format + srname + srid + sraddress + srmunicipality + srcountries + props + srwithoutimage);
+      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100" + format + srname + srid + sraddress + srmunicipality + srcountry + props + srwithoutimage);
 	$('#url').val(url);
 	
 	 /* set hidden fields values for proper GET request */  
 	 $('#props').val(($("#props-filler").val() || []).join('|'));
-    $('#srcountries').val(countries);
+    $('#srcountry').val(countries);
     }
 
     $("select").change(displayVals);
