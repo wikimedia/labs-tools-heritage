@@ -95,7 +95,7 @@ class ApiMonuments extends ApiBase {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
 			
-			if ( strpos( $value, '%' ) !== false ) {
+			if ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
 			} else {
