@@ -587,6 +587,73 @@ countries = {
             },
         ]
     },
+	 ('ch', 'de') : {
+        'project' : u'wikipedia',
+        'lang' : u'de',
+        'headerTemplate' : u'Kulturgüter Schweiz Tabellenkopf',
+        'rowTemplate' : u'Kulturgüter Schweiz Tabellenzeile',
+        'namespaces' : [0],
+        'table' : u'monuments_ch_(de)',
+        'truncate' : True,
+        'primkey' : u'KGS-Nr',
+        'fields' : [
+            {
+                'source' : u'KGS-Nr',
+                'dest' : u'kgs-nr',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name',
+                'dest' : u'name',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Adresse',
+                'dest' : u'addresse',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Gemeinde',
+                'dest' : u'gemeinde',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Kanton',
+                'dest' : u'kanton',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Foto',
+                'dest' : u'foto',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+			{
+                'source' : u'Typ',
+                'dest' : u'typ',
+                'conv' : u'',
+            },
+			{
+                'source' : u'Region-ISO',
+                'dest' : u'region-iso',
+                'conv' : u'',
+            },
+        ]
+    },
     ('dk-bygninger', 'da') : {
         'project' : u'wikipedia',
         'lang' : u'da',
