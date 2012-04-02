@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `monuments_ch_(de)` (
   `monument_article` varchar(255) NOT NULL DEFAULT '',
   `typ` varchar(255) NOT NULL DEFAULT '',
   `region-iso` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`kgs_nr`),
+  PRIMARY KEY (`kgs-nr`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
