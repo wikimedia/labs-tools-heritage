@@ -270,6 +270,95 @@ countries = {
             },
         ],
     },
+    ('be-vlg', 'fr') : {
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'En-tête de tableau MH-Fla',
+        'rowTemplate' : u'Ligne de tableau MH-Fla',
+        'commonsTemplate' : u'Onroerend erfgoed',
+        'commonsTrackerCategory' : u'Onroerend erfgoed with known IDs',
+        'commonsCategoryBase' : u'Onroerend erfgoed',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'' #u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Ongebruikte foto\'s',
+        'imagesWithoutIdPage' : u'' #u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Foto\'s zonder id',
+        'registrantUrlBase' : u'https://inventaris.onroerenderfgoed.be/dibe/relict/%s',
+        'namespaces' : [0],
+        'table' : u'monuments_be-vlg_(fr)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'conv' : u'',
+            },
+            {
+                'source' : u'classement',
+                'dest' : u'classement',
+                'conv' : u'',
+            },
+            {
+                'source' : u'commune',
+                'dest' : u'commune',
+                'conv' : u'',
+            },
+            {
+                'source' : u'souscommune',
+                'dest' : u'souscommune',
+                'conv' : u'',
+            },
+            {
+                'source' : u'souscommune_id',
+                'dest' : u'souscommune_id',
+                'conv' : u'',
+            },
+            {
+                'source' : u'adresse',
+                'dest' : u'adresse',
+                'conv' : u'',
+            },
+            {
+                'source' : u'nom_objet',
+                'dest' : u'nom_objet',
+                'conv' : u'',
+            },
+            {
+                'source' : u'année_construction',
+                'dest' : u'annee_construction',
+                'conv' : u'',
+            },
+            {
+                'source' : u'architecte',
+                'dest' : u'architecte',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+                'conv' : u'',
+            },
+            {
+                'source' : u'nom_objet',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('be-vlg', 'nl') : {
         'project' : u'wikipedia',
         'lang' : u'nl',
@@ -309,7 +398,7 @@ countries = {
             },
             {
                 'source' : u'deelgem_id',
-                'dest' : u'',
+                'dest' : u'deelgem_id',
                 'conv' : u'',
             },
             {

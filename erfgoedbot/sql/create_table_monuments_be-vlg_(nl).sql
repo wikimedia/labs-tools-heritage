@@ -6,6 +6,7 @@ CREATE TABLE `monuments_be-vlg_(nl)` (
   `beschermd` varchar(255) NOT NULL DEFAULT '',
   `gemeente` varchar(255) NOT NULL DEFAULT '',
   `deelgem` varchar(255) NOT NULL DEFAULT '',
+  `deelgem_id` varchar(25) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',
   `objectnaam` varchar(255) NOT NULL DEFAULT '',
   `bouwjaar` varchar(255) NOT NULL DEFAULT '',

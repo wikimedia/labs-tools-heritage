@@ -49,7 +49,23 @@ SELECT 'be-bru' AS `country`,
         `monument_article` AS `monument_article`, 
         '' AS `registrant_url`
         FROM `monuments_be-bru_(nl)`;
-/* Vlaanderen */
+/* Vlaanderen in French */
+REPLACE INTO `monuments_all`
+SELECT 'be-vlg' AS `country`,
+       'fr' AS `lang`,
+	`id` AS `id`,
+        `nom_objet` AS `name`,
+        `adresse` AS `address`,
+        `commune` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_be-vlg_(fr)`;
+/* Vlaanderen in Dutch */
 REPLACE INTO `monuments_all`
 SELECT 'be-vlg' AS `country`,
        'nl' AS `lang`,
