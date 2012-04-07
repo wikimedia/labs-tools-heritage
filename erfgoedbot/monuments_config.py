@@ -654,6 +654,103 @@ countries = {
             },
         ]
     },
+	('ch', 'fr') : {
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'En-tête de tableau CH',
+        'rowTemplate' : u'Ligne de tableau CH',
+        'namespaces' : [0],
+        'table' : u'monuments_ch_(fr)',
+        'truncate' : True,
+        'primkey' : u'kgs-nr',
+        'fields' : [
+            {
+                'source' : u'kgs-nr',
+                'dest' : u'kgs-nr',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Objet',
+                'dest' : u'objet',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Adresse',
+                'dest' : u'addresse',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Commune',
+                'dest' : u'commune',
+                'conv' : u'',
+            },
+            {
+                'source' : u'canton',
+                'dest' : u'canton',
+                'conv' : u'',
+            },
+            {
+                'source' : u'latitude',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'longitude',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Photo',
+                'dest' : u'photo',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+			{
+                'source' : u'A',
+                'dest' : u'typ_a',
+                'conv' : u'',
+            },
+			{
+                'source' : u'Arch',
+                'dest' : u'typ_arch',
+                'conv' : u'',
+            },
+			{
+                'source' : u'B',
+                'dest' : u'typ_b',
+                'conv' : u'',
+            },
+			{
+                'source' : u'E',
+                'dest' : u'typ_e',
+                'conv' : u'',
+            },
+			{
+                'source' : u'M',
+                'dest' : u'typ_m',
+                'conv' : u'',
+            },
+			{
+                'source' : u'O',
+                'dest' : u'typ_o',
+                'conv' : u'',
+            },
+			{
+                'source' : u'S',
+                'dest' : u'typ_s',
+                'conv' : u'',
+            },
+			{
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+                'conv' : u'',
+            },
+        ]
+    },
     ('dk-bygninger', 'da') : {
         'project' : u'wikipedia',
         'lang' : u'da',
