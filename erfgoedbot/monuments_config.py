@@ -705,7 +705,7 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'Name',
+                'source' : u'Objet',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
