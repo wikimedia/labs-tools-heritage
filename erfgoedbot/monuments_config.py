@@ -303,13 +303,13 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'souscommune',
-                'dest' : u'souscommune',
+                'source' : u'section_communale',
+                'dest' : u'section_communale',
                 'conv' : u'',
             },
             {
-                'source' : u'souscommune_id',
-                'dest' : u'souscommune_id',
+                'source' : u'section_communale_id',
+                'dest' : u'section_communale_id',
                 'conv' : u'',
             },
             {
