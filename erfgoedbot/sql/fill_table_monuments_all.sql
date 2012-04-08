@@ -113,22 +113,54 @@ SELECT 'by' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
         FROM `monuments_by_(be-x-old)`;
-/* Switzerland */
+/* Switzerland in English*/
 REPLACE INTO `monuments_all`
 SELECT 'ch' AS `country`,
        'en' AS `lang`,
-	`kgs_nr` AS `id`, 
-	`name` AS `name`,
-	`address` AS `address`,
-	`municipality` AS `municipality`,
-	`lat` AS `lat`,
-	`lon` AS `lon`,
-	`image` AS `image`,
-	`source` AS `source`,
-	`changed` AS `changed`,
+		`kgs_nr` AS `id`, 
+		`name` AS `name`,
+		`address` AS `address`,
+		`municipality` AS `municipality`,
+		`lat` AS `lat`,
+		`lon` AS `lon`,
+		`image` AS `image`,
+		`source` AS `source`,
+		`changed` AS `changed`,
+		`monument_article` AS `monument_article`,
+		'' AS `registrant_url`
+		FROM `monuments_ch_(en)`;
+/* Switzerland in French */
+REPLACE INTO `monuments_all`
+SELECT 'ch' AS `country`,
+       'fr' AS `lang`,
+		`kgs-nr` AS `id`, 
+		`objet` AS `name`,
+		`addresse` AS `address`,
+		`commune` AS `municipality`,
+		`lat` AS `lat`,
+		`lon` AS `lon`,
+		`photo` AS `image`,
+		`source` AS `source`,
+		`changed` AS `changed`,
+		`monument_article` AS `monument_article`,
+		'' AS `registrant_url`
+		FROM `monuments_ch_(fr)`;
+/* Switzerland in German */
+REPLACE INTO `monuments_all`
+SELECT 'ch' AS `country`,
+       'de' AS `lang`,
+		`kgs-nr` AS `id`, 
+		`name` AS `name`,
+		`addresse` AS `address`,
+		`gemeinde` AS `municipality`,
+		`lat` AS `lat`,
+		`lon` AS `lon`,
+		`foto` AS `image`,
+		`source` AS `source`,
+		`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
-	FROM `monuments_ch_(en)`;
+		FROM `monuments_ch_(de)`;
 /* Denmark bygninger */
 REPLACE INTO `monuments_all`
 SELECT 'dk-bygninger' AS `country`,
