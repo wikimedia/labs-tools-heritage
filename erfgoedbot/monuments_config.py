@@ -1087,7 +1087,7 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'StadtOderGemeinde',
+                'source' : u'Gemeinde',
                 'dest' : u'stadt',
                 'conv' : u'',
             },
