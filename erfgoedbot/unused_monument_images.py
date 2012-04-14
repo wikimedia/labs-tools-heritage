@@ -71,24 +71,24 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 m = re.search('^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
                 imageName = photos.get(catSortKey)
-                wikipedia.output(u'Key %s returned a result' % (monumentId,))
-                wikipedia.output(wikiSourceList)
-                wikipedia.output(imageName)
-                text = text + u'File:%s|[[%s|%s]]\n' % (unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
+                #wikipedia.output(u'Key %s returned a result' % (monumentId,))
+                #wikipedia.output(wikiSourceList)
+                #wikipedia.output(imageName)
+                if totalImages <= maxImages:
+                    text = text + u'File:%s|[[%s|%s]]\n' % (unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
                 totalImages = totalImages + 1
-            if totalImages >= maxImages:
-                wikipedia.output(u'Reached maximum number of images (%s)' % maxImages)
-                text = text + u'<!-- Maximum number of images reached: %s -->\n' % maxImages
-                break
         except ValueError:
             wikipedia.output(u'Got value error for %s' % (monumentId,))
 
-    text = text + u'</gallery>'
-    #FIXME: Add interwiki link if the page exists in another language too.
+    text = text + u'</gallery>' 
+
     if totalImages >= maxImages:
-        comment = u'Images to be used in monument lists: %s (gallery maximum reached), estimated total of unused images: %s' % (maxImages, len(photos))
+        text = text + u'<!-- Maximum number of images reached: %s, total of unused images: %s -->\n' % (maxImages, totalImages)
+        comment = u'Images to be used in monument lists: %s (gallery maximum reached), total of unused images: %s' % (maxImages, totalImages)
     else:
         comment = u'Images to be used in monument lists: %s' % totalImages
+
+    #FIXME: Add interwiki link if the page exists in another language too.
     
     site = wikipedia.getSite(lang, u'wikipedia')
     page = wikipedia.Page(site, unusedImagesPage)
