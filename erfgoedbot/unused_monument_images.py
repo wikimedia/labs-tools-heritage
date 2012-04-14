@@ -88,14 +88,24 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     else:
         comment = u'Images to be used in monument lists: %s' % totalImages
 
-    #FIXME: Add interwiki link if the page exists in another language too.
+    text = text + getInterwikisUnusedImages(countrycode, lang)
     
     site = wikipedia.getSite(lang, u'wikipedia')
     page = wikipedia.Page(site, unusedImagesPage)
     wikipedia.output(text)
     page.put(text, comment)
-	
-	
+
+    return totalImages
+
+def getInterwikisUnusedImages(countrycode, lang):
+    result = u''
+    for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
+        if countrycode==countrycode2 and lang!=lang2:
+            if countryconfig.get('unusedImagesPage'):
+                result = result + u'[[%s:%s]]\n' (lang2, countryconfig.get('unusedImagesPage'))
+
+    return result
+
 def getMonumentsWithoutPhoto(countrycode, lang, conn, cursor):
     result = {}
 
