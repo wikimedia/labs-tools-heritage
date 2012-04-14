@@ -68,13 +68,13 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 	    # All uppercase, same happens in other list
 	    monumentId = monumentId.upper()
             if monumentId in withoutPhoto:
-                m = re.search('^(.+?)&', withoutPhoto.get(monumentId))
+                m = re.search('^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
                 imageName = photos.get(catSortKey)
                 wikipedia.output(u'Key %s returned a result' % (monumentId,))
                 wikipedia.output(wikiSourceList)
                 wikipedia.output(imageName)
-                text = text + u'File:%s|[%s %s]\n' % (unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
+                text = text + u'File:%s|[[%s|%s]]\n' % (unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
                 totalImages = totalImages + 1
             if totalImages >= maxImages:
                 wikipedia.output(u'Reached maximum number of images (%s)' % maxImages)
