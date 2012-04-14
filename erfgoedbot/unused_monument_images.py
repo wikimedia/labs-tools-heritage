@@ -50,7 +50,10 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     wikipedia.output(u'withoutPhoto %s elements' % (len(withoutPhoto),))
     wikipedia.output(u'photos %s elements' % (len(photos),))
 
-    text = u'<gallery>\n'
+    text = u'{{#ifexist:/header | {{/header}} }}\n' # People can add a /header template for with more info
+    text = text + u'<gallery>\n'
+    totalImages = 0
+    maxImages = 400
     for catSortKey in sorted(photos.keys()):
         try:
             monumentId = unicode(catSortKey, 'utf-8')
@@ -71,10 +74,16 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 wikipedia.output(wikiSourceList)
                 wikipedia.output(imageName)
                 text = text + u'File:%s|[%s %s]\n' % (unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
+                totalImages = totalImages + 1
+            if totalImages >= maxImages:
+                wikipedia.output(u'Reached maximum number of images (%s)' % maxImages)
+                text = text + u'<!-- Maximum number of images reached: %s -->\n' % maxImages
+                break
         except ValueError:
             wikipedia.output(u'Got value error for %s' % (monumentId,))
 
     text = text + u'</gallery>'
+    #FIXME: Add interwiki link if the page exists in another language too.
     comment = u'Images to be used in monument lists'
 
     site = wikipedia.getSite(lang, u'wikipedia')
