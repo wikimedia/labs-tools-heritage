@@ -627,11 +627,11 @@ countries = {
         'commonsTemplate' : u'Cultural property of national significance in Switzerland',
         'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
         'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
-        #'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'User:Multichill/Unused Schweizerisches Inventar der Kulturgüter von nationaler und regionaler Bedeutung images', # FIXME: Better name
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
         'table' : u'monuments_ch_(de)',
-        'truncate' : True,
+        'truncate' : False,
         'primkey' : u'KGS-Nr',
         'fields' : [
             {
@@ -703,7 +703,7 @@ countries = {
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
         'table' : u'monuments_ch_(en)',
-        'truncate' : True,
+        'truncate' : False,
         'primkey' : u'KGS_nr',
         'fields' : [
             {
@@ -761,11 +761,11 @@ countries = {
         'commonsTemplate' : u'Cultural property of national significance in Switzerland',
         'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
         'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
-        #'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments suisse non utilisées',
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
         'table' : u'monuments_ch_(fr)',
-        'truncate' : True,
+        'truncate' : False,
         'primkey' : u'kgs-nr',
         'fields' : [
             {
