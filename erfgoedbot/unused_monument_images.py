@@ -163,7 +163,7 @@ def makeStatistics(mconfig, totals):
     site = wikipedia.getSite('commons', 'commons')
     page = wikipedia.Page(site, u'Commons:Monuments database/Unused images/Statistics')
     
-    comment = u'Updating unused image statistics'
+    comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
     wikipedia.output(text)
     page.put(newtext = text, comment = comment) 
 
