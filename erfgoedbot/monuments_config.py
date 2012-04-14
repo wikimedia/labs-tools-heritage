@@ -619,68 +619,16 @@ countries = {
             },
         ],
     },
-    ('ch', 'en') : {
-        'project' : u'wikipedia',
-        'lang' : u'en',
-        'headerTemplate' : u'SIoCPoNaRS header',
-        'rowTemplate' : u'SIoCPoNaRS row',
-        'namespaces' : [0],
-        'table' : u'monuments_ch_(en)',
-        'truncate' : True,
-        'primkey' : u'KGS_nr',
-        'fields' : [
-            {
-                'source' : u'KGS_nr',
-                'dest' : u'',
-                'conv' : u'',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'name',
-                'conv' : u'',
-            },
-            {
-                'source' : u'address',
-                'dest' : u'address',
-                'conv' : u'',
-            },
-            {
-                'source' : u'municipality',
-                'dest' : u'municipality',
-                'conv' : u'',
-            },
-            {
-                'source' : u'canton',
-                'dest' : u'canton',
-                'conv' : u'',
-            },
-            {
-                'source' : u'CH1903_X',
-                'dest' : u'lat',
-                'conv' : u'CH1903ToLat',
-            },
-            {
-                'source' : u'CH1903_Y',
-                'dest' : u'lon',
-                'conv' : u'CH1903ToLon',
-            },
-            {
-                'source' : u'image',
-                'dest' : u'image',
-                'conv' : u'',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-        ]
-    },
-	 ('ch', 'de') : {
+    ('ch', 'de') : {
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Kulturgüter Schweiz Tabellenkopf',
         'rowTemplate' : u'Kulturgüter Schweiz Tabellenzeile',
+        'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        #'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
+        #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
         'table' : u'monuments_ch_(de)',
         'truncate' : True,
@@ -743,11 +691,78 @@ countries = {
             },
         ]
     },
-	('ch', 'fr') : {
+    ('ch', 'en') : {
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'SIoCPoNaRS header',
+        'rowTemplate' : u'SIoCPoNaRS row',
+        'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_ch_(en)',
+        'truncate' : True,
+        'primkey' : u'KGS_nr',
+        'fields' : [
+            {
+                'source' : u'KGS_nr',
+                'dest' : u'KGS_nr',
+                'conv' : u'',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+                'conv' : u'',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+                'conv' : u'',
+            },
+            {
+                'source' : u'municipality',
+                'dest' : u'municipality',
+                'conv' : u'',
+            },
+            {
+                'source' : u'canton',
+                'dest' : u'canton',
+                'conv' : u'',
+            },
+            {
+                'source' : u'CH1903_X',
+                'dest' : u'lat',
+                'conv' : u'CH1903ToLat',
+            },
+            {
+                'source' : u'CH1903_Y',
+                'dest' : u'lon',
+                'conv' : u'CH1903ToLon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+                'conv' : u'',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ]
+    },
+    ('ch', 'fr') : {
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau CH',
         'rowTemplate' : u'Ligne de tableau CH',
+        'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        #'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
+        #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
         'table' : u'monuments_ch_(fr)',
         'truncate' : True,
