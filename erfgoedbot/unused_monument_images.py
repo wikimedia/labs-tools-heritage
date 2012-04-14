@@ -141,6 +141,31 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
 
     return result
 
+def makeStatistics(mconfig, totals):
+    text = u'{| class="wikitable sortable"\n'
+    text = text + u'! country !! lang !! total !! page !! row template !! Commons template\n'
+    
+    totalImages = 0
+    for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+        if countryconfig.get('unusedImagesPage') and totals.get((countrycode, lang)) and countryconfig.get('commonsTemplate'):
+            text = text + u'|-\n'
+            text = text = u'| %s ' % countrycode
+            text = text = u'|| %s ' % lang
+            text = text = u'|| %s ' % totals.get((countrycode, lang))
+            totalImages = totalImages + totals.get((countrycode, lang))
+            text = text = u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('unusedImagesPage'), countryconfig.get('unusedImagesPage'))
+            text = text = u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
+            text = text = u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
+    text = text + u'|-\n'
+    text = text + u'| || || %s \n' % totalImages
+    text = text = u'|}\n'
+    
+    site = wikipedia.getSite('commons', 'commons')
+    page = wikipedia.Page(site, u'Commons:Monuments database/Unused images/Statistics')
+    
+    comment = u'Updating unused image statistics'
+    page.put(newtext = output, comment = comment) 
+
 
 def main():
     countrycode = u''
@@ -162,9 +187,11 @@ def main():
 	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 	processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
+        totals = {}
 	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
 	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+	    totals[(countrycode, lang)] = processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+	makeStatistics(mconfig, totals)
 
 		
 if __name__ == "__main__":
