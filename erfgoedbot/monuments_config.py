@@ -1493,7 +1493,7 @@ countries = {
         'commonsTemplate' : u'BIC',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Spain with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Spain',
-        'unusedImagesPage' : u'User:Multichill/Unused BIC',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de Bienes de Interés Cultural sin usar',
         'imagesWithoutIdPage' : u'User:Multichill/BIC without id',
         'namespaces' : [104],
         'table' : u'monuments_es_(es)',
