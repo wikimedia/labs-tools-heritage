@@ -102,7 +102,7 @@ def getInterwikisUnusedImages(countrycode, lang):
     for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
         if countrycode==countrycode2 and lang!=lang2:
             if countryconfig.get('unusedImagesPage'):
-                result = result + u'[[%s:%s]]\n' (lang2, countryconfig.get('unusedImagesPage'))
+                result = result + u'[[%s:%s]]\n' % (lang2, countryconfig.get('unusedImagesPage'))
 
     return result
 
