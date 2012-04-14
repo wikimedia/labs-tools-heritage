@@ -54,6 +54,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     text = text + u'<gallery>\n'
     totalImages = 0
     maxImages = 400
+    
     for catSortKey in sorted(photos.keys()):
         try:
             monumentId = unicode(catSortKey, 'utf-8')
@@ -84,8 +85,11 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     text = text + u'</gallery>'
     #FIXME: Add interwiki link if the page exists in another language too.
-    comment = u'Images to be used in monument lists'
-
+    if totalImages >= maxImages:
+        comment = u'Images to be used in monument lists: %s (gallery maximum reached), estimated total of unused images: %s' % (maxImages, len(photos))
+    else:
+        comment = u'Images to be used in monument lists: %s' % totalImages
+    
     site = wikipedia.getSite(lang, u'wikipedia')
     page = wikipedia.Page(site, unusedImagesPage)
     wikipedia.output(text)
