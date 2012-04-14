@@ -279,7 +279,7 @@ countries = {
         'commonsTrackerCategory' : u'Onroerend erfgoed with known IDs',
         'commonsCategoryBase' : u'Onroerend erfgoed',
         'autoGeocode' : True,
-        'unusedImagesPage' : u'', #u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Ongebruikte foto\'s',
+        'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments en Région flamande non utilisées',
         'imagesWithoutIdPage' : u'', #u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Foto\'s zonder id',
         'registrantUrlBase' : u'https://inventaris.onroerenderfgoed.be/dibe/relict/%s',
         'namespaces' : [0],
@@ -447,7 +447,7 @@ countries = {
                 'conv' : u'generateRegistrantUrl',
             },
         ],
-    },
+    }, # 'unusedImagesPage' : u'Projet:Monuments_historiques/Images de monuments en Région wallonne non utilisées'
     ('be-wal', 'nl') : {
         'project' : u'wikipedia',
         'lang' : u'nl',
@@ -1913,7 +1913,7 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in France with known IDs',
         'commonsCategoryBase' : u'Monuments historiques in France',
         'autoGeocode' : False,
-        'unusedImagesPage' : u'User:Multichill/Unused monument photos',
+        'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments français non utilisées',
         'imagesWithoutIdPage' : u'User:Multichill/Monument photos without an ID',
         'registrantUrlBase' : u'http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s',
         'namespaces' : [0],
