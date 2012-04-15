@@ -146,7 +146,7 @@ def makeStatistics(mconfig, totals):
     text = text + u'! country !! lang !! total !! page !! row template !! Commons template\n'
     
     totalImages = 0
-    for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+    for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
         if countryconfig.get('unusedImagesPage') and countryconfig.get('commonsTemplate'):
             text = text + u'|-\n'
             text = text + u'| %s ' % countrycode
@@ -154,7 +154,7 @@ def makeStatistics(mconfig, totals):
             text = text + u'|| %s ' % totals.get((countrycode, lang))
             totalImages = totalImages + totals.get((countrycode, lang))
             text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('unusedImagesPage'), countryconfig.get('unusedImagesPage'))
-            text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
+            text = text + u'|| [[:%s:Template:%s|%s]] ' % (lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
             text = text + u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
     text = text + u'|-\n'
     text = text + u'| || || %s \n' % totalImages
