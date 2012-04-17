@@ -162,6 +162,26 @@ countries = {
                 'conv' : u'',
             },
             {
+                'source' : u'Gemeinde',
+                'dest' : u'gemeinde',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Gemeindekennzahl',
+                'dest' : u'gemeindekennzahl',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Bezirk',
+                'dest' : u'bezirk',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Bezirkskennzahl',
+                'dest' : u'bezirkskennzahl',
+                'conv' : u'',
+            },
+            {
                 'source' : u'Grundstücksnummer',
                 'dest' : u'grundstucksnummer',
                 'conv' : u'',
