@@ -680,12 +680,12 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'Längengrad',
+                'source' : u'Breitengrad',
                 'dest' : u'lat',
                 'conv' : u'',
             },
             {
-                'source' : u'Breitengrad',
+                'source' : u'Längengrad',
                 'dest' : u'lon',
                 'conv' : u'',
             },
