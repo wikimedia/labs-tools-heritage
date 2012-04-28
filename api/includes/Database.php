@@ -63,6 +63,29 @@ class Database {
 		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
 	
+	function insert($table, $fields) {
+		$this->insertion('INSERT', $table, $fields);
+	}
+	
+	function replace($table, $fields) {
+		$this->insertion('REPLACE', $table, $fields);
+	}
+	
+	protected function insertion($action, $table, $fields) {
+		$sql = "$action INTO " . $this->escapeIdentifier( $table );
+		$sql2 = ') VALUES ';
+		
+		$sep = '(';
+		
+		foreach ($fields as $name => $value) {
+			$sql .= $sep . $this->escapeIdentifier( $name );
+			$sql2 .= $sep . $this->quote( $value );
+			$sep = ',';
+		}
+		
+		$this->query($sql . $sql2 . ')');
+	}
+	
 	/* Mysql specific */
 	function query($sql) {
 		return mysql_query( $sql, $this->db );
