@@ -2915,6 +2915,131 @@ countries = {
             },
         ],
     },
+    ('sk', 'de') : {
+        'project' : u'wikipedia',
+        'lang' : u'de',
+        'headerTemplate' : u'Denkmalliste Slowakei Tabellenkopf',
+        'rowTemplate' : u'Denkmalliste Slowakei Tabellenzeile',
+        'footerTemplate' : u'Denkmalliste Slowakei Tabellenfuß',
+        'commonsTemplate' : u'Cultural Heritage Slovakia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Slovakia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Slovakia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'User:Multichill/Unused Denkmal Slowakei',
+        'imagesWithoutIdPage' : u'User:Multichill/Denkmal Slowakei without ID',
+        'namespaces' : [0],
+        'table' : u'monuments_at_(de)',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : u'ObjektID',
+        'fields' : [
+            {
+                'source' : u'Foto',
+                'dest' : u'foto',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name',
+                'dest' : u'name',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Anzeige-Name',
+                'dest' : u'anzeige-Name',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Artikel',
+                'dest' : u'artikel',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Anzeige-Artikel',
+                'dest' : u'anzeige-artikel',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Adresse',
+                'dest' : u'adresse',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Adresse-Sort',
+                'dest' : u'adresse-sort',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Region-ISO',
+                'dest' : u'region-iso',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Katastralgemeinde',
+                'dest' : u'katastralgemeinde',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Konskriptionsnr',
+                'dest' : u'konskriptionsnr',
+                'conv' : u'',
+            },
+            {
+                'source' : u'ObjektID',
+                'dest' : u'objektid',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Bearbeitungsdatum',
+                'dest' : u'bearbeitungsdatum',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Offizielle Beschr.',
+                'dest' : u'offiziellebeschreibung',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Obec',
+                'dest' : u'obec',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Kód obce',
+                'dest' : u'kod_obce',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Okres',
+                'dest' : u'okres',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Kód okresu',
+                'dest' : u'kod_okresu',
+                'conv' : u'',
+            },
+        ],
+    },
+
     ('us', 'en') : {
         'project' : u'wikipedia',
         'lang' : u'en',
