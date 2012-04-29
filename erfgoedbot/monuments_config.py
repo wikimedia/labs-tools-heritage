@@ -2949,7 +2949,7 @@ countries = {
             },
             {
                 'source' : u'Anzeige-Name',
-                'dest' : u'anzeige-Name',
+                'dest' : u'anzeige-name',
                 'conv' : u'',
             },
             {
