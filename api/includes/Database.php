@@ -64,11 +64,11 @@ class Database {
 	}
 	
 	function insert($table, $fields) {
-		$this->insertion('INSERT', $table, $fields);
+		return $this->insertion('INSERT', $table, $fields);
 	}
 	
 	function replace($table, $fields) {
-		$this->insertion('REPLACE', $table, $fields);
+		return $this->insertion('REPLACE', $table, $fields);
 	}
 	
 	protected function insertion($action, $table, $fields) {
@@ -83,7 +83,7 @@ class Database {
 			$sep = ',';
 		}
 		
-		$this->query($sql . $sql2 . ')');
+		return $this->query($sql . $sql2 . ')');
 	}
 	
 	/* Mysql specific */
