@@ -433,7 +433,7 @@ SELECT 'sk' AS `country`,
         `changed` AS `changed`,
         REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
         `` AS `registrant_url`
-		FROM `monuments_sk_(de)`;
+        FROM `monuments_sk_(de)`;
 /* South Tyrol in German */
 REPLACE INTO `monuments_all`
 SELECT 'it-bz' AS `country`, 
