@@ -186,7 +186,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title, headerDe
 	value = value.split("<ref")[0].strip()
 	
 	#Check first that field is not empty
-	if field:
+	if field.strip():
             #Is it in the fields list?
             if field in contents:
                 #Load it with Big fucking escape hack. Stupid mysql lib
