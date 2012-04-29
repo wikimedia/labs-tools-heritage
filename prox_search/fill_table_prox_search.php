@@ -1,46 +1,25 @@
-<?
+<?php
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('html_errors', false);
 
-require('clsBasicGeosearch.php');
+require dirname( __FILE__ ) . '/clsBasicGeosearch.php';
+
+require_once dirname( dirname( __FILE__ ) ) . '/database.inc';
+require dirname( dirname( __FILE__ ) ) . '/public_html/api/autoloader.php';
+
+$dbStatus = Database::define(Monuments::$dbServer, Monuments::$dbDatabase, 
+        Monuments::$dbUser, $toolserver_password );
+if (!$dbStatus) {
+    die( "Coudn't connect to db! ". mysql_error() );
+}
 
 
-function connect_monuments_db() {
-    $host = 'sql.toolserver.org';
-    $database = 'p_erfgoed_p';
+$db = Database::getDb();
+$db->query( "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'" ); // Force utf8_unicode_ci collation
 
-    $ts_pw = posix_getpwuid(posix_getuid());
-    $ts_mycnf = parse_ini_file($ts_pw['dir'] . "/.my.cnf");
-    $db = mysql_connect($host, $ts_mycnf['user'], $ts_mycnf['password']);
-    unset($ts_mycnf, $ts_pw);
-    if (!$db) {
-        die('Not connected : ' . mysql_error());
-    }
-
-    $db_selected = mysql_select_db($database, $db); 
-    if (!$db_selected) {
-        die('Can\'t use db : ' . mysql_error());
-    }    
-    
-    $init_query = "SET NAMES 'utf8' COLLATE 'utf8_unicode_ci'";
-    mysql_query($init_query);
-    
-    return $db;
-} //func
-
-
-//main
 
 $bg = new clsBasicGeosearch();
-
-connect_monuments_db();
-
-//$t_query = "TRUNCATE TABLE prox_search";
-//$t_result = mysql_query($t_query);
-//if (!$t_result) {
-//	die('Invalid query: ' . mysql_error());
-//}
 
 $query = "SELECT `country`, `lang`, `id`, `lat`, `lon`
        FROM `monuments_all`
@@ -48,37 +27,35 @@ $query = "SELECT `country`, `lang`, `id`, `lat`, `lon`
 
 
    
-$result = mysql_query($query);
-
+$result = $db->query($query);
 if (!$result) 
 {
   die('Invalid query: ' . mysql_error());
 }
+$result = new ResultWrapper( $db, $result );
 
+foreach ($result as $row) {
 
-		
-while ($row = @mysql_fetch_assoc($result)) {
-
-	if ( $row['lat'] >= -90 and $row['lat'] <= 90 and 
-	     $row['lon'] >= -180 and $row['lon'] <= 180 ) {
+	if ( $row->lat >= -90 and $row->lat <= 90 and 
+	     $row->lon >= -180 and $row->lon <= 180 ) {
 		 
-		$peano1 = $bg->generate_peano1($row['lat'], $row['lon']);	
-		$peano2 = $bg->generate_peano2($row['lat'], $row['lon']);
+		$peano1 = $bg->generate_peano1($row->lat, $row->lon);	
+		$peano2 = $bg->generate_peano2($row->lat, $row->lon);
 		$peano1iv = $bg->generate_peano_iv($peano1);
 		$peano2iv = $bg->generate_peano_iv($peano2);
 		
-		$r_query = sprintf("REPLACE INTO `prox_search` (mon_country, mon_lang, mon_id, lat, lon, int_peano1, int_peano2, int_peano1iv, int_peano2iv)
-                     VALUES ('%s', '%s','%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                 $row['country'],
-                 $row['lang'],
-                 $row['id'],
-                 $row['lat'],
-                 $row['lon'],
-				 $peano1,
-				 $peano2,
-				 $peano1iv,
-				 $peano2iv);
-		$r_result = mysql_query($r_query);
+		$r_result = $db->replace( 'prox_search', array(
+										'mon_country' => $row->country,
+										'mon_lang' => $row->lang,
+										'mon_id' => $row->id,
+										'lat' => $row->lat,
+										'lon' => $row->lon,
+										'int_peano1' => $peano1,
+										'int_peano2' => $peano1,
+										'int_peano1iv' => $peano1iv,
+										'int_peano2iv' => $peano2iv
+									) );
+
 		if (!$r_result) {
 			die('Invalid query: ' . mysql_error());
 		}

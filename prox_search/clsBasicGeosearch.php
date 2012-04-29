@@ -200,7 +200,7 @@ Geo-Mobilemaps-GeoparserLite
 Author: Peter Abrahamson  peter@atomjump.com  18 Feb 09. Document last update 4 July 09.
 */
 
-error_reporting(E_ERROR | E_PARSE);			//Needed for Windows compatiblity
+//error_reporting(E_ERROR | E_PARSE);			//Needed for Windows compatiblity
 
 
 //This overriding class-exists should prevent class being called up twice
