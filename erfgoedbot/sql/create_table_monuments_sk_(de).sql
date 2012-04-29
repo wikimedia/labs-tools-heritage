@@ -1,4 +1,5 @@
 /* Create table statement for the Monuments in Slovakia in German */
+/* `anzeige-artikel` varchar(255) NOT NULL DEFAULT '',*/
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_sk_(de)`;
 CREATE TABLE `monuments_sk_(de)` (
@@ -8,7 +9,6 @@ CREATE TABLE `monuments_sk_(de)` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `anzeige-name` varchar(255) NOT NULL DEFAULT '',
   `artikel` varchar(255) NOT NULL DEFAULT '',
-  `anzeige-artikel` varchar(255) NOT NULL DEFAULT '',
   `adresse` varchar(255) NOT NULL DEFAULT '',
   `adresse-sort` varchar(255) NOT NULL DEFAULT '',
   `region-iso` varchar(255) NOT NULL DEFAULT '',

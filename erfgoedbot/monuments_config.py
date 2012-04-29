@@ -2957,11 +2957,11 @@ countries = {
                 'dest' : u'artikel',
                 'conv' : u'',
             },
-            {
-                'source' : u'Anzeige-Artikel',
-                'dest' : u'anzeige-artikel',
-                'conv' : u'',
-            },
+#            {
+#               'source' : u'Anzeige-Artikel',
+#                'dest' : u'anzeige-artikel',
+#                'conv' : u'',
+#            },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
@@ -3039,7 +3039,6 @@ countries = {
             },
         ],
     },
-
     ('us', 'en') : {
         'project' : u'wikipedia',
         'lang' : u'en',
