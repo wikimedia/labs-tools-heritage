@@ -4,9 +4,9 @@
  */
 
 
-error_reporting(E_ALL); 
-ini_set('display_errors', true);
-ini_set('html_errors', false);
+# error_reporting(E_ALL); 
+# ini_set('display_errors', true);
+# ini_set('html_errors', false);
 
 require_once( '/home/project/e/r/f/erfgoed/prox_search/clsARLayarServer.php' );
 require dirname( dirname( __FILE__ ) ) . '/api/autoloader.php';
