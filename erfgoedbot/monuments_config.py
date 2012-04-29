@@ -1410,6 +1410,7 @@ countries = {
                 'source' : u'NS',
                 'dest' : u'lat',
                 'conv' : u'',
+                'check' : u'checkLat',
             },
             {
                 'source' : u'EW',

@@ -64,6 +64,26 @@ def extractWikilink(text):
 
     return articleName
 
+def checkLat(lat, monumentKey, sourcePage):
+    if len( lat ):
+        lat = float(lat)
+        
+        if ( lat > 90 or lat < -90 ) :
+            errorMsg = u"Latitude for monument %s out of range: %s" % (monumentKey, lat ) 
+            wikipedia.output(errorMsg)
+            talkPage = sourcePage.toggleTalkPage()
+            try:
+                content = talkPage.get() 
+            except (wikipedia.NoPage, wikipedia.IsRedirectPage):
+                content = u''
+            if monumentKey and monumentKey not in content:
+                    content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
+                    comment = u'Latitude out of range'
+                    talkPage.put(content, comment)
+            return False
+        else:
+            return True
+
 def convertField(field, contents, countryconfig):
     '''
     Convert a field
@@ -82,7 +102,7 @@ def convertField(field, contents, countryconfig):
         
     return u''
 
-def updateMonument(contents, source, countryconfig, conn, cursor):
+def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
     '''
     '''
 
@@ -96,11 +116,22 @@ def updateMonument(contents, source, countryconfig, conn, cursor):
     for field in countryconfig.get('fields'):
         if field.get('dest'):
             fieldnames.append(field.get('dest'))
+            
             #Do some conversions here
+            fieldValue = u''
             if field.get('conv'):
-                fieldvalues.append( convertField(field, contents, countryconfig) )
+                fieldValue = convertField(field, contents, countryconfig) 
             else:
-                fieldvalues.append(contents.get(field.get('source')))
+                fieldValue = contents.get(field.get('source'))
+                
+            if field.get('check'):
+                # check data
+                # run function with name field.get('check')
+                monumentKey = u''
+                if contents.get(countryconfig.get('primkey')) :
+                    monumentKey = contents.get(countryconfig.get('primkey'))
+                globals()[field.get('check')](fieldValue, monumentKey, sourcePage)
+            fieldvalues.append(fieldValue)
 
 
     query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
@@ -153,7 +184,7 @@ def processHeader(params, countryconfig):
 	value = value.split("<ref")[0].strip()
 	
 	#Check first that field is not empty
-	if field:
+	if field.strip():
             #Is it in the fields list?
             if field in validFields:
                 contents[field] = value
@@ -161,11 +192,13 @@ def processHeader(params, countryconfig):
     return contents
 
 
-def processMonument(params, source, countryconfig, conn, cursor, title, headerDefaults):
+def processMonument(params, source, countryconfig, conn, cursor, sourcePage, headerDefaults):
     '''
     Process a single instance of a monument row template
     '''
-         
+    
+    title = sourcePage.title(True)
+    
     # Get all the fields
     contents = {}
     # Add the source of information (permalink)
@@ -200,7 +233,7 @@ def processMonument(params, source, countryconfig, conn, cursor, title, headerDe
     
     # The first key is assumed to be the primary key, check if it is it.
     if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
-	updateMonument(contents, source, countryconfig, conn, cursor)
+	updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
 	#print contents
 	#time.sleep(5)
 
@@ -220,7 +253,7 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	if template==countryconfig.get('rowTemplate'):
 	    #print template
 	    #print params
-	    processMonument(params, source, countryconfig, conn, cursor, page.title(True), headerDefaults)
+	    processMonument(params, source, countryconfig, conn, cursor, page, headerDefaults)
 	    #time.sleep(5)
 	elif template == u'Commonscat' and len(params)>=1:
 	    query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
