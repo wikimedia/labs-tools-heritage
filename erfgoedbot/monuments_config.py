@@ -2992,11 +2992,11 @@ countries = {
                 'dest' : u'katastralgemeinde',
                 'conv' : u'',
             },
-            {
-                'source' : u'Konskriptionsnr',
-                'dest' : u'konskriptionsnr',
-                'conv' : u'',
-            },
+ #           {
+ #               'source' : u'Konskriptionsnr',
+ #               'dest' : u'konskriptionsnr',
+ #               'conv' : u'',
+ #           },
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
