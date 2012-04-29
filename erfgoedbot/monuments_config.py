@@ -2928,7 +2928,7 @@ countries = {
         'unusedImagesPage' : u'User:Multichill/Unused Denkmal Slowakei',
         'imagesWithoutIdPage' : u'User:Multichill/Denkmal Slowakei without ID',
         'namespaces' : [0],
-        'table' : u'monuments_at_(de)',
+        'table' : u'monuments_sk_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
         'primkey' : u'ObjektID',
         'fields' : [
@@ -2957,11 +2957,11 @@ countries = {
                 'dest' : u'artikel',
                 'conv' : u'',
             },
-#            {
-#               'source' : u'Anzeige-Artikel',
-#                'dest' : u'anzeige-artikel',
-#                'conv' : u'',
-#            },
+            {
+               'source' : u'Anzeige-Artikel',
+                'dest' : u'anzeige-artikel',
+                'conv' : u'',
+            },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
@@ -2992,11 +2992,11 @@ countries = {
                 'dest' : u'katastralgemeinde',
                 'conv' : u'',
             },
- #           {
- #               'source' : u'Konskriptionsnr',
- #               'dest' : u'konskriptionsnr',
- #               'conv' : u'',
- #           },
+            {
+                'source' : u'Konskriptionsnr',
+                'dest' : u'konskriptionsnr',
+                'conv' : u'',
+            },
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
