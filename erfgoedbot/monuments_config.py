@@ -468,6 +468,110 @@ countries = {
             },
         ],
     },
+    ('be-wal', 'en') : {
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Table header Wallonia', # Should get a better name
+        'rowTemplate' : u'Table row Wallonia', # Should get a better name
+        'commonsTemplate' : u'Monument Wallonie',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Wallonia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Wallonia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of protected heritage sites in Wallonia',
+        #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Wallonië/Foto\'s zonder id',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_be-wal_(en)',
+        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'primkey' : ('niscode', 'objcode'),
+        'fields' : [
+            {
+                'source' : u'niscode',
+                'dest' : u'niscode',
+                'conv' : u'',
+            },
+            {
+                'source' : u'objcode',
+                'dest' : u'objcode',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_en',
+                'dest' : u'descr_en',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_nl',
+                'dest' : u'descr_nl',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_de',
+                'dest' : u'descr_de',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_fr',
+                'dest' : u'descr_fr',
+                'conv' : u'',
+            },
+            {
+                'source' : u'town', # Deelgemeente, something is wrong here
+                'dest' : u'town',
+                'conv' : u'',
+            },
+            {
+                'source' : u'section', # Commune, something is wrong here
+                'dest' : u'section',
+                'conv' : u'',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+                'conv' : u'',
+            },
+            {
+                'source' : u'objtype',
+                'dest' : u'objtype',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'architect',
+                'dest' : u'architect',
+                'conv' : u'',
+            },
+            {
+                'source' : u'date',
+                'dest' : u'date',
+                'conv' : u'',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_en',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'', # niscode + '-' + objcode
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('be-wal', 'fr') : {
         'project' : u'wikipedia',
         'lang' : u'fr',

@@ -81,6 +81,22 @@ SELECT 'be-vlg' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_be-vlg_(nl)`;
+/* Wallonia in English */
+REPLACE INTO `monuments_all`
+SELECT 'be-wal' AS `country`,
+       'en' AS `lang`,
+	CONCAT(`niscode`, '-', `objcode`) AS `id`,
+        `descr_en` AS `name`,
+        `address` AS `address`,
+        `section` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`, 
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_be-wal_(en)`;
 /* Wallonie in French*/
 REPLACE INTO `monuments_all`
 SELECT 'be-wal' AS `country`,
