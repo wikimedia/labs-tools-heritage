@@ -501,6 +501,11 @@ countries = {
                 'conv' : u'',
             },
             {
+                'source' : u'descr_de',
+                'dest' : u'descr_de',
+                'conv' : u'',
+            },
+            {
                 'source' : u'descr_fr',
                 'dest' : u'descr_fr',
                 'conv' : u'',

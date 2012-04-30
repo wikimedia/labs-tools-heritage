@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS `monuments_be-wal_(nl)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-wal_(nl)` (
   `niscode` int(8) NOT NULL DEFAULT '0',
   `objcode` varchar(15) NOT NULL DEFAULT '0',
+  `descr_de` varchar(255) NOT NULL DEFAULT '',
   `descr_nl` varchar(255) NOT NULL DEFAULT '',
   `descr_fr` varchar(255) NOT NULL DEFAULT '',
   `gemeente` varchar(255) NOT NULL DEFAULT '',
