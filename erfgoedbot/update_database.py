@@ -87,7 +87,7 @@ def checkLat(lat, monumentKey, sourcePage):
 
 def checkLon(lon, monumentKey, sourcePage):
     if len( lon ):
-        lat = float(lon)
+        lon = float(lon)
         
         if ( lon > 180 or lon < -180 ) :
             errorMsg = u"Longitude for monument %s out of range: %s" % (monumentKey, lon ) 
