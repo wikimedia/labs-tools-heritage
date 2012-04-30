@@ -84,6 +84,28 @@ def checkLat(lat, monumentKey, sourcePage):
         else:
             return True
 
+
+def checkLon(lon, monumentKey, sourcePage):
+    if len( lon ):
+        lat = float(lon)
+        
+        if ( lon > 180 or lon < -180 ) :
+            errorMsg = u"Longitude for monument %s out of range: %s" % (monumentKey, lon ) 
+            wikipedia.output(errorMsg)
+            talkPage = sourcePage.toggleTalkPage()
+            try:
+                content = talkPage.get() 
+            except (wikipedia.NoPage, wikipedia.IsRedirectPage):
+                content = u''
+            if monumentKey and monumentKey not in content:
+                    content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
+                    comment = u'Longitude out of range'
+                    talkPage.put(content, comment)
+            return False
+        else:
+            return True
+
+
 def convertField(field, contents, countryconfig):
     '''
     Convert a field

@@ -1639,6 +1639,7 @@ countries = {
                 'source' : u'EW',
                 'dest' : u'lon',
                 'conv' : u'',
+                'check' : u'checkLon',
             },
             {
                 'source' : u'pilt',
