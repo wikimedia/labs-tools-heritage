@@ -467,7 +467,121 @@ countries = {
                 'conv' : u'generateRegistrantUrl',
             },
         ],
-    }, # 'unusedImagesPage' : u'Projet:Monuments_historiques/Images de monuments en Région wallonne non utilisées'
+    },
+    ('be-wal', 'fr') : {
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'En-tête de tableau MH-Wal',
+        'rowTemplate' : u'Ligne de tableau MH-Wal',
+        'commonsTemplate' : u'Monument Wallonie',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Wallonia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Wallonia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Projet:Monuments_historiques/Images de monuments en Région wallonne non utilisées',
+        #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Wallonië/Foto\'s zonder id',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_be-wal_(fr)',
+        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'primkey' : ('id_commune', 'clt-pex','id_objet'), # or do I use CLT/PEX here?
+        'fields' : [
+            {
+                'source' : u'id_commune',
+                'dest' : u'id_commune',
+                'conv' : u'',
+            },
+            {
+                'source' : u'CLT/PEX',
+                'dest' : u'clt-pex',
+                'conv' : u'',
+            },
+            {
+                'source' : u'id_objet',
+                'dest' : u'id_objet',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_nl',
+                'dest' : u'descr_nl',
+                'conv' : u'',
+            },
+            {
+                'source' : u'descr_de',
+                'dest' : u'descr_de',
+                'conv' : u'',
+            },
+            {
+                'source' : u'nom_objet',
+                'dest' : u'nom_objet',
+                'conv' : u'',
+            },
+            {
+                'source' : u'commune',
+                'dest' : u'commune',
+                'conv' : u'',
+            },
+            {
+                'source' : u'section_communale',
+                'dest' : u'section_communale',
+                'conv' : u'',
+            },
+            {
+                'source' : u'adresse',
+                'dest' : u'adresse',
+                'conv' : u'',
+            },
+            {
+                'source' : u'objtype',
+                'dest' : u'objtype',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'architecte',
+                'dest' : u'architecte',
+                'conv' : u'',
+            },
+            {
+                'source' : u'année_construction',
+                'dest' : u'annee_construction',
+                'conv' : u'',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+                'conv' : u'',
+            },
+            {
+                'source' : u'portrait',
+                'dest' : u'',
+                'conv' : u'',
+            },
+            {
+                'source' : u'titre coordonnées',
+                'dest' : u'',
+                'conv' : u'',
+            },
+            {
+                'source' : u'nom_objet',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'', # niscode + '-' + objcode
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('be-wal', 'nl') : {
         'project' : u'wikipedia',
         'lang' : u'nl',
