@@ -90,7 +90,7 @@ def checkLat(lat, monumentKey, countryconfig, sourcePage):
             errorMsg = u"Latitude for monument %s out of range: %s" % (monumentKey, lat )
             reportDataError(errorMsg, sourcePage, monumentKey)
             return False
-        else if ( countryBbox ):
+        elif ( countryBbox ):
             maxsplit = 3
             ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
             minLat = min(bottom, top)
@@ -116,7 +116,7 @@ def checkLon(lon, monumentKey,  countryconfig, sourcePage):
             errorMsg = u"Longitude for monument %s out of range: %s" % (monumentKey, lon ) 
             reportDataError(errorMsg, sourcePage, monumentKey)
             return False
-        else if ( countryBbox ):
+        elif ( countryBbox ):
             maxsplit = 3
             ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
             minLon = min(left, right)
