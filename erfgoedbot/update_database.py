@@ -64,7 +64,10 @@ def extractWikilink(text):
 
     return articleName
 
-def reportDataError(errorMsg, wikiPage, exceptWord, comment=errorMsg):
+def reportDataError(errorMsg, wikiPage, exceptWord, comment=''):
+
+    if not comment:
+        comment = errorMsg
 
     wikipedia.output(errorMsg)
     talkPage = wikiPage.toggleTalkPage()
