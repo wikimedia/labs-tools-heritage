@@ -96,6 +96,8 @@ def checkLat(lat, monumentKey, countryconfig, sourcePage):
         elif ( countryBbox ):
             maxsplit = 3
             ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
+            bottom = float( bottom )
+            top = float( top )
             minLat = min(bottom, top)
             maxLat = max(bottom, top)
             if (lat > maxLat or lat < minLat):
@@ -122,6 +124,8 @@ def checkLon(lon, monumentKey,  countryconfig, sourcePage):
         elif ( countryBbox ):
             maxsplit = 3
             ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
+            left = float( left )
+            right = float( right )
             minLon = min(left, right)
             maxLon = max(left, right)
             if (lon > maxLon or lon < minLon):
