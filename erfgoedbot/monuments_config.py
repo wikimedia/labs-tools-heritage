@@ -1603,6 +1603,7 @@ countries = {
         'table' : u'monuments_ee_(et)',
         'truncate' : False,
         'primkey' : u'number',
+         'countryBbox' : u'20.72,57.36,28.6,60.03',
         'fields' : [
             {
                 'source' : u'number',

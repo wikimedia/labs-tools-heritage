@@ -64,44 +64,69 @@ def extractWikilink(text):
 
     return articleName
 
-def checkLat(lat, monumentKey, sourcePage):
+def reportDataError(errorMsg, wikiPage, exceptWord, comment=errorMsg):
+
+    wikipedia.output(errorMsg)
+    talkPage = wikiPage.toggleTalkPage()
+    try:
+        content = talkPage.get() 
+    except (wikipedia.NoPage, wikipedia.IsRedirectPage):
+        content = u''
+    if exceptWord and exceptWord not in content:
+        content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
+        talkPage.put(content, comment)
+        return True
+    
+    return False
+
+def checkLat(lat, monumentKey, countryconfig, sourcePage):
     if len( lat ):
         lat = float(lat)
-        
+        countryBbox = ''
+        if ( countryconfig.get('countryBbox') ):
+            countryBbox = countryconfig.get('countryBbox')
+
         if ( lat > 90 or lat < -90 ) :
-            errorMsg = u"Latitude for monument %s out of range: %s" % (monumentKey, lat ) 
-            wikipedia.output(errorMsg)
-            talkPage = sourcePage.toggleTalkPage()
-            try:
-                content = talkPage.get() 
-            except (wikipedia.NoPage, wikipedia.IsRedirectPage):
-                content = u''
-            if monumentKey and monumentKey not in content:
-                    content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
-                    comment = u'Latitude out of range'
-                    talkPage.put(content, comment)
+            errorMsg = u"Latitude for monument %s out of range: %s" % (monumentKey, lat )
+            reportDataError(errorMsg, sourcePage, monumentKey)
             return False
+        else if ( countryBbox ):
+            maxsplit = 3
+            ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
+            minLat = min(bottom, top)
+            maxLat = max(bottom, top)
+            if (lat > maxLat or lat < minLat):
+                errorMsg = u"Latitude for monument %s out of country area: %s" % (monumentKey, lat )
+                reportDataError(errorMsg, sourcePage, monumentKey)
+                return False
+            else: 
+                return True
         else:
             return True
 
 
-def checkLon(lon, monumentKey, sourcePage):
+def checkLon(lon, monumentKey,  countryconfig, sourcePage):
     if len( lon ):
         lon = float(lon)
+        countryBbox = ''
+        if ( countryconfig.get('countryBbox') ):
+            countryBbox = countryconfig.get('countryBbox')
         
         if ( lon > 180 or lon < -180 ) :
             errorMsg = u"Longitude for monument %s out of range: %s" % (monumentKey, lon ) 
-            wikipedia.output(errorMsg)
-            talkPage = sourcePage.toggleTalkPage()
-            try:
-                content = talkPage.get() 
-            except (wikipedia.NoPage, wikipedia.IsRedirectPage):
-                content = u''
-            if monumentKey and monumentKey not in content:
-                    content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
-                    comment = u'Longitude out of range'
-                    talkPage.put(content, comment)
+            reportDataError(errorMsg, sourcePage, monumentKey)
             return False
+        else if ( countryBbox ):
+            maxsplit = 3
+            ( left, bottom, right, top ) = countryBbox.split(",", maxsplit)
+            minLon = min(left, right)
+            maxLon = max(left, right)
+            if (lon > maxLon or lon < minLon):
+                errorMsg = u"Longitude for monument %s out of country area: %s" % (monumentKey, lon )
+                reportDataError(errorMsg, sourcePage, monumentKey)
+                return False
+            else: 
+                return True
         else:
             return True
 
@@ -152,7 +177,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
                 monumentKey = u''
                 if contents.get(countryconfig.get('primkey')) :
                     monumentKey = contents.get(countryconfig.get('primkey'))
-                globals()[field.get('check')](fieldValue, monumentKey, sourcePage)
+                globals()[field.get('check')](fieldValue, monumentKey, countryconfig, sourcePage)
             fieldvalues.append(fieldValue)
 
 
