@@ -3170,12 +3170,12 @@ countries = {
             },
             {
                 'source' : u'Name',
-                'dest' : u'name',
+                'dest' : u'name-sk',
                 'conv' : u'',
             },
             {
-                'source' : u'Anzeige-Name',
-                'dest' : u'anzeige-name',
+                'source' : u'Name-de',
+                'dest' : u'name-de',
                 'conv' : u'',
             },
             {
@@ -3234,8 +3234,8 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'Beschreibung',
-                'dest' : u'beschreibung',
+                'source' : u'Beschreibung-de',
+                'dest' : u'beschreibung-de',
                 'conv' : u'',
             },
             {
