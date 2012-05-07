@@ -15,7 +15,8 @@ CREATE TABLE `monuments_mt_(de)` (
   `beschreibung` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`Inventarnummer`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
