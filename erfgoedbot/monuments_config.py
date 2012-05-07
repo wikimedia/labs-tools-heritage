@@ -2755,11 +2755,6 @@ countries = {
                 'conv' : u'',
             },
             {
-                'source' : u'Artikel',
-                'dest' : u'artikel',
-                'conv' : u'',
-            },
-            {
                 'source' : u'Inventarnummer',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
