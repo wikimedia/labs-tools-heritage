@@ -498,6 +498,22 @@ SELECT 'lu' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
         FROM `monuments_lu_(lb)`;
+/* Malta in German */
+REPLACE INTO `monuments_all`
+SELECT 'mt' AS `country`, 
+       'de' AS `lang`,
+	   `inventarnummer` AS `id`,
+       `name-de` AS `name`,
+       `adresse` AS `address`,
+       `gemeinde` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+       `foto` AS `image`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_mt_(de)`;		
 /* Netherlands */
 REPLACE INTO `monuments_all`
 SELECT 'nl' AS `country`,

@@ -2682,6 +2682,90 @@ countries = {
             },
         ],
     },
+	('mt', 'de') : {
+        'project' : u'wikipedia',
+        'lang' : u'de',
+        'headerTemplate' : u'Denkmalliste Malta Tabellenkopf',
+        'rowTemplate' : u'Denkmalliste Malta Tabellenzeile',
+        'commonsTemplate' : u'National Inventory of Cultural Property of the Maltese Islands',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Malta with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Malta',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'User:Multichill/Unused Denkmal Malta',
+        'imagesWithoutIdPage' : u'User:Multichill/Denkmal Malta without ID',
+        'namespaces' : [0],
+        'table' : u'monuments_mt_(de)',
+		'registrantUrlBase' : u'http://www.culturalheritage.gov.mt/filebank/inventory/000%s.pdf',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : u'Inventarnummer',
+        'fields' : [
+            {
+                'source' : u'Foto',
+                'dest' : u'foto',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Inventarnummer',
+                'dest' : u'inventarnummer',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Artikel',
+                'dest' : u'artikel',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name-de',
+                'dest' : u'name-de',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name-en',
+                'dest' : u'name-en',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Name-mt',
+                'dest' : u'name-mt',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Gemeinde',
+                'dest' : u'gemeinde',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Region-ISO',
+                'dest' : u'region-iso',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Artikel',
+                'dest' : u'artikel',
+                'conv' : u'',
+            },
+            {
+                'source' : u'Inventarnummer',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('no', 'no') : {
         'project' : u'wikipedia',
         'lang' : u'no',
