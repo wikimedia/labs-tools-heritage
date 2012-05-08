@@ -1,7 +1,7 @@
 /* Create table statement for the Monuments in Malta in German */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_mt_(de)`;
-CREATE TABLE `monuments_mt_(de)` (
+CREATE TABLE IF NOT EXISTS `monuments_mt_(de)` (
   `inventarnummer` varchar(11) NOT NULL DEFAULT '0',
   `foto` varchar(255) NOT NULL DEFAULT '',
   `artikel` varchar(255) NOT NULL DEFAULT '', 

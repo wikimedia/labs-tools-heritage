@@ -1,7 +1,7 @@
 /* Create table statement for the National Register of Historic Places listings in the United States in English */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_us_(en)`;
-CREATE TABLE `monuments_us_(en)` (
+CREATE TABLE IF NOT EXISTS `monuments_us_(en)` (
   `refnum` int(11) NOT NULL DEFAULT  0,
   `pos` int(3) NOT NULL DEFAULT  0,
   `type` varchar(25) NOT NULL DEFAULT 'NRHP',

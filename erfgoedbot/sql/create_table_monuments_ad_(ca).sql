@@ -1,7 +1,7 @@
 /* Create table statement for the monuments in Andorra in Catalan table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ad_(ca)`;
-CREATE TABLE `monuments_ad_(ca)` (
+CREATE TABLE IF NOT EXISTS `monuments_ad_(ca)` (
   `id` int(11) NOT NULL DEFAULT  0,
   `nom` varchar(255) NOT NULL DEFAULT '',
   `estil` varchar(255) NOT NULL DEFAULT '',
