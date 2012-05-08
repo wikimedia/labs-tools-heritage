@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-vlg_(fr)`;
 CREATE TABLE `monuments_be-vlg_(fr)` (
-  `id` int(11) NOT NULL DEFAULT '0',
+  `id` int(11) NOT NULL DEFAULT  0,
   `classement` varchar(255) NOT NULL DEFAULT '',
   `commune` varchar(255) NOT NULL DEFAULT '',
   `section_communale` varchar(255) NOT NULL DEFAULT '',
@@ -11,8 +11,8 @@ CREATE TABLE `monuments_be-vlg_(fr)` (
   `nom_objet` varchar(255) NOT NULL DEFAULT '',
   `annee_construction` varchar(255) NOT NULL DEFAULT '',
   `architecte` varchar(255) NOT NULL DEFAULT '',
-  `lat` double NOT NULL DEFAULT '0',
-  `lon` double NOT NULL DEFAULT '0',
+  `lat` double NOT NULL DEFAULT  0,
+  `lon` double NOT NULL DEFAULT  0,
   `image` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

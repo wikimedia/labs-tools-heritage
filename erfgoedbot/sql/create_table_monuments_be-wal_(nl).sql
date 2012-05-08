@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-wal_(nl)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-wal_(nl)` (
-  `niscode` int(8) NOT NULL DEFAULT '0',
+  `niscode` int(8) NOT NULL DEFAULT  0,
   `objcode` varchar(15) NOT NULL DEFAULT '0',
   `descr_de` varchar(255) NOT NULL DEFAULT '',
   `descr_nl` varchar(255) NOT NULL DEFAULT '',
@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS `monuments_be-wal_(nl)` (
   `deelgemeente` varchar(255) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',
   `objtype` varchar(255) NOT NULL DEFAULT '',
-  `lat` double NOT NULL DEFAULT '0',
-  `lon` double NOT NULL DEFAULT '0',
+  `lat` double NOT NULL DEFAULT  0,
+  `lon` double NOT NULL DEFAULT  0,
   `architect` varchar(255) NOT NULL DEFAULT '',
   `bouwjaar` varchar(255) NOT NULL DEFAULT '',
   `image` varchar(255) NOT NULL DEFAULT '',

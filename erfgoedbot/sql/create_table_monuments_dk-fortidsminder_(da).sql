@@ -2,15 +2,15 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_dk-fortidsminder_(da)`;
 CREATE TABLE IF NOT EXISTS `monuments_dk-fortidsminder_(da)` (
-  `fredningsnummer` int(11) NOT NULL DEFAULT '0',
+  `fredningsnummer` int(11) NOT NULL DEFAULT  0,
   `stednavn` varchar(255) NOT NULL DEFAULT '',
   `type` varchar(255) NOT NULL DEFAULT '',
   `datering` varchar(255) NOT NULL DEFAULT '',
   `sevaedighed` varchar(255) NOT NULL DEFAULT '',
-  `systemnummer` int(11) NOT NULL DEFAULT '0',
-  `anlnr` int(11) NOT NULL DEFAULT '0',
-  `lat` double NOT NULL DEFAULT '0',
-  `lon` double NOT NULL DEFAULT '0',
+  `systemnummer` int(11) NOT NULL DEFAULT  0,
+  `anlnr` int(11) NOT NULL DEFAULT  0,
+  `lat` double NOT NULL DEFAULT  0,
+  `lon` double NOT NULL DEFAULT  0,
   `billede` varchar(255) NOT NULL DEFAULT '',
   `bemaerkning` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
