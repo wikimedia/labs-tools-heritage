@@ -2213,7 +2213,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_lu_(lb)',
         'truncate' : True,
-        'primkey' : u'lag',
+        'primkey' : u'id',
         'fields' : [
             {
                 'source' : u'id',
