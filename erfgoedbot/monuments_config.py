@@ -26,6 +26,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'nom',
@@ -92,6 +93,12 @@ countries = {
         'primkey' : u'ObjektID',
         'fields' : [
             {
+                'source' : u'ObjektID',
+                'dest' : u'objektid',
+                'type' : 'varchar(11)',
+                'default' : '0',
+            },
+            {
                 'source' : u'Foto',
                 'dest' : u'foto',
             },
@@ -124,14 +131,6 @@ countries = {
                 'dest' : u'adresse-sort',
             },
             {
-                'source' : u'Breitengrad',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'Längengrad',
-                'dest' : u'lon',
-            },
-            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -146,6 +145,7 @@ countries = {
             {
                 'source' : u'Gemeindekennzahl',
                 'dest' : u'gemeindekennzahl',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'Bezirk',
@@ -154,6 +154,7 @@ countries = {
             {
                 'source' : u'Bezirkskennzahl',
                 'dest' : u'bezirkskennzahl',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'Grundstücksnummer',
@@ -168,12 +169,16 @@ countries = {
                 'dest' : u'beschreibung',
             },
             {
-                'source' : u'ObjektID',
-                'dest' : u'objektid',
-            },
-            {
                 'source' : u'Bearbeitungsdatum',
                 'dest' : u'bearbeitungsdatum',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
             },
         ],
     },
@@ -192,6 +197,12 @@ countries = {
         'truncate' : False,
         'primkey' : u'code',
         'fields' : [
+            {
+                'source' : u'code',
+                'dest' : u'code',
+                'type' : 'varchar(25)',
+                'default' : '0',
+            },
             {
                 'source' : u'omschrijving',
                 'dest' : u'omschrijving',
@@ -223,10 +234,6 @@ countries = {
             {
                 'source' : u'beschermd',
                 'dest' : u'beschermd',
-            },
-            {
-                'source' : u'code',
-                'dest' : u'code',
             },
             {
                 'source' : u'lat',
@@ -267,6 +274,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'classement',
@@ -283,6 +291,7 @@ countries = {
             {
                 'source' : u'section_communale_id',
                 'dest' : u'section_communale_id',
+                'type' : 'varchar(25)',
             },
             {
                 'source' : u'adresse',
@@ -344,6 +353,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'beschermd',
@@ -360,6 +370,7 @@ countries = {
             {
                 'source' : u'deelgem_id',
                 'dest' : u'deelgem_id',
+                'type' : 'varchar(25)',
             },
             {
                 'source' : u'adres',
@@ -421,34 +432,37 @@ countries = {
             {
                 'source' : u'niscode',
                 'dest' : u'niscode',
+                'type' : 'int(8)',
             },
             {
                 'source' : u'objcode',
                 'dest' : u'objcode',
+                'type' : 'varchar(15)',
+                'default' : '0',
             },
             {
                 'source' : u'descr_en',
                 'dest' : u'descr_en',
             },
             {
-                'source' : u'descr_nl',
-                'dest' : u'descr_nl',
-            },
-            {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
+            },
+            {
+                'source' : u'descr_nl',
+                'dest' : u'descr_nl',
             },
             {
                 'source' : u'descr_fr',
                 'dest' : u'descr_fr',
             },
             {
-                'source' : u'town', # Deelgemeente, something is wrong here
-                'dest' : u'town',
-            },
-            {
                 'source' : u'section', # Commune, something is wrong here
                 'dest' : u'section',
+            },
+            {
+                'source' : u'town', # Deelgemeente, something is wrong here
+                'dest' : u'town',
             },
             {
                 'source' : u'address',
@@ -510,22 +524,27 @@ countries = {
             {
                 'source' : u'id_commune',
                 'dest' : u'id_commune',
+                'type' : 'int(8)',
             },
             {
                 'source' : u'CLT/PEX',
                 'dest' : u'clt-pex',
+                'type' : 'varchar(6)',
+                'default' : '0',
             },
             {
                 'source' : u'id_objet',
                 'dest' : u'id_objet',
-            },
-            {
-                'source' : u'descr_nl',
-                'dest' : u'descr_nl',
+                'type' : 'varchar(15)',
+                'default' : '0',
             },
             {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
+            },
+            {
+                'source' : u'descr_nl',
+                'dest' : u'descr_nl',
             },
             {
                 'source' : u'nom_objet',
@@ -607,18 +626,21 @@ countries = {
             {
                 'source' : u'niscode',
                 'dest' : u'niscode',
+                'type' : 'int(8)',
             },
             {
                 'source' : u'objcode',
                 'dest' : u'objcode',
-            },
-            {
-                'source' : u'descr_nl',
-                'dest' : u'descr_nl',
+                'type' : 'varchar(15)',
+                'default' : '0',
             },
             {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
+            },
+            {
+                'source' : u'descr_nl',
+                'dest' : u'descr_nl',
             },
             {
                 'source' : u'descr_fr',
@@ -690,6 +712,8 @@ countries = {
             {
                 'source' : u'шыфр',
                 'dest' : u'id',
+                'type' : u'varchar(25)',
+                'default' : '0'
             },
             {
                 'source' : u'назва',
@@ -756,6 +780,7 @@ countries = {
             {
                 'source' : u'KGS-Nr',
                 'dest' : u'kgs-nr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'Name',
@@ -817,7 +842,8 @@ countries = {
         'fields' : [
             {
                 'source' : u'KGS_nr',
-                'dest' : u'KGS_nr',
+                'dest' : u'kgs_nr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'name',
@@ -874,6 +900,7 @@ countries = {
             {
                 'source' : u'kgs-nr',
                 'dest' : u'kgs-nr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'Objet',
@@ -903,10 +930,9 @@ countries = {
                 'source' : u'Photo',
                 'dest' : u'photo',
             },
-            {
-                'source' : u'Objet',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
+			{
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
             },
 			{
                 'source' : u'A',
@@ -936,9 +962,10 @@ countries = {
                 'source' : u'S',
                 'dest' : u'typ_s',
             },
-			{
-                'source' : u'region-iso',
-                'dest' : u'region-iso',
+            {
+                'source' : u'Objet',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
             },
         ]
     },
@@ -958,6 +985,11 @@ countries = {
         'truncate' : True, #FIXME: Add combined primkeys to the code
         'primkey' : (u'kommunenr', u'ejendomsnr', u'bygningsnr'),
         'fields' : [
+            {
+                'source' : u'systemnrbyg',
+                'dest' : u'systemnrbyg',
+                'type' : 'int(11)',
+            },
             {
                 'source' : u'sagsnavn',
                 'dest' : u'sagsnavn',
@@ -993,18 +1025,17 @@ countries = {
             {
                 'source' : u'kommunenr',
                 'dest' : u'kommunenr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'ejendomsnr',
                 'dest' : u'ejendomsnr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'bygningsnr',
                 'dest' : u'bygningsnr',
-            },
-            {
-                'source' : u'systemnrbyg',
-                'dest' : u'systemnrbyg',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'fredår',
@@ -1013,6 +1044,7 @@ countries = {
             {
                 'source' : u'sagsnr',
                 'dest' : u'sagsnr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'billede',
@@ -1047,6 +1079,11 @@ countries = {
         'primkey' : u'systemnummer',
         'fields' : [
             {
+                'source' : u'fredningsnummer',
+                'dest' : u'fredningsnummer',
+                'type' : 'int(11)',
+            },
+            {
                 'source' : u'stednavn',
                 'dest' : u'stednavn',
             },
@@ -1065,14 +1102,12 @@ countries = {
             {
                 'source' : u'systemnummer',
                 'dest' : u'systemnummer',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'anlnr',
                 'dest' : u'anlnr',
-            },
-            {
-                'source' : u'fredningsnummer',
-                'dest' : u'fredningsnummer',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'lat',
@@ -1118,16 +1153,22 @@ countries = {
         'primkey' : u'Nummer',
         'fields' : [
             {
+                'source' : u'Nummer',
+                'dest' : u'nummer',
+                'type' : 'varchar(15)',
+                'default' : '0',
+            },
+            {
+                'source' : u'Gemeinde',
+                'dest' : u'stadt',
+            },
+            {
+                'source' : u'Ortsteil',
+                'dest' : u'ortsteil',
+            },
+            {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-            },
-            {
-                'source' : u'NS',
-                'dest' : u'ns',
-            },
-            {
-                'source' : u'EW',
-                'dest' : u'ew',
             },
             {
                 'source' : u'Bezeichnung',
@@ -1142,10 +1183,6 @@ countries = {
                 'dest' : u'beschreibung',
             },
             {
-                'source' : u'Nummer',
-                'dest' : u'nummer',
-            },
-            {
                 'source' : u'Bild',
                 'dest' : u'bild',
             },
@@ -1154,12 +1191,12 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-                'source' : u'Gemeinde',
-                'dest' : u'stadt',
+                'source' : u'NS',
+                'dest' : u'ns',
             },
             {
-                'source' : u'Ortsteil',
-                'dest' : u'ortsteil',
+                'source' : u'EW',
+                'dest' : u'ew',
             },
         ],
     },
@@ -1180,12 +1217,17 @@ countries = {
         'primkey' : u'Nummer',
         'fields' : [
             {
-                'source' : u'Bild',
-                'dest' : u'bild',
+                'source' : u'Nummer',
+                'dest' : u'nummer',
+                'type' : 'int(11)',
             },
             {
-                'source' : u'Commonscat',
-                'dest' : u'commonscat',
+                'source' : u'StadtOderGemeinde',
+                'dest' : u'stadt',
+            },
+            {
+                'source' : u'Ortsteil',
+                'dest' : u'ortsteil',
             },
             {
                 'source' : u'Adresse',
@@ -1196,12 +1238,20 @@ countries = {
                 'dest' : u'bezeichnung',
             },
             {
-                'source' : u'Ortsteil',
-                'dest' : u'ortsteil',
+                'source' : u'Artikel',
+                'dest' : u'artikel',
             },
             {
-                'source' : u'StadtOderGemeinde',
-                'dest' : u'stadt',
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
+            },
+            {
+                'source' : u'Bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'NS',
@@ -1210,18 +1260,6 @@ countries = {
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-            },
-            {
-                'source' : u'Nummer',
-                'dest' : u'nummer',
-            },
-            {
-                'source' : u'Artikel',
-                'dest' : u'artikel',
-            },
-            {
-                'source' : u'Beschreibung',
-                'dest' : u'beschreibung',
             },
             {
                 'source' : u'Nummer',
@@ -1246,12 +1284,13 @@ countries = {
         'primkey' : u'Nummer',
         'fields' : [
             {
-                'source' : u'Bild',
-                'dest' : u'bild',
+                'source' : u'Nummer',
+                'dest' : u'nummer',
+                'type' : 'int(11)',
             },
             {
-                'source' : u'Commonscat',
-                'dest' : u'commonscat',
+                'source' : u'Ortsteil',
+                'dest' : u'ortsteil',
             },
             {
                 'source' : u'Adresse',
@@ -1260,22 +1299,6 @@ countries = {
             {
                 'source' : u'Bezeichnung',
                 'dest' : u'bezeichnung',
-            },
-            {
-                'source' : u'Ortsteil',
-                'dest' : u'ortsteil',
-            },
-            {
-                'source' : u'NS',
-                'dest' : u'ns',
-            },
-            {
-                'source' : u'EW',
-                'dest' : u'ew',
-            },
-            {
-                'source' : u'Nummer',
-                'dest' : u'nummer',
             },
             {
                 'source' : u'Artikel',
@@ -1297,6 +1320,22 @@ countries = {
                 'source' : u'Aktenzeichen',
                 'dest' : u'aktenzeichen',
             },
+            {
+                'source' : u'Bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'NS',
+                'dest' : u'ns',
+            },
+            {
+                'source' : u'EW',
+                'dest' : u'ew',
+            },
         ],
     },
     ('de-nrw-k', 'de') : {
@@ -1315,12 +1354,13 @@ countries = {
         'primkey' : u'Nummer_Denkmalliste',
         'fields' : [
             {
-                'source' : u'Bild',
-                'dest' : u'bild',
+                'source' : u'Nummer_Denkmalliste',
+                'dest' : u'nummer_denkmalliste',
+                'type' : 'int(11)',
             },
             {
-                'source' : u'Commonscat',
-                'dest' : u'commonscat',
+                'source' : u'Ortsteil',
+                'dest' : u'ortsteil',
             },
             {
                 'source' : u'Adresse',
@@ -1331,8 +1371,20 @@ countries = {
                 'dest' : u'bezeichnung',
             },
             {
-                'source' : u'Ortsteil',
-                'dest' : u'ortsteil',
+                'source' : u'Bauzeit',
+                'dest' : u'bauzeit',
+            },
+            {
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
+            },
+            {
+                'source' : u'Bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'NS',
@@ -1341,18 +1393,6 @@ countries = {
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-            },
-            {
-                'source' : u'Nummer_Denkmalliste',
-                'dest' : u'nummer_denkmalliste',
-            },
-            {
-                'source' : u'Bauzeit',
-                'dest' : u'bauzeit',
-            },
-            {
-                'source' : u'Beschreibung',
-                'dest' : u'beschreibung',
             },
             {
                 'source' : u'bezeichnung',
@@ -1381,6 +1421,7 @@ countries = {
             {
                 'source' : u'number',
                 'dest' : u'number',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'nimi',
@@ -1447,6 +1488,8 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'idurl',
@@ -1517,6 +1560,8 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'nombre',
@@ -1541,6 +1586,7 @@ countries = {
             {
                 'source' : u'lugar',
                 'dest' : u'lugar',
+                'type' : 'varchar(400)',
             },
             {
                 'source' : u'lat',
@@ -1553,6 +1599,7 @@ countries = {
             {
                 'source' : u'id_aut',
                 'dest' : u'id_aut',
+                'type' : 'varchar(21)',
             },
             {
                 'source' : u'fecha',
@@ -1562,7 +1609,7 @@ countries = {
                 'source' : u'imagen',
                 'dest' : u'imagen',
             },
-           {
+            {
                'source' : u'title',
                'dest' : u'title',
             },
@@ -1590,6 +1637,8 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'idurl',
@@ -1598,6 +1647,7 @@ countries = {
             {
                 'source' : u'bcin',
                 'dest' : u'bcin',
+                'default' : '0',
             },
             {
                 'source' : u'nom',
@@ -1669,10 +1719,12 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'bic',
+                'type' : 'varchar(25)',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
+                'type' : 'int(3)',
             },
             {
                 'source' : u'nomeoficial',
@@ -1742,10 +1794,13 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'nom',
@@ -1813,6 +1868,8 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'varchar(11)',
+                'default' : '0',
             },
             {
                 'source' : u'nom',
@@ -1878,6 +1935,8 @@ countries = {
             {
                 'source' : u'tri',
                 'dest' : u'tri',
+                'type' : 'varchar(11)',
+                'default' : '0',
             },
             {
                 'source' : u'monument',
@@ -1913,6 +1972,8 @@ countries = {
             {
                 'source' : u'notice',
                 'dest' : u'notice',
+                'type' : 'varchar(11)',
+                'default' : '0',
             },
             {
                 'source' : u'protection',
@@ -1951,6 +2012,7 @@ countries = {
             {
                 'source' : u'number',
                 'dest' : u'number',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'name',
@@ -2001,6 +2063,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)'
             },
             {
                 'source' : u'nom',
@@ -2061,6 +2124,12 @@ countries = {
         'primkey' : u'ObjektID',
         'fields' : [
             {
+                'source' : u'ObjektID',
+                'dest' : u'objektid',
+                'type' : 'varchar(11)',
+                'default' : '0',
+            },
+            {
                 'source' : u'Foto',
                 'dest' : u'foto',
             },
@@ -2093,14 +2162,6 @@ countries = {
                 'dest' : u'adresse-sort',
             },
             {
-                'source' : u'Breitengrad',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'Längengrad',
-                'dest' : u'lon',
-            },
-            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -2111,10 +2172,15 @@ countries = {
             {
                 'source' : u'Gemeindekennzahl',
                 'dest' : u'gemeindekennzahl',
+                'type' : 'int(15)'
             },
             {
                 'source' : u'Katastralgemeinde',
                 'dest' : u'katastralgemeinde',
+            },
+            {
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
             },
             {
                 'source' : u'Eintragung Datum',
@@ -2125,12 +2191,12 @@ countries = {
                 'dest' : u'beschluss',
             },
             {
-                'source' : u'Beschreibung',
-                'dest' : u'beschreibung',
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
             },
             {
-                'source' : u'ObjektID',
-                'dest' : u'objektid',
+                'source' : u'Längengrad',
+                'dest' : u'lon',
             },
             {
                 'source' : u'ObjektID',
@@ -2151,7 +2217,8 @@ countries = {
         'fields' : [
             {
                 'source' : u'id',
-                'dest' : u'',
+                'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'lag',
@@ -2183,7 +2250,8 @@ countries = {
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-            },           {
+            },
+            {
                 'source' : u'bild',
                 'dest' : u'bild',
             },
@@ -2214,6 +2282,7 @@ countries = {
             {
                 'source' : u'objrijksnr',
                 'dest' : u'objrijksnr',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'woonplaats',
@@ -2234,10 +2303,12 @@ countries = {
             {
                 'source' : u'type_obj',
                 'dest' : u'type_obj',
+                'type' : "enum('G','A')",
             },
             {
                 'source' : u'oorspr_functie',
                 'dest' : u'oorspr_functie',
+                'type' : 'varchar(128)',
             },
             {
                 'source' : u'bouwjaar',
@@ -2317,12 +2388,14 @@ countries = {
         'primkey' : u'Inventarnummer',
         'fields' : [
             {
-                'source' : u'Foto',
-                'dest' : u'foto',
-            },
-            {
                 'source' : u'Inventarnummer',
                 'dest' : u'inventarnummer',
+                'type' : 'varchar(11)',
+                'default' : '0',
+            },
+            {
+                'source' : u'Foto',
+                'dest' : u'foto',
             },
             {
                 'source' : u'Artikel',
@@ -2349,12 +2422,12 @@ countries = {
                 'dest' : u'adresse',
             },
             {
-                'source' : u'Längengrad',
-                'dest' : u'lon',
-            },
-            {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
             },
             {
                 'source' : u'Region-ISO',
@@ -2390,6 +2463,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'navn',
@@ -2406,6 +2480,7 @@ countries = {
             {
                 'source' : u'datering',
                 'dest' : u'datering',
+                'type' : 'varchar(128)',
             },
             {
                 'source' : u'lat',
@@ -2418,6 +2493,7 @@ countries = {
             {
                 'source' : u'kommunenr',
                 'dest' : u'kommunenr',
+                'type' : 'int(10)',
             },
             {
                 'source' : u'kommune',
@@ -2468,6 +2544,7 @@ countries = {
             {
                 'source' : u'numer',
                 'dest' : u'numer',
+                'default' : '0',
             },
             {
                 'source' : u'nazwa',
@@ -2528,6 +2605,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'designacoes',
@@ -2600,6 +2678,8 @@ countries = {
             {
                 'source' : u'Cod',
                 'dest' : u'cod',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'Denumire',
@@ -2663,6 +2743,8 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
                 'source' : u'имя',
@@ -2721,6 +2803,12 @@ countries = {
         'primkey' : u'bbr',
         'fields' : [
             {
+                'source' : u'bbr',
+                'dest' : u'bbr',
+                'type' : 'varchar(25)',
+                'default' : '0',
+            },
+            {
                 'source' : u'namn',
                 'dest' : u'namn',
             },
@@ -2743,10 +2831,6 @@ countries = {
             {
                 'source' : u'kommun',
                 'dest' : u'kommun',
-            },
-            {
-                'source' : u'bbr',
-                'dest' : u'bbr',
             },
             {
                 'source' : u'lat',
@@ -2790,6 +2874,12 @@ countries = {
         'primkey' : u'ObjektID',
         'fields' : [
             {
+                'source' : u'ObjektID',
+                'dest' : u'objektid',
+                'type' : 'varchar(11)',
+                'default' : '0',
+            },
+            {
                 'source' : u'Foto',
                 'dest' : u'foto',
             },
@@ -2810,10 +2900,6 @@ countries = {
                 'dest' : u'artikel',
             },
             {
-               'source' : u'Anzeige-Artikel',
-                'dest' : u'anzeige-artikel',
-            },
-            {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
@@ -2822,28 +2908,12 @@ countries = {
                 'dest' : u'adresse-sort',
             },
             {
-                'source' : u'Breitengrad',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'Längengrad',
-                'dest' : u'lon',
-            },
-            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
             {
                 'source' : u'Katastralgemeinde',
                 'dest' : u'katastralgemeinde',
-            },
-            {
-                'source' : u'Konskriptionsnr',
-                'dest' : u'konskriptionsnr',
-            },
-            {
-                'source' : u'ObjektID',
-                'dest' : u'objektid',
             },
             {
                 'source' : u'Bearbeitungsdatum',
@@ -2858,12 +2928,21 @@ countries = {
                 'dest' : u'offiziellebeschreibung',
             },
             {
+               'source' : u'Anzeige-Artikel',
+                'dest' : u'anzeige-artikel',
+            },
+            {
+                'source' : u'Konskriptionsnr',
+                'dest' : u'konskriptionsnr',
+            },
+            {
                 'source' : u'Obec',
                 'dest' : u'obec',
             },
             {
                 'source' : u'Kód obce',
                 'dest' : u'kod_obce',
+                'type' : 'int(11)',
             },
             {
                 'source' : u'Okres',
@@ -2872,6 +2951,15 @@ countries = {
             {
                 'source' : u'Kód okresu',
                 'dest' : u'kod_okresu',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
             },
         ],
     },
@@ -2892,16 +2980,20 @@ countries = {
         'primkey' : u'refnum',
         'fields' : [
             {
-                'source' : u'pos',
-                'dest' : u'pos',
-            },
-            {
                 'source' : u'refnum',
                 'dest' : u'refnum',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'pos',
+                'dest' : u'pos',
+                'type' : 'int(3)',
             },
             {
                 'source' : u'type',
                 'dest' : u'type',
+                'type' : 'varchar(25)',
+                'default' : 'NRHP',
             },
             {
                 'source' : u'article',
