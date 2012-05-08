@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS `monuments_pl_(pl)` (
   `lon` double NOT NULL DEFAULT '0',
   `koordynaty` varchar(255) NOT NULL DEFAULT '',
   `zdjecie` varchar(255) NOT NULL DEFAULT '',
+  `commons` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `monument_article` varchar(255) NOT NULL DEFAULT '',

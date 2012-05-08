@@ -2915,6 +2915,11 @@ countries = {
                 'conv' : u'',
             },
             {
+                'source' : u'commons',
+                'dest' : u'commons',
+                'conv' : u'',
+            },
+            {
                 'source' : u'nazwa',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
