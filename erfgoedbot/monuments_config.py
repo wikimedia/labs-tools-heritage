@@ -26,51 +26,41 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'estil',
                 'dest' : u'estil',
-                'conv' : u'',
             },
             {
                 'source' : u'època',
                 'dest' : u'epoca',
-                'conv' : u'',
             },
             {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },            {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -104,107 +94,86 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-                'conv' : u'',
             },
             {
                 'source' : u'Fotobeschreibung',
                 'dest' : u'fotobeschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Anzeige-Name',
                 'dest' : u'anzeige-Name',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse-Sort',
                 'dest' : u'adresse-sort',
-                'conv' : u'',
             },
             {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
             {
                 'source' : u'Katastralgemeinde',
                 'dest' : u'katastralgemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeinde',
                 'dest' : u'gemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeindekennzahl',
                 'dest' : u'gemeindekennzahl',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezirk',
                 'dest' : u'bezirk',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezirkskennzahl',
                 'dest' : u'bezirkskennzahl',
-                'conv' : u'',
             },
             {
                 'source' : u'Grundstücksnummer',
                 'dest' : u'grundstucksnummer',
-                'conv' : u'',
             },
             {
                 'source' : u'Status',
                 'dest' : u'status',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
-                'conv' : u'',
             },
             {
                 'source' : u'Bearbeitungsdatum',
                 'dest' : u'bearbeitungsdatum',
-                'conv' : u'',
             },
         ],
     },
@@ -226,62 +195,50 @@ countries = {
             {
                 'source' : u'omschrijving',
                 'dest' : u'omschrijving',
-                'conv' : u'',
             },
             {
                 'source' : u'plaats',
                 'dest' : u'plaats',
-                'conv' : u'',
             },
             {
                 'source' : u'adres',
                 'dest' : u'adres',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwjaar',
                 'dest' : u'bouwjaar',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwdoor',
                 'dest' : u'bouwdoor',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwstijl',
                 'dest' : u'bouwstijl',
-                'conv' : u'',
             },
             {
                 'source' : u'objtype',
                 'dest' : u'objtype',
-                'conv' : u'',
             },
             {
                 'source' : u'beschermd',
                 'dest' : u'beschermd',
-                'conv' : u'',
             },
             {
                 'source' : u'code',
                 'dest' : u'code',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'omschrijving',
@@ -310,62 +267,50 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'classement',
                 'dest' : u'classement',
-                'conv' : u'',
             },
             {
                 'source' : u'commune',
                 'dest' : u'commune',
-                'conv' : u'',
             },
             {
                 'source' : u'section_communale',
                 'dest' : u'section_communale',
-                'conv' : u'',
             },
             {
                 'source' : u'section_communale_id',
                 'dest' : u'section_communale_id',
-                'conv' : u'',
             },
             {
                 'source' : u'adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'nom_objet',
                 'dest' : u'nom_objet',
-                'conv' : u'',
             },
             {
                 'source' : u'année_construction',
                 'dest' : u'annee_construction',
-                'conv' : u'',
             },
             {
                 'source' : u'architecte',
                 'dest' : u'architecte',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'nom_objet',
@@ -399,62 +344,50 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'beschermd',
                 'dest' : u'beschermd',
-                'conv' : u'',
             },
             {
                 'source' : u'gemeente',
                 'dest' : u'gemeente',
-                'conv' : u'',
             },
             {
                 'source' : u'deelgem',
                 'dest' : u'deelgem',
-                'conv' : u'',
             },
             {
                 'source' : u'deelgem_id',
                 'dest' : u'deelgem_id',
-                'conv' : u'',
             },
             {
                 'source' : u'adres',
                 'dest' : u'adres',
-                'conv' : u'',
             },
             {
                 'source' : u'objectnaam',
                 'dest' : u'objectnaam',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwjaar',
                 'dest' : u'bouwjaar',
-                'conv' : u'',
             },
             {
                 'source' : u'architect',
                 'dest' : u'architect',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'objectnaam',
@@ -488,77 +421,62 @@ countries = {
             {
                 'source' : u'niscode',
                 'dest' : u'niscode',
-                'conv' : u'',
             },
             {
                 'source' : u'objcode',
                 'dest' : u'objcode',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_en',
                 'dest' : u'descr_en',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_nl',
                 'dest' : u'descr_nl',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_fr',
                 'dest' : u'descr_fr',
-                'conv' : u'',
             },
             {
                 'source' : u'town', # Deelgemeente, something is wrong here
                 'dest' : u'town',
-                'conv' : u'',
             },
             {
                 'source' : u'section', # Commune, something is wrong here
                 'dest' : u'section',
-                'conv' : u'',
             },
             {
                 'source' : u'address',
                 'dest' : u'address',
-                'conv' : u'',
             },
             {
                 'source' : u'objtype',
                 'dest' : u'objtype',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'architect',
                 'dest' : u'architect',
-                'conv' : u'',
             },
             {
                 'source' : u'date',
                 'dest' : u'date',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_en',
@@ -592,87 +510,70 @@ countries = {
             {
                 'source' : u'id_commune',
                 'dest' : u'id_commune',
-                'conv' : u'',
             },
             {
                 'source' : u'CLT/PEX',
                 'dest' : u'clt-pex',
-                'conv' : u'',
             },
             {
                 'source' : u'id_objet',
                 'dest' : u'id_objet',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_nl',
                 'dest' : u'descr_nl',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
-                'conv' : u'',
             },
             {
                 'source' : u'nom_objet',
                 'dest' : u'nom_objet',
-                'conv' : u'',
             },
             {
                 'source' : u'commune',
                 'dest' : u'commune',
-                'conv' : u'',
             },
             {
                 'source' : u'section_communale',
                 'dest' : u'section_communale',
-                'conv' : u'',
             },
             {
                 'source' : u'adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'objtype',
                 'dest' : u'objtype',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'architecte',
                 'dest' : u'architecte',
-                'conv' : u'',
             },
             {
                 'source' : u'année_construction',
                 'dest' : u'annee_construction',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'portrait',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'titre coordonnées',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'nom_objet',
@@ -706,72 +607,58 @@ countries = {
             {
                 'source' : u'niscode',
                 'dest' : u'niscode',
-                'conv' : u'',
             },
             {
                 'source' : u'objcode',
                 'dest' : u'objcode',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_nl',
                 'dest' : u'descr_nl',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_de',
                 'dest' : u'descr_de',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_fr',
                 'dest' : u'descr_fr',
-                'conv' : u'',
             },
             {
                 'source' : u'gemeente',
                 'dest' : u'gemeente',
-                'conv' : u'',
             },
             {
                 'source' : u'deelgemeente',
                 'dest' : u'deelgemeente',
-                'conv' : u'',
             },
             {
                 'source' : u'adres',
                 'dest' : u'adres',
-                'conv' : u'',
             },
             {
                 'source' : u'objtype',
                 'dest' : u'objtype',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'architect',
                 'dest' : u'architect',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwjaar',
                 'dest' : u'bouwjaar',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'descr_nl',
@@ -803,57 +690,46 @@ countries = {
             {
                 'source' : u'шыфр',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'назва',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'датаваньне',
                 'dest' : u'date',
-                'conv' : u'',
             },
             {
                 'source' : u'населены пункт',
                 'dest' : u'place',
-                'conv' : u'',
             },
             {
                 'source' : u'адрэса',
                 'dest' : u'address',
-                'conv' : u'',
             },
             {
                 'source' : u'катэгорыя',
                 'dest' : u'category',
-                'conv' : u'',
             },
             {
                 'source' : u'шырата',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'даўгата',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'каардынаты',
                 'dest' : u'coordinates',
-                'conv' : u'',
             },
             {
                 'source' : u'выява',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'грамадзкі набытак', # Boolean, not clear what the purpose is
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
@@ -880,42 +756,34 @@ countries = {
             {
                 'source' : u'KGS-Nr',
                 'dest' : u'kgs-nr',
-                'conv' : u'',
             },
             {
                 'source' : u'Name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'addresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeinde',
                 'dest' : u'gemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Kanton',
                 'dest' : u'kanton',
-                'conv' : u'',
             },
             {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-                'conv' : u'',
             },
             {
                 'source' : u'Name',
@@ -925,12 +793,10 @@ countries = {
 			{
                 'source' : u'Typ',
                 'dest' : u'typ',
-                'conv' : u'',
             },
 			{
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
         ]
     },
@@ -952,27 +818,22 @@ countries = {
             {
                 'source' : u'KGS_nr',
                 'dest' : u'KGS_nr',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'address',
                 'dest' : u'address',
-                'conv' : u'',
             },
             {
                 'source' : u'municipality',
                 'dest' : u'municipality',
-                'conv' : u'',
             },
             {
                 'source' : u'canton',
                 'dest' : u'canton',
-                'conv' : u'',
             },
             {
                 'source' : u'CH1903_X',
@@ -987,7 +848,6 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
@@ -1014,42 +874,34 @@ countries = {
             {
                 'source' : u'kgs-nr',
                 'dest' : u'kgs-nr',
-                'conv' : u'',
             },
             {
                 'source' : u'Objet',
                 'dest' : u'objet',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'addresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Commune',
                 'dest' : u'commune',
-                'conv' : u'',
             },
             {
                 'source' : u'canton',
                 'dest' : u'canton',
-                'conv' : u'',
             },
             {
                 'source' : u'latitude',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'longitude',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Photo',
                 'dest' : u'photo',
-                'conv' : u'',
             },
             {
                 'source' : u'Objet',
@@ -1059,42 +911,34 @@ countries = {
 			{
                 'source' : u'A',
                 'dest' : u'typ_a',
-                'conv' : u'',
             },
 			{
                 'source' : u'Arch',
                 'dest' : u'typ_arch',
-                'conv' : u'',
             },
 			{
                 'source' : u'B',
                 'dest' : u'typ_b',
-                'conv' : u'',
             },
 			{
                 'source' : u'E',
                 'dest' : u'typ_e',
-                'conv' : u'',
             },
 			{
                 'source' : u'M',
                 'dest' : u'typ_m',
-                'conv' : u'',
             },
 			{
                 'source' : u'O',
                 'dest' : u'typ_o',
-                'conv' : u'',
             },
 			{
                 'source' : u'S',
                 'dest' : u'typ_s',
-                'conv' : u'',
             },
 			{
                 'source' : u'region-iso',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
         ]
     },
@@ -1117,77 +961,62 @@ countries = {
             {
                 'source' : u'sagsnavn',
                 'dest' : u'sagsnavn',
-                'conv' : u'',
             },
             {
                 'source' : u'komplekstype',
                 'dest' : u'komplekstype',
-                'conv' : u'',
             },
             {
                 'source' : u'opførelsesår',
                 'dest' : u'opforelsesar',
-                'conv' : u'',
             },
             {
                 'source' : u'adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'postnr',
                 'dest' : u'postnr',
-                'conv' : u'',
             },
             {
                 'source' : u'by',
                 'dest' : u'by',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'kommunenr',
                 'dest' : u'kommunenr',
-                'conv' : u'',
             },
             {
                 'source' : u'ejendomsnr',
                 'dest' : u'ejendomsnr',
-                'conv' : u'',
             },
             {
                 'source' : u'bygningsnr',
                 'dest' : u'bygningsnr',
-                'conv' : u'',
             },
             {
                 'source' : u'systemnrbyg',
                 'dest' : u'systemnrbyg',
-                'conv' : u'',
             },
             {
                 'source' : u'fredår',
                 'dest' : u'fredar',
-                'conv' : u'',
             },
             {
                 'source' : u'sagsnr',
                 'dest' : u'sagsnr',
-                'conv' : u'',
             },
             {
                 'source' : u'billede',
                 'dest' : u'billede',
-                'conv' : u'',
             },
             {
                 'source' : u'sagsnavn',
@@ -1220,57 +1049,46 @@ countries = {
             {
                 'source' : u'stednavn',
                 'dest' : u'stednavn',
-                'conv' : u'',
             },
             {
                 'source' : u'type',
                 'dest' : u'type',
-                'conv' : u'',
             },
             {
                 'source' : u'datering',
                 'dest' : u'datering',
-                'conv' : u'',
             },
             {
                 'source' : u'seværdighed',
                 'dest' : u'sevaedighed',
-                'conv' : u'',
             },
             {
                 'source' : u'systemnummer',
                 'dest' : u'systemnummer',
-                'conv' : u'',
             },
             {
                 'source' : u'anlnr',
                 'dest' : u'anlnr',
-                'conv' : u'',
             },
             {
                 'source' : u'fredningsnummer',
                 'dest' : u'fredningsnummer',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'billede',
                 'dest' : u'billede',
-                'conv' : u'',
             },
             {
                 'source' : u'bemærkning',
                 'dest' : u'bemaerkning',
-                'conv' : u'',
             },
             {
                 'source' : u'stednavn',
@@ -1302,57 +1120,46 @@ countries = {
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'NS',
                 'dest' : u'ns',
-                'conv' : u'',
             },
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezeichnung',
                 'dest' : u'bezeichnung',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Nummer',
                 'dest' : u'nummer',
-                'conv' : u'',
             },
             {
                 'source' : u'Bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeinde',
                 'dest' : u'stadt',
-                'conv' : u'',
             },
             {
                 'source' : u'Ortsteil',
                 'dest' : u'ortsteil',
-                'conv' : u'',
             },
         ],
     },
@@ -1375,57 +1182,46 @@ countries = {
             {
                 'source' : u'Bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezeichnung',
                 'dest' : u'bezeichnung',
-                'conv' : u'',
             },
             {
                 'source' : u'Ortsteil',
                 'dest' : u'ortsteil',
-                'conv' : u'',
             },
             {
                 'source' : u'StadtOderGemeinde',
                 'dest' : u'stadt',
-                'conv' : u'',
             },
             {
                 'source' : u'NS',
                 'dest' : u'ns',
-                'conv' : u'',
             },
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-                'conv' : u'',
             },
             {
                 'source' : u'Nummer',
                 'dest' : u'nummer',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Nummer',
@@ -1452,67 +1248,54 @@ countries = {
             {
                 'source' : u'Bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezeichnung',
                 'dest' : u'bezeichnung',
-                'conv' : u'',
             },
             {
                 'source' : u'Ortsteil',
                 'dest' : u'ortsteil',
-                'conv' : u'',
             },
             {
                 'source' : u'NS',
                 'dest' : u'ns',
-                'conv' : u'',
             },
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-                'conv' : u'',
             },
             {
                 'source' : u'Nummer',
                 'dest' : u'nummer',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Bauzeit',
                 'dest' : u'bauzeit',
-                'conv' : u'',
             },
             {
                 'source' : u'Eintragung',
                 'dest' : u'eintragung',
-                'conv' : u'',
             },
             {
                 'source' : u'Aktenzeichen',
                 'dest' : u'aktenzeichen',
-                'conv' : u'',
             },
         ],
     },
@@ -1534,52 +1317,42 @@ countries = {
             {
                 'source' : u'Bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Bezeichnung',
                 'dest' : u'bezeichnung',
-                'conv' : u'',
             },
             {
                 'source' : u'Ortsteil',
                 'dest' : u'ortsteil',
-                'conv' : u'',
             },
             {
                 'source' : u'NS',
                 'dest' : u'ns',
-                'conv' : u'',
             },
             {
                 'source' : u'EW',
                 'dest' : u'ew',
-                'conv' : u'',
             },
             {
                 'source' : u'Nummer_Denkmalliste',
                 'dest' : u'nummer_denkmalliste',
-                'conv' : u'',
             },
             {
                 'source' : u'Bauzeit',
                 'dest' : u'bauzeit',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'bezeichnung',
@@ -1608,49 +1381,40 @@ countries = {
             {
                 'source' : u'number',
                 'dest' : u'number',
-                'conv' : u'',
             },
             {
                 'source' : u'nimi',
                 'dest' : u'nimi',
-                'conv' : u'',
             },
             {
                 'source' : u'liik',
                 'dest' : u'liik',
-                'conv' : u'',
             },
             {
                 'source' : u'aadress',
                 'dest' : u'aadress',
-                'conv' : u'',
             },
             {
                 'source' : u'omavalitsus',
                 'dest' : u'omavalitsus',
-                'conv' : u'',
             },
             {
                 'source' : u'NS',
                 'dest' : u'lat',
-                'conv' : u'',
                 'check' : u'checkLat',
             },
             {
                 'source' : u'EW',
                 'dest' : u'lon',
-                'conv' : u'',
                 'check' : u'checkLon',
             },
             {
                 'source' : u'pilt',
                 'dest' : u'pilt',
-                'conv' : u'',
             },
             {
                 'source' : u'commons',
                 'dest' : u'commons',
-                'conv' : u'',
             },
             {
                 'source' : u'nimi',
@@ -1683,56 +1447,45 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
-                'conv' : u'',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'tipus',
                 'dest' : u'tipus',
-                'conv' : u'',
             },            {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
             {
                 'source' : u'title',
                 'dest' : u'title',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -1764,67 +1517,54 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
-                'conv' : u'',
             },
             {
                 'source' : u'nombre',
                 'dest' : u'nombre',
-                'conv' : u'',
             },
             {
                 'source' : u'nombrecoor',
                 'dest' : u'nombrecoor',
-                'conv' : u'',
             },
             {
                 'source' : u'tipobic',
                 'dest' : u'tipobic',
-                'conv' : u'',
             },
             {
                 'source' : u'tipo',
                 'dest' : u'tipo',
-                'conv' : u'',
             },
             {
                 'source' : u'municipio',
                 'dest' : u'municipio',
-                'conv' : u'',
             },
             {
                 'source' : u'lugar',
                 'dest' : u'lugar',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'id_aut',
                 'dest' : u'id_aut',
-                'conv' : u'',
             },
             {
                 'source' : u'fecha',
                 'dest' : u'fecha',
-                'conv' : u'',
             },
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
-                'conv' : u'',
             },
            {
                'source' : u'title',
                'dest' : u'title',
-               'conv' : u'',
             },
             {
                 'source' : u'nombre',
@@ -1850,67 +1590,54 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
-                'conv' : u'',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
-                'conv' : u'',
             },
             {
                 'source' : u'bcin',
                 'dest' : u'bcin',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'estil',
                 'dest' : u'estil',
-                'conv' : u'',
             },
             {
                 'source' : u'època',
                 'dest' : u'epoca',
-                'conv' : u'',
             },
             {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
             {
                 'source' : u'title',
                 'dest' : u'title',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -1942,67 +1669,54 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'bic',
-                'conv' : u'',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
-                'conv' : u'',
             },
             {
                 'source' : u'nomeoficial',
                 'dest' : u'nomeoficial',
-                'conv' : u'',
             },
             {
                 'source' : u'outrosnomes',
                 'dest' : u'outrosnomes',
-                'conv' : u'',
             },
             {
                 'source' : u'paxina',
                 'dest' : u'paxina',
-                'conv' : u'',
             },
             {
                 'source' : u'concello',
                 'dest' : u'concello',
-                'conv' : u'',
             },
             {
                 'source' : u'lugar',
                 'dest' : u'lugar',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'notas',
                 'dest' : u'notas',
-                'conv' : u'',
             },
             {
                 'source' : u'data_declaracion',
                 'dest' : u'data_declaracion',
-                'conv' : u'',
             },
             {
                 'source' : u'imaxe',
                 'dest' : u'imaxe',
-                'conv' : u'',
             },
            {
                'source' : u'title',
                'dest' : u'title',
-               'conv' : u'',
             },
             {
                 'source' : u'nomeoficial',
@@ -2028,62 +1742,50 @@ countries = {
             {
                 'source' : u'bic',
                 'dest' : u'bic',
-                'conv' : u'',
             },
             {
                 'source' : u'idurl',
                 'dest' : u'idurl',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'estil',
                 'dest' : u'estil',
-                'conv' : u'',
             },
             {
                 'source' : u'època',
                 'dest' : u'època',
-                'conv' : u'',
             },
             {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
            {
                'source' : u'title',
                'dest' : u'title',
-               'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -2111,47 +1813,38 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'època',
                 'dest' : u'epoca',
-                'conv' : u'',
             },
             {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -2185,66 +1878,53 @@ countries = {
             {
                 'source' : u'tri',
                 'dest' : u'tri',
-                'conv' : u'',
             },
             {
                 'source' : u'monument',
                 'dest' : u'monument',
-                'conv' : u'',
             },
             {
                 'source' : u'commune',
                 'dest' : u'commune',
-                'conv' : u'',
             },
             {
                 'source' : u'tri commune',
                 'dest' : u'tri commune',
-                'conv' : u'',
             },
             {
                 'source' : u'adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'tri adresse',
                 'dest' : u'tri adresse',
-                'conv' : u'',
             },            {
                 'source' : u'latitude',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'longitude',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'titre coordonnées',
                 'dest' : u'titre_coordonnees',
-                'conv' : u'',
             },
             {
                 'source' : u'notice',
                 'dest' : u'notice',
-                'conv' : u'',
             },
             {
                 'source' : u'protection',
                 'dest' : u'protection',
-                'conv' : u'',
             },
             {
                 'source' : u'date',
                 'dest' : u'date',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'monument',
@@ -2271,42 +1951,34 @@ countries = {
             {
                 'source' : u'number',
                 'dest' : u'number',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'description',
                 'dest' : u'description',
-                'conv' : u'',
             },
             {
                 'source' : u'townland',
                 'dest' : u'townland',
-                'conv' : u'',
             },
             {
                 'source' : u'county',
                 'dest' : u'county',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
@@ -2329,42 +2001,34 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
                 'dest' : u'nom',
-                'conv' : u'',
             },
             {
                 'source' : u'municipi',
                 'dest' : u'municipi',
-                'conv' : u'',
             },
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'nomcoor',
                 'dest' : u'nomcoor',
-                'conv' : u'',
             },
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
-                'conv' : u'',
             },
             {
                 'source' : u'nom',
@@ -2399,92 +2063,74 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-                'conv' : u'',
             },
             {
                 'source' : u'Fotobeschreibung',
                 'dest' : u'fotobeschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Anzeige-Name',
                 'dest' : u'anzeige-Name',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse-Sort',
                 'dest' : u'adresse-sort',
-                'conv' : u'',
             },
             {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeinde',
                 'dest' : u'gemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeindekennzahl',
                 'dest' : u'gemeindekennzahl',
-                'conv' : u'',
             },
             {
                 'source' : u'Katastralgemeinde',
                 'dest' : u'katastralgemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Eintragung Datum',
                 'dest' : u'eintragung',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschluss',
                 'dest' : u'beschluss',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
-                'conv' : u'',
             },
             {
                 'source' : u'ObjektID',
@@ -2506,50 +2152,40 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'lag',
                 'dest' : u'lag',
-                'conv' : u'',
             },
             {
                 'source' : u'uertschaft',
                 'dest' : u'uertschaft',
-                'conv' : u'',
             },            {
                 'source' : u'offiziellen_numm',
                 'dest' : u'offiziellen_numm',
-                'conv' : u'',
             },
             {
                 'source' : u'beschreiwung',
                 'dest' : u'beschreiwung',
-                'conv' : u'',
             },
             {
                 'source' : u'niveau',
                 'dest' : u'niveau',
-                'conv' : u'',
             },
             {
                 'source' : u'klasséiert_zënter',
                 'dest' : u'klasseiert_zenter',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },           {
                 'source' : u'bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'offiziellen_numm',
@@ -2578,97 +2214,78 @@ countries = {
             {
                 'source' : u'objrijksnr',
                 'dest' : u'objrijksnr',
-                'conv' : u'',
             },
             {
                 'source' : u'woonplaats',
                 'dest' : u'woonplaats',
-                'conv' : u'',
             },
             {
                 'source' : u'adres',
                 'dest' : u'adres',
-                'conv' : u'',
             },
             {
                 'source' : u'adres_sort',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'objectnaam',
                 'dest' : u'objectnaam',
-                'conv' : u'',
             },
             {
                 'source' : u'type_obj',
                 'dest' : u'type_obj',
-                'conv' : u'',
             },
             {
                 'source' : u'oorspr_functie',
                 'dest' : u'oorspr_functie',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwjaar',
                 'dest' : u'bouwjaar',
-                'conv' : u'',
             },
             {
                 'source' : u'bouwjaar_sort',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'architect',
                 'dest' : u'architect',
-                'conv' : u'',
             },
             {
                 'source' : u'architect_sort',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'cbs_tekst',
                 'dest' : u'cbs_tekst',
-                'conv' : u'',
             },
             {
                 'source' : u'RD_x',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'RD_y',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'postcode',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'buurt',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'objectnaam',
@@ -2702,62 +2319,50 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-                'conv' : u'',
             },
             {
                 'source' : u'Inventarnummer',
                 'dest' : u'inventarnummer',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Name-de',
                 'dest' : u'name-de',
-                'conv' : u'',
             },
             {
                 'source' : u'Name-en',
                 'dest' : u'name-en',
-                'conv' : u'',
             },
             {
                 'source' : u'Name-mt',
                 'dest' : u'name-mt',
-                'conv' : u'',
             },
             {
                 'source' : u'Gemeinde',
                 'dest' : u'gemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung',
                 'dest' : u'beschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Inventarnummer',
@@ -2785,72 +2390,58 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'navn',
                 'dest' : u'navn',
-                'conv' : u'',
             },
             {
                 'source' : u'artikkel',
                 'dest' : u'artikkel',
-                'conv' : u'',
             },
             {
                 'source' : u'kategori',
                 'dest' : u'kategori',
-                'conv' : u'',
             },
             {
                 'source' : u'datering',
                 'dest' : u'datering',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'kommunenr',
                 'dest' : u'kommunenr',
-                'conv' : u'',
             },
             {
                 'source' : u'kommune',
                 'dest' : u'kommune',
-                'conv' : u'',
             },
             {
                 'source' : u'vernetype',
                 'dest' : u'vernetype',
-                'conv' : u'',
             },
             {
                 'source' : u'kat',
                 'dest' : u'kat',
-                'conv' : u'',
             },
             {
                 'source' : u'tilrettel',
                 'dest' : u'tilrettel',
-                'conv' : u'',
             },
             {
                 'source' : u'verdensarv',
                 'dest' : u'verdensarv',
-                'conv' : u'',
             },
             {
                 'source' : u'bilde',
                 'dest' : u'bilde',
-                'conv' : u'',
             },
             {
                 'source' : u'artikkel',
@@ -2877,47 +2468,38 @@ countries = {
             {
                 'source' : u'numer',
                 'dest' : u'numer',
-                'conv' : u'',
             },
             {
                 'source' : u'nazwa',
                 'dest' : u'nazwa',
-                'conv' : u'',
             },
             {
                 'source' : u'adres',
                 'dest' : u'adres',
-                'conv' : u'',
             },
             {
                 'source' : u'gmina',
                 'dest' : u'gmina',
-                'conv' : u'',
             },
             {
                 'source' : u'szerokość',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'długość',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'koordynaty', # To get rid of errors
                 'dest' : u'koordynaty',
-                'conv' : u'',
             },
             {
                 'source' : u'zdjęcie',
                 'dest' : u'zdjecie',
-                'conv' : u'',
             },
             {
                 'source' : u'commons',
                 'dest' : u'commons',
-                'conv' : u'',
             },
             {
                 'source' : u'nazwa',
@@ -2946,57 +2528,46 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'designacoes',
                 'dest' : u'designacoes',
-                'conv' : u'',
             },
             {
                 'source' : u'categoria',
                 'dest' : u'categoria',
-                'conv' : u'',
             },
             {
                 'source' : u'tipologia',
                 'dest' : u'tipologia',
-                'conv' : u'',
             },
             {
                 'source' : u'concelho',
                 'dest' : u'concelho',
-                'conv' : u'',
             },
             {
                 'source' : u'freguesia',
                 'dest' : u'freguesia',
-                'conv' : u'',
             },
             {
                 'source' : u'grau',
                 'dest' : u'grau',
-                'conv' : u'',
             },
             {
                 'source' : u'ano',
                 'dest' : u'ano',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'imagem',
                 'dest' : u'imagem',
-                'conv' : u'',
             },
             {
                 'source' : u'designacoes',
@@ -3029,52 +2600,42 @@ countries = {
             {
                 'source' : u'Cod',
                 'dest' : u'cod',
-                'conv' : u'',
             },
             {
                 'source' : u'Denumire',
                 'dest' : u'denumire',
-                'conv' : u'',
             },
             {
                 'source' : u'Localitate',
                 'dest' : u'localitate',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresă',
                 'dest' : u'adresa',
-                'conv' : u'',
             },
             {
                 'source' : u'Datare',
                 'dest' : u'datare',
-                'conv' : u'',
             },
             {
                 'source' : u'Arhitect',
                 'dest' : u'arhitect',
-                'conv' : u'',
             },
             {
                 'source' : u'Lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Coordonate',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'Lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Imagine',
                 'dest' : u'imagine',
-                'conv' : u'',
             },
             {
                 'source' : u'denumire',
@@ -3102,47 +2663,38 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'conv' : u'',
             },
             {
                 'source' : u'имя',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'комплекс',
                 'dest' : u'complex',
-                'conv' : u'',
             },
             {
                 'source' : u'адрес',
                 'dest' : u'address',
-                'conv' : u'',
             },
             {
                 'source' : u'информация',
                 'dest' : u'description',
-                'conv' : u'',
             },
             {
                 'source' : u'субъект_федерации',
                 'dest' : u'region',
-                'conv' : u'',
             },
             {
                 'source' : u'широта',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'долгота',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'изображение',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
@@ -3171,52 +2723,42 @@ countries = {
             {
                 'source' : u'namn',
                 'dest' : u'namn',
-                'conv' : u'',
             },
             {
                 'source' : u'funktion',
                 'dest' : u'funktion',
-                'conv' : u'',
             },
             {
                 'source' : u'byggår',
                 'dest' : u'byggar',
-                'conv' : u'',
             },
             {
                 'source' : u'arkitekt',
                 'dest' : u'arkitekt',
-                'conv' : u'',
             },
             {
                 'source' : u'plats',
                 'dest' : u'plats',
-                'conv' : u'',
             },
             {
                 'source' : u'kommun',
                 'dest' : u'kommun',
-                'conv' : u'',
             },
             {
                 'source' : u'bbr',
                 'dest' : u'bbr',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'long',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'bild',
                 'dest' : u'bild',
-                'conv' : u'',
             },
             {
                 'source' : u'namn',
@@ -3250,107 +2792,86 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-                'conv' : u'',
             },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
-                'conv' : u'',
             },
             {
                 'source' : u'Name',
                 'dest' : u'name-sk',
-                'conv' : u'',
             },
             {
                 'source' : u'Name-de',
                 'dest' : u'name-de',
-                'conv' : u'',
             },
             {
                 'source' : u'Artikel',
                 'dest' : u'artikel',
-                'conv' : u'',
             },
             {
                'source' : u'Anzeige-Artikel',
                 'dest' : u'anzeige-artikel',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
-                'conv' : u'',
             },
             {
                 'source' : u'Adresse-Sort',
                 'dest' : u'adresse-sort',
-                'conv' : u'',
             },
             {
                 'source' : u'Breitengrad',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
-                'conv' : u'',
             },
             {
                 'source' : u'Katastralgemeinde',
                 'dest' : u'katastralgemeinde',
-                'conv' : u'',
             },
             {
                 'source' : u'Konskriptionsnr',
                 'dest' : u'konskriptionsnr',
-                'conv' : u'',
             },
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
-                'conv' : u'',
             },
             {
                 'source' : u'Bearbeitungsdatum',
                 'dest' : u'bearbeitungsdatum',
-                'conv' : u'',
             },
             {
                 'source' : u'Beschreibung-de',
                 'dest' : u'beschreibung-de',
-                'conv' : u'',
             },
             {
                 'source' : u'Offizielle Beschr.',
                 'dest' : u'offiziellebeschreibung',
-                'conv' : u'',
             },
             {
                 'source' : u'Obec',
                 'dest' : u'obec',
-                'conv' : u'',
             },
             {
                 'source' : u'Kód obce',
                 'dest' : u'kod_obce',
-                'conv' : u'',
             },
             {
                 'source' : u'Okres',
                 'dest' : u'okres',
-                'conv' : u'',
             },
             {
                 'source' : u'Kód okresu',
                 'dest' : u'kod_okresu',
-                'conv' : u'',
             },
         ],
     },
@@ -3373,77 +2894,62 @@ countries = {
             {
                 'source' : u'pos',
                 'dest' : u'pos',
-                'conv' : u'',
             },
             {
                 'source' : u'refnum',
                 'dest' : u'refnum',
-                'conv' : u'',
             },
             {
                 'source' : u'type',
                 'dest' : u'type',
-                'conv' : u'',
             },
             {
                 'source' : u'article',
                 'dest' : u'article',
-                'conv' : u'',
             },
             {
                 'source' : u'name',
                 'dest' : u'name',
-                'conv' : u'',
             },
             {
                 'source' : u'address',
                 'dest' : u'address',
-                'conv' : u'',
             },
             {
                 'source' : u'city',
                 'dest' : u'city',
-                'conv' : u'',
             },
             {
                 'source' : u'county',
                 'dest' : u'county',
-                'conv' : u'',
             },
             {
                 'source' : u'state',
                 'dest' : u'state',
-                'conv' : u'',
             },
             {
                 'source' : u'showcounty',
                 'dest' : u'',
-                'conv' : u'',
             },
             {
                 'source' : u'date',
                 'dest' : u'date',
-                'conv' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
-                'conv' : u'',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
-                'conv' : u'',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
-                'conv' : u'',
             },
             {
                 'source' : u'description',
                 'dest' : u'description',
-                'conv' : u'',
             },
         ],
     },
