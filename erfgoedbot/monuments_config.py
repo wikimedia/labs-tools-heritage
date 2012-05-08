@@ -2735,6 +2735,11 @@ countries = {
                 'conv' : u'',
             },
             {
+                'source' : u'Adresse',
+                'dest' : u'adresse',
+                'conv' : u'',
+            },
+            {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
                 'conv' : u'',

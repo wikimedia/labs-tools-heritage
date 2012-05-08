@@ -9,6 +9,7 @@ CREATE TABLE `monuments_mt_(de)` (
   `name-en` varchar(255) NOT NULL DEFAULT '',
   `name-mt` varchar(255) NOT NULL DEFAULT '',
   `gemeinde` varchar(255) NOT NULL DEFAULT '',
+  `adresse` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT '0',
   `lon` double NOT NULL DEFAULT '0',
   `region-iso` varchar(255) NOT NULL DEFAULT '',
