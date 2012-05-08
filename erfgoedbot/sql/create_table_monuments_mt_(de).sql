@@ -20,4 +20,4 @@ CREATE TABLE `monuments_mt_(de)` (
   PRIMARY KEY (`Inventarnummer`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8; 
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
