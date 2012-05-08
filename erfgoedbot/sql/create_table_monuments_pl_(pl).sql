@@ -2,7 +2,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_pl_(pl)`;
 CREATE TABLE IF NOT EXISTS `monuments_pl_(pl)` (
-  `numer` varchar(11) NOT NULL DEFAULT '0',
+  `numer` varchar(255) NOT NULL DEFAULT '0',
   `nazwa` varchar(255) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',
   `gmina` varchar(255) NOT NULL DEFAULT '',
