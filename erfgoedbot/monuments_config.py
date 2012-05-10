@@ -9,7 +9,7 @@ db_server='sql.toolserver.org'
 db = 'p_erfgoed_p'
 
 countries = {
-    ('ad', 'ca') : {
+    ('ad', 'ca') : { # Monuments in Andorra in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BIC And',
@@ -75,7 +75,7 @@ countries = {
             },
         ],
     },
-    ('at', 'de') : {
+    ('at', 'de') : { # Monuments in Austria in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Österreich Tabellenkopf',
@@ -182,7 +182,7 @@ countries = {
             },
         ],
     },
-    ('be-bru', 'nl') : {
+    ('be-bru', 'nl') : { # Monuments in Brussels in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
         'headerTemplate' : u'Tabelkop erfgoed Brussels Hoofdstedelijk Gewest',
@@ -254,7 +254,7 @@ countries = {
             },
         ],
     },
-    ('be-vlg', 'fr') : {
+    ('be-vlg', 'fr') : { # Onroerend Erfgoed in Vlaanderen in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau MH-Fla',
@@ -333,7 +333,7 @@ countries = {
             },
         ],
     },
-    ('be-vlg', 'nl') : {
+    ('be-vlg', 'nl') : { # Onroerend Erfgoed in Vlaanderen in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
         'headerTemplate' : u'Tabelkop erfgoed Vlaanderen',
@@ -412,7 +412,7 @@ countries = {
             },
         ],
     },
-    ('be-wal', 'en') : {
+    ('be-wal', 'en') : { # Protected heritage sites in Wallona in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'Table header Wallonia', # Should get a better name
@@ -504,7 +504,7 @@ countries = {
             },
         ],
     },
-    ('be-wal', 'fr') : {
+    ('be-wal', 'fr') : { # Patrimoine immobilier classé in Wallonië in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau MH-Wal',
@@ -606,7 +606,7 @@ countries = {
             },
         ],
     },
-    ('be-wal', 'nl') : {
+    ('be-wal', 'nl') : { # Beschermd Erfgoed in Wallonië in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
         'headerTemplate' : u'Tabelkop erfgoed Wallonië',
@@ -694,7 +694,7 @@ countries = {
             },
         ],
     },
-    ('by', 'be-x-old') : {
+    ('by', 'be-x-old') : { # Belarus in Belarussian
         'project' : u'wikipedia',
         'lang' : u'be-x-old',
         'headerTemplate' : u'Вікі любіць славутасьці/Вяршыня сьпісу',
@@ -762,7 +762,7 @@ countries = {
             },
         ],
     },
-    ('ch', 'de') : {
+    ('ch', 'de') : { # Monuments in Switzerland in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Kulturgüter Schweiz Tabellenkopf',
@@ -825,7 +825,7 @@ countries = {
             },
         ]
     },
-    ('ch', 'en') : {
+    ('ch', 'en') : { # Monuments in Switzerland in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'SIoCPoNaRS header',
@@ -882,7 +882,7 @@ countries = {
             },
         ]
     },
-    ('ch', 'fr') : {
+    ('ch', 'fr') : { # Monuments in Switzerland in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau CH',
@@ -969,7 +969,7 @@ countries = {
             },
         ]
     },
-    ('dk-bygninger', 'da') : {
+    ('dk-bygninger', 'da') : { # Bygninger in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
         'headerTemplate' : u'Tabelheader FBB',
@@ -1062,7 +1062,7 @@ countries = {
             },
         ],
     },
-    ('dk-fortidsminder', 'da') : {
+    ('dk-fortidsminder', 'da') : { # Fortidsminder in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
         'headerTemplate' : u'Tabelheader FF',
@@ -1137,7 +1137,7 @@ countries = {
             },
         ],
     },
-    ('de-by', 'de') : {
+    ('de-by', 'de') : { # Baudenkmäler in Bayern in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Bayern Tabellenkopf',
@@ -1200,7 +1200,7 @@ countries = {
             },
         ],
     },
-    ('de-he', 'de') : {
+    ('de-he', 'de') : { # Kulturdenkmäler in Hessen in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Hessen Tabellenkopf',
@@ -1268,7 +1268,7 @@ countries = {
             },
         ],
     },
-    ('de-nrw-bm', 'de') : {
+    ('de-nrw-bm', 'de') : { # Baudenkmaeler in Bergheim in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Bergheim Tabellenkopf',
@@ -1338,7 +1338,7 @@ countries = {
             },
         ],
     },
-    ('de-nrw-k', 'de') : {
+    ('de-nrw-k', 'de') : { #  Baudenkmäler in Cologne in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Köln Tabellenkopf',
@@ -1401,7 +1401,7 @@ countries = {
             },
         ],
     },
-    ('ee', 'et') : {
+    ('ee', 'et') : { # Rijksmonumenten in the Estonia in Estoian
         'project' : u'wikipedia',
         'lang' : u'et',
         'headerTemplate' : u'KRR päis',
@@ -1469,7 +1469,7 @@ countries = {
             },
         ]
     },
-    ('es', 'ca') : {
+    ('es', 'ca') : { # Spain in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BIC',
@@ -1542,7 +1542,7 @@ countries = {
             },
         ],
     },
-    ('es', 'es') : {
+    ('es', 'es') : { # Rijksmonumenten in Spain in Spanishb
         'project' : u'wikipedia',
         'lang' : u'es',
         'headerTemplate' : u'Cabecera BIC',
@@ -1620,7 +1620,7 @@ countries = {
             },
         ],
     },
-    ('es-ct', 'ca') : {
+    ('es-ct', 'ca') : { # Monuments in Catalunya in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BCIN',
@@ -1701,7 +1701,7 @@ countries = {
             },
         ],
     },
-    ('es-gl', 'gl') : {
+    ('es-gl', 'gl') : { # Rijksmonumenten in Spain in Spanish
         'project' : u'wikipedia',
         'lang' : u'gl',
         'headerTemplate' : u'BIC-comezo',
@@ -1777,7 +1777,7 @@ countries = {
             },
         ],
     },
-    ('es-vc', 'ca') : {
+    ('es-vc', 'ca') : { # Monuments in Valencia in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BIC Val',
@@ -1854,7 +1854,7 @@ countries = {
             },
         ],
     },
-    ('fr', 'ca') : {
+    ('fr', 'ca') : { # Monuments in France in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera MH',
@@ -1915,7 +1915,7 @@ countries = {
             },
         ],
     },
-    ('fr', 'fr') : {
+    ('fr', 'fr') : { # Monuments in France in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau MH',
@@ -1998,7 +1998,7 @@ countries = {
             },
         ],
     },
-    ('ie', 'en') : {
+    ('ie', 'en') : { # Monuments in Ireland
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'NMI list header',
@@ -2048,7 +2048,7 @@ countries = {
             },
         ],
     },
-    ('it-88', 'ca') : {
+    ('it-88', 'ca') : { # Monuments in Sardinia 
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BC Sard',
@@ -2104,7 +2104,7 @@ countries = {
             },
         ],
     },
-    ('it-bz', 'de') : {
+    ('it-bz', 'de') : { # Monuments in Austria in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Südtirol Tabellenkopf',
@@ -2204,7 +2204,7 @@ countries = {
             },
         ],
     },
-    ('lu', 'lb') : {
+    ('lu', 'lb') : { # Monuments in Luxemburg in Luxemburgish
         'project' : u'wikipedia',
         'lang' : u'lb',
         'headerTemplate' : u'Nationale Monumenter header',
@@ -2261,7 +2261,7 @@ countries = {
             },
         ],
     },
-    ('nl', 'nl') : {
+    ('nl', 'nl') : { # Rijksmonumenten in the Netherlands in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
         'headerTemplate' : u'Tabelkop rijksmonumenten',
@@ -2369,7 +2369,7 @@ countries = {
             },
         ],
     },
-	('mt', 'de') : {
+	('mt', 'de') : { # Monuments in Malta in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Malta Tabellenkopf',
@@ -2443,7 +2443,7 @@ countries = {
             },
         ],
     },
-    ('no', 'no') : {
+    ('no', 'no') : { # Monuments in Norway in No
         'project' : u'wikipedia',
         'lang' : u'no',
         'headerTemplate' : u'Kulturminner header',
@@ -2530,7 +2530,7 @@ countries = {
             },
         ],
     },
-    ('pl', 'pl') : {
+    ('pl', 'pl') : { # Rijksmonumenten in the Poland in Polish
         'project' : u'wikipedia',
         'lang' : u'pl',
         'headerTemplate' : u'Lista zabytków góra',
@@ -2584,7 +2584,7 @@ countries = {
             },
         ],
     },
-    ('pt', 'pt') : {
+    ('pt', 'pt') : { # Monuments in Portugal (IGESPAR) in Portugese
         'project' : u'wikipedia',
         'lang' : u'pt',
         'headerTemplate' : u'IGESPAR/cabeçalho',
@@ -2658,7 +2658,7 @@ countries = {
             },
         ],
     },
-    ('ro', 'ro') : {
+    ('ro', 'ro') : { # Monuments in Romania
         'project' : u'wikipedia',
         'lang' : u'ro',
         'headerTemplate' : u'ÎnceputTabelLMI',
@@ -2723,7 +2723,7 @@ countries = {
             },
         ],
     },
-    ('ru', 'ru') : {
+    ('ru', 'ru') : { # Monuments in Russia in Russian. Field table names are English already
         'project' : u'wikipedia',
         'lang' : u'ru',
         'headerTemplate' : u'ПамАрх header',
@@ -2784,7 +2784,7 @@ countries = {
             },
         ],
     },
-    ('se', 'sv') : {
+    ('se', 'sv') : { # Monuments in Sweden in Swedish
         'project' : u'wikipedia',
         'lang' : u'sv',
         'headerTemplate' : u'', #Confusing
@@ -2855,7 +2855,7 @@ countries = {
             },
         ],
     },
-    ('sk', 'de') : {
+    ('sk', 'de') : { # Monuments in Slovakia in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Slowakei Tabellenkopf',
@@ -2962,7 +2962,7 @@ countries = {
             },
         ],
     },
-    ('us', 'en') : {
+    ('us', 'en') : { # National Register of Historic Places listings in the United States in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'NRHP header',
