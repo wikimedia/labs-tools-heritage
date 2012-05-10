@@ -1192,11 +1192,11 @@ countries = {
             },
             {
                 'source' : u'NS',
-                'dest' : u'ns',
+                'dest' : u'lat',
             },
             {
                 'source' : u'EW',
-                'dest' : u'ew',
+                'dest' : u'lon',
             },
         ],
     },
@@ -1255,11 +1255,11 @@ countries = {
             },
             {
                 'source' : u'NS',
-                'dest' : u'ns',
+                'dest' : u'lat',
             },
             {
                 'source' : u'EW',
-                'dest' : u'ew',
+                'dest' : u'lon',
             },
             {
                 'source' : u'Nummer',
@@ -1330,11 +1330,11 @@ countries = {
             },
             {
                 'source' : u'NS',
-                'dest' : u'ns',
+                'dest' : u'lat',
             },
             {
                 'source' : u'EW',
-                'dest' : u'ew',
+                'dest' : u'lon',
             },
         ],
     },
@@ -1388,11 +1388,11 @@ countries = {
             },
             {
                 'source' : u'NS',
-                'dest' : u'ns',
+                'dest' : u'lat',
             },
             {
                 'source' : u'EW',
-                'dest' : u'ew',
+                'dest' : u'lon',
             },
             {
                 'source' : u'bezeichnung',

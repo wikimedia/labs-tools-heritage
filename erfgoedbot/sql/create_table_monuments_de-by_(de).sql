@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS `monuments_de-by_(de)` (
   `beschreibung` varchar(255) NOT NULL DEFAULT '',
   `bild` varchar(255) NOT NULL DEFAULT '',
   `commonscat` varchar(255) NOT NULL DEFAULT '',
-  `ns` double NOT NULL DEFAULT  0,
-  `ew` double NOT NULL DEFAULT  0,
+  `lat` double NOT NULL DEFAULT  0,
+  `lon` double NOT NULL DEFAULT  0,
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`nummer`),
-  KEY `latitude` (`ns`),
-  KEY `longitude` (`ew`)
+  KEY `latitude` (`lat`),
+  KEY `longitude` (`lon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
