@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `monuments_de-nrw-bm_(de)` (
   `lat` double NOT NULL DEFAULT  0,
   `lon` double NOT NULL DEFAULT  0,
   `source` varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`nummer`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)

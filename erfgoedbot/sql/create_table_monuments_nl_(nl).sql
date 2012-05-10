@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `monuments_nl_(nl)` (
   `woonplaats` varchar(255) NOT NULL DEFAULT '',
   `adres` varchar(255) NOT NULL DEFAULT '',
   `objectnaam` varchar(255) NOT NULL DEFAULT '',
-  `type_obj` enum('G','A') DEFAULT NULL,
+  `type_obj` enum('G','A'),
   `oorspr_functie` varchar(128) NOT NULL DEFAULT '',
   `bouwjaar` varchar(255) NOT NULL DEFAULT '',
   `architect` varchar(255) NOT NULL DEFAULT '',

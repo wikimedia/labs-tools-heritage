@@ -23,4 +23,4 @@ CREATE TABLE IF NOT EXISTS `monuments_ch_(fr)` (
   PRIMARY KEY (`kgs-nr`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

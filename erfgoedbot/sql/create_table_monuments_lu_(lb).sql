@@ -17,4 +17,4 @@ CREATE TABLE IF NOT EXISTS `monuments_lu_(lb)` (
   PRIMARY KEY (`id`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

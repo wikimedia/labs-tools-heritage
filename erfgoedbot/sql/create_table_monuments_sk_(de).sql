@@ -22,10 +22,9 @@ CREATE TABLE IF NOT EXISTS `monuments_sk_(de)` (
   `kod_okresu` int(11) NOT NULL DEFAULT  0,
   `lat` double NOT NULL DEFAULT  0,
   `lon` double NOT NULL DEFAULT  0,
-  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ObjektID`),
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`objektid`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

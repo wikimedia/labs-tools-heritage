@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `monuments_us_(en)` (
   `type` varchar(25) NOT NULL DEFAULT 'NRHP',
   `article` varchar(255) NOT NULL DEFAULT '',
   `name` varchar(255) NOT NULL DEFAULT '',
-  `address`  varchar(255) NOT NULL DEFAULT '',
+  `address` varchar(255) NOT NULL DEFAULT '',
   `city` varchar(255) NOT NULL DEFAULT '',
   `county` varchar(255) NOT NULL DEFAULT '',
   `state` varchar(255) NOT NULL DEFAULT '',
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `monuments_us_(en)` (
   `lon` double NOT NULL DEFAULT  0,
   `description` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
-  `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`refnum`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)

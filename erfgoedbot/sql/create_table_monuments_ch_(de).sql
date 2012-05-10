@@ -1,5 +1,5 @@
 connect p_erfgoed_p sql.toolserver.org;
-DROP TABLE IF EXISTS `monuments_ch_(de)`; 
+DROP TABLE IF EXISTS `monuments_ch_(de)`;
 CREATE TABLE IF NOT EXISTS `monuments_ch_(de)` (
   `kgs-nr` int(11) NOT NULL DEFAULT  0,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -17,4 +17,4 @@ CREATE TABLE IF NOT EXISTS `monuments_ch_(de)` (
   PRIMARY KEY (`kgs-nr`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

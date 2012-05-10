@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS `monuments_de-he_(de)` (
   `commonscat` varchar(255) NOT NULL DEFAULT '',
   `lat` double NOT NULL DEFAULT  0,
   `lon` double NOT NULL DEFAULT  0,
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(255) NOT NULL DEFAULT '',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `registrant_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`nummer`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)

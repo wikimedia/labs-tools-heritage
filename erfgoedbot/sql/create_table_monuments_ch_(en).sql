@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS `monuments_ch_(en)` (
   PRIMARY KEY (`kgs_nr`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
