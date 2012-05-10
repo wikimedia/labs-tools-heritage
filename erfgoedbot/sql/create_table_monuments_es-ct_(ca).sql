@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Catalunya in Catalan table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_es-ct_(ca)`;
 CREATE TABLE IF NOT EXISTS `monuments_es-ct_(ca)` (

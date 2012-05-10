@@ -1,4 +1,3 @@
-/* Create table statement for the protected heritage sites in Wallona in English */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-wal_(en)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-wal_(en)` (

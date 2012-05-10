@@ -1,4 +1,3 @@
-/* Create table statement for Belarus in Belarussian */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_by_(be-x-old)`;
 CREATE TABLE IF NOT EXISTS `monuments_by_(be-x-old)` (

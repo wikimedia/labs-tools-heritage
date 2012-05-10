@@ -1,4 +1,3 @@
-/* Create table statement for the Baudenkmäler in Bayern in german */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_de-by_(de)`;
 CREATE TABLE IF NOT EXISTS `monuments_de-by_(de)` (

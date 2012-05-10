@@ -1,4 +1,3 @@
-/* Create table statement for the Rijksmonumenten in Spain in Spanish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_es_(es)`;
 CREATE TABLE IF NOT EXISTS `monuments_es_(es)` (

@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Ireland */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ie_(en)`;
 CREATE TABLE IF NOT EXISTS `monuments_ie_(en)` (

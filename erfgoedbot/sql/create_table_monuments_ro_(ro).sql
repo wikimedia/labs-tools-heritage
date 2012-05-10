@@ -1,4 +1,3 @@
-/* Create table statement for monuments in Romania */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ro_(ro)`;
 CREATE TABLE IF NOT EXISTS `monuments_ro_(ro)` (

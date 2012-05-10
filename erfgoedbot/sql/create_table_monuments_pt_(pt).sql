@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Portugal (IGESPAR) in Portugese */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_pt_(pt)`;
 CREATE TABLE IF NOT EXISTS `monuments_pt_(pt)` (

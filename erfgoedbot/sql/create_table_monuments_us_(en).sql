@@ -1,4 +1,3 @@
-/* Create table statement for the National Register of Historic Places listings in the United States in English */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_us_(en)`;
 CREATE TABLE IF NOT EXISTS `monuments_us_(en)` (

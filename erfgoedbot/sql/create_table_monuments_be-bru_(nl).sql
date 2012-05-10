@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Brussels in Dutch */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-bru_(nl)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-bru_(nl)` (

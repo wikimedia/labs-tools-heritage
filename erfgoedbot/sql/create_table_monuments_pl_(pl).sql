@@ -1,4 +1,3 @@
-/* Create table statement for the Rijksmonumenten in the Poland in Polish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_pl_(pl)`;
 CREATE TABLE IF NOT EXISTS `monuments_pl_(pl)` (

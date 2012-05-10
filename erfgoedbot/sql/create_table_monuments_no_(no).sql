@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Norway in No */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_no_(no)`;
 CREATE TABLE IF NOT EXISTS `monuments_no_(no)` (

@@ -1,4 +1,3 @@
-/* Create table statement for the patrimoine immobilier classé in Wallonië in French */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-wal_(fr)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-wal_(fr)` (

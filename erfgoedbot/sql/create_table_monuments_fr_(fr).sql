@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in France in French table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_fr_(fr)`;
 CREATE TABLE IF NOT EXISTS `monuments_fr_(fr)` (

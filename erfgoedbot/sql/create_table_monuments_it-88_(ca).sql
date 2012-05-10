@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Sardinia table */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_it-88_(ca)`;
 CREATE TABLE IF NOT EXISTS `monuments_it-88_(ca)` (

@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Luxemburg in Luxemburgish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_lu_(lb)`;
 CREATE TABLE IF NOT EXISTS `monuments_lu_(lb)` (

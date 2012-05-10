@@ -1,4 +1,3 @@
-/* Create table statement for bygninger in Denmark in Danish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_dk-bygninger_(da)`;
 CREATE TABLE IF NOT EXISTS `monuments_dk-bygninger_(da)` (

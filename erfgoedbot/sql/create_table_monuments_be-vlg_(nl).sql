@@ -1,4 +1,3 @@
-/* Create table statement for the Onroerend Erfgoed in Vlaanderen in Dutch */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-vlg_(nl)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-vlg_(nl)` (

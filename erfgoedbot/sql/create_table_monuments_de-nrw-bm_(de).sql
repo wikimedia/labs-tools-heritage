@@ -1,4 +1,3 @@
-/* Create table statement for the Baudenkmaeler in Bergheim in german */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_de-nrw-bm_(de)`;
 CREATE TABLE IF NOT EXISTS `monuments_de-nrw-bm_(de)` (

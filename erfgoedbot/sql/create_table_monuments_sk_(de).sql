@@ -1,4 +1,3 @@
-/* Create table statement for the Monuments in Slovakia in German */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_sk_(de)`;
 CREATE TABLE IF NOT EXISTS `monuments_sk_(de)` (

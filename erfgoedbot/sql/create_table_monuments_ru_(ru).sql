@@ -1,4 +1,3 @@
-/* Create table statement for the monuments in Russia in Russian. Field names are English already */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ru_(ru)`;
 CREATE TABLE IF NOT EXISTS `monuments_ru_(ru)` (

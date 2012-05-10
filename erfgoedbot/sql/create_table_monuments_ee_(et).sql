@@ -1,4 +1,3 @@
-/* Create table statement for the Rijksmonumenten in the Estonia in Estoian */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ee_(et)`;
 CREATE TABLE IF NOT EXISTS `monuments_ee_(et)` (

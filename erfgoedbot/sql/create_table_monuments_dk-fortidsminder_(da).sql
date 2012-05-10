@@ -1,4 +1,3 @@
-/* Create table statement for fortidsminder in Denmark in Danish */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_dk-fortidsminder_(da)`;
 CREATE TABLE IF NOT EXISTS `monuments_dk-fortidsminder_(da)` (

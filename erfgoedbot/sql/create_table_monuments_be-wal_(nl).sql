@@ -1,4 +1,3 @@
-/* Create table statement for the Beschermd Erfgoed in Wallonië in Dutch */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_be-wal_(nl)`;
 CREATE TABLE IF NOT EXISTS `monuments_be-wal_(nl)` (

@@ -1,4 +1,3 @@
-/* Create table statement for the Kulturdenkmäler in Hessen in german */
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_de-he_(de)`;
 CREATE TABLE IF NOT EXISTS `monuments_de-he_(de)` (
