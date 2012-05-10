@@ -1,7 +1,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_lu_(lb)`;
 CREATE TABLE IF NOT EXISTS `monuments_lu_(lb)` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL DEFAULT  0,
   `lag` varchar(255) NOT NULL DEFAULT '',
   `uertschaft` varchar(255) NOT NULL DEFAULT '',
   `offiziellen_numm` varchar(255) NOT NULL DEFAULT '',

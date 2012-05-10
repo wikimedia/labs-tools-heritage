@@ -1,7 +1,7 @@
 connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `monuments_ch_(de)`; 
 CREATE TABLE IF NOT EXISTS `monuments_ch_(de)` (
-  `kgs-nr` int(11) NOT NULL AUTO_INCREMENT,
+  `kgs-nr` int(11) NOT NULL DEFAULT  0,
   `name` varchar(255) NOT NULL DEFAULT '',
   `addresse` varchar(255) NOT NULL DEFAULT '',
   `gemeinde` varchar(255) NOT NULL DEFAULT '',
