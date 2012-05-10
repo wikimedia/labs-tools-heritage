@@ -1935,7 +1935,6 @@ countries = {
             {
                 'source' : u'tri',
                 'dest' : u'tri',
-                'type' : 'varchar(11)',
                 'default' : '0',
             },
             {
