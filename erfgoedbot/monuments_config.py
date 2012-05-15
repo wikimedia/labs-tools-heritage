@@ -2962,7 +2962,7 @@ countries = {
             },
         ],
     },
-	    ('sk', 'de') : { # Monuments in Slovakia in Slovak
+	    ('sk', 'sk') : { # Monuments in Slovakia in Slovak
         'project' : u'wikipedia',
         'lang' : u'sk',
         'headerTemplate' : u'Monuments tablehead-SK',
