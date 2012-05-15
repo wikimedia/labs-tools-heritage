@@ -466,6 +466,22 @@ SELECT 'sk' AS `country`,
        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
        `registrant_url` AS `registrant_url`
        FROM `monuments_sk_(de)`;
+/* Slovakia in Slovak */
+REPLACE INTO `monuments_all`
+SELECT 'sk' AS `country`,
+       'sk' AS `lang`,
+       `idobjektu` AS `id`,
+       `nazov-sk` AS `name`,
+       `adresa` AS `address`,
+       `obec` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+       `fotka` AS `image`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+       REPLACE( `clanok`,  ' ',  '_' ) AS `monument_article`,
+       `registrant_url` AS `registrant_url`
+       FROM `monuments_sk_(sk)`;
 /* South Tyrol in German */
 REPLACE INTO `monuments_all`
 SELECT 'it-bz' AS `country`, 

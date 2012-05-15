@@ -2962,6 +2962,122 @@ countries = {
             },
         ],
     },
+	    ('sk', 'de') : { # Monuments in Slovakia in Slovak
+        'project' : u'wikipedia',
+        'lang' : u'sk',
+        'headerTemplate' : u'Monuments tablehead-SK',
+        'rowTemplate' : u'Monuments tableline-SK',
+        'footerTemplate' : u'Monuments tablefoot-SK',
+        'commonsTemplate' : u'Cultural Heritage Slovakia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Slovakia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Slovakia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'User:Multichill/Unused Monument Slovakia',
+        'imagesWithoutIdPage' : u'User:Multichill/Monument Slovakia without ID',
+        'namespaces' : [0],
+        'table' : u'monuments_sk_(sk)',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : u'IDobjektu',
+        'fields' : [
+            {
+                'source' : u'IDobjektu',
+                'dest' : u'idobjektu',
+                'type' : 'varchar(11)',
+                'default' : '0',
+            },
+            {
+                'source' : u'Fotka',
+                'dest' : u'fotka',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'Názov',
+                'dest' : u'nazov-sk',
+            },
+            {
+                'source' : u'Názov-de',
+                'dest' : u'nazov-de',
+            },
+            {
+                'source' : u'Článok',
+                'dest' : u'clanok',
+            },
+            {
+                'source' : u'Názov_článku',
+                'dest' : u'nazov_clanku',
+            },
+            {
+                'source' : u'Adresa',
+                'dest' : u'adresa',
+            },
+            {
+                'source' : u'Adresa_pre_triedenie',
+                'dest' : u'adresa_pre_triedenie',
+            },
+            {
+                'source' : u'šírka',
+                'dest' : u'airka',
+            },
+            {
+                'source' : u'dĺžka',
+                'dest' : u'dlzka',
+            },
+            {
+                'source' : u'ISO-regiónu',
+                'dest' : u'iso-regionu',
+            },
+            {
+                'source' : u'Katastrálne_územie',
+                'dest' : u'katastralne_uzemie',
+            },
+            {
+               'source' : u'Súpisné_číslo',
+                'dest' : u'supisne_cislo',
+            },
+            {
+                'source' : u'Stav',
+                'dest' : u'stav',
+            },
+			{
+                'source' : u'popis',
+                'dest' : u'popis',
+            },
+            {
+                'source' : u'Unifikovaný názov NKP',
+                'dest' : u'unifikovany_nazov_nkp',
+            },			
+            {
+                'source' : u'Obec',
+                'dest' : u'obec',
+            },
+            {
+                'source' : u'Kód obce',
+                'dest' : u'kod_obce',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Okres',
+                'dest' : u'okres',
+            },
+            {
+                'source' : u'Kód okresu',
+                'dest' : u'kod_okresu',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'šírka',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'dĺžka',
+                'dest' : u'lon',
+            },
+        ],
+    },
+	
     ('us', 'en') : { # National Register of Historic Places listings in the United States in English
         'project' : u'wikipedia',
         'lang' : u'en',
