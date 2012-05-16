@@ -3075,6 +3075,10 @@ countries = {
                 'source' : u'dĺžka',
                 'dest' : u'lon',
             },
+			{
+                'source' : u'Beschreibung-de',
+                'dest' : u'beschreibung-de',
+            },
         ],
     },
 	
