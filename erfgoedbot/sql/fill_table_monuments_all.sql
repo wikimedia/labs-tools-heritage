@@ -1,4 +1,9 @@
-/* Create view for all country tables */
+/* Create view for all country tables 
+ * 
+ * Please keep this list sorted by country code!
+ *
+ * If you change something please test it. 
+ */
 connect p_erfgoed_p sql.toolserver.org;
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */
@@ -450,38 +455,6 @@ SELECT 'it-88' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_it-88_(ca)`;
-/* Slovakia in German */
-REPLACE INTO `monuments_all`
-SELECT 'sk' AS `country`,
-       'de' AS `lang`,
-       `objektid` AS `id`,
-       `name-de` AS `name`,
-       `adresse` AS `address`,
-       `obec` AS `municipality`,
-       `lat` AS `lat`,
-       `lon` AS `lon`,
-       `foto` AS `image`,
-       `source` AS `source`,
-       `changed` AS `changed`,
-       REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
-       `registrant_url` AS `registrant_url`
-       FROM `monuments_sk_(de)`;
-/* Slovakia in Slovak */
-REPLACE INTO `monuments_all`
-SELECT 'sk' AS `country`,
-       'sk' AS `lang`,
-       `idobjektu` AS `id`,
-       `nazov-sk` AS `name`,
-       `adresa` AS `address`,
-       `obec` AS `municipality`,
-       `lat` AS `lat`,
-       `lon` AS `lon`,
-       `fotka` AS `image`,
-       `source` AS `source`,
-       `changed` AS `changed`,
-       REPLACE( `clanok`,  ' ',  '_' ) AS `monument_article`,
-       `registrant_url` AS `registrant_url`
-       FROM `monuments_sk_(sk)`;
 /* South Tyrol in German */
 REPLACE INTO `monuments_all`
 SELECT 'it-bz' AS `country`, 
@@ -626,6 +599,22 @@ SELECT 'ru' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
 	FROM `monuments_ru_(ru)`;
+/* Scotland */
+REPLACE INTO `monuments_all`
+SELECT 'sct' AS `country`,
+       'en' AS `lang`,
+	`hbnum` AS `id`, 
+	`name` AS `name`,
+	'' AS `address`,
+	`parbur` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	`image` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+	FROM `monuments_sct_(en)`;
 /* Sweden */
 REPLACE INTO `monuments_all`
 SELECT 'se' AS `country`,
@@ -642,6 +631,38 @@ SELECT 'se' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_se_(sv)`;
+/* Slovakia in German */
+REPLACE INTO `monuments_all`
+SELECT 'sk' AS `country`,
+       'de' AS `lang`,
+       `objektid` AS `id`,
+       `name-de` AS `name`,
+       `adresse` AS `address`,
+       `obec` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+       `foto` AS `image`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+       REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
+       `registrant_url` AS `registrant_url`
+       FROM `monuments_sk_(de)`;
+/* Slovakia in Slovak */
+REPLACE INTO `monuments_all`
+SELECT 'sk' AS `country`,
+       'sk' AS `lang`,
+       `idobjektu` AS `id`,
+       `nazov-sk` AS `name`,
+       `adresa` AS `address`,
+       `obec` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+       `fotka` AS `image`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+       REPLACE( `clanok`,  ' ',  '_' ) AS `monument_article`,
+       '' AS `registrant_url` /* FIXME: Add this field to source table */
+       FROM `monuments_sk_(sk)`;
 /* United States */
 REPLACE INTO `monuments_all`
 SELECT 'us' AS `country`,
