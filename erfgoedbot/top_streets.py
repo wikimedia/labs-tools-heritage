@@ -46,6 +46,7 @@ def printTopStreets (addresses, minimum):
     '''
     streets = Counter() #collections.Counter
     for address in addresses:
+	address = address.replace(u'{{sorteer|', u'')
 	temp = u''
 	partslist = []
 	for addrPart in address.split(u' '):
