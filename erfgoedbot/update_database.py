@@ -212,8 +212,9 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
       warnings.simplefilter("always")
       cursor.execute(query, fieldvalues)
 
-      if len(w) == 1:
-        print w[-1].message, " when running ", query % tuple(fieldvalues)
+      #FIXME : Disable for now because print throws UnicodeEncodeErrors
+      #if len(w) == 1:
+      #  print w[-1].message, " when running ", query % tuple(fieldvalues)
       
     #print contents
     #print u'updating!'
