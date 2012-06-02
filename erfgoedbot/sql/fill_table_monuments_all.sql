@@ -665,7 +665,7 @@ SELECT 'sk' AS `country`,
        `source` AS `source`,
        `changed` AS `changed`,
        REPLACE( `artikel`,  ' ',  '_' ) AS `monument_article`,
-       `registrant_url` AS `registrant_url`
+       '' AS `registrant_url` /* FIXME: Add this field to source table */
        FROM `monuments_sk_(de)`;
 /* Slovakia in Slovak */
 REPLACE INTO `monuments_all`
