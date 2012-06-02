@@ -3,8 +3,28 @@
  * Please keep this list sorted by country code!
  *
  * If you change something please test it. 
+ *
+ * FIXME : Don't hardcode database and server
  */
 connect p_erfgoed_p sql.toolserver.org;
+CREATE TABLE IF NOT EXISTS `monuments_all` (
+	  `country` varchar(10) NOT NULL DEFAULT '',
+	  `lang` varchar(10) NOT NULL DEFAULT '',
+	  `id` varchar(25) NOT NULL DEFAULT '0',
+	  `name` varchar(255) NOT NULL DEFAULT '',
+	  `address` varchar(255) NOT NULL DEFAULT '',
+	  `municipality` varchar(255) NOT NULL DEFAULT '',
+	  `lat` double NOT NULL DEFAULT '0',
+	  `lon` double NOT NULL DEFAULT '0',
+	  `image` varchar(255) NOT NULL DEFAULT '',
+	  `source` varchar(255) NOT NULL DEFAULT '',
+	  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+	  `monument_article` varchar(255) NOT NULL DEFAULT '',
+	  `registrant_url` varchar(255) NOT NULL DEFAULT '',
+	  PRIMARY KEY (`country`,`lang`,`id`),
+	  KEY `latitude` (`lat`),
+	  KEY `longitude` (`lon`)
+	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */
 REPLACE INTO `monuments_all`
