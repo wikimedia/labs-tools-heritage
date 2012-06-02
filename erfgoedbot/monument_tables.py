@@ -15,7 +15,7 @@ def processCountry(countrycode, lang, countryconfig):
 	
 	table = countryconfig.get('table')
 	f = open("sql/create_table_" + table + ".sql","w")
-	f.write("connect p_erfgoed_p sql.toolserver.org;\n")
+	f.write("connect " + mconfig.db + " " + mconfig.db_server + ";\n")
 	f.write("DROP TABLE IF EXISTS `" + table + "`;\n")
 	f.write("CREATE TABLE IF NOT EXISTS `" + table + "` (\n")
 	
