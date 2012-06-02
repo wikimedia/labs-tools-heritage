@@ -46,7 +46,7 @@ class FormatJson extends FormatBase {
 	function outputEnd() {
 		$prefix = $suffix = '';
 		$callback = $this->api->getParam('callback');
-		if ( !is_null( $callback ) ) {
+		if ( !is_null( $callback ) and $callback ) {
 			$prefix = preg_replace( "/[^][.\\'\\\"_A-Za-z0-9]/", '', $callback ) . '(';
 			$suffix = ')';
 		}
