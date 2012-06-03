@@ -257,6 +257,17 @@ var pois = new OpenLayers.Layer.Vector("Monuments", {
       
     map.addLayer(pois);
 
+
+var firstpoisload=false;
+//zoom callback
+pois.events.register("featuresadded",pois,function(){
+    var bounds = pois.getDataExtent();
+     //alert (bounds);
+    if(bounds && !(firstpoisload)){ map.zoomToExtent(bounds,false); 
+			    firstpoisload=true; }
+});
+
+
     var feature = null;
     var highlightFeature = null;
     var lastFeature = null;
@@ -372,7 +383,7 @@ var pois = new OpenLayers.Layer.Vector("Monuments", {
 
 
 				// default zoon
-				var zoom = 12;
+				var zoom = 1;
 			        
 
 			      <?php echo $position;?>
