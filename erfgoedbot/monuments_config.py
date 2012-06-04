@@ -862,6 +862,10 @@ countries = {
                 'dest' : u'canton',
             },
             {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
                 'source' : u'CH1903_X',
                 'dest' : u'lat',
                 'conv' : u'CH1903ToLat',
