@@ -2288,6 +2288,11 @@ countries = {
                 'type' : 'int(11)',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+                'type' : '',
+            },
+            {
                 'source' : u'woonplaats',
                 'dest' : u'woonplaats',
             },

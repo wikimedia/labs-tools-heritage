@@ -694,7 +694,7 @@ SELECT 'nl' AS `country`,
        'nl' AS `lang`,
 		`objrijksnr` AS `id`, 
 		'nl' AS `adm0`,
-		NULL AS `adm1`, /* provincie AS `adm1`, */
+		`prov-iso` AS `adm1`,
 		`woonplaats` AS `adm2`,
 		NULL AS `adm3`,
 		NULL AS `adm4`,
