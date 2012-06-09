@@ -2597,7 +2597,7 @@ countries = {
         'commonsTemplate' : u'IGESPAR',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Portugal with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Portugal',
-        'unusedImagesPage' : u'User:Multichill/Unused IGESPAR photos',
+        'unusedImagesPage' : u'Wikipédia:Projetos/Património de Portugal/Fotos IGESPAR não usadas',
         'imagesWithoutIdPage' : u'User:Multichill/IGESPAR without an ID',
         'registrantUrlBase' : u'http://www.igespar.pt/pt/patrimonio/pesquisa/geral/patrimonioimovel/detail/%s',
         'namespaces' : [102],
