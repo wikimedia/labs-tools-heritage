@@ -1428,6 +1428,10 @@ countries = {
                 'type' : 'int(11)',
             },
             {
+                'source' : u'maakond',
+                'dest' : u'maakond',
+            },
+            {
                 'source' : u'nimi',
                 'dest' : u'nimi',
             },
