@@ -50,7 +50,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     wikipedia.output(u'withoutPhoto %s elements' % (len(withoutPhoto),))
     wikipedia.output(u'photos %s elements' % (len(photos),))
 
-    text = u'{{#ifexist:/header | {{/header}} }}\n' # People can add a /header template for with more info
+    text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n' # People can add a /header template for with more info
     text = text + u'<gallery>\n'
     totalImages = 0
     maxImages = 400
