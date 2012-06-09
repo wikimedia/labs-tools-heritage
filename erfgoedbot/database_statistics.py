@@ -85,7 +85,7 @@ def outputStatistics(statistics):
 
     output = output + u'|}\n'
     site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(site, u'Commons:Wiki_Loves_Monuments_2011/Monuments_database/Statistics')
+    page = wikipedia.Page(site, u'Commons:Monuments database/Statistics')
     
     comment = u'Updating monument database statistics'
     page.put(newtext = output, comment = comment)
