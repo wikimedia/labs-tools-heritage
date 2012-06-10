@@ -36,7 +36,11 @@ class FormatJson extends FormatBase {
 		$monumentArr = array();
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
-				$monumentArr[$name] = $value;
+				if ($name == "lat" || $name == "lon") {
+					$monumentArr[$name] = (float) $value;
+				} else {
+					$monumentArr[$name] = $value;
+				}
 			}
 		}
 		$this->returnJSONArray["monuments"][] = $monumentArr;	
