@@ -31,7 +31,7 @@ class Database {
 			} else {
 				
 				if ( is_array( $value ) ) {
-					if ( count( $value ) > 0 ) {
+					if ( count( $value ) > 1 ) {
 						$text .= $this->escapeIdentifier( $key ) . ' IN (' . $this->quote( $value[0] );
 						for ( $i = 1; $i < count( $value ); $i++ )
 							$text .= ', ' . $this->quote( $value[$i] );
