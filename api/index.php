@@ -4,7 +4,7 @@ ini_set('display_errors', true);
 ini_set('html_errors', false);
 
 /* Localization */
-require_once( '/home/krinkle/TsIntuition/ToolStart.php' );
+require_once( '/home/project/i/n/t/intuition/ToolserverI18N/ToolStart.php' );
 require_once( 'searchPage.php');
 require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
 
