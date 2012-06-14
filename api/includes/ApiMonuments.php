@@ -36,7 +36,7 @@ class ApiMonuments extends ApiBase {
     	);
     	
     	foreach ( Monuments::$dbFields as $field ) {
-			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_ISMULTI => true );
+			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 		}
