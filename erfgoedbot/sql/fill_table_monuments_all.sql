@@ -33,7 +33,8 @@ CREATE TABLE IF NOT EXISTS `monuments_all` (
 	  KEY `adm3` (`adm3`),
 	  KEY `adm4` (`adm4`),
 	  KEY `latitude` (`lat`),
-	  KEY `longitude` (`lon`)
+	  KEY `longitude` (`lon`),
+	  FULLTEXT KEY `name_ft` (`name`)
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */

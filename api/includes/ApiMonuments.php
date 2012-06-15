@@ -95,7 +95,11 @@ class ApiMonuments extends ApiBase {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
 			
-			if ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
+			if ( is_string( $value ) && substr( $value, 0, 1 ) == '~' ) {
+				//TODO: check whether this column supports fulltext search
+				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST (" .
+					$db->quote( substr( $value, 1 ) ) . ')';
+			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
 			} else {
@@ -252,6 +256,12 @@ Examples:
 
 Examples:
   <a href="api.php?action=search&amp;format=xml">api.php?action=search&amp;format=xml</a>
+
+<b>*** *** *** *** *** *** *** *** *** ***  Special matching rules  *** *** *** *** *** *** *** *** *** ***</b> 
+
+Terms containing percent sign (%): match these terms using prefix search
+
+Terms starting with "~": match these terms using full-text search
   
 </pre>
 </body>
