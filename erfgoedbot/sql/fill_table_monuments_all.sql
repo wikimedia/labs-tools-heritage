@@ -477,8 +477,7 @@ SELECT 'es' AS `country`,
         `changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
-        FROM `monuments_es_(es)`
-        WHERE tipobic='M';
+        FROM `monuments_es_(es)`;
 /* Catalunya in Catalan */
 REPLACE INTO `monuments_all`
 SELECT 'es-ct' AS `country`,
