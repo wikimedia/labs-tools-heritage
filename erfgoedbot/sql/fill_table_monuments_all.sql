@@ -32,10 +32,12 @@ CREATE TABLE IF NOT EXISTS `monuments_all` (
 	  KEY `adm2` (`adm2`),
 	  KEY `adm3` (`adm3`),
 	  KEY `adm4` (`adm4`),
-	  KEY `latitude` (`lat`),
-	  KEY `longitude` (`lon`),
-	  FULLTEXT KEY `name_ft` (`name`)
+	  FULLTEXT KEY `name_ft` (`name`),
+	  SPATIAL KEY `coord_spatial` (`coord`)
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	
+START TRANSACTION;
+
 TRUNCATE TABLE monuments_all;
 /* Andorra in Catalan */
 REPLACE INTO `monuments_all`
@@ -919,3 +921,7 @@ SELECT 'us' AS `country`,
         REPLACE( `article`,  ' ',  '_' ) AS `monument_article`,
         '' AS `registrant_url`
 	FROM `monuments_us_(en)`;
+
+UPDATE `monuments_all` SET `coord` = POINT(`lat`, `lon`);
+
+COMMIT;

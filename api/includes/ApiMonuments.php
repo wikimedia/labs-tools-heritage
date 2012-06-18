@@ -72,6 +72,7 @@ class ApiMonuments extends ApiBase {
         }
 
 		$where = array();
+		$forceIndex = false;
 		$db = Database::getDb();
 		
 		$continue = $this->getParam( 'srcontinue' );
@@ -119,16 +120,18 @@ class ApiMonuments extends ApiBase {
                 $bbox = $this->getParam('BBOX');
             }
             $coords = preg_split('/,|\s/', $bbox);
-            $bl_lon = $coords[0];
-            $bl_lat = $coords[1];
-            $tr_lon = $coords[2];
-            $tr_lat = $coords[3];
-            $where[] = 'lat BETWEEN ' . $db->quote( $bl_lat ) . ' AND ' . $db->quote( $tr_lat );
-            $where[] = 'lon BETWEEN ' . $db->quote( $bl_lon ) . ' AND ' . $db->quote( $tr_lon );
+            $bl_lon = floatval( $coords[0] );
+            $bl_lat = floatval( $coords[1] );
+            $tr_lon = floatval( $coords[2] );
+            $tr_lat = floatval( $coords[3] );
+            $where[] = "MBRContains( GeomFromText( "
+				. "'Polygon( ( $bl_lat $bl_lon, $bl_lat $tr_lon, $tr_lat $tr_lon, $tr_lat $bl_lon, $bl_lat $bl_lon ) )' ), "
+				. "`coord` )";
+			$forceIndex = 'coord_spatial';
         }
 
         //for kml and bbox get only monuments with coordinates
-        if ( ($this->getParam('format') == 'kml') or $bbox ) {
+        if ( ($this->getParam('format') == 'kml') ) {
             $where[] = 'lat<>0 AND lon<>0';
         }
 
@@ -144,7 +147,8 @@ class ApiMonuments extends ApiBase {
 
 		$limit = $this->getParam( 'limit' );
 		
-		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where, $orderby, $limit + 1 );
+		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where,
+			$orderby, $limit + 1, $forceIndex );
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), Monuments::$dbPrimaryKey );
 	}
 	

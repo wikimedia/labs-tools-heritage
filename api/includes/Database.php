@@ -49,9 +49,12 @@ class Database {
 		return substr( $text, 0, -strlen( $glue ) );
 	}
 	
-	function select($fields, $table, $where, $orderBy = false, $limit = false) {
+	function select($fields, $table, $where, $orderBy = false, $limit = false, $forceIndex = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $table );
+		if ( $forceIndex !== false ) {
+			$sql .= ' FORCE INDEX( ' . $this->escapeIdentifier( $forceIndex ) . ' ) ';
+		}
 		if ( count( $where ) > 0 ) {
 			$sql .= " WHERE (" . $this->implodeConds( $where, ') AND (' ) . ')';
 		}
