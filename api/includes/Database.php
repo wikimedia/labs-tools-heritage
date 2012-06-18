@@ -95,7 +95,11 @@ class Database {
 		if ( defined( 'DEBUG_FILE' ) && !preg_match( '/^SET\b/i', $sql ) ) {
 			file_put_contents( DEBUG_FILE, "\n\n$sql\n", FILE_APPEND );
 		}
-		return mysql_query( $sql, $this->db );
+		$res = mysql_query( $sql, $this->db );
+		if ( !$res ) {
+			throw new DBException( mysql_error(), mysql_errno() );
+		}
+		return $res;
 	}
 	
 	static function define($server, $database, $username, $password) {

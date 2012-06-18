@@ -41,4 +41,11 @@ abstract class FormatBase {
 		}
 		$this->outputEnd();
 	}
+
+	/**
+	 * @param array|string $errors: Error message or array of them
+	 */
+	function outputErrors( $errors ) {
+		// Does nothing by default because not every format has the means of reporting errors
+	}
 }

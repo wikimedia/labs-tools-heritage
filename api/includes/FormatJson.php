@@ -56,5 +56,12 @@ class FormatJson extends FormatBase {
 		}
 		echo $prefix . json_encode($this->returnJSONArray) . $suffix;
 	}
-	
+
+	function outputErrors( $errors ) {
+		$this->outputBegin( false );
+		foreach ( (array)$errors as $err ) {
+			$this->returnJSONArray['errors'][] = $err;
+		}
+		$this->outputEnd();
+	}
 }

@@ -48,7 +48,7 @@ class ApiMonuments extends ApiBase {
 		return $params;
 	}
 	
-	function execute() {
+	function executeModule() {
 		switch ( $this->getParam( 'action' ) ) {
 			case 'help':
 				$this->help();

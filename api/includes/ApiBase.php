@@ -12,6 +12,18 @@ abstract class ApiBase {
 	const PARAM_MAX = 3; // Max value allowed for a parameter. Only applies if TYPE='integer'
 	const PARAM_MIN = 5; // Lowest value allowed for a parameter. Only applies if TYPE='integer'
 
+	public function execute() {
+		try {
+			$this->executeModule();
+		} catch( Exception $e ) {
+			$format = $this->getFormatter();
+			$format->headers();
+			$format->outputErrors( $e->getMessage() );
+		}
+	}
+
+	protected abstract function executeModule();
+
 	protected $errors = array();
 	function setError($errorCode) {
 		$this->errors[] = $errorCode;

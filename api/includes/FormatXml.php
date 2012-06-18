@@ -38,4 +38,12 @@ class FormatXml extends FormatBase {
 	function outputEnd() {
 		echo '</monuments>';
 	}
+
+	function outputErrors( $errors ) {
+		echo "<errors>\n";
+		foreach ( (array)$errors as $err ) {
+			echo '<error>' . htmlspecialchars( $err ) . "</error>\n";
+		}
+		echo '</errors>';
+	}
 }
