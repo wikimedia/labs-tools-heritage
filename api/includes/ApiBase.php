@@ -146,7 +146,10 @@ abstract class ApiBase {
 		}
 		return $url . $this->getUrl( $params );
 	}
-	
+
+	/**
+	 * @return FormatBase
+	 */
 	function getFormatter() {
 		$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
 		return new $formatter( $this );
@@ -155,5 +158,9 @@ abstract class ApiBase {
 	function help() {
 		/* TODO: Write me! */
 		echo "This should show some help information. Collaborate writing it!";
+	}
+
+	function error( $message ) {
+		throw new Exception( $message );
 	}
 }

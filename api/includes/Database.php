@@ -5,16 +5,27 @@
  * @author Platonides
  */
 class Database {
+	/**
+	 * @var Database
+	 */
 	private static $singleton = null;
 	private $db;
-	
+
+	/**
+	 * @return Database
+	 */
 	static function getDb() {
 		if ( is_null( self::$singleton ) ) {
 			throw new Exception( 'Database not available' );
 		}
 		return self::$singleton;
 	}
-	
+
+	/**
+	 * @param $list
+	 *
+	 * @return string
+	 */
 	function implodeIdentifier($list) {
 		$l = '';
 		foreach( $list as $item ) {
@@ -22,7 +33,13 @@ class Database {
 		}
 		return substr( $l, 1 );
 	}
-	
+
+	/**
+	 * @param $where
+	 * @param $glue
+	 *
+	 * @return string
+	 */
 	function implodeConds($where, $glue) {
 		$text = '';
 		foreach ($where as $key => $value) {
@@ -48,7 +65,17 @@ class Database {
 		}
 		return substr( $text, 0, -strlen( $glue ) );
 	}
-	
+
+	/**
+	 * @param array $fields
+	 * @param string $table
+	 * @param array $where
+	 * @param array|bool $orderBy
+	 * @param int|bool $limit
+	 * @param string|bool $forceIndex
+	 *
+	 * @return ResultWrapper
+	 */
 	function select($fields, $table, $where, $orderBy = false, $limit = false, $forceIndex = false) {
 		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
 			$this->escapeIdentifier( $table );

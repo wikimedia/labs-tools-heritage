@@ -11,7 +11,7 @@ class ResultWrapper implements Iterator {
 	/**
 	 * Create a new result object from a result resource and a Database object
 	 *
-	 * @param DatabaseBase $database
+	 * @param Database $database
 	 * @param resource $result
 	 */
 	function __construct( $database, $result ) {
