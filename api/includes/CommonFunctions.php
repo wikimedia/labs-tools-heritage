@@ -36,5 +36,3 @@ function processWikitext($wikilang, $text, $makelinks) {
 function replaceSpaces( $in_string ) {
     return str_replace(' ', '_', $in_string);
 }
-
-?>
