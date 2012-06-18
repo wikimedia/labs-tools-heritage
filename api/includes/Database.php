@@ -91,6 +91,10 @@ class Database {
 	
 	/* Mysql specific */
 	function query($sql) {
+		// don't log teh useless SET NAMES utf8
+		if ( defined( 'DEBUG_FILE' ) && !preg_match( '/^SET\b/i', $sql ) ) {
+			file_put_contents( DEBUG_FILE, "\n\n$sql\n", FILE_APPEND );
+		}
 		return mysql_query( $sql, $this->db );
 	}
 	
