@@ -10,6 +10,8 @@ if ( get_magic_quotes_gpc() ) {
  */
 class ApiMonuments extends ApiBase {
 
+	const MAX_GEOSEARCH_AREA = 0.04;// 0.2 * 0.2 degrees
+
 	protected function getParamDescription() {
 		return array(
 			/* FIXME: Copy from http://etherpad.wikimedia.org/WLM-tech*/
@@ -60,6 +62,14 @@ class ApiMonuments extends ApiBase {
 				$this->statistics();
 		}
 	}
+
+	private $isComplex = false;
+	private function complexQuery() {
+		if ( $this->isComplex ) {
+			$this->error( 'Only one pattern matching (%) or full-text (~) condition allowed' );
+		}
+		$this->isComplex = true;
+	}
 	
 	function search() {
 		$fulltextColumns = array( 'name' => 1 );
@@ -93,12 +103,14 @@ class ApiMonuments extends ApiBase {
 				if ( !isset( $fulltextColumns[$field] ) ) {
 					$this->error( "Column `$field` does not support full-text search`" );
 				}
+				$this->complexQuery();
 				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST ("
 					. $db->quote( substr( $value, 1 ) ) . ')';
 				// Postfix the name with primary key because name can be duplicate.
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
 			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
+				$this->complexQuery();
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
 			} else {
@@ -121,6 +133,12 @@ class ApiMonuments extends ApiBase {
             $bl_lat = floatval( $coords[1] );
             $tr_lon = floatval( $coords[2] );
             $tr_lat = floatval( $coords[3] );
+			if ( $bl_lat > $tr_lat || $bl_lon > $tr_lon ) {
+				$this->error( 'Invalid bounding box' );
+			}
+			if ( ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
+				$this->error( 'bbox is too large' );
+			}
             $where[] = "MBRContains( GeomFromText( "
 				. "'Polygon( ( $bl_lat $bl_lon, $bl_lat $tr_lon, $tr_lat $tr_lon, $tr_lat $bl_lon, $bl_lat $bl_lon ) )' ), "
 				. "`coord` )";
