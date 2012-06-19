@@ -62,6 +62,7 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function search() {
+		$fulltextColumns = array( 'name' => 1 );
         
         if ( $this->getParam('format') == 'dynamickml' ) {
             #don't search just pass along the search parameters to kml network link file
@@ -73,16 +74,8 @@ class ApiMonuments extends ApiBase {
 
 		$where = array();
 		$forceIndex = false;
+		$orderby = Monuments::$dbPrimaryKey;
 		$db = Database::getDb();
-		
-		$continue = $this->getParam( 'srcontinue' );
-		if ( $continue ) {
-			$v = explode( '|', $continue );
-			for ( $i = 0; $i < count( Monuments::$dbPrimaryKey ); $i++ ){
-				 $where[] = $db->escapeIdentifier( Monuments::$dbPrimaryKey[$i] ) . '>=' . 
-				 	$db->quote( rawurldecode( $v[$i] ) );
-			}
-		}
 		
 		foreach ( Monuments::$dbFields as $field ) {
 			if ( $this->getParam( "srwith$field" ) ) {
@@ -97,9 +90,14 @@ class ApiMonuments extends ApiBase {
 			if ( $value === false ) continue;
 			
 			if ( is_string( $value ) && substr( $value, 0, 1 ) == '~' ) {
-				//TODO: check whether this column supports fulltext search
-				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST (" .
-					$db->quote( substr( $value, 1 ) ) . ')';
+				if ( !isset( $fulltextColumns[$field] ) ) {
+					$this->error( "Column `$field` does not support full-text search`" );
+				}
+				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST ("
+					. $db->quote( substr( $value, 1 ) ) . ')';
+				// Postfix the name with primary key because name can be duplicate.
+				// Filesort either way.
+				$orderby = array_merge( array( $field ), $orderby );
 			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
@@ -112,9 +110,8 @@ class ApiMonuments extends ApiBase {
 			}
 		}
         
-        $bbox = '';
         if ( $this->getParam('bbox') or $this->getParam('BBOX') ) {
-            if ( $this->getParam('bbox') ) {
+			if ( $this->getParam('bbox') ) {
                 $bbox = $this->getParam('bbox');
             } else {
                 $bbox = $this->getParam('BBOX');
@@ -136,20 +133,28 @@ class ApiMonuments extends ApiBase {
         }
 
         /* FIXME: User should be able to set sort fields and order */
-        $orderby = array();
-        if ( $this->getParam('format') == 'kml' ) {
-            $orderby = array('image', 'id'); /* FIXME: Randomize the KML output. */
-        } if ( $this->getParam('format') == 'html' ) {
-            $orderby = array('country', 'municipality', 'address');
-        } else {
-            $orderby = Monuments::$dbPrimaryKey;
-        }
+		if ( $this->getParam('format') == 'kml' ) {
+			$orderby = array('image', 'id'); /* FIXME: Randomize the KML output. */
+		} elseif ( $this->getParam('format') == 'html' ) {
+			$orderby = array('country', 'municipality', 'address');
+		}
+		$continue = $this->getParam( 'srcontinue' );
+		if ( $continue ) {
+			$v = explode( '|', $continue );
+			if ( count( $orderby ) != count( $v ) ) {
+				$this->error( 'Invalid continue parameter' );
+			}
+			for ( $i = 0; $i < count( $orderby ); $i++ ){
+				$where[] = $db->escapeIdentifier( $orderby[$i] ) . '>='
+					. $db->quote( rawurldecode( $v[$i] ) );
+			}
+		}
 
 		$limit = $this->getParam( 'limit' );
 		
 		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where,
 			$orderby, $limit + 1, $forceIndex );
-		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), Monuments::$dbPrimaryKey );
+		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), $orderby );
 	}
 	
 	function statistics() {
