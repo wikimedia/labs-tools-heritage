@@ -105,7 +105,7 @@ class ApiMonuments extends ApiBase {
 				}
 				$this->complexQuery();
 				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST ("
-					. $db->quote( substr( $value, 1 ) ) . ')';
+					. $db->quote( substr( $value, 1 ) ) . ' IN BOOLEAN MODE)';
 				// Postfix the name with primary key because name can be duplicate.
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
