@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `monuments_all` (
 	  KEY `adm2` (`adm2`),
 	  KEY `adm3` (`adm3`),
 	  KEY `adm4` (`adm4`),
+	  KEY `name` (`name`),
 	  FULLTEXT KEY `name_ft` (`name`),
 	  SPATIAL KEY `coord_spatial` (`coord`)
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
