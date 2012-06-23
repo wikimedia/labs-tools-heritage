@@ -11,7 +11,7 @@ python update_database.py
 python update_database.py -countrycode:XX -lang:YY    
 
 '''
-import sys, time, warnings
+import sys, time, warnings, datetime
 import monuments_config as mconfig
 sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
@@ -315,22 +315,30 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	    cursor.execute(query, (countryconfig.get('lang'), page.title(True), params[0]))
  
 
-def processCountry(countryconfig, conn, cursor):
+def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
     '''
     Process all the monuments of one country
     '''
-
-    if countryconfig.get('truncate'):
-	query = u"""TRUNCATE table `%s`""" % (countryconfig.get('table'),)
-	cursor.execute(query)
 
     site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
     rowTemplate = wikipedia.Page(site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
     transGen = pagegenerators.ReferringPageGenerator(rowTemplate, onlyTemplateInclusion=True)
     filteredGen = pagegenerators.NamespaceFilterPageGenerator(transGen, countryconfig.get('namespaces'))
-    pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
-    for page in pregenerator:
+
+    if countryconfig.get('truncate') or fullUpdate:
+	# Some countries are always truncated, otherwise only do it when requested.
+	query = u"""TRUNCATE table `%s`""" % (countryconfig.get('table'),)
+	cursor.execute(query)
+    	generator = pagegenerators.PreloadingGenerator(filteredGen)
+	#FIXME : Truncate the table
+    else:
+	# Preloading first because the whole page needs to be fetched to get the time
+	pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
+	begintime = datetime.datetime.utcnow() + datetime.timedelta(days=0-daysBack)
+	generator = pagegenerators.EdittimeFilterPageGenerator(pregenerator, begintime=begintime)
+
+    for page in generator:
 	if page.exists() and not page.isRedirectPage():
 	    # Do some checking
 	    processText(page.get(), page.permalink(), countryconfig, conn, cursor, page=page)
@@ -352,6 +360,8 @@ def main():
 
     countrycode = u''
     textfile = u''
+    fullUpdate = False
+    daysBack = 2 # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
     (conn, cursor) = connectDatabase()
@@ -361,6 +371,10 @@ def main():
 	    countrycode = arg [len('-countrycode:'):]
 	elif arg.startswith('-textfile:'):
 	    textfile = arg [len('-textfile:'):]
+    	elif arg.startswith('-daysback:'):
+	    daysBack = int(arg [len('-daysback:'):])
+	elif arg == u'-fullupdate':
+	    fullUpdate = True
 
     if countrycode:
         lang = wikipedia.getSite().language()
@@ -372,11 +386,11 @@ def main():
 	    wikipedia.output(u'Going to work on textfile.')
 	    processTextfile(textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
 	else:
-	    processCountry(mconfig.countries.get((countrycode, lang)), conn, cursor)
+	    processCountry(mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
     else:
 	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
 	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    processCountry(countryconfig, conn, cursor)
+	    processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
     '''
 
 
