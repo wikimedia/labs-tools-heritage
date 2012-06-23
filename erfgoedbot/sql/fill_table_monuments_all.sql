@@ -989,14 +989,14 @@ SELECT 'us' AS `country`,
 
 START TRANSACTION;
 
-DELETE FROM monuments_all
+DELETE /* SLOW_OK */ FROM monuments_all
 	USING monuments_all LEFT JOIN monuments_all_tmp
 		ON monuments_all.country = monuments_all_tmp.country
 				AND monuments_all.lang = monuments_all_tmp.lang
 				AND monuments_all.id = monuments_all_tmp.id
 	WHERE monuments_all_tmp.id IS NULL;
 
-REPLACE INTO monuments_all
+REPLACE /* SLOW_OK */ INTO monuments_all
 	SELECT monuments_all_tmp.*
 		FROM monuments_all_tmp LEFT JOIN monuments_all
 			ON monuments_all.country = monuments_all_tmp.country
