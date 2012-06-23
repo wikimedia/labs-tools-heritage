@@ -3202,6 +3202,10 @@ countries = {
                 'dest' : u'name',
             },
             {
+                'source' : u'name_extra',
+                'dest' : u'name_extra',
+            },
+            {
                 'source' : u'address',
                 'dest' : u'address',
             },
@@ -3210,20 +3214,24 @@ countries = {
                 'dest' : u'city',
             },
             {
+                'source' : u'nocity',
+                'dest' : u'nocity',
+            },
+            {
                 'source' : u'county',
                 'dest' : u'county',
             },
             {
-                'source' : u'state',
-                'dest' : u'state',
-            },
-            {
-                'source' : u'showcounty',
-                'dest' : u'',
+                'source' : u'state_iso',
+                'dest' : u'state_iso',
             },
             {
                 'source' : u'date',
                 'dest' : u'date',
+            },
+            {
+                'source' : u'date_extra',
+                'dest' : u'date_extra',
             },
             {
                 'source' : u'image',
@@ -3236,6 +3244,10 @@ countries = {
             {
                 'source' : u'lon',
                 'dest' : u'lon',
+            },
+            {
+                'source' : u'nolatlon',
+                'dest' : u'nolatlon',
             },
             {
                 'source' : u'description',

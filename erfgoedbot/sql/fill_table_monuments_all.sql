@@ -970,7 +970,7 @@ SELECT 'us' AS `country`,
        'en' AS `lang`,
 		`refnum` AS `id`, 
 		'us' AS `adm0`,
-		NULL AS `adm1`, /* State  AS `adm1`, */
+		`state_iso` AS `adm1`,
 		`county` AS `adm2`,
 		NULL AS `adm3`,
 		NULL AS `adm4`,
