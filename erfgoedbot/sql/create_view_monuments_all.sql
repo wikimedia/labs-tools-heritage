@@ -1,5 +1,4 @@
 /* Create view for all country tables */
-connect p_erfgoed_p sql.toolserver.org;
 DROP VIEW IF EXISTS monuments_all;
 CREATE VIEW monuments_all AS 
 /* Switzerland */

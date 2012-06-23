@@ -1,4 +1,3 @@
-connect p_erfgoed_p sql.toolserver.org;
 DROP TABLE IF EXISTS `commonscat`;
 CREATE TABLE `commonscat` (
   `site` ENUM ('be-x-old', 'ca', 'da', 'de', 'en', 'es', 'et', 'fr', 'gl', 'lb', 'nl', 'no', 'pl', 'pt', 'ro', 'sv' ) NOT NULL, -- Wikipedia the title belongs to

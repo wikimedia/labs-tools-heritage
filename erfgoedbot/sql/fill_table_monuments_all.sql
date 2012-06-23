@@ -3,10 +3,7 @@
  * Please keep this list sorted by country code!
  *
  * If you change something please test it. 
- *
- * FIXME : Don't hardcode database and server
  */
-connect p_erfgoed_p sql.toolserver.org;
 
 -- Update monuments_all_tmp when you change this table
 CREATE TABLE IF NOT EXISTS `monuments_all` (
