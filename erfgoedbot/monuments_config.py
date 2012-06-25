@@ -2467,7 +2467,7 @@ countries = {
         'unusedImagesPage' : u'User:Multichill/Unused monument photos',
         'imagesWithoutIdPage' : u'User:Multichill/Monument photos without an ID',
         'registrantUrlBase' : u'http://www.kulturminnesok.no/kulturminnesok/kulturminne/?LOK_ID=%s',
-        'namespaces' : [4],
+        'namespaces' : [0, 4], #FIXME : Remove 4 when we're done moving
         'table' : u'monuments_no_(no)',
         'truncate' : False,
         'primkey' : u'id',
