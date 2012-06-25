@@ -986,7 +986,7 @@ countries = {
         'registrantUrlBase' : u'https://www.kulturarv.dk/fbb/sagvis.pub?sag=%s',
         'namespaces' : [0],
         'table' : u'monuments_dk-bygninger_(da)',
-        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'truncate' : False,
         'primkey' : (u'kommunenr', u'ejendomsnr', u'bygningsnr'),
         'fields' : [
             {
