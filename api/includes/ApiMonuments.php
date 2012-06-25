@@ -11,6 +11,7 @@ if ( get_magic_quotes_gpc() ) {
 class ApiMonuments extends ApiBase {
 
 	const MAX_GEOSEARCH_AREA = 0.04;// 0.2 * 0.2 degrees
+	const GRANULARITY = 20;
 
 	protected function getParamDescription() {
 		return array(
@@ -139,10 +140,10 @@ class ApiMonuments extends ApiBase {
 			if ( ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
 				$this->error( 'bbox is too large' );
 			}
-            $where[] = "MBRContains( GeomFromText( "
-				. "'Polygon( ( $bl_lat $bl_lon, $bl_lat $tr_lon, $tr_lat $tr_lon, $tr_lat $bl_lon, $bl_lat $bl_lon ) )' ), "
-				. "`coord` )";
-			$forceIndex = 'coord_spatial';
+			$where['lat_int'] = self::intRange( $bl_lat, $tr_lat );
+			$where['lon_int'] = self::intRange( $bl_lon, $tr_lon );
+			$where[] = "`lat` BETWEEN $bl_lat AND $tr_lat";
+			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
         }
 
         //for kml and bbox get only monuments with coordinates
@@ -294,5 +295,26 @@ Terms starting with "~": match these terms using full-text search
 </body>
 </html>
         ';
-	}    
+	}
+
+	/**
+	 * Returns a range of tenths of degree. Borrowed from Extension:GeoData
+	 * @param float $start
+	 * @param float $end
+	 * @return Array
+	 */
+	public static function intRange( $start, $end ) {
+		$start = round( $start * self::GRANULARITY );
+		$end = round( $end * self::GRANULARITY );
+		// @todo: works only on Earth
+		if ( $start > $end ) {
+			return array_merge(
+				range( -180 * self::GRANULARITY, $end ),
+				range( $start, 180 * self::GRANULARITY )
+			);
+		} else {
+			return range( $start, $end );
+		}
+	}
+
 }
