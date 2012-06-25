@@ -426,7 +426,7 @@ countries = {
         'registrantUrlBase' : u'',
         'namespaces' : [0],
         'table' : u'monuments_be-wal_(en)',
-        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'truncate' : False,
         'primkey' : ('niscode', 'objcode'),
         'fields' : [
             {
@@ -518,7 +518,7 @@ countries = {
         'registrantUrlBase' : u'',
         'namespaces' : [0],
         'table' : u'monuments_be-wal_(fr)',
-        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'truncate' : False,
         'primkey' : ('id_commune', 'clt-pex','id_objet'), # or do I use CLT/PEX here?
         'fields' : [
             {
@@ -620,7 +620,7 @@ countries = {
         'registrantUrlBase' : u'',
         'namespaces' : [0],
         'table' : u'monuments_be-wal_(nl)',
-        'truncate' : True, #FIXME: Add combined primkeys to the code
+        'truncate' : False, 
         'primkey' : ('niscode', 'objcode'),
         'fields' : [
             {
