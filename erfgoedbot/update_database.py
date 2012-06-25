@@ -285,12 +285,29 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
 		wikipedia.output(u'Field: %s' % (field,))
 		wikipedia.output(u'Value: %s' % (value,))
                 #time.sleep(5)
-    
-    # The first key is assumed to be the primary key, check if it is it.
-    if contents.get(countryconfig.get('primkey')) or countryconfig.get('truncate'):
+
+    # If we truncate we don't have to check for primkey (it's a made up one)
+    if countryconfig.get('truncate'):
 	updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
-	#print contents
-	#time.sleep(5)
+    # Check if the primkey is a tuple and if all parts are present
+    elif isinstance(countryconfig.get('primkey'), tuple):
+	allKeys=True
+	for partkey in countryconfig.get('primkey'):
+	    if not contents.get(lookupSourceField(partkey, countryconfig)):
+		allKeys=False
+	if allKeys:
+	    updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
+    # Check if the primkey is filled. This only works for a single primkey, not a tuple
+    elif contents.get(lookupSourceField(countryconfig.get('primkey'), countryconfig)):
+	updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
+
+def lookupSourceField(destination, countryconfig):
+    '''
+    Lookup the source field of a destination.
+    '''
+    for field in countryconfig.get('fields'):
+	if field.get('dest')==destination:
+	    return field.get('source')
 
 def processText(text, source, countryconfig, conn, cursor, page=None):
     '''
