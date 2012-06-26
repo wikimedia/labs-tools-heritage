@@ -38,7 +38,9 @@ CREATE TABLE IF NOT EXISTS `monuments_all` (
 	  KEY `adm4` (`adm4`),
 	  KEY `name` (`name`),
 	  FULLTEXT KEY `name_ft` (`name`),
-	  KEY `coord` (`lat_int`, `lon_int`, `lat`)
+	  KEY `coord` (`lat_int`, `lon_int`, `lat`),
+	  KEY `image_id` (`image`, `id`),
+	  KEY `cma` (`country`, `municipality`(100), `address`(100))
 	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 TRUNCATE TABLE monuments_all;
