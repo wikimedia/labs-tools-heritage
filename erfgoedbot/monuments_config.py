@@ -2503,6 +2503,10 @@ countries = {
                 'dest' : u'lon',
             },
             {
+                'source' : u'county_iso',
+                'dest' : u'county_iso',
+            },
+            {
                 'source' : u'kommunenr',
                 'dest' : u'kommunenr',
                 'type' : 'int(10)',
