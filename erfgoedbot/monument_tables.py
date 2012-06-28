@@ -59,7 +59,7 @@ def processCountry(countrycode, lang, countryconfig):
 		if not isinstance(source_primkey, (str, unicode)):
 			primkey = u"`,`".join(source_primkey)
 		else:
-			raise "Primary key not found"
+			raise Exception("Primary key not found")
 	
 	f.write('  PRIMARY KEY (`' + primkey.encode('utf8') + '`),\n')
 	f.write('  KEY `latitude` (`lat`),\n  KEY `longitude` (`lon`)\n')
