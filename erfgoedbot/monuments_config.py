@@ -1510,7 +1510,8 @@ countries = {
             {
                 'source' : u'tipus',
                 'dest' : u'tipus',
-            },            {
+            },
+            {
                 'source' : u'municipi',
                 'dest' : u'municipi',
             },
@@ -1631,8 +1632,8 @@ countries = {
     ('es-ct', 'ca') : { # Monuments in Catalunya in Catalan table
         'project' : u'wikipedia',
         'lang' : u'ca',
-        'headerTemplate' : u'Capçalera BCIN',
-        'rowTemplate' : u'Filera BCIN',
+        'headerTemplate' : u'Capçalera IPA',
+        'rowTemplate' : u'Filera IPA',
         'commonsTemplate' : u'BIC',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Spain with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Catalonia',
@@ -1643,7 +1644,7 @@ countries = {
         'primkey' : u'bic',
         'fields' : [
             {
-                'source' : u'bic',
+                'source' : u'id',
                 'dest' : u'bic',
                 'type' : 'varchar(25)',
                 'default' : '0',
@@ -1653,9 +1654,17 @@ countries = {
                 'dest' : u'idurl',
             },
             {
-                'source' : u'bcin',
-                'dest' : u'bcin',
-                'default' : '0',
+                'source' : u'idurl2',
+                'dest' : u'idurl2',
+            },
+            {
+                'source' : u'prot',
+                'dest' : u'prot',
+                'type' : "enum('Error', 'BCIN','BCIL')",
+            },
+            {
+                'source' : u'idprot',
+                'dest' : u'idprot',
             },
             {
                 'source' : u'nom',
@@ -1846,7 +1855,7 @@ countries = {
                 'source' : u'imatge',
                 'dest' : u'imatge',
             },
-           {
+            {
                'source' : u'title',
                'dest' : u'title',
             },
@@ -1882,6 +1891,11 @@ countries = {
             {
                 'source' : u'nom',
                 'dest' : u'nom',
+            },
+            {
+                'source' : u'prot',
+                'dest' : u'prot',
+                'type' : "enum('Error', 'C','I')",
             },
             {
                 'source' : u'època',
