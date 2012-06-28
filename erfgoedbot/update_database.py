@@ -394,6 +394,8 @@ def main():
 	    daysBack = int(arg [len('-daysback:'):])
 	elif arg == u'-fullupdate':
 	    fullUpdate = True
+	else:
+		raise Exception("Bad parameters. Expected -countrycode, -textfile, -daysback, -fullupdate or  pywikipediabot args.")
 
     if countrycode:
         lang = wikipedia.getSite().language()
