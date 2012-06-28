@@ -300,6 +300,8 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
     # Check if the primkey is filled. This only works for a single primkey, not a tuple
     elif contents.get(lookupSourceField(countryconfig.get('primkey'), countryconfig)):
 	updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
+    else:
+	print "No primkey available"
 
 def lookupSourceField(destination, countryconfig):
     '''

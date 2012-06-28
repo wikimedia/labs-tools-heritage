@@ -1641,7 +1641,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_es-ct_(ca)',
         'truncate' : False,
-        'primkey' : u'id',
+        'primkey' : u'bic',
         'fields' : [
             {
                 'source' : u'id',
