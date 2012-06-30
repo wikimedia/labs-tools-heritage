@@ -775,7 +775,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_ch_(de)',
         'truncate' : False,
-        'primkey' : u'KGS-Nr',
+        'primkey' : u'kgs-nr',
         'fields' : [
             {
                 'source' : u'KGS-Nr',
@@ -838,7 +838,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_ch_(en)',
         'truncate' : False,
-        'primkey' : u'KGS_nr',
+        'primkey' : u'kgs_nr',
         'fields' : [
             {
                 'source' : u'KGS_nr',
@@ -2142,7 +2142,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_it-bz_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'ObjektID',
+        'primkey' : u'objektid',
         'fields' : [
             {
                 'source' : u'ObjektID',
@@ -2411,7 +2411,7 @@ countries = {
         'table' : u'monuments_mt_(de)',
 		'registrantUrlBase' : u'http://www.culturalheritage.gov.mt/filebank/inventory/000%s.pdf',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'Inventarnummer',
+        'primkey' : u'inventarnummer',
         'fields' : [
             {
                 'source' : u'Inventarnummer',
