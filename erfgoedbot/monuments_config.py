@@ -90,7 +90,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_at_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'ObjektID',
+        'primkey' : u'objektid',
         'fields' : [
             {
                 'source' : u'ObjektID',
