@@ -2967,7 +2967,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_sk_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'ObjektID',
+        'primkey' : u'objektid',
         'fields' : [
             {
                 'source' : u'ObjektID',
@@ -3074,7 +3074,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_sk_(sk)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'IDobjektu',
+        'primkey' : u'idobjektu',
         'fields' : [
             {
                 'source' : u'IDobjektu',
