@@ -10,38 +10,39 @@ SET @granularity = 20;
 
 -- Update monuments_all when you change this table
 CREATE TABLE IF NOT EXISTS `monuments_all` (
-	  `country` varchar(10) NOT NULL DEFAULT '',
-	  `lang` varchar(10) NOT NULL DEFAULT '',
-	  `id` varchar(25) NOT NULL DEFAULT '0',
-	  `adm0` varchar(5) NOT NULL DEFAULT '',
-	  `adm1` varchar(10) DEFAULT NULL,
-	  `adm2` varchar(255) DEFAULT NULL,
-	  `adm3` varchar(255) DEFAULT NULL,
-	  `adm4` varchar(255) DEFAULT NULL,
-	  `name` varchar(255) NOT NULL DEFAULT '',
-	  `address` varchar(255) NOT NULL DEFAULT '',
-	  `municipality` varchar(255) NOT NULL DEFAULT '',
-	  `lat` double NOT NULL DEFAULT '0',
-	  `lon` double NOT NULL DEFAULT '0',
-	  `lat_int` smallint,
-	  `lon_int` smallint,
-	  `image` varchar(255) NOT NULL DEFAULT '',
-	  `source` varchar(255) NOT NULL DEFAULT '',
-	  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	  `monument_article` varchar(255) NOT NULL DEFAULT '',
-	  `registrant_url` varchar(255) NOT NULL DEFAULT '',
-	  PRIMARY KEY (`country`,`lang`,`id`),
-	  KEY `adm0` (`adm0`),
-	  KEY `adm1` (`adm1`),
-	  KEY `adm2` (`adm2`),
-	  KEY `adm3` (`adm3`),
-	  KEY `adm4` (`adm4`),
-	  KEY `name` (`name`),
-	  FULLTEXT KEY `name_ft` (`name`),
-	  KEY `coord` (`lat_int`, `lon_int`, `lat`),
-	  KEY `image_id` (`image`, `id`),
-	  KEY `cma` (`country`, `municipality`(100), `address`(100))
-	) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `country` varchar(10) NOT NULL DEFAULT '',
+  `lang` varchar(10) NOT NULL DEFAULT '',
+  `id` varchar(25) NOT NULL DEFAULT '0',
+  `adm0` varchar(5) NOT NULL DEFAULT '',
+  `adm1` varchar(10) DEFAULT NULL,
+  `adm2` varchar(255) DEFAULT NULL,
+  `adm3` varchar(255) DEFAULT NULL,
+  `adm4` varchar(255) DEFAULT NULL,
+  `name` varchar(255) NOT NULL DEFAULT '',
+  `address` varchar(255) NOT NULL DEFAULT '',
+  `municipality` varchar(255) NOT NULL DEFAULT '',
+  `lat` double NOT NULL DEFAULT '0',
+  `lon` double NOT NULL DEFAULT '0',
+  `lat_int` smallint(6) DEFAULT NULL,
+  `lon_int` smallint(6) DEFAULT NULL,
+  `image` varchar(255) NOT NULL DEFAULT '',
+  `source` varchar(255) NOT NULL DEFAULT '',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `monument_article` varchar(255) NOT NULL DEFAULT '',
+  `registrant_url` varchar(255) NOT NULL DEFAULT '',
+  `monument_random` mediumint(8) unsigned DEFAULT NULL,
+  PRIMARY KEY (`country`,`lang`,`id`),
+  KEY `adm0` (`adm0`),
+  KEY `adm1` (`adm1`),
+  KEY `adm2` (`adm2`),
+  KEY `adm3` (`adm3`),
+  KEY `adm4` (`adm4`),
+  KEY `name` (`name`),
+  KEY `coord` (`lat_int`,`lon_int`,`lat`),
+  KEY `cma` (`country`,`municipality`(100),`address`(100)),
+  KEY `monument_random` (`monument_random`),
+  FULLTEXT KEY `name_ft` (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 TRUNCATE TABLE monuments_all;
 
@@ -1012,3 +1013,6 @@ SELECT 'us' AS `country`,
 	FROM `monuments_us_(en)`;
 
 -- UPDATE `monuments_all` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
+
+/* generate random values*/
+UPDATE `monuments_all` SET `monument_random`=ROUND(1000000 * RAND() );
