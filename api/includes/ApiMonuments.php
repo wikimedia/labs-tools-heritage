@@ -153,7 +153,7 @@ class ApiMonuments extends ApiBase {
 
         /* FIXME: User should be able to set sort fields and order */
 		if ( $this->getParam('format') == 'kml' ) {
-			$orderby = array('image', 'id'); /* FIXME: Randomize the KML output. */
+			$orderby = array('monument_random');
 		} elseif ( $this->getParam('format') == 'html' ) {
 			$orderby = array('country', 'municipality', 'address');
 		}
