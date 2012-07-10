@@ -31,7 +31,7 @@ def processCountry(countrycode, lang, countryconfig):
 			primkey = column
 		
 		if column in ['lon', 'lat']:
-			f.write(b'  `' + column.encode('utf8') + b"` double NOT NULL DEFAULT  0,\n")
+			f.write(b'  `' + column.encode('utf8') + b"` double DEFAULT NULL,\n")
 		else:
 			if column == 'monument_article':
 				f.write(extra_cols)
@@ -59,7 +59,7 @@ def processCountry(countrycode, lang, countryconfig):
 		if not isinstance(source_primkey, (str, unicode)):
 			primkey = u"`,`".join(source_primkey)
 		else:
-			raise Exception("Primary key not found")
+			raise Exception("Primary key not found for countrycode: " + countrycode + ", lang: " + lang)
 	
 	f.write('  PRIMARY KEY (`' + primkey.encode('utf8') + '`),\n')
 	f.write('  KEY `latitude` (`lat`),\n  KEY `longitude` (`lon`)\n')
