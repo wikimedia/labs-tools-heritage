@@ -5,10 +5,10 @@
  * If you change something please test it. 
  */
 
+connect p_erfgoed_p sql.toolserver.org;
+
 -- Update PHP code when changing this
 SET @granularity = 20;
-
-connect p_erfgoed_p sql.toolserver.org;
 
 -- Update monuments_all when you change this table
 CREATE TABLE IF NOT EXISTS `monuments_all` (
