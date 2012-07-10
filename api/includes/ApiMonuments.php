@@ -146,11 +146,6 @@ class ApiMonuments extends ApiBase {
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
         }
 
-        //for kml and bbox get only monuments with coordinates
-        if ( ($this->getParam('format') == 'kml') ) {
-            $where[] = 'lat<>0 AND lon<>0';
-        }
-
         /* FIXME: User should be able to set sort fields and order */
 		if ( $this->getParam('format') == 'kml' ) {
 			$orderby = array('monument_random');
