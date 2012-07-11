@@ -5,8 +5,6 @@
  * If you change something please test it. 
  */
 
-connect p_erfgoed_p sql.toolserver.org;
-
 -- Update PHP code when changing this
 SET @granularity = 20;
 
