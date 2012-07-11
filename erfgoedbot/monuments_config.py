@@ -2703,7 +2703,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_ro_(ro)',
         'truncate' : False, 
-        'primkey' : u'Cod',
+        'primkey' : u'cod',
         'fields' : [
             {
                 'source' : u'Cod',
@@ -2746,6 +2746,10 @@ countries = {
             {
                 'source' : u'Imagine',
                 'dest' : u'imagine',
+            },
+            {
+                'source' : u'Commons',
+                'dest' : u'commons',
             },
             {
                 'source' : u'denumire',
