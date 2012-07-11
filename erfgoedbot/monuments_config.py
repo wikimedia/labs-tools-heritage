@@ -707,7 +707,7 @@ countries = {
         'namespaces' : [4],
         'table' : u'monuments_by_(be-x-old)',
         'truncate' : False,
-        'primkey' : u'шыфр',
+        'primkey' : u'id',
         'fields' : [
             {
                 'source' : u'шыфр',
@@ -1154,7 +1154,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_de-by_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'Nummer',
+        'primkey' : u'nummer',
         'fields' : [
             {
                 'source' : u'Nummer',
@@ -1218,7 +1218,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_de-he_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'Nummer',
+        'primkey' : u'nummer',
         'fields' : [
             {
                 'source' : u'Nummer',
@@ -1285,7 +1285,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_de-nrw-bm_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'Nummer',
+        'primkey' : u'nummer',
         'fields' : [
             {
                 'source' : u'Nummer',
@@ -1355,7 +1355,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_de-nrw-k_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'Nummer_Denkmalliste',
+        'primkey' : u'nummer_denkmalliste',
         'fields' : [
             {
                 'source' : u'Nummer_Denkmalliste',

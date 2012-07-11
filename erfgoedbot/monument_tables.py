@@ -27,7 +27,7 @@ def processCountry(countrycode, lang, countryconfig):
 		if column == '': # An entry with no dest is intended to be skipped
 			continue
 		
-		if not primkey and source_primkey == field.get('source'): # primkey in config refers to the source name
+		if not primkey and source_primkey == field.get('dest'): # primkey in config refers to the destination
 			primkey = column
 		
 		if column in ['lon', 'lat']:
