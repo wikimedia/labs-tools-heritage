@@ -4,10 +4,6 @@
  * Basic configuration for monuments
  */
 class Monuments {
-	
-	static $dbServer = 'sql.toolserver.org';
-	static $dbUser = 'erfgoed';
-	static $dbDatabase = 'p_erfgoed_p';
 	static $dbTable = 'monuments_all';
 	
 	static $dbFields = array( 'country', 'lang', 'id', 'adm0', 'adm1', 'adm2', 'adm3', 'adm4', 'name', 'address', 'municipality', 

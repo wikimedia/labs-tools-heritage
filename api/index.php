@@ -3,15 +3,16 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('html_errors', false);
 
-/* Localization */
-require_once( '/home/project/i/n/t/intuition/ToolserverI18N/ToolStart.php' );
-require_once( 'searchPage.php');
-require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
-
+/* Entry point for the monuments api */
 require dirname( __FILE__ ) . '/autoloader.php';
+require dirname( __FILE__ ) . '/includes/Defaults.php';
+require dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
 
-$dbStatus = Database::define(Monuments::$dbServer, Monuments::$dbDatabase, 
-	Monuments::$dbUser, $toolserver_password );
+/* Localization */
+require_once( "$tsI18nDir/ToolStart.php" );
+
+$dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
+	isset( $toolserver_password )? $toolserver_password : $dbPassword );
 if (!$dbStatus) {
     die( "Coudn't connect to db! ". mysql_error() );
 }
