@@ -9,7 +9,7 @@ if ( get_magic_quotes_gpc() ) {
  * @author Platonides
  */
 class ApiMonuments extends ApiBase {
-
+	const EARTH_RADIUS = 6371010;
 	const MAX_GEOSEARCH_AREA = 0.04;// 0.2 * 0.2 degrees
 	const GRANULARITY = 20;
 
@@ -35,6 +35,13 @@ class ApiMonuments extends ApiBase {
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'coord' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'radius' => array(
+				ApiBase::PARAM_DFLT => false,
+				ApiBase::PARAM_TYPE => 'integer',
+				ApiBase::PARAM_MIN => 1,
+				ApiBase::PARAM_MAX => 500000,
+			),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
     	
@@ -123,22 +130,38 @@ class ApiMonuments extends ApiBase {
 			}
 		}
         
-        if ( $this->getParam('bbox') or $this->getParam('BBOX') ) {
+        if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {
 			if ( $this->getParam('bbox') ) {
                 $bbox = $this->getParam('bbox');
             } else {
                 $bbox = $this->getParam('BBOX');
             }
-            $coords = preg_split('/,|\s/', $bbox);
-            $bl_lon = floatval( $coords[0] );
-            $bl_lat = floatval( $coords[1] );
-            $tr_lon = floatval( $coords[2] );
-            $tr_lat = floatval( $coords[3] );
-			if ( $bl_lat > $tr_lat || $bl_lon > $tr_lon ) {
-				$this->error( 'Invalid bounding box' );
+			if ( $bbox ) {
+				$coords = preg_split('/,|\s/', $bbox);
+				if ( count( $coords ) != 4 ) {
+					$this->error( 'Invalid bounding box format, 4 comma-delimited numbers are expected' );
+				}
+				$bl_lon = floatval( $coords[0] );
+				$bl_lat = floatval( $coords[1] );
+				$tr_lon = floatval( $coords[2] );
+				$tr_lat = floatval( $coords[3] );
+				if ( $bl_lat > $tr_lat || $bl_lon > $tr_lon ) {
+					$this->error( 'Invalid bounding box' );
+				}
+			} else {
+				$radius = $this->getParam( 'radius' );
+				if ( $radius === false || $radius <= 0 ) {
+					$this->error( 'Radius not set or is invalid' );
+				}
+				$coords = array_map( 'floatval', preg_split( '/,|\s/', $this->getParam( 'coord' ) ) );
+				if ( count( $coords ) != 2 ) {
+					$this->error( 'Invalid coordinate format, 2 comma-delimited numbers are expected' );
+				}
+				list( $bl_lat, $bl_lon, $tr_lat, $tr_lon ) =
+					self::rectAround( $coords[0], $coords[1], $this->getParam( 'radius' ) );
 			}
 			if ( ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
-				$this->error( 'bbox is too large' );
+				$this->error( 'Bounding box is too large' );
 			}
 			$where['lat_int'] = self::intRange( $bl_lat, $tr_lat );
 			$where['lon_int'] = self::intRange( $bl_lon, $tr_lon );
@@ -180,7 +203,46 @@ class ApiMonuments extends ApiBase {
         $r = $st->retrieveReport($items, $filters, $limit);
         $this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
 	}
-    
+
+	/**
+	 * Returns a bounding rectangle around a given point
+	 *
+	 * @param float $lat
+	 * @param float $lon
+	 * @param float $radius
+	 * @return Array
+	 */
+	public static function rectAround( $lat, $lon, $radius ) {
+		if ( !$radius ) {
+			return array( $lat, $lon, $lat, $lon );
+		}
+		$r2lat = rad2deg( $radius / self::EARTH_RADIUS );
+		// @todo: doesn't work around poles, should we care?
+		if ( abs( $lat ) < 89.9 ) {
+			$r2lon = rad2deg( $radius / cos( deg2rad( $lat ) ) / self::EARTH_RADIUS );
+		} else {
+			$r2lon = 0.1;
+		}
+		$res = array(
+			$lat - $r2lat,
+			$lon - $r2lon,
+			$lat + $r2lat,
+			$lon + $r2lon
+		);
+		self::wrapAround( $res[0], $res[2], -90, 90 );
+		self::wrapAround( $res[1], $res[3], -180, 180 );
+		return $res;
+	}
+
+	private static function wrapAround( &$from, &$to, $min, $max ) {
+		if ( $from < $min ) {
+			$from = $max - ( $min - $from );
+		}
+		if ( $to > $max ) {
+			$to = $min + $to - $max;
+		}
+	}
+
 	function help() {
 		/* TODO: Expand me! */
 		echo '
@@ -228,6 +290,8 @@ Parameters:
   srchanged       - Search for changed.
   bbox            - left,bottom,right,top
                     Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
+  coord           - Coordinate to search around
+  radius          - Search radius, used in conjunction with coord
   limit           - [integer]: the maximum number of results you will get back
   props           - [country|lang|id|name|address|municipality|lat|lon|image|source|changed]: the properties which should be returned. (By default all of them.)
   
