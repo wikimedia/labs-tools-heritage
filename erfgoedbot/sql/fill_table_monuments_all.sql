@@ -1014,8 +1014,5 @@ SELECT 'us' AS `country`,
 
 -- UPDATE `monuments_all` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
 
--- replace 0,0 coordinates with NULL
-UPDATE `monuments_all` SET lat=NULL, lon=NULL, lat_int=NULL, lon_int=NULL WHERE lat=0 AND lon=0;
-
 --  generate random values
 UPDATE `monuments_all` SET `monument_random`=ROUND(1000000 * RAND() );
