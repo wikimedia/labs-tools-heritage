@@ -168,7 +168,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
     fieldvalues.append(source)
 
     for field in countryconfig.get('fields'):
-        if field.get('dest'):
+        if field.get('dest') and len( contents.get(field.get('source')) ):
             fieldnames.append(field.get('dest'))
             
             #Do some conversions here
