@@ -1,0 +1,18 @@
+.navigation {
+  display: none;
+}
+
+.phone-only {
+  display: inline;
+}
+
+.mapspecs {width: 94%; height: 230px; display: none;}
+.locationmessagespecs {color:black; font-weight:bold; width:100%; padding: 0px}
+.results { width:100%; }
+.urlinput { width:70%; }
+.homepage { width:94%; }
+
+.address-input {
+	font-size: 80%;
+	width: 50px;
+}
