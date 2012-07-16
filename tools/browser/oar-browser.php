@@ -95,7 +95,8 @@ define('MAP_VIEW', 2);
 
 
 //Input URL
-$oar = new oarBrowser($_REQUEST['url'], 
+$url = 'http://toolserver.org/~erfgoed/layar/location.html';
+$oar = new oarBrowser($url, 
 			$_REQUEST['lat'], 
 			$_REQUEST['lon'], 
 			$_REQUEST['srch'], 
@@ -115,7 +116,7 @@ $oar = new oarBrowser($_REQUEST['url'],
 $oar->parse_filters();
 
 //Read robots.txt file from URL, or read meta tag from homepage to find layer query string
-if(isset($_REQUEST['url'])) {
+if(isset($url)) {
 	if($query_string = $oar->get_layer_query_str()) {
 		
 		//Optionally prepare the filters for user input
@@ -191,7 +192,7 @@ class oarBrowser
 	public $rvolve_user_id;
 	
 		
-	public function __construct($url = "http://toolserver.org/~erfgoed/layar/location.html", $lat, $lon, $search, $page_key = null, $view_type = LIST_VIEW, $template_url = null, $my_link_target = "_parent", $my_geo_bias, $my_init_map_zoom, $my_address = null, $my_list_height = null, $my_rvolve = null, $oar_browser_path, $oar_browser_dir)	
+	public function __construct($url, $lat, $lon, $search, $page_key = null, $view_type = LIST_VIEW, $template_url = null, $my_link_target = "_parent", $my_geo_bias, $my_init_map_zoom, $my_address = null, $my_list_height = null, $my_rvolve = null, $oar_browser_path, $oar_browser_dir)	
 	{
 		
 		$this->url = $url;
