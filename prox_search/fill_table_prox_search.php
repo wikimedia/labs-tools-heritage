@@ -23,10 +23,11 @@ $bg = new clsBasicGeosearch();
 
 $query = "SELECT `country`, `lang`, `id`, `lat`, `lon`
        FROM `monuments_all`
-	   WHERE (lat <>0 AND lon<>0)";
+       WHERE `lat` IS NOT NULL
+GROUP BY `country`, `id`";
 
 
-   
+
 $result = $db->query($query);
 if (!$result) 
 {
