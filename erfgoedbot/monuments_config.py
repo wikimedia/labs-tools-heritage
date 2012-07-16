@@ -349,6 +349,7 @@ countries = {
         'table' : u'monuments_be-vlg_(nl)',
         'truncate' : False,
         'primkey' : u'id',
+        'countryBbox' : u'2.3,49.4,6.8,51.74',
         'fields' : [
             {
                 'source' : u'id',
@@ -391,10 +392,12 @@ countries = {
             {
                 'source' : u'lat',
                 'dest' : u'lat',
+                'check' : u'checkLat',
             },
             {
                 'source' : u'lon',
                 'dest' : u'lon',
+                'check' : u'checkLon',
             },
             {
                 'source' : u'image',

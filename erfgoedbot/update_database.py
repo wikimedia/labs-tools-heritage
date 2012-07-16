@@ -84,7 +84,12 @@ def reportDataError(errorMsg, wikiPage, exceptWord, comment=''):
 
 def checkLat(lat, monumentKey, countryconfig, sourcePage):
     if len( lat ):
-        lat = float(lat)
+        try:
+            lat = float(lat)
+        except ValueError:
+            errorMsg = u"Invalid latitude value: %s for monument %s" % (lat, monumentKey)
+            reportDataError(errorMsg, sourcePage, monumentKey)
+            return False
         countryBbox = ''
         if ( countryconfig.get('countryBbox') ):
             countryBbox = countryconfig.get('countryBbox')
@@ -112,7 +117,12 @@ def checkLat(lat, monumentKey, countryconfig, sourcePage):
 
 def checkLon(lon, monumentKey,  countryconfig, sourcePage):
     if len( lon ):
-        lon = float(lon)
+        try:
+            lon = float(lon)
+        except ValueError:
+            errorMsg = u"Invalid longitude value: %s for monument %s" % (lat, monumentKey)
+            reportDataError(errorMsg, sourcePage, monumentKey)
+            return False
         countryBbox = ''
         if ( countryconfig.get('countryBbox') ):
             countryBbox = countryconfig.get('countryBbox')
@@ -167,6 +177,11 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
     fieldnames.append(u'source')
     fieldvalues.append(source)
 
+    monumentKey = u''
+    if contents.get(countryconfig.get('primkey')) :
+        monumentKey = contents.get(countryconfig.get('primkey'))
+
+
     for field in countryconfig.get('fields'):
         if field.get('dest') and len( contents.get(field.get('source')) ):
             fieldnames.append(field.get('dest'))
@@ -181,12 +196,17 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
             if field.get('check'):
                 # check data
                 # run function with name field.get('check')
-                monumentKey = u''
-                if contents.get(countryconfig.get('primkey')) :
-                    monumentKey = contents.get(countryconfig.get('primkey'))
                 globals()[field.get('check')](fieldValue, monumentKey, countryconfig, sourcePage)
             fieldvalues.append(fieldValue)
 
+
+    if countryconfig.get('countryBbox'):
+       if 'lat' in fieldnames and 'lon' not in fieldnames:
+           errorMsg = u"Longitude is not set for monument %s." % (monumentKey, )
+           reportDataError(errorMsg, sourcePage, monumentKey)
+       if 'lon' in fieldnames and 'lat' not in fieldnames:
+           errorMsg = u"Latitude is not set for monument %s." % (monumentKey, )
+           reportDataError(errorMsg, sourcePage, monumentKey)
 
     query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
 
@@ -199,7 +219,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
 
     delimiter = u''
     for fieldvalue in fieldvalues:
-        query = query + delimiter + u"""%s""" # % (fieldvalue,)
+        query = query + delimiter + u"""%s"""
         delimiter = u', '
 
     query = query + u""")"""
