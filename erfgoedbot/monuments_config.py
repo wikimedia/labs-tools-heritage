@@ -3198,7 +3198,7 @@ countries = {
         'namespaces' : [4],
         'table' : u'monuments_ua_(uk)',
         'truncate' : False,
-        'primkey' : u'ID',
+        'primkey' : u'id',
         'countryBbox' : u'21.6,43.9,40.7,52.5',
         'fields' : [
             {
