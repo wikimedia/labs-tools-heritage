@@ -120,7 +120,7 @@ def checkLon(lon, monumentKey,  countryconfig, sourcePage):
         try:
             lon = float(lon)
         except ValueError:
-            errorMsg = u"Invalid longitude value: %s for monument %s" % (lat, monumentKey)
+            errorMsg = u"Invalid longitude value: %s for monument %s" % (lon, monumentKey)
             reportDataError(errorMsg, sourcePage, monumentKey)
             return False
         countryBbox = ''
