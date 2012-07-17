@@ -3185,6 +3185,76 @@ countries = {
             },
         ],
     },
+    ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
+        'project' : u'wikipedia',
+        'lang' : u'uk',
+        #'headerTemplate' : u'',
+        'rowTemplate' : u'ВЛП-рядок',
+        'commonsTemplate' : u'Monument Ukraine',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Ukraine with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Ukraine',
+        #'unusedImagesPage' : u'',
+        #'imagesWithoutIdPage' : u'',    
+        'namespaces' : [4],
+        'table' : u'monuments_ua_(uk)',
+        'truncate' : False,
+        'primkey' : u'ID',
+        'countryBbox' : u'21.6,43.9,40.7,52.5',
+        'fields' : [
+            {
+                'source' : u'ID',
+                'dest' : u'id',
+                'type' : 'varchar(25)',
+            },
+            {
+                'source' : u'назва',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'адреса',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'нас_пункт',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'широта',
+                'dest' : u'lat',
+                'check' : u'checkLat',
+            },
+            {
+                'source' : u'довгота',
+                'dest' : u'lon',
+                'check' : u'checkLon',
+            },
+            {
+                'source' : u'фото',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'рік',
+                'dest' : u'year_of_construction',
+            },
+            {
+                'source' : u'охоронний номер',
+                'dest' : u'registrant_id',
+            },
+            {
+                'source' : u'тип',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'галерея',
+                'dest' : u'gallery',
+            },
+            {
+                'source' : u'назва',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ]
+    },
 	
     ('us', 'en') : { # National Register of Historic Places listings in the United States in English
         'project' : u'wikipedia',
