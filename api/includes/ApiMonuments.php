@@ -20,13 +20,16 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function getAllowedParams() {
+		global $dbMiserMode;
     	$params = array(
     		'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
     		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
-    			ApiBase::PARAM_TYPE => array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
+    			ApiBase::PARAM_TYPE => $dbMiserMode
+					? array( 'json', 'xml', 'xmlfm' )
+					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
     		'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
-    		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => 5000, 
+    		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
     			
     		'action' => array( ApiBase::PARAM_DFLT => 'help', 
@@ -40,7 +43,7 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'integer',
 				ApiBase::PARAM_MIN => 1,
-				ApiBase::PARAM_MAX => 500000,
+				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     	);
@@ -160,7 +163,8 @@ class ApiMonuments extends ApiBase {
 				list( $bl_lat, $bl_lon, $tr_lat, $tr_lon ) =
 					self::rectAround( $coords[0], $coords[1], $this->getParam( 'radius' ) );
 			}
-			if ( ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
+			global $dbMiserMode;
+			if ( $dbMiserMode && ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
 				$this->error( 'Bounding box is too large' );
 			}
 			$where['lat_int'] = self::intRange( $bl_lat, $tr_lat );
@@ -195,6 +199,10 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function statistics() {
+		global $dbMiserMode;
+		if ( $dbMiserMode ) {
+			$this->error( 'action=statistics is disabled due to miser mode' );
+		}
 		$st = new Statistics( $db = Database::getDb() );
         $items = $this->getParam( 'stitem' );
         $filters = explode('|', $this->getParam('stcountry'));
