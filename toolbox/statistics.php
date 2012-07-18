@@ -87,6 +87,7 @@ $I18N = new TsIntuition( $opts );
 			<option value="RO">RO</option>
 			<option value="RU">RU</option>
 			<option value="SE">SE</option>
+			<option value="UA">UA</option>
 			<option value="US">US</option>
 		</select>
 		</td>

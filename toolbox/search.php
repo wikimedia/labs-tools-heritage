@@ -107,7 +107,6 @@ Format		</label>
 			<option value="FR">FR</option>
 			<option value="IE">IE</option>
 			<option value="IT-88">IT-88</option>
-			<option value="IT-BZ">IT-BZ</option> 
 			<option value="LU">LU</option>
 			<option value="NL">NL</option>
 			<option value="NO">NO</option>
@@ -116,6 +115,7 @@ Format		</label>
 			<option value="RO">RO</option>
 			<option value="RU">RU</option>
 			<option value="SE">SE</option>
+			<option value="UA">UA</option>
 			<option value="US">US</option>
 		</select>
 		<input type="hidden" name="srcountry" value="" id="srcountry" />
