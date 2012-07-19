@@ -62,7 +62,7 @@ abstract class ApiBase {
 						}
 					}
 				} elseif ( $p == 'integer' ) {
-					$i = intval( $_GET[$name] );
+					$i = intval( $_GET[$name] ); // @fixme this will return 0 on failure, or 1 if it's a non-empty array... is this desired?
 					$cache[$name] = min( max( $i, $allowed[$name][ApiBase::PARAM_MIN] ), 
 						$allowed[$name][ApiBase::PARAM_MAX]);
 				} elseif ( $p == 'boolean' ) {

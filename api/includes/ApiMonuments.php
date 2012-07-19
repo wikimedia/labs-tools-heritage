@@ -33,7 +33,7 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
     			
     		'action' => array( ApiBase::PARAM_DFLT => 'help', 
-    			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics' ) ),
+    			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics', 'adminlevels' ) ),
     			
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
@@ -46,6 +46,16 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
     		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'admlevel' => array(
+				ApiBase::PARAM_MIN => 0,
+				ApiBase::PARAM_MAX => 4,
+				ApiBase::PARAM_DFLT => 0,
+				ApiBase::PARAM_TYPE => 'integer',
+			),
+			'admval' => array(
+				ApiBase::PARAM_DFLT => false,
+				ApiBase::PARAM_TYPE => 'string',
+			),
     	);
     	
     	foreach ( Monuments::$dbFields as $field ) {
@@ -63,14 +73,19 @@ class ApiMonuments extends ApiBase {
 	
 	function executeModule() {
 		switch ( $this->getParam( 'action' ) ) {
-			case 'help':
-				$this->help();
-				break;
 			case 'search':
 				$this->search();
 				break;
 			case 'statistics':
 				$this->statistics();
+				break;
+			case 'adminlevels':
+				$this->adminlevels();
+				break;
+			case 'help':
+			default:
+				$this->help();
+				break;
 		}
 	}
 
@@ -210,6 +225,57 @@ class ApiMonuments extends ApiBase {
 
         $r = $st->retrieveReport($items, $filters, $limit);
         $this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
+	}
+
+	public function adminlevels() {
+		$admval = $this->getParam( 'admval' );
+		$admlevel = $this->getParam( 'admlevel' );
+		$db = Database::getDb();
+
+		if ( $admlevel === 0 && $admval === false ) {
+			// get a list of countries
+			$fields = array( 'name' );
+			$where = array(
+				'level' => 0,
+			);
+			$res = $db->select( $fields, 'admin_tree', $where );
+			$this->getFormatter()->output( $res, 999999999, null, $fields, null );
+			return;
+		} elseif ( $admval === false ) {
+			$this->error( 'You must specify a value for admval.' );
+		}
+
+		$fields = array( 'id', 'name', 'level' );
+		$where = array(
+			'name' => $admval,
+			'level' => $admlevel,
+		);
+		$res = $db->select( $fields, 'admin_tree', $where );
+		if ( $row = mysql_fetch_object( $res->result ) ) {
+			$data = $this->getImmediateAdminLevelChildren( $row->id, $row->level );
+		} else {
+			$data = array();
+		}
+		$this->getFormatter()->output( $data, 999999999, null, $fields, null );
+	}
+
+	/**
+	 * Fetches immediate children of a given admin_tree id
+	 * @param int $id The id of the admin_tree item for which to fetch children
+	 * @return array
+	 */
+	private function getImmediateAdminLevelChildren( $id ) {
+		$data = array();
+		$db = Database::getDb();
+		$fields = array( 'id', 'name', 'level' );
+		$where = array(
+			'parent' => $id,
+		);
+ 		$res = $db->select ( $fields, 'admin_tree', $where );
+		while ( $row = mysql_fetch_object( $res->result ) ) {
+			$data[] = array( 'name' => $row->name, 'level' => $row->level );
+		}
+		return $data;
 	}
 
 	/**
