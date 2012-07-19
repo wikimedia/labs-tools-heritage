@@ -56,6 +56,12 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
+			'admid' => array(
+				ApiBase::PARAM_DFLT => false,
+				ApiBase::PARAM_TYPE => 'integer',
+				ApiBase::PARAM_MIN => 1,
+				ApiBase::PARAM_MAX => 999999999,
+			),
     	);
     	
     	foreach ( Monuments::$dbFields as $field ) {
@@ -230,16 +236,17 @@ class ApiMonuments extends ApiBase {
 	public function adminlevels() {
 		$admval = $this->getParam( 'admval' );
 		$admlevel = $this->getParam( 'admlevel' );
+		$admid = $this->getParam( 'admid' );
 		$db = Database::getDb();
 
-		if ( $admlevel === 0 && $admval === false ) {
-			// get a list of countries
-			$fields = array( 'name' );
-			$where = array(
-				'level' => 0,
-			);
-			$res = $db->select( $fields, 'admin_tree', $where );
-			$this->getFormatter()->output( $res, 999999999, null, $fields, null );
+		if ( $admlevel === 0 && $admval === false && $admid === false) {
+			$this->getTopLevelAdmNames();
+			return;
+		} elseif ( $admid ) {
+			if ( $admval || $admlevel ) {
+				$this->error( 'You may not specify admval or admlevel with admid.' );
+			}
+			$this->getAdmById( $admid );
 			return;
 		} elseif ( $admval === false ) {
 			$this->error( 'You must specify a value for admval.' );
@@ -260,6 +267,35 @@ class ApiMonuments extends ApiBase {
 	}
 
 	/**
+	 * Fetches an admin_tree row by id
+	 *
+	 * @return ResultWrapper
+	 */
+	private function getAdmById( $admid ) {
+		$db = Database::getDb();
+		$fields = array( 'id', 'name', 'level' );
+		$where = array( 'id' => $admid );
+		$res = $db->select( $fields, 'admin_tree', $where );
+		$this->getFormatter()->output( $res, 999999999, null, $fields, null );
+	}
+
+	/**
+	 * Fetches top-most admin tree item names (countries)
+	 *
+	 * @return ResultWrapper
+	 */
+	private function getTopLevelAdmNames() {
+		$db = Database::getDb();
+		// get a list of countries
+		$fields = array( 'id', 'name' );
+		$where = array(
+			'level' => 0,
+		);
+		$res = $db->select( $fields, 'admin_tree', $where );
+		$this->getFormatter()->output( $res, 999999999, null, $fields, null );
+	}
+
+	/**
 	 * Fetches immediate children of a given admin_tree id
 	 * @param int $id The id of the admin_tree item for which to fetch children
 	 * @return array
@@ -273,7 +309,7 @@ class ApiMonuments extends ApiBase {
 		);
  		$res = $db->select ( $fields, 'admin_tree', $where );
 		while ( $row = mysql_fetch_object( $res->result ) ) {
-			$data[] = array( 'name' => $row->name, 'level' => $row->level );
+			$data[] = array( 'id' => $row->id, 'name' => $row->name, 'level' => $row->level );
 		}
 		return $data;
 	}
