@@ -1,7 +1,7 @@
 <?php
 
-$dbServer = 'localhost';
-$dbUser = 'root';
+$dbServer = 'sql.toolserver.org';
+$dbUser = 'erfgoed';
 $dbDatabase = 'p_erfgoed_p';
 $dbPassword = '<set password in database.inc';
 $dbMiserMode = false;
