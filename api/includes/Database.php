@@ -124,7 +124,7 @@ class Database {
 		}
 		$res = mysql_query( $sql, $this->db );
 		if ( !$res ) {
-			throw new DBException( mysql_error(), mysql_errno() );
+			throw new DBException( mysql_error(), mysql_errno(), $sql );
 		}
 		return $res;
 	}
