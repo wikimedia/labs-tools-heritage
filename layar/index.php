@@ -8,12 +8,13 @@
 # ini_set('display_errors', true);
 # ini_set('html_errors', false);
 
+require_once( dirname( dirname( __FILE__ ) ) . '/api/includes/Defaults.php' );
 require_once( '/home/project/e/r/f/erfgoed/prox_search/clsARLayarServer.php' );
 require dirname( dirname( __FILE__ ) ) . '/api/autoloader.php';
 require dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
 
-$dbStatus = Database::define(Monuments::$dbServer, Monuments::$dbDatabase, 
-	Monuments::$dbUser, $toolserver_password );
+$dbStatus = Database::define($dbServer, $dbDatabase, 
+	$dbUser, $dbPassword );
 if (!$dbStatus) {
     die( "Coudn't connect to db! ". mysql_error() );
 }	
