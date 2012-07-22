@@ -79,6 +79,7 @@ $I18N = new TsIntuition( $opts );
 			<option value="FR">FR</option>
 			<option value="IE">IE</option>
 			<option value="IT-88">IT-88</option>
+			<option value="IT-BZ">IT-BZ</option>
 			<option value="LU">LU</option>
 			<option value="NL">NL</option>
 			<option value="NO">NO</option>
