@@ -254,6 +254,92 @@ countries = {
             },
         ],
     },
+    ('be-vlg', 'en') : { # Onroerend Erfgoed in Vlaanderen in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Table_header_BE',
+        'rowTemplate' : u'Table_row_BE',
+        #'commonsTemplate' : u'Onroerend erfgoed',
+        #'commonsTrackerCategory' : u'Onroerend erfgoed with known IDs',
+        #'commonsCategoryBase' : u'Onroerend erfgoed',
+        'autoGeocode' : False,
+        #'unusedImagesPage' : u'',
+        #'imagesWithoutIdPage' : u'', #u'',
+        'registrantUrlBase' : u'https://inventaris.onroerenderfgoed.be/dibe/relict/%s',
+        'namespaces' : [0],
+        'table' : u'monuments_be-vlg_(en)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'town',
+                'dest' : u'town',
+            },
+            {
+                'source' : u'commune',
+                'dest' : u'commune',
+            },
+            {
+                'source' : u'section',
+                'dest' : u'section',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'descr_en',
+                'dest' : u'descr_en',
+            },
+            {
+                'source' : u'objectnaam',
+                'dest' : u'objectnaam',
+            },
+            {
+                'source' : u'descr_de',
+                'dest' : u'descr_de',
+            },
+            {
+                'source' : u'nom_objet',
+                'dest' : u'nom_objet',
+            },
+            {
+                'source' : u'date',
+                'dest' : u'date',
+            },
+            {
+                'source' : u'architect',
+                'dest' : u'architect',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'descr_en',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('be-vlg', 'fr') : { # Onroerend Erfgoed in Vlaanderen in French
         'project' : u'wikipedia',
         'lang' : u'fr',
