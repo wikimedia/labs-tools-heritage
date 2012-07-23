@@ -1034,7 +1034,29 @@ SELECT 'us' AS `country`,
         REPLACE( `article`,  ' ',  '_' ) AS `monument_article`,
         '' AS `registrant_url`
 	FROM `monuments_us_(en)`;
-
+/* California */
+REPLACE INTO `monuments_all` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'us-ca' AS `country`,
+       'en' AS `lang`,
+		`refnum` AS `id`, 
+		'us' AS `adm0`,
+		'us-ca' AS `adm1`,
+		`county` AS `adm2`,
+		`city` AS `adm3`,
+		NULL AS `adm4`,
+	CONCAT('[[', `article`, '|', `name`, ']]') AS `name`,
+	CONCAT(`address`, ' ', `city`) AS `address`,
+	`county` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        REPLACE( `article`,  ' ',  '_' ) AS `monument_article`,
+        '' AS `registrant_url`
+	FROM `monuments_us_(en)`;
 -- UPDATE `monuments_all` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
 
 --  generate random values

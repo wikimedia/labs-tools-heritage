@@ -3255,7 +3255,6 @@ countries = {
             },
         ]
     },
-	
     ('us', 'en') : { # National Register of Historic Places listings in the United States in English
         'project' : u'wikipedia',
         'lang' : u'en',
@@ -3327,6 +3326,88 @@ countries = {
             {
                 'source' : u'date_extra',
                 'dest' : u'date_extra',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'nolatlon',
+                'dest' : u'nolatlon',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+        ],
+    },
+    ('us-ca', 'en') : { # State monuments in California
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'CHL header',
+        'rowTemplate' : u'CHL row',
+        #'commonsTemplate' : u'NRHP',
+        #'commonsTrackerCategory' : u'National Register of Historic Places with known IDs',
+        #'commonsCategoryBase' : u'National Register of Historic Places',
+        'autoGeocode' : False,
+        #'unusedImagesPage' : u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
+        #'imagesWithoutIdPage' : u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
+        'namespaces' : [0, 2],
+        'table' : u'monuments_us-ca_(en)',
+        'truncate' : False,
+        'primkey' : u'refnum',
+        'fields' : [
+            {
+                'source' : u'refnum',
+                'dest' : u'refnum',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'pos',
+                'dest' : u'pos',
+                'type' : 'int(3)',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+                'type' : 'varchar(25)',
+                'default' : 'CHL',
+            },
+            {
+                'source' : u'article',
+                'dest' : u'article',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'name_extra',
+                'dest' : u'name_extra',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'city',
+                'dest' : u'city',
+            },
+            {
+                'source' : u'nocity',
+                'dest' : u'nocity',
+            },
+            {
+                'source' : u'county',
+                'dest' : u'county',
             },
             {
                 'source' : u'image',
