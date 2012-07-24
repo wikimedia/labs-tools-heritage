@@ -104,6 +104,8 @@ class ApiMonuments extends ApiBase {
 	}
 	
 	function search() {
+		global $dbMiserMode;
+
 		$fulltextColumns = array( 'name' => 1 );
         
         if ( $this->getParam('format') == 'dynamickml' ) {
@@ -142,6 +144,9 @@ class ApiMonuments extends ApiBase {
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
 			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
+				if ( $dbMiserMode && !preg_match( '/^[^%]+%$/', $value ) ) {
+					$this->error( 'Only prefix search is allowed in miser mode' );
+				}
 				$this->complexQuery();
 				$where[] = $db->escapeIdentifier( $field ) . ' LIKE ' .
 					$db->quote( $value );
@@ -184,7 +189,6 @@ class ApiMonuments extends ApiBase {
 				list( $bl_lat, $bl_lon, $tr_lat, $tr_lon ) =
 					self::rectAround( $coords[0], $coords[1], $this->getParam( 'radius' ) );
 			}
-			global $dbMiserMode;
 			if ( $dbMiserMode && ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
 				$this->error( 'Bounding box is too large' );
 			}
