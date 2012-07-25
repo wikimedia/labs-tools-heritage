@@ -257,8 +257,8 @@ countries = {
     ('be-vlg', 'en') : { # Onroerend Erfgoed in Vlaanderen in English
         'project' : u'wikipedia',
         'lang' : u'en',
-        'headerTemplate' : u'Table_header_BE',
-        'rowTemplate' : u'Table_row_BE',
+        'headerTemplate' : u'Table header BE',
+        'rowTemplate' : u'Table row BE',
         #'commonsTemplate' : u'Onroerend erfgoed',
         #'commonsTrackerCategory' : u'Onroerend erfgoed with known IDs',
         #'commonsCategoryBase' : u'Onroerend erfgoed',
