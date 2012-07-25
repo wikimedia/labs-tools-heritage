@@ -45,6 +45,10 @@ countries = {
                 'dest' : u'municipi',
             },
             {
+                'source' : u'region',
+                'dest' : u'region',
+            },
+            {
                 'source' : u'lloc',
                 'dest' : u'lloc',
             },            {
