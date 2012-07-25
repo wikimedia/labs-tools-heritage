@@ -1525,6 +1525,11 @@ countries = {
                 'dest' : u'maakond',
             },
             {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+
+            {
                 'source' : u'nimi',
                 'dest' : u'nimi',
             },
