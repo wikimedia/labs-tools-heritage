@@ -1079,7 +1079,7 @@ SELECT 'us-ca' AS `country`,
 	`changed` AS `changed`,
         REPLACE( `article`,  ' ',  '_' ) AS `monument_article`,
         '' AS `registrant_url`
-	FROM `monuments_us_(en)`;
+	FROM `monuments_us-ca_(en)`;
 -- UPDATE `monuments_all` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
 
 --  generate random values
