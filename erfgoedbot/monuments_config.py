@@ -1066,6 +1066,70 @@ countries = {
             },
         ]
     },
+    ('cl', 'es') : { # Rijksmonumenten in Chile in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoChile/encabezado',
+        'rowTemplate' : u'MonumentoChile',
+        'commonsTemplate' : u'??',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Chile with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Chile',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales sin usar',
+        'imagesWithoutIdPage' : u'User:Multichill/BIC without id',
+        'namespaces' : [104],
+        'table' : u'monuments_cl_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(5)',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'comuna',
+                'dest' : u'comuna',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'dirección',
+            },
+            {
+                'source' : u'fecha',
+                'dest' : u'fecha',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'imagen',
+            },
+            {
+               'source' : u'tipo',
+               'dest' : u'tipo',
+               'type' : "enum('Error', 'MH','ZT','SN')",
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },    
     ('dk-bygninger', 'da') : { # Bygninger in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
@@ -1649,7 +1713,7 @@ countries = {
             },
         ],
     },
-    ('es', 'es') : { # Rijksmonumenten in Spain in Spanishb
+    ('es', 'es') : { # Rijksmonumenten in Spain in Spanish
         'project' : u'wikipedia',
         'lang' : u'es',
         'headerTemplate' : u'Cabecera BIC',
