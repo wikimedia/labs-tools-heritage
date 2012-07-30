@@ -1095,6 +1095,10 @@ countries = {
                 'dest' : u'monumento_enlace',
             },
             {
+                'source' : u'monumento_categoría',
+                'dest' : u'monumento_categoria',
+            },
+            {
                 'source' : u'monumento_desc',
                 'dest' : u'monumento_desc',
             },
