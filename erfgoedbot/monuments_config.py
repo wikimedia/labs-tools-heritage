@@ -1091,6 +1091,10 @@ countries = {
                 'dest' : u'monumento',
             },
             {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+            },
+            {
                 'source' : u'monumento_desc',
                 'dest' : u'monumento_desc',
             },
@@ -1101,7 +1105,7 @@ countries = {
             {
                 'source' : u'ISO',
                 'dest' : u'ISO',
-            }
+            },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
@@ -1113,6 +1117,10 @@ countries = {
             {
                 'source' : u'dirección',
                 'dest' : u'direccion',
+            },
+            {
+                'source' : u'decreto',
+                'dest' : u'decreto',
             },
             {
                 'source' : u'fecha',
