@@ -1066,16 +1066,16 @@ countries = {
             },
         ]
     },
-    ('cl', 'es') : { # Rijksmonumenten in Chile in Spanish
+    ('cl', 'es') : { # National monuments in Chile in Spanish
         'project' : u'wikipedia',
         'lang' : u'es',
         'headerTemplate' : u'MonumentoChile/encabezado',
         'rowTemplate' : u'MonumentoChile',
-        'commonsTemplate' : u'??',
-        'commonsTrackerCategory' : u'Cultural heritage monuments in Chile with known IDs',
-        'commonsCategoryBase' : u'Cultural heritage monuments in Chile',
-        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales sin usar',
-        'imagesWithoutIdPage' : u'User:Multichill/BIC without id',
+        'commonsTemplate' : u'Monumento Nacional de Chile',
+        'commonsTrackerCategory' : u'National monuments in Chile with known IDs',
+        'commonsCategoryBase' : u'National monuments in Chile',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales de Chile sin usar',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales de Chile sin id',
         'namespaces' : [104],
         'table' : u'monuments_cl_(es)',
         'truncate' : False,
@@ -1099,6 +1099,10 @@ countries = {
                 'dest' : u'comuna',
             },
             {
+                'source' : u'ISO',
+                'dest' : u'ISO',
+            }
+            {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
@@ -1108,7 +1112,7 @@ countries = {
             },
             {
                 'source' : u'dirección',
-                'dest' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'fecha',
