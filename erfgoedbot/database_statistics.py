@@ -29,7 +29,7 @@ def getCount(query, cursor):
 def outputStatistics(statistics):
     #print statistics
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image !! source pages\n'
+    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image !! adm0 !! adm1 !! adm2 !! adm3 !! adm4 !! source pages\n'
 
     totals = {}
 
@@ -39,6 +39,13 @@ def outputStatistics(statistics):
     totals['municipality'] = 0
     totals['coordinates'] = 0
     totals['image'] = 0
+
+    totals['adm0'] = 0
+    totals['adm1'] = 0
+    totals['adm2'] = 0
+    totals['adm3'] = 0
+    totals['adm4'] = 0
+    
     totals['source'] = 0
 
     for country in sorted(statistics.keys()):
@@ -55,6 +62,13 @@ def outputStatistics(statistics):
                 output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % statistics[country][language]
+
+                output = output + u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(adm1)s <small>(%(adm1Percentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(adm3)s <small>(%(adm3Percentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(adm4)s <small>(%(adm4Percentage)s%%)</small>' % statistics[country][language]
+                
 		output = output + u'|| %(source)s\n' % statistics[country][language]
 
 		totals['all'] = totals['all'] + statistics[country][language]['all']
@@ -63,6 +77,13 @@ def outputStatistics(statistics):
 		totals['municipality'] = totals['municipality'] + statistics[country][language]['municipality']
 		totals['coordinates'] = totals['coordinates'] + statistics[country][language]['coordinates']
 		totals['image'] = totals['image'] + statistics[country][language]['image']
+
+		totals['adm0'] = totals['adm0'] + statistics[country][language]['adm0']
+		totals['adm1'] = totals['adm1'] + statistics[country][language]['adm1']
+		totals['adm2'] = totals['adm2'] + statistics[country][language]['adm2']
+		totals['adm3'] = totals['adm3'] + statistics[country][language]['adm3']
+		totals['adm4'] = totals['adm4'] + statistics[country][language]['adm4']
+
 		totals['source'] = totals['source'] + statistics[country][language]['source']
 
 
@@ -73,6 +94,12 @@ def outputStatistics(statistics):
     totals['coordinatesPercentage'] = round(1.0 * totals['coordinates'] / totals['all'] * 100, 2)
     totals['imagePercentage'] = round(1.0 * totals['image'] / totals['all'] * 100, 2)
 
+    totals['adm0Percentage'] = round(1.0 * totals['adm0'] / totals['all'] * 100, 2)
+    totals['adm1Percentage'] = round(1.0 * totals['adm1'] / totals['all'] * 100, 2)
+    totals['adm2Percentage'] = round(1.0 * totals['adm2'] / totals['all'] * 100, 2)
+    totals['adm3Percentage'] = round(1.0 * totals['adm3'] / totals['all'] * 100, 2)
+    totals['adm4Percentage'] = round(1.0 * totals['adm4'] / totals['all'] * 100, 2)
+
     output = output + u'|-\n'
     output = output + u'| '
     output = output + u'|| || %(all)s' % totals
@@ -81,6 +108,13 @@ def outputStatistics(statistics):
     output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % totals
     output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % totals
     output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % totals
+
+    output = output + u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % totals
+    output = output + u'|| %(adm1)s <small>(%(adm1Percentage)s%%)</small>' % totals
+    output = output + u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % totals
+    output = output + u'|| %(adm3)s <small>(%(adm3Percentage)s%%)</small>' % totals
+    output = output + u'|| %(adm4)s <small>(%(adm4Percentage)s%%)</small>' % totals
+    
     output = output + u'|| %(source)s\n' % totals
 
     output = output + u'|}\n'
@@ -97,11 +131,18 @@ def getStatistics(country, language, conn, cursor):
     result = {}
     
     queries['all'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'""" 
-    queries['name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT name=''"""
-    queries['address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT address=''"""
-    queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT municipality=''"""
-    queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT lat=0 AND NOT lon=0"""
-    queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT image=''"""
+    queries['name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT name='' OR name IS NULL)"""
+    queries['address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT address='' OR address IS NULL)"""
+    queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT municipality='' OR municipality IS NULL)"""
+    queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT lat=0 OR lat IS NULL) AND (NOT lon=0 OR lon IS NULL)"""
+    queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT image='' OR image IS NULL)"""
+
+    queries['adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm0='' OR adm0 IS NULL)"""
+    queries['adm1'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm1='' OR adm1 IS NULL)"""
+    queries['adm2'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm2='' OR adm2 IS NULL)"""
+    queries['adm3'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm3='' OR adm3 IS NULL)"""
+    queries['adm4'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm4='' OR adm4 IS NULL)"""
+    
     queries['source'] = u"""SELECT COUNT(DISTINCT(source)) FROM monuments_all WHERE country='%s' AND lang='%s'"""
 
     result['country'] = country
@@ -116,6 +157,12 @@ def getStatistics(country, language, conn, cursor):
     result['municipalityPercentage'] = round(1.0 * result['municipality'] / result['all'] * 100, 2)
     result['coordinatesPercentage'] = round(1.0 * result['coordinates'] / result['all'] * 100, 2)
     result['imagePercentage'] = round(1.0 * result['image'] / result['all'] * 100, 2)
+
+    result['adm0Percentage'] = round(1.0 * result['adm0'] / result['all'] * 100, 2)
+    result['adm1Percentage'] = round(1.0 * result['adm1'] / result['all'] * 100, 2)
+    result['adm2Percentage'] = round(1.0 * result['adm2'] / result['all'] * 100, 2)
+    result['adm3Percentage'] = round(1.0 * result['adm3'] / result['all'] * 100, 2)
+    result['adm4Percentage'] = round(1.0 * result['adm4'] / result['all'] * 100, 2)
 
     return result
         
