@@ -399,7 +399,7 @@ def main():
 
     countrycode = u''
     textfile = u''
-    fullUpdate = False
+    fullUpdate = True
     daysBack = 2 # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
