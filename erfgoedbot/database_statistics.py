@@ -131,17 +131,17 @@ def getStatistics(country, language, conn, cursor):
     result = {}
     
     queries['all'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'""" 
-    queries['name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT name='' OR name IS NULL)"""
-    queries['address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT address='' OR address IS NULL)"""
-    queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT municipality='' OR municipality IS NULL)"""
-    queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT lat=0 OR lat IS NULL) AND (NOT lon=0 OR lon IS NULL)"""
-    queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT image='' OR image IS NULL)"""
+    queries['name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (name='' OR name IS NULL)"""
+    queries['address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (address='' OR address IS NULL)"""
+    queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (municipality='' OR municipality IS NULL)"""
+    queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (lat=0 OR lat IS NULL) AND NOT (lon=0 OR lon IS NULL)"""
+    queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (image='' OR image IS NULL)"""
 
-    queries['adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm0='' OR adm0 IS NULL)"""
-    queries['adm1'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm1='' OR adm1 IS NULL)"""
-    queries['adm2'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm2='' OR adm2 IS NULL)"""
-    queries['adm3'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm3='' OR adm3 IS NULL)"""
-    queries['adm4'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND (NOT adm4='' OR adm4 IS NULL)"""
+    queries['adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL)"""
+    queries['adm1'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm1='' OR adm1 IS NULL)"""
+    queries['adm2'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm2='' OR adm2 IS NULL)"""
+    queries['adm3'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm3='' OR adm3 IS NULL)"""
+    queries['adm4'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm4='' OR adm4 IS NULL)"""
     
     queries['source'] = u"""SELECT COUNT(DISTINCT(source)) FROM monuments_all WHERE country='%s' AND lang='%s'"""
 
