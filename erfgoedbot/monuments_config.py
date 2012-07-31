@@ -289,6 +289,10 @@ countries = {
                 'dest' : u'commune',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
                 'source' : u'section',
                 'dest' : u'section',
             },
@@ -384,6 +388,10 @@ countries = {
                 'type' : 'varchar(25)',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
                 'source' : u'adresse',
                 'dest' : u'adresse',
             },
@@ -462,6 +470,10 @@ countries = {
                 'source' : u'deelgem_id',
                 'dest' : u'deelgem_id',
                 'type' : 'varchar(25)',
+            },
+            {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
             },
             {
                 'source' : u'adres',
@@ -556,6 +568,10 @@ countries = {
             {
                 'source' : u'town', # Deelgemeente, something is wrong here
                 'dest' : u'town',
+            },
+            {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
             },
             {
                 'source' : u'address',
@@ -656,6 +672,10 @@ countries = {
                 'dest' : u'adresse',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
                 'source' : u'objtype',
                 'dest' : u'objtype',
             },
@@ -750,6 +770,10 @@ countries = {
             {
                 'source' : u'adres',
                 'dest' : u'adres',
+            },
+            {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
             },
             {
                 'source' : u'objtype',
