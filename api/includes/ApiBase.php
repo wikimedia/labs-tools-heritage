@@ -12,15 +12,17 @@ abstract class ApiBase {
 	const PARAM_MAX = 3; // Max value allowed for a parameter. Only applies if TYPE='integer'
 	const PARAM_MIN = 5; // Lowest value allowed for a parameter. Only applies if TYPE='integer'
 
-	public function execute() {
-		try {
-			$this->executeModule();
-		} catch( Exception $e ) {
-			$format = $this->getFormatter();
-			$format->headers();
-			$format->outputErrors( $e->getMessage() );
-		}
-	}
+	/**
+	 * The name of the encapsulating node for data output
+	 * @param string
+	 */
+	protected $toplevel_node_name = "nodes";
+
+	/**
+	 * The name of the object nodes for data output
+	 * @param string
+	 */
+	protected $object_node_name = "node";
 
 	protected abstract function executeModule();
 
@@ -29,15 +31,33 @@ abstract class ApiBase {
 		$this->errors[] = $errorCode;
 	}
 	
+	public function getDefaultAllowedParams() {
+		global $dbMiserMode;
+		$params = array(
+			'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
+    			ApiBase::PARAM_TYPE => $dbMiserMode
+					? array( 'json', 'xml', 'xmlfm' )
+					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
+				'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
+				'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
+				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
+    		'action' => array(
+				ApiBase::PARAM_DFLT => 'help', 
+    			ApiBase::PARAM_TYPE => ApiMain::getActions()
+			),
+		);
+		return $params;
+	}
+
 	abstract function getAllowedParams();
-	
+
 	private $paramCache;
 	function getParam($name) {
 		$this->paramCache = array();
 		if ( !isset( $cache[$name] ) ) {
 			$allowed = $this->getAllowedParams();
 			if ( !isset($allowed[$name]) ) {
-				throw new Exception( 'Asked for a forbidden parameter' );
+				throw new Exception( sprintf( 'Asked for a forbidden parameter: %s', $name ) );
 			}
 
 			if ( isset( $_GET[$name] ) and strlen( $_GET[$name] ) ) {
@@ -155,12 +175,39 @@ abstract class ApiBase {
 		return new $formatter( $this );
 	}
 	
-	function help() {
-		/* TODO: Write me! */
-		echo "This should show some help information. Collaborate writing it!";
-	}
-
 	function error( $message ) {
 		throw new Exception( $message );
+	}
+
+	/**
+	 * Setter for $this->toplevel_node_name
+	 * @param string
+	 */
+	public function setTopLevelNodeName( $toplevel_node_name ) {
+		$this->toplevel_node_name = $toplevel_node_name;
+	}
+
+	/**
+	 * Getter for $this->toplevel_node_name
+	 * @return string
+	 */
+	public function getTopLevelNodeName() {
+		return $this->toplevel_node_name;
+	}
+
+	/**
+	 * Setter for $this->object_node_name
+	 * @param string
+	 */
+	public function setObjectNodeName( $object_node_name ) {
+		$this->object_node_name = $object_node_name;
+	}
+
+	/**
+	 * Getter for $this->object_node_name
+	 * @return string
+	 */
+	public function getObjectNodeName() {
+		return $this->object_node_name;
 	}
 }

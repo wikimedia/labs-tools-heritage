@@ -17,5 +17,4 @@ $opts = array(
 );
 $I18N = new TsIntuition( $opts );
 
-$api = new ApiMonuments();
-$api->execute();
+ApiMain::dispatch();

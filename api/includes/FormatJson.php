@@ -43,7 +43,8 @@ class FormatJson extends FormatBase {
 				}
 			}
 		}
-		$this->returnJSONArray["monuments"][] = $monumentArr;	
+		$toplevel_node_name = $this->api->getTopLevelNodeName();
+		$this->returnJSONArray[ $toplevel_node_name ][] = $monumentArr;	
 		
 	}
 

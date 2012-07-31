@@ -15,7 +15,7 @@ class FormatXml extends FormatBase {
 	}
 	
 	function outputBegin($selectedItems) {
-		echo '<monuments>';
+		echo sprintf( '<%s>', $this->api->getTopLevelNodeName() );
 	}
 	function outputContinue($row, $continueKey, $primaryKey) {
 		$continue = '';
@@ -27,7 +27,7 @@ class FormatXml extends FormatBase {
 	}
 	
 	function outputRow($row, $selectedItems) {
-		echo '<monument';
+		echo sprintf( '<%s', $this->api->getObjectNodeName() );
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
 				echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
@@ -36,7 +36,7 @@ class FormatXml extends FormatBase {
 		echo ' />';
 	}
 	function outputEnd() {
-		echo '</monuments>';
+		echo sprintf( '</%s>', $this->api->getTopLevelNodeName() );
 	}
 
 	function outputErrors( $errors ) {

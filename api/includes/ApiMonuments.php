@@ -13,6 +13,11 @@ class ApiMonuments extends ApiBase {
 	const MAX_GEOSEARCH_AREA = 0.04;// 0.2 * 0.2 degrees
 	const GRANULARITY = 20;
 
+	public function __construct() {
+		$this->setTopLevelNodeName( 'monuments' );
+		$this->setObjectNodeName( 'monument' );
+	}
+
 	protected function getParamDescription() {
 		return array(
 			/* FIXME: Copy from http://etherpad.wikimedia.org/WLM-tech*/
@@ -21,23 +26,13 @@ class ApiMonuments extends ApiBase {
 	
 	function getAllowedParams() {
 		global $dbMiserMode;
-    	$params = array(
-    		'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
+		$defaultParams = $this->getDefaultAllowedParams();
+		$params = array(
+			'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
-    		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
-    			ApiBase::PARAM_TYPE => $dbMiserMode
-					? array( 'json', 'xml', 'xmlfm' )
-					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
-    		'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
-    		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
-				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
-    			
-    		'action' => array( ApiBase::PARAM_DFLT => 'help', 
-    			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics', 'adminlevels' ) ),
-    			
-    		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-    		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-    		'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 			'coord' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 			'radius' => array(
 				ApiBase::PARAM_DFLT => false,
@@ -45,26 +40,11 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
-    		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-			'admlevel' => array(
-				ApiBase::PARAM_MIN => 0,
-				ApiBase::PARAM_MAX => 4,
-				ApiBase::PARAM_DFLT => 0,
-				ApiBase::PARAM_TYPE => 'integer',
-			),
-			'admval' => array(
-				ApiBase::PARAM_DFLT => false,
-				ApiBase::PARAM_TYPE => 'string',
-			),
-			'admid' => array(
-				ApiBase::PARAM_DFLT => false,
-				ApiBase::PARAM_TYPE => 'integer',
-				ApiBase::PARAM_MIN => 1,
-				ApiBase::PARAM_MAX => 999999999,
-			),
-    	);
-    	
-    	foreach ( Monuments::$dbFields as $field ) {
+			'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+		);
+		$params = array_merge( $defaultParams, $params );
+
+		foreach ( Monuments::$dbFields as $field ) {
 			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
@@ -85,12 +65,9 @@ class ApiMonuments extends ApiBase {
 			case 'statistics':
 				$this->statistics();
 				break;
-			case 'adminlevels':
-				$this->adminlevels();
-				break;
 			case 'help':
 			default:
-				$this->help();
+				ApiBase::help();
 				break;
 		}
 	}
@@ -237,87 +214,6 @@ class ApiMonuments extends ApiBase {
         $this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
 	}
 
-	public function adminlevels() {
-		$admval = $this->getParam( 'admval' );
-		$admlevel = $this->getParam( 'admlevel' );
-		$admid = $this->getParam( 'admid' );
-		$db = Database::getDb();
-
-		if ( $admlevel === 0 && $admval === false && $admid === false) {
-			$this->getTopLevelAdmNames();
-			return;
-		} elseif ( $admid ) {
-			if ( $admval || $admlevel ) {
-				$this->error( 'You may not specify admval or admlevel with admid.' );
-			}
-			$this->getAdmById( $admid );
-			return;
-		} elseif ( $admval === false ) {
-			$this->error( 'You must specify a value for admval.' );
-		}
-
-		$fields = array( 'id', 'name', 'level' );
-		$where = array(
-			'name' => $admval,
-			'level' => $admlevel,
-		);
-		$res = $db->select( $fields, 'admin_tree', $where );
-		if ( $row = mysql_fetch_object( $res->result ) ) {
-			$data = $this->getImmediateAdminLevelChildren( $row->id, $row->level );
-		} else {
-			$data = array();
-		}
-		$this->getFormatter()->output( $data, 999999999, null, $fields, null );
-	}
-
-	/**
-	 * Fetches an admin_tree row by id
-	 *
-	 * @return ResultWrapper
-	 */
-	private function getAdmById( $admid ) {
-		$db = Database::getDb();
-		$fields = array( 'id', 'name', 'level' );
-		$where = array( 'id' => $admid );
-		$res = $db->select( $fields, 'admin_tree', $where );
-		$this->getFormatter()->output( $res, 999999999, null, $fields, null );
-	}
-
-	/**
-	 * Fetches top-most admin tree item names (countries)
-	 *
-	 * @return ResultWrapper
-	 */
-	private function getTopLevelAdmNames() {
-		$db = Database::getDb();
-		// get a list of countries
-		$fields = array( 'id', 'name' );
-		$where = array(
-			'level' => 0,
-		);
-		$res = $db->select( $fields, 'admin_tree', $where );
-		$this->getFormatter()->output( $res, 999999999, null, $fields, null );
-	}
-
-	/**
-	 * Fetches immediate children of a given admin_tree id
-	 * @param int $id The id of the admin_tree item for which to fetch children
-	 * @return array
-	 */
-	private function getImmediateAdminLevelChildren( $id ) {
-		$data = array();
-		$db = Database::getDb();
-		$fields = array( 'id', 'name', 'level' );
-		$where = array(
-			'parent' => $id,
-		);
- 		$res = $db->select ( $fields, 'admin_tree', $where );
-		while ( $row = mysql_fetch_object( $res->result ) ) {
-			$data[] = array( 'id' => $row->id, 'name' => $row->name, 'level' => $row->level );
-		}
-		return $data;
-	}
-
 	/**
 	 * Returns a bounding rectangle around a given point
 	 *
@@ -355,119 +251,6 @@ class ApiMonuments extends ApiBase {
 		if ( $to > $max ) {
 			$to = $min + $to - $max;
 		}
-	}
-
-	function help() {
-		/* TODO: Expand me! */
-		echo '
-<html>
-<head>
-	<title>Monuments API</title>
-</head>
-<body>
-<pre>
-  
-  
-  <b>******************************************************************************************</b>
-  <b>**                                                                                      **</b>
-  <b>**              This is an auto-generated Monuments API documentation page              **</b>
-  <b>**                                                                                      **</b>
-  <b>**                            Documentation:                                            **</b>
-  **      <a href="http://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2011/Tools#Search_and_export_tool">http://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2011/Tools#Search_and_export_tool</a>                        **
-  <b>**                                                                                      **</b>
-  <b>******************************************************************************************</b>
-  
-  
-Parameters:
-  format         - The format of the output
-                   One value: dynamickml, kml, gpx, poi, html, htmllist, layar, json, xml, xmlfm
-                   Default: xmlfm
-  action         - What action you would like to perform. 
-                   One value: search, statistics, help
-                   Default: help
-                   
-<b>*** *** *** *** *** *** *** *** *** ***  Modules  *** *** *** *** *** *** *** *** *** ***</b> 
-
-<b>* action=search *</b>
-
-Parameters:
-  srcountry       - Search for monuments in country. Supply the country code.
-  srlang          - Search for monuments in lang. Supply the language code.
-  srid            - Search for id.
-  srname          - Search for name.
-  sraddress       - Search for address.
-  srmunicipality  - Search for municipality.
-  srlat           - Search for latitude.
-  srlon           - Search for longitude.
-  srimage         - Search for imagename in monument lists.
-  srsource        - Search for source monument list wiki page.
-  srchanged       - Search for changed.
-  bbox            - left,bottom,right,top
-                    Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
-  coord           - Coordinate to search around
-  radius          - Search radius, used in conjunction with coord
-  limit           - [integer]: the maximum number of results you will get back
-  props           - [country|lang|id|name|address|municipality|lat|lon|image|source|changed]: the properties which should be returned. (By default all of them.)
-  
-  
-Examples:
-  <a href="api.php?action=search&amp;srname=%burgerhuizen%">api.php?action=search&amp;srname=%burgerhuizen%</a>
-  <a href="api.php?action=search&amp;srcountry=fr&amp;srlang=ca">api.php?action=search&amp;srcountry=fr&amp;srlang=ca</a>
-
-<b>* action=statistics *</b>
-
-Parameters:
-  stcountry       - Statistics for country. Supply the country code.
-  stitem          - [total|name|name_pct|address|address_pct|municipality|municipality_pct|image|image_pct|coordinates|coordinates_pct]: the stats fields which should be returned (By default, all of them).
-  limit           - [integer]: the maximum number of results you will get back (0 for all)
-  
-  
-Examples:
-  <a href="api.php?action=statistics&stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&stcountry=pt&format=html&limit=0">api.php?action=statistics&amp;stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&amp;stcountry=pt&amp;format=html&amp;limit=0</a>
-  <a href="api.php?action=statistics&stcountry=pt&format=csv&limit=0">api.php?action=statistics&amp;stcountry=pt&amp;format=csv&amp;limit=0</a>
-
-<b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
- 
-  <b>* format=dynamickml *</b>
-  Generate KML network link file.
-
-Examples:
-  <a href="api.php?action=search&amp;format=dynamickml">api.php?action=search&amp;format=dynamickml</a>
-
-  <b>* format=html *</b>
-  Output data in HTML format. Table layout.
-
-  <b>* format=htmllist *</b>
-  Output data in HTML format. List layout.
-  
-  <b>* format=json *</b>
-  Output data in JSON format.
-
-Parameters:
-  callback       - If specified, wraps the output into a given function call.
-  
-  <b>* format=kml *</b>
-  Output data in KML format
-
-Examples:
-  <a href="api.php?action=search&amp;format=kml">api.php?action=search&amp;format=kml</a>
-
-  <b>* format=xml *</b>
-  Output data in XML format
-
-Examples:
-  <a href="api.php?action=search&amp;format=xml">api.php?action=search&amp;format=xml</a>
-
-<b>*** *** *** *** *** *** *** *** *** ***  Special matching rules  *** *** *** *** *** *** *** *** *** ***</b> 
-
-Terms containing percent sign (%): match these terms using prefix search
-
-Terms starting with "~": match these terms using full-text search
-  
-</pre>
-</body>
-</html>
-        ';
 	}
 
 	/**
