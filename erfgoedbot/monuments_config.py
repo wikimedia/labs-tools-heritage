@@ -2223,6 +2223,14 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'portrait',
+                'dest' : u'portrait',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'id',
+            },
+            {
                 'source' : u'monument',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
