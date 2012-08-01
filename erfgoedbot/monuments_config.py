@@ -2170,6 +2170,14 @@ countries = {
                 'dest' : u'monument',
             },
             {
+                'source' : u'région_iso',
+                'dest' : u'region_iso',
+            },
+            {
+                'source' : u'département_iso',
+                'dest' : u'departement_iso',
+            },
+            {
                 'source' : u'commune',
                 'dest' : u'commune',
             },
