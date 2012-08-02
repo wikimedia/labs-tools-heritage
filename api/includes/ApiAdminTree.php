@@ -50,32 +50,39 @@ class ApiAdminTree extends ApiBase {
 		}
 	}
 
+	/**
+	 * Display admin tree data based on a supplied query
+	 *
+	 * With no params, this will return just the top level
+	 * adm names.
+	 */
 	public function adminlevels() {
 		$admval = $this->getParam( 'admval' );
 		$admlevel = $this->getParam( 'admlevel' );
 		$admtree = $this->getParam( 'admtree' );
+		$data = array();
+		$display_fields = array( 'name' );
 		$db = Database::getDb();
 
 		if ( $admlevel === 0 && $admval === false && $admtree === false ) {
-			$this->getTopLevelAdmNames();
-			return;
+			$data = $this->getTopLevelAdmNames();
 		} elseif ( $admtree ) {
+			$display_fields[] = 'level';
 			$admintree_array = explode( "|", $admtree );
 			$data = $this->getChildrenFromTree( $admintree_array );
-			$this->getFormatter()->output( $data, 999999999, null, array( 'name', 'level' ), null );
-			return;
 		} elseif ( $admval === false ) {
 			$this->error( 'You must specify a value for admval.' );
-		}
-
-		$data = array();
-		$adm_details = $this->getAdmDetails( $admval, $admlevel );
-		if ( count( $adm_details ) ) {
-			foreach ( $adm_details as $key => $adm_zone ) {
-				$data = array_merge( $data, $this->getImmediateAdminLevelChildren( $adm_zone['id'], $adm_zone['level'] ) );
+		} else {
+			$display_fields[] = 'level';
+			$adm_details = $this->getAdmDetails( $admval, $admlevel );
+			if ( count( $adm_details ) ) {
+				foreach ( $adm_details as $key => $adm_zone ) {
+					$data = array_merge( $data, $this->getImmediateAdminLevelChildren( $adm_zone['id'], $adm_zone['level'] ) );
+				}
 			}
 		}
-		$this->getFormatter()->output( $data, 999999999, null, array( 'name', 'level' ), null );
+
+		$this->getFormatter()->output( $data, 999999999, null, $display_fields, null );
 	}
 
 	/**
@@ -98,7 +105,7 @@ class ApiAdminTree extends ApiBase {
 			$where['parent'] = $parent;
 		}
 		$res = $db->select( $fields, 'admin_tree', $where );
-		while ( $row = mysql_fetch_assoc( $res->result ) ) {
+		while ( $row = $db->fetchAssoc( $res ) ) {
 			$data[] = $row;
 		}
 		return $data;
@@ -107,9 +114,10 @@ class ApiAdminTree extends ApiBase {
 	/**
 	 * Fetches top-most admin tree item names (countries)
 	 *
-	 * @return ResultWrapper
+	 * @return array
 	 */
 	private function getTopLevelAdmNames() {
+		$data = array();
 		$db = Database::getDb();
 		// get a list of countries
 		$fields = array( 'id', 'name' );
@@ -117,7 +125,10 @@ class ApiAdminTree extends ApiBase {
 			'level' => 0,
 		);
 		$res = $db->select( $fields, 'admin_tree', $where );
-		$this->getFormatter()->output( $res, 999999999, null, array( 'name' ), null );
+		while( $row = $db->fetchAssoc( $res ) ) {
+			$data[] = $row;
+		}
+		return $data;
 	}
 
 	/**
@@ -133,7 +144,7 @@ class ApiAdminTree extends ApiBase {
 			'parent' => $id,
 		);
  		$res = $db->select ( $fields, 'admin_tree', $where );
-		while ( $row = mysql_fetch_object( $res->result ) ) {
+		while ( $row = $db->fetchObject( $res ) ) {
 			$data[] = array( 'id' => $row->id, 'name' => $row->name, 'level' => $row->level );
 		}
 		return $data;
