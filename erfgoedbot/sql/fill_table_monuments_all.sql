@@ -8,6 +8,8 @@
 -- Update PHP code when changing this
 SET @granularity = 20;
 
+SET NAMES UTF8;
+
 -- Update monuments_all when you change this table
 CREATE TABLE IF NOT EXISTS `monuments_all` (
   `country` varchar(10) NOT NULL DEFAULT '',
