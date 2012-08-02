@@ -105,19 +105,6 @@ class ApiAdminTree extends ApiBase {
 	}
 
 	/**
-	 * Fetches an admin_tree row by id
-	 *
-	 * @return ResultWrapper
-	 */
-	private function getAdmById( $admid ) {
-		$db = Database::getDb();
-		$fields = array( 'id', 'name', 'level' );
-		$where = array( 'id' => $admid );
-		$res = $db->select( $fields, 'admin_tree', $where );
-		$this->getFormatter()->output( $res, 999999999, null, $fields, null );
-	}
-
-	/**
 	 * Fetches top-most admin tree item names (countries)
 	 *
 	 * @return ResultWrapper
