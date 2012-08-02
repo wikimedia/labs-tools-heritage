@@ -144,8 +144,8 @@ class ApiAdminTree extends ApiBase {
 			'parent' => $id,
 		);
  		$res = $db->select ( $fields, 'admin_tree', $where );
-		while ( $row = $db->fetchObject( $res ) ) {
-			$data[] = array( 'id' => $row->id, 'name' => $row->name, 'level' => $row->level );
+		while ( $row = $db->fetchAssoc( $res ) ) {
+			$data[] = $row;
 		}
 		return $data;
 	}
