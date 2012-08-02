@@ -2467,10 +2467,15 @@ countries = {
                 'source' : u'lag',
                 'dest' : u'lag',
             },
+			{
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
             {
                 'source' : u'uertschaft',
                 'dest' : u'uertschaft',
-            },            {
+            },            
+			{
                 'source' : u'offiziellen_numm',
                 'dest' : u'offiziellen_numm',
             },
