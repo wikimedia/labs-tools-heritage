@@ -3148,6 +3148,10 @@ countries = {
                 'dest' : u'namn',
             },
             {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
                 'source' : u'funktion',
                 'dest' : u'funktion',
             },
