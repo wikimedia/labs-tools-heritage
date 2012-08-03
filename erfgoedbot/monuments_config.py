@@ -2869,6 +2869,10 @@ countries = {
                 'type' : 'int(11)',
             },
             {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
                 'source' : u'designacoes',
                 'dest' : u'designacoes',
             },
