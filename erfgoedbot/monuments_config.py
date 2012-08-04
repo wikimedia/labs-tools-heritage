@@ -3123,7 +3123,7 @@ countries = {
     ('se', 'sv') : { # Monuments in Sweden in Swedish
         'project' : u'wikipedia',
         'lang' : u'sv',
-        'headerTemplate' : u'', #Confusing
+        'headerTemplate' : u'BBR-huvud', #Confusing
         'rowTemplate' : u'BBR',
         'footerTemplate' : u'',
         'commonsTemplate' : u'Fornminne',
