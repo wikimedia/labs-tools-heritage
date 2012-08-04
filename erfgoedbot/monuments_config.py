@@ -879,6 +879,83 @@ countries = {
             },
         ],
     },
+    ('ca', 'fr') : { # Historic Places of Canada in French
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'HPC/Start',
+        'rowTemplate' : u'HPC',
+        'commonsTemplate' : u'Historic Places in Canada',
+        'commonsTrackerCategory' : u'Heritage properties in Canada with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Canada',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments canada non utilisées',
+        #'imagesWithoutIdPage' : u'',
+        'registrantUrlBase' : u'http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s',
+        'namespaces' : [0, 100],
+        'table' : u'monuments_ca_(fr)',
+        'truncate' : False,
+        'primkey' : (u'idf', u'idp', u'idm'),
+        'fields' : [
+            {
+                'source' : u'place',
+                'dest' : u'place',
+                'type' : '',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'municipalité',
+                'dest' : u'municipalite',
+            },
+            {
+                'source' : u'prov_iso',
+                'dest' : u'prov_iso',
+            },
+            {
+                'source' : u'pc',
+                'dest' : u'pc',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'idf',
+                'dest' : u'idf',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'idp',
+                'dest' : u'idp',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'idm',
+                'dest' : u'idm',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'place',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'idf', #FIXME: Should be a list or tuple of the 3 fields
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ch', 'de') : { # Monuments in Switzerland in German
         'project' : u'wikipedia',
         'lang' : u'de',
