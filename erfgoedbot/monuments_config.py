@@ -893,9 +893,14 @@ countries = {
         'registrantUrlBase' : u'http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s',
         'namespaces' : [0, 100],
         'table' : u'monuments_ca_(fr)',
-        'truncate' : False,
-        'primkey' : (u'idf', u'idp', u'idm'),
+        'truncate' : True,
+        'primkey' : u'dummyid', # Work with a dummy id for now. Three fields with ids, messy!
         'fields' : [
+            {
+                'source' : u'dummyid',
+                'dest' : u'dummyid',
+                'type' : 'int(11)',
+            },
             {
                 'source' : u'place',
                 'dest' : u'place',
