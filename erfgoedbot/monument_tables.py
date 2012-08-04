@@ -44,7 +44,10 @@ def processCountry(countrycode, lang, countryconfig):
 				else:
 					type += "''"
 			elif type.startswith("int("):
-				type += " NOT NULL DEFAULT  0"
+				if field.get('auto_increment'):
+					type += " NOT NULL AUTO_INCREMENT"
+				else:
+					type += " NOT NULL DEFAULT  0"
 			elif type.startswith("varchar("):
 				if field.get('default'):
 					type += " NOT NULL DEFAULT '" + field.get('default') + "'"

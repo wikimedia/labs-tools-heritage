@@ -900,6 +900,7 @@ countries = {
                 'source' : u'dummyid',
                 'dest' : u'dummyid',
                 'type' : 'int(11)',
+                'auto_increment' : True,
             },
             {
                 'source' : u'place',
