@@ -945,6 +945,10 @@ countries = {
                 'type' : 'int(11)',
             },
             {
+                'source' : u'wmc',
+                'dest' : u'wmc',
+            },
+            {
                 'source' : u'place',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
