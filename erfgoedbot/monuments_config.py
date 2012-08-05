@@ -920,8 +920,8 @@ countries = {
                 'dest' : u'prov_iso',
             },
             {
-                'source' : u'pc',
-                'dest' : u'pc',
+                'source' : u'cp',
+                'dest' : u'cp',
             },
             {
                 'source' : u'lat',
