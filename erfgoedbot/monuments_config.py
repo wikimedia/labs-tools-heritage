@@ -882,8 +882,8 @@ countries = {
     ('ca', 'fr') : { # Historic Places of Canada in French
         'project' : u'wikipedia',
         'lang' : u'fr',
-        'headerTemplate' : u'HPC/Start',
-        'rowTemplate' : u'HPC',
+        'headerTemplate' : u'En-tête de tableau LPC',
+        'rowTemplate' : u'Ligne de tableau LPC',
         'commonsTemplate' : u'Historic Places in Canada',
         'commonsTrackerCategory' : u'Heritage properties in Canada with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Canada',
@@ -903,13 +903,13 @@ countries = {
                 'auto_increment' : True,
             },
             {
-                'source' : u'place',
-                'dest' : u'place',
+                'source' : u'lieu',
+                'dest' : u'lieu',
                 'type' : '',
             },
             {
-                'source' : u'address',
-                'dest' : u'address',
+                'source' : u'addresse',
+                'dest' : u'addresse',
             },
             {
                 'source' : u'municipalité',
@@ -949,10 +949,6 @@ countries = {
                 'source' : u'idm',
                 'dest' : u'idm',
                 'type' : 'int(11)',
-            },
-            {
-                'source' : u'wmc',
-                'dest' : u'wmc',
             },
             {
                 'source' : u'place',
