@@ -124,7 +124,13 @@ class Database {
 		}
 		$res = mysql_query( $sql, $this->db );
 		if ( !$res ) {
-			throw new DBException( mysql_error(), mysql_errno(), $sql );
+			if ( mysql_errno() == 1146 ) { // someone's swapping tables? retry
+				usleep( 500 * 1000 ); // wait half a second
+				$res = mysql_query( $sql, $this->db );
+			}
+			if ( !$res ) {
+				throw new DBException( mysql_error(), mysql_errno(), $sql );
+			}
 		}
 		return $res;
 	}
