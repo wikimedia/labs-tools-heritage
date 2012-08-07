@@ -10,8 +10,9 @@ SET @granularity = 20;
 
 SET NAMES UTF8;
 
--- Update monuments_all when you change this table
-CREATE TABLE IF NOT EXISTS `monuments_all_tmp` (
+DROP TABLE IF EXISTS `monuments_all_tmp`;
+
+CREATE TABLE `monuments_all_tmp` (
   `country` varchar(10) NOT NULL DEFAULT '',
   `lang` varchar(10) NOT NULL DEFAULT '',
   `id` varchar(25) NOT NULL DEFAULT '0',
