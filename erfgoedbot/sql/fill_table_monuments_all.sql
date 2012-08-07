@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `monuments_all_tmp` (
   FULLTEXT KEY `name_ft` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-TRUNCATE TABLE monuments_all;
+TRUNCATE TABLE `monuments_all_tmp`;
 
 /* Andorra in Catalan */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
