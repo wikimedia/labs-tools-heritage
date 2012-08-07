@@ -34,7 +34,7 @@ while ( $row = $res->fetch_assoc() ) {
 		if ( $columns++ ) {
 			echo "\t";
 		}
-		$value = str_replace( "\t", "", $value );
+		$value = strtr( $value, "\r\n\t", "   " );
 		echo $value;
 	}
 	echo "\n";
