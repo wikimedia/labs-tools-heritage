@@ -442,6 +442,29 @@ SELECT 'ch' AS `country`,
 		`monument_article` AS `monument_article`,
 		'' AS `registrant_url`
 		FROM `monuments_ch_(en)`;
+/* Switzerland in Italian*/
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'ch' AS `country`,
+       'en' AS `lang`,
+		`kgs_nr` AS `id`,
+		'ch' AS `adm0`,
+		LOWER(`region-iso`) AS `adm1`,
+		NULL AS `adm2`,
+		`municipality` AS `adm3`,
+		NULL AS `adm4`,
+		`name` AS `name`,
+		`address` AS `address`,
+		`municipality` AS `municipality`,
+		`lat` AS `lat`,
+		`lon` AS `lon`,
+		ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+		`image` AS `image`,
+		`source` AS `source`,
+		`changed` AS `changed`,
+		`monument_article` AS `monument_article`,
+		'' AS `registrant_url`
+		FROM `monuments_ch_(en)`;
 /* Switzerland in French */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ch' AS `country`,

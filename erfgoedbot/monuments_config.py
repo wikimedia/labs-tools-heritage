@@ -1169,6 +1169,67 @@ countries = {
             },
         ]
     },
+    ('ch', 'it') : { # Monuments in Switzerland in Italian
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'SIoCPoNaRS header',
+        'rowTemplate' : u'SIoCPoNaRS row',
+        'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'',
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_ch_(it)',
+        'truncate' : False,
+        'primkey' : u'kgs_nr',
+        'fields' : [
+            {
+                'source' : u'KGS_nr',
+                'dest' : u'kgs_nr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'municipality',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'canton',
+                'dest' : u'canton',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'CH1903_X',
+                'dest' : u'lat',
+                'conv' : u'CH1903ToLat',
+            },
+            {
+                'source' : u'CH1903_Y',
+                'dest' : u'lon',
+                'conv' : u'CH1903ToLon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ]
+    },
     ('ch', 'fr') : { # Monuments in Switzerland in French
         'project' : u'wikipedia',
         'lang' : u'fr',
