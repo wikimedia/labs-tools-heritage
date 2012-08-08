@@ -1171,7 +1171,7 @@ countries = {
     },
     ('ch', 'it') : { # Monuments in Switzerland in Italian
         'project' : u'wikipedia',
-        'lang' : u'en',
+        'lang' : u'it',
         'headerTemplate' : u'SIoCPoNaRS header',
         'rowTemplate' : u'SIoCPoNaRS row',
         'commonsTemplate' : u'Cultural property of national significance in Switzerland',
