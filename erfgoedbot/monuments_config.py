@@ -3223,8 +3223,8 @@ countries = {
     ('rs', 'sr') : { # Monuments in Serbia in Serbian
         'project' : u'wikipedia',
         'lang' : u'sr',
-        'headerTemplate' : u'споменици заглавље',
-        'rowTemplate' : u'споменици ред',
+        'headerTemplate' : u'Споменици заглавље',
+        'rowTemplate' : u'Споменици ред',
         #'commonsTemplate' : u'Rijksmonument',
         #'commonsTrackerCategory' : u'Rijksmonumenten with known IDs',
         #'commonsCategoryBase' : u'Rijksmonumenten',
