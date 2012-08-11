@@ -2476,7 +2476,7 @@ countries = {
         'rowTemplate' : u'ASI Monument row',
         'namespaces' : [0,4],
         'table' : u'monuments_in_(en)',
-        'truncate' : False,
+        'truncate' : True,
         'primkey' : (u'state_iso', u'circle', u'number'),
         'fields' : [
             {
