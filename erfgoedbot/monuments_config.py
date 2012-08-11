@@ -3235,7 +3235,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_rs_(sr)',
         'truncate' : False,
-        'primkey' : u'ИД',
+        'primkey' : u'id',
         'fields' : [
             {
                 'source' : u'ИД',
