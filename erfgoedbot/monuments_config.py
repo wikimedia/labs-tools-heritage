@@ -2469,6 +2469,52 @@ countries = {
             },
         ],
     },
+     ('in', 'en') : { # Monuments in India in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'ASI Monument header',
+        'rowTemplate' : u'ASI Monument row',
+        'namespaces' : [0,4],
+        'table' : u'monuments_in_(en)',
+        'truncate' : False,
+        'primkey' : u'number',
+        'fields' : [
+            {
+                'source' : u'number',
+                'dest' : u'number',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'district',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+        ],
+    },
+
     ('ie', 'en') : { # Monuments in Ireland
         'project' : u'wikipedia',
         'lang' : u'en',

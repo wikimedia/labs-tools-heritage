@@ -855,7 +855,30 @@ SELECT 'fr' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_fr_(fr)`;
-
+/* India in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT `in` AS `country`,
+       `en` AS `lang`,
+        `number` AS `id`,
+		`in` AS `adm0`,
+		NULL AS `adm1`,
+		NULL AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+        `description` AS `name`,
+	`address` AS `address`,
+	`location` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	NULL AS `source`,
+	`changed` AS `changed`,
+        NULL AS `monument_article`,
+        NULL AS `registrant_url`
+	FROM `monuments_in_(en)`;
+	
 /* Israel in Hebrew */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'il' AS `country`,
