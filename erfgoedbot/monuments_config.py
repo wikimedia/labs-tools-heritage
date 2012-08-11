@@ -2512,6 +2512,16 @@ countries = {
                 'source' : u'image',
                 'dest' : u'image',
             },
+            {
+                'source' : u'state_iso',
+                'dest' : u'state_iso',
+            },
+ 			 {
+                'source' : u'circle',
+                'dest' : u'circle',
+                'type' : varchar(1),
+            },
+
         ],
     },
 

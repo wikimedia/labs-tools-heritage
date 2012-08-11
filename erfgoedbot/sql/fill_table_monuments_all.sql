@@ -859,7 +859,7 @@ SELECT 'fr' AS `country`,
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT `in` AS `country`,
        `en` AS `lang`,
-        `number` AS `id`,
+        CONCAT('asi','-'`state_iso`,'-',`circle`,`number`) AS `id`,
 		`in` AS `adm0`,
 		NULL AS `adm1`,
 		NULL AS `adm2`,
@@ -878,6 +878,7 @@ SELECT `in` AS `country`,
         NULL AS `monument_article`,
         NULL AS `registrant_url`
 	FROM `monuments_in_(en)`;
+
 	
 /* Israel in Hebrew */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
