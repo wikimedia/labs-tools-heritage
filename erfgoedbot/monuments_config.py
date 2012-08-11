@@ -2523,6 +2523,93 @@ countries = {
             },
         ],
     },
+    ('il', 'he') : { # Israel monuments in Hebrew
+        'project' : u'wikipedia',
+        'lang' : u'he',
+        'headerTemplate' : u'אתר מורשת בישראל כותרת',
+        'rowTemplate' : u'אתר מורשת בישראל בשורה',  
+        #'commonsTemplate' : u'NRHP',
+        #'commonsTrackerCategory' : u'National Register of Historic Places with known IDs',
+        #'commonsCategoryBase' : u'National Register of Historic Places',
+        'autoGeocode' : False,
+        #'unusedImagesPage' : u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
+        #'imagesWithoutIdPage' : u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
+        'namespaces' : [0],
+        'table' : u'monuments_il_(he)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'מספר אתר',
+                'dest' : u'id',
+                'type' : 'varchar(20)',
+            },
+            {
+                'source' : u'מחוז',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'שם אתר',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'שם ערך',
+                'dest' : u'article',
+            },
+            {
+                'source' : u'שם אתר באנגלית',
+                'dest' : u'name-en',
+            },
+            {
+                'source' : u'תיאור אתר',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'תיאור אתר באנגלית',
+                'dest' : u'description-en',
+            },
+            {
+                'source' : u'אדריכל',
+                'dest' : u'architect',
+            },
+            {
+                'source' : u'שנת הקמה',
+                'dest' : u'year',
+            },
+            {
+                'source' : u'סוג אתר',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'קטגוריה בוויקישיתוף',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'כתובת',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'גוש',
+                'dest' : u'area',
+            },
+            {
+                'source' : u'חלקה',
+                'dest' : u'lot',
+            },
+            {
+                'source' : u'LAT',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'LONG',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'תמונה',
+                'dest' : u'image',
+            },
+        ],
+    },
     ('it-88', 'ca') : { # Monuments in Sardinia 
         'project' : u'wikipedia',
         'lang' : u'ca',
