@@ -2519,7 +2519,7 @@ countries = {
  			 {
                 'source' : u'circle',
                 'dest' : u'circle',
-                'type' : varchar(1),
+                'type' : 'varchar(1)',
             },
 
         ],
