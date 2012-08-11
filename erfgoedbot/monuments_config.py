@@ -3256,7 +3256,7 @@ countries = {
             },
             {
                 'source' : u'Општина',
-                'dest' : u'borough',
+                'dest' : u'district',
             },
             {
                 'source' : u'Надлежни_завод',
