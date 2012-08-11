@@ -3240,7 +3240,7 @@ countries = {
             {
                 'source' : u'ИД',
                 'dest' : u'id',
-                'type' : 'int(11)',
+                'type' : 'varchar(11)',
             },
             {
                 'source' : u'Насеље',
