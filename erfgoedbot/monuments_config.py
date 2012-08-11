@@ -2477,7 +2477,7 @@ countries = {
         'namespaces' : [0,4],
         'table' : u'monuments_in_(en)',
         'truncate' : False,
-        'primkey' : u'number',
+        'primkey' : (u'state_iso', u'circle', u'number'),
         'fields' : [
             {
                 'source' : u'number',
