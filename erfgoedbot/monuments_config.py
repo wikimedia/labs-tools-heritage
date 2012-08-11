@@ -3220,6 +3220,66 @@ countries = {
             },
         ],
     },
+    ('rs', 'sr') : { # Monuments in Serbia in Serbian
+        'project' : u'wikipedia',
+        'lang' : u'sr',
+        'headerTemplate' : u'споменици заглавље',
+        'rowTemplate' : u'споменици ред',
+        #'commonsTemplate' : u'Rijksmonument',
+        #'commonsTrackerCategory' : u'Rijksmonumenten with known IDs',
+        #'commonsCategoryBase' : u'Rijksmonumenten',
+        'autoGeocode' : True,
+        #'unusedImagesPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto\'s',
+        #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s zonder id',
+        #'registrantUrlBase' : u'http://monumentenregister.cultureelerfgoed.nl/php/main.php?cAction=search&sCompMonNr=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_rs_(sr)',
+        'truncate' : False,
+        'primkey' : u'ИД',
+        'fields' : [
+            {
+                'source' : u'ИД',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Насеље',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'Адреса',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'Назив',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'Општина',
+                'dest' : u'borough',
+            },
+            {
+                'source' : u'Надлежни_завод',
+                'dest' : u'authority',
+            },
+            {
+                'source' : u'гшир',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'гдуж',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'Слика',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'Назив',
+                'dest' : u'monument_article',
+            },
+        ],
+    },
     ('ru', 'ru') : { # Monuments in Russia in Russian. Field table names are English already
         'project' : u'wikipedia',
         'lang' : u'ru',
