@@ -14,6 +14,7 @@ class ApiMain {
 		'search' => 'Monuments',
 		'statistics' => 'Monuments',
 		'adminlevels' => 'AdminTree',
+		'countries' => 'Countries',
 	);
 
 	public static function getActions() {
@@ -28,7 +29,7 @@ class ApiMain {
 				self::help();
 				return;
 			}
-			$actionClass = sprintf( 'Api%s', self::$actionMap[ $action ] );
+			$actionClass = 'Api' . self::$actionMap[$action];
 			$obj = new $actionClass;
 			$obj->executeModule();
 		} catch( Exception $e ) {
