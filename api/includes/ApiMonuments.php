@@ -41,6 +41,7 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
 			'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'uselang' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 		);
 		$params = array_merge( $defaultParams, $params );
 
@@ -78,6 +79,37 @@ class ApiMonuments extends ApiBase {
 			$this->error( 'Only one pattern matching (%) or full-text (~) condition allowed' );
 		}
 		$this->isComplex = true;
+	}
+
+	function getUseLang( $useDefault = true ) {
+		$useLang = $this->getParam( 'uselang' );
+		$country = $this->getParam( 'sradm0' );
+
+		// Don't know for which country
+		if ( $useLang && !$country ) {
+			$this->error( 'uselang provided without sradm0' );
+		}
+		// No uselang, no country - just don't filter by language
+		if ( !$useLang && !$country ) {
+			return false;
+		}
+
+		$languages = ApiCountries::getInfo();
+		$defaults = ApiCountries::$defaultLanguages;
+
+		// Use default if the language is not used in this country
+		if ( !isset( $languages[$country] ) || !in_array( $useLang, $languages[$country] ) ) {
+			$useLang = false;
+		}
+
+		if ( !$useLang && $useDefault ) {
+			if ( isset( $defaults[$country] ) ) {
+				$useLang = $defaults[$country];
+			} elseif ( isset( $languages[$country] ) ) {
+				$useLang = $languages[$country][0]; // Hope we have defaults for all multilingual countries:P
+			}
+		}
+		return $useLang;
 	}
 	
 	function search() {
@@ -120,6 +152,10 @@ class ApiMonuments extends ApiBase {
 				// Postfix the name with primary key because name can be duplicate.
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
+				$useLang = $this->getUseLang();
+				if ( $useLang ) {
+					$where['lang'] = $useLang;
+				}
 			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
 				if ( $dbMiserMode && !preg_match( '/^[^%]+%$/', $value ) ) {
 					$this->error( 'Only prefix search is allowed in miser mode' );
