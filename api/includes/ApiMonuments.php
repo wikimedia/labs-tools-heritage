@@ -129,7 +129,9 @@ class ApiMonuments extends ApiBase {
 		$forceIndex = false;
 		$orderby = Monuments::$dbPrimaryKey;
 		$db = Database::getDb();
-		
+		$enableUseLang = true;
+		$useDefaultLang = false;
+
 		foreach ( Monuments::$dbFields as $field ) {
 			if ( $this->getParam( "srwith$field" ) ) {
 				$where[] = $db->escapeIdentifier( $field ) . " <> ''";
@@ -147,15 +149,12 @@ class ApiMonuments extends ApiBase {
 					$this->error( "Column `$field` does not support full-text search`" );
 				}
 				$this->complexQuery();
+				$useDefaultLang = true;
 				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST ("
 					. $db->quote( substr( $value, 1 ) ) . ' IN BOOLEAN MODE)';
 				// Postfix the name with primary key because name can be duplicate.
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
-				$useLang = $this->getUseLang();
-				if ( $useLang ) {
-					$where['lang'] = $useLang;
-				}
 			} elseif ( is_string( $value ) && strpos( $value, '%' ) !== false ) {
 				if ( $dbMiserMode && !preg_match( '/^[^%]+%$/', $value ) ) {
 					$this->error( 'Only prefix search is allowed in miser mode' );
@@ -173,6 +172,7 @@ class ApiMonuments extends ApiBase {
 		}
         
         if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {
+			$enableUseLang = false;
 			if ( $this->getParam('bbox') ) {
                 $bbox = $this->getParam('bbox');
             } else {
@@ -210,8 +210,15 @@ class ApiMonuments extends ApiBase {
 			$where[] = "`lat` BETWEEN $bl_lat AND $tr_lat";
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
         }
+		if ( $enableUseLang && !isset( $where['lang'] ) ) {
+			$useLang = $this->getUseLang( $useDefaultLang );
+			if ( $useLang ) {
+				$where['lang'] = $useLang;
+			}
+		}
 
-        /* FIXME: User should be able to set sort fields and order */
+
+		/* FIXME: User should be able to set sort fields and order */
 		if ( $this->getParam('format') == 'kml' ) {
 			$orderby = array('monument_random');
 		} elseif ( $this->getParam('format') == 'html' ) {
