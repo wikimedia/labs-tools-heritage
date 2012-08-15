@@ -141,7 +141,7 @@ class ApiMonuments extends ApiBase {
 			}
 		}
 		foreach ( Monuments::$dbFields as $field ) {
-			$value = $this->getParam( "sr$field" );
+			$value = urldecode( $this->getParam( "sr$field" ) );
 			if ( $value === false ) continue;
 			
 			if ( is_string( $value ) && substr( $value, 0, 1 ) == '~' ) {

@@ -69,6 +69,7 @@ class ApiAdminTree extends ApiBase {
 		} elseif ( $admtree ) {
 			$display_fields[] = 'level';
 			$admintree_array = explode( "|", $admtree );
+			$admintree_array = array_map( 'urldecode', $admintree_array );
 			$data = $this->getChildrenFromTree( $admintree_array );
 		} elseif ( $admval === false ) {
 			$this->error( 'You must specify a value for admval.' );
