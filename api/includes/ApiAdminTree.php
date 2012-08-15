@@ -9,6 +9,7 @@ if ( get_magic_quotes_gpc() ) {
  * @author Arthur Richards <arichards@wikimedia.org>
  */
 class ApiAdminTree extends ApiBase {
+	private $country;
 
 	public function __construct() {
 		$this->setTopLevelNodeName( 'admin_levels' );
@@ -19,17 +20,11 @@ class ApiAdminTree extends ApiBase {
 		$defaultParams = $this->getDefaultAllowedParams();
 
 		$params = array(
-			'admlevel' => array(
-				ApiBase::PARAM_MIN => 0,
-				ApiBase::PARAM_MAX => 4,
-				ApiBase::PARAM_DFLT => 0,
-				ApiBase::PARAM_TYPE => 'integer',
-			),
-			'admval' => array(
+			'admtree' => array(
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
-			'admtree' => array(
+			'admlang' => array(
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
@@ -50,6 +45,10 @@ class ApiAdminTree extends ApiBase {
 		}
 	}
 
+	protected function getCountry() {
+		return $this->country;
+	}
+
 	/**
 	 * Display admin tree data based on a supplied query
 	 *
@@ -57,30 +56,17 @@ class ApiAdminTree extends ApiBase {
 	 * adm names.
 	 */
 	public function adminlevels() {
-		$admval = $this->getParam( 'admval' );
-		$admlevel = $this->getParam( 'admlevel' );
 		$admtree = $this->getParam( 'admtree' );
-		$data = array();
 		$display_fields = array( 'name' );
-		$db = Database::getDb();
 
-		if ( $admlevel === 0 && $admval === false && $admtree === false ) {
-			$data = $this->getTopLevelAdmNames();
-		} elseif ( $admtree ) {
+		if ( $admtree ) {
 			$display_fields[] = 'level';
 			$admintree_array = explode( "|", $admtree );
 			$admintree_array = array_map( 'urldecode', $admintree_array );
-			$data = $this->getChildrenFromTree( $admintree_array );
-		} elseif ( $admval === false ) {
-			$this->error( 'You must specify a value for admval.' );
+			$this->country = $admintree_array[0];
+			$data = $this->getChildrenFromTree( $this->getUseLang(), $admintree_array );
 		} else {
-			$display_fields[] = 'level';
-			$adm_details = $this->getAdmDetails( $admval, $admlevel );
-			if ( count( $adm_details ) ) {
-				foreach ( $adm_details as $key => $adm_zone ) {
-					$data = array_merge( $data, $this->getImmediateAdminLevelChildren( $adm_zone['id'], $adm_zone['level'] ) );
-				}
-			}
+			$data = $this->getTopLevelAdmNames();
 		}
 
 		$this->getFormatter()->output( $data, 999999999, null, $display_fields, null );
@@ -89,16 +75,18 @@ class ApiAdminTree extends ApiBase {
 	/**
 	 * Fetch ResultWrapper object of adm details for an adm zone
 	 *
+	 * @param string $lang Language code
 	 * @param string $name The name of the adm zone to look up
-	 * @param int $level The adm level of the adm zone to look up
-	 * @param int $parent The parent ID to ensure for the adm zone to look up
+	 * @param bool|int $level The adm level of the adm zone to look up
+	 * @param bool|int $parent The parent ID to ensure for the adm zone to look up
+	 *
 	 * @return array
 	 */
-	private function getAdmDetails( $name, $level=false, $parent=false ) {
+	private function getAdmDetails( $lang, $name, $level=false, $parent=false ) {
 		$data = array();
 		$db = Database::getDb();
 		$fields = array( 'id', 'name', 'level' );
-		$where = array( 'name' => $name );
+		$where = array( 'name' => $name, 'lang' => $lang );
 		if ( $level !== false ) {
 			$where['level'] = $level;
 		}
@@ -121,11 +109,7 @@ class ApiAdminTree extends ApiBase {
 		$data = array();
 		$db = Database::getDb();
 		// get a list of countries
-		$fields = array( 'id', 'name' );
-		$where = array(
-			'level' => 0,
-		);
-		$res = $db->select( $fields, 'admin_tree', $where );
+		$res = new ResultWrapper( $db, $db->query( 'SELECT `id`, `name` FROM `admin_tree` WHERE `level` = 0 GROUP BY `name`' ) );
 		while( $row = $db->fetchAssoc( $res ) ) {
 			$data[] = $row;
 		}
@@ -153,7 +137,7 @@ class ApiAdminTree extends ApiBase {
 
 	/**
 	 * Fetches admin zone children for a given admin zone tree
-	 *  
+	 *
 	 * 'admin zone tree' referes to a given tree of... adimn zones, like
 	 *   us -> us-ca -> Solano County, California
 	 *
@@ -162,16 +146,18 @@ class ApiAdminTree extends ApiBase {
 	 * three from top to bottom to make sure we have the correct zone
 	 * associations and ids.
 	 *
+	 * @param string $lang Language code
 	 * @param array $admtree An array of admin zones - level => zone
+	 *
 	 * @return array
 	 */
-	private function getChildrenFromTree( array $admtree ) {
+	private function getChildrenFromTree( $lang, array $admtree ) {
 		$data = array();
 		$tree_depth = count( $admtree );
 
 		// get the topmost level details
 		$adm0_name = $admtree[0];
-		$adm0_details = $this->getAdmDetails( $adm0_name, 0 );
+		$adm0_details = $this->getAdmDetails( $lang, $adm0_name, 0 );
 		if ( !count( $adm0_details ) ) {
 			// could not find the toplevel zone
 			return $data;
@@ -182,7 +168,7 @@ class ApiAdminTree extends ApiBase {
 		if ( $tree_depth > 1 ) {
 			for ( $i=1; $i < $tree_depth; $i++ ) {
 				$adm_name = $admtree[$i];
-				$adm_details = $this->getAdmDetails( $adm_name, $i, $parent_id );
+				$adm_details = $this->getAdmDetails( $lang, $adm_name, $i, $parent_id );
 				if ( !count( $adm_details ) ) {
 					// there's are no child zones
 					return $data;

@@ -45,6 +45,10 @@ abstract class ApiBase {
 				ApiBase::PARAM_DFLT => 'help', 
     			ApiBase::PARAM_TYPE => ApiMain::getActions()
 			),
+			'uselang' => array(
+				ApiBase::PARAM_DFLT => false,
+				ApiBase::PARAM_TYPE => 'string'
+			),
 		);
 		return $params;
 	}
@@ -165,6 +169,47 @@ abstract class ApiBase {
 			$url .= $_SERVER["SERVER_NAME"];
 		}
 		return $url . $this->getUrl( $params );
+	}
+
+	/**
+	 * Returns the user's preferred language
+	 *
+	 * @param bool $useDefault: Whether default language for this country should be returned if user hasn't provided a language
+	 *
+	 * @return string|bool: Language code or false if uselang was not specified
+	 */
+	function getUseLang( $useDefault = true ) {
+		$useLang = $this->getParam( 'uselang' );
+		$country = $this->getCountry();
+
+		// Don't know for which country
+		if ( $useLang && !$country ) {
+			$this->error( 'uselang needs a country code' );
+		}
+		// No uselang, no country - just don't filter by language
+		if ( !$useLang && !$country ) {
+			return false;
+		}
+
+		$languages = ApiCountries::getInfo();
+		$defaults = ApiCountries::$defaultLanguages;
+
+		// Use default if the language is not used in this country
+		if ( !isset( $languages[$country] ) || !in_array( $useLang, $languages[$country] ) ) {
+			$useLang = false;
+		}
+
+		if ( !$useLang && $useDefault ) {
+			$useLang = ApiCountries::getDefaultLanguage( $country );
+		}
+		return $useLang;
+	}
+
+	/**
+	 * @return string|bool: Country code to be used by getUseLang() or false if none available/needed
+	 */
+	protected function getCountry() {
+		return false;
 	}
 
 	/**

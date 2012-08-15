@@ -39,32 +39,36 @@ handleDbError( $query );
 echo "Rebuilding table...\n";
 // build a data structure of unique admin values and their parents. store them as keys for easy retrieval.
 $admin_levels = array();
-$monuments_query = "SELECT `adm0`, `adm1`, `adm2`, `adm3`, `adm4` FROM `monuments_all`";
+$monuments_query = "SELECT `lang`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4` FROM `monuments_all`";
 if ( $result = $db->query( $monuments_query ) ) {
 	while ( $row = $result->fetch_object() ) {
 		$adm0 = trim( $row->adm0 );
-		if ( !isset( $admin_levels[$adm0] ) ) {
-			$admin_levels[$adm0] = array();
+		$lang = $row->lang;
+		if ( !isset( $admin_levels[$lang] ) ) {
+			$admin_levels[$lang] = array();
+		}
+		if ( !isset( $admin_levels[$lang][$adm0] ) ) {
+			$admin_levels[$lang][$adm0] = array();
 		}
 		if ( $row->adm1 ) {
 			$adm1 = trim( $row->adm1 );
-			if ( !isset( $admin_levels[$adm0][$adm1] ) ) {
-				$admin_levels[$adm0][$adm1] = array();
+			if ( !isset( $admin_levels[$lang][$adm0][$adm1] ) ) {
+				$admin_levels[$lang][$adm0][$adm1] = array();
 			}
 			if ( $row->adm2 ) {
 				$adm2 = trim( $row->adm2 );
-				if ( !isset( $admin_levels[$adm0][$adm1][$adm2] ) ) {
-					$admin_levels[$adm0][$adm1][$adm2] = array();
+				if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2] ) ) {
+					$admin_levels[$lang][$adm0][$adm1][$adm2] = array();
 				}
 				if ( $row->adm3 ) {
 					$adm3 = trim( $row->adm3 );
-					if ( !isset( $admin_levels[$adm0][$adm1][$adm2][$adm3] ) ) {
-						$admin_levels[$adm0][$adm1][$adm2][$adm3] = array();
+					if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2][$adm3] ) ) {
+						$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3] = array();
 					}
 					if ( $row->adm4 ) {
 						$adm4 = trim( $row->adm4 );
-						if ( !isset( $admin_levels[$adm0][$adm1][$adm2][$adm3][$adm4] ) && $adm4 ) {
-							$admin_levels[$adm0][$adm1][$adm2][$adm3][$adm4] = array();
+						if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2][$adm3][$adm4] ) && $adm4 ) {
+							$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3][$adm4] = array();
 						}
 					}
 				}
@@ -77,50 +81,58 @@ if ( $result = $db->query( $monuments_query ) ) {
 }
 
 // loop through each admin level, and store it in the db with appropriate parents
-$i = 0;
-foreach ( $admin_levels as $adm0 => $v0 ) {
-	$query = "INSERT INTO admin_tree ( `level`, `name`, `parent` ) VALUES ( 0, '" . $db->real_escape_string( $adm0 ) . "', NULL )";
-	out( $query );
-	$db->query( $query );
-	handleDbError( $query );
-	$id0 = $db->insert_id;
-	$i++;
-	foreach ( $v0 as $adm1 => $v1 ) {
-		$id1 = insert_sub_adm( 1, $adm1, $id0 );
-		$i++;
+$counter = 0;
+$db->query( 'BEGIN' );
+foreach ( $admin_levels as $lang => $levels ) {
+	foreach ( $levels as $adm0 => $v0 ) {
+		$query = "INSERT INTO admin_tree ( `lang`, `level`, `name`, `parent` ) VALUES ( '{$db->real_escape_string( $lang )}',"
+			. " 0, '{$db->real_escape_string( $adm0 )}', NULL )";
+		out( $query );
+		$db->query( $query );
+		handleDbError( $query );
+		$id0 = $db->insert_id;
+		newRow();
+		foreach ( $v0 as $adm1 => $v1 ) {
+			$id1 = insert_sub_adm( $lang, 1, $adm1, $id0 );
+			newRow();
 
-		foreach ( $v1 as $adm2 => $v2 ) {
-			$id2 = insert_sub_adm( 2, $adm2, $id1 );
-			$i++;
+			foreach ( $v1 as $adm2 => $v2 ) {
+				$id2 = insert_sub_adm( $lang, 2, $adm2, $id1 );
+				newRow();
 
-			foreach ( $v2 as $adm3 => $v3 ) {
-				$id3 = insert_sub_adm( 3, $adm3, $id2 );
-				$i++;
+				foreach ( $v2 as $adm3 => $v3 ) {
+					$id3 = insert_sub_adm( $lang, 3, $adm3, $id2 );
+					newRow();
 
-				foreach ( $v3 as $adm4 => $v4 ) {
-					insert_sub_adm( 4, $adm4, $id3 );
-					$i++;
+					foreach ( $v3 as $adm4 => $v4 ) {
+						insert_sub_adm( $lang, 4, $adm4, $id3 );
+						newRow();
+					}
 				}
 			}
 		}
 	}
 }
+$db->query( 'COMMIT' );
 mysqli_close( $db );
 $t1 = microtime( true );
 $t = $t1 - $t0;
-echo "Inserted $i admin zones in $t seconds.\n";
+echo "Inserted $counter admin zones in $t seconds.\n";
 
 /**
  * Insert an admin level > 0 to the db
  *
+ * @param $lang string Language code
  * @param $level int
  * @param $adm string The name of the admin level
  * @param $parentId int The row id of the admin level's parent
+ *
  * @return int The row id of the inserted admin level
  */
-function insert_sub_adm( $level, $adm, $parentId ) {
+function insert_sub_adm( $lang, $level, $adm, $parentId ) {
 	global $db;
-	$query = "INSERT INTO admin_tree ( `level`, `name`, `parent` ) VALUES ( {$level}, '{$db->real_escape_string( $adm )}', {$parentId} )";
+	$query = "INSERT INTO admin_tree ( `lang`, `level`, `name`, `parent` ) VALUES ( '{$db->real_escape_string( $lang )}',"
+		. " {$level}, '{$db->real_escape_string( $adm )}', {$parentId} )";
 	out( $query );
 	$db->query( $query );
 	handleDbError( $query );
@@ -141,5 +153,14 @@ function handleDbError( $query ) {
 	global $db;
 	if ( $db->errno ) {
 		die( "MySQL error: {$db->error}\nQuery: {$query}\n" );
+	}
+}
+
+function newRow() {
+	global $counter, $db;
+
+	if ( ++$counter % 500 == 0 ) {
+		$db->query( 'COMMIT' );
+		$db->query( 'BEGIN' );
 	}
 }

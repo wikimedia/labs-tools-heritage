@@ -36,6 +36,32 @@ class ApiCountries extends ApiBase {
 		$formatter->output( $res, 10000, null, array( 'code', 'languages', 'default' ), null );
 	}
 
+	public static function getDefaultLanguage( $country ) {
+		if ( isset( self::$defaultLanguages[$country] ) ) {
+			return self::$defaultLanguages[$country];
+		} else {
+			$languages = self::getInfo();
+			if ( isset( $languages[$country] ) ) {
+				return $languages[$country][0]; // Hope we have defaults for all multilingual countries:P
+			}
+		}
+		return false;
+	}
+
+	public static function getAllLanguages() {
+		static $languages = null;
+		if ( $languages !== null ) {
+			return $languages;
+		}
+		$info = self::getInfo();
+		$languages = array();
+		foreach ( $info as $country ) {
+			$languages = array_merge( $languages, $country );
+		}
+		$languages = array_unique( $languages );
+		return $languages;
+	}
+
 	public static function getInfo() {
 		static $cached = null;
 		if ( $cached !== null ) {

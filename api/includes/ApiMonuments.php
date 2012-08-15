@@ -41,7 +41,6 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
 			'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-			'uselang' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 		);
 		$params = array_merge( $defaultParams, $params );
 
@@ -81,37 +80,10 @@ class ApiMonuments extends ApiBase {
 		$this->isComplex = true;
 	}
 
-	function getUseLang( $useDefault = true ) {
-		$useLang = $this->getParam( 'uselang' );
-		$country = $this->getParam( 'sradm0' );
-
-		// Don't know for which country
-		if ( $useLang && !$country ) {
-			$this->error( 'uselang provided without sradm0' );
-		}
-		// No uselang, no country - just don't filter by language
-		if ( !$useLang && !$country ) {
-			return false;
-		}
-
-		$languages = ApiCountries::getInfo();
-		$defaults = ApiCountries::$defaultLanguages;
-
-		// Use default if the language is not used in this country
-		if ( !isset( $languages[$country] ) || !in_array( $useLang, $languages[$country] ) ) {
-			$useLang = false;
-		}
-
-		if ( !$useLang && $useDefault ) {
-			if ( isset( $defaults[$country] ) ) {
-				$useLang = $defaults[$country];
-			} elseif ( isset( $languages[$country] ) ) {
-				$useLang = $languages[$country][0]; // Hope we have defaults for all multilingual countries:P
-			}
-		}
-		return $useLang;
+	protected function getCountry() {
+		return $this->getParam( 'sradm0' );
 	}
-	
+
 	function search() {
 		global $dbMiserMode;
 
@@ -131,6 +103,7 @@ class ApiMonuments extends ApiBase {
 		$db = Database::getDb();
 		$enableUseLang = true;
 		$useDefaultLang = false;
+		$smartFilter = false;
 
 		foreach ( Monuments::$dbFields as $field ) {
 			if ( $this->getParam( "srwith$field" ) ) {
@@ -209,12 +182,12 @@ class ApiMonuments extends ApiBase {
 			$where['lon_int'] = self::intRange( $bl_lon, $tr_lon );
 			$where[] = "`lat` BETWEEN $bl_lat AND $tr_lat";
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
+			$smartFilter = true;
+			$useDefaultLang = true;
         }
-		if ( $enableUseLang && !isset( $where['lang'] ) ) {
-			$useLang = $this->getUseLang( $useDefaultLang );
-			if ( $useLang ) {
-				$where['lang'] = $useLang;
-			}
+		$useLang = $this->getUseLang( $useDefaultLang );
+		if ( $enableUseLang && $useLang && !isset( $where['lang'] ) ) {
+			$where['lang'] = $useLang;
 		}
 
 
@@ -240,6 +213,36 @@ class ApiMonuments extends ApiBase {
 		
 		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where,
 			$orderby, $limit + 1, $forceIndex );
+
+		if ( $smartFilter ) {
+			$rows = array();
+			$numRows = 0;
+
+			// Prepare an array of language weights signifying how much desireable each of them is
+			$country = $this->getCountry();
+			$weights = array_flip( ApiCountries::getAllLanguages() );
+			$weights = array_map( function() { return 1; }, $weights ); // Prefer no language
+			$weights[$useLang] = 1000; // ...other than uselang
+			$defaultLang = ApiCountries::getDefaultLanguage( $country ); // And country's default language
+			$weights[$defaultLang] = 500;
+
+			foreach ( $res as $row ) {
+				$numRows++;
+				$id = "{$row->country}-{$row->id}";
+				if ( !isset( $weights[$row->lang] ) ) { // foolproof in case cache is out of date
+					$weights[$row->lang] = 1;
+				}
+				if ( !isset( $rows[$id] ) || ( $weights[$row->lang] > $weights[$rows[$id]->lang] ) ) {
+					$rows[$id] = $row;
+				}
+			}
+			if ( $numRows > $limit ) {
+				// Tweak limit to ensure pagination will happen
+				$limit = count( $rows ) - 1;
+			}
+			$res = $rows;
+		}
+
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), $orderby );
 	}
 	
