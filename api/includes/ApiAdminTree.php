@@ -99,10 +99,10 @@ class ApiAdminTree extends ApiBase {
 		$db = Database::getDb();
 		$fields = array( 'id', 'name', 'level' );
 		$where = array( 'name' => $name );
-		if ( $level !== false && $level !== false ) {
+		if ( $level !== false ) {
 			$where['level'] = $level;
 		}
-		if ( $parent !== false && $parent !== false ) {
+		if ( $parent !== false ) {
 			$where['parent'] = $parent;
 		}
 		$res = $db->select( $fields, 'admin_tree', $where );
