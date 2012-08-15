@@ -62,7 +62,6 @@ class ApiAdminTree extends ApiBase {
 		if ( $admtree ) {
 			$display_fields[] = 'level';
 			$admintree_array = explode( "|", $admtree );
-			$admintree_array = array_map( 'urldecode', $admintree_array );
 			$this->country = $admintree_array[0];
 			$data = $this->getChildrenFromTree( $this->getUseLang(), $admintree_array );
 		} else {
