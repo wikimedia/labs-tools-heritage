@@ -598,6 +598,7 @@ SELECT 'gh' AS `country`,
 		ROUND(`lat` * @granularity) AS `lat_int`,
 		ROUND(`lon` * @granularity) AS `lon_int`,
 		`image` AS `image`,
+		`source` AS `source`,
 		`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url` # Not available
