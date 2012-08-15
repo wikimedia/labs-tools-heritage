@@ -1569,6 +1569,80 @@ countries = {
             },
         ],
     },
+    
+     ('gh', 'en') : { # Ghana monuments in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Ghana Monument header',
+        'rowTemplate' : u'Ghana Monument row',
+        #'commonsTemplate' : u'Rijksmonument',
+        #'commonsTrackerCategory' : u'Rijksmonumenten with known IDs',
+        #'commonsCategoryBase' : u'Rijksmonumenten',
+        'autoGeocode' : False,
+        #'unusedImagesPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto\'s',
+        #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s zonder id',
+        'registrantUrlBase' : u'http://www.ghanamuseums.org/what-is-gmmb.php',
+        'namespaces' : [0],
+        'table' : u'monuments_gh_(en)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+			 {
+                'source' : u'alternative_names',
+                'dest' : u'alternative_names',
+            },
+            {
+                'source' : u'region',
+                'dest' : u'region',
+            }, 
+            {
+                'source' : u'region_iso',
+                'dest' : u'region_iso',
+            },
+            {
+                'source' : u'original_function',
+                'dest' : u'original_function',
+            }, 
+            {
+                'source' : u'built',
+                'dest' : u'built',
+            }, 
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            }, 
+            {
+                'source' : u'comment',
+                'dest' : u'comment',
+            }, 
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('de-by', 'de') : { # Baudenkmäler in Bayern in German
         'project' : u'wikipedia',
         'lang' : u'de',
