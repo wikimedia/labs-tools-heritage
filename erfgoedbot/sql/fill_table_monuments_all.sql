@@ -600,7 +600,7 @@ SELECT 'gh' AS `country`,
 		`image` AS `image`,
 		`changed` AS `changed`,
         `monument_article` AS `monument_article`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url` # Not available
 	FROM `monuments_gh_(en)`;
 /* Bergheim, NRW, Germany in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
