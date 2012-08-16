@@ -82,36 +82,15 @@ Format		</label>
 		<td>
 		<select id="country-filler" multiple="multiple" size="5">
 			<option value="">All</option>
-			<option value="AD">AD</option>
-			<option value="AT">AT</option>
-			<option value="BE-BRU">BE-BRU</option>
-			<option value="BE-VLG">BE-VLG</option>
-			<option value="BE-WAL">BE-WAL</option>
-			<option value="BY">BY</option>
-			<option value="CH">CH</option>
-			<option value="DE-HE">DE-HE</option>
-			<option value="DE-NRW-BM">DE-NRW-BM</option>
-			<option value="DE-NRW-K">DE-NRW-K</option>
-			<option value="DK-BYGNING">DK-BYGNING</option>
-			<option value="DK-FORTIDS">DK-FORTIDS</option>
-			<option value="EE">EE</option>
-			<option value="ES">ES</option>
-			<option value="ES-CT">ES-CT</option>
-			<option value="ES-VC">ES-VC</option>
-			<option value="FR">FR</option>
-			<option value="IE">IE</option>
-			<option value="IT-88">IT-88</option>
-			<option value="IT-BZ">IT-BZ</option>
-			<option value="LU">LU</option>
-			<option value="NL">NL</option>
-			<option value="NO">NO</option>
-			<option value="PL">PL</option>
-			<option value="PT">PT</option>
-			<option value="RO">RO</option>
-			<option value="RU">RU</option>
-			<option value="SE">SE</option>
-			<option value="UA">UA</option>
-			<option value="US">US</option>
+<?php
+	$db = Database::getDb();
+	$rows = $db->select( array( 'name' ), 'admin_tree', array( 'level' => 0 ), array( 'name' ) );
+
+	foreach ( $rows as $row ) {
+		$name = htmlspecialchars( $row->name );
+		echo "			<option value=\"$name\">$name</option>\n";
+	}
+?>
 		</select>
 		<input type="hidden" name="srcountry" value="" id="srcountry" />
 		
