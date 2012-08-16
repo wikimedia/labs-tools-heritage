@@ -35,6 +35,7 @@ abstract class FormatBase {
 		foreach ( $result as $row ) {
 			if ( ++$count > $limit ) {
 				$this->outputContinue( $row, $continueKey, $primaryKey );
+				break;
 			} else {
 				$this->outputRow( $row, $selectedItems );
 			}

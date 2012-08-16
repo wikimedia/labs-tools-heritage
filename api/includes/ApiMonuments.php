@@ -97,6 +97,7 @@ class ApiMonuments extends ApiBase {
             return;
         }
 
+		$props = $this->getParam( 'props' );
 		$where = array();
 		$forceIndex = false;
 		$orderby = Monuments::$dbPrimaryKey;
@@ -104,6 +105,7 @@ class ApiMonuments extends ApiBase {
 		$enableUseLang = true;
 		$useDefaultLang = false;
 		$smartFilter = false;
+		$spatialMode = false;
 
 		foreach ( Monuments::$dbFields as $field ) {
 			if ( $this->getParam( "srwith$field" ) ) {
@@ -145,7 +147,10 @@ class ApiMonuments extends ApiBase {
 		}
         
         if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {
+			$spatialMode = true;
+			$smartFilter = true;
 			$enableUseLang = false;
+			$useDefaultLang = true;
 			if ( $this->getParam('bbox') ) {
                 $bbox = $this->getParam('bbox');
             } else {
@@ -163,6 +168,8 @@ class ApiMonuments extends ApiBase {
 				if ( $bl_lat > $tr_lat || $bl_lon > $tr_lon ) {
 					$this->error( 'Invalid bounding box' );
 				}
+				$lat = ( $bl_lat + $tr_lat ) / 2;
+				$lon = ( $bl_lon + $tr_lon ) / 2;
 			} else {
 				$radius = $this->getParam( 'radius' );
 				if ( $radius === false || $radius <= 0 ) {
@@ -172,8 +179,9 @@ class ApiMonuments extends ApiBase {
 				if ( count( $coords ) != 2 ) {
 					$this->error( 'Invalid coordinate format, 2 comma-delimited numbers are expected' );
 				}
+				list( $lat, $lon ) = $coords;
 				list( $bl_lat, $bl_lon, $tr_lat, $tr_lon ) =
-					self::rectAround( $coords[0], $coords[1], $this->getParam( 'radius' ) );
+					self::rectAround( $lat, $lon, $this->getParam( 'radius' ) );
 			}
 			if ( $dbMiserMode && ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
 				$this->error( 'Bounding box is too large' );
@@ -182,8 +190,10 @@ class ApiMonuments extends ApiBase {
 			$where['lon_int'] = self::intRange( $bl_lon, $tr_lon );
 			$where[] = "`lat` BETWEEN $bl_lat AND $tr_lat";
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
-			$smartFilter = true;
-			$useDefaultLang = true;
+			$orderby = false; // We'll sort manually later
+			$props[] = 'lat';
+			$props[] = 'lon';
+			$props = array_unique( $props );
         } elseif ( $this->getParam( 'sradm0' ) ) {
 			$orderby = array( 'name' );
 			for ( $i = 0; $i < 3; $i++) {
@@ -199,7 +209,6 @@ class ApiMonuments extends ApiBase {
 			$where['lang'] = $useLang;
 		}
 
-
 		/* FIXME: User should be able to set sort fields and order */
 		if ( $this->getParam('format') == 'kml' ) {
 			$orderby = array('monument_random');
@@ -207,7 +216,7 @@ class ApiMonuments extends ApiBase {
 			$orderby = array('country', 'municipality', 'address');
 		}
 		$continue = $this->getParam( 'srcontinue' );
-		if ( $continue ) {
+		if ( $continue && !$spatialMode ) {
 			$v = explode( '|', $continue );
 			if ( count( $orderby ) != count( $v ) ) {
 				$this->error( 'Invalid continue parameter' );
@@ -220,8 +229,8 @@ class ApiMonuments extends ApiBase {
 
 		$limit = $this->getParam( 'limit' );
 		
-		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $this->getParam( 'props' ) ), Monuments::$dbTable, $where,
-			$orderby, $limit + 1, $forceIndex );
+		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $props ), Monuments::$dbTable, $where,
+			$orderby, $spatialMode ? null : ( $limit + 1 ), $forceIndex );
 
 		if ( $smartFilter ) {
 			$rows = array();
@@ -237,6 +246,9 @@ class ApiMonuments extends ApiBase {
 
 			foreach ( $res as $row ) {
 				$numRows++;
+				if ( $spatialMode ) {
+					$row->dist = self::distance( $row->lat, $row->lon, $lat, $lon );
+				}
 				$id = "{$row->country}-{$row->id}";
 				if ( !isset( $weights[$row->lang] ) ) { // foolproof in case cache is out of date
 					$weights[$row->lang] = 1;
@@ -245,14 +257,33 @@ class ApiMonuments extends ApiBase {
 					$rows[$id] = $row;
 				}
 			}
-			if ( $numRows > $limit ) {
+			if ( $spatialMode ) {
+				$props[] = 'dist';
+				usort( $rows,
+					function( $a, $b ) {
+						if ( $a->dist == $b->dist ) {
+							return 0;
+						}
+						return ( $a->dist < $b->dist ) ? -1 : 1;
+					}
+				);
+				// Enumerate all the rows for continue to work
+				$rows = array_values( $rows );
+				for ( $i = 0; $i < count( $rows ); $i++ ) {
+					$rows[$i]->number = $i;
+				}
+				$orderby = array( 'number' );
+				if ( $continue ) {
+					array_splice( $rows, 0, intval( $continue ) );
+				}
+			} elseif ( $numRows > $limit ) {
 				// Tweak limit to ensure pagination will happen
 				$limit = count( $rows ) - 1;
 			}
 			$res = $rows;
 		}
 
-		$this->getFormatter()->output( $res, $limit, 'srcontinue', $this->getParam( 'props' ), $orderby );
+		$this->getFormatter()->output( $res, $limit, 'srcontinue', $props, $orderby );
 	}
 	
 	function statistics() {
@@ -326,6 +357,26 @@ class ApiMonuments extends ApiBase {
 		} else {
 			return range( $start, $end );
 		}
+	}
+
+	/**
+	 * Calculates distance between two coordinates
+	 * @see https://en.wikipedia.org/wiki/Haversine_formula
+	 *
+	 * @param float $lat1
+	 * @param float $lon1
+	 * @param float $lat2
+	 * @param float $lon2
+	 * @return float Distance in meters
+	 */
+	public static function distance( $lat1, $lon1, $lat2, $lon2 ) {
+		$lat1 = deg2rad( $lat1 );
+		$lon1 = deg2rad( $lon1 );
+		$lat2 = deg2rad( $lat2 );
+		$lon2 = deg2rad( $lon2 );
+		$sin1 = sin( ( $lat2 - $lat1 ) / 2 );
+		$sin2 = sin( ( $lon2 - $lon1 ) / 2 );
+		return 2 * self::EARTH_RADIUS * asin( sqrt( $sin1 * $sin1 + cos( $lat1 ) * cos( $lat2 ) * $sin2 * $sin2 ) );
 	}
 
 }
