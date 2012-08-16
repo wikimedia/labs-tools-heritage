@@ -5,6 +5,7 @@ ini_set('html_errors', false);
 
 /* Entry point for the monuments api */
 require dirname( __FILE__ ) . '/autoloader.php';
+require dirname( __FILE__ ) . '/searchPage.php';
 require dirname( __FILE__ ) . '/includes/Defaults.php';
 require dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
 
