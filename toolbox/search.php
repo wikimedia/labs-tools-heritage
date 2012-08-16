@@ -73,7 +73,8 @@ Format		</label>
 			<option value="html"> html </option>
 			<option value="poi"> poi </option>
 			<option value="gpx"> gpx </option>
-			<option value="googlemaps"> googlemaps </option>			<option value="kml"> kml </option>
+			<option value="googlemaps"> googlemaps </option>
+			<option value="kml"> kml </option>
 			<option value="layar"> layar </option>
 			<option value="json"> json </option>
 			<option value="osm"> osm </option>
