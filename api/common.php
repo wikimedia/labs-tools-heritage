@@ -26,5 +26,3 @@ $I18N = new TsIntuition( $opts );
 
 header ('Content-type: text/html; charset=utf-8');
 
-$searchPage = new SearchPage($I18N);
-echo $searchPage->getSearchPage();
