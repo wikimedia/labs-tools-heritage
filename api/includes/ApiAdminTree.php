@@ -61,12 +61,7 @@ class ApiAdminTree extends ApiBase {
 
 		if ( $admtree ) {
 			$display_fields[] = 'level';
-			// replace escaped pipe with something else so we can safely explode on separator pipes
-			$admtree = str_replace( "\|", "//pipe//", $admtree );
-			// separate string into an array, split by pipes
-			$admintree_array = explode( "|", $admtree );
-			// re-insert the pipe to array elements that are suppsed to have it.
-			$admintree_array = array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val ); }, $admintree_array );
+			$admintree_array = static::fixWikiTextPipeExplosion( $admtree );
 			$this->country = $admintree_array[0];
 			$data = $this->getChildrenFromTree( $this->getUseLang(), $admintree_array );
 		} else {

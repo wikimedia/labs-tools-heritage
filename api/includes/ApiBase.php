@@ -255,4 +255,33 @@ abstract class ApiBase {
 	public function getObjectNodeName() {
 		return $this->object_node_name;
 	}
+
+	/**
+	 * Handle pipes in strings within a pipe-delimited string
+	 *
+	 * There are times, particularly in wikitext, when a value may
+	 * contain a pipe. Eg:
+	 *    [[Alameda, California|Alameda]]
+	 *
+	 * This is problematic when you are receiving a pipe-delimited
+	 * string that contains one or more of these cases, particularly
+	 * when you wish to explode that string into an array.
+	 *
+	 * At the moment, the WLM app escapes | in wikitext strings
+	 * either with a '\' or a '\\'. This static method turns that
+	 * escaped string into another string, '//pipe//', then explodes
+	 * the overall string on '|', and then replaces '//pipe//' with '|'
+	 * for every element in the resulting array.
+	 *
+	 * @TODO add a preg_replace to look for '[[foo|bar]]' and replace the
+	 *    the '|' with '//pipe//' so we don't have to necessarily rely on 
+	 *    esacping in the API caller.
+	 * @param string
+	 * @return array
+	 */
+	public static function fixWikiTextPipeExplosion( $value ) {
+		$value = str_replace( array( "\\|", "\|" ), "//pipe//", $value );
+		$value = explode( '|', $value );
+		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val ); }, $value );
+	}
 }

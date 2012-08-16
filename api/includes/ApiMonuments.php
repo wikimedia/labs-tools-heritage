@@ -137,7 +137,7 @@ class ApiMonuments extends ApiBase {
 					$db->quote( $value );
 			} else {
 				if ( is_string( $value ) ) {
-					$value = explode( '|', $value );
+					$value = static::fixWikiTextPipeExplosion( $value );
 				}
 				
 				$where[$field] = $value;
