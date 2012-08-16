@@ -116,7 +116,7 @@ class ApiMonuments extends ApiBase {
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
-			
+
 			if ( is_string( $value ) && substr( $value, 0, 1 ) == '~' ) {
 				if ( !isset( $fulltextColumns[$field] ) ) {
 					$this->error( "Column `$field` does not support full-text search`" );
@@ -184,7 +184,16 @@ class ApiMonuments extends ApiBase {
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
 			$smartFilter = true;
 			$useDefaultLang = true;
-        }
+        } elseif ( $this->getParam( 'sradm0' ) ) {
+			$orderby = array( 'name' );
+			for ( $i = 0; $i < 3; $i++) {
+				if ( $this->getParam( "sradm{$i}" ) === false ) {
+					break;
+				}
+				$forceIndex = "admin_levels{$i}";
+			}
+		}
+
 		$useLang = $this->getUseLang( $useDefaultLang );
 		if ( $enableUseLang && $useLang && !isset( $where['lang'] ) ) {
 			$where['lang'] = $useLang;
