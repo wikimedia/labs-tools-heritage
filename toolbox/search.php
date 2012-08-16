@@ -84,7 +84,7 @@ Format		</label>
 			<option value="">All</option>
 <?php
 	$db = Database::getDb();
-	$rows = $db->select( array( 'name' ), 'admin_tree', array( 'level' => 0 ), array( 'name' ) );
+	$rows = $db->query( "SELECT DISTINCT name FROM admin_tree WHERE level = 0 ORDER BY name" );
 
 	foreach ( $rows as $row ) {
 		$name = htmlspecialchars( $row->name );
