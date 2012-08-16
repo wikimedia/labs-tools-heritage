@@ -37,7 +37,7 @@ CREATE TABLE `monuments_all_tmp` (
   PRIMARY KEY (`country`,`lang`,`id`),
   KEY `admin_levels0` (`adm0`, `name`),
   KEY `admin_levels1` (`adm0`, `adm1`, `name`),
-  KEY `admin_levels2` (`adm0`, `adm1`, `adm2`(64), `name`),
+  KEY `admin_levels2` (`adm0`, `adm1`, `adm2`(60), `name`),
   KEY `name` (`name`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
   KEY `cma` (`country`,`municipality`(100),`address`(100)),
