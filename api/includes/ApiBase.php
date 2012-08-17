@@ -267,20 +267,18 @@ abstract class ApiBase {
 	 * string that contains one or more of these cases, particularly
 	 * when you wish to explode that string into an array.
 	 *
-	 * At the moment, the WLM app escapes | in wikitext strings
-	 * either with a '\' or a '\\'. This static method turns that
-	 * escaped string into another string, '//pipe//', then explodes
+	 * This static method turns a '|' present in wikitext and
+	 * escapes string into another string, '//pipe//', then explodes
 	 * the overall string on '|', and then replaces '//pipe//' with '|'
 	 * for every element in the resulting array.
 	 *
-	 * @TODO add a preg_replace to look for '[[foo|bar]]' and replace the
-	 *    the '|' with '//pipe//' so we don't have to necessarily rely on 
-	 *    esacping in the API caller.
 	 * @param string
 	 * @return array
 	 */
 	public static function fixWikiTextPipeExplosion( $value ) {
-		$value = str_replace( array( "\\|", "\|" ), "//pipe//", $value );
+		$pattern = "/(\[\[[^\]]+)(\|)([^\]]+\]\])/";
+		$replacement = "$1//pipe//$3";
+		$value = preg_replace( $pattern, $replacement, $value );
 		$value = explode( '|', $value );
 		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val ); }, $value );
 	}
