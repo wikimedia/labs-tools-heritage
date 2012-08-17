@@ -11,6 +11,16 @@ if ( get_magic_quotes_gpc() ) {
 class ApiAdminTree extends ApiBase {
 	private $country;
 
+	/**
+	 * @var Language
+	 */
+	private $language;
+
+	/**
+	 * @var Language
+	 */
+	private $fallbackLanguage = null;
+
 	public function __construct() {
 		$this->setTopLevelNodeName( 'admin_levels' );
 		$this->setObjectNodeName( 'admin_level' );
@@ -57,13 +67,19 @@ class ApiAdminTree extends ApiBase {
 	 */
 	public function adminlevels() {
 		$admtree = $this->getParam( 'admtree' );
-		$display_fields = array( 'name' );
+		$display_fields = array( 'name', 'translated' );
 
 		if ( $admtree ) {
 			$display_fields[] = 'level';
 			$admintree_array = static::fixWikiTextPipeExplosion( $admtree );
 			$this->country = $admintree_array[0];
-			$data = $this->getChildrenFromTree( $this->getUseLang(), $admintree_array );
+			$useLang = $this->getUseLang();
+			$this->language = Language::newFromCode( $useLang );
+			$countryLang = ApiCountries::getDefaultLanguage( $admintree_array[0] );
+			if ( $useLang != $countryLang && $countryLang ) {
+				$this->fallbackLanguage = Language::newFromCode( $countryLang );
+			}
+			$data = $this->getChildrenFromTree( $useLang, $admintree_array );
 		} else {
 			$data = $this->getTopLevelAdmNames();
 		}
@@ -108,8 +124,12 @@ class ApiAdminTree extends ApiBase {
 		$data = array();
 		$db = Database::getDb();
 		// get a list of countries
+		$useLang = $this->getParam( 'uselang' ); // Not getUseLang() because that will throw an exception w/o adm0
+		$lang = $useLang ? Language::newFromCode( $useLang ) : null;
 		$res = new ResultWrapper( $db, $db->query( 'SELECT `id`, `name` FROM `admin_tree` WHERE `level` = 0 GROUP BY `name`' ) );
 		while( $row = $db->fetchAssoc( $res ) ) {
+			$fallbackLang = ApiCountries::getDefaultLanguage( $row['name'] );
+			$this->translateRow( $row, $lang && $lang->hasData() ? $lang : Language::newFromCode( $fallbackLang ) );
 			$data[] = $row;
 		}
 		return $data;
@@ -129,6 +149,9 @@ class ApiAdminTree extends ApiBase {
 		);
  		$res = $db->select ( $fields, 'admin_tree', $where );
 		while ( $row = $db->fetchAssoc( $res ) ) {
+			if ( $row['level'] < 2 ) {
+				$this->translateRow( $row );
+			}
 			$data[] = $row;
 		}
 		return $data;
@@ -185,5 +208,18 @@ class ApiAdminTree extends ApiBase {
 		// get the admin zones who's parent id is the id of the bottom-most requested zone
 		$data = $this->getImmediateAdminLevelChildren( $parent_id );
 		return $data;
+	}
+
+	private function translateRow( &$row, $language = null ) {
+		if ( !$language ) {
+			$language = $this->language;
+		}
+		$s = $language->getName( $row['name'] );
+		if ( !$s && $this->fallbackLanguage ) {
+			$s = $this->fallbackLanguage->getName( $row['name'] );
+		}
+		if ( $s ) {
+			$row['translated'] = $s;
+		}
 	}
 }
