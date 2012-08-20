@@ -147,7 +147,7 @@ class ApiAdminTree extends ApiBase {
 		$where = array(
 			'parent' => $id,
 		);
- 		$res = $db->select ( $fields, 'admin_tree', $where );
+ 		$res = $db->select ( $fields, 'admin_tree', $where, array( 'name' ) );
 		while ( $row = $db->fetchAssoc( $res ) ) {
 			if ( $row['level'] <= 2 ) {
 				$this->translateRow( $row );
