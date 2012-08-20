@@ -80,6 +80,23 @@ class ApiMonuments extends ApiBase {
 		$this->isComplex = true;
 	}
 
+	/**
+	 * @param $fileds array|string
+	 * @param $query string
+	 *
+	 * @return string
+	 */
+	private function fulltextSearch( $fileds, $query ) {
+		$db = Database::getDb();
+		$this->complexQuery();
+		$fieldList = implode( ', ',
+			array_map( array( $db, 'escapeIdentifier' ),
+				(array)$fileds
+			)
+		);
+		return "MATCH ($fieldList) AGAINST ({$db->quote( $query )} IN BOOLEAN MODE)";
+	}
+
 	protected function getCountry() {
 		return $this->getParam( 'sradm0' );
 	}
@@ -87,6 +104,7 @@ class ApiMonuments extends ApiBase {
 	function search() {
 		global $dbMiserMode;
 
+		// @todo: set to empty array after beta 3 is released
 		$fulltextColumns = array( 'name' => 1 );
         
         if ( $this->getParam('format') == 'dynamickml' ) {
@@ -123,10 +141,8 @@ class ApiMonuments extends ApiBase {
 				if ( !isset( $fulltextColumns[$field] ) ) {
 					$this->error( "Column `$field` does not support full-text search`" );
 				}
-				$this->complexQuery();
 				$useDefaultLang = true;
-				$where[] = "MATCH ({$db->escapeIdentifier( $field )}) AGAINST ("
-					. $db->quote( substr( $value, 1 ) ) . ' IN BOOLEAN MODE)';
+				$where[] = $this->fulltextSearch( $field, substr( $value, 1 ) );
 				// Postfix the name with primary key because name can be duplicate.
 				// Filesort either way.
 				$orderby = array_merge( array( $field ), $orderby );
@@ -144,6 +160,13 @@ class ApiMonuments extends ApiBase {
 				
 				$where[$field] = $value;
 			}
+		}
+
+		$fulltextQuery = $this->getParam( 'srquery' );
+		if ( $fulltextQuery ) {
+			$useDefaultLang = true;
+			$orderby = array_merge( array( 'name' ), $orderby );
+			$where[] = $this->fulltextSearch( array( 'name', 'address' ), $fulltextQuery );
 		}
         
         if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {

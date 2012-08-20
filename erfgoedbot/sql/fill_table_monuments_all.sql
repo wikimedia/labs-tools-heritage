@@ -42,6 +42,9 @@ CREATE TABLE `monuments_all_tmp` (
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
   KEY `cma` (`country`,`municipality`(100),`address`(100)),
   KEY `monument_random` (`monument_random`),
+  FULLTEXT KEY `name_address_ft` (`name`, `address`),
+
+  /* @todo: remove after beta 3 is released */
   FULLTEXT KEY `name_ft` (`name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
