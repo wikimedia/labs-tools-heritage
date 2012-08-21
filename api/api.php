@@ -3,7 +3,18 @@
 /* Entry point for the monuments api */
 require dirname( __FILE__ ) . '/autoloader.php';
 require dirname( __FILE__ ) . '/includes/Defaults.php';
-require dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
+/**
+ * Look for config overrides
+ * 
+ * First look in p_erfgoed's parent dir, then in p_erfgoed root.
+ * Otherwise, erfgoed will just use Defaults.php.
+ */
+$config_override = 'database.inc';
+if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_override}" ) ) {
+	require dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_override}";
+} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . "/{$config_override}" ) ) {
+	require dirname( dirname( __FILE__ ) ) . "/{$config_override}";
+}
 
 /* Localization */
 if ( $tsI18nDir ) {
