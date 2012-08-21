@@ -22,6 +22,8 @@ class ApiMain {
 	}
 
 	public static function dispatch() {
+		Debug::init();
+
 		$api = new ApiDummy;
 		try {
 			$action = $api->getParam( 'action' );
