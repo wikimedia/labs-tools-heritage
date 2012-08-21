@@ -24,6 +24,9 @@ class Language {
 		if ( isset( self::$languageCache[$code] ) ) {
 			return self::$languageCache[$code];
 		}
+		if ( !preg_match( '/^[-a-z0-9]+$/i', $code ) ) {
+			throw new Exception( "Invalid language code '$code'!" );
+		}
 
 		global $cldrPath, $subdivisionsPath;
 		$data = array();
