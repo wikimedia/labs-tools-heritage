@@ -259,25 +259,24 @@ class ApiMonuments extends ApiBase {
 			$rows = array();
 			$numRows = 0;
 
-			// Prepare an array of language weights signifying how much desireable each of them is
-			$country = $this->getCountry();
-			$weights = array_flip( ApiCountries::getAllLanguages() );
-			$weights = array_map( function() { return 1; }, $weights ); // Prefer no language
-			$weights[$useLang] = 1000; // ...other than uselang
-			$defaultLang = ApiCountries::getDefaultLanguage( $country ); // And country's default language
-			$weights[$defaultLang] = 500;
+			if ( !$useLang ) {
+				$useLang = $this->getParam( 'uselang' );
+			}
 
 			foreach ( $res as $row ) {
 				$numRows++;
 				if ( $spatialMode ) {
 					$row->dist = self::distance( $row->lat, $row->lon, $lat, $lon );
 				}
-				$id = "{$row->country}-{$row->id}";
-				if ( !isset( $weights[$row->lang] ) ) { // foolproof in case cache is out of date
-					$weights[$row->lang] = 1;
-				}
-				if ( !isset( $rows[$id] ) || ( $weights[$row->lang] > $weights[$rows[$id]->lang] ) ) {
-					$rows[$id] = $row;
+				if ( $useLang ) {
+					$id = "{$row->country}-{$row->id}";
+					if ( !isset( $rows[$id] )
+						|| $this->rowWeight( $row, $useLang ) > $this->rowWeight( $rows[$id], $useLang ) )
+					{
+						$rows[$id] = $row;
+					}
+				} else {
+					$rows[] = $row;
 				}
 			}
 			if ( $spatialMode ) {
@@ -307,6 +306,27 @@ class ApiMonuments extends ApiBase {
 		}
 
 		$this->getFormatter()->output( $res, $limit, 'srcontinue', $props, $orderby );
+	}
+
+	private $countryDefaults = array();
+	private function rowWeight( $row, $useLang ) {
+		if ( $useLang ) {
+			if ( $row->lang == $useLang ) {
+				return 1000;
+			}
+			if ( isset( $row->adm0 ) ) {
+				if ( isset( $this->countryDefaults[$row->adm0] ) ) {
+					$defaultLang = $this->countryDefaults[$row->adm0];
+				} else {
+					$defaultLang = ApiCountries::getDefaultLanguage( $row->adm0 );
+					$this->countryDefaults[$row->adm0] = $defaultLang;
+				}
+				if ( $row->lang == $defaultLang ) {
+					return 500;
+				}
+			}
+		}
+		return 1;
 	}
 	
 	function statistics() {

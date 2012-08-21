@@ -55,9 +55,8 @@ abstract class ApiBase {
 
 	abstract function getAllowedParams();
 
-	private $paramCache;
 	function getParam($name) {
-		$this->paramCache = array();
+		static $cache = array();
 		if ( !isset( $cache[$name] ) ) {
 			$allowed = $this->getAllowedParams();
 			if ( !isset($allowed[$name]) ) {
@@ -182,11 +181,7 @@ abstract class ApiBase {
 		$useLang = $this->getParam( 'uselang' );
 		$country = $this->getCountry();
 
-		// Don't know for which country
-		if ( $useLang && !$country ) {
-			$this->error( 'uselang needs a country code' );
-		}
-		// No uselang, no country - just don't filter by language
+		// Just don't filter by language
 		if ( !$useLang && !$country ) {
 			return false;
 		}
