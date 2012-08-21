@@ -3277,6 +3277,10 @@ countries = {
                 'dest' : u'dirección',
             },
             {
+                'source' : u'véase',
+                'dest' : u'véase',
+            },
+            {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
