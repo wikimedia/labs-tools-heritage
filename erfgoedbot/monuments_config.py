@@ -3235,6 +3235,70 @@ countries = {
             },
         ],
     },
+    ('pa', 'es') : { # Monuments in Panama in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'Fila PCN',
+        'rowTemplate' : u'Fila PCN',
+        'commonsTemplate' : u'BIC',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Panama with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Panama',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos del Patrimonio Cultural de la Nación sin usar',
+        'imagesWithoutIdPage' : u'User:Multichill/PCN without id',
+        'namespaces' : [104],
+        'table' : u'monuments_pa_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'registro',
+                'dest' : u'id',
+                'type' : 'varchar(25)',
+                'default' : '',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'imagen',
+            },
+            {
+                'source' : u'nombre',
+                'dest' : u'nombre',
+            },
+            {
+                'source' : u'descripción',
+                'dest' : u'descripción',
+            },
+            {
+                'source' : u'artículo',
+                'dest' : u'artículo',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'dirección',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'provincia',
+                'dest' : u'provincia',
+            },
+            {
+               'source' : u'title',
+               'dest' : u'title',
+            },
+            {
+                'source' : u'artículo',
+                'dest' : u'monument_article',
+                # 'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('pl', 'pl') : { # Rijksmonumenten in the Poland in Polish
         'project' : u'wikipedia',
         'lang' : u'pl',
