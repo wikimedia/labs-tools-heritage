@@ -34,10 +34,6 @@ class ApiAdminTree extends ApiBase {
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
-			'admlang' => array(
-				ApiBase::PARAM_DFLT => false,
-				ApiBase::PARAM_TYPE => 'string',
-			),
 		);
 		$params = array_merge_recursive( $defaultParams, $params );
 		return $params;
