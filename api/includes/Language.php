@@ -4,6 +4,17 @@ class Language {
 	private $code;
 	private static $languageCache = array();
 
+	private static $subdivisionOverrides = array(
+		'Be' => 'Be-x-old',
+	);
+
+	private static $cldrOverrides = array(
+		'No' => 'Nb',
+		'Pt' => 'Pt_br', // While we don't have smart fallbacks
+		'Sr' => 'Sr_ec',
+		'Be_x_old' => 'Be',
+	);
+
 	private function __construct( $code, array $data ) {
 		$this->code = $code;
 		$this->data = $data;
@@ -18,14 +29,20 @@ class Language {
 		$data = array();
 		if ( $cldrPath && $subdivisionsPath ) {
 			$prettyCode = ucfirst( $code );
-			$file = "{$subdivisionsPath}/subdivisions/Subdivisions{$prettyCode}.php";
+			$subCode = isset( self::$subdivisionOverrides[$prettyCode] )
+				? self::$subdivisionOverrides[$prettyCode]
+				: $prettyCode;
+			$file = "{$subdivisionsPath}/subdivisions/Subdivisions{$subCode}.php";
 			if ( is_file( $file ) ) {
 				$subdivisions = array();
 				require_once( $file );
 				$data['subdivisions'] = $subdivisions;
 			}
 			$prettyCode = str_replace( '-', '_', $prettyCode );
-			$file = "{$cldrPath}/CldrNames/CldrNames{$prettyCode}.php";
+			$cldrCode = isset( self::$cldrOverrides[$prettyCode] )
+				? self::$cldrOverrides[$prettyCode]
+				: $prettyCode;
+			$file = "{$cldrPath}/CldrNames/CldrNames{$cldrCode}.php";
 			if ( is_file( $file ) ) {
 				$countryNames = array();
 				require_once( $file );
