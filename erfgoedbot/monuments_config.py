@@ -3507,7 +3507,7 @@ countries = {
         'autoGeocode' : False,
         'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
         'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
-        'namespaces' : [4],
+        'namespaces' : [104],
         'table' : u'monuments_ru_(ru)',
         'truncate' : False,
         'primkey' : u'id',
