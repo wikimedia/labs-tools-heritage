@@ -3528,7 +3528,7 @@ countries = {
             },
             {
                 'source' : u'Насеље',
-                'dest' : u'municipality',
+                'dest' : u'city',
             },
             {
                 'source' : u'Адреса',
@@ -3541,6 +3541,10 @@ countries = {
             {
                 'source' : u'Општина',
                 'dest' : u'district',
+            },
+            {
+                'source' : u'Градска_општина',
+                'dest' : u'city_district',
             },
             {
                 'source' : u'Надлежни_завод',
