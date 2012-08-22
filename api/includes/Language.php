@@ -3,6 +3,7 @@ class Language {
 	private $data;
 	private $code;
 	private static $languageCache = array();
+	private $fallback;
 
 	private static $subdivisionOverrides = array(
 		'Be' => 'Be-x-old',
@@ -10,7 +11,6 @@ class Language {
 
 	private static $cldrOverrides = array(
 		'No' => 'Nb',
-		'Pt' => 'Pt_br', // While we don't have smart fallbacks
 		'Sr' => 'Sr_ec',
 		'Be_x_old' => 'Be',
 	);
@@ -18,6 +18,11 @@ class Language {
 	private function __construct( $code, array $data ) {
 		$this->code = $code;
 		$this->data = $data;
+
+		$fallbacks = $this->getFallbacks();
+		if ( $fallbacks ) {
+			$this->fallback = self::newFromCode( $fallbacks[0] );
+		}
 	}
 
 	public static function newFromCode( $code ) {
@@ -56,6 +61,22 @@ class Language {
 		return self::$languageCache[$code];
 	}
 
+	private function getFallbacks() {
+		static $fallbacks = null;
+		if ( $fallbacks === null ) {
+			// Run tools/scrape-fallbacks.php to update this information
+			$fallbacks = unserialize( file_get_contents( dirname( __DIR__ ) . '/data/LanguageFallbacks.ser' ) );
+			// WLM-specific overrides due to the state of CLDR
+			$fallbacks['pt'] = array( 'pt-br' );
+			$fallbacks['pt-br'] = array( 'en' );
+		}
+
+		if ( isset( $fallbacks[$this->code] ) ) {
+			return $fallbacks[$this->code];
+		}
+		return array();
+	}
+
 	public function hasData() {
 		return !empty( $this->data );
 	}
@@ -80,6 +101,6 @@ class Language {
 				return $this->data['subdivisions'][$parts[0]][$code]['name'];
 			}
 		}
-		return false;
+		return $this->fallback ? $this->fallback->getName( $code ) : false;
 	}
 }
