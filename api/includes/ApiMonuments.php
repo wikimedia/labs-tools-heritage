@@ -218,11 +218,8 @@ class ApiMonuments extends ApiBase {
 			$props[] = 'lon';
 			$props = array_unique( $props );
         } elseif ( $this->getParam( 'sradm0' ) ) {
-			$orderby = array( 'name' );
-			for ( $i = 0; $i < 3; $i++) {
-				if ( $this->getParam( "sradm{$i}" ) === false ) {
-					break;
-				}
+			$orderby = array_merge( array( 'name' ), $orderby );
+			for ( $i = 0; $i < 5 && $this->getParam( "sradm{$i}" ) !== false; $i++) {
 				$forceIndex = "admin_levels{$i}";
 			}
 		}

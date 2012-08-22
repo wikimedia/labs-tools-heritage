@@ -13,11 +13,11 @@ SET NAMES UTF8;
 DROP TABLE IF EXISTS `monuments_all_tmp`;
 
 CREATE TABLE `monuments_all_tmp` (
-  `country` varchar(10) NOT NULL DEFAULT '',
-  `lang` varchar(10) NOT NULL DEFAULT '',
+  `country` varchar(10) binary NOT NULL DEFAULT '',
+  `lang` varchar(10) binary NOT NULL DEFAULT '',
   `id` varchar(25) NOT NULL DEFAULT '0',
-  `adm0` varchar(3) NOT NULL DEFAULT '',
-  `adm1` varchar(7) DEFAULT NULL,
+  `adm0` varchar(3) binary NOT NULL DEFAULT '',
+  `adm1` varchar(7) binary DEFAULT NULL,
   `adm2` varchar(100) DEFAULT NULL,
   `adm3` varchar(150) DEFAULT NULL,
   `adm4` varchar(200) DEFAULT NULL,
@@ -35,12 +35,13 @@ CREATE TABLE `monuments_all_tmp` (
   `registrant_url` varchar(255) NOT NULL DEFAULT '',
   `monument_random` mediumint(8) unsigned DEFAULT NULL,
   PRIMARY KEY (`country`,`lang`,`id`),
-  KEY `admin_levels0` (`adm0`, `name`),
-  KEY `admin_levels1` (`adm0`, `adm1`, `name`),
-  KEY `admin_levels2` (`adm0`, `adm1`, `adm2`(60), `name`),
+  KEY `admin_levels0` (`adm0`, `name`, `country`, `lang`, `id`),
+  KEY `admin_levels1` (`adm0`, `adm1`, `name`, `country`, `lang`, `id`),
+  KEY `admin_levels2` (`adm2`, `name`, `country`, `lang`, `id`),
+  KEY `admin_levels3` (`adm3`, `name`, `country`, `lang`, `id`),
+  KEY `admin_levels4` (`adm4`, `name`, `country`, `lang`, `id`),
   KEY `name` (`name`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
-  KEY `cma` (`country`,`municipality`(100),`address`(100)),
   KEY `monument_random` (`monument_random`),
   FULLTEXT KEY `name_address_ft` (`name`, `address`),
 
