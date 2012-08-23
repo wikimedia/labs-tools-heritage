@@ -231,7 +231,9 @@ class ApiAdminTree extends ApiBase {
 		if ( !$language ) {
 			$language = $this->language;
 		}
+
 		$s = $language->getName( $row['name'] );
+
 		if ( !$s && $this->fallbackLanguage ) {
 			$s = $this->fallbackLanguage->getName( $row['name'] );
 		}

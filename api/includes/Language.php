@@ -44,6 +44,10 @@ class Language {
 			if ( is_file( $file ) ) {
 				$subdivisions = array();
 				require_once( $file );
+				$overrides_file = "{$subdivisionsPath}/overrides/Overrides{$subCode}.php";
+				if ( is_file( $overrides_file ) ) {
+					require_once( $overrides_file );
+				}
 				$data['subdivisions'] = $subdivisions;
 			}
 			$prettyCode = str_replace( '-', '_', $prettyCode );
@@ -95,6 +99,9 @@ class Language {
 		if ( count( $parts ) == 1 ) {
 			if ( isset( $this->data['countryNames'][$code] ) ) {
 				return $this->data['countryNames'][$code];
+			} elseif ( isset( $this->data['subdivisions']['GB'][$code] ) ) {
+				// GB is only country that has subdivisions that may not have two-letter prefixes
+				return $this->data['subdivisions']['GB'][$code]['name'];
 			}
 		} else {
 			if ( isset( $this->data['subdivisions'][$parts[0]] ) && isset( $this->data['subdivisions'][$parts[0]][$code] ) ) {
