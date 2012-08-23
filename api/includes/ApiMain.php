@@ -35,6 +35,7 @@ class ApiMain {
 			$obj = new $actionClass;
 			$obj->executeModule();
 		} catch( Exception $e ) {
+			Debug::log( 'Exception: ' . $e->getMessage() );
 			$format = $api->getFormatter();
 			$format->headers();
 			$format->outputErrors( $e->getMessage() );

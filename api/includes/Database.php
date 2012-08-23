@@ -119,18 +119,25 @@ class Database {
 	/* Mysql specific */
 	function query($sql) {
 		// don't log teh useless SET NAMES utf8
+		$time = 0;
 		if ( !preg_match( '/^SET\b/i', $sql ) ) {
 			Debug::log( $sql );
+			$time = microtime( true );
 		}
 		$res = mysql_query( $sql, $this->db );
 		if ( !$res ) {
 			if ( mysql_errno() == 1146 ) { // someone's swapping tables? retry
+				Debug::log( 'Encountered error 1146, waiting 500ms' );
 				usleep( 500 * 1000 ); // wait half a second
 				$res = mysql_query( $sql, $this->db );
 			}
 			if ( !$res ) {
 				throw new DBException( mysql_error(), mysql_errno(), $sql );
 			}
+		}
+		if ( $time ) {
+			$time = microtime( true ) - $time;
+			Debug::log( sprintf( 'Query completed in %.3fs%s', $time, $time > 0.5 ? ' !slow!' : '' ) );
 		}
 		return $res;
 	}
