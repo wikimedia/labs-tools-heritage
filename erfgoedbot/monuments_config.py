@@ -79,6 +79,82 @@ countries = {
             },
         ],
     },
+    ('ar', 'es') : { # Monuments in Argentina in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoArgentina/encabezado',
+        'rowTemplate' : u'MonumentoArgentina',
+        'commonsTemplate' : u'Monumento Argentino',
+        'commonsTrackerCategory' : u'Monuments in Argentina with known IDs',
+        'commonsCategoryBase' : u'Monuments and memorials in Argentina',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin id',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin usar',
+        'namespaces' : [104],
+        'table' : u'monuments_ar_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(4)',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'localidad',
+                'dest' : u'localidad',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'dirección',
+            },
+            {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+                'default' : u'monumento',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'monumento_categoría',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'imagen',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monument_article',
+                # 'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('at', 'de') : { # Monuments in Austria in German
         'project' : u'wikipedia',
         'lang' : u'de',
@@ -1400,7 +1476,79 @@ countries = {
                 'conv' : u'extractWikilink',
             },
         ],
-    },    
+    },
+    ('co', 'es') : { # Monuments in Colombia in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoColombia/encabezado',
+        'rowTemplate' : u'MonumentoColombia',
+        'commonsTemplate' : u'',
+        'commonsTrackerCategory' : u'Monuments in Colombia with known IDs',
+        'commonsCategoryBase' : u'Monuments and memorials in Colombia',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin id',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin usar',
+        'namespaces' : [104],
+        'table' : u'monuments_co_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(4)',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'dirección',
+            },
+            {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+                'default' : u'monumento',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'monumento_categoría',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'imagen',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monument_article',
+                # 'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('dk-bygninger', 'da') : { # Bygninger in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
@@ -3144,6 +3292,78 @@ countries = {
             },
         ],
     },
+    ('mx', 'es') : { # Monuments in Mexico in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoMéxico/encabezado',
+        'rowTemplate' : u'MonumentoMéxico',
+        'commonsTemplate' : u'Monumento de México',
+        'commonsTrackerCategory' : u'Monuments in Mexico with known IDs',
+        'commonsCategoryBase' : u'Monuments and memorials in Mexico',
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de México sin id',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de México sin usar',
+        'namespaces' : [104],
+        'table' : u'monuments_mx_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(25)',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'localidad',
+                'dest' : u'localidad',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'dirección',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+                'default' : u'monumento',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'monumento_categoría',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'imagen',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monument_article',
+                # 'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('no', 'no') : { # Monuments in Norway in No
         'project' : u'wikipedia',
         'lang' : u'no',
@@ -3240,7 +3460,7 @@ countries = {
         'lang' : u'es',
         'headerTemplate' : u'Fila PCN',
         'rowTemplate' : u'Fila PCN',
-        'commonsTemplate' : u'BIC',
+        'commonsTemplate' : u'PCN',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Panama with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Panama',
         'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos del Patrimonio Cultural de la Nación sin usar',
