@@ -97,7 +97,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'int(4)',
+                'type' : 'varchar(6)',
             },
             {
                 'source' : u'monumento',
