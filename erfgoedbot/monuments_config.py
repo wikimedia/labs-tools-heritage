@@ -3337,6 +3337,11 @@ countries = {
                 'dest' : u'dirección',
             },
             {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+                'type' : u"ENUM('Municipal', 'Federal')",
+            },
+            {
                 'source' : u'monumento_enlace',
                 'dest' : u'monumento_enlace',
                 'default' : u'monumento',
