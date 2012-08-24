@@ -3339,7 +3339,7 @@ countries = {
             {
                 'source' : u'tipo',
                 'dest' : u'tipo',
-                'type' : u"ENUM('Municipal', 'Federal')",
+                'type' : u"ENUM('Federal', 'Estatal', 'Municipal')",
             },
             {
                 'source' : u'monumento_enlace',
