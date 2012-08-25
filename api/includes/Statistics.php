@@ -28,6 +28,10 @@ class Statistics extends StatisticsBase {
             $row = $oRes->fetchRow();
             $this->lastDay = $row[0];
         }
+        // fallback to today, if none found (set initial/first timestamp)
+        if ( empty($this->lastDay) ) {
+            $this->lastDay = date('Y-m-d');
+        }
         return $this->lastDay;
     }
 
