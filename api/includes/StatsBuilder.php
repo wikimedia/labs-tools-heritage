@@ -45,6 +45,7 @@ class StatsBuilder extends Statistics {
             'image' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'image' ),
             'coordinates' => array( 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix.'coordinates' ),
         );
+        ini_set('memory_limit', '256M');
     }
 
     function storeValue($item,$index,$value) {
@@ -169,6 +170,7 @@ class StatsBuilder extends Statistics {
 
 
     public function buildReport() {
+        $nTimeStart = time();
         $this->debug('buildReport(): start');
         $this->clearLatestData();
         if ( !$this->getTotals() ) {
@@ -177,8 +179,13 @@ class StatsBuilder extends Statistics {
         }
         foreach ($this->aFields as $field => $fdata) {
             $this->debug(' + Building report for field: '.$field);
+            $nTimeStart2 = time();
             $this->getFieldStats($field);
+            $nTimeEnd2 = time();
+            $this->debug('   - Time elapsed: '.($nTimeEnd2 - $nTimeStart2).' seconds.');
         }
+        $nTimeEnd = time();
+        $this->debug(' - Time elapsed: '.($nTimeEnd - $nTimeStart).' seconds.');
         return true;
     }
 
@@ -187,6 +194,7 @@ class StatsBuilder extends Statistics {
      * Store report 
      */
     public function storeReport() {
+        $nTimeStart = time();
         $this->debug('storeReport(): start');
         if ( StatsBuilder::$bBuildInRAM ) {
             foreach ($this->report as $item => $table) {
@@ -198,6 +206,8 @@ class StatsBuilder extends Statistics {
                 }
             }
         }
+        $nTimeEnd = time();
+        $this->debug(' - Time elapsed: '.($nTimeEnd - $nTimeStart).' seconds.');
     }
 
 }

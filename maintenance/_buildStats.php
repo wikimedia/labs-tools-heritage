@@ -9,6 +9,7 @@
  */
 
 require_once( dirname(dirname( __FILE__ )) . '/api/autoloader.php' );
+require dirname(dirname( __FILE__ )) . '/api/includes/Defaults.php';
 require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc' );
 
 ini_set('display_errors', 1);
@@ -20,9 +21,9 @@ if (!defined('STDIN')) {
 	die(0);
 }
 
+Database::define($dbServer, $dbDatabase, $dbUser,
+	isset( $toolserver_password )? $toolserver_password : $dbPassword );
 
-Database::define(Monuments::$dbServer, Monuments::$dbDatabase, 
-	Monuments::$dbUser, $toolserver_password );
 
 
 $stb = new StatsBuilder( Database::getDb() );

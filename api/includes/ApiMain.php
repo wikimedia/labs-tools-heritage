@@ -13,6 +13,8 @@ class ApiMain {
 	protected static $actionMap = array(
 		'search' => 'Monuments',
 		'statistics' => 'Monuments',
+		'statisticsdb' => 'Monuments',
+		'statisticsct' => 'Monuments',
 		'adminlevels' => 'AdminTree',
 		'countries' => 'Countries',
 	);
@@ -103,17 +105,61 @@ class ApiMain {
 			  <a href="api.php?action=search&amp;srname=%burgerhuizen%">api.php?action=search&amp;srname=%burgerhuizen%</a>
 			  <a href="api.php?action=search&amp;srcountry=fr&amp;srlang=ca">api.php?action=search&amp;srcountry=fr&amp;srlang=ca</a>
 
-			<b>* action=statistics *</b>
+            <b id="action-statisticsdb">* action=statisticsdb *</b>
+            <b>* action=statistics *</b>
 
-			Parameters:
-			  stcountry       - Statistics for country. Supply the country code.
-			  stitem          - [total|name|name_pct|address|address_pct|municipality|municipality_pct|image|image_pct|coordinates|coordinates_pct]: the stats fields which should be returned (By default, all of them).
-			  limit           - [integer]: the maximum number of results you will get back (0 for all)
+            Parameters:
+              stcountry       - Statistics for country. Supply the country code.
+              stitem          - [total|name|name_pct|address|address_pct|municipality|municipality_pct|image|image_pct|coordinates|coordinates_pct]: the stats fields which should be returned (By default, all of them).
+              limit           - [integer]: the maximum number of results you will get back (0 for all)
+              
+              
+            Examples:
+              <a href="api.php?action=statisticsdb&stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&stcountry=pt&format=html&limit=0">api.php?action=statistics&amp;stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&amp;stcountry=pt&amp;format=html&amp;limit=0</a>
+              <a href="api.php?action=statisticsdb&stcountry=pt&format=csv&limit=0">api.php?action=statistics&amp;stcountry=pt&amp;format=csv&amp;limit=0</a>
 
 
-			Examples:
-			  <a href="api.php?action=statistics&stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&stcountry=pt&format=html&limit=0">api.php?action=statistics&amp;stitem=total|name_pct|address_pct|municipality_pct|image_pct|coordinates_pct&amp;stcountry=pt&amp;format=html&amp;limit=0</a>
-			  <a href="api.php?action=statistics&stcountry=pt&format=csv&limit=0">api.php?action=statistics&amp;stcountry=pt&amp;format=csv&amp;limit=0</a>
+            <b id="action-statisticsct">* action=statisticsct *</b>
+
+            Parameters:
+              ctscope         - [country|user|dump|image] Type of statistics you are interested in. 
+                                The "image" scope is the activity on the contest (accepting "ctcountry"). 
+                                It will dump activity per hour, in countries "ctcountry" only, if specified. 
+                                For each scope, ctitems may differ. 
+              ctitem          - Columns you are interested in. Separate values with a pipe "|"
+                                For scope "user":
+                                  . user - user name
+                                  . n_images - number of uploaded images from user
+                                  . images - sample of images from the user
+                                  . n_images_accepted - status of qualification of the image (0=not accepted, 1=otherwise). Des not work for all countries.
+                                  . n_countries - number of countries the user is participating in
+                                  . countries - names of countries the user is participating in
+                                  . n_wlm_ids - number of distinct WLM IDs the user submitted to
+                                  . wlm_ids - sample of WLM IDs the user submitted to
+                                  . n_images_all - total number of images uploaded from user in all countries
+                                  . images_all - samples for images uploaded from user in all countries
+                                  . n_images_accepted_all - same as above, but in all countries
+                                  . n_wlm_ids_all - same as above, but in all countries
+                                  . wlm_ids_all - same as above, but in all countries
+                                For scope "country":
+                                  . country - country name
+                                  . images - number of images uploaded for each country contest
+                                  . users - number of users found participating
+                                  . new_users - number of recent users (created after contest start)
+                                  . new_users_ratio - ratio between the above
+                                For scope "dump":
+                                  [name,user_id,user_name,page_id,wlm_country,wlm_id,timestamp,user_first_rev,is_valid] - table fields requested
+              ctorderby       - return results order by this field(s) - may not work with some scopes
+              ctcountry       - selection of countries
+              ctfrom          - timestamp from where to start dumping (ctscope=dump only)
+              limit           - [integer]: the maximum number of results you will get back (0 for all)
+              
+              
+            Examples:
+              <a href="api.php?action=statisticsct&format=html&ctscope=country">api.php?action=statisticsct&amp;format=html&amp;ctscope=country</a>
+              <a href="api.php?action=statisticsct&format=html&ctscope=image&ctcountry=Portugal">api.php?action=statisticsct&amp;format=html&amp;ctscope=image&amp;ctcountry=Portugal</a>
+              <a href="api.php?action=statisticsct&format=html&ctscope=user&ctcountry=Portugal&ctitem=user|n_countries|n_images|n_images_accepted">api.php?action=statisticsct&amp;format=html&amp;ctscope=user&amp;ctcountry=Portugal&amp;ctitem=user|n_countries|n_images|n_images_accepted</a>
+              <a href="api.php?action=statisticsct&format=html&ctscope=dump&ctcountry=Portugal&ctitem=name|user_name&ctfrom=20110903000000&limit=10">api.php?action=statisticsct&amp;format=html&amp;ctscope=dump&amp;ctcountry=Portugal&amp;ctitem=name|user_name&amp;ctfrom=20110903000000&amp;limit=10</a>
 
 			<b>*** *** *** *** *** *** *** *** *** ***  Formats  *** *** *** *** *** *** *** *** *** ***</b> 
 
