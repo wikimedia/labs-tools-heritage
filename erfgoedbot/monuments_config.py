@@ -3055,7 +3055,7 @@ countries = {
         'headerTemplate' : u'WLM-intestazione',
         'rowTemplate' : u'WLM-riga',
         #'registrantUrlBase' : u'http://www.sardegnacultura.it/j/v/253?v=2&s=%s',
-        'namespaces' : [4],
+        'namespaces' : [102],
         'table' : u'monuments_it_(it)',
         'truncate' : False,
         'primkey' : u'id',
