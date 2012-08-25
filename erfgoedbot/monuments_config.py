@@ -3067,39 +3067,39 @@ countries = {
             },
             {
                 'source' : u'monumento',
-                'dest' : u'name',
+                'dest' : u'monumento',
             },
             {
                 'source' : u'wikivoce',
-                'dest' : u'monument_article',
+                'dest' : u'wikivoce',
             },
             {
                 'source' : u'comune',
-                'dest' : u'municipality_code',
+                'dest' : u'comune',
             },
             {
                 'source' : u'indirizzo',
-                'dest' : u'address',
+                'dest' : u'indirizzo',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
             {
-                'source' : u'lon',
+                'source' : u'long',
                 'dest' : u'lon',
             },
             {
                 'source' : u'regione',
-                'dest' : u'region_iso',
+                'dest' : u'regione',
             },
             {
                 'source' : u'ente',
-                'dest' : u'owner',
+                'dest' : u'ente',
             },
             {
                 'source' : u'immagine',
-                'dest' : u'image',
+                'dest' : u'immagine',
             },
         ],
     },
