@@ -84,13 +84,17 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             if not added:
                 text = text + u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (image, commonsTemplate, withPhoto.get(image))
 	    
-    text = text + u'</gallery>' 
-    comment = u'Images without an id'
+    text = text + u'</gallery>'
+
+    # imagesWithoutIdPage isn't set for every source, just skip it if it's not set
+    if imagesWithoutIdPage:
+        comment = u'Images without an id'
     
-    site = wikipedia.getSite(lang, u'wikipedia')
-    page = wikipedia.Page(site, imagesWithoutIdPage)
-    wikipedia.output(text)
-    page.put(text, comment)
+        site = wikipedia.getSite(lang, u'wikipedia')
+    
+        page = wikipedia.Page(site, imagesWithoutIdPage)
+        wikipedia.output(text)
+        page.put(text, comment)
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     '''
