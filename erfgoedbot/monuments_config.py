@@ -1393,6 +1393,77 @@ countries = {
             },
         ]
     },
+    ('cz', 'cs') : { # Monuments in Czech Republic in Czech language
+        'project' : u'wikipedia',
+        'lang' : u'cs',
+        'headerTemplate' : u'Památky v Česku/začátek',
+        'rowTemplate' : u'Památky v Česku',
+        #'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        #'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        #'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        #'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments suisse non utilisées',
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_cz_(cs)',
+        'truncate' : False,
+        'primkey' : u'id_objektu',
+        'fields' : [
+            {
+                'source' : u'Id_objektu',
+                'dest' : u'id_objektu',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Obrázek',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'Commons',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'Název',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'Článek',
+                'dest' : u'monument_article',
+            },
+            {
+                'source' : u'Adresa',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'Obec',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'Obec_článek',
+                'dest' : u'municipality_article',
+            },
+			{
+                'source' : u'Zeměpisná_šířka',
+                'dest' : u'lat',
+            },
+			{
+                'source' : u'Zeměpisná_délka',
+                'dest' : u'lon',
+            },
+			{
+                'source' : u'Popis',
+                'dest' : u'description',
+            },
+			{
+                'source' : u'Památkou_od',
+                'dest' : u'monument_since',
+            },
+			{
+                'source' : u'Poznámka',
+                'dest' : u'remark',
+            },
+        ]
+    },
+
     ('cl', 'es') : { # National monuments in Chile in Spanish
         'project' : u'wikipedia',
         'lang' : u'es',
@@ -1973,6 +2044,97 @@ countries = {
             {
                 'source' : u'EW',
                 'dest' : u'lon',
+            },
+            {
+                'source' : u'bezeichnung',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },
+    ('de-nrw', 'de') : { #  Baudenkmäler in NRW in German
+        'project' : u'wikipedia',
+        'lang' : u'de',
+        'headerTemplate' : u'Denkmalliste Tabellenkopf de-nrw',
+        'rowTemplate' : u'Denkmalliste Tabellenzeile de-nrw', # used for other monuments, too - fix later 
+        'commonsTemplate' : u'Kulturdenkmal',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in NRW with known ID',
+        'commonsCategoryBase' : u'Cultural heritage monuments in North Rhine-Westphalia',
+        #'unusedImagesPage' : u'Benutzer:Elya/Ungenutzte Bilder',
+        #'imagesWithoutIdPage' : u'Benutzer:Elya/Bilder ohne Nummer',
+        'namespaces' : [0],
+        'table' : u'monuments_de-nrw_(de)',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : (u'ags' ,u'nummer'),
+        'fields' : [
+            {
+                'source' : u'Nummer',
+                'dest' : u'nummer',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'Abmessungen',
+                'dest' : u'abmessungen',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'Bezeichnung',
+                'dest' : u'bezeichnung',
+            },
+            {
+                'source' : u'Ortsteil',
+                'dest' : u'ortsteil',
+            },
+            {
+                'source' : u'Adresse',
+                'dest' : u'adresse',
+            },
+            {
+                'source' : u'NS',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'EW',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'Region',
+                'dest' : u'state-iso',
+            },
+            {
+                'source' : u'Beschriftung',
+                'dest' : u'beschriftung',
+            },
+            {
+                'source' : u'Beschreibung',
+                'dest' : u'beschreibung',
+            },
+            {
+                'source' : u'Bauzeit',
+                'dest' : u'bauzeit',
+            },
+            {
+                'source' : u'Eintragung',
+                'dest' : u'eintragung',
+            },
+            {
+                'source' : u'ags',
+                'dest' : u'ags', #header tpl
+            },
+            {
+                'source' : u'ort',
+                'dest' : u'ort', #header tpl
+            },
+            {
+                'source' : u'stadtteil',
+                'dest' : u'stadtteil', #header tpl
             },
             {
                 'source' : u'bezeichnung',
@@ -2887,6 +3049,61 @@ countries = {
             },
         ],
     },
+    ('it', 'it') : { # Monuments in Italy in Italian 
+        'project' : u'wikipedia',
+        'lang' : u'it',
+        'headerTemplate' : u'WLM-intestazione',
+        'rowTemplate' : u'WLM-riga',
+        #'registrantUrlBase' : u'http://www.sardegnacultura.it/j/v/253?v=2&s=%s',
+        'namespaces' : [4],
+        'table' : u'monuments_it_(it)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)'
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'wikivoce',
+                'dest' : u'monument_article',
+            },
+            {
+                'source' : u'comune',
+                'dest' : u'municipality_code',
+            },
+            {
+                'source' : u'indirizzo',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'regione',
+                'dest' : u'region_iso',
+            },
+            {
+                'source' : u'ente',
+                'dest' : u'owner',
+            },
+            {
+                'source' : u'immagine',
+                'dest' : u'image',
+            },
+        ],
+    },
+
     ('it-88', 'ca') : { # Monuments in Sardinia 
         'project' : u'wikipedia',
         'lang' : u'ca',
