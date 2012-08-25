@@ -4137,20 +4137,20 @@ countries = {
             },
         ],
     },
-    ('se', 'sv') : { # Monuments in Sweden in Swedish
+    ('se-bbr', 'sv') : { # BBR Monuments in Sweden in Swedish
         'project' : u'wikipedia',
         'lang' : u'sv',
-        'headerTemplate' : u'BBR-huvud', #Confusing
+        'headerTemplate' : u'BBR-huvud',
         'rowTemplate' : u'BBR',
         'footerTemplate' : u'',
-        'commonsTemplate' : u'Fornminne',
-        'commonsTrackerCategory' : u'Cultural heritage monuments in Sweden with known IDs',
-        'commonsCategoryBase' : u'Cultural heritage monuments in Sweden',
-        'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
-        'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
+        'commonsTemplate' : u'BBR',
+        'commonsTrackerCategory' : u'Protected buildings in Sweden with known IDs',
+        'commonsCategoryBase' : u'Protected buildings in Sweden',
+        'unusedImagesPage' : u'User:Multichill/Unused protected buildings in Sweden',
+        'imagesWithoutIdPage' : u'User:Multichill/Protected buildings in Sweden without ID',
         'registrantUrlBase' : u'http://www.bebyggelseregistret.raa.se/bbr2/anlaggning/visaHistorik.raa?page=historik&visaHistorik=true&anlaggningId=%s',
         'namespaces' : [0],
-        'table' : u'monuments_se_(sv)',
+        'table' : u'monuments_se-bbr_(sv)',
         'truncate' : False, 
         'primkey' : u'bbr',
         'fields' : [
@@ -4207,6 +4207,88 @@ countries = {
             },
             {
                 'source' : u'bbr',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('se-fornminne', 'sv') : { # Fornminne Monuments in Sweden in Swedish
+        'project' : u'wikipedia',
+        'lang' : u'sv',
+        'headerTemplate' : u'FMIS-huvud',
+        'rowTemplate' : u'FMIS', # Not completed yet.
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'Fornminne',
+        'commonsTrackerCategory' : u'Archaeological monuments in Sweden with known IDs',
+        'commonsCategoryBase' : u'Archaeological monuments in Sweden',
+        'unusedImagesPage' : u'User:Multichill/Unused archaeological monuments in Sweden',
+        'imagesWithoutIdPage' : u'User:Multichill/Archaeological monuments in Sweden without ID',
+        'registrantUrlBase' : u'http://kulturarvsdata.se/raa/fmi/html/%s',
+        'namespaces' : [0],
+        'table' : u'monuments_se-fornminne_(sv)',
+        'truncate' : False, 
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(25)',
+                'default' : '0',
+            },
+            {
+                'source' : u'namn',
+                'dest' : u'namn',
+            },
+            {
+                'source' : u'raä-nr',
+                'dest' : u'raa-nr',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'artikel',
+                'dest' : u'artikel',
+            },
+            {
+                'source' : u'typ',
+                'dest' : u'typ',
+            },
+            {
+                'source' : u'tillkomst',
+                'dest' : u'tillkomst',
+            },
+            {
+                'source' : u'kommun',
+                'dest' : u'kommun',
+            },
+            {
+                'source' : u'socken',
+                'dest' : u'socken',
+            },
+            {
+                'source' : u'landskap',
+                'dest' : u'landskap',
+            },
+            {
+                'source' : u'plats',
+                'dest' : u'plats',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'id',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },

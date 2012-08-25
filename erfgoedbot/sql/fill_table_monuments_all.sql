@@ -1389,9 +1389,9 @@ SELECT 'sct' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_sct_(en)`;
-/* Sweden */
+/* BBR Monuments in Sweden in Swedish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'se' AS `country`,
+SELECT 'se-bbr' AS `country`,
        'sv' AS `lang`,
 	`bbr` AS `id`,
 	'se' AS `adm0`,
@@ -1411,7 +1411,30 @@ SELECT 'se' AS `country`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
-	FROM `monuments_se_(sv)`;
+	FROM `monuments_se-bbr_(sv)`;
+/* Fornminne Monuments in Sweden in Swedish */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'se-fornminne' AS `country`,
+       'sv' AS `lang`,
+	`id` AS `id`,
+	'se' AS `adm0`,
+	LOWER(`region-iso`) AS `adm1`,
+	`kommun` AS `adm2`,
+	NULL AS `adm3`,
+	NULL AS `adm4`,
+	`namn` AS `name`,
+	`plats` AS `address`,
+	`kommun` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`bild` AS `image`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        `artikel` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+	FROM `monuments_se-fornminne_(sv)`;
 /* Slovakia in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`,  `lon`, `lat_int`,  `lon_int`,  `image`,  `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'sk' AS `country`,
