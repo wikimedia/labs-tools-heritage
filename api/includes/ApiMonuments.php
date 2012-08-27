@@ -30,15 +30,7 @@ class ApiMonuments extends ApiBase {
 		$params = array(
 			'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
-    		'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
-    			ApiBase::PARAM_TYPE => array( 'csv', 'dynamickml', 'kml', 'gpx', 'poi', 'html', 'layar', 'json', 'xml', 'xmlfm', 'wikitable' ) ),
-    		'callback' => array( ApiBase::PARAM_DFLT => null, ApiBase::PARAM_TYPE => 'callback' ),
-    		'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => 1000, 
-				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
-    			
-    		'action' => array( ApiBase::PARAM_DFLT => 'help', 
-    			ApiBase::PARAM_TYPE => array( 'help', 'search', 'statistics', 'statisticsdb', 'statisticsct' ) ),
-    			
+
     		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
     		'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),

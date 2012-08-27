@@ -38,8 +38,8 @@ abstract class ApiBase {
     			ApiBase::PARAM_TYPE => $dbMiserMode
 					? array( 'json', 'xml', 'xmlfm' )
 					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
-				'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
-				'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
+			'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
+			'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
     		'action' => array(
 				ApiBase::PARAM_DFLT => 'help', 
