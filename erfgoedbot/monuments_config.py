@@ -1549,8 +1549,8 @@ countries = {
         ],
     },
     ('co', 'es') : { # Monuments in Colombia in Spanish
-        'project' : u'wikipedia',
-        'lang' : u'es',
+        'project' : u'wikimediachapter',
+        'lang' : u'co',
         'headerTemplate' : u'MonumentoColombia/encabezado',
         'rowTemplate' : u'MonumentoColombia',
         'commonsTemplate' : u'',
@@ -1558,7 +1558,7 @@ countries = {
         'commonsCategoryBase' : u'Monuments and memorials in Colombia',
         'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin id',
         'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin usar',
-        'namespaces' : [104],
+        'namespaces' : [0],
         'table' : u'monuments_co_(es)',
         'truncate' : False,
         'primkey' : u'id',
@@ -1566,7 +1566,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'varchar(5)',
+                'type' : 'varchar(8)',
             },
             {
                 'source' : u'monumento',
@@ -1575,6 +1575,10 @@ countries = {
             {
                 'source' : u'municipio',
                 'dest' : u'municipio',
+            },
+            {
+                'source' : u'departamento',
+                'dest' : u'departamento',
             },
             {
                 'source' : u'lat',
