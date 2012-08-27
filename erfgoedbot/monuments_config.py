@@ -2059,10 +2059,10 @@ countries = {
     ('de-nrw', 'de') : { #  Baudenkmäler in NRW in German
         'project' : u'wikipedia',
         'lang' : u'de',
-        'headerTemplate' : u'Denkmalliste1 Tabellenkopf',
-        'rowTemplate' : u'Denkmalliste1 Tabellenzeile', # used for other monuments, too - fix later 
-        #'commonsTemplate' : u'Kulturdenkmal',
-        #'commonsTrackerCategory' : u'Cultural heritage monuments in NRW with known ID',
+        'headerTemplate' : u'Denkmalliste Tabellenkopf de-nrw',
+        'rowTemplate' : u'Denkmalliste Tabellenzeile de-nrw', # used for other monuments, too - fix later 
+        'commonsTemplate' : u'Kulturdenkmal',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in NRW with known ID',
         'commonsCategoryBase' : u'Cultural heritage monuments in North Rhine-Westphalia',
         #'unusedImagesPage' : u'Benutzer:Elya/Ungenutzte Bilder',
         #'imagesWithoutIdPage' : u'Benutzer:Elya/Bilder ohne Nummer',
