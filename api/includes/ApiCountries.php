@@ -7,7 +7,7 @@ class ApiCountries extends ApiBase {
 		'es' => 'es',
 		'fr' => 'fr',
 		'sk' => 'sv',
-		// 'it' => ???
+		'it' => 'it',
 	);
 
 	public function __construct() {
@@ -99,5 +99,15 @@ class ApiCountries extends ApiBase {
 			}
 		}
 		return array_map( 'array_flip', $ret );
+	}
+
+	public static function pickCountryLanguage( $country, $useLang ) {
+		$languages = self::getInfo();
+
+		// Use default if the language is not used in this country
+		if ( !isset( $languages[$country] ) || !in_array( $useLang, $languages[$country] ) ) {
+			$useLang = false;
+		}
+		return $useLang;
 	}
 }

@@ -186,12 +186,7 @@ abstract class ApiBase {
 			return false;
 		}
 
-		$languages = ApiCountries::getInfo();
-
-		// Use default if the language is not used in this country
-		if ( !isset( $languages[$country] ) || !in_array( $useLang, $languages[$country] ) ) {
-			$useLang = false;
-		}
+		$useLang = ApiCountries::pickCountryLanguage( $country, $useLang );
 
 		if ( !$useLang && $useDefault ) {
 			$useLang = ApiCountries::getDefaultLanguage( $country );

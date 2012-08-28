@@ -25,14 +25,23 @@ class Language {
 		}
 	}
 
-	public static function newFromCode( $code ) {
+	public static function newFromCode( $code, $countryLang = false ) {
 		if ( isset( self::$languageCache[$code] ) ) {
 			return self::$languageCache[$code];
 		}
 		if ( !preg_match( '/^[-a-z0-9]+$/i', $code ) ) {
 			throw new Exception( "Invalid language code '$code'!" );
 		}
+		$data = self::getRawData( $code );
+		if ( !$data && $countryLang ) {
+			$data = self::getRawData( $countryLang );
+		}
 
+		self::$languageCache[$code] = new Language( $code, $data );
+		return self::$languageCache[$code];
+	}
+
+	private static function getRawData( $code ) {
 		global $cldrPath, $subdivisionsPath;
 		$data = array();
 		if ( $cldrPath && $subdivisionsPath ) {
@@ -61,8 +70,7 @@ class Language {
 				$data['countryNames'] = $countryNames;
 			}
 		}
-		self::$languageCache[$code] = new Language( $code, $data );
-		return self::$languageCache[$code];
+		return $data;
 	}
 
 	private function getFallbacks() {

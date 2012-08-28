@@ -5,17 +5,10 @@
  * @author Arthur Richards <arichards@wikimedia.org>
  */
 class ApiAdminTree extends ApiBase {
-	private $country;
-
 	/**
 	 * @var Language
 	 */
 	private $language;
-
-	/**
-	 * @var Language
-	 */
-	private $fallbackLanguage = null;
 
 	public function __construct() {
 		$this->setTopLevelNodeName( 'admin_levels' );
@@ -51,10 +44,6 @@ class ApiAdminTree extends ApiBase {
 		}
 	}
 
-	protected function getCountry() {
-		return $this->country;
-	}
-
 	/**
 	 * Display admin tree data based on a supplied query
 	 *
@@ -68,12 +57,18 @@ class ApiAdminTree extends ApiBase {
 		if ( $admtree ) {
 			$display_fields[] = 'level';
 			$admintree_array = static::fixWikiTextPipeExplosion( $admtree );
-			$this->country = $admintree_array[0];
-			$useLang = $this->getUseLang();
-			$this->language = Language::newFromCode( $useLang );
-			$countryLang = ApiCountries::getDefaultLanguage( $admintree_array[0] );
-			if ( $useLang != $countryLang && $countryLang ) {
-				$this->fallbackLanguage = Language::newFromCode( $countryLang );
+			$useLang = $this->getParam( 'uselang' );
+			$country = $admintree_array[0];
+			$countryLang = ApiCountries::getDefaultLanguage( $country );
+			// Get country default language if no uselng was provided
+			if ( !$useLang ) {
+				$useLang = $countryLang;
+			}
+			$this->language = Language::newFromCode( $useLang, $countryLang );
+			$useLang = ApiCountries::pickCountryLanguage( $country, $useLang );
+			// @hack: Get default language once again in case pickCountryLanguage() reset it to default
+			if ( !$useLang ) {
+				$useLang = ApiCountries::getDefaultLanguage( $country );
 			}
 			if ( $this->getParam( 'admtranslate' ) ) {
 				$data = $this->getTranslations( $admintree_array );
@@ -228,13 +223,10 @@ class ApiAdminTree extends ApiBase {
 			$language = $this->language;
 		}
 
-		$s = $language->getName( $row['name'] );
+		$name = $language->getName( $row['name'] );
 
-		if ( !$s && $this->fallbackLanguage ) {
-			$s = $this->fallbackLanguage->getName( $row['name'] );
-		}
-		if ( $s ) {
-			$row['translated'] = $s;
+		if ( $name ) {
+			$row['translated'] = $name;
 		}
 	}
 }
