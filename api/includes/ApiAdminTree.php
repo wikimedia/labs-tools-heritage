@@ -1,9 +1,5 @@
 <?php
 
-if ( get_magic_quotes_gpc() ) {
-	die( 'Magic quotes are enabled!' );
-}
-
 /**
  * Definition of AdminTree API
  * @author Arthur Richards <arichards@wikimedia.org>
