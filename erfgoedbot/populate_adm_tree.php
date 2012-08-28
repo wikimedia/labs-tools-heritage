@@ -31,6 +31,7 @@ if ( $db->connect_errno ) {
 	die( "db connection failed: {$db->connect_error}\n" );
 }
 
+$db->query( 'SET NAMES utf8' );
 echo "Deleting previous data...\n";
 $query = 'DELETE FROM `admin_tree`';
 $db->query( $query );
