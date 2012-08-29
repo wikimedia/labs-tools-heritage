@@ -316,7 +316,19 @@ class ApiMonuments extends ApiBase {
 			$res = $rows;
 		}
 
-		$this->getFormatter()->output( $res, $limit, 'srcontinue', $props, $orderby );
+		$formatter = $this->getFormatter();
+		$formatter->setRowFilter(
+			function( $row ) {
+				if ( isset( $row->lat ) && isset( $row->lon )
+					&& !$row->lat && !$row->lon )
+				{
+					unset( $row->lat );
+					unset( $row->lon );
+				}
+			}
+		);
+
+		$formatter->output( $res, $limit, 'srcontinue', $props, $orderby );
 	}
 
 	private $countryDefaults = array();

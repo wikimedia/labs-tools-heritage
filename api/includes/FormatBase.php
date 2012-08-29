@@ -8,6 +8,7 @@ abstract class FormatBase {
 	
 	protected $api;
 	protected $continueParams;
+	protected $filter;
 	
 	function __construct(ApiBase $api) {
 		$this->api = $api;
@@ -19,6 +20,10 @@ abstract class FormatBase {
 
 	function headers() {
 		header( "Content-Type: " . $this->getContentType() );
+	}
+
+	function setRowFilter( $callback ) {
+		$this->filter = $callback;
 	}
 
 	abstract function getContentType();
@@ -37,6 +42,9 @@ abstract class FormatBase {
 				$this->outputContinue( $row, $continueKey, $primaryKey );
 				break;
 			} else {
+				if ( $this->filter ) {
+					call_user_func( $this->filter, $row );
+				}
 				$this->outputRow( $row, $selectedItems );
 			}
 		}
