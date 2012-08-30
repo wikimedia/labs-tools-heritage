@@ -1797,7 +1797,7 @@ countries = {
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Bayern Tabellenkopf',
         'rowTemplate' : u'Denkmalliste Bayern Tabellenzeile',
-        'commonsTemplate' : u'Kulturdenkmal Bayern',
+        'commonsTemplate' : u'Baudenkmal Bayern',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Bavaria with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Bavaria',
         'unusedImagesPage' : u'Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Bayern/Ungenutzte Bilder',
