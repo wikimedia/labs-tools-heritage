@@ -837,7 +837,7 @@ SELECT 'es' AS `country`,
         FROM `monuments_es_(es)`;
 /* Catalunya in Catalan */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'es-ct' AS `country`,
+SELECT 'es' AS `country`,
        'ca' AS `lang`,
         `bic` AS `id`,
 		'es' AS `adm0`,
@@ -883,7 +883,7 @@ SELECT 'es' AS `country`,
         FROM `monuments_es-gl_(gl)`;
 /* Valencia in Catalan */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'es-vc' AS `country`,
+SELECT 'es' AS `country`,
        'ca' AS `lang`,
        `bic` AS `id`,
 	   'es' AS `adm0`,
