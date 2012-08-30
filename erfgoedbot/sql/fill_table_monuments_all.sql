@@ -701,7 +701,7 @@ SELECT 'de-he' AS `country`,
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'de-nrw' AS `country`, 
     'de' AS `lang`,
-	`id` AS `id`,
+	`nummer` AS `id`,
 	'de' AS `adm0`,
 	'de-nw' AS `adm1`,
 	`area` AS `adm2`,
