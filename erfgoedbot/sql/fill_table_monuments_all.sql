@@ -13,7 +13,7 @@ SET NAMES UTF8;
 DROP TABLE IF EXISTS `monuments_all_tmp`;
 
 CREATE TABLE `monuments_all_tmp` (
-  `country` varchar(16) binary NOT NULL DEFAULT '',
+  `country` varchar(10) binary NOT NULL DEFAULT '',
   `lang` varchar(10) binary NOT NULL DEFAULT '',
   `id` varchar(25) NOT NULL DEFAULT '0',
   `adm0` varchar(3) binary NOT NULL DEFAULT '',

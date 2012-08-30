@@ -1624,7 +1624,7 @@ countries = {
             },
         ],
     },
-    ('dk-bygninger', 'da') : { # Bygninger in Denmark in Danish
+    ('dk-bygning', 'da') : { # Bygninger in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
         'headerTemplate' : u'Tabelheader FBB',
@@ -1717,7 +1717,7 @@ countries = {
             },
         ],
     },
-    ('dk-fortidsminder', 'da') : { # Fortidsminder in Denmark in Danish
+    ('dk-fortids', 'da') : { # Fortidsminder in Denmark in Danish
         'project' : u'wikipedia',
         'lang' : u'da',
         'headerTemplate' : u'Tabelheader FF',
@@ -4296,7 +4296,7 @@ countries = {
             },
         ],
     },
-    ('se-fornminne', 'sv') : { # Fornminne Monuments in Sweden in Swedish
+    ('se-fornmin', 'sv') : { # Fornminne Monuments in Sweden in Swedish
         'project' : u'wikipedia',
         'lang' : u'sv',
         'headerTemplate' : u'FMIS-huvud',
