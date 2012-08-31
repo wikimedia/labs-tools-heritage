@@ -1,7 +1,7 @@
 <?php
 
 class Debug {
-	private static $debugLog = null;
+	private static $debugLog = false;
 
 	/**
 	 * @param string $msg
@@ -9,7 +9,7 @@ class Debug {
 	public static function log( $msg ) {
 		self::init();
 		if ( self::$debugLog ) {
-			fputs( self::$debugLog, "\t$msg\n" );
+			self::$debugLog .= "\t$msg\n";
 		}
 	}
 
@@ -18,16 +18,20 @@ class Debug {
 			return;
 		}
 		if ( !self::$debugLog ) {
-			self::$debugLog = fopen( DEBUG_FILE, 'at' );
 			if ( isset( $_SERVER['REQUEST_URI'] ) ) {
 				$time = gmdate( DATE_ISO8601 );
-				$line = "$time\t{$_SERVER['REQUEST_URI']}";
+				self::$debugLog = "$time\t{$_SERVER['REQUEST_URI']}";
 				if ( isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
-					$line .= "\t" . $_SERVER['HTTP_USER_AGENT'];
+					self::$debugLog .= "\t" . $_SERVER['HTTP_USER_AGENT'];
 				}
-				$line .= "\n";
-				fputs( self::$debugLog, $line );
+				self::$debugLog .= "\n";
 			}
+		}
+	}
+
+	public static function saveLog() {
+		if ( self::$debugLog ) {
+			file_put_contents( DEBUG_FILE, self::$debugLog );
 		}
 	}
 }

@@ -42,6 +42,8 @@ class ApiMain {
 			$format->headers();
 			$format->outputErrors( $e->getMessage() );
 		}
+
+		Debug::saveLog();
 	}
 
 	/**
