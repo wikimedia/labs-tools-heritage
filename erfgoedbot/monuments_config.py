@@ -4618,7 +4618,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_za_(en)',
         'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'SiteReference',
+        'primkey' : u'sitereference',
         'fields' : [
             {
                 'source' : u'SiteReference',
