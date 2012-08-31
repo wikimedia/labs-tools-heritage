@@ -4604,6 +4604,90 @@ countries = {
             },
         ],
     },
+        ('za', 'en') : { # Monuments in South Africa
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'SAHRA heritage site header',
+        'rowTemplate' : u'SAHRA heritage site row',
+        'commonsTemplate' : u'South African Heritage Site',
+        'commonsTrackerCategory' : u'South Africa Heritage Resources with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in South Africa',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of heritage sites in South Africa',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Heritage sites in South Africa without ID',
+        'namespaces' : [0],
+        'table' : u'monuments_za_(en)',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : u'SiteReference',
+        'fields' : [
+            {
+                'source' : u'SiteReference',
+                'dest' : u'sitereference',
+                'type' : 'varchar(20)',
+                'default' : '0',
+            },
+             {
+                'source' : u'guid',
+                'dest' : u'guid',
+            },
+             {
+                'source' : u'Site_name',
+                'dest' : u'site_name',
+            },
+            {
+                'source' : u'Magisterial_district',
+                'dest' : u'magisterial_district',
+            },
+            {
+                'source' : u'Municipal_name',
+                'dest' : u'municipal_name',
+            },
+            {
+                'source' : u'Town',
+                'dest' : u'town',
+            },
+            {
+                'source' : u'Erf number',
+                'dest' : u'erf_number',
+            },
+            {
+                'source' : u'Farm number',
+                'dest' : u'farm_number',
+            },
+            {
+                'source' : u'Portion',
+                'dest' : u'portion',
+            },
+            {
+                'source' : u'NHRA status',
+                'dest' : u'nhra_status',
+            },
+            {
+                'source' : u'NMC_status',
+                'dest' : u'nmc_status',
+            },
+            {
+                'source' : u'Description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'Province_iso',
+                'dest' : u'province_iso',
+            },
+                        {
+                'source' : u'Latitude',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'Longitude',
+                'dest' : u'lon',
+            },
+        ],
+    },
     ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
         'project' : u'wikipedia',
         'lang' : u'uk',

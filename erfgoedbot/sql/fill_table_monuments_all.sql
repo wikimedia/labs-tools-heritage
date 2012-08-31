@@ -1502,6 +1502,29 @@ SELECT 'sk' AS `country`,
        REPLACE( `clanok`, ' ', '_' ) AS `monument_article`,
        '' AS `registrant_url` /* FIXME: Add this field to source table */
        FROM `monuments_sk_(sk)`;
+/* South Africa in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'za' AS `country`,
+       'en' AS `lang`,
+       `sitereference` AS `id`,
+	   'za' AS `adm0`,
+	   LOWER(`province_iso`) AS `adm1`,
+	   `district` AS `adm2`,
+	   `town` AS `adm3`,
+	   NULL AS `adm4`,
+       `site_name` AS `name`,
+       `site_name` AS `address`,
+       `town` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+	   ROUND(`lat` * @granularity) AS `lat_int`,
+	   ROUND(`lon` * @granularity) AS `lon_int`,
+       `image` AS `image`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+        '' AS `monument_article`,
+       '' AS `registrant_url` /* FIXME: Add this field to source table */
+       FROM `monuments_za_(en)`;
 /* Ukraine in Ukrainian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ua' AS `country`,
