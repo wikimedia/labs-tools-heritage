@@ -4663,7 +4663,7 @@ countries = {
                 'dest' : u'nhra_status',
             },
             {
-                'source' : u'NMC_status',
+                'source' : u'NMC status',
                 'dest' : u'nmc_status',
             },
             {
