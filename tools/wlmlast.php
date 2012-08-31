@@ -1,6 +1,6 @@
 <?php
 /* Tool to get the latest uploaded files for Wiki Loves Monuments
- * By default from http://commons.wikimedia.org/wiki/Category:Images_from_Wiki_Loves_Monuments_2011
+ * By default from http://commons.wikimedia.org/wiki/Category:Images_from_Wiki_Loves_Monuments_2012
  * if country if given, one of the subcategories.
  * TODO: Implement subcats
  */
@@ -19,9 +19,9 @@ function getLatest($size, $number, $country){
     unset($ts_pw);
     
     if($country) {
-	$category = 'Images_from_Wiki_Loves_Monuments_2011_in_' . $db->real_escape_string($country);
+	$category = 'Images_from_Wiki_Loves_Monuments_2012_in_' . $db->real_escape_string($country);
     } else {
-	$category = 'Images_from_Wiki_Loves_Monuments_2011';
+	$category = 'Images_from_Wiki_Loves_Monuments_2012';
     }
 
     $result = $db->query("SELECT rc_title, img_width, img_user_text, img_timestamp
