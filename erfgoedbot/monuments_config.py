@@ -1670,6 +1670,14 @@ countries = {
                 'type' : 'int(11)',
             },
             {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'kommune',
+                'dest' : u'kommune',
+            },
+            {
                 'source' : u'sagsnavn',
                 'dest' : u'sagsnavn',
             },
@@ -1761,6 +1769,14 @@ countries = {
                 'source' : u'fredningsnummer',
                 'dest' : u'fredningsnummer',
                 'type' : 'int(11)',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'kommune',
+                'dest' : u'kommune',
             },
             {
                 'source' : u'stednavn',
