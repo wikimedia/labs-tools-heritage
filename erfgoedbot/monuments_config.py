@@ -4036,6 +4036,10 @@ countries = {
                 'dest' : u'denumire',
             },
             {
+                'source' : u'Județul-iso',
+                'dest' : u'judetul-iso',
+            },
+            {
                 'source' : u'Localitate',
                 'dest' : u'localitate',
             },
