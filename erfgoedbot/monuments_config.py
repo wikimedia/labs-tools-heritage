@@ -913,6 +913,14 @@ countries = {
                 'dest' : u'name',
             },
             {
+                'source' : u'vobłaść-iso',
+                'dest' : u'oblast-iso',
+            },
+            {
+                'source' : u'rajon',
+                'dest' : u'rajon',
+            },
+            {
                 'source' : u'датаваньне',
                 'dest' : u'date',
             },
