@@ -1569,7 +1569,7 @@ countries = {
         ],
     },
     ('co', 'es') : { # Monuments in Colombia in Spanish
-        'project' : u'wikimediachapter',
+        'project' : u'wikipedia',
         'lang' : u'co',
         'headerTemplate' : u'MonumentoColombia/encabezado',
         'rowTemplate' : u'MonumentoColombia',
@@ -1601,6 +1601,10 @@ countries = {
                 'dest' : u'departamento',
             },
             {
+                'source' : u'ISO',
+                'dest' : u'iso',
+            },
+            {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
@@ -1610,7 +1614,7 @@ countries = {
             },
             {
                 'source' : u'dirección',
-                'dest' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'tipo',
@@ -1631,7 +1635,7 @@ countries = {
             },
             {
                 'source' : u'monumento_categoría',
-                'dest' : u'monumento_categoría',
+                'dest' : u'monumento_categoria',
             },
             {
                 'source' : u'imagen',
