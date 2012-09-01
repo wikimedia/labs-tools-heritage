@@ -3819,6 +3819,10 @@ countries = {
                 'dest' : u'provincia',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
                'source' : u'title',
                'dest' : u'title',
             },
