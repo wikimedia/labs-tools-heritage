@@ -3646,6 +3646,10 @@ countries = {
                 'type' : 'varchar(25)',
             },
             {
+                'source' : u'ISO',
+                'dest' : u'iso',
+            },
+            {
                 'source' : u'monumento',
                 'dest' : u'monumento',
             },
@@ -3667,7 +3671,7 @@ countries = {
             },
             {
                 'source' : u'dirección',
-                'dest' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'tipo',
@@ -3689,7 +3693,7 @@ countries = {
             },
             {
                 'source' : u'monumento_categoría',
-                'dest' : u'monumento_categoría',
+                'dest' : u'monumento_categoria',
             },
             {
                 'source' : u'imagen',
