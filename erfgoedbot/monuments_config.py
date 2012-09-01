@@ -1578,7 +1578,7 @@ countries = {
         'commonsCategoryBase' : u'Monuments and memorials in Colombia',
         'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin id',
         'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin usar',
-        'namespaces' : [0],
+        'namespaces' : [104],
         'table' : u'monuments_co_(es)',
         'truncate' : False,
         'primkey' : u'id',
