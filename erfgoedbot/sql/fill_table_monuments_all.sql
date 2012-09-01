@@ -1266,7 +1266,7 @@ SELECT 'pa' AS `country`,
 	`imagen` AS `image`,
 	`source` AS `source`,
 	`changed` AS `changed`,
-    `monument_article` AS `monument_article`,
+    `articulo` AS `monument_article`,
     '' AS `registrant_url`
 	FROM `monuments_pa_(es)`;
 /* Poland in Polish */

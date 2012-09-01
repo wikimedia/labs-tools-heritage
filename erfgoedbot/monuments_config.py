@@ -3844,19 +3844,19 @@ countries = {
             },
             {
                 'source' : u'descripción',
-                'dest' : u'descripción',
+                'dest' : u'descripcion',
             },
             {
                 'source' : u'artículo',
-                'dest' : u'artículo',
+                'dest' : u'articulo',
             },
             {
                 'source' : u'dirección',
-                'dest' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'véase',
-                'dest' : u'véase',
+                'dest' : u'vease',
             },
             {
                 'source' : u'lat',
@@ -3877,11 +3877,6 @@ countries = {
             {
                'source' : u'title',
                'dest' : u'title',
-            },
-            {
-                'source' : u'artículo',
-                'dest' : u'monument_article',
-                # 'conv' : u'extractWikilink',
             },
         ],
     },
