@@ -3889,12 +3889,20 @@ countries = {
                 'dest' : u'nazwa',
             },
             {
-                'source' : u'adres',
-                'dest' : u'adres',
+                'source' : u'województwo',
+                'dest' : u'prov-iso',
+            },
+            {
+                'source' : u'powiat',
+                'dest' : u'powiat',
             },
             {
                 'source' : u'gmina',
                 'dest' : u'gmina',
+            },
+            {
+                'source' : u'adres',
+                'dest' : u'adres',
             },
             {
                 'source' : u'szerokość',
