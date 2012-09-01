@@ -100,6 +100,10 @@ countries = {
                 'type' : 'varchar(6)',
             },
             {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
                 'source' : u'monumento',
                 'dest' : u'monumento',
             },
