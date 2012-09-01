@@ -1570,7 +1570,7 @@ countries = {
     },
     ('co', 'es') : { # Monuments in Colombia in Spanish
         'project' : u'wikipedia',
-        'lang' : u'co',
+        'lang' : u'es',
         'headerTemplate' : u'MonumentoColombia/encabezado',
         'rowTemplate' : u'MonumentoColombia',
         'commonsTemplate' : u'',
