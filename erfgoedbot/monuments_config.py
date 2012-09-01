@@ -3016,6 +3016,10 @@ countries = {
                 'dest' : u'district',
             },
             {
+                'source' : u'district-iso',
+                'dest' : u'district-iso',
+            },
+            {
                 'source' : u'שם אתר',
                 'dest' : u'name',
             },
@@ -3054,6 +3058,10 @@ countries = {
             {
                 'source' : u'כתובת',
                 'dest' : u'address',
+            },
+            {
+                'source' : u'רשות מקומית',
+                'dest' : u'municipality',
             },
             {
                 'source' : u'גוש',
