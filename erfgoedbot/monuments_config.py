@@ -2904,12 +2904,12 @@ countries = {
         'namespaces' : [0,4],
         'table' : u'monuments_in_(en)',
         'truncate' : True,
-        'primkey' : (u'state_iso', u'circle', u'number'),
+        'primkey' : u'number',
         'fields' : [
             {
                 'source' : u'number',
                 'dest' : u'number',
-                'type' : 'varchar(11)',
+                'type' : 'varchar(20)',
             },
             {
                 'source' : u'description',
@@ -4813,14 +4813,6 @@ countries = {
             {
                 'source' : u'галерея',
                 'dest' : u'gallery',
-            },
-            {
-                'source' : u'iso',
-                'dest' : u'iso_oblast',
-            },
-			 {
-                'source' : u'район',
-                'dest' : u'rayon',
             },
             {
                 'source' : u'назва',
