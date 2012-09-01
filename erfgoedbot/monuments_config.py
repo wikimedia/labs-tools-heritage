@@ -4815,6 +4815,14 @@ countries = {
                 'dest' : u'gallery',
             },
             {
+                'source' : u'iso',
+                'dest' : u'iso_oblast',
+            },
+			 {
+                'source' : u'район',
+                'dest' : u'rayon',
+            },
+            {
                 'source' : u'назва',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
