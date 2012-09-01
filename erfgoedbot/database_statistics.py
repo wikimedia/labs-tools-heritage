@@ -29,7 +29,7 @@ def getCount(query, cursor):
 def outputStatistics(statistics):
     #print statistics
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! lang !! total !! name !! address !! municipality !! coordinates !! image !! adm0 !! adm1 !! adm2 !! adm3 !! adm4 !! source pages\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! total !! name !! address !! municipality !! coordinates !! image !! [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! [[:en:ISO 3166-2#Current codes|adm1]] !! adm2 !! adm3 !! adm4 !! source pages\n'
 
     totals = {}
 
@@ -64,7 +64,7 @@ def outputStatistics(statistics):
                 output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % statistics[country][language]
 
                 output = output + u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[country][language]
-                output = output + u'|| %(adm1)s <small>(%(adm1Percentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| [http://wlm.wikimedia.org/api/api.php?action=adminlevels&format=json&admtree=%(adm0iso)s %(adm1)s] <small>(%(adm1Percentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(adm3)s <small>(%(adm3Percentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(adm4)s <small>(%(adm4Percentage)s%%)</small>' % statistics[country][language]
@@ -137,6 +137,7 @@ def getStatistics(country, language, conn, cursor):
     queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (lat=0 OR lat IS NULL) AND NOT (lon=0 OR lon IS NULL)"""
     queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (image='' OR image IS NULL)"""
 
+    queries['adm0iso'] = u"""SELECT adm0 FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) LIMIT 1"""
     queries['adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL)"""
     queries['adm1'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm1='' OR adm1 IS NULL)"""
     queries['adm2'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm2='' OR adm2 IS NULL)"""
