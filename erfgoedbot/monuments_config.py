@@ -1446,6 +1446,14 @@ countries = {
                 'dest' : u'address',
             },
             {
+                'source' : u'kraj-iso',
+                'dest' : u'kraj-iso',
+            },
+            {
+                'source' : u'okres-iso',
+                'dest' : u'okres-iso',
+            },
+            {
                 'source' : u'Obec',
                 'dest' : u'municipality',
             },
