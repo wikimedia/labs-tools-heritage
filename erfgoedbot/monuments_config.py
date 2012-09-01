@@ -125,7 +125,7 @@ countries = {
             },
             {
                 'source' : u'dirección',
-                'dest' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'tipo',
@@ -146,7 +146,7 @@ countries = {
             },
             {
                 'source' : u'monumento_categoría',
-                'dest' : u'monumento_categoría',
+                'dest' : u'monumento_categoria',
             },
             {
                 'source' : u'imagen',
