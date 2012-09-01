@@ -35,18 +35,15 @@ CREATE TABLE `monuments_all_tmp` (
   `registrant_url` varchar(255) NOT NULL DEFAULT '',
   `monument_random` mediumint(8) unsigned DEFAULT NULL,
   PRIMARY KEY (`country`,`lang`,`id`),
-  KEY `admin_levels0` (`adm0`, `name`, `country`, `lang`, `id`),
-  KEY `admin_levels1` (`adm0`, `adm1`, `name`, `country`, `lang`, `id`),
-  KEY `admin_levels2` (`adm2`(32), `name`, `country`, `lang`, `id`),
-  KEY `admin_levels3` (`adm3`(32), `name`, `country`, `lang`, `id`),
-  KEY `admin_levels4` (`adm4`(32), `name`, `country`, `lang`, `id`),
+  KEY `admin_levels0` (`adm0`, `lang`, `name`, `country`, `id`),
+  KEY `admin_levels1` (`adm0`, `adm1`, `lang`, `name`, `country`, `id`),
+  KEY `admin_levels2` (`adm2`(32), `lang`, `name`, `country`, `id`),
+  KEY `admin_levels3` (`adm3`(32), `lang`, `name`, `country`, `id`),
+  KEY `admin_levels4` (`adm4`(32), `lang`, `name`, `country`, `id`),
   KEY `name` (`name`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
   KEY `monument_random` (`monument_random`),
-  FULLTEXT KEY `name_address_ft` (`name`, `address`),
-
-  /* @todo: remove after beta 3 is released */
-  FULLTEXT KEY `name_ft` (`name`)
+  FULLTEXT KEY `name_address_ft` (`name`, `address`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 TRUNCATE TABLE `monuments_all_tmp`;

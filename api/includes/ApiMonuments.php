@@ -232,10 +232,10 @@ class ApiMonuments extends ApiBase {
 			$props[] = 'lon';
 			$props = array_unique( $props );
         } elseif ( $this->getParam( 'sradm0' ) ) {
-			$orderby = array_merge( array( 'name' ), $orderby );
 			for ( $i = 0; $i < 5 && $this->getParam( "sradm{$i}" ) !== false; $i++) {
 				$forceIndex = "admin_levels{$i}";
 			}
+			$orderby = array( 'name', 'country', 'id' );
 		}
 
 		$useLang = $this->getUseLang( $useDefaultLang );
