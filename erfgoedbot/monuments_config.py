@@ -4743,7 +4743,7 @@ countries = {
     ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
         'project' : u'wikipedia',
         'lang' : u'uk',
-        #'headerTemplate' : u'',
+        'headerTemplate' : u'WLM-шапка',
         'rowTemplate' : u'ВЛП-рядок',
         'commonsTemplate' : u'Monument Ukraine',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Ukraine with known IDs',
