@@ -23,7 +23,7 @@ if (!$dbStatus) {
 $monTable = Monuments::$dbTable;
 $proxTable = 'prox_search';
 $layarName = 'wikilovesmonuments';
-$layarAttribution = 'wikilovesmonuments.eu';
+$layarAttribution = 'wikilovesmonuments.org';
 
 
 $joinSql = "JOIN ". $monTable ." allm ON (m.mon_country = allm.country AND m.mon_lang = allm.lang AND m.mon_id = allm.id)";

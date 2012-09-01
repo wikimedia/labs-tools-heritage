@@ -215,7 +215,7 @@ class clsARLayarServer extends clsBasicGeosearch {
 					$autoTriggerOnly = false;
 				} 	 
 			
-                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. $row['country'] . '&srlang=' . $row['lang'] . '&srid='. $row['id'] .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article|registrant_url';
+                $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. htmlspecialchars($row['country']) . '&srlang=' . htmlspecialchars($row['lang']) . '&srid='. htmlspecialchars($row['id']) .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article|registrant_url';
 				$main_label = 'info';
 				$actions[] = array("uri" => $main_uri,
 						   "label" =>  $main_label,
@@ -230,10 +230,10 @@ class clsARLayarServer extends clsBasicGeosearch {
 				$actions[] = array("uri" => $articleUrl,
 						   "label" => $wikiLabel);
 			}
-			if(isset($row[$this->layar_actions_uri_3])) {
-				$actions[] = array("uri" => $row[$this->layar_actions_uri_3],
-						   "label" => $row[$this->layar_actions_label_3]);
-			}
+
+			$uploadUrl = 'http://commons.wikimedia.org/w/index.php?title=Special:UploadWizard&campaign=wlm-' . htmlspecialchars($row['country']) . '&id='. htmlspecialchars($row['id']) .'&descriptionlang={{{descriptionlang|'. htmlspecialchars($row['lang']) .'}}}&description='. htmlspecialchars($row['name']) .'&lat='. htmlspecialchars($row['lat']) .'&lon='. htmlspecialchars($row['lon']);
+			$actions[] = array("uri" => $uploadUrl,
+	                      "label" => 'upload image');
 	
 			
 			$object = array( "baseURL" => $row[$this->layar_baseURL],
