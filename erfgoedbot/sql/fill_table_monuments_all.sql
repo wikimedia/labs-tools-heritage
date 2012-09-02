@@ -694,11 +694,11 @@ SELECT 'de-he' AS `country`,
         REPLACE( `artikel`, ' ', '_' ) AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_de-he_(de)`;
-/* Nordrhein-Westfalen (North-Rhine Westphalia), Germany in German. This is a mess commenting it out.
+/* Nordrhein-Westfalen (North-Rhine Westphalia), Germany in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'de-nrw' AS `country`, 
     'de' AS `lang`,
-	`nummer` AS `id`,
+	`id` AS `id`,
 	'de' AS `adm0`,
 	'de-nw' AS `adm1`,
 	`area` AS `adm2`,
@@ -716,7 +716,7 @@ SELECT 'de-nrw' AS `country`,
 	`changed` AS `changed`,
     `monument_article` AS `monument_article`,
     `registrant_url` AS `registrant_url`
-	FROM `monuments_de-nrw_(de)`; */
+	FROM u_wiegels_mon_p.`monuments_de-nrw_(de)`;
 /* Bergheim, NRW, Germany in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'de-nrw-bm' AS `country`, 
@@ -1545,7 +1545,7 @@ SELECT 'ua' AS `country`,
        `monument_article` AS `monument_article`,
        '' AS `registrant_url`
        FROM `monuments_ua_(uk)`;
-/* United States */
+/* United States in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'us' AS `country`,
        'en' AS `lang`,
