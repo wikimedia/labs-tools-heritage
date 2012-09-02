@@ -61,8 +61,9 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 
     # No valid id found, skip the image            
     if not monumentId:
+	wikipedia.output(u'Didn\'t find a valid monument identifier')
         return False
-    
+ 
     monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
     if not monData:
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
@@ -75,14 +76,20 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if monumentArticle:
         if monumentArticle.isRedirectPage():
             monumentArticle = monumentArticle.getRedirectTarget()
-        newcats = getCategories(monumentArticle, commonsCatTemplates)
-        
+	for commonsCatTemplate in commonsCatTemplates:
+            if commonsCatTemplate in monumentArticle.templates():
+		newcats = []
+	        newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+    print monData
+    print monumentId
+    print newcats
     if not newcats:
         monumentList = getList(lang, monumentSource)
+	print monumentList
         if not monumentList:
             return False
         newcats = getCategories(monumentList, commonsCatTemplates)
-
+    print newcats
     if newcats:
         oldtext = page.get()
         for currentcat in currentcats:
@@ -95,6 +102,7 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 	comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (commonsTemplate, monumentId)
         wikipedia.showDiff(oldtext, newtext)
         page.put(newtext, comment)
+	return True
     else:
         wikipedia.output( u'Categories not found for %s' % page.title() )
 
@@ -164,6 +172,7 @@ def getCategories(page, commonsCatTemplates):
         if commonsCatTemplate in page.templates():
             result.append(getCategoryFromCommonscat(page, commonsCatTemplates))
     if not len(result):
+	print  page.categories()
         for cat in page.categories():
             for commonsCatTemplate in commonsCatTemplates:
                 if commonsCatTemplate in cat.templates():
@@ -205,6 +214,9 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
         wikipedia.output(u'Language: %s has no commonsCatTemplates set!' % lang)
         return False
     
+    totalImages = 0
+    categorizedImages = 0
+
     site = wikipedia.getSite(u'commons', u'commons')
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
@@ -217,18 +229,66 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     # Get a preloading generator with only images
     pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
     for page in pgenerator:
-        categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+	totalImages = totalImages + 1
+        success = categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+	if success:
+	    categorizedImages = categorizedImages + 1
 
-    
-def getCommonscatTemplate (lang=None):
+    return (countrycode, lang, commonsCategoryBase.title(), commonsTemplate, totalImages, categorizedImages)
+
+def outputStatistics(statistics):
+    '''
+    Output the results of the bot as a nice wikitable
+    '''
+    output = u'{| class="wikitable sortable"\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! Total images !! Categorized images !! Images left\n'
+
+    totalImages = 0
+    categorizedImages = 0
+    leftoverImages = 0
+
+    for row in statistics:
+        output = output + u'|-\n'
+	output = output + u'|| %s \n' % (row[0],)
+	output = output + u'|| %s \n' % (row[1],)
+	output = output + u'|| [[:%s]] \n' % (row[2],)
+	output = output + u'|| {{tl|%s}} \n' % (row[3],)
+	
+	totalImages = totalImages + row[4]
+	output = output + u'|| %s \n' % (row[4],)
+
+	categorizedImages = categorizedImages + row[5]
+	output = output + u'|| %s \n' % (row[5],)
+
+	leftover = row[4] - row[5]
+	leftoverImages = leftoverImages + leftover
+
+	output = output + u'|| %s \n' % (leftover,)
+
+    output = output + u'|-\n'
+    output = output + u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s \n' % (totalImages, categorizedImages, leftoverImages)
+    output = output + u'|}\n'
+
+    site = wikipedia.getSite('commons', 'commons')
+    page = wikipedia.Page(site, u'Commons:Monuments database/Categorization/Statistics')
+
+    comment = u'Updating categorization statistics. Total: %s Categorized: %s Leftover: %s' % (totalImages, categorizedImages, leftoverImages)
+    page.put(newtext = output, comment = comment)
+
+def getCommonscatTemplates(lang=None):
     '''Get the template name in a language. Expects the language code.
     Return as tuple containing the primary template and it's alternatives
 
     '''
+    result = []
     if lang in commonscat.commonscatTemplates:
-        return  commonscat.commonscatTemplates[lang]
+        (prim, backups) = commonscat.commonscatTemplates[lang]
+	result.append(prim)
+	result = result + backups
     else:
-        return commonscat.commonscatTemplates[u'_default']
+        result.append(commonscat.commonscatTemplates[u'_default'])
+
+    return result
 
     
 def main():
@@ -250,13 +310,20 @@ def main():
             wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        commonsCatTemplates = getCommonscatTemplate(lang)
+        commonsCatTemplates = getCommonscatTemplates(lang)
         processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), commonsCatTemplates, conn, cursor)
     else:
+	statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            commonsCatTemplates = getCommonscatTemplate(lang)
-            processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
+            commonsCatTemplates = getCommonscatTemplates(lang)
+	    if not lang==u'pt': # Hack Portugal is a mess
+            	result = processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
+
+	    if result:
+	        statistics.append(result)
+
+        outputStatistics(statistics)
 
 if __name__ == "__main__":
     try:
