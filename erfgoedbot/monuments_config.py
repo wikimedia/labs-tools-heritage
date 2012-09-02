@@ -4132,6 +4132,10 @@ countries = {
                 'dest' : u'district',
             },
             {
+                'source' : u'iso',
+                'dest' : u'iso_okrug',
+            },
+            {
                 'source' : u'Градска_општина',
                 'dest' : u'city_district',
             },
@@ -4813,6 +4817,14 @@ countries = {
             {
                 'source' : u'галерея',
                 'dest' : u'gallery',
+            },
+            {
+                'source' : u'iso',
+                'dest' : u'iso_oblast',
+            },
+			 {
+                'source' : u'район',
+                'dest' : u'rayon',
             },
             {
                 'source' : u'назва',
