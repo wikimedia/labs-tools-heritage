@@ -2410,6 +2410,14 @@ countries = {
                'dest' : u'title',
             },
             {
+				'source' : u'CCAA_iso',
+				'dest' : u'CCAA_iso',
+            },
+            {
+				'source' : u'provincia_iso',
+				'dest' : u'provincia_iso',
+            },
+            {
                 'source' : u'nombre',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
