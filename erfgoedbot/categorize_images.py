@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf-8  -*-
 '''
 
@@ -8,7 +8,11 @@ First checks if monument article or it's categories have commonscat template,
 
 
 Usage:
-python categorize_images.py -countrycode:ee -wikilang:et -cat:"Cultural heritage monuments in Estonia"
+* To process all:
+python categorize_images.py
+
+* Just process one source:
+python categorize_images.py -countrycode:ee -lang:et
 
 '''
 import sys
@@ -17,16 +21,8 @@ sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, pagegenerators, catlib
 import re, imagerecat
 import MySQLdb, config
+import commonscat # Contains the commonscat templates for most Wikipedia's
 
-#commonscat templates in different wikipedias
-wikiData = {
-    ('et') : {
-    'commonsCatTemplates' : [u'Commonskat', u'Commonscat', u'Commonsi kategooria']
-    }
-}
-
-#number of initial categories (categories added by uploadwizard) on image page
-INITIAL_CAT_COUNT = 2
 
 def connectDatabase():
     '''
@@ -40,15 +36,19 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     wikipedia.output(u'Working on: %s' % page.title())
 
     currentcats = page.categories()
-    if len(currentcats) > INITIAL_CAT_COUNT:
+    if not commonsCategoryBase in currentcats:
+        wikipedia.output(u'%s category not found at: %s. Someone probably already categorized it.' % (commonsCategoryBase, page.title()) )
         return False
+    
+    if u'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
+        wikipedia.output(u'%s in %s is a placeholder, skipping it.' % (page.title(), commonsCategoryBase ) )
 
     templates = page.templates()
-    if not commonsTemplate in page.templates():
+    if not commonsTemplate in templates:
         wikipedia.output(u'%s template not found at: %s' % (commonsTemplate, page.title()) )
         return False
 
-    monumentId=-1
+    monumentId = None
 
     for (template, params) in page.templatesWithParams():
         if template==commonsTemplate:
@@ -58,20 +58,25 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
                 except ValueError:
                     wikipedia.output(u'Unable to extract a valid id')
                 break
-                
-    if monumentId < 0:
+
+    # No valid id found, skip the image            
+    if not monumentId:
         return False
+    
     monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
     if not monData:
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
         return False
+    
     (monumentName, monumentSource) = monData
     monumentArticle = getArticle(lang, monumentName)
     newcats = None
+    
     if monumentArticle:
         if monumentArticle.isRedirectPage():
             monumentArticle = monumentArticle.getRedirectTarget()
         newcats = getCategories(monumentArticle, commonsCatTemplates)
+        
     if not newcats:
         monumentList = getList(lang, monumentSource)
         if not monumentList:
@@ -207,18 +212,25 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     genFactory = pagegenerators.GeneratorFactory()
     commonsTemplate = countryconfig.get('commonsTemplate')
     commonsCategoryBase = countryconfig.get('commonsCategoryBase')
-    
-    for arg in wikipedia.handleArgs():
-        genFactory.handleArg(arg)
 
-    generator = genFactory.getCombinedGenerator()
-
-    if generator:
-        # Get a preloading generator with only images
-        pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
-        for page in pgenerator:
-            categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+    generator = pagegenerators.CategorizedPageGenerator(commonsCategoryBase)
     
+    # Get a preloading generator with only images
+    pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
+    for page in pgenerator:
+        categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+
+    
+def getCommonscatTemplate (lang=None):
+    '''Get the template name in a language. Expects the language code.
+    Return as tuple containing the primary template and it's alternatives
+
+    '''
+    if lang in commonscat.commonscatTemplates:
+        return  commonscat.commonscatTemplates[lang]
+    else:
+        return commonscat.commonscatTemplates[u'_default']
+
     
 def main():
 
@@ -232,21 +244,19 @@ def main():
     for arg in wikipedia.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg [len('-countrycode:'):]
-        elif arg.startswith('-wikilang:'):
-            lang = arg [len('-wikilang:'):]
 
     if countrycode:
-########        lang = wikipedia.getSite().language()
+        lang = wikipedia.getSite().language()
         if not mconfig.countries.get((countrycode, lang)):
             wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        commonsCatTemplates = wikiData.get(lang).get('commonsCatTemplates')
+        commonsCatTemplates = getCommonscatTemplate(lang)
         processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), commonsCatTemplates, conn, cursor)
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            commonsCatTemplates = wikiData.get(lang).get('commonsCatTemplates')
+            commonsCatTemplates = getCommonscatTemplate(lang)
             processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
 
 if __name__ == "__main__":
