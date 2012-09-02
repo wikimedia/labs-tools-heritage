@@ -86,13 +86,13 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if newcats:
         oldtext = page.get()
         for currentcat in currentcats:
-            if not currentcat.titleWithoutNamespace()==commonsCategoryBase:
+            if not currentcat.titleWithoutNamespace()==commonsCategoryBase.titleWithoutNamespace():
                 newcats.append(currentcat)
         # Remove dupes
         newcats = list(set(newcats))
         newtext = wikipedia.replaceCategoryLinks(oldtext, newcats)
 
-        comment = u'Adding categories based on monument identifier'
+	comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (commonsTemplate, monumentId)
         wikipedia.showDiff(oldtext, newtext)
         page.put(newtext, comment)
     else:
@@ -107,8 +107,6 @@ def getMonNameSource(countrycode, lang, monumentId, conn, cursor):
     query = u"""SELECT name, source FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
 
     cursor.execute(query, (countrycode, lang, monumentId))
-    
-    #print cursor._executed
     
     try:
         row = cursor.fetchone()
@@ -207,11 +205,12 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
         wikipedia.output(u'Language: %s has no commonsCatTemplates set!' % lang)
         return False
     
-    wikipedia.setSite(wikipedia.getSite(u'commons', u'commons'))
+    site = wikipedia.getSite(u'commons', u'commons')
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
     commonsTemplate = countryconfig.get('commonsTemplate')
-    commonsCategoryBase = countryconfig.get('commonsCategoryBase')
+
+    commonsCategoryBase = catlib.Category(site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
 
     generator = pagegenerators.CategorizedPageGenerator(commonsCategoryBase)
     
