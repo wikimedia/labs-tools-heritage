@@ -2287,6 +2287,11 @@ countries = {
                 'default' : '0',
             },
             {
+                'source' : u'prot',
+                'dest' : u'prot',
+                'type' : "enum('BC','BIC')",
+            },
+            {
                 'source' : u'idurl',
                 'dest' : u'idurl',
             },
