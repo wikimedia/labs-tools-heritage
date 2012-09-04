@@ -2327,6 +2327,14 @@ countries = {
                 'dest' : u'title',
             },
             {
+				'source' : u'regió1',
+				'dest' : u'CCAA_iso',
+            },
+            {
+				'source' : u'regió2',
+				'dest' : u'provincia_iso',
+            },
+            {
                 'source' : u'nom',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -2502,6 +2510,14 @@ countries = {
                 'dest' : u'title',
             },
             {
+				'source' : u'regió1',
+				'dest' : u'CCAA_iso',
+            },
+            {
+				'source' : u'regió2',
+				'dest' : u'provincia_iso',
+            },
+            {
                 'source' : u'nom',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -2653,6 +2669,14 @@ countries = {
             {
                'source' : u'title',
                'dest' : u'title',
+            },
+            {
+				'source' : u'regió1',
+				'dest' : u'CCAA_iso',
+            },
+            {
+				'source' : u'regió2',
+				'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
