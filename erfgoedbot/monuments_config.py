@@ -2327,6 +2327,10 @@ countries = {
                 'dest' : u'title',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
 				'source' : u'regió1',
 				'dest' : u'CCAA_iso',
             },
@@ -2463,7 +2467,7 @@ countries = {
             {
                 'source' : u'prot',
                 'dest' : u'prot',
-                'type' : "enum('Error', 'BCIN','BCIL')",
+                'type' : "enum('BCIN','BCIL')",
             },
             {
                 'source' : u'idprot',
@@ -2508,6 +2512,10 @@ countries = {
             {
                 'source' : u'title',
                 'dest' : u'title',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
 				'source' : u'regió1',
@@ -2633,6 +2641,11 @@ countries = {
             {
                 'source' : u'nom',
                 'dest' : u'nom',
+            },
+            {
+                'source' : u'prot',
+                'dest' : u'prot',
+                'type' : "enum('BIC','BRL')",
             },
             {
                 'source' : u'estil',
