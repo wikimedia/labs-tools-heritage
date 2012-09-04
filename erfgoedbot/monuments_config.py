@@ -2607,7 +2607,7 @@ countries = {
                 'source' : u'imaxe',
                 'dest' : u'imaxe',
             },
-           {
+            {
                'source' : u'title',
                'dest' : u'title',
             },
@@ -2687,6 +2687,10 @@ countries = {
             {
                'source' : u'title',
                'dest' : u'title',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
 				'source' : u'regió1',
