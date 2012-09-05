@@ -6,7 +6,7 @@ class ApiCountries extends ApiBase {
 		'ch' => 'de',
 		'es' => 'es',
 		'fr' => 'fr',
-		'sk' => 'sv',
+		'sk' => 'sk',
 		'it' => 'it',
 	);
 
