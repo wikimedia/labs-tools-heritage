@@ -1413,7 +1413,7 @@ countries = {
         'commonsTemplate' : u'Cultural Heritage Czech Republic',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Czech Republic with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Czech Republic',
-        'unusedImagesPage' : u'WikiProjekt Wiki Loves Monuments/Nevyužité obrázky',
+        'unusedImagesPage' : u'Wikipedie:WikiProjekt Wiki Loves Monuments/Nevyužité obrázky',
         'imagesWithoutIdPage' : u'User:Multichill/Images of cultural heritage monuments in Czech Republic without id',
         'namespaces' : [0],
         'table' : u'monuments_cz_(cs)',
@@ -2287,11 +2287,6 @@ countries = {
                 'default' : '0',
             },
             {
-                'source' : u'prot',
-                'dest' : u'prot',
-                'type' : "enum('BC','BIC')",
-            },
-            {
                 'source' : u'idurl',
                 'dest' : u'idurl',
             },
@@ -2330,18 +2325,6 @@ countries = {
             {
                 'source' : u'title',
                 'dest' : u'title',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
-            },
-            {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
@@ -2427,14 +2410,6 @@ countries = {
                'dest' : u'title',
             },
             {
-				'source' : u'CCAA_iso',
-				'dest' : u'CCAA_iso',
-            },
-            {
-				'source' : u'provincia_iso',
-				'dest' : u'provincia_iso',
-            },
-            {
                 'source' : u'nombre',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -2472,7 +2447,7 @@ countries = {
             {
                 'source' : u'prot',
                 'dest' : u'prot',
-                'type' : "enum('BCIN','BCIL')",
+                'type' : "enum('Error', 'BCIN','BCIL')",
             },
             {
                 'source' : u'idprot',
@@ -2517,18 +2492,6 @@ countries = {
             {
                 'source' : u'title',
                 'dest' : u'title',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
-            },
-            {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
@@ -2607,7 +2570,7 @@ countries = {
                 'source' : u'imaxe',
                 'dest' : u'imaxe',
             },
-            {
+           {
                'source' : u'title',
                'dest' : u'title',
             },
@@ -2648,11 +2611,6 @@ countries = {
                 'dest' : u'nom',
             },
             {
-                'source' : u'prot',
-                'dest' : u'prot',
-                'type' : "enum('BIC','BRL')",
-            },
-            {
                 'source' : u'estil',
                 'dest' : u'estil',
             },
@@ -2687,18 +2645,6 @@ countries = {
             {
                'source' : u'title',
                'dest' : u'title',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
-            },
-            {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
