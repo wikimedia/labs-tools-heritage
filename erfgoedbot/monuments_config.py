@@ -2951,7 +2951,6 @@ countries = {
 
         ],
     },
-
     ('ie', 'en') : { # Monuments in Ireland
         'project' : u'wikipedia',
         'lang' : u'en',
@@ -3877,6 +3876,72 @@ countries = {
             {
                'source' : u'title',
                'dest' : u'title',
+            },
+        ],
+    },
+    ('ph', 'en') : { # Monuments in the Philippines in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Philippine cultural property header',
+        'rowTemplate' : u'Philippine cultural property row',
+        'commonsTemplate' : u'WMPH-ID',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in the Philippines with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in the Philippines',
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in the Philippines',
+        'namespaces' : [0],
+        'table' : u'monuments_ph_(en)',
+        'truncate' : False,
+        'primkey' : u'cp-wmph-id',
+        'fields' : [
+            {
+                'source' : u'cp-wmph-id',
+                'dest' : u'cp-wmph-id',
+                'type' : 'varchar(15)',
+            },
+            {
+                'source' : u'site_name',
+                'dest' : u'site_name',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'province',
+                'dest' : u'province',
+            },
+            {
+                'source' : u'province-iso',
+                'dest' : u'province-iso',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'barangay',
+                'dest' : u'barangay',
+            }
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
             },
         ],
     },
