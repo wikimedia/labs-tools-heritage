@@ -3925,7 +3925,7 @@ countries = {
             {
                 'source' : u'barangay',
                 'dest' : u'barangay',
-            }
+            },
             {
                 'source' : u'address',
                 'dest' : u'address',

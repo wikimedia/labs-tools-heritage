@@ -1269,6 +1269,29 @@ SELECT 'pa' AS `country`,
     `articulo` AS `monument_article`,
     '' AS `registrant_url`
 	FROM `monuments_pa_(es)`;
+/* Philippines in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'ph' AS `country`,
+       'en' AS `lang`,
+        `cp-wmph-id` AS `id`,
+		'ph' AS `adm0`,
+		`region-iso` AS `adm1`,
+		`province` AS `adm2`, /* province-iso is still empty, could be used later */
+		`location` AS `adm3`,
+		NULL AS `adm4`,
+        `site_name` AS `name`,
+	`address` AS `address`,
+	`location` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	NULL AS `source`,
+	`changed` AS `changed`,
+        NULL AS `monument_article`,
+        NULL AS `registrant_url`
+	FROM `monuments_ph_(en)`;
 /* Poland in Polish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'pl' AS `country`,
