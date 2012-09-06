@@ -1413,7 +1413,7 @@ countries = {
         'commonsTemplate' : u'Cultural Heritage Czech Republic',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Czech Republic with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Czech Republic',
-        'unusedImagesPage' : u'User:Multichill/Unused images of cultural heritage monuments in Czech Republic',
+        'unusedImagesPage' : u'WikiProjekt Wiki Loves Monuments/Nevyužité obrázky',
         'imagesWithoutIdPage' : u'User:Multichill/Images of cultural heritage monuments in Czech Republic without id',
         'namespaces' : [0],
         'table' : u'monuments_cz_(cs)',
