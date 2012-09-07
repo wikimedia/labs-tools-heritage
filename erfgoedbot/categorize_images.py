@@ -54,7 +54,7 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         if template==commonsTemplate:
             if len(params)==1:
                 try:
-                    monumentId = int(params[0])
+                    monumentId = params[0]
                 except ValueError:
                     wikipedia.output(u'Unable to extract a valid id')
                 break
@@ -174,8 +174,11 @@ def getCategories(page, commonsCatTemplates):
     if not len(result):
 	print  page.categories()
         for cat in page.categories():
+	    print cat
             for commonsCatTemplate in commonsCatTemplates:
+		print commonsCatTemplate
                 if commonsCatTemplate in cat.templates():
+		    print u'hit!'
                     result.append(getCategoryFromCommonscat(cat, commonsCatTemplates))
 
     return result
@@ -234,14 +237,14 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
 	if success:
 	    categorizedImages = categorizedImages + 1
 
-    return (countrycode, lang, commonsCategoryBase.title(), commonsTemplate, totalImages, categorizedImages)
+    return (countrycode, lang, commonsCategoryBase.titleWithoutNamespace(), commonsTemplate, totalImages, categorizedImages)
 
 def outputStatistics(statistics):
     '''
     Output the results of the bot as a nice wikitable
     '''
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! Total images !! Categorized images !! Images left\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! Total images !! Categorized images !! Images left !! Current image count\n'
 
     totalImages = 0
     categorizedImages = 0
@@ -251,7 +254,7 @@ def outputStatistics(statistics):
         output = output + u'|-\n'
 	output = output + u'|| %s \n' % (row[0],)
 	output = output + u'|| %s \n' % (row[1],)
-	output = output + u'|| [[:%s]] \n' % (row[2],)
+	output = output + u'|| [[:Category:%s]] \n' % (row[2],)
 	output = output + u'|| {{tl|%s}} \n' % (row[3],)
 	
 	totalImages = totalImages + row[4]
@@ -264,9 +267,10 @@ def outputStatistics(statistics):
 	leftoverImages = leftoverImages + leftover
 
 	output = output + u'|| %s \n' % (leftover,)
+	output = output + u'|| {{PAGESINCATEGORY:%s|files}} \n' % (row[2],)
 
     output = output + u'|-\n'
-    output = output + u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s \n' % (totalImages, categorizedImages, leftoverImages)
+    output = output + u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (totalImages, categorizedImages, leftoverImages)
     output = output + u'|}\n'
 
     site = wikipedia.getSite('commons', 'commons')
@@ -283,11 +287,10 @@ def getCommonscatTemplates(lang=None):
     result = []
     if lang in commonscat.commonscatTemplates:
         (prim, backups) = commonscat.commonscatTemplates[lang]
-	result.append(prim)
-	result = result + backups
     else:
-        result.append(commonscat.commonscatTemplates[u'_default'])
-
+        (prim, backups) = commonscat.commonscatTemplates[u'_default']
+    result.append(prim)
+    result = result + backups
     return result
 
     
@@ -311,6 +314,7 @@ def main():
             return False
         wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         commonsCatTemplates = getCommonscatTemplates(lang)
+	print commonsCatTemplates
         processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), commonsCatTemplates, conn, cursor)
     else:
 	statistics = []
