@@ -4028,9 +4028,9 @@ countries = {
         'headerTemplate' : u'IGESPAR/cabeçalho',
         'rowTemplate' : u'IGESPAR/linha',
         'footerTemplate' : u'IGESPAR/rodapé',
-        'commonsTemplate' : u'IGESPAR',
+        #'commonsTemplate' : u'IGESPAR', # This disables most of the bots
         'commonsTrackerCategory' : u'Cultural heritage monuments in Portugal with known IDs',
-        #'commonsCategoryBase' : u'Cultural heritage monuments in Portugal', # 13.000 items, it's a mess, disable for now
+        'commonsCategoryBase' : u'Cultural heritage monuments in Portugal', # 13.000 items, it's a mess, disable for now
         'unusedImagesPage' : u'Wikipédia:Projetos/Património de Portugal/Fotos IGESPAR não usadas',
         'imagesWithoutIdPage' : u'User:Multichill/IGESPAR without an ID',
         'registrantUrlBase' : u'http://www.igespar.pt/pt/patrimonio/pesquisa/geral/patrimonioimovel/detail/%s',
