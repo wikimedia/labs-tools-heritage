@@ -66,6 +66,13 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
  
     monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
     if not monData:
+	try:
+	    monumentId = int(monumentId)
+	    monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
+	except ValueError:
+	    wikipedia.output(u'Can\'t convert %s to an integer' % (monumentId,))
+
+    if not monData:
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
         return False
     
@@ -76,10 +83,13 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if monumentArticle:
         if monumentArticle.isRedirectPage():
             monumentArticle = monumentArticle.getRedirectTarget()
-	for commonsCatTemplate in commonsCatTemplates:
-            if commonsCatTemplate in monumentArticle.templates():
-		newcats = []
-	        newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+	try:
+	    for commonsCatTemplate in commonsCatTemplates:
+                if commonsCatTemplate in monumentArticle.templates():
+		    newcats = []
+	            newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+	except wikipedia.exceptions.SectionError:
+	   wikipedia.output(u'Incorrect redirect at %s' % (monumentArticle.title(),))
     print monData
     print monumentId
     print newcats
@@ -110,8 +120,6 @@ def getMonNameSource(countrycode, lang, monumentId, conn, cursor):
     '''
     Get monument name and source from db
     '''
-    result = None
-
     query = u"""SELECT name, source FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
 
     cursor.execute(query, (countrycode, lang, monumentId))
@@ -120,7 +128,8 @@ def getMonNameSource(countrycode, lang, monumentId, conn, cursor):
         row = cursor.fetchone()
         return row
     except TypeError:
-        return False
+	wikipedia.output(u'Didn\'t find anything for id %s' % (monumentId,))
+	return False
 
 def getArticle(lang, monumentName):
     '''
@@ -210,7 +219,10 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     '''
     if not countryconfig.get('commonsTemplate'):
         # No template found, just skip silently.
-        return False
+	basecat = u''
+	if countryconfig.get('commonsCategoryBase'):
+	    basecat = countryconfig.get('commonsCategoryBase')
+	return (countrycode, lang, basecat, 0, 0, 0)
     
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
@@ -233,7 +245,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
     for page in pgenerator:
 	totalImages = totalImages + 1
-        success = categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+	if not totalImages >= 10:
+            success = categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
 	if success:
 	    categorizedImages = categorizedImages + 1
 
@@ -321,9 +334,7 @@ def main():
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(lang)
-	    if not lang==u'pt': # Hack Portugal is a mess
-            	result = processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
-
+            result = processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
 	    if result:
 	        statistics.append(result)
 
