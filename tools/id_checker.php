@@ -3,11 +3,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('html_errors', false);
 
+require_once '/home/project/e/r/f/erfgoed/public_html/api/includes/Defaults.php';
 require_once '/home/project/e/r/f/erfgoed/database.inc';
 require '/home/project/e/r/f/erfgoed/public_html/api/autoloader.php';
 
-$dbStatus = Database::define(Monuments::$dbServer, Monuments::$dbDatabase, 
-	Monuments::$dbUser, $toolserver_password );
+$dbStatus = Database::define($dbServer, $dbDatabase, 
+	$dbUser, $dbPassword );
 if (!$dbStatus) {
     die( "Coudn't connect to db! ". mysql_error() );
 }
