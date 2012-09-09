@@ -3192,6 +3192,10 @@ countries = {
                 'dest' : u'comune',
             },
             {
+                'source' : u'comune-id',
+                'dest' : u'comune-id',
+            },
+            {
                 'source' : u'indirizzo',
                 'dest' : u'indirizzo',
             },
@@ -3206,6 +3210,14 @@ countries = {
             {
                 'source' : u'regione',
                 'dest' : u'regione',
+            },
+            {
+                'source' : u'regione-iso',
+                'dest' : u'regione-iso',
+            },
+            {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
             },
             {
                 'source' : u'ente',
