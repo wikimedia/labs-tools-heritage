@@ -2272,7 +2272,7 @@ countries = {
         'commonsTemplate' : u'BIC',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Spain with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Spain',
-        'unusedImagesPage' : u'User:Multichill/Unused BIC',
+        'unusedImagesPage' : u'Viquiprojecte:Monuments/Imatges_per_utilitzar',
         'imagesWithoutIdPage' : u'User:Multichill/BIC without id',
         'registrantUrlBase' : u'',
         'namespaces' : [0],
