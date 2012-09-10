@@ -4034,11 +4034,12 @@ countries = {
         'namespaces' : [102],
         'table' : u'monuments_pl_(pl)',
         'truncate' : True,
-        'primkey' : u'numer',
+        'primkey' : ('prov-iso', u'numer'),
         'fields' : [
             {
                 'source' : u'numer',
                 'dest' : u'numer',
+                'type' : 'varchar(20)',
                 'default' : '0',
             },
             {

@@ -1296,7 +1296,7 @@ SELECT 'ph' AS `country`,
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'pl' AS `country`,
        'pl' AS `lang`,
-		`numer` AS `id`, 
+		CONCAT(REPLACE(LOWER(`prov-iso`), 'pl-', ''), '-', `numer`) AS `id`, /* Evil hack to get Poland to work */
 		'pl' AS `adm0`,
 		LOWER(`prov-iso`) AS `adm1`,
 		`powiat` AS `adm2`,
