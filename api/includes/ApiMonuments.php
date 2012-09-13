@@ -10,7 +10,7 @@ if ( get_magic_quotes_gpc() ) {
  */
 class ApiMonuments extends ApiBase {
 	const EARTH_RADIUS = 6371010;
-	const MAX_GEOSEARCH_AREA = 0.04;// 0.2 * 0.2 degrees
+	const MAX_GEOSEARCH_AREA = 0.041;// 0.2 * 0.2 degrees
 	const GRANULARITY = 20;
 
 	public function __construct() {
