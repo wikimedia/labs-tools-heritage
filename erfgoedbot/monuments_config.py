@@ -3386,6 +3386,82 @@ countries = {
             },
         ],
     },
+    ('ke', 'en') : { # Kenya in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Kenya Monument header',
+        'rowTemplate' : u'Kenya Monument row',
+        'commonsTemplate' : u'Kenya Monument',
+        'commonsTrackerCategory' : u'Kenya Monuments with known IDs',
+        #'commonsCategoryBase' : u'',
+        'autoGeocode' : False,
+        #'unusedImagesPage' : u'',
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_ke_(en)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'alternative_names',
+                'dest' : u'alternative_names',
+            },
+            {
+                'source' : u'gazette',
+                'dest' : u'gazette',
+            },
+            {
+                'source' : u'original_function',
+                'dest' : u'original_function',
+            },
+            {
+                'source' : u'built',
+                'dest' : u'built',
+            },
+            {
+                'source' : u'county',
+                'dest' : u'county',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'comment',
+                'dest' : u'comment',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },        
+        ],
+    },
     ('lu', 'lb') : { # Monuments in Luxemburg in Luxemburgish
         'project' : u'wikipedia',
         'lang' : u'lb',
