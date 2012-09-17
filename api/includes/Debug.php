@@ -31,7 +31,7 @@ class Debug {
 
 	public static function saveLog() {
 		if ( self::$debugLog ) {
-			file_put_contents( DEBUG_FILE, self::$debugLog );
+			file_put_contents( DEBUG_FILE, self::$debugLog, FILE_APPEND );
 		}
 	}
 }
