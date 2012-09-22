@@ -2612,6 +2612,10 @@ countries = {
                'dest' : u'title',
             },
             {
+               'source' : u'provincia_iso',
+               'dest' : u'provincia_iso',
+            },
+            {
                 'source' : u'nomeoficial',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
