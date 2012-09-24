@@ -53,7 +53,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n' # People can add a /header template for with more info
     text = text + u'<gallery>\n'
     totalImages = 0
-    maxImages = 400
+    maxImages = 1000
     
     for catSortKey in sorted(photos.keys()):
         try:
