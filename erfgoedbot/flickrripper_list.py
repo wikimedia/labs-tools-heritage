@@ -72,10 +72,10 @@ templates_for_flickr_license = {
 ripper_config = {
     'country': u'es',
     'lang': u'es',
-    'group': u'1737383@N20', # Hint: Take the group id from the head\link to rss 
+    'group': u'2023057@N24', # Hint: Take the group id from the head\link to rss 
     'monument_template': u'BIC',
-    'monument_regexp': u'(?:BIC[:=]?)?(RI-51-([0-9]+)(-[0-9]+)?)',
-    'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2011 in Spain]]',
+    'monument_regexp': u'(?:BIC[:=]?)(RI-..-([0-9]+)(-[0-9]+)?)',
+    'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2012 in Spain]]',
 }
 
 def getPhoto(flickr = None, photo_id = ''):
@@ -360,7 +360,7 @@ def buildDescription(photo, flinfoDescription=u'', flickrreview=False, reviewer=
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
 											  
-    description = description + u'\n{{Wiki Loves Monuments 2011|' + ripper_config['country'] + '}}'
+    description = description + u'\n{{Wiki Loves Monuments 2012|' + ripper_config['country'] + '}}'
     description = description + u'\n' + ripper_config['categories'] + '\n'
     description = description.replace(u'{{subst:unc}}\n', u'')
     if addCategory:
