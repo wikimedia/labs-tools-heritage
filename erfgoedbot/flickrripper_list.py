@@ -265,7 +265,7 @@ def getDescription(photo):
 	
 	return description
 
-def getFilename(photo=None, site=pywikibot.getSite(u'commons', u'commons'),
+def getFilename(photo, photoStream, site=pywikibot.getSite(u'commons', u'commons'),
                 project=u'Flickr'):
     ''' Build a good filename for the upload based on the username and the
     title. Prevents naming collisions.
@@ -284,19 +284,20 @@ def getFilename(photo=None, site=pywikibot.getSite(u'commons', u'commons'),
     baseFilename = u'%s - %s' % (username, title)
     baseFilename = u'%s' % (title)
     print baseFilename
+    extension = findAppropiateExtension(photoStream)
 
-    if pywikibot.Page(site, u'File:%s.jpg'
-                      % (baseFilename) ).exists():
+    if pywikibot.Page(site, u'File:%s.%s'
+                      % (baseFilename, extension) ).exists():
         i = 2
         while True:
-            if (pywikibot.Page(site, u'File:%s (%s).jpg'
-                               % (baseFilename, str(i))).exists()):
+            if (pywikibot.Page(site, u'File:%s (%s).%s'
+                               % (baseFilename, str(i), extension)).exists()):
                 i = i + 1
             else:
-                return u'%s (%s).jpg' % (baseFilename,
-                                                   str(i))
+                return u'%s (%s).%s' % (baseFilename,
+                                                   str(i), extension)
     else:
-        return u'%s.jpg' % (baseFilename)
+        return u'%s.%s' % (baseFilename, extension)
 
 def cleanUpTitle(title):
     ''' Clean up the title of a potential mediawiki page. Otherwise the title of
@@ -321,6 +322,23 @@ def cleanUpTitle(title):
     title = re.sub(u"[-,^]([.]|$)", u"\\1", title)
     title = title.replace(u" ", u"_")
     return title
+
+
+def findAppropiateExtension(photoStream):
+    '''Detect the appropiate extension for the image stream'''
+    if photoStream.getvalue()[0:8] == "\x89\x50\x4e\x47\r\n\x1a\n":
+        return "png"
+    if photoStream.getvalue()[0:4] in [ "MM\x00\x2a", "II\x2a\x00", "MM\x00\x2b", "II\x2b\x00" ]:
+        return "tiff"
+    if photoStream.getvalue()[0:6] in [ "GIF87a", "GIF89a" ]:
+        return "gif"
+    if photoStream.getvalue()[0:2] == "BM":
+        return "bmp"
+    if photoStream.getvalue()[0:8] == "AT&TFORM":
+        return "djvu"
+
+    return "jpg"
+
 
 def getMonumentId(photo):
     prog = re.compile(ripper_config['monument_regexp'])
@@ -403,7 +421,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
             pywikibot.output(u'Found duplicate image at %s' % duplicates.pop())
         else:
             site=pywikibot.getSite(u'commons', u'commons')
-            filename = getFilename(photo, site)
+            filename = getFilename(photo, photoStream, site)
             flinfoDescription = getDescription(photo)
             pywikibot.output(flinfoDescription)
             photoDescription = buildDescription(photo, flinfoDescription,
