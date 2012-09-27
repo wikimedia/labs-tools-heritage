@@ -283,6 +283,7 @@ def getFilename(photo, photoStream, site=pywikibot.getSite(u'commons', u'commons
     #baseFilename = u'File:%s - %s - %s' % (project, username, title)
     baseFilename = u'%s - %s' % (username, title)
     baseFilename = u'%s' % (title)
+    baseFilename = baseFilename.rstrip('.')
     print baseFilename
     extension = findAppropiateExtension(photoStream)
 
