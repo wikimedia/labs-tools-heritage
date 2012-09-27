@@ -117,7 +117,8 @@ WHERE id=%s
 AND country=%s
 AND lang=%s
 AND NOT lat=0 AND NOT lon=0
-AND NOT lat='' AND NOT lon=0
+AND NOT lat='' AND NOT lon=''
+AND NOT lat IS NULL AND NOT lon IS NULL
 LIMIT 1""";
 
     cursor.execute(query, (monumentId, countrycode, lang,))
