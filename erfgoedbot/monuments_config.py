@@ -4114,7 +4114,7 @@ countries = {
         'rowTemplate' : u'Zabytki wiersz',
         #'commonsTemplate' : u'Zabytek', # Very inconsistent right now. Needs to be figured out first
         #'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs', # same
-         'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystane zdjęć',
+        #'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystane zdjęć',
         'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
         'namespaces' : [102],
         'table' : u'monuments_pl_(pl)',
