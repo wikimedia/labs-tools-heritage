@@ -4338,7 +4338,7 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in Serbia with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Serbia',
         'autoGeocode' : True,
-        'unusedImagesPage' : u'Списак знаменитих места у Србији/Неискоришћени слике',
+        'unusedImagesPage' : u'Википедија:Списак знаменитих места у Србији/Неискоришћени слике',
         #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s zonder id',
         #'registrantUrlBase' : u'http://monumentenregister.cultureelerfgoed.nl/php/main.php?cAction=search&sCompMonNr=%s',
         'namespaces' : [0],
