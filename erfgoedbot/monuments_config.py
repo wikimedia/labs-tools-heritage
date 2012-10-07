@@ -99,7 +99,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'varchar(6)',
+                'type' : 'varchar(15)',
             },
             {
                 'source' : u'prov-iso',
