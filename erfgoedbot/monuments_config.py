@@ -4115,9 +4115,9 @@ countries = {
         'lang' : u'pl',
         'headerTemplate' : u'Lista zabytków góra',
         'rowTemplate' : u'Zabytki wiersz',
-        #'commonsTemplate' : u'Zabytek', # Very inconsistent right now. Needs to be figured out first
-        #'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs', # same
-        #'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystane zdjęć',
+        'commonsTemplate' : u'Zabytek',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
+        'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
         'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
         'namespaces' : [102],
         'table' : u'monuments_pl_(pl)',
