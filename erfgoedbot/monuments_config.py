@@ -4127,7 +4127,7 @@ countries = {
             {
                 'source' : u'numer',
                 'dest' : u'numer',
-                'type' : 'varchar(20)',
+                'type' : 'varchar(22)',
                 'default' : '0',
             },
             {
