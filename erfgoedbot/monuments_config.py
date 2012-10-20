@@ -1067,35 +1067,57 @@ countries = {
         'registrantUrlBase' : u'http://www.historicplaces.ca/fr/rep-reg/place-lieu.aspx?id=%s',
         'namespaces' : [0, 100],
         'table' : u'monuments_ca_(fr)',
-        'truncate' : True,
-        'primkey' : u'dummyid', # Work with a dummy id for now. Three fields with ids, messy!
+        'truncate' : False,
+        'primkey' : u'numero',
         'fields' : [
             {
-                'source' : u'dummyid',
-                'dest' : u'dummyid',
+                'source' : u'numéro',
+                'dest' : u'numero',
                 'type' : 'int(11)',
-                'auto_increment' : True,
+            },
+            {
+                'source' : u'id', # (optionnel) ancre, par exemple une lettre majuscule pour l'utilisation d'un
+                'dest' : u'id',
+            },
+            {
+                'source' : u'niveau',
+                'dest' : u'niveau',
+            },
+            {
+                'source' : u'tri',
+                'dest' : u'tri',
             },
             {
                 'source' : u'lieu',
                 'dest' : u'lieu',
-                'type' : '',
             },
             {
-                'source' : u'addresse',
-                'dest' : u'addresse',
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'portrait',
+                'dest' : u'portrait',
             },
             {
                 'source' : u'municipalité',
                 'dest' : u'municipalite',
             },
             {
-                'source' : u'prov_iso',
-                'dest' : u'prov_iso',
+                'source' : u'tri municipalité',
+                'dest' : u'tri municipalité',
             },
             {
-                'source' : u'cp',
-                'dest' : u'cp',
+                'source' : u'addresse',
+                'dest' : u'addresse',
+            },
+            {
+                'source' : u'tri adresse',
+                'dest' : u'tri_adresse',
+            },
+            {
+                'source' : u'prov_iso',
+                'dest' : u'prov_iso',
             },
             {
                 'source' : u'lat',
@@ -1106,23 +1128,20 @@ countries = {
                 'dest' : u'lon',
             },
             {
-                'source' : u'image',
-                'dest' : u'image',
+                'source' : u'construction',
+                'dest' : u'construction',
             },
             {
-                'source' : u'idf',
-                'dest' : u'idf',
-                'type' : 'int(11)',
+                'source' : u'protection',
+                'dest' : u'protection',
             },
             {
-                'source' : u'idp',
-                'dest' : u'idp',
-                'type' : 'int(11)',
+                'source' : u'reconnu',
+                'dest' : u'reconnu',
             },
             {
-                'source' : u'idm',
-                'dest' : u'idm',
-                'type' : 'int(11)',
+                'source' : u'notes',
+                'dest' : u'notes',
             },
             {
                 'source' : u'lieu',
@@ -1130,7 +1149,7 @@ countries = {
                 'conv' : u'extractWikilink',
             },
             {
-                'source' : u'idf', #FIXME: Should be a list or tuple of the 3 fields
+                'source' : u'numero',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },

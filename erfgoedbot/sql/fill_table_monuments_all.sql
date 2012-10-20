@@ -371,11 +371,11 @@ SELECT 'ca' AS `country`,
 		`registrant_url` AS `registrant_url`
 		FROM `monuments_ca_(en)`
 		WHERE (`idf` IS NULL OR `idf`='') AND (`idp` IS NULL OR `idp`='') AND NOT (`idm` IS NULL OR `idm`=''); # Municipal
-/*  Canada in French 3 times because of the 3 levels in one source table */
+/*  Canada in French */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ca' AS `country`,
        'fr' AS `lang`,
-		`idf` AS `id`,
+		`numero` AS `id`,
 		'ca' AS `adm0`,
 		LOWER(`prov_iso`) AS `adm1`,
 		`municipalite` AS `adm2`,
@@ -393,54 +393,7 @@ SELECT 'ca' AS `country`,
 		`changed` AS `changed`,
 		`monument_article` AS `monument_article`,
 		`registrant_url` AS `registrant_url`
-		FROM `monuments_ca_(fr)`
-		WHERE NOT (`idf` IS NULL OR `idf`=''); # Federal
-REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'ca' AS `country`,
-       'fr' AS `lang`,
-		`idp` AS `id`,
-		'ca' AS `adm0`,
-		LOWER(`prov_iso`) AS `adm1`,
-		`municipalite` AS `adm2`,
-		NULL AS `adm3`,
-		NULL AS `adm4`,
-		`lieu` AS `name`,
-		`addresse` AS `address`,
-		`municipalite` AS `municipality`,
-		`lat` AS `lat`,
-		`lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-		`image` AS `image`,
-		`source` AS `source`,
-		`changed` AS `changed`,
-		`monument_article` AS `monument_article`,
-		`registrant_url` AS `registrant_url`
-		FROM `monuments_ca_(fr)`
-		WHERE (`idf` IS NULL OR `idf`='') AND NOT (`idp` IS NULL OR `idp`=''); # Provincial	
-REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'ca' AS `country`,
-       'fr' AS `lang`,
-		`idm` AS `id`,
-		'ca' AS `adm0`,
-		LOWER(`prov_iso`) AS `adm1`,
-		`municipalite` AS `adm2`,
-		NULL AS `adm3`,
-		NULL AS `adm4`,
-		`lieu` AS `name`,
-		`addresse` AS `address`,
-		`municipalite` AS `municipality`,
-		`lat` AS `lat`,
-		`lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-		`image` AS `image`,
-		`source` AS `source`,
-		`changed` AS `changed`,
-		`monument_article` AS `monument_article`,
-		`registrant_url` AS `registrant_url`
-		FROM `monuments_ca_(fr)`
-		WHERE (`idf` IS NULL OR `idf`='') AND (`idp` IS NULL OR `idp`='') AND NOT (`idm` IS NULL OR `idm`=''); # Municipal			
+		FROM `monuments_ca_(fr)`;			
 /* Switzerland in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ch' AS `country`,
