@@ -1105,7 +1105,7 @@ countries = {
             },
             {
                 'source' : u'tri municipalité',
-                'dest' : u'tri municipalité',
+                'dest' : u'tri_municipalite',
             },
             {
                 'source' : u'addresse',
