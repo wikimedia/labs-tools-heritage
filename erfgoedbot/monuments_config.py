@@ -1108,8 +1108,8 @@ countries = {
                 'dest' : u'tri_municipalite',
             },
             {
-                'source' : u'addresse',
-                'dest' : u'addresse',
+                'source' : u'adresse',
+                'dest' : u'adresse',
             },
             {
                 'source' : u'tri adresse',
@@ -1136,8 +1136,8 @@ countries = {
                 'dest' : u'protection',
             },
             {
-                'source' : u'reconnu',
-                'dest' : u'reconnu',
+                'source' : u'reconnaissance',
+                'dest' : u'reconnaissance',
             },
             {
                 'source' : u'notes',
