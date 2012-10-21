@@ -76,8 +76,8 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
         return False
     
-    (monumentName, monumentSource) = monData
-    monumentArticle = getArticle(lang, monumentName)
+    (monumentName, monumentArticle, monumentSource) = monData
+    #monumentArticle = getArticle(lang, monumentName)
     newcats = None
     
     if monumentArticle:
@@ -120,7 +120,7 @@ def getMonNameSource(countrycode, lang, monumentId, conn, cursor):
     '''
     Get monument name and source from db
     '''
-    query = u"""SELECT name, source FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
+    query = u"""SELECT `name`, `monument_article`, `source` FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
 
     cursor.execute(query, (countrycode, lang, monumentId))
     
