@@ -52,7 +52,7 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 
     for (template, params) in page.templatesWithParams():
         if template==commonsTemplate:
-            if len(params)==1:
+            if len(params)>=1:
                 try:
                     monumentId = params[0]
                 except ValueError:
