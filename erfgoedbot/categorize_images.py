@@ -76,7 +76,13 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
         return False
     
-    (monumentName, monumentArticle, monumentSource) = monData
+    (monumentName, monumentArticleTitle, monumentSource) = monData
+
+    monumentArticle = None
+    if monumentArticleTitle:
+        site = wikipedia.getSite(lang, u'wikipedia')
+        monumentArticle = wikipedia.Page(site, monumentArticleTitle)
+    
     #monumentArticle = getArticle(lang, monumentName)
     newcats = None
     
