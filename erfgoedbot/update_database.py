@@ -168,7 +168,8 @@ def convertField(field, contents, countryconfig):
 
 def unknownFieldsStatistics(countryconfig, unknownFields):
     '''
-    Produce some unknown field statistics to debug
+    Produce some unknown field statistics to debug.
+    This is still very raw data. Should be formatted and more information.
     '''
     site = site = wikipedia.getSite(u'commons', u'commons')
     page = wikipedia.Page(site, u'Commons:Monuments database/Unknown fields/%s' % (countryconfig.get('table'),))
@@ -177,7 +178,7 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
     text = text + u'! Field !! Count\n'
     for key, value in unknownFields.items():
         text = text + u'|-\n'
-        text = text + u'| %s || %s\n'
+        text = text + u'| %s || %s\n' % (key, value)
 
     text = text + u'|}' 
     comment = u'Updating the list of unknown fields'
@@ -284,7 +285,7 @@ def processHeader(params, countryconfig):
     return contents
 
 
-def processMonument(params, source, countryconfig, conn, cursor, sourcePage, headerDefaults, unknownFields=unknownFields):
+def processMonument(params, source, countryconfig, conn, cursor, sourcePage, headerDefaults, unknownFields=None):
     '''
     Process a single instance of a monument row template
     '''
@@ -356,7 +357,7 @@ def lookupSourceField(destination, countryconfig):
 	if field.get('dest')==destination:
 	    return field.get('source')
 
-def processText(text, source, countryconfig, conn, cursor, page=None, unknownFields=unknownFields):
+def processText(text, source, countryconfig, conn, cursor, page=None, unknownFields=None):
     '''
     Process a text containing one or multiple instances of the monument row template
     '''
