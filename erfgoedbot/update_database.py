@@ -166,6 +166,23 @@ def convertField(field, contents, countryconfig):
         
     return u''
 
+def unknownFieldsStatistics(countryconfig, unknownFields):
+    '''
+    Produce some unknown field statistics to debug
+    '''
+    site = site = wikipedia.getSite(u'commons', u'commons')
+    page = wikipedia.Page(site, u'Commons:Monuments database/Unknown fields/%s' % (countryconfig.get('table'),))
+
+    text = u'{| class="wikitable sortable"\n'
+    text = text + u'! Field !! Count\n'
+    for key, value in unknownFields.items():
+        text = text + u'|-\n'
+        text = text + u'| %s || %s\n'
+
+    text = text + u'|}' 
+    comment = u'Updating the list of unknown fields'
+    page.put(text, comment)
+
 def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
     '''
     '''
@@ -267,10 +284,13 @@ def processHeader(params, countryconfig):
     return contents
 
 
-def processMonument(params, source, countryconfig, conn, cursor, sourcePage, headerDefaults):
+def processMonument(params, source, countryconfig, conn, cursor, sourcePage, headerDefaults, unknownFields=unknownFields):
     '''
     Process a single instance of a monument row template
     '''
+
+    if not unknownFields:
+        unknownFields = {}
     
     title = sourcePage.title(True)
     
@@ -304,6 +324,10 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
                 wikipedia.output(u'Found unknown field: %s on page %s' % (field, title) )
 		wikipedia.output(u'Field: %s' % (field,))
 		wikipedia.output(u'Value: %s' % (value,))
+		if field in unknownFields:
+                    unknownFields[field] = unknownFields.get(field) + 1
+                else:
+                    unknownFields[field] = 1
                 #time.sleep(5)
 
     # If we truncate we don't have to check for primkey (it's a made up one)
@@ -322,6 +346,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
 	updateMonument(contents, source, countryconfig, conn, cursor, sourcePage)
     else:
 	print "No primkey available"
+    return unknownFields
 
 def lookupSourceField(destination, countryconfig):
     '''
@@ -331,10 +356,13 @@ def lookupSourceField(destination, countryconfig):
 	if field.get('dest')==destination:
 	    return field.get('source')
 
-def processText(text, source, countryconfig, conn, cursor, page=None):
+def processText(text, source, countryconfig, conn, cursor, page=None, unknownFields=unknownFields):
     '''
     Process a text containing one or multiple instances of the monument row template
     '''
+    if not unknownFields:
+        unknownFields = {}
+        
     if not page:
 	site = site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
 	page = wikipedia.Page(site, u'User:Multichill/Zandbak')
@@ -347,12 +375,13 @@ def processText(text, source, countryconfig, conn, cursor, page=None):
 	if template==countryconfig.get('rowTemplate'):
 	    #print template
 	    #print params
-	    processMonument(params, source, countryconfig, conn, cursor, page, headerDefaults)
+	    unknownFields = processMonument(params, source, countryconfig, conn, cursor, page, headerDefaults, unknownFields=unknownFields)
 	    #time.sleep(5)
 	elif template == u'Commonscat' and len(params)>=1:
 	    query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
 	    cursor.execute(query, (countryconfig.get('lang'), page.title(True), params[0]))
- 
+
+    return unknownFields
 
 def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
     '''
@@ -377,11 +406,14 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
 	begintime = datetime.datetime.utcnow() + datetime.timedelta(days=0-daysBack)
 	generator = pagegenerators.EdittimeFilterPageGenerator(pregenerator, begintime=begintime)
 
+    unknownFields = {}
+
     for page in generator:
 	if page.exists() and not page.isRedirectPage():
 	    # Do some checking
-	    processText(page.get(), page.permalink(), countryconfig, conn, cursor, page=page)
+	    unknownFields = processText(page.get(), page.permalink(), countryconfig, conn, cursor, page=page, unknownFields=unknownFields)
 
+    unknownFieldsStatistics(countryconfig,unknownFields)
 
 def processTextfile(textfile, countryconfig, conn, cursor):
     '''
