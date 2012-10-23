@@ -96,16 +96,18 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 	            newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
 	except wikipedia.exceptions.SectionError:
 	   wikipedia.output(u'Incorrect redirect at %s' % (monumentArticle.title(),))
-    print monData
-    print monumentId
-    print newcats
+    #print monData
+    #print monumentId
+    #print newcats
     if not newcats:
         monumentList = getList(lang, monumentSource)
-	print monumentList
+	#print monumentList
         if not monumentList:
             return False
+        if monumentList.isRedirectPage():
+	    monumentList = monumentList.getRedirectTarget()
         newcats = getCategories(monumentList, commonsCatTemplates)
-    print newcats
+    #print newcats
     if newcats:
         oldtext = page.get()
         for currentcat in currentcats:
@@ -117,8 +119,11 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 
 	comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (commonsTemplate, monumentId)
         wikipedia.showDiff(oldtext, newtext)
-        page.put(newtext, comment)
-	return True
+	try:
+	    page.put(newtext, comment)
+	    return True
+	except wikipedia.exceptions.EditConflict:
+	    wikipedia.output( u'Got an edit conflict. Someone else beat me to it at %s' % page.title() )
     else:
         wikipedia.output( u'Categories not found for %s' % page.title() )
 
@@ -187,13 +192,13 @@ def getCategories(page, commonsCatTemplates):
         if commonsCatTemplate in page.templates():
             result.append(getCategoryFromCommonscat(page, commonsCatTemplates))
     if not len(result):
-	print  page.categories()
+	#print page.categories()
         for cat in page.categories():
-	    print cat
+	    #print cat
             for commonsCatTemplate in commonsCatTemplates:
-		print commonsCatTemplate
+		#print commonsCatTemplate
                 if commonsCatTemplate in cat.templates():
-		    print u'hit!'
+		    #print u'hit!'
                     result.append(getCategoryFromCommonscat(cat, commonsCatTemplates))
 
     return result
@@ -219,7 +224,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     return cat
 
     
-def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor):
+def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor, overridecat=None):
     '''
     Work on a single country.
     '''
@@ -242,8 +247,11 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
     commonsTemplate = countryconfig.get('commonsTemplate')
-
-    commonsCategoryBase = catlib.Category(site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
+ 
+    if overridecat:
+	commonsCategoryBase = catlib.Category(site, "%s:%s" % (site.namespace(14), overridecat))
+    else:
+        commonsCategoryBase = catlib.Category(site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
 
     generator = pagegenerators.CategorizedPageGenerator(commonsCategoryBase)
     
@@ -251,7 +259,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     pgenerator = pagegenerators.PreloadingGenerator(pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
     for page in pgenerator:
 	totalImages = totalImages + 1
-	if not totalImages >= 10:
+	success = False
+	if not totalImages >= 10000:
             success = categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
 	if success:
 	    categorizedImages = categorizedImages + 1
@@ -316,6 +325,7 @@ def getCommonscatTemplates(lang=None):
 def main():
 
     countrycode = u''
+    overridecat = u''
     lang = u''
     conn = None
     cursor = None
@@ -325,6 +335,8 @@ def main():
     for arg in wikipedia.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg [len('-countrycode:'):]
+	elif arg.startswith('-overridecat:'):
+	    overridecat = arg [len('-overridecat:'):]
 
     if countrycode:
         lang = wikipedia.getSite().language()
@@ -333,8 +345,8 @@ def main():
             return False
         wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         commonsCatTemplates = getCommonscatTemplates(lang)
-	print commonsCatTemplates
-        processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), commonsCatTemplates, conn, cursor)
+	#print commonsCatTemplates
+        processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), commonsCatTemplates, conn, cursor, overridecat=overridecat)
     else:
 	statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
