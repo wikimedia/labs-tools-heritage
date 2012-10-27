@@ -3690,12 +3690,12 @@ countries = {
             {
                 'source' : u'gemcode',
                 'dest' : u'gemcode',
-                'type' : 'int(5)',
+                'type' : 'varchar(4)',
             },
             {
                 'source' : u'objnr',
                 'dest' : u'objnr',
-                'type' : 'int(7)',
+                'type' : 'varchar(10)',
             },
             {
                 'source' : u'prov-iso',
