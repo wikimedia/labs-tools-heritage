@@ -1178,9 +1178,9 @@ SELECT 'nl' AS `country`,
 	FROM `monuments_nl_(nl)`;
 /* Netherlands gemeentelijke monumenten */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'nl-gemeente' AS `country`,
+SELECT 'nl-gem' AS `country`,
        'nl' AS `lang`,
-		CONCAT('G', `gemcode`, '-', `objnr`) AS `id`, 
+		CONCAT(`gemcode`, '/', `objnr`) AS `id`, 
 		'nl' AS `adm0`,
 		LOWER(`prov-iso`) AS `adm1`,
 		`gemeente` AS `adm2`,
@@ -1198,7 +1198,7 @@ SELECT 'nl-gemeente' AS `country`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
-	FROM `monuments_nl-gemeente_(nl)`;
+	FROM `monuments_nl-gem_(nl)`;
 /* Norway in Norwegian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'no' AS `country`,
