@@ -69,9 +69,11 @@ def processSources(sources, conn, cursor, conn2, cursor2):
     '''
     Loop over all sources and process them. Very small right now, will probably exapnded later
     '''
+    result = sources
     for countrycode, countryconfig in sources.iteritems():
-        processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2)
-
+        totalImages = processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2)
+	result[countrycode]['totalImages'] = totalImages
+    return result
             
 def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
     '''
@@ -86,26 +88,29 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
     wikipedia.output(u'For country "%s" I found %s photos tagged with "{{%s}}" in [[Category:%s]]' % (countrycode, len(photos), commonsTemplate, commonsTrackerCategory))
     
     for catSortKey, page_title in photos:
-        #try:
-        monumentId = unicode(catSortKey, 'utf-8')
-        name = unicode(page_title, 'utf-8')
-        # Just want the first line
-        mLines = monumentId.splitlines()
-        monumentId = mLines[0]
-        # Remove leading and trailing spaces
-        monumentId = monumentId.strip()
-        # Remove leading underscores. This used to be zero's.
-	# Still a lot of templates left to update
-        monumentId = monumentId.lstrip(u'_')
-        # All uppercase, same happens in other list
-        #monumentId = monumentId.upper()
-        updateImage(countrycode, monumentId, name, conn, cursor)
+        try:
+	    monumentId = unicode(catSortKey, 'utf-8')
+	    name = unicode(page_title, 'utf-8')
+	    # Just want the first line
+	    mLines = monumentId.splitlines()
+	    monumentId = mLines[0]
+	    # Remove leading and trailing spaces
+	    monumentId = monumentId.strip()
+	    # Remove leading zero's. FIXME: This should be replaced with underscores
+	    monumentId = monumentId.lstrip(u'0')
+	    # Remove leading underscors.
+	    monumentId = monumentId.lstrip(u'_')
+	    # All uppercase, same happens in other list
+	    #monumentId = monumentId.upper()
+	    updateImage(countrycode, monumentId, name, conn, cursor)
 
-        #except ValueError:
-        #wikipedia.output(u'Got value error for %s' % (monumentId,))
-
+	except UnicodeDecodeError:
+	     wikipedia.output(u'Got unicode decode error for %s' % (monumentId,))
+	# UnicodeDecodeError is a subclass of ValueError and should catch most
+	except ValueError:
+	    wikipedia.output(u'Got value error for %s' % (monumentId,))
   
-    #return totalImages            
+    return len(photos)           
 
 def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     '''
@@ -140,32 +145,29 @@ def updateImage(countrycode, monumentId, name, conn, cursor):
         warnings.simplefilter("always")
         cursor.execute(query, (countrycode, monumentId, name,))          
 
-def makeStatistics(mconfig, totals):
+def makeStatistics(totals):
     '''
     Not used right now. Can be used later to make pretty statistics
     '''
     text = u'{| class="wikitable sortable"\n'
-    text = text + u'! country !! lang !! total !! page !! row template !! Commons template\n'
-    
+    text = text + u'! country !! total !! tracker template !! tracker category\n'
     totalImages = 0
-    for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
-        if countryconfig.get('unusedImagesPage') and countryconfig.get('commonsTemplate'):
+    print totals
+    for (countrycode, countryresults) in sorted(totals.iteritems()):
             text = text + u'|-\n'
             text = text + u'| %s ' % countrycode
-            text = text + u'|| %s ' % lang
-            text = text + u'|| %s ' % totals.get((countrycode, lang))
-            totalImages = totalImages + totals.get((countrycode, lang))
-            text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('unusedImagesPage'), countryconfig.get('unusedImagesPage'))
-            text = text + u'|| [[:%s:Template:%s|%s]] ' % (lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
-            text = text + u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
-    text = text + u'|-\n'
-    text = text + u'| || || %s \n' % totalImages
+            text = text + u'|| %s ' % countryresults.get('totalImages')
+	    totalImages = totalImages + countryresults.get('totalImages')
+	    text = text + u'|| {{tl|%s}}' % countryresults.get('commonsTemplate')
+	    text = text + u'|| [[:Category:%s|%s]]\n' % (countryresults.get('commonsTrackerCategory'), countryresults.get('commonsTrackerCategory'))
+    text = text + u'|- class="sortbottom"\n'
+    text = text + u'| || %s \n' % totalImages
     text = text + u'|}\n'
     
     site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(site, u'Commons:Monuments database/Unused images/Statistics')
+    page = wikipedia.Page(site, u'Commons:Monuments database/Indexed images/Statistics')
     
-    comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
+    comment = u'Updating indexed image statistics. Total indexed images: %s' % totalImages
     wikipedia.output(text)
     page.put(newtext = text, comment = comment)
 
@@ -188,7 +190,7 @@ def main():
             wikipedia.output(u'I have no config for countrycode "%s"' % (countrycode,))
             return False
         else:
-            processSources(sources, conn, cursor, conn2, cursor2)
+            totals = processSources(sources, conn, cursor, conn2, cursor2)
 
     else:
         wikipedia.output(u'Working on all countrycodes')
@@ -198,15 +200,9 @@ def main():
             return False
         else:
             wikipedia.output(u'Found %s countries with monument tracker templates to work on' % (len(sources),))
-            processSources(sources, conn, cursor, conn2, cursor2)
+            totals = processSources(sources, conn, cursor, conn2, cursor2)
 
-        '''
-        totals = {}
-	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    totals[(countrycode, lang)] = processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
-	makeStatistics(mconfig, totals)
-	'''
+	    makeStatistics(totals)
 
 		
 if __name__ == "__main__":
