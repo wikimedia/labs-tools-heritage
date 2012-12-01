@@ -17,6 +17,7 @@ class ApiMain {
 		'statisticsct' => 'Monuments',
 		'adminlevels' => 'AdminTree',
 		'countries' => 'Countries',
+		'images' => 'Images',
 	);
 
 	public static function getActions() {
