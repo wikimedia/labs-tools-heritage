@@ -76,8 +76,10 @@ AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
                 monumentId = mLines[0]
                 # Remove leading and trailing spaces
                 monumentId = monumentId.strip()
-                # Remove leading zero's
+                # Remove leading zero's. FIXME: This should be replaced with underscores
                 monumentId = monumentId.lstrip(u'0')
+                # Remove leading underscors.
+                monumentId = monumentId.lstrip(u'_')
                 yield (page, monumentId)
             except ValueError:
                 wikipedia.output(u'Got value error for %s' % (monumentId,))
