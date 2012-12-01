@@ -147,7 +147,7 @@ def updateImage(countrycode, monumentId, name, conn, cursor):
 
 def makeStatistics(totals):
     '''
-    Not used right now. Can be used later to make pretty statistics
+    Make statistics on the number of indexed images and put these on Commons
     '''
     text = u'{| class="wikitable sortable"\n'
     text = text + u'! country !! total !! tracker template !! tracker category\n'

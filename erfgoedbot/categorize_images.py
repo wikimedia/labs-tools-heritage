@@ -297,7 +297,7 @@ def outputStatistics(statistics):
 	output = output + u'|| %s \n' % (leftover,)
 	output = output + u'|| {{PAGESINCATEGORY:%s|files}} \n' % (row[2],)
 
-    output = output + u'|-\n'
+    output = output + u'|- class="sortbottom"\n'
     output = output + u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (totalImages, categorizedImages, leftoverImages)
     output = output + u'|}\n'
 

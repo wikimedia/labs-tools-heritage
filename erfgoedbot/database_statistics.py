@@ -100,7 +100,7 @@ def outputStatistics(statistics):
     totals['adm3Percentage'] = round(1.0 * totals['adm3'] / totals['all'] * 100, 2)
     totals['adm4Percentage'] = round(1.0 * totals['adm4'] / totals['all'] * 100, 2)
 
-    output = output + u'|-\n'
+    output = output + u'|- class="sortbottom"\n'
     output = output + u'| '
     output = output + u'|| || %(all)s' % totals
     output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % totals

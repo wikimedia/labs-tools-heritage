@@ -158,7 +158,7 @@ def makeStatistics(mconfig, totals):
             text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get('unusedImagesPage'), countryconfig.get('unusedImagesPage'))
             text = text + u'|| [[:%s:Template:%s|%s]] ' % (lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
             text = text + u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
-    text = text + u'|-\n'
+    text = text + u'|- class="sortbottom"\n'
     text = text + u'| || || %s \n' % totalImages
     text = text + u'|}\n'
     
