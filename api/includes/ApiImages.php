@@ -16,21 +16,21 @@ class ApiImages extends ApiBase {
 		$defaultParams = $this->getDefaultAllowedParams();
 
 		$params = array(
-			'country' => array(
+			'imcountry' => array(
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
-			'id' => array(
+			'imid' => array(
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
 			),
-			'width' => array(
+			'imwidth' => array(
 				 ApiBase::PARAM_DFLT => 220,
 				 ApiBase::PARAM_TYPE => 'integer',
 				 ApiBase::PARAM_MIN => 1,
 				 ApiBase::PARAM_MAX => 9999999999,
 			 ),
-			 'continue' => array(
+			 'imcontinue' => array(
 				 ApiBase::PARAM_DFLT => '',
 				 ApiBase::PARAM_TYPE => 'string',
 			 ),
@@ -58,11 +58,11 @@ class ApiImages extends ApiBase {
 	public function images() {
 		$display_fields = array( 'country', 'id', 'img_name', 'img_thumb', 'img_page');
 		
-		$country = $this->getParam( "country" );
-		$id = $this->getParam( "id" );
-		$width = $this->getParam( "width" );
+		$country = $this->getParam( "imcountry" );
+		$id = $this->getParam( "imid" );
+		$width = $this->getParam( "imwidth" );
 		$limit = $this->getParam( "limit" );
-		$continue = $this->getParam( "continue" );
+		$continue = $this->getParam( "imcontinue" );
 		
 		$db = Database::getDb();
 		$fields = array( 'country', 'id', 'img_name' );
