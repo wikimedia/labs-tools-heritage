@@ -27,7 +27,7 @@ python populate_image_table.py
 python populate_image_table.py -countrycode:xx
 
 '''
-import sys
+import sys, warnings
 import monuments_config as mconfig
 sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, re
@@ -94,11 +94,12 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
         monumentId = mLines[0]
         # Remove leading and trailing spaces
         monumentId = monumentId.strip()
-        # Remove leading zero's. No not really, this is really screwing things up. Should pad with spaces.
-        #monumentId = monumentId.lstrip(u'0')
+        # Remove leading underscores. This used to be zero's.
+	# Still a lot of templates left to update
+        monumentId = monumentId.lstrip(u'_')
         # All uppercase, same happens in other list
         #monumentId = monumentId.upper()
-        updateImage(countrycode, monumentId, name)
+        updateImage(countrycode, monumentId, name, conn, cursor)
 
         #except ValueError:
         #wikipedia.output(u'Got value error for %s' % (monumentId,))
@@ -116,18 +117,21 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
 
     cursor.execute(query, (commonsTrackerCategory,))
 
+    result = cursor.fetchall()
+    '''
     while True:
         try:
             row = cursor.fetchone()
             #(image, id) = row
             result.append(row)
+	    print row
             #result[id] = image
         except TypeError:
             break
-
+    '''
     return result
 
-def updateImage(countrycode, monumentId, name):
+def updateImage(countrycode, monumentId, name, conn, cursor):
     '''
     Update an entry for a single image
     '''
