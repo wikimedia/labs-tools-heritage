@@ -29,7 +29,11 @@ class ApiImages extends ApiBase {
 				 ApiBase::PARAM_TYPE => 'integer',
 				 ApiBase::PARAM_MIN => 1,
 				 ApiBase::PARAM_MAX => 9999999999,
-			),
+			 ),
+			 'continue' => array(
+				 ApiBase::PARAM_DFLT => '',
+				 ApiBase::PARAM_TYPE => 'string',
+			 ),
 		);
 		$params = array_merge_recursive( $defaultParams, $params );
 		return $params;
@@ -58,8 +62,8 @@ class ApiImages extends ApiBase {
 		$id = $this->getParam( "id" );
 		$width = $this->getParam( "width" );
 		$limit = $this->getParam( "limit" );
+		$continue = $this->getParam( "continue" );
 		
-		$data = array();
 		$db = Database::getDb();
 		$fields = array( 'country', 'id', 'img_name' );
 
@@ -67,13 +71,16 @@ class ApiImages extends ApiBase {
 		$where = array( 'country' => $country, 'id' => $id );
 		
 		$res = $db->select( $fields, 'image', $where );
+		$rows = array();
 		while ( $row = $db->fetchAssoc( $res ) ) {
 			$this->imageLinksRow( $row, $width );
-			$data[] = $row;
+			$rows[] = $row;
 		}
 		// FIXME: Implement the paging
-		$continueKey = null;
-		$this->getFormatter()->output( $data, $limit, $continueKey, $display_fields, null );
+		// $continueKey = null;
+		$limit = 99999999;
+		$primaryKey = array('country', 'id');
+		$this->getFormatter()->output( $rows, $limit, 'continue', $display_fields, $primaryKey);
 	}
 	/*
 	 * Add a link to a thumbnail and to the image page
