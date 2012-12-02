@@ -52,7 +52,8 @@ countries = {
             {
                 'source' : u'lloc',
                 'dest' : u'lloc',
-            },            {
+            },
+            {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
@@ -77,6 +78,94 @@ countries = {
                 'source' : u'id',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('aq', 'en') : { # Monuments in Antarctica in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Antarctic Protected Area header',
+        'rowTemplate' : u'Antarctic Protected Area row',
+        'commonsTemplate': u'Antarctic Protected Area',
+        'commonsTrackerCategory': u'Antarctic Protected Areas with known IDs',
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Antarctic Protected Areas',
+        'commonsCategoryBase': u'Antarctic Protected Areas',
+        #'registrantUrlBase' : Url is in the template    
+        'namespaces' : [0],
+        'table' : u'monuments_aq_(en)',
+        'truncate' : False,
+        'primkey' : ('type', 'number'),
+        'fields' : [
+            {
+                'source' : u'type',
+                'dest' : u'type',
+                'type' : 'varchar(4)',
+            },
+            {
+                'source' : u'number',
+                'dest' : u'number',
+                'type' : 'int(4)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'proponent',
+                'dest' : u'proponent',
+            },
+            {
+                'source' : u'management',
+                'dest' : u'management',
+            },
+            {
+                'source' : u'adopted',
+                'dest' : u'adopted',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'area',
+                'dest' : u'area',
+            },
+            {
+                'source' : u'M_plan',
+                'dest' : u'M_plan',
+            },
+            {
+                'source' : u'alt_country1',
+                'dest' : u'alt_country1',
+            },
+            {
+                'source' : u'alt_number1',
+                'dest' : u'alt_number1',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'url',
+                'dest' : u'registrant_url',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
             },
         ],
     },

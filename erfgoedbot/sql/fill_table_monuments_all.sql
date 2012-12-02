@@ -71,6 +71,29 @@ SELECT 'ad' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_ad_(ca)`;
+/* Antarctica in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'aq' AS `country`,
+       'en' AS `lang`, 
+       CONCAT(`type`, '-', `number`) AS `id`,
+	   'aq' AS `adm0`,
+	    NULL AS `adm1`,
+		NULL AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+        `name` AS `name`,
+        `description` AS `address`,
+        `proponent` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+		ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_aq_(en)`;
 /* Argentina in Spanish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ar' AS `country`,
