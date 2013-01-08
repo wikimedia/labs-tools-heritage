@@ -55,7 +55,7 @@ AND cl_to=%s
 AND NOT EXISTS(
 SELECT * FROM categorylinks AS loccat
 WHERE page_id=loccat.cl_from
-AND loccat.cl_to='Media_with_locations') LIMIT 1000""";
+AND loccat.cl_to='Media_with_locations') LIMIT 10000""";
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get('commonsTrackerCategory').replace(u' ', u'_')
 
@@ -133,17 +133,21 @@ LIMIT 1""";
 
 
 def addLocation (page, locationTemplate):
-    oldtext = page.get()
+    try:
+	oldtext = page.get()
+    except wikipedia.exceptions.NoPage:
+	# For some reason we sometimes get a NoPage Exception
+	wikipedia.output(u'No text found at %s. Skipping' % (page.title(),))
+	return False
 
     comment = u'Adding object location based on monument identifier'
 
-    newtext = putAfterTemplate (page, u'Information', locationTemplate, loose=True)
-    
+    newtext = putAfterTemplate (oldtext, u'Information', locationTemplate, loose=True)
     wikipedia.showDiff(oldtext, newtext)
     page.put(newtext, comment)
 
 
-def putAfterTemplate (page, template, toadd, loose=True):
+def putAfterTemplate (oldtext, template, toadd, loose=True):
     '''
     Try to put text after template.
     If the template is not found return False if loose is set to False
@@ -151,7 +155,6 @@ def putAfterTemplate (page, template, toadd, loose=True):
 
     Based on cc-by-sa-3.0 code by Dschwen
     '''
-    oldtext = page.get()
     newtext = u''
 
     templatePosition = oldtext.find(u'{{%s' % (template,))
