@@ -5186,7 +5186,7 @@ countries = {
         'commonsTemplate' : u'NRHP',
         'commonsTrackerCategory' : u'National Register of Historic Places with known IDs',
         'commonsCategoryBase' : u'National Register of Historic Places',
-        'autoGeocode' : True,
+        'autoGeocode' : False,
         'unusedImagesPage' : u'Wikipedia:WikiProject National Register of Historic Places/Unused images',
         'imagesWithoutIdPage' : u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
         'namespaces' : [0],
