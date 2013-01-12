@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
 '''
-Update the statistics of the monuments database at http://commons.wikimedia.org/wiki/Commons:Wiki_Loves_Monuments_2011/Monuments_database/Statistics
+Update the statistics of the monuments database at https://commons.wikimedia.org/wiki/Commons:Monuments_database/Statistics
+FIXME: Too much code duplication. Should probably just have one list of the possible fields for the functions to work on.
 
 '''
 import sys, time
@@ -27,7 +28,10 @@ def getCount(query, cursor):
     return count
 
 def outputStatistics(statistics):
-    #print statistics
+    '''
+    Output the statistics in wikitext on Commons
+    '''
+    
     output = u'{| class="wikitable sortable"\n'
     output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! total !! name !! address !! municipality !! coordinates !! image !! commonscat !! [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! [[:en:ISO 3166-2#Current codes|adm1]] !! adm2 !! adm3 !! adm4 !! source pages\n'
 
@@ -131,6 +135,7 @@ def outputStatistics(statistics):
 
 def getStatistics(country, language, conn, cursor):
     '''
+    Do a bunch of queries to gather the statistics.
     '''
     queries = {}
     result = {}
@@ -175,6 +180,9 @@ def getStatistics(country, language, conn, cursor):
     return result
         
 def getLanguages(country, conn, cursor):
+    '''
+    Get the languages for a certain country code.
+    '''
     result = []
     query = u"""SELECT DISTINCT(lang) FROM monuments_all WHERE country='%s'"""
     
@@ -191,6 +199,9 @@ def getLanguages(country, conn, cursor):
     return result
 
 def getCountries(conn, cursor):
+    '''
+    Get the list of country codes.
+    '''
     result = []
     query = u"""SELECT DISTINCT(country) FROM monuments_all"""
     cursor.execute(query)
@@ -221,43 +232,6 @@ def main():
             statistics[country][language] = getStatistics(country, language, conn, cursor)
 
     outputStatistics(statistics)
-    
-    '''                
-
-    for arg in wikipedia.handleArgs():
-	if arg.startswith('-countrycode:'):
-	    countrycode = arg [len('-countrycode:'):]
-	elif arg.startswith('-textfile:'):
-	    textfile = arg [len('-textfile:'):]
-
-    if countrycode:
-        lang = wikipedia.getSite().language()
-	if not mconfig.countries.get((countrycode, lang)):
-	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
-	    return False
-	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	if textfile:
-	    wikipedia.output(u'Going to work on textfile.')
-	    processTextfile(textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
-	else:
-	    processCountry(mconfig.countries.get((countrycode, lang)), conn, cursor)
-    else:
-	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    processCountry(countryconfig, conn, cursor)
-    
-
-
-	generator = genFactory.getCombinedGenerator()
-	if not generator:
-	    wikipedia.output(u'You have to specify what to work on. This can either be -textfile:<filename> to work on a local file or you can use one of the standard pagegenerators (in pagegenerators.py)')
-	else:
-	    pregenerator = pagegenerators.PreloadingGenerator(generator)
-	    for page in pregenerator:
-		if page.exists() and not page.isRedirectPage():
-		    # Do some checking
-		    processText(page.get(), page.permalink(), conn, cursor, page=page)
-    '''
 
 if __name__ == "__main__":
     try:
