@@ -26,7 +26,10 @@ if ( $tsI18nDir ) {
 	$I18N = new TsIntuition( $opts );
 }
 
-Database::define($dbServer, $dbDatabase, $dbUser,
-	isset( $toolserver_password )? $toolserver_password : $dbPassword );
+$dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
+	$dbPassword );
+if (!$dbStatus) {
+    die( "Coudn't connect to db! ". mysql_error() );
+}
 
 ApiMain::dispatch();
