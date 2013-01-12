@@ -29,7 +29,7 @@ def getCount(query, cursor):
 def outputStatistics(statistics):
     #print statistics
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! total !! name !! address !! municipality !! coordinates !! image !! [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! [[:en:ISO 3166-2#Current codes|adm1]] !! adm2 !! adm3 !! adm4 !! source pages\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! total !! name !! address !! municipality !! coordinates !! image !! commonscat !! [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! [[:en:ISO 3166-2#Current codes|adm1]] !! adm2 !! adm3 !! adm4 !! source pages\n'
 
     totals = {}
 
@@ -39,6 +39,7 @@ def outputStatistics(statistics):
     totals['municipality'] = 0
     totals['coordinates'] = 0
     totals['image'] = 0
+    totals['commonscat'] = 0
 
     totals['adm0'] = 0
     totals['adm1'] = 0
@@ -62,6 +63,7 @@ def outputStatistics(statistics):
                 output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % statistics[country][language]
+                output = output + u'|| %(commonscat)s <small>(%(commonscatPercentage)s%%)</small>' % statistics[country][language]
 
                 output = output + u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| [http://wlm.wikimedia.org/api/api.php?action=adminlevels&format=json&admtree=%(adm0iso)s %(adm1)s] <small>(%(adm1Percentage)s%%)</small>' % statistics[country][language]
@@ -77,6 +79,7 @@ def outputStatistics(statistics):
 		totals['municipality'] = totals['municipality'] + statistics[country][language]['municipality']
 		totals['coordinates'] = totals['coordinates'] + statistics[country][language]['coordinates']
 		totals['image'] = totals['image'] + statistics[country][language]['image']
+		totals['commonscat'] = totals['commonscat'] + statistics[country][language]['commonscat']
 
 		totals['adm0'] = totals['adm0'] + statistics[country][language]['adm0']
 		totals['adm1'] = totals['adm1'] + statistics[country][language]['adm1']
@@ -93,6 +96,7 @@ def outputStatistics(statistics):
     totals['municipalityPercentage'] = round(1.0 * totals['municipality'] / totals['all'] * 100, 2)
     totals['coordinatesPercentage'] = round(1.0 * totals['coordinates'] / totals['all'] * 100, 2)
     totals['imagePercentage'] = round(1.0 * totals['image'] / totals['all'] * 100, 2)
+    totals['commonscatPercentage'] = round(1.0 * totals['commonscat'] / totals['all'] * 100, 2)
 
     totals['adm0Percentage'] = round(1.0 * totals['adm0'] / totals['all'] * 100, 2)
     totals['adm1Percentage'] = round(1.0 * totals['adm1'] / totals['all'] * 100, 2)
@@ -108,6 +112,7 @@ def outputStatistics(statistics):
     output = output + u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % totals
     output = output + u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % totals
     output = output + u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % totals
+    output = output + u'|| %(commonscat)s <small>(%(commonscatPercentage)s%%)</small>' % totals
 
     output = output + u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % totals
     output = output + u'|| %(adm1)s <small>(%(adm1Percentage)s%%)</small>' % totals
@@ -136,6 +141,7 @@ def getStatistics(country, language, conn, cursor):
     queries['municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (municipality='' OR municipality IS NULL)"""
     queries['coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (lat=0 OR lat IS NULL) AND NOT (lon=0 OR lon IS NULL)"""
     queries['image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (image='' OR image IS NULL)"""
+    queries['commonscat'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (commonscat='' OR commonscat IS NULL)"""
 
     queries['adm0iso'] = u"""SELECT adm0 FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) LIMIT 1"""
     queries['adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL)"""
@@ -158,6 +164,7 @@ def getStatistics(country, language, conn, cursor):
     result['municipalityPercentage'] = round(1.0 * result['municipality'] / result['all'] * 100, 2)
     result['coordinatesPercentage'] = round(1.0 * result['coordinates'] / result['all'] * 100, 2)
     result['imagePercentage'] = round(1.0 * result['image'] / result['all'] * 100, 2)
+    result['commonscatPercentage'] = round(1.0 * result['commonscat'] / result['all'] * 100, 2)
 
     result['adm0Percentage'] = round(1.0 * result['adm0'] / result['all'] * 100, 2)
     result['adm1Percentage'] = round(1.0 * result['adm1'] / result['all'] * 100, 2)
