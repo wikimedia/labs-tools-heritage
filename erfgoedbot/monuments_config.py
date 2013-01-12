@@ -2862,7 +2862,7 @@ countries = {
             },
             {
                 'source' : u'època',
-                'dest' : u'època',
+                'dest' : u'epoca',
             },
             {
                 'source' : u'municipi',
