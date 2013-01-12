@@ -70,6 +70,10 @@ countries = {
                 'dest' : u'imatge',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'nom',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -242,6 +246,10 @@ countries = {
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'monumento_enlace',
@@ -423,6 +431,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'omschrijving',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -508,6 +520,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'descr_en',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -589,6 +605,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nom_objet',
@@ -675,6 +695,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'objectnaam',
@@ -771,6 +795,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'descr_en',
@@ -875,6 +903,10 @@ countries = {
                 'dest' : u'',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'titre coordonnées',
                 'dest' : u'',
             },
@@ -971,6 +1003,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'descr_nl',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -1049,6 +1085,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'грамадзкі набытак', # Boolean, not clear what the purpose is
                 'dest' : u'',
             },
@@ -1114,6 +1154,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'idf',
@@ -1187,6 +1231,10 @@ countries = {
             {
                 'source' : u'portrait',
                 'dest' : u'portrait',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'municipalité',
@@ -1293,6 +1341,10 @@ countries = {
                 'dest' : u'foto',
             },
             {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'Name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -1362,6 +1414,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -1423,6 +1479,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -1477,7 +1537,11 @@ countries = {
                 'source' : u'Photo',
                 'dest' : u'photo',
             },
-			{
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+	    {
                 'source' : u'region-iso',
                 'dest' : u'region-iso',
             },
@@ -1669,6 +1733,10 @@ countries = {
                 'dest' : u'imagen',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                'source' : u'tipo',
                'dest' : u'tipo',
                'type' : "enum('Error', 'MH','ZT','SN')",
@@ -1752,6 +1820,10 @@ countries = {
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'monumento_enlace',
@@ -1850,6 +1922,10 @@ countries = {
                 'dest' : u'billede',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'sagsnavn',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -1927,6 +2003,10 @@ countries = {
             {
                 'source' : u'billede',
                 'dest' : u'billede',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'bemærkning',
@@ -2362,7 +2442,7 @@ countries = {
             },
             {
                 'source' : u'commons',
-                'dest' : u'commons',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nimi',
@@ -2448,12 +2528,12 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
+                'source' : u'regió1',
+                'dest' : u'CCAA_iso',
             },
             {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
+                'source' : u'regió2',
+                'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
@@ -2535,16 +2615,20 @@ countries = {
                 'dest' : u'imagen',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                'source' : u'title',
                'dest' : u'title',
             },
             {
-				'source' : u'CCAA_iso',
-				'dest' : u'CCAA_iso',
+                'source' : u'CCAA_iso',
+		'dest' : u'CCAA_iso',
             },
             {
-				'source' : u'provincia_iso',
-				'dest' : u'provincia_iso',
+		'source' : u'provincia_iso',
+		'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nombre',
@@ -2635,12 +2719,12 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
+                'source' : u'regió1',
+                'dest' : u'CCAA_iso',
             },
             {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
+                'source' : u'regió2',
+                'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
@@ -2718,6 +2802,10 @@ countries = {
             {
                 'source' : u'imaxe',
                 'dest' : u'imaxe',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                'source' : u'title',
@@ -2809,12 +2897,12 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-				'source' : u'regió1',
-				'dest' : u'CCAA_iso',
+                'source' : u'regió1',
+                'dest' : u'CCAA_iso',
             },
             {
-				'source' : u'regió2',
-				'dest' : u'provincia_iso',
+                'source' : u'regió2',
+                'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nom',
@@ -2884,6 +2972,10 @@ countries = {
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nom',
@@ -2981,6 +3073,10 @@ countries = {
                 'dest' : u'portrait',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'id',
                 'dest' : u'id',
             },
@@ -3063,6 +3159,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -3115,6 +3215,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'state_iso',
@@ -3174,6 +3278,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'name',
@@ -3345,6 +3453,10 @@ countries = {
                 'source' : u'immagine',
                 'dest' : u'immagine',
             },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
         ],
     },
 
@@ -3391,6 +3503,10 @@ countries = {
             {
                 'source' : u'imatge',
                 'dest' : u'imatge',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nom',
@@ -3574,6 +3690,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -3638,6 +3758,10 @@ countries = {
             {
                 'source' : u'bild',
                 'dest' : u'bild',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'offiziellen_numm',
@@ -3740,12 +3864,16 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'postcode',
-                'dest' : u'',
+                'dest' : u'postcode',
             },
             {
                 'source' : u'buurt',
-                'dest' : u'',
+                'dest' : u'buurt',
             },
             {
                 'source' : u'objectnaam',
@@ -3833,6 +3961,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'object',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -3865,6 +3997,10 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
+            },
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'Artikel',
@@ -3988,6 +4124,10 @@ countries = {
                 'dest' : u'imagen',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'monumento_enlace',
                 'dest' : u'monument_article',
                 # 'conv' : u'extractWikilink',
@@ -4074,6 +4214,10 @@ countries = {
                 'dest' : u'bilde',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'artikkel',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -4109,6 +4253,10 @@ countries = {
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nombre',
@@ -4216,6 +4364,10 @@ countries = {
                 'source' : u'image',
                 'dest' : u'image',
             },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
         ],
     },
     ('pl', 'pl') : { # Rijksmonumenten in the Poland in Polish
@@ -4276,7 +4428,7 @@ countries = {
             },
             {
                 'source' : u'commons',
-                'dest' : u'commons',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'nazwa',
@@ -4350,6 +4502,10 @@ countries = {
             {
                 'source' : u'imagem',
                 'dest' : u'imagem',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'designacoes',
@@ -4428,7 +4584,7 @@ countries = {
             },
             {
                 'source' : u'Commons',
-                'dest' : u'commons',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'denumire',
@@ -4500,6 +4656,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'Назив',
                 'dest' : u'monument_article',
             },
@@ -4558,6 +4718,10 @@ countries = {
             {
                 'source' : u'изображение',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'name',
@@ -4619,6 +4783,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'name',
@@ -4694,6 +4862,10 @@ countries = {
             {
                 'source' : u'bild',
                 'dest' : u'bild',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'namn',
@@ -4781,6 +4953,10 @@ countries = {
             {
                 'source' : u'bild',
                 'dest' : u'bild',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'id',
@@ -5015,7 +5191,7 @@ countries = {
             },
         ],
     },
-        ('za', 'en') : { # Monuments in South Africa
+    ('za', 'en') : { # Monuments in South Africa
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'SAHRA heritage site header',
@@ -5086,10 +5262,14 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'Province_iso',
                 'dest' : u'province_iso',
             },
-                        {
+            {
                 'source' : u'Latitude',
                 'dest' : u'lat',
             },
@@ -5146,6 +5326,10 @@ countries = {
             {
                 'source' : u'фото',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'рік',
@@ -5255,6 +5439,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
@@ -5335,6 +5523,10 @@ countries = {
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'lat',
