@@ -64,11 +64,11 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 	wikipedia.output(u'Didn\'t find a valid monument identifier')
         return False
  
-    monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
+    monData = getMonData(countrycode, lang, monumentId, conn, cursor)
     if not monData:
 	try:
 	    monumentId = int(monumentId)
-	    monData = getMonNameSource(countrycode, lang, monumentId, conn, cursor)
+	    monData = getMonData(countrycode, lang, monumentId, conn, cursor)
 	except ValueError:
 	    wikipedia.output(u'Can\'t convert %s to an integer' % (monumentId,))
 
@@ -76,29 +76,37 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         wikipedia.output(u'Monument with id %s not in monuments database' % (monumentId, ) )
         return False
     
-    (monumentName, monumentArticleTitle, monumentSource) = monData
+    (monumentName, monumentCommonscat, monumentArticleTitle, monumentSource) = monData
 
-    monumentArticle = None
-    if monumentArticleTitle:
-        site = wikipedia.getSite(lang, u'wikipedia')
-        monumentArticle = wikipedia.Page(site, monumentArticleTitle)
+    newcats = []
+
+    # First try to add a category based on the commonscat field in the list
+    if monumentCommonscat:
+        # Might want to include some error checking here
+        site = wikipedia.getSite(u'commons', u'commons')
+        cat = catlib.Category(site, monumentCommonscat)
+        newcats.append(cat)
+
+    # Option two is to use the article about the monument and see if it has Commonscat links    
+    if not newcats:
+        monumentArticle = None
+        if monumentArticleTitle:
+            site = wikipedia.getSite(lang, u'wikipedia')
+            monumentArticle = wikipedia.Page(site, monumentArticleTitle)
     
-    #monumentArticle = getArticle(lang, monumentName)
-    newcats = None
     
-    if monumentArticle:
-        if monumentArticle.isRedirectPage():
-            monumentArticle = monumentArticle.getRedirectTarget()
-	try:
-	    for commonsCatTemplate in commonsCatTemplates:
-                if commonsCatTemplate in monumentArticle.templates():
-		    newcats = []
-	            newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
-	except wikipedia.exceptions.SectionError:
-	   wikipedia.output(u'Incorrect redirect at %s' % (monumentArticle.title(),))
-    #print monData
-    #print monumentId
-    #print newcats
+        if monumentArticle:
+            if monumentArticle.isRedirectPage():
+                monumentArticle = monumentArticle.getRedirectTarget()
+            try:
+                for commonsCatTemplate in commonsCatTemplates:
+                    if commonsCatTemplate in monumentArticle.templates():
+                        newcats = []
+                        newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+            except wikipedia.exceptions.SectionError:
+               wikipedia.output(u'Incorrect redirect at %s' % (monumentArticle.title(),))
+
+    # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
         monumentList = getList(lang, monumentSource)
 	#print monumentList
@@ -107,7 +115,8 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         if monumentList.isRedirectPage():
 	    monumentList = monumentList.getRedirectTarget()
         newcats = getCategories(monumentList, commonsCatTemplates)
-    #print newcats
+
+    # See if one of the three options worked
     if newcats:
         oldtext = page.get()
         for currentcat in currentcats:
@@ -127,11 +136,11 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     else:
         wikipedia.output( u'Categories not found for %s' % page.title() )
 
-def getMonNameSource(countrycode, lang, monumentId, conn, cursor):
+def getMonData(countrycode, lang, monumentId, conn, cursor):
     '''
     Get monument name and source from db
     '''
-    query = u"""SELECT `name`, `monument_article`, `source` FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
+    query = u"""SELECT `name`, `commonscat`, `monument_article`, `source` FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1""";
 
     cursor.execute(query, (countrycode, lang, monumentId))
     
