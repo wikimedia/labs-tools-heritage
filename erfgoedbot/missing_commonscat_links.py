@@ -79,7 +79,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 #wikipedia.output(wikiSourceList)
                 #wikipedia.output(imageName)
                 if totalCategories <= maxCategories:
-                    text = text + u'* <nowiki>|</nowiki> %s = [[:Commons:Category:%s|%s]] - %s @ [[%s]]\n' % (commonscatField, unicode(categoryName, 'utf-8'), unicode(categoryName, 'utf-8'), monumentId, wikiSourceList )
+                    text = text + u'* <nowiki>|</nowiki> %s = [[:Commons:Category:%s|%s]] - %s @ [[%s]]\n' % (commonscatField, unicode(categoryName, 'utf-8'), unicode(categoryName, 'utf-8').replace(u'_', u' '), monumentId, wikiSourceList )
                 totalCategories = totalCategories + 1
         except ValueError:
             wikipedia.output(u'Got value error for %s' % (monumentId,))
