@@ -4379,6 +4379,7 @@ countries = {
         'commonsTemplate' : u'Zabytek',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
         'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
+        'missingCommonscatPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Missing_commonscat_links',
         'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
         'namespaces' : [102],
         'table' : u'monuments_pl_(pl)',

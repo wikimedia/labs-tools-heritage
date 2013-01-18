@@ -40,11 +40,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     if not countryconfig.get('missingCommonscatPage'):
         # missingCommonscatPage not set, just skip silently.
         return False
+
+    commonscatField = lookupSourceField(u'commonscat', countryconfig)
+    if not commonscatField:
+        # Field is missing. Something is seriously wrong, but we just skip it silently
+        return False
     
     missingCommonscatPage = countryconfig.get('missingCommonscatPage')
     commonsTrackerCategory = countryconfig.get('commonsTrackerCategory'). replace(u' ', u'_')
-    #FIXME : Get this from the configuration
-    commonscatField = u'commonscat'
 	
     withoutCommonscat = getMonumentsWithoutCommonscat(countrycode, lang, conn, cursor)
     commonscats = getMonumentCommonscats(commonsTrackerCategory, conn2, cursor2)
@@ -100,6 +103,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     page.put(text, comment)
 
     return totalCategories
+
+def lookupSourceField(destination, countryconfig):
+    '''
+    Lookup the source field of a destination.
+    '''
+    for field in countryconfig.get('fields'):
+	if field.get('dest')==destination:
+	    return field.get('source')
 
 def getInterwikisMissingCommonscatPage(countrycode, lang):
     result = u''
