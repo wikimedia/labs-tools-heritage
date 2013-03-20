@@ -2153,14 +2153,14 @@ countries = {
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },
-#            {
-#                'source' : u'Flur',
-#                'dest' : u'flur',
-#            },
-#            {
-#                'source' : u'Flurstück',
-#                'dest' : u'flurst',
-#            },
+            {
+                'source' : u'Flur',
+                'dest' : u'flur',
+            },
+            {
+                'source' : u'Flurstück',
+                'dest' : u'flurst',
+            },
         ],
     },
     ('de-nrw-bm', 'de') : { # Baudenkmaeler in Bergheim in German
