@@ -5556,4 +5556,89 @@ countries = {
             },
         ],
     },
+
+	# Wiki Loves Public Art configuration
+	('wlpa-es-ct', 'ca') : { # WLPA in Catalonia in Catalan
+        'project' : u'wikipedia',
+        'lang' : u'ca',
+        'headerTemplate' : u'Capçalera art públic',
+        'rowTemplate' : u'Filera art públic',
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'Art públic Barcelona',
+        'commonsTrackerCategory' : u'Public art in Spain with known IDs',
+        'commonsCategoryBase' : u'Public art  in Catalonia',
+        'unusedImagesPage' : u'User:Multichill/Unused public art in Spain',
+        'imagesWithoutIdPage' : u'User:Multichill/Public art in Spain without ID',
+        'registrantUrlBase' : u'http://w10.bcn.es/APPS/gmocataleg_monum/FitxaMonumentAc.do?idioma=CA&codiMonumIntern=/%s',
+        'namespaces' : [0],
+        'table' : u'wlpa_es-ct_(ca)',
+        'truncate' : False, 
+        'primkey' : u'codi',
+        'fields' : [
+            {
+                'source' : u'codi',
+                'dest' : u'codi',
+                'type' : 'varchar(25)',
+                'default' : '0',
+            },
+            {
+                'source' : u'nom',
+                'dest' : u'nom',
+            },
+            {
+                'source' : u'títol',
+                'dest' : u'titol',
+            },
+            {
+                'source' : u'autor',
+                'dest' : u'autor',
+            },
+            {
+                'source' : u'data',
+                'dest' : u'data',
+            },
+            {
+                'source' : u'material',
+                'dest' : u'material',
+            },
+            {
+                'source' : u'lloc',
+                'dest' : u'lloc',
+            },
+            {
+                'source' : u'municipi',
+                'dest' : u'municipi',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'idurl',
+                'dest' : u'idurl',
+            },
+            {
+                'source' : u'panorama',
+                'dest' : u'fop',
+                'conv' : u'es-ct-fop',
+            },
+            {
+                'source' : u'imatge',
+                'dest' : u'imatge',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'idurl',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl-wlpa-es-ct',
+            },
+        ],
+    },
 }

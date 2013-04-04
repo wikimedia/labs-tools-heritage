@@ -163,6 +163,18 @@ def convertField(field, contents, countryconfig):
     elif field.get('conv') == 'CH1903ToLon':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lon
+	elif field.get('conv') == 'es-ct-fop':
+			pano = contents.get(field.get('source')
+			if pano == u'dp': return 1
+			elif pano == u'sí': return 2
+			elif pano == u'no': return 3
+			else: return 0
+	elif field.get('conv') == 'generateRegistrantUrl-wlpa-es-ct' and countryconfig.get('registrantUrlBase'):
+			idurlP = contents.get(field.get('source')).split('/')
+			if len[idurlP]==2 and idurlP[0] == u'bcn':
+			   return countryconfig.get('registrantUrlBase') % (idurlP[1],)
+			else:
+			   return contents.get(field.get('source'))
         
     return u''
 
