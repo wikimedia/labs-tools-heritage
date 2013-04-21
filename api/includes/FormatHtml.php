@@ -116,13 +116,14 @@ class FormatHtml extends FormatBase {
 		}
 	}
 
-        static function genImage($img) {
-         if ($img != "") {
-          $img = str_replace(" ","_",$img);
-          $md5 = md5($img);
+	static function genImage($img) {
+		if ( $img == "" )
+			return '';
 
-          $url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.rawurlencode($img).'/100px-'.rawurlencode($img);
-          return '<a href="http://commons.wikimedia.org/wiki/File:'..rawurlencode($img).'"><img src="'.rawurlencode($url).'" /></a>';
-         }
-        }
+		$img = str_replace(" ","_",$img);
+		$md5 = md5($img);
+
+		$url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.rawurlencode($img).'/100px-'.rawurlencode($img);
+		return '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($img) . '"><img src="' . rawurlencode( $url ) . '" /></a>';
+	}
 }
