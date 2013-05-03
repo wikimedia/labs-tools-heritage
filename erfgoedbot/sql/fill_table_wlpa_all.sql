@@ -4,7 +4,7 @@
  *
  * If you change something please test it. 
  *
- * FoP: ''=no info, 'pf'1=Public domain or otherwise free (e.g. suitable CC license), 'FoP'=Copyrighted, FoP applies, 'noFoP=Copyrighted, FoP does not apply
+ * FoP: ''=no info, 'pd'=Public domain or otherwise free (e.g. suitable CC license), 'FoP'=Copyrighted, FoP applies, 'noFoP'=Copyrighted, FoP does not apply
  */
 
 -- Update PHP code when changing this

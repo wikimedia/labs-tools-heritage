@@ -171,7 +171,7 @@ def convertField(field, contents, countryconfig):
             else: return u''
     elif field.get('conv') == 'generateRegistrantUrl-wlpa-es-ct' and countryconfig.get('registrantUrlBase'):
             idurlP = contents.get(field.get('source')).split('/')
-            if len[idurlP]==2 and idurlP[0] == u'bcn':
+            if len(idurlP)==2 and idurlP[0] == u'bcn':
                 return countryconfig.get('registrantUrlBase') % (idurlP[1],)
             else:
                 return contents.get(field.get('source'))
