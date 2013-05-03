@@ -5558,93 +5558,6 @@ countries = {
     },
 
 	# Wiki Loves Public Art configuration
-	('wlpa-es-ct', 'ca') : { # WLPA in Catalonia in Catalan
-        'project' : u'wikipedia',
-        'lang' : u'ca',
-        'headerTemplate' : u'Capçalera art públic',
-        'rowTemplate' : u'Filera art públic',
-        'footerTemplate' : u'',
-        'commonsTemplate' : u'Art públic Barcelona',
-        'commonsTrackerCategory' : u'Public art in Spain with known IDs',
-        'commonsCategoryBase' : u'Public art in Catalonia',
-        'unusedImagesPage' : u'User:Multichill/Unused public art in Spain',
-        'imagesWithoutIdPage' : u'User:Multichill/Public art in Spain without ID',
-        'registrantUrlBase' : u'http://w10.bcn.es/APPS/gmocataleg_monum/FitxaMonumentAc.do?idioma=CA&codiMonumIntern=/%s',
-        'namespaces' : [0],
-        'table' : u'wlpa_es-ct_(ca)',
-        'truncate' : False, 
-        'primkey' : u'codi',
-        'fields' : [
-            {
-                'source' : u'codi',
-                'dest' : u'codi',
-                'type' : 'varchar(25)',
-                'default' : '0',
-            },
-            {
-                'source' : u'nom',
-                'dest' : u'nom',
-            },
-            {
-                'source' : u'títol',
-                'dest' : u'titol',
-            },
-            {
-                'source' : u'descripció',
-                'dest' : u'descripcio',
-            },
-            {
-                'source' : u'autor',
-                'dest' : u'autor',
-            },
-            {
-                'source' : u'data',
-                'dest' : u'data',
-            },
-            {
-                'source' : u'material',
-                'dest' : u'material',
-            },
-            {
-                'source' : u'lloc',
-                'dest' : u'lloc',
-            },
-            {
-                'source' : u'municipi',
-                'dest' : u'municipi',
-            },
-            {
-                'source' : u'lat',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'lon',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'idurl',
-                'dest' : u'idurl',
-            },
-            {
-                'source' : u'panorama',
-                'dest' : u'fop',
-                'conv' : u'es-ct-fop',
-            },
-            {
-                'source' : u'imatge',
-                'dest' : u'imatge',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'idurl',
-                'dest' : u'registrant_url',
-                'conv' : u'generateRegistrantUrl-wlpa-es-ct',
-            },
-        ],
-    },
     ('wlpa-at', 'de') : { # WLPA in Austria in German
         'project' : u'wikipedia',
         'lang' : u'de',
@@ -5731,88 +5644,100 @@ countries = {
             {
                 'source' : u'Region',
                 'dest' : u'Region',
+                'default' : u'AT-9',
             },
         ],
     },
-    ('wlpa-il', 'en') : { # WLPA in Israel in English
+	('wlpa-es-ct', 'ca') : { # WLPA in Catalonia in Catalan
         'project' : u'wikipedia',
-        'lang' : u'en',
-        'headerTemplate' : u'Public art in Israel - header',
-        'rowTemplate' : u'Public art in Israel - row',
+        'lang' : u'ca',
+        'headerTemplate' : u'Capçalera art públic',
+        'rowTemplate' : u'Filera art públic',
         'footerTemplate' : u'',
-        'commonsTemplate' : u'Public Art Israel',
-        'commonsTrackerCategory' : u'Public art in Israel with known IDs',
-        'commonsCategoryBase' : u'Public art in Israel',
-        'unusedImagesPage' : u'User:Multichill/Unused public art in Israel',
-        'imagesWithoutIdPage' : u'User:Multichill/Public art in Israel without ID',
+        'commonsTemplate' : u'Art públic Barcelona',
+        'commonsTrackerCategory' : u'Public art in Spain with known IDs',
+        'commonsCategoryBase' : u'Public art in Catalonia',
+        'unusedImagesPage' : u'User:Multichill/Unused public art in Spain',
+        'imagesWithoutIdPage' : u'User:Multichill/Public art in Spain without ID',
+        'registrantUrlBase' : u'http://w10.bcn.es/APPS/gmocataleg_monum/FitxaMonumentAc.do?idioma=CA&codiMonumIntern=/%s',
         'namespaces' : [0],
-        'table' : u'wlpa_il_(en)',
+        'table' : u'wlpa_es-ct_(ca)',
         'truncate' : False, 
-        'primkey' : u'id',
+        'primkey' : u'codi',
         'fields' : [
             {
-                'source' : u'id',
-                'dest' : u'id',
-                'type' : 'int(6)',
-                'default' : 0,
+                'source' : u'codi',
+                'dest' : u'codi',
+                'type' : 'varchar(25)',
+                'default' : '0',
             },
             {
-                'source' : u'title',
-                'dest' : u'title',
+                'source' : u'nom',
+                'dest' : u'nom',
             },
             {
-                'source' : u'artist',
-                'dest' : u'artist',
+                'source' : u'títol',
+                'dest' : u'titol',
             },
             {
-                'source' : u'extArtistLink',
-                'dest' : u'extArtistLink',
+                'source' : u'descripció',
+                'dest' : u'descripcio',
             },
             {
-                'source' : u'description',
-                'dest' : u'description',
+                'source' : u'autor',
+                'dest' : u'autor',
             },
             {
-                'source' : u'year',
-                'dest' : u'year',
+                'source' : u'data',
+                'dest' : u'data',
             },
             {
-                'source' : u'type',
-                'dest' : u'type',
+                'source' : u'material',
+                'dest' : u'material',
             },
             {
-                'source' : u'fop',
-                'dest' : u'fop',
-                'conv' : u'il-fop',
+                'source' : u'lloc',
+                'dest' : u'lloc',
             },
             {
-                'source' : u'address',
-                'dest' : u'address',
-            },
-            {
-                'source' : u'district',
-                'dest' : u'district',
-            },
-            {
-                'source' : u'municipality',
-                'dest' : u'municipality',
+                'source' : u'municipi',
+                'dest' : u'municipi',
             },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
             },
             {
-                'source' : u'long',
+                'source' : u'lon',
                 'dest' : u'lon',
             },
             {
-                'source' : u'image',
-                'dest' : u'image',
+                'source' : u'idurl',
+                'dest' : u'idurl',
             },
-            #{ #multiple categories are allowed if separated by slash
-            #    'source' : u'commonscat',
-            #    'dest' : u'commonscat',
-            #},
+            {
+                'source' : u'panorama',
+                'dest' : u'fop',
+                'conv' : u'es-ct-fop',
+            },
+            {
+                'source' : u'imatge',
+                'dest' : u'imatge',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'idurl',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl-wlpa-es-ct',
+            },
+            {
+                'source' : u'títol',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
         ],
     },
     ('wlpa-fi', 'fi') : { # WLPA in Finland in Finnish
@@ -5903,6 +5828,92 @@ countries = {
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
+        ],
+    },
+    ('wlpa-il', 'en') : { # WLPA in Israel in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Public art in Israel - header',
+        'rowTemplate' : u'Public art in Israel - row',
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'Public Art Israel',
+        'commonsTrackerCategory' : u'Public art in Israel with known IDs',
+        'commonsCategoryBase' : u'Public art in Israel',
+        'unusedImagesPage' : u'User:Multichill/Unused public art in Israel',
+        'imagesWithoutIdPage' : u'User:Multichill/Public art in Israel without ID',
+        'namespaces' : [0],
+        'table' : u'wlpa_il_(en)',
+        'truncate' : False, 
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(6)',
+                'default' : 0,
+            },
+            {
+                'source' : u'title',
+                'dest' : u'title',
+            },
+            {
+                'source' : u'artist',
+                'dest' : u'artist',
+            },
+            {
+                'source' : u'extArtistLink',
+                'dest' : u'extArtistLink',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'year',
+                'dest' : u'year',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'fop',
+                'dest' : u'fop',
+                'conv' : u'il-fop',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'district',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'municipality',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'title',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            #{ #multiple categories are allowed if separated by slash
+            #    'source' : u'commonscat',
+            #    'dest' : u'commonscat',
+            #},
         ],
     },
 }
