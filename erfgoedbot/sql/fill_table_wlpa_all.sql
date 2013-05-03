@@ -77,8 +77,8 @@ SELECT 'at' AS `country`,
         `changed` AS `changed`,
         `Artikel` AS `monument_article`,
         `Kunstler` AS `creator`,
-        `fop` AS `fop`,
-        `registrant_url` AS `registrant_url`
+        '' AS `fop`,
+        '' AS `registrant_url`
         FROM `wlpa_at_(de)`;
 /* Catalonia in Catalan */
 REPLACE INTO `wlpa_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url` )
@@ -156,7 +156,7 @@ SELECT 'il' AS `country`,
         `monument_article` AS `monument_article`,
         `artist` AS `creator`,
         `fop` AS `fop`,
-        `registrant_url` AS `registrant_url`
+        '' AS `registrant_url`
         FROM `wlpa_il_(en)`;
 /* Add next here */
 
