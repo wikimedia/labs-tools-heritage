@@ -165,17 +165,31 @@ def convertField(field, contents, countryconfig):
         return lon
     elif field.get('conv') == 'es-ct-fop':
             pano = contents.get(field.get('source'))
-            if pano == u'dp': return 1
-            elif pano == u'sí': return 2
-            elif pano == u'no': return 3
-            else: return 0
+            if pano == u'dp': return u'pd'
+            elif pano == u'sí': return u'FoP'
+            elif pano == u'no': return u'noFoP'
+            else: return u''
     elif field.get('conv') == 'generateRegistrantUrl-wlpa-es-ct' and countryconfig.get('registrantUrlBase'):
             idurlP = contents.get(field.get('source')).split('/')
             if len[idurlP]==2 and idurlP[0] == u'bcn':
-               return countryconfig.get('registrantUrlBase') % (idurlP[1],)
+                return countryconfig.get('registrantUrlBase') % (idurlP[1],)
             else:
-               return contents.get(field.get('source'))
-        
+                return contents.get(field.get('source'))
+    elif field.get('conv') == 'il-fop':
+            fop = contents.get(field.get('source'))
+            if fop == u'PD': return u'pd'
+            elif fop == u'YES': return u'FoP'
+            elif fop == u'NO': return u'noFoP'
+            else: return u''
+    elif field.get('conv') == 'fi-fop':
+            dyear = contents.get(field.get('source'))
+            cyear = datetime.datetime.now().year
+            try:
+                dyear = int(dyear)
+                if (dyear+70) < cyear: return u'pd'
+                else: return u'noFoP'
+            except ValueError:
+                return u'noFoP'
     return u''
 
 def unknownFieldsStatistics(countryconfig, unknownFields):
