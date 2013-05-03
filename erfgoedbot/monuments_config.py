@@ -5590,6 +5590,10 @@ countries = {
                 'dest' : u'titol',
             },
             {
+                'source' : u'descripció',
+                'dest' : u'descripcio',
+            },
+            {
                 'source' : u'autor',
                 'dest' : u'autor',
             },
@@ -5656,8 +5660,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'wlpa_at_(de)',
         'truncate' : False, 
-        'primkey' : u'id',
-        'primkey' : (u'Region', u'id'),
+        'primkey' : (u'Region', u'ID'),
         'fields' : [
             {
                 'source' : u'ID',
@@ -5703,11 +5706,11 @@ countries = {
             },
             {
                 'source' : u'Längengrad',
-                'dest' : u'Langengrad',
+                'dest' : u'lon',
             },
             {
                 'source' : u'Breitengrad',
-                'dest' : u'Breitengrad',
+                'dest' : u'lat',
             },
             {
                 'source' : u'Beschreibung',
@@ -5856,7 +5859,7 @@ countries = {
             },
             {
                 'source' : u'tekijän_kuolinvuosi',
-                'dest' : u'tekijän_kuolinvuosi',
+                'dest' : u'tekijan_kuolinvuosi',
             },
             {
                 'source' : u'tekijän_kuolinvuosi',
