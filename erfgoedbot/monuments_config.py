@@ -5910,10 +5910,10 @@ countries = {
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
-            #{ #multiple categories are allowed if separated by slash
-            #    'source' : u'commonscat',
-            #    'dest' : u'commonscat',
-            #},
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
         ],
     },
 }
