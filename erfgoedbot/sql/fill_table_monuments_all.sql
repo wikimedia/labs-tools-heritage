@@ -1657,7 +1657,8 @@ SELECT 'us' AS `country`,
 	`changed` AS `changed`,
         REPLACE( `article`, ' ', '_' ) AS `monument_article`,
         '' AS `registrant_url`
-	FROM `monuments_us_(en)`;
+	FROM `monuments_us_(en)`
+	WHERE NOT `type`='NRHP-delisted';
 /* California in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'us-ca' AS `country`,
