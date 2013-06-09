@@ -84,8 +84,11 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if monumentCommonscat:
         # Might want to include some error checking here
         site = wikipedia.getSite(u'commons', u'commons')
-        cat = catlib.Category(site, monumentCommonscat)
-        newcats.append(cat)
+	try:
+	    cat = catlib.Category(site, monumentCommonscat)
+	    newcats.append(cat)
+	except ValueError:
+	    wikipedia.output(u'The Commonscat field for %s contains an invalid category %s' % (monumentId, monumentCommonscat))
 
     # Option two is to use the article about the monument and see if it has Commonscat links    
     if not newcats:
@@ -124,15 +127,16 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
                 newcats.append(currentcat)
         # Remove dupes
         newcats = list(set(newcats))
-        newtext = wikipedia.replaceCategoryLinks(oldtext, newcats)
+	if not set(currentcats) == set(newcats):
+	    newtext = wikipedia.replaceCategoryLinks(oldtext, newcats)
 
-	comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (commonsTemplate, monumentId)
-        wikipedia.showDiff(oldtext, newtext)
-	try:
-	    page.put(newtext, comment)
-	    return True
-	except wikipedia.exceptions.EditConflict:
-	    wikipedia.output( u'Got an edit conflict. Someone else beat me to it at %s' % page.title() )
+	    comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (commonsTemplate, monumentId)
+	    wikipedia.showDiff(oldtext, newtext)
+	    try:
+		page.put(newtext, comment)
+		return True
+	    except wikipedia.exceptions.EditConflict:
+		wikipedia.output( u'Got an edit conflict. Someone else beat me to it at %s' % page.title() )
     else:
         wikipedia.output( u'Categories not found for %s' % page.title() )
 
