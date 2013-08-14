@@ -163,6 +163,11 @@ def convertField(field, contents, countryconfig):
     elif field.get('conv') == 'CH1903ToLon':
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lon
+    elif field.get('conv') == 'generateRegistrantUrl-sv-ship' and countryconfig.get('registrantUrlBase'):
+        idurl = contents.get(field.get('source')).replace(' ','')
+        if not idurl.startswith('wiki'):
+            return countryconfig.get('registrantUrlBase') % idurl
+        else: return u''
     elif field.get('conv') == 'es-ct-fop':
         pano = contents.get(field.get('source'))
         if pano == u'dp': return u'pd'

@@ -4975,6 +4975,76 @@ countries = {
             },
         ],
     },
+    ('se-ship', 'sv') : { # Listed historical ships in Sweden in Swedish
+        'project' : u'wikipedia',
+        'lang' : u'sv',
+        'headerTemplate' : u'K-fartyg-huvud',
+        'rowTemplate' : u'K-fartyg',
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'K-Fartyg',
+        'commonsTrackerCategory' : u'Listed historical ships in Sweden with known IDs',
+        'commonsCategoryBase' : u'Listed historical ships in Sweden',
+        'unusedImagesPage' : u'User:Multichill/Unused listed historical ships in Sweden',
+        'imagesWithoutIdPage' : u'User:Multichill/Listed historical ships in Sweden without ID',
+        'registrantUrlBase' : u'http://www.sjohistoriska.se/sv/Kusten-runt/Fartyg--batar/K-markning-av-fartyg/K-markta-fartyg/%s',
+        'namespaces' : [0],
+        'table' : u'monuments_se-ship_(sv)',
+        'truncate' : False, 
+        'primkey' : u'signal',
+        'fields' : [
+            {
+                'source' : u'signal',
+                'dest' : u'signal',
+                'type' : 'varchar(25)',
+                'default' : '0',
+            },
+            {
+                'source' : u'namn',
+                'dest' : u'namn',
+            },
+            {
+                'source' : u'artikel',
+                'dest' : u'artikel',
+            },
+            {
+                'source' : u'funktion',
+                'dest' : u'funktion',
+            },
+            {
+                'source' : u'byggår',
+                'dest' : u'byggar',
+            },
+            {
+                'source' : u'varv',
+                'dest' : u'varv',
+            },
+            {
+                'source' : u'hemmahamn',
+                'dest' : u'hemmahamn',
+            },
+            {
+                'source' : u'material',
+                'dest' : u'material',
+            },
+            {
+                'source' : u'dimensioner',
+                'dest' : u'dimensioner',
+            },
+            {
+                'source' : u'bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'signal',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl-sv-ship',
+            },
+        ],
+    },
     ('sk', 'de') : { # Monuments in Slovakia in German
         'project' : u'wikipedia',
         'lang' : u'de',
