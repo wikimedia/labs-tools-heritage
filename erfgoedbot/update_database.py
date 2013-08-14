@@ -164,32 +164,32 @@ def convertField(field, contents, countryconfig):
         (lat, lon) = CH1903Converter(contents.get('CH1903_X'), contents.get('CH1903_Y'))
         return lon
     elif field.get('conv') == 'es-ct-fop':
-            pano = contents.get(field.get('source'))
-            if pano == u'dp': return u'pd'
-            elif pano == u'sí': return u'FoP'
-            elif pano == u'no': return u'noFoP'
-            else: return u''
+        pano = contents.get(field.get('source'))
+        if pano == u'dp': return u'pd'
+        elif pano == u'sí': return u'FoP'
+        elif pano == u'no': return u'noFoP'
+        else: return u''
     elif field.get('conv') == 'generateRegistrantUrl-wlpa-es-ct' and countryconfig.get('registrantUrlBase'):
-            idurlP = contents.get(field.get('source')).split('/')
-            if len(idurlP)==2 and idurlP[0] == u'bcn':
-                return countryconfig.get('registrantUrlBase') % (idurlP[1],)
-            else:
-                return contents.get(field.get('source'))
+        idurlP = contents.get(field.get('source')).split('/')
+        if len(idurlP)==2 and idurlP[0] == u'bcn':
+            return countryconfig.get('registrantUrlBase') % (idurlP[1],)
+        else:
+            return contents.get(field.get('source'))
     elif field.get('conv') == 'il-fop':
-            fop = contents.get(field.get('source'))
-            if fop == u'PD': return u'pd'
-            elif fop == u'YES': return u'FoP'
-            elif fop == u'NO': return u'noFoP'
-            else: return u''
+        fop = contents.get(field.get('source'))
+        if fop == u'PD': return u'pd'
+        elif fop == u'YES': return u'FoP'
+        elif fop == u'NO': return u'noFoP'
+        else: return u''
     elif field.get('conv') == 'fi-fop':
-            dyear = contents.get(field.get('source'))
-            cyear = datetime.datetime.now().year
-            try:
-                dyear = int(dyear)
-                if (dyear+70) < cyear: return u'pd'
-                else: return u'noFoP'
-            except ValueError:
-                return u'noFoP'
+        dyear = contents.get(field.get('source'))
+        cyear = datetime.datetime.now().year
+        try:
+            dyear = int(dyear)
+            if (dyear+70) < cyear: return u'pd'
+            else: return u'noFoP'
+        except ValueError:
+            return u'noFoP'
     return u''
 
 def unknownFieldsStatistics(countryconfig, unknownFields):
