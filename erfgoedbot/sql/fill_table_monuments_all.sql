@@ -1561,7 +1561,7 @@ SELECT 'se-ship' AS `country`,
 	`changed` AS `changed`,
         `artikel` AS `monument_article`,
         `registrant_url` AS `registrant_url`
-	FROM `monuments_se-bbr_(sv)`;
+	FROM `monuments_se-ship_(sv)`;
 /* Slovakia in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'sk' AS `country`,
