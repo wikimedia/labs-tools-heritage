@@ -4957,7 +4957,7 @@ countries = {
                 'dest' : u'lat',
             },
             {
-                'source' : u'long',
+                'source' : u'lon',
                 'dest' : u'lon',
             },
             {
@@ -5029,6 +5029,14 @@ countries = {
             {
                 'source' : u'dimensioner',
                 'dest' : u'dimensioner',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
             },
             {
                 'source' : u'bild',
