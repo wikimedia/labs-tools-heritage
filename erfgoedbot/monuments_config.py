@@ -3100,6 +3100,97 @@ countries = {
             },
         ],
     },
+    ('gb-eng', 'en') : { # United Kingdom: Listed buildings in England
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'EH listed building header',
+        'rowTemplate' : u'EH listed building row',
+        'commonsTemplate' : u'', #Listed building England
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'Category:Listed buildings in England',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in England',
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in England without ID',
+        'registrantUrlBase' : u'http://list.english-heritage.org.uk/resultsingle.aspx?uid=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_gb-eng_(en)',
+        'truncate' : False,
+        'primkey' : u'uid',
+        'fields' : [
+            {
+                'source' : u'uid',
+                'dest' : u'uid',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'subdivision_iso',
+                'dest' : u'subdivision_iso',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'completed',
+                'dest' : u'completed',
+            },
+            {
+                'source' : u'show_listed',
+                'dest' : u'show_listed',
+            },
+            {
+                'source' : u'date_listed', # I expect parser problems here
+                'dest' : u'date_listed',
+            },
+            {
+                'source' : u'grid_ref',
+                'dest' : u'grid_ref',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'show_img',
+                'dest' : u'show_img',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'upload_desc',
+                'dest' : u'upload_desc',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',  # No links at the moment, this will cause problems
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'uid',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },    
     ('gh', 'en') : { # Ghana monuments in English
         'project' : u'wikipedia',
         'lang' : u'en',
