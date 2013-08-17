@@ -5564,6 +5564,81 @@ countries = {
             },
         ],
     },
+    ('th', 'th') : { # Cultural heritage monuments in land in Thai
+        'project' : u'wikipedia',
+        'lang' : u'th',
+        'headerTemplate' : u'หัวโบราณสถาน',
+        'rowTemplate' : u'แถวโบราณสถาน',
+        'commonsTemplate' : u'Cultural Heritage Thailand',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Thailand with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Thailand',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Unused images of cultural heritage monuments in Thailand', #FIXME: Translate
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'Wikipedia:Wiki Loves Monuments/Images of cultural heritage monuments in Thailand without ID', #FIXME: Translate
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_th_(th)',
+        'truncate' : False,
+        'primkey' : u'register',
+        'fields' : [
+            {
+                'source' : u'ทะเบียน',
+                'dest' : u'register',
+                'type' : 'varchar(15)',
+            },
+            {
+                'source' : u'ชื่อ',
+                'dest' : u'name',
+            }, 
+            {
+                'source' : u'province', # FIXME: Need the local province here
+                'dest' : u'province',
+            },
+            {
+                'source' : u'prov_iso',
+                'dest' : u'prov_iso',
+            },
+            {
+                'source' : u'อำเภอ',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'ตำบล',
+                'dest' : u'tambon',
+            },
+            {
+                'source' : u'ที่ตั้ง',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'ภาพ',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'register',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
         'project' : u'wikipedia',
         'lang' : u'uk',
