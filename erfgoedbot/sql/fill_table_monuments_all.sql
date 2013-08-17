@@ -1682,6 +1682,30 @@ SELECT 'sk' AS `country`,
        REPLACE( `clanok`, ' ', '_' ) AS `monument_article`,
        '' AS `registrant_url` /* FIXME: Add this field to source table */
        FROM `monuments_sk_(sk)`;
+/* Thailand in Thai */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'th' AS `country`,
+       'th' AS `lang`,
+		`register` AS `id`, 
+		'th' AS `adm0`,
+		LOWER(`prov_iso`) AS `adm1`,
+		`district` AS `adm2`,
+		`tambon` AS `adm3`,
+		NULL AS `adm4`,
+	`name` AS `name`,
+	`location` AS `address`,
+	`district` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+	FROM `monuments_th_(th)`;
 /* South Africa in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'za' AS `country`,
