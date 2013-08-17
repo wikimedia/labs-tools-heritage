@@ -1018,6 +1018,81 @@ countries = {
             },
         ],
     },
+    ('bo', 'es') : { # Monuments in Bolivia in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoBolivia/encabezado',
+        'rowTemplate' : u'MonumentoBolivia',
+        'commonsTemplate' : u'Cultural Heritage Bolivia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Bolivia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Bolivia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin usar',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin id',
+        'namespaces' : [0],
+        'table' : u'monuments_bo_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'ISO',
+                'dest' : u'iso',
+            },
+            {
+                'source' : u'departamento',
+                'dest' : u'departamento',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'direccion',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'commonscat',
+            },
+        ],
+    },
     ('by', 'be-x-old') : { # Belarus in Belarussian
         'project' : u'wikipedia',
         'lang' : u'be-x-old',
