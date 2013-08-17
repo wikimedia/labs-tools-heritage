@@ -3100,7 +3100,7 @@ countries = {
             },
         ],
     },
-    ('gb-eng', 'en') : { # United Kingdom: Listed buildings in England
+    ('gb-eng', 'en') : { # United Kingdom: Listed buildings in England in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'EH listed building header',
@@ -3215,7 +3215,7 @@ countries = {
             },
         ],
     },
-    ('gb-nir', 'en') : { # United Kingdom: Listed buildings in Northern Ireland
+    ('gb-nir', 'en') : { # United Kingdom: Listed buildings in Northern Ireland in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'NIEA listed building header',
@@ -3289,6 +3289,76 @@ countries = {
             },
             {
                 'source' : u'uid',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('gb-sct', 'en') : { # United Kingdom: Listed buildings in Scotland in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'HB Scotland header',
+        'rowTemplate' : u'HB Scotland row',
+        'commonsTemplate' : u'Listed building Scotland',
+        'commonsTrackerCategory' : u'Listed buildings in Scotland with known IDs',
+        'commonsCategoryBase' : u'Listed buildings in Scotland',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Scotland',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in Scotland without ID',
+        'registrantUrlBase' : u'http://hsewsf.sedsh.gov.uk/hslive/portal.hsstart?P_HBNUM=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_gb-sct_(en)',
+        'truncate' : False,
+        'primkey' : u'hbnum',
+        'fields' : [
+            {
+                'source' : u'hbnum',
+                'dest' : u'hbnum',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'notes',
+                'dest' : u'notes',
+            },
+            {
+                'source' : u'county',
+                'dest' : u'county',
+            },
+            {
+                'source' : u'parbur',
+                'dest' : u'parbur',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'category',
+                'dest' : u'category',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'hbnum',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },
@@ -4931,76 +5001,6 @@ countries = {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
-            },
-        ],
-    },
-    ('sct', 'en') : { # Listed buildings in Scotland in English
-        'project' : u'wikipedia',
-        'lang' : u'en',
-        'headerTemplate' : u'HB Scotland header',
-        'rowTemplate' : u'HB Scotland row',
-        'commonsTemplate' : u'Listed building Scotland',
-        'commonsTrackerCategory' : u'Listed buildings in Scotland with known IDs',
-        'commonsCategoryBase' : u'Listed buildings in Scotland',
-        'autoGeocode' : True,
-        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Scotland',
-        #'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s zonder id',
-        'registrantUrlBase' : u'http://hsewsf.sedsh.gov.uk/hslive/portal.hsstart?P_HBNUM=%s',
-        'namespaces' : [0],
-        'table' : u'monuments_sct_(en)',
-        'truncate' : False,
-        'primkey' : u'hbnum',
-        'fields' : [
-            {
-                'source' : u'hbnum',
-                'dest' : u'hbnum',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'name',
-            },
-            {
-                'source' : u'notes',
-                'dest' : u'notes',
-            },
-            {
-                'source' : u'county',
-                'dest' : u'county',
-            },
-            {
-                'source' : u'parbur',
-                'dest' : u'parbur',
-            },
-            {
-                'source' : u'lat',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'lon',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'category',
-                'dest' : u'category',
-            },
-            {
-                'source' : u'image',
-                'dest' : u'image',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-            {
-                'source' : u'hbnum',
-                'dest' : u'registrant_url',
-                'conv' : u'generateRegistrantUrl',
             },
         ],
     },
