@@ -313,6 +313,30 @@ SELECT 'be-wal' AS `country`,
         `monument_article` AS `monument_article`, 
         `registrant_url` AS `registrant_url`
         FROM `monuments_be-wal_(nl)`;
+/* Bolivia in Spanish */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'bo' AS `country`,
+       'es' AS `lang`,
+		`id` AS `id`, 
+		'bo' AS `adm0`,
+		LOWER(`iso`) AS `adm1`,
+		`municipio` AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+	`monumento` AS `name`,
+	`direccion` AS `address`,
+	`municipio` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+    `monumento_enlace` AS `monument_article`,
+    '' AS `registrant_url`
+	FROM `monuments_bo_(es)`;
 /* Belarus */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'by' AS `country`,
