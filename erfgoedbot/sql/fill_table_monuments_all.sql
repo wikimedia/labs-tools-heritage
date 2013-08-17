@@ -962,6 +962,30 @@ SELECT 'fr' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_fr_(fr)`;
+/* England in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'gb-eng' AS `country`,
+       'en' AS `lang`,
+        `uid` AS `id`,
+		'gb' AS `adm0`,
+		'eng' AS `adm1`,
+		LOWER(`subdivision_iso`) AS `adm2`,
+		`location` AS `adm3`,
+		NULL AS `adm4`,
+        `name` AS `name`,
+        NULL AS `address`,
+        `location` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+	    ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_gb-eng_(en)`;
 /* Ghana in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'gh' AS `country`,
