@@ -5590,7 +5590,11 @@ countries = {
             {
                 'source' : u'ชื่อ',
                 'dest' : u'name',
-            }, 
+            },
+            {
+                'source' : u'หมายเหตุ',
+                'dest' : u'note',
+            },
             {
                 'source' : u'province', # FIXME: Need the local province here
                 'dest' : u'province',
@@ -5626,6 +5630,14 @@ countries = {
             {
                 'source' : u'commonscat',
                 'dest' : u'commonscat',
+            },
+            {
+                'source' : u'ประกาศ',
+                'dest' : u'announced',
+            },
+            {
+                'source' : u'ลิงก์', # FIXME: Can't use the current format
+                'dest' : u'url',
             },
             {
                 'source' : u'name',
