@@ -3329,6 +3329,10 @@ countries = {
                 'dest' : u'county',
             },
             {
+                'source' : u'subdivision_iso',
+                'dest' : u'subdivision_iso',
+            },
+            {
                 'source' : u'parbur',
                 'dest' : u'parbur',
             },
