@@ -1832,198 +1832,6 @@ countries = {
             },
         ],
     },
-    ('dk-bygning', 'da') : { # Bygninger in Denmark in Danish
-        'project' : u'wikipedia',
-        'lang' : u'da',
-        'headerTemplate' : u'Tabelheader FBB',
-        'rowTemplate' : u'Tabelrække FBB',
-        'commonsTemplate' : u'Fredet bygning',
-        'commonsTrackerCategory' : u'Listed buildings in Denmark with known IDs',
-        'commonsCategoryBase' : u'Listed buildings in Denmark',
-        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede bygninger i Danmark',
-        'imagesWithoutIdPage' : u'User:Multichill/Protected buildings in Denmark without id',
-        'registrantUrlBase' : u'https://www.kulturarv.dk/fbb/sagvis.pub?sag=%s',
-        'namespaces' : [0],
-        'table' : u'monuments_dk-bygninger_(da)',
-        'truncate' : False,
-        'primkey' : (u'kommunenr', u'ejendomsnr', u'bygningsnr'),
-        'fields' : [
-            {
-                'source' : u'systemnrbyg',
-                'dest' : u'systemnrbyg',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'region-iso',
-                'dest' : u'region-iso',
-            },
-            {
-                'source' : u'kommune',
-                'dest' : u'kommune',
-            },
-            {
-                'source' : u'sagsnavn',
-                'dest' : u'sagsnavn',
-            },
-            {
-                'source' : u'komplekstype',
-                'dest' : u'komplekstype',
-            },
-            {
-                'source' : u'opførelsesår',
-                'dest' : u'opforelsesar',
-            },
-            {
-                'source' : u'adresse',
-                'dest' : u'adresse',
-            },
-            {
-                'source' : u'postnr',
-                'dest' : u'postnr',
-            },
-            {
-                'source' : u'by',
-                'dest' : u'by',
-            },
-            {
-                'source' : u'lat',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'lon',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'kommunenr',
-                'dest' : u'kommunenr',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'ejendomsnr',
-                'dest' : u'ejendomsnr',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'bygningsnr',
-                'dest' : u'bygningsnr',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'fredår',
-                'dest' : u'fredar',
-            },
-            {
-                'source' : u'sagsnr',
-                'dest' : u'sagsnr',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'billede',
-                'dest' : u'billede',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'sagsnavn',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-            {
-                'source' : u'sagsnr',
-                'dest' : u'registrant_url',
-                'conv' : u'generateRegistrantUrl',
-            },
-        ],
-    },
-    ('dk-fortids', 'da') : { # Fortidsminder in Denmark in Danish
-        'project' : u'wikipedia',
-        'lang' : u'da',
-        'headerTemplate' : u'Tabelheader FF',
-        'rowTemplate' : u'Tabelrække FF',
-        'commonsTemplate' : u'Fortidsminde',
-        'commonsTrackerCategory' : u'Archaeological monuments in Denmark with known IDs',
-        'commonsCategoryBase' : u'Archaeological monuments in Denmark',
-        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede fortidsminder i Danmark',
-        'imagesWithoutIdPage' : u'User:Multichill/Archaeological monuments in Denmark without id',
-        'registrantUrlBase' : u'http://www.kulturarv.dk/fundogfortidsminder/Lokalitet/%s',
-        'namespaces' : [0],
-        'table' : u'monuments_dk-fortidsminder_(da)',
-        'truncate' : False,
-        'primkey' : u'systemnummer',
-        'fields' : [
-            {
-                'source' : u'fredningsnummer',
-                'dest' : u'fredningsnummer',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'region-iso',
-                'dest' : u'region-iso',
-            },
-            {
-                'source' : u'kommune',
-                'dest' : u'kommune',
-            },
-            {
-                'source' : u'stednavn',
-                'dest' : u'stednavn',
-            },
-            {
-                'source' : u'type',
-                'dest' : u'type',
-            },
-            {
-                'source' : u'datering',
-                'dest' : u'datering',
-            },
-            {
-                'source' : u'seværdighed',
-                'dest' : u'sevaedighed',
-            },
-            {
-                'source' : u'systemnummer',
-                'dest' : u'systemnummer',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'anlnr',
-                'dest' : u'anlnr',
-                'type' : 'int(11)',
-            },
-            {
-                'source' : u'lat',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'lon',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'billede',
-                'dest' : u'billede',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'bemærkning',
-                'dest' : u'bemaerkning',
-            },
-            {
-                'source' : u'stednavn',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-            {
-                'source' : u'systemnummer',
-                'dest' : u'registrant_url',
-                'conv' : u'generateRegistrantUrl',
-            },
-        ],
-    },
     ('de-by', 'de') : { # Baudenkmäler in Bayern in German
         'project' : u'wikipedia',
         'lang' : u'de',
@@ -2384,6 +2192,198 @@ countries = {
                 'source' : u'bezeichnung',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
+            },
+        ],
+    },
+    ('dk-bygning', 'da') : { # Bygninger in Denmark in Danish
+        'project' : u'wikipedia',
+        'lang' : u'da',
+        'headerTemplate' : u'Tabelheader FBB',
+        'rowTemplate' : u'Tabelrække FBB',
+        'commonsTemplate' : u'Fredet bygning',
+        'commonsTrackerCategory' : u'Listed buildings in Denmark with known IDs',
+        'commonsCategoryBase' : u'Listed buildings in Denmark',
+        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede bygninger i Danmark',
+        'imagesWithoutIdPage' : u'User:Multichill/Protected buildings in Denmark without id',
+        'registrantUrlBase' : u'https://www.kulturarv.dk/fbb/sagvis.pub?sag=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_dk-bygninger_(da)',
+        'truncate' : False,
+        'primkey' : (u'kommunenr', u'ejendomsnr', u'bygningsnr'),
+        'fields' : [
+            {
+                'source' : u'systemnrbyg',
+                'dest' : u'systemnrbyg',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'kommune',
+                'dest' : u'kommune',
+            },
+            {
+                'source' : u'sagsnavn',
+                'dest' : u'sagsnavn',
+            },
+            {
+                'source' : u'komplekstype',
+                'dest' : u'komplekstype',
+            },
+            {
+                'source' : u'opførelsesår',
+                'dest' : u'opforelsesar',
+            },
+            {
+                'source' : u'adresse',
+                'dest' : u'adresse',
+            },
+            {
+                'source' : u'postnr',
+                'dest' : u'postnr',
+            },
+            {
+                'source' : u'by',
+                'dest' : u'by',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'kommunenr',
+                'dest' : u'kommunenr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'ejendomsnr',
+                'dest' : u'ejendomsnr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'bygningsnr',
+                'dest' : u'bygningsnr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'fredår',
+                'dest' : u'fredar',
+            },
+            {
+                'source' : u'sagsnr',
+                'dest' : u'sagsnr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'billede',
+                'dest' : u'billede',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'sagsnavn',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'sagsnr',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('dk-fortids', 'da') : { # Fortidsminder in Denmark in Danish
+        'project' : u'wikipedia',
+        'lang' : u'da',
+        'headerTemplate' : u'Tabelheader FF',
+        'rowTemplate' : u'Tabelrække FF',
+        'commonsTemplate' : u'Fortidsminde',
+        'commonsTrackerCategory' : u'Archaeological monuments in Denmark with known IDs',
+        'commonsCategoryBase' : u'Archaeological monuments in Denmark',
+        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede fortidsminder i Danmark',
+        'imagesWithoutIdPage' : u'User:Multichill/Archaeological monuments in Denmark without id',
+        'registrantUrlBase' : u'http://www.kulturarv.dk/fundogfortidsminder/Lokalitet/%s',
+        'namespaces' : [0],
+        'table' : u'monuments_dk-fortidsminder_(da)',
+        'truncate' : False,
+        'primkey' : u'systemnummer',
+        'fields' : [
+            {
+                'source' : u'fredningsnummer',
+                'dest' : u'fredningsnummer',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'kommune',
+                'dest' : u'kommune',
+            },
+            {
+                'source' : u'stednavn',
+                'dest' : u'stednavn',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'datering',
+                'dest' : u'datering',
+            },
+            {
+                'source' : u'seværdighed',
+                'dest' : u'sevaedighed',
+            },
+            {
+                'source' : u'systemnummer',
+                'dest' : u'systemnummer',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'anlnr',
+                'dest' : u'anlnr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'billede',
+                'dest' : u'billede',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'bemærkning',
+                'dest' : u'bemaerkning',
+            },
+            {
+                'source' : u'stednavn',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'systemnummer',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
             },
         ],
     },
@@ -5564,94 +5564,6 @@ countries = {
             },
         ],
     },
-    ('za', 'en') : { # Monuments in South Africa
-        'project' : u'wikipedia',
-        'lang' : u'en',
-        'headerTemplate' : u'SAHRA heritage site header',
-        'rowTemplate' : u'SAHRA heritage site row',
-        'commonsTemplate' : u'South African Heritage Site',
-        'commonsTrackerCategory' : u'South Africa Heritage Resources with known IDs',
-        'commonsCategoryBase' : u'Cultural heritage monuments in South Africa',
-        'autoGeocode' : False,
-        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of heritage sites in South Africa',
-        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Heritage sites in South Africa without ID',
-        'namespaces' : [0],
-        'table' : u'monuments_za_(en)',
-        'truncate' : False, # Not all ids are filled, just overwrite it
-        'primkey' : u'sitereference',
-        'fields' : [
-            {
-                'source' : u'SiteReference',
-                'dest' : u'sitereference',
-                'type' : 'varchar(20)',
-                'default' : '0',
-            },
-             {
-                'source' : u'guid',
-                'dest' : u'guid',
-            },
-             {
-                'source' : u'Site_name',
-                'dest' : u'site_name',
-            },
-            {
-                'source' : u'Magisterial_district',
-                'dest' : u'magisterial_district',
-            },
-            {
-                'source' : u'Municipal_name',
-                'dest' : u'municipal_name',
-            },
-            {
-                'source' : u'Town',
-                'dest' : u'town',
-            },
-            {
-                'source' : u'Erf number',
-                'dest' : u'erf_number',
-            },
-            {
-                'source' : u'Farm number',
-                'dest' : u'farm_number',
-            },
-            {
-                'source' : u'Portion',
-                'dest' : u'portion',
-            },
-            {
-                'source' : u'NHRA status',
-                'dest' : u'nhra_status',
-            },
-            {
-                'source' : u'NMC status',
-                'dest' : u'nmc_status',
-            },
-            {
-                'source' : u'Description',
-                'dest' : u'description',
-            },
-            {
-                'source' : u'image',
-                'dest' : u'image',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'Province_iso',
-                'dest' : u'province_iso',
-            },
-            {
-                'source' : u'Latitude',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'Longitude',
-                'dest' : u'lon',
-            },
-        ],
-    },
     ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
         'project' : u'wikipedia',
         'lang' : u'uk',
@@ -5916,6 +5828,94 @@ countries = {
             {
                 'source' : u'description',
                 'dest' : u'description',
+            },
+        ],
+    },
+    ('za', 'en') : { # Monuments in South Africa
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'SAHRA heritage site header',
+        'rowTemplate' : u'SAHRA heritage site row',
+        'commonsTemplate' : u'South African Heritage Site',
+        'commonsTrackerCategory' : u'South Africa Heritage Resources with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in South Africa',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of heritage sites in South Africa',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Heritage sites in South Africa without ID',
+        'namespaces' : [0],
+        'table' : u'monuments_za_(en)',
+        'truncate' : False, # Not all ids are filled, just overwrite it
+        'primkey' : u'sitereference',
+        'fields' : [
+            {
+                'source' : u'SiteReference',
+                'dest' : u'sitereference',
+                'type' : 'varchar(20)',
+                'default' : '0',
+            },
+             {
+                'source' : u'guid',
+                'dest' : u'guid',
+            },
+             {
+                'source' : u'Site_name',
+                'dest' : u'site_name',
+            },
+            {
+                'source' : u'Magisterial_district',
+                'dest' : u'magisterial_district',
+            },
+            {
+                'source' : u'Municipal_name',
+                'dest' : u'municipal_name',
+            },
+            {
+                'source' : u'Town',
+                'dest' : u'town',
+            },
+            {
+                'source' : u'Erf number',
+                'dest' : u'erf_number',
+            },
+            {
+                'source' : u'Farm number',
+                'dest' : u'farm_number',
+            },
+            {
+                'source' : u'Portion',
+                'dest' : u'portion',
+            },
+            {
+                'source' : u'NHRA status',
+                'dest' : u'nhra_status',
+            },
+            {
+                'source' : u'NMC status',
+                'dest' : u'nmc_status',
+            },
+            {
+                'source' : u'Description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'Province_iso',
+                'dest' : u'province_iso',
+            },
+            {
+                'source' : u'Latitude',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'Longitude',
+                'dest' : u'lon',
             },
         ],
     },
