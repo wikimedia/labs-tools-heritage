@@ -3105,9 +3105,9 @@ countries = {
         'lang' : u'en',
         'headerTemplate' : u'EH listed building header',
         'rowTemplate' : u'EH listed building row',
-        'commonsTemplate' : u'', #Listed building England
-        'commonsTrackerCategory' : u'',
-        'commonsCategoryBase' : u'Category:Listed buildings in England',
+        'commonsTemplate' : u'Listed building England',
+        'commonsTrackerCategory' : u'Listed buildings in England with known IDs',
+        'commonsCategoryBase' : u'Listed buildings in England',
         'autoGeocode' : False,
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in England',
         'missingCommonscatPage' : u'',
@@ -3138,6 +3138,10 @@ countries = {
             {
                 'source' : u'type',
                 'dest' : u'type',
+            },
+            {
+                'source' : u'grade',
+                'dest' : u'grade',
             },
             {
                 'source' : u'architect',
