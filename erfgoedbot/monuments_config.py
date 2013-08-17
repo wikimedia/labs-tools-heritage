@@ -3432,6 +3432,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'upload_desc',
+                'dest' : u'upload_desc',
+            },
+            {
                 'source' : u'commonscat',
                 'dest' : u'commonscat',
             },
