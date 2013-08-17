@@ -3108,7 +3108,7 @@ countries = {
         'commonsTemplate' : u'Listed building England',
         'commonsTrackerCategory' : u'Listed buildings in England with known IDs',
         'commonsCategoryBase' : u'Listed buildings in England',
-        'autoGeocode' : False,
+        'autoGeocode' : True,
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in England',
         'missingCommonscatPage' : u'',
         'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in England without ID',
@@ -3159,7 +3159,6 @@ countries = {
                 'source' : u'show_listed',
                 'dest' : u'',
             },
-
             {
                 'source' : u'completed',
                 'dest' : u'completed',
@@ -3215,7 +3214,86 @@ countries = {
                 'conv' : u'generateRegistrantUrl',
             },
         ],
-    },    
+    },
+    ('gb-nir', 'en') : { # United Kingdom: Listed buildings in Northern Ireland
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'NIEA listed building header',
+        'rowTemplate' : u'NIEA listed building row',
+        'commonsTemplate' : u'Listed building Northern Ireland',
+        'commonsTrackerCategory' : u'Listed buildings in Northern Ireland with known IDs',
+        'commonsCategoryBase' : u'Listed buildings in Northern Ireland',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Northern Ireland',
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in Northern Ireland without ID',
+        'registrantUrlBase' : u'http://www.doeni.gov.uk/niea/built/buildview?id=%s&js=true',
+        'namespaces' : [0],
+        'table' : u'monuments_gb-nir_(en)',
+        'truncate' : False,
+        'primkey' : u'hb',
+        'fields' : [
+            {
+                'source' : u'hb',
+                'dest' : u'hb',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'grid_ref',
+                'dest' : u'grid_ref',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'authority',
+                'dest' : u'authority',
+            },
+            {
+                'source' : u'subdivision_iso',
+                'dest' : u'subdivision_iso',
+            },
+            {
+                'source' : u'2nd_survey',
+                'dest' : u'2nd_survey',
+            },
+            {
+                'source' : u'1st_survey',
+                'dest' : u'1st_survey',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',  # No links at the moment, this will cause problems
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'uid',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('gh', 'en') : { # Ghana monuments in English
         'project' : u'wikipedia',
         'lang' : u'en',
