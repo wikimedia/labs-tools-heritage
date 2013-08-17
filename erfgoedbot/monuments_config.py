@@ -3364,6 +3364,89 @@ countries = {
             },
         ],
     },
+    ('gb-wls', 'en') : { # United Kingdom: Listed buildings in Wales in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Cadw listed building header',
+        'rowTemplate' : u'Cadw listed building row',
+        'commonsTemplate' : u'Listed building Wales',
+        'commonsTrackerCategory' : u'Listed buildings in Wales with known IDs',
+        'commonsCategoryBase' : u'Listed buildings in Wales',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Wales',
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in Wales without ID',
+        'registrantUrlBase' : u'', # No direct link possible. http://www.britishlistedbuildings.co.uk/wa-13539 is possible, but that's an external site
+        'namespaces' : [0],
+        'table' : u'monuments_gb-wls_(en)',
+        'truncate' : False,
+        'primkey' : u'hb',
+        'fields' : [
+            {
+                'source' : u'hb',
+                'dest' : u'hb',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'subdivision_iso',
+                'dest' : u'subdivision_iso',
+            },
+            {
+                'source' : u'date_listed',
+                'dest' : u'date_listed',
+            },
+            {
+                'source' : u'grid_ref',
+                'dest' : u'grid_ref',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'function',
+                'dest' : u'function',
+            },
+            {
+                'source' : u'notes',
+                'dest' : u'notes',
+            },
+            {
+                'source' : u'url',
+                'dest' : u'url',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name', 
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'hb',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('gh', 'en') : { # Ghana monuments in English
         'project' : u'wikipedia',
         'lang' : u'en',
