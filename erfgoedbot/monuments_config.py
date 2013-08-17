@@ -3140,16 +3140,25 @@ countries = {
                 'dest' : u'type',
             },
             {
-                'source' : u'completed',
-                'dest' : u'completed',
+                'source' : u'architect',
+                'dest' : u'architect',
             },
             {
-                'source' : u'show_listed',
-                'dest' : u'show_listed',
+                'source' : u'show_architect',
+                'dest' : u'',
             },
             {
                 'source' : u'date_listed', # I expect parser problems here
                 'dest' : u'date_listed',
+            },
+            {
+                'source' : u'show_listed',
+                'dest' : u'',
+            },
+
+            {
+                'source' : u'completed',
+                'dest' : u'completed',
             },
             {
                 'source' : u'grid_ref',
@@ -3164,12 +3173,16 @@ countries = {
                 'dest' : u'lon',
             },
             {
-                'source' : u'show_img',
-                'dest' : u'show_img',
+                'source' : u'show_notes',
+                'dest' : u'',
             },
             {
                 'source' : u'image',
                 'dest' : u'image',
+            },
+            {
+                'source' : u'show_img',
+                'dest' : u'',
             },
             {
                 'source' : u'upload_desc',
@@ -3178,6 +3191,14 @@ countries = {
             {
                 'source' : u'commonscat',
                 'dest' : u'commonscat',
+            },
+            {
+                'source' : u'reference',
+                'dest' : u'reference',
+            },
+            {
+                'source' : u'show_ref',
+                'dest' : u'',
             },
             {
                 'source' : u'name',  # No links at the moment, this will cause problems
