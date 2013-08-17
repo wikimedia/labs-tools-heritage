@@ -1033,7 +1033,31 @@ SELECT 'gb-sct' AS `country`,
 	`changed` AS `changed`,
     `monument_article` AS `monument_article`,
     `registrant_url` AS `registrant_url`
-	FROM `monuments_sct_(en)`;		
+	FROM `monuments_gb-sct_(en)`;
+/* United Kingdom: Wales in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'gb-wls' AS `country`,
+       'en' AS `lang`,
+        `hb` AS `id`,
+		'gb' AS `adm0`,
+		'wls' AS `adm1`,
+		LOWER(`subdivision_iso`) AS `adm2`,
+		`location` AS `adm3`,
+		NULL AS `adm4`,
+        `name` AS `name`,
+        `notes` AS `address`,
+        LOWER(`subdivision_iso`) AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+	    ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_gb-wls_(en)`;	
 /* Ghana in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'gh' AS `country`,
