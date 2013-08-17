@@ -1029,7 +1029,7 @@ countries = {
         'autoGeocode' : True,
         'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin usar',
         'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin id',
-        'namespaces' : [0],
+        'namespaces' : [104],
         'table' : u'monuments_bo_(es)',
         'truncate' : False,
         'primkey' : u'id',
