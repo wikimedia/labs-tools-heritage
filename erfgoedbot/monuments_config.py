@@ -5640,6 +5640,10 @@ countries = {
                 'dest' : u'url',
             },
             {
+                'source' : u'อ้างอิง',
+                'dest' : u'reference',
+            },
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
