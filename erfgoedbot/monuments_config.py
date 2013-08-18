@@ -5730,6 +5730,92 @@ countries = {
             },
         ],
     },
+    ('tn', 'fr') : { # Monuments in Tunisia in French
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'En-tête de tableau monument Tunisie',
+        'rowTemplate' : u'Ligne de tableau monument Tunisie',
+        'commonsTemplate' : u'Cultural Heritage Tunisia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Tunisia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Tunisia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments tunisiens non utilisées',
+        #'imagesWithoutIdPage' : u'User:Multichill/Monument photos without an ID',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_tn_(fr)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'gouvernorat_iso',
+                'dest' : u'gouvernorat_iso',
+            },
+            {
+                'source' : u'site',
+                'dest' : u'site',
+            },
+            {
+                'source' : u'monument',
+                'dest' : u'monument',
+            },
+            {
+                'source' : u'tri monument',
+                'dest' : u'tri_monument',
+            },
+            {
+                'source' : u'adresse',
+                'dest' : u'adresse',
+            },
+            {
+                'source' : u'tri adresse',
+                'dest' : u'tri_adresse',
+            },
+            {
+                'source' : u'date',
+                'dest' : u'date',
+            },
+            {
+                'source' : u'decret',
+                'dest' : u'decret',
+            },
+            {
+                'source' : u'adresse',
+                'dest' : u'adresse',
+            },
+            {
+                'source' : u'latitude',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'longitude',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'monument',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ua', 'uk') : { # Monuments in Ukraine in Ukrainian
         'project' : u'wikipedia',
         'lang' : u'uk',
