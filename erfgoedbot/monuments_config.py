@@ -85,6 +85,87 @@ countries = {
             },
         ],
     },
+    ('am', 'hy') : { # Monuments in Armenia in Armenian
+        'project' : u'wikipedia',
+        'lang' : u'hy',
+        'headerTemplate' : u'Հուշարձան վերնագիր',
+        'rowTemplate' : u'Հուշարձան ցանկ',
+        'commonsTemplate' : u'Cultural Heritage Armenia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Armenia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Armenia',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Unused images of Cultural heritage monuments in Armenia', # FIXME: Translation needed
+        'imagesWithoutIdPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Images of Cultural heritage monuments in Armenia without an ID', # FIXME: Translation needed
+        'registrantUrlBase' : u'http://www.arlis.am/DocumentView.aspx?DocID=%s', # Won't work yet, but put it in anyway
+        'namespaces' : [0],
+        'table' : u'monuments_am_(hy)',
+        'truncate' : False,
+        'primkey' : u'number',
+        'fields' : [
+            {
+                'source' : u'համարանիշ',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'մարզ',
+                'dest' : u'prov_iso',
+            },
+            {
+                'source' : u'համայնք',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'հուշարձան',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'հոդված',
+                'dest' : u'monument_article',
+            },
+            {
+                'source' : u'նշանակություն',
+                'dest' : u'importance',
+            },
+            {
+                'source' : u'կառուցված',
+                'dest' : u'date',
+            },
+            {
+                'source' : u'հասցե',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'լայն',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'երկ',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'հղում',
+                'dest' : u'gov_doc_id',
+            },
+            {
+                'source' : u'պատկեր',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'վիքիպահեստ',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'նշում',
+                'dest' : u'notes',
+            },
+            {
+                'source' : u'gov_doc_id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('aq', 'en') : { # Monuments in Antarctica in English
         'project' : u'wikipedia',
         'lang' : u'en',
