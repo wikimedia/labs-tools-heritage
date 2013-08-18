@@ -4809,7 +4809,73 @@ countries = {
             },
         ],
     },
-    ('pl', 'pl') : { # Rijksmonumenten in the Poland in Polish
+    ('pk', 'en') : { # Monuments in Pakistan in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'PKmonument header',
+        'rowTemplate' : u'PKmonument row',
+        'commonsTemplate' : u'Cultural Heritage Pakistan',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Pakistan with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Pakistan',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Pakistan',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Pakistan without an ID',
+        'registrantUrlBase' : u'', # Nothing yet
+        'namespaces' : [0],
+        'table' : u'monuments_pk_(en)',
+        'truncate' : False,
+        'primkey' : u'number',
+        'fields' : [
+            {
+                'source' : u'number',
+                'dest' : u'number',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'prov_iso',
+                'dest' : u'prov_iso',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'district',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'number',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('pl', 'pl') : { # Monuments in Poland in Polish
         'project' : u'wikipedia',
         'lang' : u'pl',
         'headerTemplate' : u'Lista zabytków góra',
