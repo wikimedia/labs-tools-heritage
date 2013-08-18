@@ -100,7 +100,7 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_am_(hy)',
         'truncate' : False,
-        'primkey' : u'number',
+        'primkey' : u'id',
         'fields' : [
             {
                 'source' : u'համարանիշ',
