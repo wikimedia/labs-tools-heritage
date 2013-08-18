@@ -1730,30 +1730,30 @@ SELECT 'th' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_th_(th)`;
-/* South Africa in English */
+/* Tunisia in French */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'za' AS `country`,
-       'en' AS `lang`,
-       `sitereference` AS `id`,
-	   'za' AS `adm0`,
-	   LOWER(`province_iso`) AS `adm1`,
-	   `magisterial_district` AS `adm2`,
-	   `town` AS `adm3`,
-	   NULL AS `adm4`,
-       `site_name` AS `name`,
-       `site_name` AS `address`,
-       `town` AS `municipality`,
-       `lat` AS `lat`,
-       `lon` AS `lon`,
-	   ROUND(`lat` * @granularity) AS `lat_int`,
-	   ROUND(`lon` * @granularity) AS `lon_int`,
-       `image` AS `image`,
-	   `commonscat` AS `commonscat`,
-       `source` AS `source`,
-       `changed` AS `changed`,
-        '' AS `monument_article`,
-       '' AS `registrant_url` /* FIXME: Add this field to source table */
-       FROM `monuments_za_(en)`;
+SELECT 'tn' AS `country`,
+       'fr' AS `lang`,
+        `id` AS `id`,
+		'tn' AS `adm0`,
+		LOWER(`gouvernorat_iso`) AS `adm1`,
+		`site` AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+        `monument` AS `name`,
+        `adresse` AS `address`,
+        `site` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+	    ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_tn_(fr)`;
 /* Ukraine in Ukrainian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ua' AS `country`,
@@ -1875,6 +1875,30 @@ SELECT 've' AS `country`,
     `monumento_enlace` AS `monument_article`,
     '' AS `registrant_url`
 	FROM `monuments_ve_(es)`;
+/* South Africa in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'za' AS `country`,
+       'en' AS `lang`,
+       `sitereference` AS `id`,
+	   'za' AS `adm0`,
+	   LOWER(`province_iso`) AS `adm1`,
+	   `magisterial_district` AS `adm2`,
+	   `town` AS `adm3`,
+	   NULL AS `adm4`,
+       `site_name` AS `name`,
+       `site_name` AS `address`,
+       `town` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+	   ROUND(`lat` * @granularity) AS `lat_int`,
+	   ROUND(`lon` * @granularity) AS `lon_int`,
+       `image` AS `image`,
+	   `commonscat` AS `commonscat`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+        '' AS `monument_article`,
+       '' AS `registrant_url` /* FIXME: Add this field to source table */
+       FROM `monuments_za_(en)`;
 -- UPDATE `monuments_all_tmp` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
 
 --  generate random values
