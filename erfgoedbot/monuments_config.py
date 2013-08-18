@@ -5813,6 +5813,89 @@ countries = {
             },
         ]
     },
+    ('uy', 'es') : { # Monuments in Uruguay in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoUruguay/encabezado',
+        'rowTemplate' : u'MonumentoUruguay',
+        'commonsTemplate' : u'Monumento Uruguay',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Uruguay with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Uruguay',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Uruguay sin usar',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Uruguay sin id',
+        'namespaces' : [104],
+        'table' : u'monuments_uy_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'dep_iso',
+                'dest' : u'dep_iso',
+            },
+            {
+                'source' : u'departamento',
+                'dest' : u'departamento',
+            },
+            {
+                'source' : u'localidad',
+                'dest' : u'localidad',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'direccion',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'autores',
+                'dest' : u'autores',
+            },
+            {
+                'source' : u'construido',
+                'dest' : u'construido',
+            },
+            {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'commonscat',
+            },
+        ],
+    },
     ('us', 'en') : { # National Register of Historic Places listings in the United States in English
         'project' : u'wikipedia',
         'lang' : u'en',
