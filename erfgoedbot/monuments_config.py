@@ -5785,10 +5785,6 @@ countries = {
                 'dest' : u'decret',
             },
             {
-                'source' : u'adresse',
-                'dest' : u'adresse',
-            },
-            {
                 'source' : u'latitude',
                 'dest' : u'lat',
             },
