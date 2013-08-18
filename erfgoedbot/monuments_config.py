@@ -1023,7 +1023,7 @@ countries = {
         'lang' : u'es',
         'headerTemplate' : u'MonumentoBolivia/encabezado',
         'rowTemplate' : u'MonumentoBolivia',
-        'commonsTemplate' : u'Cultural Heritage Bolivia',
+        'commonsTemplate' : u'Monumento Bolivia',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Bolivia with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Bolivia',
         'autoGeocode' : True,
