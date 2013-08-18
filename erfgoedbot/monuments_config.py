@@ -4864,6 +4864,10 @@ countries = {
                 'dest' : u'lon',
             },
             {
+                'source' : u'color',
+                'dest' : u'color',
+            },
+            {
                 'source' : u'description',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
