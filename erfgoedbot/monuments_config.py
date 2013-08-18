@@ -6080,6 +6080,81 @@ countries = {
             },
         ],
     },
+    ('ve', 'es') : { # Monuments in Venezuela in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoVenezuela/encabezado',
+        'rowTemplate' : u'MonumentoVenezuela',
+        'commonsTemplate' : u'Monumento Venezuela',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Venezuela with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Venezuela',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Venezuela sin usar',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Venezuela sin id',
+        'namespaces' : [104],
+        'table' : u'monuments_ve_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'estado_iso',
+                'dest' : u'estado_iso',
+            },
+            {
+                'source' : u'estado',
+                'dest' : u'estado',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'ciudad',
+                'dest' : u'ciudad',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'ubicación',
+                'dest' : u'ubicacion',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'commonscat',
+            },
+        ],
+    },
     ('za', 'en') : { # Monuments in South Africa
         'project' : u'wikipedia',
         'lang' : u'en',
