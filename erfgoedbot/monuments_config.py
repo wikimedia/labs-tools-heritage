@@ -5648,9 +5648,9 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in Thailand with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Thailand',
         'autoGeocode' : True,
-        'unusedImagesPage' : u'Wikipedia:Wiki Loves Monuments/Unused images of cultural heritage monuments in Thailand', #FIXME: Translate
+        'unusedImagesPage' : u'Project:Wiki Loves Monuments/Unused images of cultural heritage monuments in Thailand', #FIXME: Translate
         'missingCommonscatPage' : u'',
-        'imagesWithoutIdPage' : u'Wikipedia:Wiki Loves Monuments/Images of cultural heritage monuments in Thailand without ID', #FIXME: Translate
+        'imagesWithoutIdPage' : u'Project:Wiki Loves Monuments/Images of cultural heritage monuments in Thailand without ID', #FIXME: Translate
         'registrantUrlBase' : u'',
         'namespaces' : [0],
         'table' : u'monuments_th_(th)',
