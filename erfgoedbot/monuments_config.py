@@ -6142,8 +6142,8 @@ countries = {
                 'dest' : u'lon',
             },
             {
-                'source' : u'ubicación',
-                'dest' : u'ubicacion',
+                'source' : u'dirección',
+                'dest' : u'direccion',
             },
             {
                 'source' : u'imagen',
