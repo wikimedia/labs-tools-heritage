@@ -4236,7 +4236,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'int(11)',
+                'type' : 'varchar(7)',
             },
             {
                 'source' : u'lag',
