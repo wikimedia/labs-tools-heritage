@@ -1458,7 +1458,7 @@ countries = {
         'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
         'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments suisse non utilisées',
         #'imagesWithoutIdPage' : u'',
-        'namespaces' : [10],
+        'namespaces' : [4],
         'table' : u'monuments_ch_(fr)',
         'truncate' : False,
         'primkey' : u'no pbc',
