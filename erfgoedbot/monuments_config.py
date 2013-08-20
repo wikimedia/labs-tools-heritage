@@ -1486,7 +1486,7 @@ countries = {
             },
             {
                 'source' : u'objet-affiché',
-                'dest' : u'objet-affiché',
+                'dest' : u'objet-affiche',
             },
             {
                 'source' : u'catégorie',
@@ -1501,8 +1501,8 @@ countries = {
                 'dest' : u'addresse',
             },
 			{
-                'source' : u'adresse-affichée',
-                'dest' : u'adresse-affichee',
+                'source' : u'adresse-affiché',
+                'dest' : u'adresse-affiche',
             },
             {
                 'source' : u'latitude',
