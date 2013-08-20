@@ -1489,6 +1489,10 @@ countries = {
                 'dest' : u'objet-affiche',
             },
             {
+                'source' : u'objet-affichée',
+                'dest' : u'objet-affichee',
+            },
+            {
                 'source' : u'catégorie',
                 'dest' : u'categorie',
             },
