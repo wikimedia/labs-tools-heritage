@@ -1448,7 +1448,7 @@ countries = {
             },
         ],
     },
-    ('ch', 'de') : { # Monuments in Switzerland in German
+    ('ch-old', 'de') : { # Monuments in Switzerland in German
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Kulturgüter Schweiz Tabellenkopf',
@@ -1459,7 +1459,7 @@ countries = {
         'unusedImagesPage' : u'User:Multichill/Unused Schweizerisches Inventar der Kulturgüter von nationaler und regionaler Bedeutung images', # FIXME: Better name
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
-        'table' : u'monuments_ch_(de)',
+        'table' : u'monuments-old_ch_(de)',
         'truncate' : False,
         'primkey' : u'kgs-nr',
         'fields' : [
@@ -1515,7 +1515,7 @@ countries = {
             },
         ]
     },
-    ('ch', 'en') : { # Monuments in Switzerland in English
+    ('ch-old', 'en') : { # Monuments in Switzerland in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'SIoCPoNaRS header',
@@ -1526,7 +1526,7 @@ countries = {
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland',
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
-        'table' : u'monuments_ch_(en)',
+        'table' : u'monuments-old_ch_(en)',
         'truncate' : False,
         'primkey' : u'kgs_nr',
         'fields' : [
@@ -1580,7 +1580,7 @@ countries = {
             },
         ]
     },
-    ('ch', 'it') : { # Monuments in Switzerland in Italian
+    ('ch-old', 'it') : { # Monuments in Switzerland in Italian
         'project' : u'wikipedia',
         'lang' : u'it',
         'headerTemplate' : u'SIoCPoNaRS header',
@@ -1591,7 +1591,7 @@ countries = {
         'unusedImagesPage' : u'',
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
-        'table' : u'monuments_ch_(it)',
+        'table' : u'monuments-old_ch_(it)',
         'truncate' : False,
         'primkey' : u'kgs_nr',
         'fields' : [
@@ -1645,7 +1645,7 @@ countries = {
             },
         ]
     },
-    ('ch', 'fr') : { # Monuments in Switzerland in French
+    ('ch-old', 'fr') : { # Monuments in Switzerland in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau CH',
@@ -1656,7 +1656,7 @@ countries = {
         'unusedImagesPage' : u'Projet:Monuments historiques/Images de monuments suisse non utilisées',
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
-        'table' : u'monuments_ch_(fr)',
+        'table' : u'monuments-old_ch_(fr)',
         'truncate' : False,
         'primkey' : u'kgs-nr',
         'fields' : [
