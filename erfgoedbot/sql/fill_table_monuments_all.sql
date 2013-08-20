@@ -508,9 +508,9 @@ SELECT 'ch-old' AS `country`,
 		FROM `monuments_ch_(it)`;
 /* Switzerland in French */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'ch-old' AS `country`,
+SELECT 'ch' AS `country`,
        'fr' AS `lang`,
-		`kgs-nr` AS `id`,
+		`no pbc` AS `id`,
 		'ch' AS `adm0`,
 		LOWER(`region-iso`) AS `adm1`,
 		NULL AS `adm2`,
