@@ -2156,6 +2156,65 @@ countries = {
             },
         ]
     },
+    ('cm', 'fr') : { # Monuments in Cameroun in French
+        'project' : u'wikipedia',
+        'lang' : u'fr',
+        'headerTemplate' : u'Monument Cameroun header',
+        'rowTemplate' : u'Monument Cameroun ligne',
+        'commonsTemplate' : u'',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Cameroon',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'',
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments-cm_(fr)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'nom',
+                'dest' : u'nom',
+            },
+			{
+                'source' : u'description',
+                'dest' : u'description',
+            },
+			{
+                'source' : u'region',
+                'dest' : u'region',
+            },
+			{
+                'source' : u'region_iso',
+                'dest' : u'region_iso',
+            },
+			{
+                'source' : u'ville',
+                'dest' : u'ville',
+            },
+            {
+                'source' : u'latitude',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'longitude',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'nom',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ]
+    },
     ('cz', 'cs') : { # Monuments in Czech Republic in Czech language
         'project' : u'wikipedia',
         'lang' : u'cs',
