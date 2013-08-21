@@ -2209,6 +2209,10 @@ countries = {
                 'dest' : u'image',
             },
             {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
                 'source' : u'nom',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
