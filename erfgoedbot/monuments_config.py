@@ -1618,6 +1618,91 @@ countries = {
             },
         ]
     },
+	
+	    ('ch', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste Schweiz Tabellenzeile'
+        'project' : u'wikipedia',
+        'lang' : u'de',
+        'headerTemplate' : u'Denkmalliste Schweiz Tabellenkopf',
+        'rowTemplate' : u'Denkmalliste Schweiz Tabellenzeile',
+        'commonsTemplate' : u'Cultural property of national significance in Switzerland',
+        'commonsTrackerCategory' : u'Cultural properties of national significance in Switzerland with known IDs',
+        'commonsCategoryBase' : u'Cultural properties of national significance in Switzerland',
+        'unusedImagesPage' : u'User:Multichill/Unused Schweizerisches Inventar der Kulturgüter von nationaler und regionaler Bedeutung images', # FIXME: Better name
+        #'imagesWithoutIdPage' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_ch_(de)',
+        'truncate' : False,
+        'primkey' : u'kgs-nr',
+        'fields' : [
+            {
+                'source' : u'KGS-Nr',
+                'dest' : u'kgs-nr',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'Foto',
+                'dest' : u'foto',
+            },       
+            {
+                'source' : u'Fotobeschreibung',
+                'dest' : u'fotobeschreibung',
+            },       
+            {
+                'source' : u'Commonscat',
+                'dest' : u'commonscat',
+            },
+			{
+                'source' : u'Objekt',
+                'dest' : u'objekt',
+            },
+			{
+                'source' : u'Anzeige-Objekt',
+                'dest' : u'anzeige-objekt',
+            },
+			{
+                'source' : u'Kategorie',
+                'dest' : u'kategorie',
+            },
+			{
+                'source' : u'Typ',
+                'dest' : u'typ',
+            },
+            {
+                'source' : u'Adresse',
+                'dest' : u'addresse',
+            },
+			{
+                'source' : u'Anzeige-Adresse',
+                'dest' : u'Anzeige-Adresse',
+            },
+            {
+                'source' : u'Gemeinde',
+                'dest' : u'gemeinde',
+            },
+            {
+                'source' : u'Kanton',
+                'dest' : u'kanton',
+            },
+            {
+                'source' : u'Breitengrad',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'Längengrad',
+                'dest' : u'lon',
+            },
+			{
+                'source' : u'Region-ISO',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'Objekt',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+
+        ]
+    },
     ('ch-old', 'de') : { # Monuments in Switzerland in German
         'project' : u'wikipedia',
         'lang' : u'de',
