@@ -1516,7 +1516,7 @@ SELECT 'pk' AS `country`,
         FROM `monuments_pk_(en)`;
 /* Poland in Polish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'pl' AS `country`,
+SELECT 'pl-old' AS `country`,
        'pl' AS `lang`,
 		CONCAT(REPLACE(UPPER(`prov-iso`), 'PL-', ''), '/', `numer`) AS `id`, /* Evil hack to get Poland to work */
 		'pl' AS `adm0`,
@@ -1537,7 +1537,7 @@ SELECT 'pl' AS `country`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
-	FROM `monuments_pl_(pl)`;
+	FROM `monuments_pl-old_(pl)`;
 /* Portugal in Portuguese */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'pt' AS `country`,
