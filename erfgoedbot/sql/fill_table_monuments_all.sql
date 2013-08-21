@@ -602,7 +602,7 @@ SELECT 'ch' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
 		FROM `monuments_ch3_(de)`;
-/* Switzerland in German #3 */
+/* Cameroun in French */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'cm' AS `country`,
        'fr' AS `lang`,
