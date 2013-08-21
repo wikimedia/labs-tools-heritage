@@ -1673,7 +1673,7 @@ countries = {
             },
 			{
                 'source' : u'Anzeige-Adresse',
-                'dest' : u'Anzeige-Adresse',
+                'dest' : u'anzeige-adresse',
             },
             {
                 'source' : u'Gemeinde',
