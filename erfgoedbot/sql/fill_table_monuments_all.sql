@@ -1250,6 +1250,30 @@ SELECT 'it-bz' AS `country`,
         REPLACE( `artikel`, ' ', '_' ) AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_it-bz_(de)`;
+/* Jordan in Arabic */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'jo' AS `country`, 
+       'ar' AS `lang`,
+        `id` AS `id`,
+		'jo' AS `adm0`,
+		LOWER(`prov-iso`) AS `adm1`,
+		NULL AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+        `name` AS `name`,
+        `position` AS `address`,
+        LOWER(`prov-iso`) AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+	    ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_jo_(ar)`;
 /* Kenya in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ke' AS `country`,
