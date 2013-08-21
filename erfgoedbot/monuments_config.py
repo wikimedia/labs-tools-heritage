@@ -1702,7 +1702,7 @@ countries = {
 
         ]
     },
-	('ch', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz Tabellenzeile'
+	('ch2', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz Tabellenzeile'
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste2 Schweiz Tabellenkopf',
