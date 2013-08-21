@@ -2167,7 +2167,7 @@ countries = {
         'unusedImagesPage' : u'',
         #'imagesWithoutIdPage' : u'',
         'namespaces' : [0],
-        'table' : u'monuments-cm_(fr)',
+        'table' : u'monuments_cm_(fr)',
         'truncate' : False,
         'primkey' : u'id',
         'fields' : [
