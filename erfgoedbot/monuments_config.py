@@ -4226,6 +4226,73 @@ countries = {
             },
         ],
     },
+    ('jo', 'ar') : { # Monuments in Jordan in Arabic
+        'project' : u'wikipedia',
+        'lang' : u'ar',
+        'headerTemplate' : u'رأسية معالم الأردن',
+        'rowTemplate' : u'معلم الأردن',
+        'commonsTemplate' : u'Cultural Heritage Jordan',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Jordan with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Jordan',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'ويكيبيديا:الويكي تهوى المعالم 2013/الأردن/Unused images',
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'ويكيبيديا:الويكي تهوى المعالم 2013/الأردن/Images without id',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0, 104],
+        'table' : u'monuments_jo_(ar)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'رقم',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'prov-iso',
+                'dest' : u'prov-iso',
+            },
+            {
+                'source' : u'اسم',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'وصف',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'موقع',
+                'dest' : u'position',
+            },
+            {
+                'source' : u'عرض',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'طول',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'صورة',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ke', 'en') : { # Kenya in English
         'project' : u'wikipedia',
         'lang' : u'en',
