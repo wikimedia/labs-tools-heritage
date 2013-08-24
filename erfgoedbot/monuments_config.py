@@ -1601,7 +1601,7 @@ countries = {
             },
 			{
                 'source' : u'regione-ISO',
-                'dest' : u'regione-iso',
+                'dest' : u'region-iso',
             },
 			{
                 'source' : u'comune',
@@ -1651,7 +1651,7 @@ countries = {
                 'dest' : u'commonscat',
             },
 			{
-                'source' : u'Objekt',
+                'source' : u'Objekt','ch'
                 'dest' : u'objekt',
             },
 			{
