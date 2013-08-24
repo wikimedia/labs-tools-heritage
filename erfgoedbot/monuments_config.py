@@ -1650,19 +1650,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-			{
-                'source' : u'Objekt','ch'
+	    {
+                'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-			{
+	    {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-			{
+	    {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-			{
+	    {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1670,7 +1670,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-			{
+	    {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1690,7 +1690,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-			{
+	    {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -1733,19 +1733,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-			{
+	    {
                 'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-			{
+	    {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-			{
+	    {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-			{
+	    {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1753,7 +1753,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-			{
+	    {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1773,7 +1773,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-			{
+	    {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -1816,19 +1816,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-			{
+	    {
                 'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-			{
+	    {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-			{
+	    {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-			{
+	    {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1836,7 +1836,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-			{
+	    {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1856,7 +1856,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-			{
+	    {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
