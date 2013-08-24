@@ -1548,11 +1548,11 @@ countries = {
         'namespaces' : [0, 4],
         'table' : u'monuments_ch_(it)',
         'truncate' : False,
-        'primkey' : u'no pbc',
+        'primkey' : u'no_pbc',
         'fields' : [
             {
                 'source' : u'no PBC',
-                'dest' : u'no pbc',
+                'dest' : u'no_pbc',
                 'type' : 'int(11)',
             },
             {
@@ -1593,11 +1593,11 @@ countries = {
             },
 			{
                 'source' : u'latitudine',
-                'dest' : u'latitudine',
+                'dest' : u'lat',
             },
 			{
                 'source' : u'longitudine',
-                'dest' : u'longitudine',
+                'dest' : u'lon',
             },
 			{
                 'source' : u'regione-ISO',
