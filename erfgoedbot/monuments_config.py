@@ -4819,6 +4819,84 @@ countries = {
             },
         ],
     },
+    ('jp-nhs', 'en') : { # National Historic Sites in Japan in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'NHS Japan header',
+        'rowTemplate' : u'NHS Japan row',
+        'commonsTemplate' : u'NHS Japan',
+        'commonsTrackerCategory' : u'National historic sites of Japan with known IDs',
+        'commonsCategoryBase' : u'National historic sites of Japan',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of national historic sites of Japan',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of national historic sites of Japan without an ID',
+        'registrantUrlBase' : u'http://kunishitei.bunka.go.jp/bsys/maindetails.asp?register_id=401&item_id=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_jp-nhs_(en)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'prefecture',
+                'dest' : u'prefecture',
+            },
+            {
+                'source' : u'prefecture_iso',
+                'dest' : u'prefecture_iso',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'name_kanji',
+                'dest' : u'name_kanji',
+            },
+            {
+                'source' : u'name_small',
+                'dest' : u'name_small',
+            },
+            {
+                'source' : u'comments',
+                'dest' : u'comments',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ke', 'en') : { # Kenya in English
         'project' : u'wikipedia',
         'lang' : u'en',
