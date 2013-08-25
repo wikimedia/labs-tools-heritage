@@ -4866,6 +4866,10 @@ countries = {
                 'dest' : u'name_simple',
             },
             {
+                'source' : u'municipality',
+                'dest' : u'municipality',
+            },
+            {
                 'source' : u'comments',
                 'dest' : u'comments',
             },
