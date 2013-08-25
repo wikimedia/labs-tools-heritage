@@ -6092,19 +6092,19 @@ countries = {
             },
         ],
     },
-    ('ru', 'ru') : { # Monuments in Russia in Russian. Field table names are English already
+    ('ru-old', 'ru') : { # Monuments in Sint-Petersbug in Russian. Field table names are English already. Keeping for reference
         'project' : u'wikipedia',
         'lang' : u'ru',
         'headerTemplate' : u'ПамАрх header',
         'rowTemplate' : u'ПамАрх row',
         'commonsTemplate' : u'Cultural Heritage Russia',
-        'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
-        'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
+        #'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
+        #'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
         'autoGeocode' : False,
-        'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
-        'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
+        #'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
+        #'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
         'namespaces' : [104],
-        'table' : u'monuments_ru_(ru)',
+        'table' : u'monuments_ru-old_(ru)',
         'truncate' : False,
         'primkey' : u'id',
         'fields' : [
@@ -6144,6 +6144,71 @@ countries = {
             },
             {
                 'source' : u'изображение',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },
+    ('ru', 'ru') : { # Monuments in Russia in Russian. 
+        'project' : u'wikipedia',
+        'lang' : u'ru',
+        'headerTemplate' : u'WLM/заголовок',
+        'rowTemplate' : u'WLM/строка',
+        'commonsTemplate' : u'Cultural Heritage Russia',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'Проект:Вики любит памятники/Unused images of cultural heritage monuments',
+        'imagesWithoutIdPage' : u'Проект:Вики любит памятники/Images of Cultural heritage monuments without ID',
+        'namespaces' : [0, 104],
+        'table' : u'monuments_ru_(ru)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(15)',
+                'default' : '0',
+            },
+            {
+                'source' : u'название',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'нп',
+                'dest' : u'city',
+            },
+            {
+                'source' : u'адрес',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'регион',
+                'dest' : u'region',
+            },
+            {
+                'source' : u'регион_iso',
+                'dest' : u'region_iso',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'фото',
                 'dest' : u'image',
             },
             {
