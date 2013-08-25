@@ -4238,6 +4238,60 @@ countries = {
             },
         ],
     },
+	('hk', 'en') : { # Monuments in Hong Kong in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'HK Declared Monument header',
+        'rowTemplate' : u'HK Declared Monument row',
+        'commonsTemplate' : u'Declared monuments Hong Kong',
+        'unusedImagesPage' : u'',
+        'commonsTrackerCategory' : u'Declared monuments of Hong Kong with known IDs',
+        'commonsCategoryBase' : u'Declared monuments of Hong Kong',
+        'namespaces' : [0],
+        'table' : u'monuments_hk_(en)',
+        'truncate' : True,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(8)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+			{
+                'source' : u'image',
+                'dest' : u'image',
+            },
+			{
+                'source' : u'declaration_date',
+                'dest' : u'declaration_date',
+            },
+			{
+                'source' : u'location',
+                'dest' : u'location',
+            },
+			{
+                'source' : u'description',
+                'dest' : u'description',
+            },
+			{
+                'source' : u'refs',
+                'dest' : u'refs',
+            },
+			{
+                'source' : u'caption',
+                'dest' : u'caption',
+            },
+			{
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },
     ('in', 'en') : { # Monuments in India in English
         'project' : u'wikipedia',
         'lang' : u'en',
