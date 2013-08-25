@@ -4265,36 +4265,44 @@ countries = {
                 'source' : u'name',
                 'dest' : u'name',
             },
-			{
+	    {
                 'source' : u'image',
                 'dest' : u'image',
             },
-			{
+	    {
                 'source' : u'declaration_date',
                 'dest' : u'declaration_date',
             },
-			{
+	    {
                 'source' : u'location',
                 'dest' : u'location',
             },
-			{
+	    {
                 'source' : u'description',
                 'dest' : u'description',
             },
-			{
+	    {
                 'source' : u'refs',
                 'dest' : u'refs',
             },
-			{
+	    {
                 'source' : u'region',
                 'dest' : u'region',
             },
 
-			{
+	    {
                 'source' : u'caption',
                 'dest' : u'caption',
             },
-			{
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+	    {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -4324,31 +4332,39 @@ countries = {
                 'source' : u'name',
                 'dest' : u'name',
             },
-			{
+	    {
                 'source' : u'image',
                 'dest' : u'image',
             },
-			{
+	    {
                 'source' : u'location',
                 'dest' : u'location',
             },
-			{
+	    {
                 'source' : u'refs',
                 'dest' : u'refs',
             },
-			{
+	    {
                 'source' : u'region',
                 'dest' : u'region',
             },
-			{
+	    {
                 'source' : u'district',
                 'dest' : u'district',
             },
-			{
+	    {
                 'source' : u'grade',
                 'dest' : u'grade',
             },
-			{
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+	    {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
