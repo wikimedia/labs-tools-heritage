@@ -4286,6 +4286,11 @@ countries = {
                 'dest' : u'refs',
             },
 			{
+                'source' : u'region',
+                'dest' : u'region',
+            },
+
+			{
                 'source' : u'caption',
                 'dest' : u'caption',
             },
