@@ -4862,6 +4862,10 @@ countries = {
                 'dest' : u'name_small',
             },
             {
+                'source' : u'name_simple',
+                'dest' : u'name_simple',
+            },
+            {
                 'source' : u'comments',
                 'dest' : u'comments',
             },
