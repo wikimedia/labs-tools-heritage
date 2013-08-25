@@ -6168,6 +6168,7 @@ countries = {
         'autoGeocode' : False,
         'unusedImagesPage' : u'Проект:Вики любит памятники/Unused images of cultural heritage monuments',
         'imagesWithoutIdPage' : u'Проект:Вики любит памятники/Images of Cultural heritage monuments without ID',
+        'registrantUrlBase' : u'http://kulturnoe-nasledie.ru/monuments.php?id=%s',
         'namespaces' : [0, 104],
         'table' : u'monuments_ru_(ru)',
         'truncate' : False,
@@ -6176,20 +6177,12 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'int(15)',
+                'type' : 'varchar(15)',
                 'default' : '0',
             },
             {
                 'source' : u'название',
                 'dest' : u'name',
-            },
-            {
-                'source' : u'нп',
-                'dest' : u'city',
-            },
-            {
-                'source' : u'адрес',
-                'dest' : u'address',
             },
             {
                 'source' : u'регион',
@@ -6198,6 +6191,18 @@ countries = {
             {
                 'source' : u'регион_iso',
                 'dest' : u'region_iso',
+            },
+            {
+                'source' : u'район',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'нп',
+                'dest' : u'city',
+            },
+            {
+                'source' : u'адрес',
+                'dest' : u'address',
             },
             {
                 'source' : u'lat',
@@ -6219,6 +6224,11 @@ countries = {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
             },
         ],
     },
