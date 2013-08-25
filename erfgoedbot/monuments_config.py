@@ -4242,7 +4242,7 @@ countries = {
             },
         ],
     },
-	('hk', 'en') : { # Monuments in Hong Kong in English
+	('hk', 'en') : { # Declared Monuments in Hong Kong in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'HK Declared Monument header',
@@ -4293,6 +4293,60 @@ countries = {
 			{
                 'source' : u'caption',
                 'dest' : u'caption',
+            },
+			{
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+        ],
+    },
+	('hk-hb', 'en') : { # Historic Buildings (Grade I-III) in Hong Kong in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'HK Historic Building header',
+        'rowTemplate' : u'HK Historic Building row',
+        'commonsTemplate' : u'',
+        'unusedImagesPage' : u'',
+        'commonsTrackerCategory' : u'',
+        'commonsCategoryBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_hk-hb_(en)',
+        'truncate' : True,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+			{
+                'source' : u'image',
+                'dest' : u'image',
+            },
+			{
+                'source' : u'location',
+                'dest' : u'location',
+            },
+			{
+                'source' : u'refs',
+                'dest' : u'refs',
+            },
+			{
+                'source' : u'region',
+                'dest' : u'region',
+            },
+			{
+                'source' : u'district',
+                'dest' : u'district',
+            },
+			{
+                'source' : u'grade',
+                'dest' : u'grade',
             },
 			{
                 'source' : u'name',
