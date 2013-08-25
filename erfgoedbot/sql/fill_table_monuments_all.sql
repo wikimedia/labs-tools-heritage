@@ -1202,6 +1202,30 @@ SELECT 'gh' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url` # Not available
 		FROM `monuments_gh_(en)`;
+/* Hong Kong in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'hk' AS `country`,
+       'en' AS `lang`,
+		`id` AS `id`,
+		'hk' AS `adm0`,
+		NULL AS `adm1`,
+		NULL AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+		`name` AS `name`,
+		`location` AS `address`,
+		`Hong Kong` AS `municipality`,
+		NULL AS `lat`,
+		NULL AS `lon`,
+		NULL AS `lat_int`,
+		NULL AS `lon_int`,
+		`image` AS `image`,
+		NULL AS `commonscat`,
+		`source` AS `source`,
+		`changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        '' AS `registrant_url` # Not available
+		FROM `monuments_hk_(en)`;
 /* India in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'in' AS `country`,
