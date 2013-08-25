@@ -2243,6 +2243,10 @@ countries = {
                 'type' : 'varchar(11)',
             },
             {
+                'source' : u'province',
+                'dest' : u'province',
+            },
+            {
                 'source' : u'prov_iso',
                 'dest' : u'prov_iso',
             },
