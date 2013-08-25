@@ -2219,6 +2219,73 @@ countries = {
             },
         ]
     },
+    ('cn', 'en') : { # Major National Historical and Cultural Sites in China in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'NHS China header',
+        'rowTemplate' : u'NHS China row',
+        'commonsTemplate' : u'Cultural Heritage China',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in China with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in China',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of cultural heritage in China',
+        'missingCommonscatPage' : u'',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of cultural heritage in China without ID',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_cn_(en)',
+        'truncate' : False,
+        'primkey' : u'designation',
+        'fields' : [
+            {
+                'source' : u'designation',
+                'dest' : u'designation',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'prov_iso',
+                'dest' : u'prov_iso',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'site',
+                'dest' : u'site',
+            },
+            {
+                'source' : u'chinese_name',
+                'dest' : u'chinese_name',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'site',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'designation',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('cz', 'cs') : { # Monuments in Czech Republic in Czech language
         'project' : u'wikipedia',
         'lang' : u'cs',
