@@ -6379,7 +6379,7 @@ countries = {
                 'dest' : u'lat',
             },
             {
-                'source' : u'lon',
+                'source' : u'long',
                 'dest' : u'lon',
             },
             {
