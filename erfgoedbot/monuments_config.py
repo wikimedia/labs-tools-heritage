@@ -5340,7 +5340,7 @@ countries = {
         'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s van provinciale monumenten zonder id',
         #'registrantUrlBase' : u'http://monumentenregister.cultureelerfgoed.nl/php/main.php?cAction=search&sCompMonNr=%s',
         'namespaces' : [0],
-        'table' : u'monuments_nl-prov(nl)',
+        'table' : u'monuments_nl-prov_(nl)',
         'truncate' : False,
         'primkey' : u'objnr',
         'fields' : [
