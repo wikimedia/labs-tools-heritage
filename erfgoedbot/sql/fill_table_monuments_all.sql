@@ -1585,6 +1585,30 @@ SELECT 'nl-gem' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
 	FROM `monuments_nl-gem_(nl)`;
+/* Netherlands provinciale monumenten */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'nl-prov' AS `country`,
+       'nl' AS `lang`,
+		`objnr` AS `id`, 
+		'nl' AS `adm0`,
+		LOWER(`prov-iso`) AS `adm1`,
+		`gemeente` AS `adm2`,
+		`plaats` AS `adm3`,
+		NULL AS `adm4`,
+	`object` AS `name`,
+	`adres` AS `address`,
+	`gemeente` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `registrant_url` AS `registrant_url`
+	FROM `monuments_nl-prov_(nl)`;
 /* Norway in Norwegian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'no' AS `country`,
