@@ -5256,7 +5256,7 @@ countries = {
         'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Aruba without an ID',
         'registrantUrlBase' : u'',
         'namespaces' : [0],
-        'table' : u'monuments_nl-aw_(nl)',
+        'table' : u'monuments_nl-aw_(en)',
         'truncate' : False,
         'primkey' : u'objcode',
         'fields' : [
