@@ -94,8 +94,8 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in Armenia with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Armenia',
         'autoGeocode' : True,
-        'unusedImagesPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Unused images of Cultural heritage monuments in Armenia', # FIXME: Translation needed
-        'imagesWithoutIdPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Images of Cultural heritage monuments in Armenia without an ID', # FIXME: Translation needed
+        'unusedImagesPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Հայաստանի հուշարձանների չօգտագործված լուսանկարներ',
+        'imagesWithoutIdPage' : u'Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Հայաստանի հուշարձանների լուսանկարներ առանց համարանիշի',
         'registrantUrlBase' : u'http://www.arlis.am/DocumentView.aspx?DocID=%s', # Won't work yet, but put it in anyway
         'namespaces' : [0],
         'table' : u'monuments_am_(hy)',
