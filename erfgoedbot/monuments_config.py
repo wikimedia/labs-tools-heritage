@@ -5243,7 +5243,7 @@ countries = {
             },
         ],
     },
-    ('nl-aw', 'nl') : { # Monuments in Aruba in English
+    ('nl-aw', 'en') : { # Monuments in Aruba in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'Table header Aruba monuments',
