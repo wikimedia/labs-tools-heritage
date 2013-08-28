@@ -5327,6 +5327,110 @@ countries = {
             },
         ],
     },
+    ('nl-prov', 'nl') : { # Provinciale monumenten in the Netherlands in Dutch
+        'project' : u'wikipedia',
+        'lang' : u'nl',
+        'headerTemplate' : u'Tabelkop provinciale monumenten',
+        'rowTemplate' : u'Tabelrij provinciaal monument',
+        'commonsTemplate' : u'Provinciaal monument',
+        'commonsTrackerCategory' : u'Provinciale monumenten with known IDs',
+        'commonsCategoryBase' : u'Provinciale monumenten',
+        #'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto\'s van provinciale monumenten',
+        'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s van provinciale monumenten zonder id',
+        #'registrantUrlBase' : u'http://monumentenregister.cultureelerfgoed.nl/php/main.php?cAction=search&sCompMonNr=%s',
+        'namespaces' : [0],
+        'table' : u'monuments_nl-prov(nl)',
+        'truncate' : False,
+        'primkey' : u'objnr',
+        'fields' : [
+            {
+                'source' : u'objnr',
+                'dest' : u'objnr',
+                'type' : 'varchar(15)',
+            },
+            {
+                'source' : u'ISO-prov',
+                'dest' : u'prov-iso',
+                'type' : '',
+            },
+            {
+                'source' : u'gemeente',
+                'dest' : u'gemeente',
+                'type' : '',
+            },
+            {
+                'source' : u'plaats',
+                'dest' : u'plaats',
+                'type' : '',
+            },
+            {
+                'source' : u'object',
+                'dest' : u'object',
+            },
+            {
+                'source' : u'bouwjaar',
+                'dest' : u'bouwjaar',
+            },
+            {
+                'source' : u'architect',
+                'dest' : u'architect',
+            },
+            {
+                'source' : u'adres',
+                'dest' : u'adres',
+            },
+            {
+                'source' : u'postcode',
+                'dest' : u'postcode',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'object',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'url',
+                'dest' : u'registrant_url',
+            },
+            {
+                'source' : u'MIP_nr',
+                'dest' : u'MIP_nr',
+            },
+            {
+                'source' : u'kadaster',
+                'dest' : u'kadaster',
+            },
+            {
+                'source' : u'rijksmonument',
+                'dest' : u'rijksmonument',
+            },
+            {
+                'source' : u'aangewezen',
+                'dest' : u'aangewezen',
+            },
+            {
+                'source' : u'oorspr_fun',
+                'dest' : u'oorspr_fun',
+            },
+        ],
+    },
     ('mt', 'de') : { # Monuments in Malta in German
         'project' : u'wikipedia',
         'lang' : u'de',
