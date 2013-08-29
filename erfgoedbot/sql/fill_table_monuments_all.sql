@@ -1561,6 +1561,54 @@ SELECT 'nl' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_nl_(nl)`;
+/* Aruba in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'nl-aw' AS `country`,
+       'en' AS `lang`,
+		`objcode` AS `id`, 
+		'nl' AS `adm0`,
+		'nl-aw' AS `adm1`,
+		`town` AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+	`descr_en` AS `name`,
+	`address` AS `address`,
+	`town` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `registrant_url` AS `registrant_url`
+	FROM `monuments_nl-aw_(en)`;
+/* Aruba in Dutch */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'nl-aw' AS `country`,
+       'nl' AS `lang`,
+		`objectnr` AS `id`, 
+		'nl' AS `adm0`,
+		'nl-aw' AS `adm1`,
+		`plaats` AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+	`omschrijving` AS `name`,
+	`adres` AS `address`,
+	`plaats` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `registrant_url` AS `registrant_url`
+	FROM `monuments_nl-aw_(nl)`;
 /* Netherlands gemeentelijke monumenten */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'nl-gem' AS `country`,

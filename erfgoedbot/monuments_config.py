@@ -5308,6 +5308,71 @@ countries = {
             },
         ],
     },
+    ('nl-aw', 'nl') : { # Monuments in Aruba in Dutch
+        'project' : u'wikipedia',
+        'lang' : u'nl',
+        'headerTemplate' : u'Tabelkop monumenten Aruba',
+        'rowTemplate' : u'Tabelrij monument Aruba',
+        'commonsTemplate' : u'Cultural Heritage Aruba',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Aruba with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Aruba',
+        #'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto\'s van monumenten op Aruba',
+        'imagesWithoutIdPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto\'s van monumenten op Aruba zonder id',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_nl-aw_(nl)',
+        'truncate' : False,
+        'primkey' : u'objectnr',
+        'fields' : [
+            {
+                'source' : u'objectnr',
+                'dest' : u'objectnr',
+                'type' : 'varchar(15)',
+            },
+            {
+                'source' : u'omschrijving',
+                'dest' : u'omschrijving',
+            },
+            {
+                'source' : u'plaats',
+                'dest' : u'plaats',
+            },
+            {
+                'source' : u'adres',
+                'dest' : u'adres',
+            },
+            {
+                'source' : u'bouwjaar',
+                'dest' : u'bouwjaar',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'omschrijving',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'objectnr',
+                'dest' : u'registrant_url',
+            },
+        ],
+    },
     ('nl-gem', 'nl') : { # Gemeentelijke monumenten in the Netherlands in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
