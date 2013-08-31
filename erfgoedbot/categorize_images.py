@@ -181,7 +181,7 @@ def getList(lang, monumentSource):
     '''
 
     if monumentSource:
-        regex = u'^http://%s.wikipedia.org/w/index.php\?title=(.+)&redirect=' % (lang,)
+        regex = u'^https://%s.wikipedia.org/w/index.php\?title=(.+)&redirect=' % (lang,)
 
         match = re.search(regex, monumentSource)
         if not match:
