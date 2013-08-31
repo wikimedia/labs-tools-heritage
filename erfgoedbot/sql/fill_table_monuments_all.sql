@@ -145,6 +145,30 @@ SELECT 'at' AS `country`,
         REPLACE( `artikel`, ' ', '_' ) AS `monument_article`,
         '' AS `registrant_url`
         FROM `monuments_at_(de)`;
+/* Azerbaijan in Azerbaijani */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'az' AS `country`, 
+       'az' AS `lang`,
+	   `id` AS `id`,
+       'az' AS `adm0`,
+	   LOWER(`ray-iso`) AS `adm1`,
+	   `municipality` AS `adm2`,
+	   NULL AS `adm3`,
+	   NULL AS `adm4`,
+       `name` AS `name`,
+       `address` AS `address`,
+       `municipality` AS `municipality`,
+       `lat` AS `lat`,
+       `lon` AS `lon`,
+	   ROUND(`lat` * @granularity) AS `lat_int`,
+	   ROUND(`lon` * @granularity) AS `lon_int`,
+       `image` AS `image`,
+	   `commonscat` AS `commonscat`,
+       `source` AS `source`,
+       `changed` AS `changed`,
+       `monument_article` AS `monument_article`,
+       `registrant_url` AS `registrant_url`
+        FROM `monuments_az_(az)`;
 /* Brussels in Dutch */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'be-bru' AS `country`,

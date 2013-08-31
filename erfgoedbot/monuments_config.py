@@ -446,6 +446,85 @@ countries = {
             },
         ],
     },
+    ('az', 'az') : { # Monuments in Azerbaijan in Azerbaijani
+        'project' : u'wikipedia',
+        'lang' : u'az',
+        'headerTemplate' : u'AZE Monument header',
+        'rowTemplate' : u'AZE Monument row',
+        'commonsTemplate' : u'Cultural Heritage Azerbaijan',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Azerbaijan with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Azerbaijan',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Vikipediya:Viki Abidələri Sevir 2013/Unused images of Cultural heritage monuments in Azerbaijan',
+        #'missingCommonscatPage' : u'Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Missende commonscat links',
+        'imagesWithoutIdPage' : u'Vikipediya:Viki Abidələri Sevir 2013/Images of Cultural heritage monuments in Azerbaijan without an ID',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0, 4],
+        'table' : u'monuments_az_(az)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'ID',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'ray-iso',
+                'dest' : u'ray-iso',
+            },
+            {
+                'source' : u'municipality',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'type',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'date',
+                'dest' : u'date',
+            },
+            {
+                'source' : u'ref',
+                'dest' : u'ref',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('be-bru', 'nl') : { # Monuments in Brussels in Dutch
         'project' : u'wikipedia',
         'lang' : u'nl',
