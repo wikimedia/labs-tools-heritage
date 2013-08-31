@@ -6180,8 +6180,8 @@ countries = {
     ('pl', 'pl') : { # Monuments in Poland in Polish (old system)
         'project' : u'wikipedia',
         'lang' : u'pl',
-        'headerTemplate' : u'zabytki/góra',
-        'rowTemplate' : u'zabytki/wpis',
+        'headerTemplate' : u'Zabytki/góra',
+        'rowTemplate' : u'Zabytki/wpis',
         'commonsTemplate' : u'Zabytek2',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
         'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
