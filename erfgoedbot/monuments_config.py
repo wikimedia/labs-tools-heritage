@@ -6189,7 +6189,7 @@ countries = {
         'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
         'imagesWithoutIdPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Images without an ID',
         'registrantUrlBase' : u'',
-        'namespaces' : [102],
+        'namespaces' : [4],
         'table' : u'monuments_pl_(pl)',
         'truncate' : False,
         'primkey' : 'id',
