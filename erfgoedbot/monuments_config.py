@@ -7014,6 +7014,91 @@ countries = {
             },
         ],
     },
+    ('sv', 'es') : { # Monuments in El Salvador in Spanish
+        'project' : u'wikipedia',
+        'lang' : u'es',
+        'headerTemplate' : u'MonumentoElSalvador/encabezado',
+        'rowTemplate' : u'MonumentoElSalvador',
+        'commonsTemplate' : u'Cultural Heritage El Salvador',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in El Salvador with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in El Salvador',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de El Salvador sin usar',
+        'imagesWithoutIdPage' : u'Wikiproyecto:Patrimonio histórico/Fotos de monumentos de El Salvador sin id',
+        'registrantUrlBase' : u'',
+        'namespaces' : [104],
+        'table' : u'monuments_sv_(es)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'enlace',
+                'dest' : u'enlace',
+            },
+            {
+                'source' : u'monumento_enlace',
+                'dest' : u'monumento_enlace',
+            },
+            {
+                'source' : u'monumento_desc',
+                'dest' : u'monumento_desc',
+            },
+            {
+                'source' : u'monumento',
+                'dest' : u'monumento',
+            },
+            {
+                'source' : u'departamento_ISO',
+                'dest' : u'departamento_iso',
+            },
+            {
+                'source' : u'departamento',
+                'dest' : u'departamento',
+            },
+            {
+                'source' : u'municipio',
+                'dest' : u'municipio',
+            },
+            {
+                'source' : u'municipio_code',
+                'dest' : u'municipio_code',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'long',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'dirección',
+                'dest' : u'direccion',
+            },
+            {
+                'source' : u'tipo',
+                'dest' : u'tipo',
+            },
+            {
+                'source' : u'imagen',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'monumento_categoría',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('th', 'th') : { # Cultural heritage monuments in land in Thai
         'project' : u'wikipedia',
         'lang' : u'th',
