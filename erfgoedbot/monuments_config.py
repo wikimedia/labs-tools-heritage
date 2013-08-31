@@ -6115,7 +6115,7 @@ countries = {
         'headerTemplate' : u'Lista zabytków góra',
         'rowTemplate' : u'Zabytki wiersz',
         #'commonsTemplate' : u'Zabytek',
-        #'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
+        #'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with old known IDs',
         #'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
         #'missingCommonscatPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Missing_commonscat_links',
         #'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
@@ -6174,6 +6174,93 @@ countries = {
                 'source' : u'nazwa',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
+            },
+        ],
+    },
+    ('pl', 'pl') : { # Monuments in Poland in Polish (old system)
+        'project' : u'wikipedia',
+        'lang' : u'pl',
+        'headerTemplate' : u'zabytki/góra',
+        'rowTemplate' : u'zabytki/wpis',
+        'commonsTemplate' : u'Zabytek2',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
+        'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
+        'missingCommonscatPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Missing_commonscat_links',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Poland',
+        'imagesWithoutIdPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Images without an ID',
+        'registrantUrlBase' : u'',
+        'namespaces' : [102],
+        'table' : u'monuments_pl_(pl)',
+        'truncate' : False,
+        'primkey' : 'id',
+        'fields' : [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'int(11)',
+                'default' : '0',
+            },
+            {
+                'source' : u'województwo',
+                'dest' : u'prov-iso',
+            },
+            {
+                'source' : u'powiat',
+                'dest' : u'powiat',
+            },
+            {
+                'source' : u'gmina',
+                'dest' : u'gmina',
+            },
+            {
+                'source' : u'miejscowość',
+                'dest' : u'miejscowosc',
+            },
+            {
+                'source' : u'numer',
+                'dest' : u'numer',
+            },
+            {
+                'source' : u'zespół zabytków',
+                'dest' : u'group_of_monuments',
+            },
+            {
+                'source' : u'nazwa',
+                'dest' : u'nazwa',
+            },
+            {
+                'source' : u'adres',
+                'dest' : u'adres',
+            },
+            {
+                'source' : u'szerokość',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'długość',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'koordynaty', # To get rid of errors
+                'dest' : u'koordynaty',
+            },
+            {
+                'source' : u'zdjęcie',
+                'dest' : u'zdjecie',
+            },
+            {
+                'source' : u'commons',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'nazwa',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
             },
         ],
     },
