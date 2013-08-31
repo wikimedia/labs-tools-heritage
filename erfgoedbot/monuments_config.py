@@ -6182,7 +6182,7 @@ countries = {
         'lang' : u'pl',
         'headerTemplate' : u'Zabytki/góra',
         'rowTemplate' : u'Zabytki/wpis',
-        'commonsTemplate' : u'Zabytek2',
+        'commonsTemplate' : u'Zabytek nieruchomy',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Poland with known IDs',
         'unusedImagesPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane',
         'missingCommonscatPage' : u'Wikiprojekt:Wiki Lubi Zabytki/Missing_commonscat_links',
