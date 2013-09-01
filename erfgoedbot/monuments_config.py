@@ -3176,6 +3176,84 @@ countries = {
             },
         ],
     },
+    ('dz', 'ar') : { # Monuments in Algeria in Arabic
+        'project' : u'wikipedia',
+        'lang' : u'ar',
+        'headerTemplate' : u'رأس معلم الجزائر',
+        'rowTemplate' : u'صف معلم الجزائر',
+        'commonsTemplate' : u'Cultural Heritage Algeria',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Algeria with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Algeria',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'User:ErfgoedBot/Unused images of monuments in Algeria', # FIXME: Translate
+        'imagesWithoutIdPage' : u'User:ErfgoedBot/Images of monuments in Algeria without ID', # FIXME: Translate
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_dz_(ar)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'رقم',
+                'dest' : u'id',
+                'type' : 'varcar(11)',
+            },
+            {
+                'source' : u'اسم',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'وصف',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'موقع',
+                'dest' : u'site',
+            },
+            {
+                'source' : u'ISO',
+                'dest' : u'prov-iso',
+            },
+            {
+                'source' : u'مدينة',
+                'dest' : u'city',
+            },
+            {
+                'source' : u'دائرة عرض',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'خط طول',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'státusz',
+                'dest' : u'statusz',
+            },
+            {
+                'source' : u'leírás',
+                'dest' : u'leiras',
+            },
+            {
+                'source' : u'صورة',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'name',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'id',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('ee', 'et') : { # Rijksmonumenten in the Estonia in Estoian
         'project' : u'wikipedia',
         'lang' : u'et',
@@ -4549,13 +4627,12 @@ countries = {
                 'dest' : u'monument_article',
             },
             {
-                'source' : u'hb',
+                'source' : u'id',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },
         ],
     },
-    
     ('in', 'en') : { # Monuments in India in English
         'project' : u'wikipedia',
         'lang' : u'en',
