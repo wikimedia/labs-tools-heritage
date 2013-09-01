@@ -4086,8 +4086,8 @@ countries = {
     ('gb-sct', 'en') : { # United Kingdom: Listed buildings in Scotland in English
         'project' : u'wikipedia',
         'lang' : u'en',
-        'headerTemplate' : u'HB Scotland header',
-        'rowTemplate' : u'HB Scotland row',
+        'headerTemplate' : u'HS Scotland header',
+        'rowTemplate' : u'HS listed building row',
         'commonsTemplate' : u'Listed building Scotland',
         'commonsTrackerCategory' : u'Listed buildings in Scotland with known IDs',
         'commonsCategoryBase' : u'Listed buildings in Scotland',
@@ -4098,11 +4098,11 @@ countries = {
         'namespaces' : [0],
         'table' : u'monuments_gb-sct_(en)',
         'truncate' : False,
-        'primkey' : u'hbnum',
+        'primkey' : u'hb',
         'fields' : [
             {
-                'source' : u'hbnum',
-                'dest' : u'hbnum',
+                'source' : u'hb',
+                'dest' : u'hb',
                 'type' : 'int(11)',
             },
             {
@@ -4110,19 +4110,31 @@ countries = {
                 'dest' : u'name',
             },
             {
+                'source' : u'date_listed',
+                'dest' : u'date_listed',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
                 'source' : u'notes',
                 'dest' : u'notes',
             },
             {
-                'source' : u'county',
-                'dest' : u'county',
+                'source' : u'grid_ref',
+                'dest' : u'grid_ref',
             },
             {
-                'source' : u'subdivision_iso',
-                'dest' : u'subdivision_iso',
+                'source' : u'council_area',
+                'dest' : u'council_area',
             },
             {
-                'source' : u'parbur',
+                'source' : u'council_iso',
+                'dest' : u'council_iso',
+            },
+            {
+                'source' : u'parbur', # Doesn't seem to be used
                 'dest' : u'parbur',
             },
             {
@@ -4134,8 +4146,8 @@ countries = {
                 'dest' : u'lon',
             },
             {
-                'source' : u'category',
-                'dest' : u'category',
+                'source' : u'lb_type',
+                'dest' : u'lb_type',
             },
             {
                 'source' : u'image',
@@ -4151,7 +4163,7 @@ countries = {
                 'conv' : u'extractWikilink',
             },
             {
-                'source' : u'hbnum',
+                'source' : u'hb',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },
