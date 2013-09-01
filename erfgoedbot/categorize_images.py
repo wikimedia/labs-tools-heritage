@@ -106,7 +106,7 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
                     if commonsCatTemplate in monumentArticle.templates():
                         newcats = []
                         newcats.append(getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
-            except wikipedia.exceptions.SectionError:
+            except wikipedia.SectionError:
                wikipedia.output(u'Incorrect redirect at %s' % (monumentArticle.title(),))
 
     # Option three is to see if the list contains Commonscat links (whole list)
