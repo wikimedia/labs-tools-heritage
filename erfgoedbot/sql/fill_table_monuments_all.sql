@@ -1274,30 +1274,53 @@ SELECT 'hk' AS `country`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url` # Not available
 		FROM `monuments_hk_(en)`;
-/* Hong Kong historic buildings in English */
+/* Hungary in Hungarian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'hk-hb' AS `country`,
-       'en' AS `lang`,
+SELECT 'hu' AS `country`,
+       'hu' AS `lang`,
 		`id` AS `id`,
-		'hk' AS `adm0`,
-		NULL AS `adm1`,
-		`region` AS `adm2`,
-		`district` AS `adm3`,
-		NULL AS `adm4`,
+		'hu' AS `adm0`,
+		`county_iso` AS `adm1`,
+		`regio` AS `adm2`,
+		`town` AS `adm3`,
+		`district` AS `adm4`,
 		`name` AS `name`,
-		`location` AS `address`,
-		'Hong Kong' AS `municipality`,
+		`address` AS `address`,
+		`regio` AS `municipality`,
 		`lat` AS `lat`,
 		`lon` AS `lon`,
 		ROUND(`lat` * @granularity) AS `lat_int`,
 		ROUND(`lon` * @granularity) AS `lon_int`,
 		`image` AS `image`,
-		NULL AS `commonscat`,
+		`commonscat` AS `commonscat`,
 		`source` AS `source`,
 		`changed` AS `changed`,
         `monument_article` AS `monument_article`,
-        '' AS `registrant_url` # Not available
-		FROM `monuments_hk-hb_(en)`;
+        `registrant_url` AS `registrant_url`
+		FROM `monuments_hu_(hu)`;
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'gb-sct' AS `country`,
+       'en' AS `lang`,
+	`hb` AS `id`, 
+	'gb' AS `adm0`,
+	'sct' AS `adm1`,
+	LOWER(`council_iso`) AS `adm2`,
+	NULL AS `adm3`,
+	NULL AS `adm4`,
+	`name` AS `name`,
+	`location` AS `address`,
+	`council_area` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`image` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `registrant_url` AS `registrant_url`
+	FROM `monuments_gb-sct_(en)`;
 /* India in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'in' AS `country`,

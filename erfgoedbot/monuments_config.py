@@ -4462,6 +4462,100 @@ countries = {
             },
         ],
     },
+    ('hu', 'hu') : { # Monuments in Hungary in Hungarian
+        'project' : u'wikipedia',
+        'lang' : u'hu',
+        'headerTemplate' : u'Műemléklistafej',
+        'rowTemplate' : u'Műemlék',
+        'commonsTemplate' : u'Monument Hungary',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Hungary with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Hungary',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipédia:Wiki Loves Monuments/Nem használt képek',
+        'imagesWithoutIdPage' : u'Wikipédia:Wiki Loves Monuments/Azonosító nélküli képek',
+        'registrantUrlBase' : u'',
+        'namespaces' : [0],
+        'table' : u'monuments_hu_(hu)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'azonosító',
+                'dest' : u'id',
+                'type' : 'int(11)',
+            },
+            {
+                'source' : u'megnevezés',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'megye',
+                'dest' : u'county',
+            },
+            {
+                'source' : u'iso',
+                'dest' : u'county_iso',
+            },
+            {
+                'source' : u'régió',
+                'dest' : u'regio',
+            },
+            {
+                'source' : u'irányítószám',
+                'dest' : u'postcode',
+            },
+            {
+                'source' : u'település',
+                'dest' : u'town',
+            },
+            {
+                'source' : u'kerület',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'cím', 
+                'dest' : u'address',
+            },
+            {
+                'source' : u'helyrajzi szám', 
+                'dest' : u'parcel_number',
+            },
+            {
+                'source' : u'szélesség',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'hosszúság',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'státusz',
+                'dest' : u'statusz',
+            },
+            {
+                'source' : u'leírás',
+                'dest' : u'leiras',
+            },
+            {
+                'source' : u'kép',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonskat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'szócikk',
+                'dest' : u'monument_article',
+            },
+            {
+                'source' : u'hb',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
+    
     ('in', 'en') : { # Monuments in India in English
         'project' : u'wikipedia',
         'lang' : u'en',
