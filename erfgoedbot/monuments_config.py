@@ -3196,7 +3196,7 @@ countries = {
             {
                 'source' : u'رقم',
                 'dest' : u'id',
-                'type' : 'varcar(11)',
+                'type' : 'varchar(11)',
             },
             {
                 'source' : u'اسم',
