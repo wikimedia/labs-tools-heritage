@@ -3211,6 +3211,10 @@ countries = {
                 'dest' : u'site',
             },
             {
+                'source' : u'قسم',
+                'dest' : u'section',
+            },
+            {
                 'source' : u'ISO',
                 'dest' : u'prov-iso',
             },
@@ -3225,14 +3229,6 @@ countries = {
             {
                 'source' : u'خط طول',
                 'dest' : u'lon',
-            },
-            {
-                'source' : u'státusz',
-                'dest' : u'statusz',
-            },
-            {
-                'source' : u'leírás',
-                'dest' : u'leiras',
             },
             {
                 'source' : u'صورة',
