@@ -73,6 +73,30 @@ SELECT 'ad' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_ad_(ca)`;
+/* Armenia in Armenian */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'am' AS `country`,
+       'hy' AS `lang`, 
+       `id` AS `id`,
+	   'am' AS `adm0`,
+	   LOWER(`prov_iso`) AS `adm1`,
+		`municipality` AS `adm2`,
+		NULL AS `adm3`,
+		NULL AS `adm4`,
+        `description` AS `name`,
+        `address` AS `address`,
+        `municipality` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+		ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_am_(hy)`;
 /* Antarctica in English */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'aq' AS `country`,
@@ -1779,14 +1803,14 @@ SELECT 'pk' AS `country`,
         FROM `monuments_pk_(en)`;
 /* Poland in Polish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'pl-old' AS `country`,
+SELECT 'pl' AS `country`,
        'pl' AS `lang`,
-		CONCAT(REPLACE(UPPER(`prov-iso`), 'PL-', ''), '/', `numer`) AS `id`, /* Evil hack to get Poland to work */
+	`id` AS `id`,
 		'pl' AS `adm0`,
 		LOWER(`prov-iso`) AS `adm1`,
 		`powiat` AS `adm2`,
 	`gmina` AS `adm3`,
-		NULL AS `adm4`,
+	`miejscowosc` AS `adm4`,
 	`nazwa` AS `name`,
 	`adres` AS `address`,
 	`gmina` AS `municipality`,
@@ -1799,8 +1823,8 @@ SELECT 'pl-old' AS `country`,
 	`source` AS `source`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
-        '' AS `registrant_url`
-	FROM `monuments_pl-old_(pl)`;
+        `registrant_url` AS `registrant_url`
+	FROM `monuments_pl_(pl)`;
 /* Portugal in Portuguese */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'pt' AS `country`,
