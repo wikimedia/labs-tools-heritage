@@ -135,7 +135,7 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
 	    try:
 		page.put(newtext, comment)
 		return True
-	    except wikipedia.exceptions.EditConflict:
+	    except wikipedia.EditConflict:
 		wikipedia.output( u'Got an edit conflict. Someone else beat me to it at %s' % page.title() )
     else:
         wikipedia.output( u'Categories not found for %s' % page.title() )
