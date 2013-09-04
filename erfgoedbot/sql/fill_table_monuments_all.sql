@@ -1776,6 +1776,30 @@ SELECT 'no' AS `country`,
         `monument_article` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_no_(no)`;
+/* Nepal in English */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'np' AS `country`,
+       'en' AS `lang`,
+        `number` AS `id`,
+		'np' AS `adm0`,
+		LOWER(`region_iso`) AS `adm1`,
+		LOWER(`zone_iso`) AS `adm2`,
+		`district` AS `adm3`,
+		NULL AS `adm4`,
+        `description` AS `name`,
+        `address` AS `address`,
+        `district` AS `municipality`,
+        `lat` AS `lat`,
+        `lon` AS `lon`,
+	    ROUND(`lat` * @granularity) AS `lat_int`,
+		ROUND(`lon` * @granularity) AS `lon_int`,
+        `image` AS `image`,
+		`commonscat` AS `commonscat`,
+        `source` AS `source`,
+        `changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        `registrant_url` AS `registrant_url`
+        FROM `monuments_np_(en)`;
 /* Panamá in Spanish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'pa' AS `country`,

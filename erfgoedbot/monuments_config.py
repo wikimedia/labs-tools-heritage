@@ -6077,6 +6077,80 @@ countries = {
             },
         ],
     },
+    ('np', 'en') : { # Monuments in Nepal in English
+        'project' : u'wikipedia',
+        'lang' : u'en',
+        'headerTemplate' : u'Nepal Monument header',
+        'rowTemplate' : u'Nepal Monument row',
+        'commonsTemplate' : u'Cultural Heritage Nepal',
+        'commonsTrackerCategory' : u'Cultural heritage monuments in Nepal with known IDs',
+        'commonsCategoryBase' : u'Cultural heritage monuments in Nepal',
+        'autoGeocode' : True,
+        'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Nepal',
+        'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Nepal without an ID',
+        'registrantUrlBase' : u'', # Nothing yet
+        'namespaces' : [0],
+        'table' : u'monuments_np_(en)',
+        'truncate' : False,
+        'primkey' : u'number',
+        'fields' : [
+            {
+                'source' : u'number',
+                'dest' : u'number',
+                'type' : 'varchar(11)',
+            },
+            {
+                'source' : u'region_iso',
+                'dest' : u'region_iso',
+            },
+            {
+                'source' : u'zone_iso',
+                'dest' : u'zone_iso',
+            },
+            {
+                'source' : u'district',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'location',
+                'dest' : u'location',
+            },
+            {
+                'source' : u'address',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'image',
+                'dest' : u'image',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'description',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'number',
+                'dest' : u'registrant_url',
+                'conv' : u'generateRegistrantUrl',
+            },
+        ],
+    },
     ('pa', 'es') : { # Monuments in Panama in Spanish
         'project' : u'wikipedia',
         'lang' : u'es',
