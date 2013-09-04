@@ -6089,7 +6089,7 @@ countries = {
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Nepal',
         'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Nepal without an ID',
         'registrantUrlBase' : u'', # Nothing yet
-        'namespaces' : [0],
+        'namespaces' : [0, 4], # Not sure why the lists are in project namespace
         'table' : u'monuments_np_(en)',
         'truncate' : False,
         'primkey' : u'number',
