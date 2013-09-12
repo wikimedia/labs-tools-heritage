@@ -63,12 +63,19 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             monumentId = mLines[0]
             # Remove leading and trailing spaces
             monumentId = monumentId.strip()
-            # Remove leading zero's. FIXME: This should be replaced with underscores
-            monumentId = monumentId.lstrip(u'0')
-            # Remove leading underscors.
-            monumentId = monumentId.lstrip(u'_')
-	    # All uppercase, same happens in other list. FIXME: Remove this
-	    monumentId = monumentId.upper()
+    
+	    # No try some variants until we have a hit
+
+            # Only remove leading zero's if we don't have a hit.
+	    if not monumentId in withoutPhoto:
+		monumentId = monumentId.lstrip(u'0')
+            # Only remove leading underscores if we don't have a hit.
+	    if not monumentId in withoutPhoto:
+		monumentId = monumentId.lstrip(u'_')
+	    # Only all uppercase if we don't have a hit.
+	    if not monumentId in withoutPhoto:
+		monumentId = monumentId.upper()
+
             if monumentId in withoutPhoto:
                 m = re.search('^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
