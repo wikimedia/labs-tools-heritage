@@ -285,7 +285,7 @@ def outputStatistics(statistics):
     Output the results of the bot as a nice wikitable
     '''
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! Total images !! Categorized images !! Images left !! Current image count\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! data-sort-type="number"|Total images !! data-sort-type="number"|Categorized images !! data-sort-type="number"|Images left !! data-sort-type="number"|Current image count\n'
 
     totalImages = 0
     categorizedImages = 0

@@ -33,7 +33,7 @@ def outputStatistics(statistics):
     '''
     
     output = u'{| class="wikitable sortable"\n'
-    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! total !! name !! address !! municipality !! coordinates !! image !! commonscat !! article !! [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! [[:en:ISO 3166-2#Current codes|adm1]] !! adm2 !! adm3 !! adm4 !! source pages\n'
+    output = output + u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! data-sort-type="number"|total !! data-sort-type="number"|name !! data-sort-type="number"|address !! data-sort-type="number"|municipality !!data-sort-type="number"| coordinates !! data-sort-type="number"|image !! data-sort-type="number"|commonscat !! data-sort-type="number"|article !! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] !! data-sort-type="number"|adm2 !! data-sort-type="number"|adm3 !!data-sort-type="number"| adm4 !! data-sort-type="number"|source pages\n'
 
     totals = {}
 

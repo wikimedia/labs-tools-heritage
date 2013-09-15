@@ -152,7 +152,7 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
 
 def makeStatistics(mconfig, totals):
     text = u'{| class="wikitable sortable"\n'
-    text = text + u'! country !! lang !! total !! page !! row template !! Commons template\n'
+    text = text + u'! country !! lang !! data-sort-type="number"|total !! page !! row template !! Commons template\n'
     
     totalImages = 0
     for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
