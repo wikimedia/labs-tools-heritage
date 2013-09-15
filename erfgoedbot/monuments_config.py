@@ -4846,6 +4846,101 @@ countries = {
             },
         ],
     },
+    ('il-npa', 'he') : { # Israel notable public art (as defined by the Israel Museum) in Hebrew
+        'project' : u'wikipedia',
+        'lang' : u'he',
+        'headerTemplate' : u'יצירת אמנות במרחב הציבורי בישראל כותרת',
+        'rowTemplate' : u'יצירת אמנות במרחב הציבורי בישראל בשורה',
+        'commonsTemplate' : u'Heritage site in Israel',
+        'commonsTrackerCategory' : u'Heritage sites in Israel with known IDs',
+        'commonsCategoryBase' : u'Heritage sites in Israel',
+        'autoGeocode' : False,
+        'unusedImagesPage' : u'ויקיפדיה:מיזמי ויקיפדיה/Wiki Loves Monuments/Unused images',
+        #'imagesWithoutIdPage' : u'Wikipedia:WikiProject National Register of Historic Places/Images without refnum',
+        'namespaces' : [0, 4],
+        'table' : u'monuments_il_(he)',
+        'truncate' : False,
+        'primkey' : u'id',
+        'fields' : [
+            {
+                'source' : u'מספר אתר',
+                'dest' : u'id',
+                'type' : 'varchar(20)',
+            },
+            {
+                'source' : u'מחוז',
+                'dest' : u'district',
+            },
+            {
+                'source' : u'district-iso',
+                'dest' : u'district-iso',
+            },
+            {
+                'source' : u'שם אתר',
+                'dest' : u'name',
+            },
+            {
+                'source' : u'שם ערך',
+                'dest' : u'article',
+            },
+            {
+                'source' : u'שם אתר באנגלית',
+                'dest' : u'name-en',
+            },
+            {
+                'source' : u'תיאור אתר',
+                'dest' : u'description',
+            },
+            {
+                'source' : u'תיאור אתר באנגלית',
+                'dest' : u'description-en',
+            },
+            {
+                'source' : u'אדריכל',
+                'dest' : u'architect',
+            },
+            {
+                'source' : u'שנת הקמה',
+                'dest' : u'year',
+            },
+            {
+                'source' : u'סוג אתר',
+                'dest' : u'type',
+            },
+            {
+                'source' : u'קטגוריה בוויקישיתוף',
+                'dest' : u'commonscat',
+            },
+            {
+                'source' : u'כתובת',
+                'dest' : u'address',
+            },
+            {
+                'source' : u'רשות מקומית',
+                'dest' : u'municipality',
+            },
+            {
+                'source' : u'גוש',
+                'dest' : u'area',
+            },
+            {
+                'source' : u'חלקה',
+                'dest' : u'lot',
+            },
+            {
+                'source' : u'LAT',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'LONG',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'תמונה',
+                'dest' : u'image',
+            },
+        ],
+    },        
     ('it', 'it') : { # Monuments in Italy in Italian 
         'project' : u'wikipedia',
         'lang' : u'it',
