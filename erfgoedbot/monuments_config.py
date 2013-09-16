@@ -3974,7 +3974,7 @@ countries = {
         'commonsCategoryBase' : u'Listed buildings in England',
         'autoGeocode' : True,
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of listed buildings in England',
-        'missingCommonscatPage' : u'',
+        'missingCommonscatPage' : u'Wikipedia:WikiProject Historic sites/Missing commons category links for listed buildings in England',
         'imagesWithoutIdPage' : u'Wikipedia:WikiProject Historic sites/Images of listed buildings in England without ID',
         'registrantUrlBase' : u'http://list.english-heritage.org.uk/resultsingle.aspx?uid=%s',
         'namespaces' : [0],
