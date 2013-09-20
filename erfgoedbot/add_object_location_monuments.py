@@ -135,7 +135,7 @@ LIMIT 1""";
 def addLocation (page, locationTemplate):
     try:
 	oldtext = page.get()
-    except wikipedia.exceptions.NoPage:
+    except wikipedia.NoPage:
 	# For some reason we sometimes get a NoPage Exception
 	wikipedia.output(u'No text found at %s. Skipping' % (page.title(),))
 	return False
