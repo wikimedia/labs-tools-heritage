@@ -322,15 +322,11 @@ countries = {
             },
             {
                 'source' : u'monumento_categoría',
-                'dest' : u'monumento_categoria',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
             },
             {
                 'source' : u'monumento_enlace',
@@ -2485,7 +2481,7 @@ countries = {
             },
             {
                 'source' : u'monumento_categoría',
-                'dest' : u'monumento_categoria',
+                'dest' : u'commonscat',
             },
             {
                 'source' : u'monumento_desc',
@@ -2522,10 +2518,6 @@ countries = {
             {
                 'source' : u'imagen',
                 'dest' : u'imagen',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
             },
             {
                'source' : u'tipo',
