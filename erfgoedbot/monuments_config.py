@@ -4946,8 +4946,8 @@ countries = {
     ('it', 'it') : { # Monuments in Italy in Italian 
         'project' : u'wikipedia',
         'lang' : u'it',
-        'headerTemplate' : u'WLM-intestazione',
-        'rowTemplate' : u'WLM-riga',
+        'headerTemplate' : u'WLM2013-intestazione',
+        'rowTemplate' : u'WLM2013-riga',
         'commonsTemplate' : u'Monumento italiano',
         'commonsTrackerCategory' : u'Cultural heritage monuments in Italy with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Italy',
