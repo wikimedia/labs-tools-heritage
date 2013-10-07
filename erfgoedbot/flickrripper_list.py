@@ -72,10 +72,10 @@ templates_for_flickr_license = {
 ripper_config = {
     'country': u'es',
     'lang': u'es',
-    'group': u'2023057@N24', # Hint: Take the group id from the head\link to rss 
+    'group': u'2241639@N23', # Hint: Take the group id from the head\link to rss 
     'monument_template': u'BIC',
     'monument_regexp': u'(?:BIC[:=]?)(RI-..-([0-9]+)(-[0-9]+)?)',
-    'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2012 in Spain]]',
+    'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2013 in Spain]]',
 }
 
 def getPhoto(flickr = None, photo_id = ''):
