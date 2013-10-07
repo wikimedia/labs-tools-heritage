@@ -379,7 +379,7 @@ def buildDescription(photo, flinfoDescription=u'', flickrreview=False, reviewer=
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
 											  
-    description = description + u'\n{{Wiki Loves Monuments 2012|' + ripper_config['country'] + '}}'
+    description = description + u'\n{{Wiki Loves Monuments 2013|' + ripper_config['country'] + '}}'
     description = description + u'\n' + ripper_config['categories'] + '\n'
     description = description.replace(u'{{subst:unc}}\n', u'')
     if addCategory:
