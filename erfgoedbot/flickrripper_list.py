@@ -74,7 +74,7 @@ ripper_config = {
     'lang': u'es',
     'group': u'2241639@N23', # Hint: Take the group id from the head\link to rss 
     'monument_template': u'BIC',
-    'monument_regexp': u'(?:BIC[:=]?)(RI-..-([0-9]+)(-[0-9]+)?)',
+    'monument_regexp': u'(?:BIC *[:=]? *)(RI-..-([0-9]+)(-[0-9]+)?)',
     'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2013 in Spain]]',
 }
 
