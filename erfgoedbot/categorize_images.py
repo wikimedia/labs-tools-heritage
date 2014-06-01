@@ -17,7 +17,6 @@ python categorize_images.py -countrycode:ee -lang:et
 '''
 import sys
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, pagegenerators, catlib
 import re, imagerecat
 import MySQLdb, config

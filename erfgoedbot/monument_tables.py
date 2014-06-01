@@ -7,7 +7,6 @@ Author: Platonides
 '''
 import sys, time, warnings
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 #import wikipedia, MySQLdb, config, re, pagegenerators
 
 def processCountry(countrycode, lang, countryconfig):

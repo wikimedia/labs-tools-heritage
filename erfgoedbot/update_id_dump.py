@@ -13,9 +13,7 @@ python update_id_dump.py
 
 '''
 import sys, time
-sys.path.append("/home/project/e/r/f/erfgoed/erfgoedbot")
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
 
 def connectDatabase():

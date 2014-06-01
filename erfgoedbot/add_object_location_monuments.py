@@ -7,7 +7,6 @@ Bot to add {{Object location dec}} to monuments. Location is based on informatio
 '''
 import sys
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config, pagegenerators, catlib
 import re, imagerecat
 import MySQLdb, config, time
@@ -25,7 +24,7 @@ def connectDatabase2():
     '''
     Connect to the commons mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
+    conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
 

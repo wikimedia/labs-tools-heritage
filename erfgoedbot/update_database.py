@@ -13,7 +13,6 @@ python update_database.py -countrycode:XX -lang:YY
 '''
 import sys, time, warnings, datetime
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
 
 def connectDatabase():

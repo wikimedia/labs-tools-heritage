@@ -15,7 +15,6 @@ python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 '''
 import sys
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config
 import MySQLdb, time
 ##import re, imagerecat, pagegenerators, catlib
@@ -34,7 +33,7 @@ def connectDatabase2():
     Connect to the commons mysql database, if it fails, go down in flames
     This database is latin1 encoded.
     '''
-    conn = MySQLdb.connect('commonswiki-p.db.toolserver.org', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
+    conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p', user = config.db_username, passwd = config.db_password, use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
 

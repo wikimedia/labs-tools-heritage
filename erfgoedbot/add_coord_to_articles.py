@@ -18,7 +18,6 @@ python add_coord_to_articles.py -countrycode:XX -lang:YY
 
 import sys, os
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia
 import re, MySQLdb, time
 
@@ -79,7 +78,7 @@ def connectWikiDatabase(lang):
     Connect to the wiki database
     '''
     if (lang):
-        hostName = lang + 'wiki-p.db.toolserver.org'
+        hostName = lang + 'wiki.labsdb'
         dbName = lang + 'wiki_p'
         #coordDbName = 'u_dispenser_p'
         conn = MySQLdb.connect(host=hostName, db=dbName,

@@ -33,8 +33,6 @@ Todo:
 __version__ = '$Id: flickrripper.py 9042 2011-03-13 10:14:47Z xqt $'
 
 import sys, urllib, re,  StringIO, hashlib, base64, time
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
-sys.path.append("../../../pywikipedia/trunk/pywikipedia")
 import wikipedia as pywikibot
 import config, query, imagerecat, upload
 

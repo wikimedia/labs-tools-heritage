@@ -8,7 +8,6 @@ Make a list of top streets for a municipality. Bot expects two things on the com
 '''
 import sys
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, config
 import MySQLdb, time
 from collections import Counter

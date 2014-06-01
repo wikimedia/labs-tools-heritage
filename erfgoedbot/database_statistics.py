@@ -7,7 +7,6 @@ FIXME: Too much code duplication. Should probably just have one list of the poss
 '''
 import sys, time
 import monuments_config as mconfig
-sys.path.append("/home/project/e/r/f/erfgoed/pywikipedia")
 import wikipedia, MySQLdb, config, re, pagegenerators
 
 def connectDatabase():
@@ -61,7 +60,7 @@ def outputStatistics(statistics):
 		#print statistics[country][language]
 
                 output = output + u'|-\n'
-                output = output + u'| [http://toolserver.org/~erfgoed/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[country][language]
+                output = output + u'| [//http://tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[country][language]
                 output = output + u'|| %(lang)s || %(all)s ' % statistics[country][language]
                 output = output + u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % statistics[country][language]
                 output = output + u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % statistics[country][language]
