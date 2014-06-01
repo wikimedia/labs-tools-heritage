@@ -529,7 +529,7 @@ SELECT 'ch-old' AS `country`,
 		`changed` AS `changed`,
 		`monument_article` AS `monument_article`,
 		'' AS `registrant_url`
-		FROM `monuments_ch_(en)`;
+		FROM `monuments-old_ch_(en)`;
 /* Switzerland in Italian */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ch' AS `country`,
@@ -866,7 +866,7 @@ SELECT 'de-he' AS `country`,
         REPLACE( `artikel`, ' ', '_' ) AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_de-he_(de)`;
-/* Nordrhein-Westfalen (North-Rhine Westphalia), Germany in German */
+/* Nordrhein-Westfalen (North-Rhine Westphalia), Germany in German - disabled, was a hack on the Toolserver
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'de-nrw' AS `country`, 
     'de' AS `lang`,
@@ -889,7 +889,7 @@ SELECT 'de-nrw' AS `country`,
 	`changed` AS `changed`,
     `monument_article` AS `monument_article`,
     `registrant_url` AS `registrant_url`
-	FROM u_wiegels_mon_p.`monuments_de-nrw_(de)`;
+	FROM u_wiegels_mon_p.`monuments_de-nrw_(de)`; */
 /* Bergheim, NRW, Germany in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'de-nrw-bm' AS `country`, 

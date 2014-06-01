@@ -6,7 +6,7 @@ Configuration for the monuments bot.
 '''
 
 db_server='tools-db'
-db = 's51138__heritage_p '
+db = 's51138__heritage_p'
 
 countries = {
     ('ad', 'ca') : { # Monuments in Andorra in Catalan table
