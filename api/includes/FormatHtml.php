@@ -70,9 +70,9 @@ class FormatHtml extends FormatBase {
             $tdattrs = '';
 			$cellData = '';
 			if ( in_array( $name, $selectedItems ) ) {
-				if ($name == "image") { 
+				if ($name == "image" || $name == "img_name") {
 					$cellData = self::genImage($value);
-				} elseif ($name == "source") {
+				} elseif ($name == "source" || $name == "img_thumb") {
 					$cellData = self::prettifyUrls( $value ); 
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
