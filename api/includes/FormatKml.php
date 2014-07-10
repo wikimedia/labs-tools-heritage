@@ -26,8 +26,8 @@ class FormatKml extends FormatBase {
 	function outputBegin($selectedItems) {
 		echo '<kml xmlns="http://www.opengis.net/kml/2.2">';
         echo '<Document>
-        <Style id="monumentStyle"><IconStyle id="monumentIcon"><Icon><href>http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>
-        <Style id="monPicStyle"><IconStyle id="monPicIcon"><Icon><href>http://maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>';
+        <Style id="monumentStyle"><IconStyle id="monumentIcon"><Icon><href>//maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>
+        <Style id="monPicStyle"><IconStyle id="monPicIcon"><Icon><href>//maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>';
 	}
 
 	function outputContinue($row, $continueKey, $primaryKey) {

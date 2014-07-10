@@ -6,7 +6,7 @@ function getImageFromCommons($filename, $size) {
         $filename = str_replace(' ', '_', $filename);
         $md5hash = md5($filename);
         //urlencode($filename);
-        $url = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . $filename . "/" . $size . "px-" . $filename;
+        $url = "//upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . $filename . "/" . $size . "px-" . $filename;
         return $url;
     }
 }
