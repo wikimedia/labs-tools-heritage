@@ -6995,7 +6995,7 @@ countries = {
             {
                 'source' : u'bbr',
                 'dest' : u'bbr',
-                'type' : 'varchar(25)',
+                'type' : 'varchar(14)',
                 'default' : '0',
             },
             {
@@ -7074,7 +7074,7 @@ countries = {
             {
                 'source' : u'id',
                 'dest' : u'id',
-                'type' : 'varchar(25)',
+                'type' : 'varchar(14)',
                 'default' : '0',
             },
             {
@@ -7215,6 +7215,76 @@ countries = {
                 'source' : u'signal',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl-sv-ship',
+            },
+        ],
+    },
+    ('se-arbetsliv', 'sv') : { # Working Life Museums in Sweden in Swedish
+        'project' : u'wikipedia',
+        'lang' : u'sv',
+        'headerTemplate' : u'Arbetslivsmuseum-huvud',
+        'rowTemplate' : u'Arbetslivsmuseum',
+        'footerTemplate' : u'',
+        'commonsTemplate' : u'Arbetslivsmuseum',
+        'commonsTrackerCategory' : u'Working Life Museums in Sweden with known IDs',
+        'commonsCategoryBase' : u'Working Life Museums in Sweden',
+        'unusedImagesPage' : u'User:Multichill/Unused Working Life Museums in Sweden',
+        'imagesWithoutIdPage' : u'User:Multichill/Working Life Museums in Sweden without ID',
+        'registrantUrlBase' : u'', #they have yet to get their direct URLs to work
+        'namespaces' : [0],
+        'table' : u'monuments_se-arbetsliv_(sv)',
+        'truncate' : False, 
+        'primkey' : u'id',
+        'fields' :  [
+            {
+                'source' : u'id',
+                'dest' : u'id',
+                'type' : 'varchar(4)',
+                'default' : '0',
+            },
+            {
+                'source' : u'namn',
+                'dest' : u'namn',
+            },
+            {
+                'source' : u'region-iso',
+                'dest' : u'region-iso',
+            },
+            {
+                'source' : u'namn',
+                'dest' : u'monument_article',
+                'conv' : u'extractWikilink',
+            },
+            {
+                'source' : u'typ',
+                'dest' : u'typ',
+            },
+            {
+                'source' : u'kommun',
+                'dest' : u'kommun',
+            },
+            {
+                'source' : u'ort',
+                'dest' : u'ort',
+            },
+            {
+                'source' : u'adress',
+                'dest' : u'adress',
+            },
+            {
+                'source' : u'lat',
+                'dest' : u'lat',
+            },
+            {
+                'source' : u'lon',
+                'dest' : u'lon',
+            },
+            {
+                'source' : u'bild',
+                'dest' : u'bild',
+            },
+            {
+                'source' : u'commonscat',
+                'dest' : u'commonscat',
             },
         ],
     },

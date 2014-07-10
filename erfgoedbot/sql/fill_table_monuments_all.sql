@@ -2064,6 +2064,30 @@ SELECT 'se-ship' AS `country`,
         `artikel` AS `monument_article`,
         `registrant_url` AS `registrant_url`
 	FROM `monuments_se-ship_(sv)`;
+/* Working Life Museums in Sweden in Swedish */
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
+SELECT 'se-arbetsliv' AS `country`,
+       'sv' AS `lang`,
+	`id` AS `id`,
+	'se' AS `adm0`,
+	LOWER(`region-iso`) AS `adm1`,
+	`kommun` AS `adm2`,
+	`ort` AS `adm3`,
+	NULL AS `adm4`,
+	`namn` AS `name`,
+	`adress` AS `address`,
+	`kommun` AS `municipality`,
+	`lat` AS `lat`,
+	`lon` AS `lon`,
+	ROUND(`lat` * @granularity) AS `lat_int`,
+	ROUND(`lon` * @granularity) AS `lon_int`,
+	`bild` AS `image`,
+	`commonscat` AS `commonscat`,
+	`source` AS `source`,
+	`changed` AS `changed`,
+        `monument_article` AS `monument_article`,
+        '' AS `registrant_url` /* FIXME: Add this field to source table */
+	FROM `monuments_se-arbetsliv_(sv)`;
 /* Slovakia in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'sk' AS `country`,
