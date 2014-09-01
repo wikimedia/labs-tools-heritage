@@ -7821,7 +7821,7 @@ countries = {
                 'dest' : u'image',
             },
             {
-                'source' : u'commonscat',
+                'source' : u'галерея',
                 'dest' : u'commonscat',
             },
             {
