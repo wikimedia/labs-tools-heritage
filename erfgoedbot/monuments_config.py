@@ -7067,7 +7067,7 @@ countries = {
         'imagesWithoutIdPage' : u'User:Multichill/Archaeological monuments in Sweden without ID',
         'registrantUrlBase' : u'http://kulturarvsdata.se/raa/fmi/html/%s',
         'namespaces' : [0],
-        'table' : u'monuments_se-fornminne_(sv)',
+        'table' : u'monuments_se-fornmin_(sv)',
         'truncate' : False, 
         'primkey' : u'id',
         'fields' : [
@@ -7231,7 +7231,7 @@ countries = {
         'imagesWithoutIdPage' : u'User:Multichill/Working Life Museums in Sweden without ID',
         'registrantUrlBase' : u'', #they have yet to get their direct URLs to work
         'namespaces' : [0],
-        'table' : u'monuments_se-arbetsliv_(sv)',
+        'table' : u'monuments_se-arbetsl_(sv)',
         'truncate' : False, 
         'primkey' : u'id',
         'fields' :  [
