@@ -2018,7 +2018,7 @@ SELECT 'se-bbr' AS `country`,
 	FROM `monuments_se-bbr_(sv)`;
 /* Fornminne Monuments in Sweden in Swedish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'se-fornminne' AS `country`,
+SELECT 'se-fornmin' AS `country`,
        'sv' AS `lang`,
 	`id` AS `id`,
 	'se' AS `adm0`,
@@ -2039,7 +2039,7 @@ SELECT 'se-fornminne' AS `country`,
 	`changed` AS `changed`,
         `artikel` AS `monument_article`,
         `registrant_url` AS `registrant_url`
-	FROM `monuments_se-fornminne_(sv)`;
+	FROM `monuments_se-fornmin_(sv)`;
 /* Listed historical ships in Sweden in Swedish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'se-ship' AS `country`,
@@ -2066,7 +2066,7 @@ SELECT 'se-ship' AS `country`,
 	FROM `monuments_se-ship_(sv)`;
 /* Working Life Museums in Sweden in Swedish */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
-SELECT 'se-arbetsliv' AS `country`,
+SELECT 'se-arbetsl' AS `country`,
        'sv' AS `lang`,
 	`id` AS `id`,
 	'se' AS `adm0`,
@@ -2087,7 +2087,7 @@ SELECT 'se-arbetsliv' AS `country`,
 	`changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url` /* FIXME: Add this field to source table */
-	FROM `monuments_se-arbetsliv_(sv)`;
+	FROM `monuments_se-arbetsl_(sv)`;
 /* Slovakia in German */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'sk' AS `country`,

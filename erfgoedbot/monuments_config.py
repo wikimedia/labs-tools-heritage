@@ -7218,7 +7218,7 @@ countries = {
             },
         ],
     },
-    ('se-arbetsliv', 'sv') : { # Working Life Museums in Sweden in Swedish
+    ('se-arbetsl', 'sv') : { # Working Life Museums in Sweden in Swedish
         'project' : u'wikipedia',
         'lang' : u'sv',
         'headerTemplate' : u'Arbetslivsmuseum-huvud',
