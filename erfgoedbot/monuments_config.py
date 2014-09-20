@@ -7238,7 +7238,7 @@ countries = {
             {
                 'source' : u'ObjektID',
                 'dest' : u'objektid',
-                'type' : 'varchar(11)',
+                'type' : 'varchar(15)',
                 'default' : '0',
             },
             {
@@ -7345,7 +7345,7 @@ countries = {
             {
                 'source' : u'IDobjektu',
                 'dest' : u'idobjektu',
-                'type' : 'varchar(11)',
+                'type' : 'varchar(15)',
                 'default' : '0',
             },
             {
