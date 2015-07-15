@@ -18,7 +18,7 @@ countries = {
         'commonsTrackerCategory': u'Cultural heritage monuments in Andorra with known IDs',
         'unusedImagesPage' : u'Viquiprojecte:Monuments/Imatges per utilitzar d\'Andorra',
         'commonsCategoryBase': u'Cultural heritage monuments in Andorra',
-        'registrantUrlBase' : u'http://www.patrimonicultural.ad/banc/article.php?id=%s',    
+        'registrantUrlBase' : u'http://www.patrimonicultural.ad/banc/article.php?id=%s',
         'namespaces' : [0],
         'table' : u'monuments_ad_(ca)',
         'truncate' : False,
@@ -175,7 +175,7 @@ countries = {
         'commonsTrackerCategory': u'Antarctic Protected Areas with known IDs',
         'unusedImagesPage' : u'Wikipedia:WikiProject Historic sites/Unused images of Antarctic Protected Areas',
         'commonsCategoryBase': u'Antarctic Protected Areas',
-        #'registrantUrlBase' : Url is in the template    
+        #'registrantUrlBase' : Url is in the template
         'namespaces' : [0],
         'table' : u'monuments_aq_(en)',
         'truncate' : False,
@@ -1093,7 +1093,7 @@ countries = {
         'registrantUrlBase' : u'',
         'namespaces' : [0],
         'table' : u'monuments_be-wal_(nl)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : ('niscode', 'objcode'),
         'fields' : [
             {
@@ -1591,11 +1591,11 @@ countries = {
             {
                 'source' : u'longitude',
                 'dest' : u'lon',
-            },			
+            },
 			{
                 'source' : u'région-ISO',
                 'dest' : u'region-iso',
-            },			
+            },
             {
                 'source' : u'commune',
                 'dest' : u'commune',
@@ -1610,7 +1610,7 @@ countries = {
                 'conv' : u'extractWikilink',
             },
         ]
-    },	
+    },
 	('ch', 'it') : { # Monuments in Switzerland in Italian
         'project' : u'wikipedia',
         'lang' : u'it',
@@ -1642,7 +1642,7 @@ countries = {
             {
                 'source' : u'commonscat',
                 'dest' : u'commonscat',
-            },			
+            },
 			{
                 'source' : u'oggetto',
                 'dest' : u'oggetto',
@@ -1717,11 +1717,11 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-            },       
+            },
             {
                 'source' : u'Fotobeschreibung',
                 'dest' : u'fotobeschreibung',
-            },       
+            },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
@@ -1800,11 +1800,11 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-            },       
+            },
             {
                 'source' : u'Fotobeschreibung',
                 'dest' : u'fotobeschreibung',
-            },       
+            },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
@@ -1883,11 +1883,11 @@ countries = {
             {
                 'source' : u'Foto',
                 'dest' : u'foto',
-            },       
+            },
             {
                 'source' : u'Fotobeschreibung',
                 'dest' : u'fotobeschreibung',
-            },       
+            },
             {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
@@ -2688,7 +2688,7 @@ countries = {
         'commonsCategoryBase' : u'Cultural heritage monuments in Hesse',
         'unusedImagesPage' : u'Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hessen/Ungenutzte Bilder',
         'imagesWithoutIdPage' : u'Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hessen/Bilder ohne Nummer',
-        'registrantUrlBase' : u'http://denkxweb.denkmalpflege-hessen.de/cgi-bin/mapwalk.pl?event=Query.Details&obj=%s',    
+        'registrantUrlBase' : u'http://denkxweb.denkmalpflege-hessen.de/cgi-bin/mapwalk.pl?event=Query.Details&obj=%s',
         'namespaces' : [0],
         'table' : u'monuments_de-he_(de)',
         'truncate' : False, # Not all ids are filled, just overwrite it
@@ -2891,7 +2891,7 @@ countries = {
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Tabellenkopf de-nrw',
-        'rowTemplate' : u'Denkmalliste Tabellenzeile de-nrw', # used for other monuments, too - fix later 
+        'rowTemplate' : u'Denkmalliste Tabellenzeile de-nrw', # used for other monuments, too - fix later
         'commonsTemplate' : u'Kulturdenkmal',
         'commonsTrackerCategory' : u'Cultural heritage monuments in NRW with known ID',
         'commonsCategoryBase' : u'Cultural heritage monuments in North Rhine-Westphalia',
@@ -3253,8 +3253,8 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in Estonia (with known IDs)',
         'commonsCategoryBase' : u'Cultural heritage monuments in Estonia',
         'unusedImagesPage' : u'Vikipeedia:Vikiprojekt_Kultuuripärand/Kasutamata kultuurimälestiste pildid',
-        'imagesWithoutIdPage' : u'Vikipeedia:Vikiprojekt_Kultuuripärand/Ilma registri numbrita pildid',    
-        'registrantUrlBase' : u'http://register.muinas.ee/?menuID=monument&action=view&id=%s',    
+        'imagesWithoutIdPage' : u'Vikipeedia:Vikiprojekt_Kultuuripärand/Ilma registri numbrita pildid',
+        'registrantUrlBase' : u'http://register.muinas.ee/?menuID=monument&action=view&id=%s',
         'namespaces' : [4],
         'table' : u'monuments_ee_(et)',
         'truncate' : False,
@@ -4314,7 +4314,7 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-                'source' : u'name', 
+                'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
@@ -4358,7 +4358,7 @@ countries = {
             {
                 'source' : u'region',
                 'dest' : u'region',
-            }, 
+            },
             {
                 'source' : u'region_iso',
                 'dest' : u'region_iso',
@@ -4366,19 +4366,19 @@ countries = {
             {
                 'source' : u'original_function',
                 'dest' : u'original_function',
-            }, 
+            },
             {
                 'source' : u'built',
                 'dest' : u'built',
-            }, 
+            },
             {
                 'source' : u'location',
                 'dest' : u'location',
-            }, 
+            },
             {
                 'source' : u'comment',
                 'dest' : u'comment',
-            }, 
+            },
             {
                 'source' : u'lat',
                 'dest' : u'lat',
@@ -4582,11 +4582,11 @@ countries = {
                 'dest' : u'district',
             },
             {
-                'source' : u'cím', 
+                'source' : u'cím',
                 'dest' : u'address',
             },
             {
-                'source' : u'helyrajzi szám', 
+                'source' : u'helyrajzi szám',
                 'dest' : u'parcel_number',
             },
             {
@@ -4934,8 +4934,8 @@ countries = {
                 'dest' : u'image',
             },
         ],
-    },        
-    ('it', 'it') : { # Monuments in Italy in Italian 
+    },
+    ('it', 'it') : { # Monuments in Italy in Italian
         'project' : u'wikipedia',
         'lang' : u'it',
         'headerTemplate' : u'WLM2013-intestazione',
@@ -5010,7 +5010,7 @@ countries = {
         ],
     },
 
-    ('it-88', 'ca') : { # Monuments in Sardinia 
+    ('it-88', 'ca') : { # Monuments in Sardinia
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera BC Sard',
@@ -5400,7 +5400,7 @@ countries = {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
-            },        
+            },
         ],
     },
     ('lu', 'lb') : { # Monuments in Luxemburg in Luxemburgish
@@ -5433,7 +5433,7 @@ countries = {
             {
                 'source' : u'uertschaft',
                 'dest' : u'uertschaft',
-            },            
+            },
 			{
                 'source' : u'offiziellen_numm',
                 'dest' : u'offiziellen_numm',
@@ -6363,7 +6363,7 @@ countries = {
                 'source' : u'address',
                 'dest' : u'address',
             },
-            
+
             {
                 'source' : u'lat',
                 'dest' : u'lat',
@@ -6703,7 +6703,7 @@ countries = {
         'imagesWithoutIdPage' : u'User:Multichill/Monument istoric without ID',
         'namespaces' : [0],
         'table' : u'monuments_ro_(ro)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'cod',
         'fields' : [
             {
@@ -6900,7 +6900,7 @@ countries = {
             },
         ],
     },
-    ('ru', 'ru') : { # Monuments in Russia in Russian. 
+    ('ru', 'ru') : { # Monuments in Russia in Russian.
         'project' : u'wikipedia',
         'lang' : u'ru',
         'headerTemplate' : u'WLM/заголовок',
@@ -6989,7 +6989,7 @@ countries = {
         'registrantUrlBase' : u'http://www.bebyggelseregistret.raa.se/bbr2/anlaggning/visaHistorik.raa?page=historik&visaHistorik=true&anlaggningId=%s',
         'namespaces' : [0],
         'table' : u'monuments_se-bbr_(sv)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'bbr',
         'fields' : [
             {
@@ -7068,7 +7068,7 @@ countries = {
         'registrantUrlBase' : u'http://kulturarvsdata.se/raa/fmi/html/%s',
         'namespaces' : [0],
         'table' : u'monuments_se-fornmin_(sv)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'id',
         'fields' : [
             {
@@ -7154,7 +7154,7 @@ countries = {
         'registrantUrlBase' : u'http://www.sjohistoriska.se/sv/Kusten-runt/Fartyg--batar/K-markning-av-fartyg/K-markta-fartyg/%s',
         'namespaces' : [0],
         'table' : u'monuments_se-ship_(sv)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'signal',
         'fields' : [
             {
@@ -7232,7 +7232,7 @@ countries = {
         'registrantUrlBase' : u'', #they have yet to get their direct URLs to work
         'namespaces' : [0],
         'table' : u'monuments_se-arbetsl_(sv)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'id',
         'fields' :  [
             {
@@ -7481,7 +7481,7 @@ countries = {
             {
                 'source' : u'Unifikovaný názov NKP',
                 'dest' : u'unifikovany_nazov_nkp',
-            },			
+            },
             {
                 'source' : u'Obec',
                 'dest' : u'obec',
@@ -7608,7 +7608,7 @@ countries = {
         'commonsTrackerCategory' : u'Cultural heritage monuments in Thailand with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Thailand',
         'autoGeocode' : True,
-        'unusedImagesPage' : u'วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่ได้ใช้', 
+        'unusedImagesPage' : u'วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่ได้ใช้',
         'missingCommonscatPage' : u'',
         'imagesWithoutIdPage' : u'วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่มีรหัส',
         'registrantUrlBase' : u'',
@@ -8302,7 +8302,7 @@ countries = {
         #'registrantUrlBase' : {'AT-9':u'http://www.wien.gv.at/kulturportal/public/grafik.aspx?FeatureClass=kunstkultur&ThemePage=4&FeatureByID=%s','AT-401':u'http://www.linz.at/archiv/denkmal/Default.asp?action=denkmaldetail&id=%s'},
         'namespaces' : [0],
         'table' : u'wlpa_at_(de)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : (u'Region', u'ID'),
         'fields' : [
             {
@@ -8392,7 +8392,7 @@ countries = {
         'registrantUrlBase' : u'http://w10.bcn.es/APPS/gmocataleg_monum/FitxaMonumentAc.do?idioma=CA&codiMonumIntern=/%s',
         'namespaces' : [0],
         'table' : u'wlpa_es-ct_(ca)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'codi',
         'fields' : [
             {
@@ -8483,7 +8483,7 @@ countries = {
         'imagesWithoutIdPage' : u'User:Multichill/Public art in Finland without ID',
         'namespaces' : [0],
         'table' : u'wlpa_fi_(fi)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'id',
         'fields' : [
             {
@@ -8573,7 +8573,7 @@ countries = {
         'imagesWithoutIdPage' : u'User:Multichill/Public art in Israel without ID',
         'namespaces' : [0],
         'table' : u'wlpa_il_(en)',
-        'truncate' : False, 
+        'truncate' : False,
         'primkey' : u'id',
         'fields' : [
             {

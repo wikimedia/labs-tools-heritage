@@ -12,15 +12,22 @@ python update_id_dump.py
 
 
 '''
-import sys, time
+import sys
+import time
 import monuments_config as mconfig
-import wikipedia, MySQLdb, config, re, pagegenerators
+import wikipedia
+import MySQLdb
+import config
+import re
+import pagegenerators
+
 
 def connectDatabase():
     '''
     Connect to the mysql database, if it fails, go down in flames
     '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user = config.db_username, passwd = config.db_password, use_unicode=True, charset='utf8')
+    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
+                           passwd=config.db_password, use_unicode=True, charset='utf8')
     cursor = conn.cursor()
     return (conn, cursor)
 
@@ -43,38 +50,38 @@ def updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor):
 
     query = u"""INSERT INTO `id_dump`("""
 
-    j =0
+    j = 0
     for fieldname in fieldnames:
-	if j==0:
-	    query = query + u"""`%s`""" % (fieldname,)
-	else:
-	    query = query + u""", `%s`""" % (fieldname,)
-	j = j + 1
+        if j == 0:
+            query = query + u"""`%s`""" % (fieldname,)
+        else:
+            query = query + u""", `%s`""" % (fieldname,)
+        j = j + 1
 
     query = query + u""") VALUES ("""
 
-    j =0
+    j = 0
     for fieldvalue in fieldvalues:
-	if j==0:
-	    query = query + u"""%s""" 
-	else:
-	    query = query + u""", %s""" 
-	j = j + 1
+        if j == 0:
+            query = query + u"""%s"""
+        else:
+            query = query + u""", %s"""
+        j = j + 1
 
     query = query + u""")"""
 
-
     cursor.execute(query, fieldvalues)
+
 
 def processMonument(countrycode, lang, params, source, countryconfig, conn, cursor):
     '''
     Process a single instance of a monument row template
     '''
-    
-    id = u''	
+
+    id = u''
 
     for param in params:
-        #Split at =
+        # Split at =
         (field, sep, value) = param.partition(u'=')
         # Remove leading or trailing spaces
         field = field.strip()
@@ -84,10 +91,11 @@ def processMonument(countrycode, lang, params, source, countryconfig, conn, curs
             id = value
             wikipedia.output(u'Field: %s' % (field,))
             wikipedia.output(u'Value: %s' % (value,))
-    
+
     updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor)
-    #print contents
-    #time.sleep(5)
+    # print contents
+    # time.sleep(5)
+
 
 def processText(countrycode, lang, text, source, countryconfig, conn, cursor, page=None):
     '''
@@ -95,27 +103,34 @@ def processText(countrycode, lang, text, source, countryconfig, conn, cursor, pa
     '''
     templates = page.templatesWithParams(thistxt=text)
     for (template, params) in templates:
-	if template==countryconfig.get('rowTemplate'):
-	    #print template
-	    #print params
-	    processMonument(countrycode, lang, params, source, countryconfig, conn, cursor)
-	    #time.sleep(5)
+        if template == countryconfig.get('rowTemplate'):
+            # print template
+            # print params
+            processMonument(
+                countrycode, lang, params, source, countryconfig, conn, cursor)
+            # time.sleep(5)
+
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor):
     '''
     Process all the monuments of one country
     '''
 
-    site = wikipedia.getSite(countryconfig.get('lang'), countryconfig.get('project'))
-    rowTemplate = wikipedia.Page(site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
+    site = wikipedia.getSite(
+        countryconfig.get('lang'), countryconfig.get('project'))
+    rowTemplate = wikipedia.Page(
+        site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
-    transGen = pagegenerators.ReferringPageGenerator(rowTemplate, onlyTemplateInclusion=True)
-    filteredGen = pagegenerators.NamespaceFilterPageGenerator(transGen, countryconfig.get('namespaces'))
+    transGen = pagegenerators.ReferringPageGenerator(
+        rowTemplate, onlyTemplateInclusion=True)
+    filteredGen = pagegenerators.NamespaceFilterPageGenerator(
+        transGen, countryconfig.get('namespaces'))
     pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
     for page in pregenerator:
-	if page.exists() and not page.isRedirectPage():
-	    # Do some checking
-	    processText(countrycode, lang, page.get(), page.permalink(), countryconfig, conn, cursor, page=page)
+        if page.exists() and not page.isRedirectPage():
+            # Do some checking
+            processText(countrycode, lang, page.get(),
+                        page.permalink(), countryconfig, conn, cursor, page=page)
 
 
 def processTextfile(textfile, countryconfig, conn, cursor):
@@ -124,45 +139,51 @@ def processTextfile(textfile, countryconfig, conn, cursor):
     '''
     file = open(textfile, 'r')
     for line in file:
-	processText(line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
+        processText(
+            line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
+
 
 def main():
-	'''
-	The main loop
-	'''
-	# First find out what to work on
+    '''
+    The main loop
+    '''
+    # First find out what to work on
 
-	countrycode = u''
-	textfile = u''
-	conn = None
-	cursor = None
-	(conn, cursor) = connectDatabase()
+    countrycode = u''
+    textfile = u''
+    conn = None
+    cursor = None
+    (conn, cursor) = connectDatabase()
 
-	for arg in wikipedia.handleArgs():
-		if arg.startswith('-countrycode:'):
-			countrycode = arg [len('-countrycode:'):]
-		elif arg.startswith('-textfile:'):
-			textfile = arg [len('-textfile:'):]
+    for arg in wikipedia.handleArgs():
+        if arg.startswith('-countrycode:'):
+            countrycode = arg[len('-countrycode:'):]
+        elif arg.startswith('-textfile:'):
+            textfile = arg[len('-textfile:'):]
 
-		
-	query = u"""TRUNCATE table `id_dump`"""
-	cursor.execute(query)		
-		
-	if countrycode:
-		lang = wikipedia.getSite().language()
-		if not mconfig.countries.get((countrycode, lang)):
-			wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
-			return False
-		wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-		if textfile:
-			wikipedia.output(u'Going to work on textfile.')
-			processTextfile(textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
-		else:
-			processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
-	else:
-		for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-			wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-			processCountry(countrycode, lang, countryconfig, conn, cursor)
+    query = u"""TRUNCATE table `id_dump`"""
+    cursor.execute(query)
+
+    if countrycode:
+        lang = wikipedia.getSite().language()
+        if not mconfig.countries.get((countrycode, lang)):
+            wikipedia.output(
+                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+            return False
+        wikipedia.output(
+            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+        if textfile:
+            wikipedia.output(u'Going to work on textfile.')
+            processTextfile(
+                textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
+        else:
+            processCountry(
+                countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
+    else:
+        for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            wikipedia.output(
+                u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            processCountry(countrycode, lang, countryconfig, conn, cursor)
 
 if __name__ == "__main__":
     try:
