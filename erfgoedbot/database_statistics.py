@@ -72,7 +72,7 @@ def outputStatistics(statistics):
 
             output = output + u'|-\n'
             output = output + \
-                u'| [//http://tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[
+                u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[
                     country][language]
             output = output + \
                 u'|| %(lang)s || %(all)s ' % statistics[country][language]
