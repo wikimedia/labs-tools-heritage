@@ -45,7 +45,7 @@ class StatsBuilder extends Statistics {
             'image' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'image' ),
             'coordinates' => array( 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix.'coordinates' ),
         );
-        ini_set('memory_limit', '256M');
+        ini_set('memory_limit', '512M');
     }
 
     function storeValue($item,$index,$value) {
