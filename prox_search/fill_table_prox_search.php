@@ -5,9 +5,9 @@ ini_set('html_errors', false);
 
 require dirname( __FILE__ ) . '/clsBasicGeosearch.php';
 
-require_once dirname( dirname( __FILE__ ) ) . '/public_html/api/includes/Defaults.php';
-require_once dirname( dirname( __FILE__ ) ) . '/database.inc';
-require dirname( dirname( __FILE__ ) ) . '/public_html/api/autoloader.php';
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/public_html/api/includes/Defaults.php';
+require_once dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc';
+require dirname( dirname( dirname( __FILE__ ) ) ) . '/public_html/api/autoloader.php';
 
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser, $dbPassword );
 if (!$dbStatus) {

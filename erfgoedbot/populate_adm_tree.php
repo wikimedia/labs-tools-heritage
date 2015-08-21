@@ -22,8 +22,8 @@ ini_set( 'memory_limit', '200M' );
 define( 'VERBOSE', false );
 
 $t0 = microtime( true );
-require_once( dirname( dirname( __FILE__ ) ) . '/public_html/api/includes/Defaults.php' );
-require_once( dirname( dirname( __FILE__ ) ) . '/database.inc' );
+require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/public_html/api/includes/Defaults.php' );
+require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc' );
 
 // make the db connection, check for errors
 $db = new mysqli( $dbServer, $dbUser, $dbPassword, $dbDatabase );
