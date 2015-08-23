@@ -451,15 +451,16 @@ def processText(text, source, countryconfig, conn, cursor, page=None, unknownFie
     headerDefaults = {}
 
     for (template, params) in templates:
-        if template == countryconfig.get('headerTemplate'):
+        template_name = template.title(withNamespace=False)
+        if template_name == countryconfig.get('headerTemplate'):
             headerDefaults = processHeader(params, countryconfig)
-        if template == countryconfig.get('rowTemplate'):
+        if template_name == countryconfig.get('rowTemplate'):
             # print template
             # print params
             unknownFields = processMonument(
                 params, source, countryconfig, conn, cursor, page, headerDefaults, unknownFields=unknownFields)
             # time.sleep(5)
-        elif template == u'Commonscat' and len(params) >= 1:
+        elif template_name == u'Commonscat' and len(params) >= 1:
             query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
             cursor.execute(
                 query, (countryconfig.get('lang'), page.title(True), params[0]))
