@@ -30,8 +30,8 @@ python populate_image_table.py -countrycode:xx
 import sys
 import warnings
 import monuments_config as mconfig
-import wikipedia
-import config
+import pywikibot
+from pywikibot import config
 import re
 import MySQLdb
 import time
@@ -96,7 +96,7 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
 
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
-    wikipedia.output(u'For country "%s" I found %s photos tagged with "{{%s}}" in [[Category:%s]]' % (
+    pywikibot.output(u'For country "%s" I found %s photos tagged with "{{%s}}" in [[Category:%s]]' % (
         countrycode, len(photos), commonsTemplate, commonsTrackerCategory))
 
     for catSortKey, page_title in photos:
@@ -118,11 +118,11 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             updateImage(countrycode, monumentId, name, conn, cursor)
 
         except UnicodeDecodeError:
-            wikipedia.output(
+            pywikibot.output(
                 u'Got unicode decode error for %s' % (monumentId,))
         # UnicodeDecodeError is a subclass of ValueError and should catch most
         except ValueError:
-            wikipedia.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.output(u'Got value error for %s' % (monumentId,))
 
     return len(photos)
 
@@ -183,12 +183,12 @@ def makeStatistics(totals):
     text = text + u'| || %s \n' % totalImages
     text = text + u'|}\n'
 
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
         site, u'Commons:Monuments database/Indexed images/Statistics')
 
     comment = u'Updating indexed image statistics. Total indexed images: %s' % totalImages
-    wikipedia.output(text)
+    pywikibot.output(text)
     page.put(newtext=text, comment=comment)
 
 
@@ -200,29 +200,29 @@ def main():
     (conn, cursor) = connectDatabase()
     (conn2, cursor2) = connectDatabase2()
 
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg[len('-countrycode:'):]
 
     if countrycode:
-        wikipedia.output(u'Working on countrycode "%s"' % (countrycode,))
+        pywikibot.output(u'Working on countrycode "%s"' % (countrycode,))
         sources = getSources(countrycode=countrycode)
         if not sources:
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s"' % (countrycode,))
             return False
         else:
             totals = processSources(sources, conn, cursor, conn2, cursor2)
 
     else:
-        wikipedia.output(u'Working on all countrycodes')
+        pywikibot.output(u'Working on all countrycodes')
         sources = getSources()
         if not sources:
-            wikipedia.output(
+            pywikibot.output(
                 u'No sources found, something went completely wrong')
             return False
         else:
-            wikipedia.output(
+            pywikibot.output(
                 u'Found %s countries with monument tracker templates to work on' % (len(sources),))
             totals = processSources(sources, conn, cursor, conn2, cursor2)
 
@@ -230,7 +230,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        wikipedia.stopme()
+    main()
