@@ -13,8 +13,8 @@ python missing_commonscat_links.py -countrycode:XX -lang:YY
 '''
 import sys
 import monuments_config as mconfig
-import wikipedia
-import config
+import pywikibot
+from pywikibot import config
 import re
 import MySQLdb
 import time
@@ -65,9 +65,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     commonscats = getMonumentCommonscats(
         commonsTrackerCategory, conn2, cursor2)
 
-    wikipedia.output(u'withoutCommonscat %s elements' %
+    pywikibot.output(u'withoutCommonscat %s elements' %
                      (len(withoutCommonscat),))
-    wikipedia.output(u'commonscats %s elements' % (len(commonscats),))
+    pywikibot.output(u'commonscats %s elements' % (len(commonscats),))
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
@@ -95,15 +95,15 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                     '^[^\?]+\?title\=(.+?)&', withoutCommonscat.get(monumentId))
                 wikiSourceList = m.group(1)
                 categoryName = commonscats.get(catSortKey)
-                #wikipedia.output(u'Key %s returned a result' % (monumentId,))
-                # wikipedia.output(wikiSourceList)
-                # wikipedia.output(imageName)
+                #pywikibot.output(u'Key %s returned a result' % (monumentId,))
+                # pywikibot.output(wikiSourceList)
+                # pywikibot.output(imageName)
                 if totalCategories <= maxCategories:
                     text = text + u'* <nowiki>|</nowiki> %s = [[:Commons:Category:%s|%s]] - %s @ [[%s]]\n' % (commonscatField, unicode(
                         categoryName, 'utf-8'), unicode(categoryName, 'utf-8').replace(u'_', u' '), monumentId, wikiSourceList)
                 totalCategories = totalCategories + 1
         except ValueError:
-            wikipedia.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.output(u'Got value error for %s' % (monumentId,))
 
     #text = text + u'</gallery>'
 
@@ -118,9 +118,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     text = text + getInterwikisMissingCommonscatPage(countrycode, lang)
 
-    site = wikipedia.getSite(lang, u'wikipedia')
-    page = wikipedia.Page(site, missingCommonscatPage)
-    wikipedia.output(text)
+    site = pywikibot.Site.code, u'wikipedia')
+    page = pywikibot.Page(site, missingCommonscatPage)
+    pywikibot.output(text)
     page.put(text, comment)
 
     return totalCategories
@@ -207,12 +207,12 @@ def makeStatistics(mconfig, totals):
     text = text + u'| || || %s \n' % totalCategories
     text = text + u'|}\n'
 
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
         site, u'Commons:Monuments database/Missing commonscat links/Statistics')
 
     comment = u'Updating missing commonscat links statistics. Total missing links: %s' % totalCategories
-    wikipedia.output(text)
+    pywikibot.output(text)
     page.put(newtext=text, comment=comment)
 
 
@@ -224,24 +224,24 @@ def main():
     (conn, cursor) = connectDatabase()
     (conn2, cursor2) = connectDatabase2()
 
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg[len('-countrycode:'):]
 
     if countrycode:
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            wikipedia.output(
+            pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             totals[(countrycode, lang)] = processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
@@ -249,7 +249,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        wikipedia.stopme()
+    main()
