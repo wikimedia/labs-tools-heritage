@@ -8,11 +8,11 @@ FIXME: Too much code duplication. Should probably just have one list of the poss
 import sys
 import time
 import monuments_config as mconfig
-import wikipedia
+import pywikibot
 import MySQLdb
-import config
+from pywikibot import config
 import re
-import pagegenerators
+from pywikibot import pagegenerators
 
 
 def connectDatabase():
@@ -206,8 +206,8 @@ def outputStatistics(statistics):
     output = output + u'|| %(source)s\n' % totals
 
     output = output + u'|}\n'
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(site, u'Commons:Monuments database/Statistics')
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(site, u'Commons:Monuments database/Statistics')
 
     comment = u'Updating monument database statistics'
     page.put(newtext=output, comment=comment)
@@ -347,7 +347,4 @@ def main():
     outputStatistics(statistics)
 
 if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        wikipedia.stopme()
+    main()
