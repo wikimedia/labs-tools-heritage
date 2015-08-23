@@ -13,7 +13,8 @@ python unused_monument_images.py -countrycode:XX -lang:YY
 '''
 import sys
 import monuments_config as mconfig
-import config
+import pywikibot
+from pywikibot import config
 import re
 import MySQLdb
 import time
@@ -54,8 +55,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     withoutPhoto = getMonumentsWithoutPhoto(countrycode, lang, conn, cursor)
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
-    wikipedia.output(u'withoutPhoto %s elements' % (len(withoutPhoto),))
-    wikipedia.output(u'photos %s elements' % (len(photos),))
+    pywikibot.output(u'withoutPhoto %s elements' % (len(withoutPhoto),))
+    pywikibot.output(u'photos %s elements' % (len(photos),))
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
@@ -75,13 +76,13 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             # No try some variants until we have a hit
 
             # Only remove leading zero's if we don't have a hit.
-            if not monumentId in withoutPhoto:
+            if monumentId not in withoutPhoto:
                 monumentId = monumentId.lstrip(u'0')
             # Only remove leading underscores if we don't have a hit.
-            if not monumentId in withoutPhoto:
+            if monumentId not in withoutPhoto:
                 monumentId = monumentId.lstrip(u'_')
             # Only all uppercase if we don't have a hit.
-            if not monumentId in withoutPhoto:
+            if monumentId not in withoutPhoto:
                 monumentId = monumentId.upper()
 
             if monumentId in withoutPhoto:
@@ -89,16 +90,16 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                     '^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
                 wikiSourceList = m.group(1)
                 imageName = photos.get(catSortKey)
-                #wikipedia.output(u'Key %s returned a result' % (monumentId,))
-                # wikipedia.output(wikiSourceList)
-                # wikipedia.output(imageName)
+                # pywikibot.output(u'Key %s returned a result' % (monumentId,))
+                # pywikibot.output(wikiSourceList)
+                # pywikibot.output(imageName)
                 if totalImages <= maxImages:
                     text = text + \
                         u'File:%s|[[%s|%s]]\n' % (
                             unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
                 totalImages = totalImages + 1
         except ValueError:
-            wikipedia.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.output(u'Got value error for %s' % (monumentId,))
 
     text = text + u'</gallery>'
 
@@ -113,9 +114,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     text = text + getInterwikisUnusedImages(countrycode, lang)
 
-    site = wikipedia.getSite(lang, u'wikipedia')
-    page = wikipedia.Page(site, unusedImagesPage)
-    wikipedia.output(text)
+    site = pywikibot.Site(lang, u'wikipedia')
+    page = pywikibot.Page(site, unusedImagesPage)
+    pywikibot.output(text)
     page.put(text, comment)
 
     return totalImages
@@ -193,12 +194,12 @@ def makeStatistics(mconfig, totals):
     text = text + u'| || || %s \n' % totalImages
     text = text + u'|}\n'
 
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
         site, u'Commons:Monuments database/Unused images/Statistics')
 
     comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
-    wikipedia.output(text)
+    pywikibot.output(text)
     page.put(newtext=text, comment=comment)
 
 
@@ -210,24 +211,24 @@ def main():
     (conn, cursor) = connectDatabase()
     (conn2, cursor2) = connectDatabase2()
 
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg[len('-countrycode:'):]
 
     if countrycode:
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            wikipedia.output(
+            pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             totals[(countrycode, lang)] = processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
@@ -235,7 +236,4 @@ def main():
 
 
 if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        wikipedia.stopme()
+    main()
