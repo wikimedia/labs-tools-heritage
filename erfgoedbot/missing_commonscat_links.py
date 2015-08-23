@@ -118,7 +118,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     text = text + getInterwikisMissingCommonscatPage(countrycode, lang)
 
-    site = pywikibot.Site.code, u'wikipedia')
+    site = pywikibot.Site(lang, u'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
     pywikibot.output(text)
     page.put(text, comment)
