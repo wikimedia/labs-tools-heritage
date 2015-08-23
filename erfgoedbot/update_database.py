@@ -447,7 +447,7 @@ def processText(text, source, countryconfig, conn, cursor, page=None, unknownFie
     if not page:
         site = site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
         page = pywikibot.Page(site, u'User:Multichill/Zandbak')
-    templates = page.templatesWithParams(thistxt=text)
+    templates = page.templatesWithParams()
     headerDefaults = {}
 
     for (template, params) in templates:
