@@ -178,10 +178,11 @@ def connectDatabase():
     return (conn, cursor)
 
 
-def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
+def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
     pywikibot.output(u'Working on: %s' % page.title())
-
-    currentcats = page.categories()
+    site = pywikibot.Site(u'commons', u'commons')
+    commonsTemplate = pywikibot.Page(site, 'Template:%s' % commonsTemplateName)
+    currentcats = list(page.categories())
     if not commonsCategoryBase in currentcats:
         pywikibot.output(u'%s category not found at: %s. Someone probably already categorized it.' % (
             commonsCategoryBase, page.title()))
@@ -255,7 +256,8 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
             if monumentArticle.isRedirectPage():
                 monumentArticle = monumentArticle.getRedirectTarget()
             try:
-                for commonsCatTemplate in commonsCatTemplates:
+                for commonsCatTemplateName in commonsCatTemplates:
+                    commonsCatTemplate = pywikibot.Page(site, 'Template:%s' % commonsCatTemplateName)
                     if commonsCatTemplate in monumentArticle.templates():
                         newcats = []
                         newcats.append(
@@ -279,14 +281,16 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
         oldtext = page.get()
         for currentcat in currentcats:
             if not currentcat.title(withNamespace=False) == commonsCategoryBase.title(withNamespace=False):
-                newcats.append(currentcat)
+                if currentcat.title(withNamespace=False) in oldtext:
+                    newcats.append(currentcat)
+
         # Remove dupes
         newcats = list(set(newcats))
         if not set(currentcats) == set(newcats):
             newtext = pywikibot.replaceCategoryLinks(oldtext, newcats)
 
             comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
-                commonsTemplate, monumentId)
+                commonsTemplateName, monumentId)
             pywikibot.showDiff(oldtext, newtext)
             try:
                 page.put(newtext, comment)
@@ -362,14 +366,16 @@ def getCategories(page, commonsCatTemplates):
     2. Else pull Commonscat links from upper categories
     '''
     result = []
-    for commonsCatTemplate in commonsCatTemplates:
+    for commonsCatTemplateName in commonsCatTemplates:
+        commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
         if commonsCatTemplate in page.templates():
             result.append(getCategoryFromCommonscat(page, commonsCatTemplates))
     if not len(result):
         # print page.categories()
         for cat in page.categories():
             # print cat
-            for commonsCatTemplate in commonsCatTemplates:
+            for commonsCatTemplateName in commonsCatTemplates:
+                commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
                 # print commonsCatTemplate
                 if commonsCatTemplate in cat.templates():
                     # print u'hit!'
@@ -385,7 +391,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     '''
 
     for (template, params) in page.templatesWithParams():
-        if template in commonsCatTemplates:
+        if template.title(withNamespace=False) in commonsCatTemplates:
             if len(params) >= 1:
                 cat_title = params[0]
                 break
