@@ -23,6 +23,10 @@ from pywikibot import pagegenerators
 import re
 import MySQLdb
 
+
+class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedError):
+    pass
+
 # Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
 commonscatTemplates = {
     '_default': (u'Commonscat', []),
@@ -389,20 +393,36 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     '''
     Get a Commons category based on a page with a Commonscat template
     '''
-
     for (template, params) in page.templatesWithParams():
         if template.title(withNamespace=False) in commonsCatTemplates:
             if len(params) >= 1:
                 cat_title = params[0]
-                break
             # commonscat template without parameter
             else:
-                cat_title = page.title(withNamespace=False)
-                break
+                # That may be inferred from Wikidata
+                try:
+                    cat_title = get_Commons_category_via_Wikidata(page)
+                except NoCommonsCatFromWikidataItemException:
+                    cat_title = page.title(withNamespace=False)
+            break
     site = pywikibot.Site(u'commons', u'commons')
     cat = pywikibot.Category(site, cat_title)
-
     return cat
+
+
+def get_Commons_category_via_Wikidata(page):
+    '''
+    Get Commons Category from the linked Wikidata item and P373.
+
+    Raises: NoCommonsCatFromWikidataItemException if either there is no linked item
+            or it does not bear P373
+    '''
+    try:
+        data_item = page.data_item()
+        claims = data_item.get()['claims']
+        return claims['P373'][0].getTarget()
+    except (pywikibot.NoPage, KeyError):
+        raise NoCommonsCatFromWikidataItemException(page)
 
 
 def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor, overridecat=None):
