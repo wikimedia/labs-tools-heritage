@@ -17,15 +17,155 @@ python categorize_images.py -countrycode:ee -lang:et
 '''
 import sys
 import monuments_config as mconfig
-import wikipedia
-import config
-import pagegenerators
-import catlib
+import pywikibot
+from pywikibot import config
+from pywikibot import pagegenerators
 import re
-import imagerecat
 import MySQLdb
-import config
-import commonscat  # Contains the commonscat templates for most Wikipedia's
+
+# Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
+commonscatTemplates = {
+    '_default': (u'Commonscat', []),
+    'af': (u'CommonsKategorie', [u'commonscat']),
+    'an': (u'Commonscat', [u'Commons cat']),
+    'ar': (u'تصنيف كومنز',
+           [u'Commonscat', u'تصنيف كومونز', u'Commons cat', u'CommonsCat']),
+    'arz': (u'Commons cat', [u'Commoncat']),
+    'az': (u'CommonsKat', [u'Commonscat']),
+    'bn': (u'কমন্সক্যাট', [u'Commonscat']),
+    'ca': (u'Commonscat', [u'Commons cat', u'Commons category']),
+    'crh': (u'CommonsKat', [u'Commonscat']),
+    'cs': (u'Commonscat', [u'Commons cat']),
+    'da': (u'Commonscat',
+           [u'Commons cat', u'Commons category', u'Commonscat left',
+            u'Commonscat2']),
+    'en': (u'Commons category',
+           [u'Commoncat', u'Commonscat', u'Commons cat', u'Commons+cat',
+            u'Commonscategory', u'Commons and category', u'Commonscat-inline',
+            u'Commons category-inline', u'Commons2', u'Commons category multi',
+            u'Cms-catlist-up', u'Catlst commons', u'Commonscat show2',
+            u'Sister project links']),
+    'es': (u'Commonscat',
+           [u'Ccat', u'Commons cat', u'Categoría Commons',
+            u'Commonscat-inline']),
+    'et': (u'Commonsi kategooria',
+           [u'Commonscat', u'Commonskat', u'Commons cat', u'Commons category']),
+    'eu': (u'Commonskat', [u'Commonscat']),
+    'fa': (u'ویکی‌انبار-رده',
+           [u'Commonscat', u'Commons cat', u'انبار رده', u'Commons category',
+            u'انبار-رده', u'جعبه پیوند به پروژه‌های خواهر',
+            u'در پروژه‌های خواهر', u'پروژه‌های خواهر']),
+    'fr': (u'Commonscat', [u'CommonsCat', u'Commons cat', u'Commons category']),
+    'frp': (u'Commonscat', [u'CommonsCat']),
+    'ga': (u'Catcómhaoin', [u'Commonscat']),
+    'he': (u'ויקישיתוף בשורה', []),
+    'hi': (u'Commonscat', [u'Commons2', u'Commons cat', u'Commons category']),
+    'hu': (u'Commonskat', [u'Közvagyonkat']),
+    'hy': (u'Վիքիպահեստ կատեգորիա',
+           [u'Commonscat', u'Commons cat', u'Commons category']),
+    'id': (u'Commonscat',
+           [u'Commons cat', u'Commons2', u'CommonsCat', u'Commons category']),
+    'is': (u'CommonsCat', [u'Commonscat']),
+    'ja': (u'Commonscat', [u'Commons cat', u'Commons category']),
+    'jv': (u'Commonscat', [u'Commons cat']),
+    'kaa': (u'Commons cat', [u'Commonscat']),
+    'kk': (u'Commonscat', [u'Commons2']),
+    'ko': (u'Commonscat', [u'Commons cat', u'공용분류']),
+    'la': (u'CommuniaCat', []),
+    'mk': (u'Ризница-врска',
+           [u'Commonscat', u'Commons cat', u'CommonsCat', u'Commons2',
+            u'Commons category']),
+    'ml': (u'Commonscat', [u'Commons cat', u'Commons2']),
+    'ms': (u'Kategori Commons', [u'Commonscat', u'Commons category']),
+    'nn': (u'Commonscat', [u'Commons cat']),
+    'os': (u'Commonscat', [u'Commons cat']),
+    'pt': (u'Commonscat', [u'Commons cat']),
+    'ro': (u'Commonscat', [u'Commons cat']),
+    'ru': (u'Commonscat', [u'Викисклад-кат', u'Commons category']),
+    'simple': (u'Commonscat',
+               [u'Commons cat',  u'Commons cat multi', u'Commons category',
+                u'Commons category multi', u'CommonsCompact',
+                u'Commons-inline']),
+    'sh': (u'Commonscat', [u'Commons cat']),
+    'sl': (u'Kategorija v Zbirki',
+           [u'Commonscat', u'Kategorija v zbirki', u'Commons cat',
+            u'Katzbirke']),
+    'sv': (u'Commonscat',
+           [u'Commonscat-rad', u'Commonskat', u'Commons cat', u'Commonscatbox',
+            u'Commonscat-box']),
+    'sw': (u'Commonscat', [u'Commons2', u'Commons cat']),
+    'te': (u'Commonscat', [u'Commons cat']),
+    'tr': (u'Commons kategori',
+           [u'CommonsKat', u'Commonscat', u'Commons cat']),
+    'uk': (u'Commonscat', [u'Commons cat', u'Category', u'Commonscat-inline']),
+    'vi': (u'Commonscat',
+           [u'Commons2', u'Commons cat', u'Commons category', u'Commons+cat']),
+    'zh': (u'Commonscat', [u'Commons cat', u'Commons category']),
+    'zh-classical': (u'共享類', [u'Commonscat']),
+    'zh-yue': (u'同享類',
+               [u'Commonscat', u'共享類 ', u'Commons cat', u'Commons category']),
+}
+
+ignoreTemplates = {
+    'af': [u'commons'],
+    'ar': [u'تحويلة تصنيف', u'كومنز', u'كومونز', u'Commons'],
+    'be-x-old': [u'Commons', u'Commons category'],
+    'cs': [u'Commons', u'Sestřičky', u'Sisterlinks'],
+    'da': [u'Commons', u'Commons left', u'Commons2', u'Commonsbilleder',
+           u'Commonskat', u'Commonscat2', u'GalleriCommons', u'Søsterlinks'],
+    'de': [u'Commons', u'ZhSZV', u'Bauwerk-stil-kategorien',
+           u'Bauwerk-funktion-kategorien', u'KsPuB',
+           u'Kategoriesystem Augsburg-Infoleiste',
+           u'Kategorie Ge', u'Kategorie v. Chr. Ge',
+           u'Kategorie Geboren nach Jh. v. Chr.', u'Kategorie Geboren nach Jh.',
+           u'!Kategorie Gestorben nach Jh. v. Chr.',
+           u'!Kategorie Gestorben nach Jh.',
+           u'Kategorie Jahr', u'Kategorie Jahr v. Chr.',
+           u'Kategorie Jahrzehnt', u'Kategorie Jahrzehnt v. Chr.',
+           u'Kategorie Jahrhundert', u'Kategorie Jahrhundert v. Chr.',
+           u'Kategorie Jahrtausend', u'Kategorie Jahrtausend v. Chr.'],
+    'en': [u'Category redirect', u'Commons', u'Commonscat1A', u'Commoncats',
+           u'Commonscat4Ra',
+           u'Sisterlinks', u'Sisterlinkswp', u'Sister project links',
+           u'Tracking category', u'Template category', u'Wikipedia category'],
+    'eo': [u'Commons',
+           (u'Projekto/box', 'commons='),
+           (u'Projekto', 'commons='),
+           (u'Projektoj', 'commons='),
+           (u'Projektoj', 'commonscat=')],
+    'es': [u'Commons', u'IprCommonscat'],
+    'eu': [u'Commons'],
+    'fa': [u'Commons', u'ویکی‌انبار', u'Category redirect', u'رده بهتر',
+           u'جعبه پیوند به پروژه‌های خواهر', u'در پروژه‌های خواهر',
+           u'پروژه‌های خواهر'],
+    'fi': [u'Commonscat-rivi', u'Commons-rivi', u'Commons'],
+    'fr': [u'Commons', u'Commons-inline', (u'Autres projets', 'commons=')],
+    'fy': [u'Commons', u'CommonsLyts'],
+    'he': [u'מיזמים'],
+    'hr': [u'Commons', (u'WProjekti', 'commonscat=')],
+    'is': [u'Systurverkefni', u'Commons'],
+    'it': [(u'Ip', 'commons='), (u'Interprogetto', 'commons=')],
+    'ja': [u'CommonscatS', u'SisterlinksN', u'Interwikicat'],
+    'ms': [u'Commons', u'Sisterlinks', u'Commons cat show2'],
+    'nds-nl': [u'Commons'],
+    'nl': [u'Commons', u'Commonsklein', u'Commonscatklein', u'Catbeg',
+           u'Catsjab', u'Catwiki'],
+    'om': [u'Commons'],
+    'pt': [u'Correlatos',
+           u'Commons',
+           u'Commons cat multi',
+           u'Commons1',
+           u'Commons2'],
+    'simple': [u'Sisterlinks'],
+    'ru': [u'Навигация', u'Навигация для категорий', u'КПР', u'КБР',
+           u'Годы в России', u'commonscat-inline'],
+    'tt': [u'Навигация'],
+    'zh': [u'Category redirect', u'cr', u'Commons',
+           u'Sisterlinks', u'Sisterlinkswp',
+           u'Tracking category', u'Trackingcatu',
+           u'Template category', u'Wikipedia category'
+           u'分类重定向', u'追蹤分類', u'共享資源', u'追蹤分類'],
+}
 
 
 def connectDatabase():
@@ -39,21 +179,21 @@ def connectDatabase():
 
 
 def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
-    wikipedia.output(u'Working on: %s' % page.title())
+    pywikibot.output(u'Working on: %s' % page.title())
 
     currentcats = page.categories()
     if not commonsCategoryBase in currentcats:
-        wikipedia.output(u'%s category not found at: %s. Someone probably already categorized it.' % (
+        pywikibot.output(u'%s category not found at: %s. Someone probably already categorized it.' % (
             commonsCategoryBase, page.title()))
         return False
 
     if u'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
-        wikipedia.output(u'%s in %s is a placeholder, skipping it.' % (
+        pywikibot.output(u'%s in %s is a placeholder, skipping it.' % (
             page.title(), commonsCategoryBase))
 
     templates = page.templates()
     if not commonsTemplate in templates:
-        wikipedia.output(u'%s template not found at: %s' %
+        pywikibot.output(u'%s template not found at: %s' %
                          (commonsTemplate, page.title()))
         return False
 
@@ -65,12 +205,12 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
                 try:
                     monumentId = params[0]
                 except ValueError:
-                    wikipedia.output(u'Unable to extract a valid id')
+                    pywikibot.output(u'Unable to extract a valid id')
                 break
 
     # No valid id found, skip the image
     if not monumentId:
-        wikipedia.output(u'Didn\'t find a valid monument identifier')
+        pywikibot.output(u'Didn\'t find a valid monument identifier')
         return False
 
     monData = getMonData(countrycode, lang, monumentId, conn, cursor)
@@ -79,11 +219,11 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
             monumentId = int(monumentId)
             monData = getMonData(countrycode, lang, monumentId, conn, cursor)
         except ValueError:
-            wikipedia.output(
+            pywikibot.output(
                 u'Can\'t convert %s to an integer' % (monumentId,))
 
     if not monData:
-        wikipedia.output(
+        pywikibot.output(
             u'Monument with id %s not in monuments database' % (monumentId, ))
         return False
 
@@ -95,12 +235,12 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     # First try to add a category based on the commonscat field in the list
     if monumentCommonscat:
         # Might want to include some error checking here
-        site = wikipedia.getSite(u'commons', u'commons')
+        site = pywikibot.Site(u'commons', u'commons')
         try:
-            cat = catlib.Category(site, monumentCommonscat)
+            cat = pywikibot.Category(site, monumentCommonscat)
             newcats.append(cat)
         except ValueError:
-            wikipedia.output(u'The Commonscat field for %s contains an invalid category %s' % (
+            pywikibot.output(u'The Commonscat field for %s contains an invalid category %s' % (
                 monumentId, monumentCommonscat))
 
     # Option two is to use the article about the monument and see if it has
@@ -108,8 +248,8 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if not newcats:
         monumentArticle = None
         if monumentArticleTitle:
-            site = wikipedia.getSite(lang, u'wikipedia')
-            monumentArticle = wikipedia.Page(site, monumentArticleTitle)
+            site = pywikibot.Site(lang, u'wikipedia')
+            monumentArticle = pywikibot.Page(site, monumentArticleTitle)
 
         if monumentArticle:
             if monumentArticle.isRedirectPage():
@@ -120,8 +260,8 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
                         newcats = []
                         newcats.append(
                             getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
-            except wikipedia.SectionError:
-                wikipedia.output(u'Incorrect redirect at %s' %
+            except pywikibot.SectionError:
+                pywikibot.output(u'Incorrect redirect at %s' %
                                  (monumentArticle.title(),))
 
     # Option three is to see if the list contains Commonscat links (whole list)
@@ -138,24 +278,24 @@ def categorizeImage(countrycode, lang, commonsTemplate, commonsCategoryBase, com
     if newcats:
         oldtext = page.get()
         for currentcat in currentcats:
-            if not currentcat.titleWithoutNamespace() == commonsCategoryBase.titleWithoutNamespace():
+            if not currentcat.title(withNamespace=False) == commonsCategoryBase.title(withNamespace=False):
                 newcats.append(currentcat)
         # Remove dupes
         newcats = list(set(newcats))
         if not set(currentcats) == set(newcats):
-            newtext = wikipedia.replaceCategoryLinks(oldtext, newcats)
+            newtext = pywikibot.replaceCategoryLinks(oldtext, newcats)
 
             comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
                 commonsTemplate, monumentId)
-            wikipedia.showDiff(oldtext, newtext)
+            pywikibot.showDiff(oldtext, newtext)
             try:
                 page.put(newtext, comment)
                 return True
-            except wikipedia.EditConflict:
-                wikipedia.output(
+            except pywikibot.EditConflict:
+                pywikibot.output(
                     u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
     else:
-        wikipedia.output(u'Categories not found for %s' % page.title())
+        pywikibot.output(u'Categories not found for %s' % page.title())
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
@@ -170,7 +310,7 @@ def getMonData(countrycode, lang, monumentId, conn, cursor):
         row = cursor.fetchone()
         return row
     except TypeError:
-        wikipedia.output(u'Didn\'t find anything for id %s' % (monumentId,))
+        pywikibot.output(u'Didn\'t find anything for id %s' % (monumentId,))
         return False
 
 
@@ -187,9 +327,9 @@ def getArticle(lang, monumentName):
             return False
 
         page_title = match.group(1)
-        site = wikipedia.getSite(lang, u'wikipedia')
+        site = pywikibot.Site(lang, u'wikipedia')
 
-        return wikipedia.Page(site, page_title)
+        return pywikibot.Page(site, page_title)
     else:
         return False
 
@@ -208,9 +348,9 @@ def getList(lang, monumentSource):
             return False
 
         page_title = match.group(1)
-        site = wikipedia.getSite(lang, u'wikipedia')
+        site = pywikibot.Site(lang, u'wikipedia')
 
-        return wikipedia.Page(site, page_title)
+        return pywikibot.Page(site, page_title)
     else:
         return False
 
@@ -251,10 +391,10 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
                 break
             # commonscat template without parameter
             else:
-                cat_title = page.titleWithoutNamespace()
+                cat_title = page.title(withNamespace=False)
                 break
-    site = wikipedia.getSite(u'commons', u'commons')
-    cat = catlib.Category(site, cat_title)
+    site = pywikibot.Site(u'commons', u'commons')
+    cat = pywikibot.Category(site, cat_title)
 
     return cat
 
@@ -272,24 +412,22 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
 
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
-        wikipedia.output(
+        pywikibot.output(
             u'Language: %s has no commonsCatTemplates set!' % lang)
         return False
 
     totalImages = 0
     categorizedImages = 0
 
-    site = wikipedia.getSite(u'commons', u'commons')
+    site = pywikibot.Site(u'commons', u'commons')
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
     commonsTemplate = countryconfig.get('commonsTemplate')
 
     if overridecat:
-        commonsCategoryBase = catlib.Category(
-            site, "%s:%s" % (site.namespace(14), overridecat))
+        commonsCategoryBase = pywikibot.Category(site, "%s:%s" % (site.namespace(14), overridecat))
     else:
-        commonsCategoryBase = catlib.Category(
-            site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
+        commonsCategoryBase = pywikibot.Category(site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
 
     generator = pagegenerators.CategorizedPageGenerator(commonsCategoryBase)
 
@@ -305,7 +443,7 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
         if success:
             categorizedImages = categorizedImages + 1
 
-    return (countrycode, lang, commonsCategoryBase.titleWithoutNamespace(), commonsTemplate, totalImages, categorizedImages)
+    return (countrycode, lang, commonsCategoryBase.title(withNamespace=False), commonsTemplate, totalImages, categorizedImages)
 
 
 def outputStatistics(statistics):
@@ -344,8 +482,8 @@ def outputStatistics(statistics):
         totalImages, categorizedImages, leftoverImages)
     output = output + u'|}\n'
 
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.Page(
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
         site, u'Commons:Monuments database/Categorization/Statistics')
 
     comment = u'Updating categorization statistics. Total: %s Categorized: %s Leftover: %s' % (
@@ -359,10 +497,10 @@ def getCommonscatTemplates(lang=None):
 
     '''
     result = []
-    if lang in commonscat.commonscatTemplates:
-        (prim, backups) = commonscat.commonscatTemplates[lang]
+    if lang in commonscatTemplates:
+        (prim, backups) = commonscatTemplates[lang]
     else:
-        (prim, backups) = commonscat.commonscatTemplates[u'_default']
+        (prim, backups) = commonscatTemplates[u'_default']
     result.append(prim)
     result = result + backups
     return result
@@ -378,19 +516,19 @@ def main():
     # Connect database, we need that
     (conn, cursor) = connectDatabase()
 
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg[len('-countrycode:'):]
         elif arg.startswith('-overridecat:'):
             overridecat = arg[len('-overridecat:'):]
 
     if countrycode:
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         commonsCatTemplates = getCommonscatTemplates(lang)
         # print commonsCatTemplates
@@ -399,7 +537,7 @@ def main():
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            wikipedia.output(
+            pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(lang)
             result = processCountry(
@@ -410,7 +548,4 @@ def main():
         outputStatistics(statistics)
 
 if __name__ == "__main__":
-    try:
-        main()
-    finally:
-        wikipedia.stopme()
+    main()
