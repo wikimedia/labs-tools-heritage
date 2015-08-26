@@ -5183,7 +5183,7 @@ countries = {
         'missingCommonscatPage' : u'',
         'imagesWithoutIdPage' : u'ويكيبيديا:الويكي تهوى المعالم 2013/الأردن/Images without id',
         'registrantUrlBase' : u'',
-        'namespaces' : [0, 104],
+        'namespaces' : [0],
         'table' : u'monuments_jo_(ar)',
         'truncate' : False,
         'primkey' : u'id',
