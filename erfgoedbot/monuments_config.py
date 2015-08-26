@@ -6619,7 +6619,7 @@ countries = {
         'unusedImagesPage' : u'Wikipédia:Projetos/Património de Portugal/Fotos IGESPAR não usadas',
         'imagesWithoutIdPage' : u'User:Multichill/IGESPAR without an ID',
         'registrantUrlBase' : u'http://www.igespar.pt/pt/patrimonio/pesquisa/geral/patrimonioimovel/detail/%s',
-        'namespaces' : [102],
+        'namespaces' : [0],
         'table' : u'monuments_pt_(pt)',
         'truncate' : False,
         'primkey' : u'id',
