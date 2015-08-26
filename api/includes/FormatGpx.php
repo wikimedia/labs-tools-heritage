@@ -14,7 +14,7 @@ class FormatGpx extends FormatBase {
 		echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
 		echo '<gpx';
 		echo ' version="1.0"';
-		echo ' creator="Monuments api - http://toolserver.org/~erfgoed/api/api.php"';
+		echo ' creator="Monuments api - https://tools.wmflabs.org/heritage/api/api.php"';
 		echo ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 		echo ' xmlns="http://www.topografix.com/GPX/1/0"';
 		echo ' xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">';

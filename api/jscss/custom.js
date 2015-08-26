@@ -150,7 +150,7 @@ function getInnerText( el ) {
  * @todo support all accepted date formats (bug 8226)
  */
 
-var ts_image_path = 'http://toolserver.org/~erfgoed/toolbox/img/';
+var ts_image_path = '//tools.wmflabs.org/heritage/toolbox/img/';
 var ts_image_up = 'Sort_up.gif';
 var ts_image_down = 'Sort_down.gif';
 var ts_image_none = 'Sort_none.gif';
