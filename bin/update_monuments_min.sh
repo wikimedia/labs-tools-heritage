@@ -1,4 +1,5 @@
-#!/usr/bin/bash
+#!/bin/bash
+#
 # Minimal script to update the monuments database
 
 # First have the erfgoed bot update everything in it's config
