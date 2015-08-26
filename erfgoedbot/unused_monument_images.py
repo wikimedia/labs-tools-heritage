@@ -88,7 +88,11 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             if monumentId in withoutPhoto:
                 m = re.search(
                     '^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
-                wikiSourceList = m.group(1)
+                try:
+                    wikiSourceList = m.group(1)
+                except AttributeError:
+                    pywikibot.output(u'Could not find wikiSourceList for %s (%s)' % (monumentId, withoutPhoto.get(monumentId)))
+                    continue
                 imageName = photos.get(catSortKey)
                 # pywikibot.output(u'Key %s returned a result' % (monumentId,))
                 # pywikibot.output(wikiSourceList)
