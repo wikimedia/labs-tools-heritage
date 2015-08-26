@@ -559,13 +559,22 @@ def main():
             processTextfile(
                 textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
         else:
-            processCountry(
-                mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
+            try:
+                processCountry(
+                    mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
+            except Exception, e:
+                pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
+                pywikibot.output(str(e))
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
+            try:
+                processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
+            except Exception, e:
+                pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
+                pywikibot.output(str(e))
+                continue
     '''
 
 
