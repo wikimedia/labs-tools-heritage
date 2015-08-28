@@ -424,7 +424,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
         updateMonument(
             contents, source, countryconfig, conn, cursor, sourcePage)
     else:
-        print "No primkey available"
+        pywikibot.output(u"No primkey available on %s" % title)
     return unknownFields
 
 
