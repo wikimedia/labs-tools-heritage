@@ -480,7 +480,7 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
     transGen = pagegenerators.ReferringPageGenerator(
         rowTemplate, onlyTemplateInclusion=True)
     filteredGen = pagegenerators.NamespaceFilterPageGenerator(
-        transGen, countryconfig.get('namespaces'))
+        transGen, countryconfig.get('namespaces'), site=site)
 
     if countryconfig.get('truncate') or fullUpdate:
         # Some countries are always truncated, otherwise only do it when
