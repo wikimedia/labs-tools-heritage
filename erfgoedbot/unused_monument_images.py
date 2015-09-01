@@ -116,7 +116,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     else:
         comment = u'Images to be used in monument lists: %s' % totalImages
 
-    text = text + getInterwikisUnusedImages(countrycode, lang)
+    # text = text + getInterwikisUnusedImages(countrycode, lang)
 
     site = pywikibot.Site(lang, u'wikipedia')
     page = pywikibot.Page(site, unusedImagesPage)
