@@ -3865,7 +3865,7 @@ countries = {
         'commonsCategoryBase': u'Monuments historiques in France',
         'autoGeocode': False,
         'unusedImagesPage': u'Projet:Monuments historiques/Images de monuments français non utilisées',
-        'imagesWithoutIdPage': u'User:Multichill/Monument photos without an ID',
+        'imagesWithoutIdPage': u'Projet:Monuments historiques/Images de monuments français sans identifiant',
         'registrantUrlBase': u'http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s',
         'namespaces': [0],
         'table': u'monuments_fr_(fr)',
@@ -3954,6 +3954,77 @@ countries = {
             },
             {
                 'source': u'notice',
+                'dest': u'registrant_url',
+                'conv': u'generateRegistrantUrl',
+            },
+        ],
+    },
+    ('fr-object', 'fr'): {  # Object monuments in France in French
+        'project': u'wikipedia',
+        'lang': u'fr',
+        'headerTemplate': u'En-tête de tableau objet MH',
+        'rowTemplate': u'Ligne de tableau objet MH',
+        'commonsTemplate': u'Palissy',
+        'commonsTrackerCategory': u'Cultural heritage monument objects in France with known IDs',
+        'commonsCategoryBase': u'Objets monuments historiques in France',
+        'autoGeocode': True,
+        'unusedImagesPage': u'Projet:Monuments historiques/Images de monuments mobiliers français non utilisées',
+        'imagesWithoutIdPage': u'Projet:Monuments historiques/Images de monuments mobiliers français sans identifiant',
+        'registrantUrlBase': u'http://www.culture.gouv.fr/public/mistral/palissy_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s',
+        'namespaces': [0],
+        'table': u'monuments_fr-object_(fr)',
+        'truncate': False,
+        'primkey': u'palissy',
+        'fields': [
+            {
+                'source': u'région_iso',
+                'dest': u'region_iso',
+            },
+            {
+                'source': u'département_iso',
+                'dest': u'departement_iso',
+            },
+            {
+                'source': u'commune',
+                'dest': u'commune',
+                'conv': u'extractWikilink',
+            },
+            {
+                'source': u'lieu',
+                'dest': u'lieu',
+            },
+            {
+                'source': u'description',
+                'dest': u'description',
+            },
+            {
+                'source': u'palissy',
+                'dest': u'palissy',
+                'type': 'varchar(11)',
+                'default': '0',
+            },
+            {
+                'source': u'protection',
+                'dest': u'protection',
+            },
+            {
+                'source': u'type',
+                'dest': u'type',
+            },
+            {
+                'source': u'date',
+                'dest': u'date',
+            },
+            {
+                'source': u'image',
+                'dest': u'image',
+            },
+            {
+                'source': u'commonscat',
+                'dest': u'commonscat',
+            },
+            {
+                'source': u'palissy',
                 'dest': u'registrant_url',
                 'conv': u'generateRegistrantUrl',
             },
