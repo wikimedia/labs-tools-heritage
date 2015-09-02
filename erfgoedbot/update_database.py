@@ -396,9 +396,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
             else:
                 # FIXME: Include more information where it went wrong
                 pywikibot.output(
-                    u'Found unknown field: %s on page %s' % (field, title))
-                pywikibot.output(u'Field: %s' % (field,))
-                pywikibot.output(u'Value: %s' % (value,))
+                    u'Found unknown field on page %s : (%s: %s)' % (title, field, value))
                 if field in unknownFields:
                     unknownFields[field] = unknownFields.get(field) + 1
                 else:
