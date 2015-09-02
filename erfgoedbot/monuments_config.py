@@ -6835,116 +6835,51 @@ countries = {
             },
         ],
     },
-    ('ru-old', 'ru') : { # Monuments in Sint-Petersbug in Russian. Field table names are English already. Keeping for reference
-        'project' : u'wikipedia',
-        'lang' : u'ru',
-        'headerTemplate' : u'ПамАрх header',
-        'rowTemplate' : u'ПамАрх row',
-        'commonsTemplate' : u'Cultural Heritage Russia',
-        #'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
-        #'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
-        'autoGeocode' : False,
-        #'unusedImagesPage' : u'User:Multichill/Unused cultural heritage monuments',
-        #'imagesWithoutIdPage' : u'User:Multichill/Cultural heritage monuments without ID',
-        'namespaces' : [104],
-        'table' : u'monuments_ru-old_(ru)',
-        'truncate' : False,
-        'primkey' : u'id',
-        'fields' : [
-            {
-                'source' : u'id',
-                'dest' : u'id',
-                'type' : 'varchar(25)',
-                'default' : '0',
-            },
-            {
-                'source' : u'имя',
-                'dest' : u'name',
-            },
-            {
-                'source' : u'комплекс',
-                'dest' : u'complex',
-            },
-            {
-                'source' : u'адрес',
-                'dest' : u'address',
-            },
-            {
-                'source' : u'информация',
-                'dest' : u'description',
-            },
-            {
-                'source' : u'субъект_федерации',
-                'dest' : u'region',
-            },
-            {
-                'source' : u'широта',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'долгота',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'изображение',
-                'dest' : u'image',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-        ],
-    },
     ('ru', 'ru') : { # Monuments in Russia in Russian.
-        'project' : u'wikipedia',
+        'project' : u'wikivoyage',
         'lang' : u'ru',
-        'headerTemplate' : u'WLM/заголовок',
-        'rowTemplate' : u'WLM/строка',
-        'commonsTemplate' : u'Cultural Heritage Russia',
+        'headerTemplate' : u'monument-title',
+        'rowTemplate' : u'monument',
+        'commonsTemplate' : False,  # Hack to deactivate categorisation at ru request
         'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
         'autoGeocode' : False,
-        'unusedImagesPage' : u'Проект:Вики любит памятники/Unused images of cultural heritage monuments',
-        'imagesWithoutIdPage' : u'Проект:Вики любит памятники/Images of Cultural heritage monuments without ID',
+        'unusedImagesPage' : u'Культурное наследие России/Неиспользуемые изображения',
+        'imagesWithoutIdPage' : u'Культурное наследие России/Проблемные изображения',
         'registrantUrlBase' : u'http://kulturnoe-nasledie.ru/monuments.php?id=%s',
-        'namespaces' : [0, 104],
+        'namespaces' : [0],
         'table' : u'monuments_ru_(ru)',
         'truncate' : False,
         'primkey' : u'id',
         'fields' : [
             {
-                'source' : u'id',
+                'source' : u'knid',
                 'dest' : u'id',
                 'type' : 'varchar(15)',
                 'default' : '0',
             },
             {
-                'source' : u'название',
+                'source' : u'name',
                 'dest' : u'name',
             },
             {
-                'source' : u'регион',
+                'source' : u'region',
                 'dest' : u'region',
             },
             {
-                'source' : u'регион_iso',
+                'source' : u'region',
                 'dest' : u'region_iso',
             },
             {
-                'source' : u'район',
+                'source' : u'district',
                 'dest' : u'district',
             },
             {
-                'source' : u'нп',
+                'source' : u'municipality',
                 'dest' : u'city',
             },
             {
-                'source' : u'адрес',
+                'source' : u'address',
                 'dest' : u'address',
             },
             {
@@ -6952,11 +6887,11 @@ countries = {
                 'dest' : u'lat',
             },
             {
-                'source' : u'lon',
+                'source' : u'long',
                 'dest' : u'lon',
             },
             {
-                'source' : u'фото',
+                'source' : u'image',
                 'dest' : u'image',
             },
             {
@@ -6964,12 +6899,11 @@ countries = {
                 'dest' : u'commonscat',
             },
             {
-                'source' : u'name',
+                'source' : u'wiki',
                 'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
             },
             {
-                'source' : u'id',
+                'source' : u'knid',
                 'dest' : u'registrant_url',
                 'conv' : u'generateRegistrantUrl',
             },
