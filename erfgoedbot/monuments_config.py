@@ -6838,8 +6838,8 @@ countries = {
     ('ru', 'ru') : { # Monuments in Russia in Russian.
         'project' : u'wikivoyage',
         'lang' : u'ru',
-        'headerTemplate' : u'monument-title',
-        'rowTemplate' : u'monument',
+        'headerTemplate' : u'Monument-title',
+        'rowTemplate' : u'Monument',
         'commonsTemplate' : False,  # Hack to deactivate categorisation at ru request
         'commonsTrackerCategory' : u'Cultural heritage monuments in Russia with known IDs',
         'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
