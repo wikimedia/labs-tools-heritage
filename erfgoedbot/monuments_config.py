@@ -3480,7 +3480,7 @@ countries = {
                 'dest' : u'imagen',
             },
             {
-                'source' : u'commonscat',
+                'source' : u'categoría-Commons',
                 'dest' : u'commonscat',
             },
             {
@@ -3489,11 +3489,11 @@ countries = {
             },
             {
                 'source' : u'CCAA_iso',
-		'dest' : u'CCAA_iso',
+                'dest' : u'CCAA_iso',
             },
             {
-		'source' : u'provincia_iso',
-		'dest' : u'provincia_iso',
+                'source' : u'provincia_iso',
+                'dest' : u'provincia_iso',
             },
             {
                 'source' : u'nombre',
