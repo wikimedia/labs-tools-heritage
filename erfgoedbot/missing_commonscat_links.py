@@ -11,13 +11,11 @@ python missing_commonscat_links.py
 python missing_commonscat_links.py -countrycode:XX -lang:YY
 
 '''
-import sys
 import monuments_config as mconfig
 import pywikibot
 from pywikibot import config
 import re
 import MySQLdb
-import time
 
 
 def connectDatabase():
@@ -71,7 +69,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
-    #text = text + u'<gallery>\n'
+    # text = text + u'<gallery>\n'
     totalCategories = 0
     maxCategories = 1000
 
@@ -95,7 +93,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                     '^[^\?]+\?title\=(.+?)&', withoutCommonscat.get(monumentId))
                 wikiSourceList = m.group(1)
                 categoryName = commonscats.get(catSortKey)
-                #pywikibot.output(u'Key %s returned a result' % (monumentId,))
+                # pywikibot.output(u'Key %s returned a result' % (monumentId,))
                 # pywikibot.output(wikiSourceList)
                 # pywikibot.output(imageName)
                 if totalCategories <= maxCategories:
@@ -105,7 +103,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         except ValueError:
             pywikibot.output(u'Got value error for %s' % (monumentId,))
 
-    #text = text + u'</gallery>'
+    # text = text + u'</gallery>'
 
     if totalCategories >= maxCategories:
         text = text + \

@@ -11,8 +11,6 @@ python update_database.py
 python update_database.py -countrycode:XX -lang:YY
 
 '''
-import sys
-import time
 import warnings
 import datetime
 import monuments_config as mconfig
@@ -135,7 +133,7 @@ def checkLat(lat, monumentKey, countryconfig, sourcePage):
             return True
 
 
-def checkLon(lon, monumentKey,  countryconfig, sourcePage):
+def checkLon(lon, monumentKey, countryconfig, sourcePage):
     if len(lon):
         try:
             lon = float(lon)
@@ -225,7 +223,7 @@ def convertField(field, contents, countryconfig):
         cyear = datetime.datetime.now().year
         try:
             dyear = int(dyear)
-            if (dyear+70) < cyear:
+            if (dyear + 70) < cyear:
                 return u'pd'
             else:
                 return u'noFoP'
@@ -492,7 +490,7 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
         # the time
         pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
         begintime = datetime.datetime.utcnow(
-        ) + datetime.timedelta(days=0-daysBack)
+        ) + datetime.timedelta(days=0 - daysBack)
         generator = pagegenerators.EdittimeFilterPageGenerator(
             pregenerator, begintime=begintime)
 

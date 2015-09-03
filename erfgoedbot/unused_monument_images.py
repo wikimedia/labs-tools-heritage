@@ -11,13 +11,11 @@ python unused_monument_images.py
 python unused_monument_images.py -countrycode:XX -lang:YY
 
 '''
-import sys
 import monuments_config as mconfig
 import pywikibot
 from pywikibot import config
 import re
 import MySQLdb
-import time
 
 
 def connectDatabase():

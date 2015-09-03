@@ -5,14 +5,10 @@ Update the statistics of the monuments database at https://commons.wikimedia.org
 FIXME: Too much code duplication. Should probably just have one list of the possible fields for the functions to work on.
 
 '''
-import sys
-import time
 import monuments_config as mconfig
 import pywikibot
 import MySQLdb
 from pywikibot import config
-import re
-from pywikibot import pagegenerators
 
 
 def connectDatabase():

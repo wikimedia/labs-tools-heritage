@@ -5,11 +5,8 @@ Create the monuments tables SQL from monuments_config.py
 
 Author: Platonides
 '''
-import sys
-import time
-import warnings
+
 import monuments_config as mconfig
-#import wikipedia, MySQLdb, config, re, pagegenerators
 
 
 def processCountry(countrycode, lang, countryconfig):

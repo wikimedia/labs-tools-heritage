@@ -27,14 +27,11 @@ python populate_image_table.py
 python populate_image_table.py -countrycode:xx
 
 '''
-import sys
 import warnings
 import monuments_config as mconfig
 import pywikibot
 from pywikibot import config
-import re
 import MySQLdb
-import time
 
 
 def connectDatabase():
@@ -64,7 +61,7 @@ def getSources(countrycode=u''):
     sources = {}
     for (icountrycode, lang), countryconfig in mconfig.countries.iteritems():
         if not countrycode or (countrycode and countrycode == icountrycode):
-            if not icountrycode in sources:
+            if icountrycode not in sources:
                 if countryconfig.get('commonsTemplate') and countryconfig.get('commonsTrackerCategory'):
                     sources[icountrycode] = {
                         'commonsTemplate': countryconfig.get('commonsTemplate'),
@@ -114,7 +111,7 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             # Remove leading underscors.
             monumentId = monumentId.lstrip(u'_')
             # All uppercase, same happens in other list
-            #monumentId = monumentId.upper()
+            # monumentId = monumentId.upper()
             updateImage(countrycode, monumentId, name, conn, cursor)
 
         except UnicodeDecodeError:

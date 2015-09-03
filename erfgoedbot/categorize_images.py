@@ -15,7 +15,6 @@ python categorize_images.py
 python categorize_images.py -countrycode:ee -lang:et
 
 '''
-import sys
 import monuments_config as mconfig
 import pywikibot
 from pywikibot import config
@@ -87,7 +86,7 @@ commonscatTemplates = {
     'ro': (u'Commonscat', [u'Commons cat']),
     'ru': (u'Commonscat', [u'Викисклад-кат', u'Commons category']),
     'simple': (u'Commonscat',
-               [u'Commons cat',  u'Commons cat multi', u'Commons category',
+               [u'Commons cat', u'Commons cat multi', u'Commons category',
                 u'Commons category multi', u'CommonsCompact',
                 u'Commons-inline']),
     'sh': (u'Commonscat', [u'Commons cat']),
@@ -187,7 +186,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
     site = pywikibot.Site(u'commons', u'commons')
     commonsTemplate = pywikibot.Page(site, 'Template:%s' % commonsTemplateName)
     currentcats = list(page.categories())
-    if not commonsCategoryBase in currentcats:
+    if commonsCategoryBase not in currentcats:
         pywikibot.output(u'%s category not found at: %s. Someone probably already categorized it.' % (
             commonsCategoryBase, page.title()))
         return False
@@ -197,7 +196,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
             page.title(), commonsCategoryBase))
 
     templates = page.templates()
-    if not commonsTemplate in templates:
+    if commonsTemplate not in templates:
         pywikibot.output(u'%s template not found at: %s' %
                          (commonsTemplate, page.title()))
         return False
