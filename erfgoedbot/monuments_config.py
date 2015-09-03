@@ -5004,7 +5004,7 @@ countries = {
                 'dest' : u'immagine',
             },
             {
-                'source' : u'commonscat',
+                'source' : u'comcat',
                 'dest' : u'commonscat',
             },
         ],
