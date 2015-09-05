@@ -198,6 +198,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
     if u'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
         pywikibot.output(u'%s in %s is a placeholder, skipping it.' % (
             page.title(), commonsCategoryBase))
+        return False
 
     templates = page.templates()
     if commonsTemplate not in templates:
