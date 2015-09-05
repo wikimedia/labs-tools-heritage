@@ -19,6 +19,7 @@ import monuments_config as mconfig
 import pywikibot
 from pywikibot import config
 from pywikibot import pagegenerators
+from pywikibot import textlib
 import re
 import MySQLdb
 
@@ -302,17 +303,14 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
 
 def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment):
     oldtext = page.get()
-    currentcats = list(page.categories())
-    for currentcat in currentcats:
-        if not currentcat.title(withNamespace=False) == commonsCategoryBase.title(withNamespace=False):
-            if currentcat.title(withNamespace=False) in oldtext:
-                newcats.append(currentcat)
-
     # Remove dupes
-    newcats = list(set(newcats))
-    if not set(currentcats) == set(newcats):
-        newtext = pywikibot.replaceCategoryLinks(oldtext, newcats)
-
+    newcats_set = set(newcats)
+    # Make sure we do not add categories that were already there
+    currentcats_set = set(textlib.getCategoryLinks(oldtext))
+    final_categories = newcats_set - currentcats_set
+    if final_categories:
+        newtext = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
+        newtext = textlib.replaceCategoryLinks(newtext, final_categories, addOnly=True)
         pywikibot.showDiff(oldtext, newtext)
         try:
             page.put(newtext, comment)
