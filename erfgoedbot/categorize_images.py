@@ -299,6 +299,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         if monumentList.isRedirectPage():
             monumentList = monumentList.getRedirectTarget()
         newcats = getCategories(monumentList, commonsCatTemplates)
+    return newcats
 
 
 def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment):
