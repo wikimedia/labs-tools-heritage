@@ -230,26 +230,9 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
 
     # See if one of the three options worked
     if newcats:
-        oldtext = page.get()
-        for currentcat in currentcats:
-            if not currentcat.title(withNamespace=False) == commonsCategoryBase.title(withNamespace=False):
-                if currentcat.title(withNamespace=False) in oldtext:
-                    newcats.append(currentcat)
-
-        # Remove dupes
-        newcats = list(set(newcats))
-        if not set(currentcats) == set(newcats):
-            newtext = pywikibot.replaceCategoryLinks(oldtext, newcats)
-
-            comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
-                commonsTemplateName, monumentId)
-            pywikibot.showDiff(oldtext, newtext)
-            try:
-                page.put(newtext, comment)
-                return True
-            except pywikibot.EditConflict:
-                pywikibot.output(
-                    u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
+        comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
+            commonsTemplateName, monumentId)
+        replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment)
     else:
         pywikibot.output(u'Categories not found for %s' % page.title())
 
@@ -315,6 +298,28 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         if monumentList.isRedirectPage():
             monumentList = monumentList.getRedirectTarget()
         newcats = getCategories(monumentList, commonsCatTemplates)
+
+
+def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment):
+    oldtext = page.get()
+    currentcats = list(page.categories())
+    for currentcat in currentcats:
+        if not currentcat.title(withNamespace=False) == commonsCategoryBase.title(withNamespace=False):
+            if currentcat.title(withNamespace=False) in oldtext:
+                newcats.append(currentcat)
+
+    # Remove dupes
+    newcats = list(set(newcats))
+    if not set(currentcats) == set(newcats):
+        newtext = pywikibot.replaceCategoryLinks(oldtext, newcats)
+
+        pywikibot.showDiff(oldtext, newtext)
+        try:
+            page.put(newtext, comment)
+            return True
+        except pywikibot.EditConflict:
+            pywikibot.output(
+                u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
