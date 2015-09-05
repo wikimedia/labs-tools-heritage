@@ -23,6 +23,10 @@ import re
 import MySQLdb
 
 
+class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
+    pass
+
+
 class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedError):
     pass
 
@@ -201,19 +205,9 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
                          (commonsTemplate, page.title()))
         return False
 
-    monumentId = None
-
-    for (template, params) in page.templatesWithParams():
-        if template == commonsTemplate:
-            if len(params) >= 1:
-                try:
-                    monumentId = params[0]
-                except ValueError:
-                    pywikibot.output(u'Unable to extract a valid id')
-                break
-
-    # No valid id found, skip the image
-    if not monumentId:
+    try:
+        monumentId = get_monument_id(page, commonsTemplate)
+    except NoMonumentIdentifierFoundException:
         pywikibot.output(u'Didn\'t find a valid monument identifier')
         return False
 
@@ -257,6 +251,21 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
                     u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
     else:
         pywikibot.output(u'Categories not found for %s' % page.title())
+
+
+def get_monument_id(page, commonsTemplate):
+    monumentId = None
+    for (template, params) in page.templatesWithParams():
+        if template == commonsTemplate:
+            if len(params) >= 1:
+                try:
+                    monumentId = params[0]
+                except ValueError:
+                    pywikibot.output(u'Unable to extract a valid id')
+                break
+    if not monumentId:
+        raise NoMonumentIdentifierFoundException
+    return monumentId
 
 
 def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
