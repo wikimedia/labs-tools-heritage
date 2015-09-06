@@ -309,7 +309,8 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
     # Remove dupes
     newcats_set = set(newcats)
     # Make sure we do not add categories that were already there
-    currentcats_set = set(textlib.getCategoryLinks(oldtext))
+    commons_site = pywikibot.Site(u'commons', u'commons')
+    currentcats_set = set(textlib.getCategoryLinks(oldtext, site=commons_site))
     final_categories = newcats_set - currentcats_set
     if final_categories:
         final_text = textlib.replaceCategoryLinks(newtext, final_categories, addOnly=True)
@@ -317,7 +318,7 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
         final_text = newtext
     pywikibot.showDiff(oldtext, final_text)
     try:
-        # page.put(final_text, comment)
+        page.put(final_text, comment)
         return True
     except pywikibot.EditConflict:
         pywikibot.output(
