@@ -25,10 +25,12 @@ import MySQLdb
 
 
 class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
+    message = u"No Monument Identifier could be found"
     pass
 
 
 class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedError):
+    message = u"No CommonsCat could be retrieved through Wikidata for %s"
     pass
 
 # Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
