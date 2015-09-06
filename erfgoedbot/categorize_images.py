@@ -452,7 +452,7 @@ def get_Commons_category_via_Wikidata(page):
         data_item = page.data_item()
         claims = data_item.get()['claims']
         if 'P373' in claims:
-            return claims['P373'][0].getTarget()
+            return 'Category:' + claims['P373'][0].getTarget()
         else:
             commons_site = pywikibot.Site(u'commons', u'commons')
             return data_item.getSitelink(commons_site)
