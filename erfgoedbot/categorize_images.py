@@ -434,12 +434,16 @@ def get_Commons_category_via_Wikidata(page):
     Get Commons Category from the linked Wikidata item and P373.
 
     Raises: NoCommonsCatFromWikidataItemException if either there is no linked item
-            or it does not bear P373
+            or it does not bear P373 or a sitelink to Commons
     '''
     try:
         data_item = page.data_item()
         claims = data_item.get()['claims']
-        return claims['P373'][0].getTarget()
+        if 'P373' in claims:
+            return claims['P373'][0].getTarget()
+        else:
+            commons_site = pywikibot.Site(u'commons', u'commons')
+            return data_item.getSitelink(commons_site)
     except (pywikibot.NoPage, KeyError):
         raise NoCommonsCatFromWikidataItemException(page)
 
