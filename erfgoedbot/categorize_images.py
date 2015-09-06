@@ -306,10 +306,15 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
 
 def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment):
     oldtext = page.get()
-    # In any case we remove the base category
-    newtext = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
     # Remove dupes
     newcats_set = set(newcats)
+    # Make sure we do not add the base category
+    newcats_set = newcats_set - set(commonsCategoryBase)
+    if len(newcats_set):
+        # No categories to add. We do not want to remove the base one
+        return False
+    # In any case we remove the base category
+    newtext = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
     # Make sure we do not add categories that were already there
     commons_site = pywikibot.Site(u'commons', u'commons')
     currentcats_set = set(textlib.getCategoryLinks(oldtext, site=commons_site))
