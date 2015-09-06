@@ -372,18 +372,14 @@ def getList(lang, monumentSource):
     '''
     Get listpage
     '''
-
     if monumentSource:
-        regex = u'^https://%s.wikipedia.org/w/index.php\?title=(.+)&redirect=' % (
+        regex = u'^(https:)?//%s.wikipedia.org/w/index.php\?title=(.+)(&redirect=)?' % (
             lang,)
-
         match = re.search(regex, monumentSource)
         if not match:
             return False
-
         page_title = match.group(1)
         site = pywikibot.Site(lang, u'wikipedia')
-
         return pywikibot.Page(site, page_title)
     else:
         return False
