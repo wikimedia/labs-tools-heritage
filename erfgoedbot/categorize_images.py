@@ -310,7 +310,7 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
     newcats_set = set(newcats)
     # Make sure we do not add the base category
     newcats_set = newcats_set - set([commonsCategoryBase])
-    if len(newcats_set):
+    if not newcats_set:
         # No categories to add. We do not want to remove the base one
         return False
     # In any case we remove the base category
@@ -414,7 +414,10 @@ def getCategories(page, commonsCatTemplates):
                     result.add(
                         getCategoryFromCommonscat(cat, commonsCatTemplates))
             try:
-                result.add(get_Commons_category_via_Wikidata(cat))
+                site = pywikibot.Site(u'commons', u'commons')
+                new_cat_title = get_Commons_category_via_Wikidata(cat)
+                new_cat = pywikibot.Category(site, new_cat_title)
+                result.add(new_cat)
             except NoCommonsCatFromWikidataItemException:
                 pass
     return result
