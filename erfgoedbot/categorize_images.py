@@ -393,13 +393,19 @@ def getCategories(page, commonsCatTemplates):
     '''
     Get Commons categories based on page.
     1. If page contains a Commonscat template, use that category
-    2. Else pull Commonscat links from upper categories
+    2. Else, try getting it from Wikidata
+    3. Else pull Commonscat links from upper categories
     '''
-    result = []
+    result = set()
     for commonsCatTemplateName in commonsCatTemplates:
         commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
         if commonsCatTemplate in page.templates():
-            result.append(getCategoryFromCommonscat(page, commonsCatTemplates))
+            result.add(getCategoryFromCommonscat(page, commonsCatTemplates))
+    if not len(result):
+        try:
+            result.add(get_Commons_category_via_Wikidata(page))
+        except NoCommonsCatFromWikidataItemException:
+            pass
     if not len(result):
         # print page.categories()
         for cat in page.categories():
@@ -409,9 +415,12 @@ def getCategories(page, commonsCatTemplates):
                 # print commonsCatTemplate
                 if commonsCatTemplate in cat.templates():
                     # print u'hit!'
-                    result.append(
+                    result.add(
                         getCategoryFromCommonscat(cat, commonsCatTemplates))
-
+            try:
+                result.add(get_Commons_category_via_Wikidata(cat))
+            except NoCommonsCatFromWikidataItemException:
+                pass
     return result
 
 
