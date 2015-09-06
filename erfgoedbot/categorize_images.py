@@ -309,7 +309,7 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
     # Remove dupes
     newcats_set = set(newcats)
     # Make sure we do not add the base category
-    newcats_set = newcats_set - set(commonsCategoryBase)
+    newcats_set = newcats_set - set([commonsCategoryBase])
     if len(newcats_set):
         # No categories to add. We do not want to remove the base one
         return False
