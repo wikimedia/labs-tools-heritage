@@ -25,7 +25,7 @@ import MySQLdb
 
 
 class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
-    message = u"No Monument Identifier could be found"
+    message = u"No Monument Identifier could be found for %s"
     pass
 
 
@@ -251,39 +251,37 @@ def get_monument_id(page, commonsTemplate):
                     pywikibot.output(u'Unable to extract a valid id')
                 break
     if not monumentId:
-        raise NoMonumentIdentifierFoundException
+        raise NoMonumentIdentifierFoundException(page)
     return monumentId
 
 
 def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
     (monumentName, monumentCommonscat,
      monumentArticleTitle, monumentSource) = monData
+    commons_site = pywikibot.Site(u'commons', u'commons')
     newcats = []
     # First try to add a category based on the commonscat field in the list
     if monumentCommonscat:
         # Might want to include some error checking here
-        site = pywikibot.Site(u'commons', u'commons')
         try:
-            cat = pywikibot.Category(site, monumentCommonscat)
+            cat = pywikibot.Category(commons_site, monumentCommonscat)
             newcats.append(cat)
         except ValueError:
             pywikibot.output(u'The Commonscat field for %s contains an invalid category %s' % (
                 monumentId, monumentCommonscat))
-
     # Option two is to use the article about the monument and see if it has
     # Commonscat links
     if not newcats:
         monumentArticle = None
         if monumentArticleTitle:
-            site = pywikibot.Site(lang, u'wikipedia')
-            monumentArticle = pywikibot.Page(site, monumentArticleTitle)
-
+            project_site = pywikibot.Site(lang, u'wikipedia')
+            monumentArticle = pywikibot.Page(project_site, monumentArticleTitle)
         if monumentArticle:
             if monumentArticle.isRedirectPage():
                 monumentArticle = monumentArticle.getRedirectTarget()
             try:
                 for commonsCatTemplateName in commonsCatTemplates:
-                    commonsCatTemplate = pywikibot.Page(site, 'Template:%s' % commonsCatTemplateName)
+                    commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
                     if commonsCatTemplate in monumentArticle.templates():
                         newcats = []
                         newcats.append(
@@ -291,7 +289,6 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
             except pywikibot.SectionError:
                 pywikibot.output(u'Incorrect redirect at %s' %
                                  (monumentArticle.title(),))
-
     # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
         monumentList = getList(lang, monumentSource)
