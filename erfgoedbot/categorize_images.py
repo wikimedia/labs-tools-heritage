@@ -277,18 +277,21 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
             project_site = pywikibot.Site(lang, u'wikipedia')
             monumentArticle = pywikibot.Page(project_site, monumentArticleTitle)
         if monumentArticle:
-            if monumentArticle.isRedirectPage():
-                monumentArticle = monumentArticle.getRedirectTarget()
             try:
-                for commonsCatTemplateName in commonsCatTemplates:
-                    commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
-                    if commonsCatTemplate in monumentArticle.templates():
-                        newcats = []
-                        newcats.append(
-                            getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
-            except pywikibot.SectionError:
-                pywikibot.output(u'Incorrect redirect at %s' %
-                                 (monumentArticle.title(),))
+                if monumentArticle.isRedirectPage():
+                    monumentArticle = monumentArticle.getRedirectTarget()
+                try:
+                    for commonsCatTemplateName in commonsCatTemplates:
+                        commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
+                        if commonsCatTemplate in monumentArticle.templates():
+                            newcats = []
+                            newcats.append(
+                                getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+                except pywikibot.SectionError:
+                    pywikibot.output(u'Incorrect redirect at %s' %
+                                     (monumentArticle.title(),))
+            except pywikibot.exceptions.InvalidTitle:
+                pywikibot.output(u'Incorrect article title %s' % (monumentArticle.title(),))
     # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
         monumentList = getList(lang, monumentSource)
