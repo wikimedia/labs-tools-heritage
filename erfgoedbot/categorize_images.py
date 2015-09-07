@@ -291,7 +291,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                     pywikibot.output(u'Incorrect redirect at %s' %
                                      (monumentArticle.title(),))
             except pywikibot.exceptions.InvalidTitle:
-                pywikibot.output(u'Incorrect article title %s' % (monumentArticle.title(),))
+                pywikibot.output(u'Incorrect article title %s' % (monumentArticleTitle,))
     # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
         monumentList = getList(lang, monumentSource)
