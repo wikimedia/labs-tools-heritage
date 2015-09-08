@@ -269,6 +269,8 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         except ValueError:
             pywikibot.output(u'The Commonscat field for %s contains an invalid category %s' % (
                 monumentId, monumentCommonscat))
+        except pywikibot.exceptions.InvalidTitle:
+            pywikibot.output(u'Incorrect category title %s' % (monumentCommonscat,))
     # Option two is to use the article about the monument and see if it has
     # Commonscat links
     if not newcats:
