@@ -283,7 +283,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                 try:
                     for commonsCatTemplateName in commonsCatTemplates:
                         commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
-                        if is_template_present_in_page(commonsCatTemplate, monumentArticle.templates):
+                        if is_template_present_in_page(commonsCatTemplate, monumentArticle):
                             newcats = []
                             newcats.append(
                                 getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
