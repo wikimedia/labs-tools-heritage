@@ -283,7 +283,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                 try:
                     for commonsCatTemplateName in commonsCatTemplates:
                         commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
-                        if commonsCatTemplate in monumentArticle.templates():
+                        if is_template_present_in_page(commonsCatTemplate, monumentArticle.templates):
                             newcats = []
                             newcats.append(
                                 getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
@@ -385,6 +385,11 @@ def getList(lang, monumentSource):
         return False
 
 
+def is_template_present_in_page(template, page):
+    """Return whether a template is present in a page (as in directly transcluded.)"""
+    return template in [x[0] for x in page.templatesWithParams()]
+
+
 def getCategories(page, commonsCatTemplates):
     '''
     Get Commons categories based on page.
@@ -395,7 +400,7 @@ def getCategories(page, commonsCatTemplates):
     result = set()
     for commonsCatTemplateName in commonsCatTemplates:
         commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
-        if commonsCatTemplate in page.templates():
+        if is_template_present_in_page(commonsCatTemplate, page):
             result.add(getCategoryFromCommonscat(page, commonsCatTemplates))
     if not len(result):
         try:
@@ -409,7 +414,7 @@ def getCategories(page, commonsCatTemplates):
             for commonsCatTemplateName in commonsCatTemplates:
                 commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
                 # print commonsCatTemplate
-                if commonsCatTemplate in cat.templates():
+                if is_template_present_in_page(commonsCatTemplate, cat):
                     # print u'hit!'
                     result.add(
                         getCategoryFromCommonscat(cat, commonsCatTemplates))
