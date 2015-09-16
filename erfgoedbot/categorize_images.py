@@ -439,21 +439,30 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     '''
     Get a Commons category based on a page with a Commonscat template
     '''
-    for (template, params) in page.templatesWithParams():
-        if template.title(withNamespace=False) in commonsCatTemplates:
-            if len(params) >= 1:
-                cat_title = params[0]
-            # commonscat template without parameter
-            else:
-                # That may be inferred from Wikidata
-                try:
-                    cat_title = get_Commons_category_via_Wikidata(page)
-                except NoCommonsCatFromWikidataItemException:
-                    cat_title = page.title(withNamespace=False)
-            break
+    cat_title = None
+    (template, params) = get_commonscat_template_in_page(page, commonsCatTemplates)
+
+    if len(params) >= 1:
+        cat_title = params[0]
+
+    if not cat_title:
+        try:
+            cat_title = get_Commons_category_via_Wikidata(page)
+        except NoCommonsCatFromWikidataItemException:
+            pass
+
+    if not cat_title:
+        cat_title = page.title(withNamespace=False)
+
     site = pywikibot.Site(u'commons', u'commons')
     cat = pywikibot.Category(site, cat_title)
     return cat
+
+
+def get_commonscat_template_in_page(page, commonsCatTemplates):
+    for (template, params) in page.templatesWithParams():
+        if template.title(withNamespace=False) in commonsCatTemplates:
+            return (template, params)
 
 
 def get_Commons_category_via_Wikidata(page):
