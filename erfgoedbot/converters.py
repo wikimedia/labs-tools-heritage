@@ -51,3 +51,16 @@ def extractWikilink(text):
         articleName = ucfirst(articleName)
 
     return articleName
+
+
+def remove_commons_category_prefix(text):
+    result = ''
+    regex = re.compile(r"""
+     (Commons:)?        # Commons prefix
+     (Category:)?       # Category prefix
+     (?P<category>.*)   # The link target
+    """, re.VERBOSE)
+    match = re.search(regex, text)
+    if match:
+        result = match.group('category')
+    return result
