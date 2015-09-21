@@ -6755,6 +6755,7 @@ countries = {
             {
                 'source' : u'Commons',
                 'dest' : u'commonscat',
+                'conv' : u'remove_commons_category_prefix',
             },
             {
                 'source' : u'denumire',

@@ -18,7 +18,7 @@ import pywikibot
 import MySQLdb
 from pywikibot import config
 from pywikibot import pagegenerators
-from converters import CH1903Converter, extractWikilink
+from converters import CH1903Converter, extractWikilink, remove_commons_category_prefix
 
 
 def connectDatabase():
@@ -129,6 +129,8 @@ def convertField(field, contents, countryconfig):
 
     if field.get('conv') == 'extractWikilink':
         return extractWikilink(contents.get(field.get('source')))
+    elif field.get('conv') == 'remove_commons_category_prefix':
+        return remove_commons_category_prefix(contents.get(field.get('source')))
     elif field.get('conv') == 'generateRegistrantUrl' and countryconfig.get('registrantUrlBase'):
         return countryconfig.get('registrantUrlBase') % (contents.get(field.get('source')),)
     elif field.get('conv') == 'CH1903ToLat':
