@@ -98,7 +98,7 @@ def outputStatistics(statistics):
                 u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[
                     country][language]
             output = output + \
-                u'|| [http://wlm.wikimedia.org/api/api.php?action=adminlevels&format=json&admtree=%(adm0iso)s %(adm1)s] <small>(%(adm1Percentage)s%%)</small>' % statistics[
+                u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=%(adm0iso)s %(adm1)s] <small>(%(adm1Percentage)s%%)</small>' % statistics[
                     country][language]
             output = output + \
                 u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % statistics[
