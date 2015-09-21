@@ -29,7 +29,11 @@ class TestRemoveCommonsCategoryPrefix(unittest.TestCase):
         text = ''
         self.assertEquals(remove_commons_category_prefix(text), "")
 
-    def test_remove_commons_category_prefix_should_remove_double_prefix(self):
+    def test_remove_commons_category_prefix_lowercase_should_remove_double_prefix(self):
+        text = 'commons:Category:Tropaeum Traiani'
+        self.assertEquals(remove_commons_category_prefix(text), "Tropaeum Traiani")
+
+    def test_remove_commons_category_prefix_uppercase_should_remove_double_prefix(self):
         text = 'Commons:Category:Tropaeum Traiani'
         self.assertEquals(remove_commons_category_prefix(text), "Tropaeum Traiani")
 

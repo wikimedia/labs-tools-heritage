@@ -56,7 +56,7 @@ def extractWikilink(text):
 def remove_commons_category_prefix(text):
     result = ''
     regex = re.compile(r"""
-     (Commons:)?        # Commons prefix
+     ([Cc]ommons:)?     # Commons prefix
      (Category:)?       # Category prefix
      (?P<category>.*)   # The link target
     """, re.VERBOSE)
