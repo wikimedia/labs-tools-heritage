@@ -44,12 +44,17 @@ def ucfirst(text):
 
 def extractWikilink(text):
     articleName = u''
-    result = re.search("\[\[(.+?)(\||\]\])", text)
-    if (result and result.group(1)):
-        articleName = result.group(1)
+    # result = re.search("\[\[(.+?)(\||\]\])", text)
+    regex = re.compile(r"""
+      \[\[              # Opening brackets
+      (?P<target>.+?)   # Link target
+      (\||\]\])         # Either a pipe or closing brackets
+    """, re.VERBOSE)
+    match = re.search(regex, text)
+    if match:
+        articleName = match.group('target')
         articleName = articleName.replace(u' ', u'_')
         articleName = ucfirst(articleName)
-
     return articleName
 
 

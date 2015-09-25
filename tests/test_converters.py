@@ -20,6 +20,18 @@ class TestExtractWikilink(unittest.TestCase):
         article = "[[article]]"
         self.assertEquals(extractWikilink(article), "Article")
 
+    def test_extractWikilink_link_pipe_only(self):
+        article = "[[Article|]]"
+        self.assertEquals(extractWikilink(article), "Article")
+
+    def test_extractWikilink_link_spaces_are_replaced_with_underscores(self):
+        article = "[[Some article|]]"
+        self.assertEquals(extractWikilink(article), "Some_article")
+
+    def test_extractWikilink_link_no_link(self):
+        article = "article"
+        self.assertEquals(extractWikilink(article), "")
+
 
 class TestRemoveCommonsCategoryPrefix(unittest.TestCase):
 
