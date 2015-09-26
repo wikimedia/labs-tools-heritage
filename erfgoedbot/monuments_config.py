@@ -1250,87 +1250,87 @@ countries = {
             },
         ],
     },
-    ('by', 'be-x-old') : { # Belarus in Belarussian
-        'project' : u'wikipedia',
-        'lang' : u'be-x-old',
-        'headerTemplate' : u'Вікі любіць славутасьці/Вяршыня сьпісу',
-        'rowTemplate' : u'Вікі любіць славутасьці/Элемэнт сьпісу',
-        'commonsTemplate' : u'Belarus heritage',
-        'commonsTrackerCategory' : u'Cultural heritage monuments in Belarus with known IDs',
-        'commonsCategoryBase' : u'Cultural heritage monuments in Belarus',
-        'autoGeocode' : True,
-        'unusedImagesPage' : u'User:ErfgoedBot/Unused images of Belarusian heritage monuments',
-        'imagesWithoutIdPage' : u'User:ErfgoedBot/Images of Belarusian heritage monuments without ID',
-        'namespaces' : [4],
-        'table' : u'monuments_by_(be-x-old)',
-        'truncate' : False,
-        'primkey' : u'id',
-        'fields' : [
-            {
-                'source' : u'шыфр',
-                'dest' : u'id',
-                'type' : u'varchar(25)',
-                'default' : '0'
-            },
-            {
-                'source' : u'назва',
-                'dest' : u'name',
-            },
-            {
-                'source' : u'vobłaść-iso',
-                'dest' : u'oblast-iso',
-            },
-            {
-                'source' : u'rajon',
-                'dest' : u'rajon',
-            },
-            {
-                'source' : u'датаваньне',
-                'dest' : u'date',
-            },
-            {
-                'source' : u'населены пункт',
-                'dest' : u'place',
-            },
-            {
-                'source' : u'адрэса',
-                'dest' : u'address',
-            },
-            {
-                'source' : u'катэгорыя',
-                'dest' : u'category',
-            },
-            {
-                'source' : u'шырата',
-                'dest' : u'lat',
-            },
-            {
-                'source' : u'даўгата',
-                'dest' : u'lon',
-            },
-            {
-                'source' : u'каардынаты',
-                'dest' : u'coordinates',
-            },
-            {
-                'source' : u'выява',
-                'dest' : u'image',
-            },
-            {
-                'source' : u'commonscat',
-                'dest' : u'commonscat',
-            },
-            {
-                'source' : u'грамадзкі набытак', # Boolean, not clear what the purpose is
-                'dest' : u'',
-            },
-            {
-                'source' : u'name',
-                'dest' : u'monument_article',
-                'conv' : u'extractWikilink',
-            },
-        ],
-    },
+    # ('by', 'be-x-old') : { # Belarus in Belarussian
+    #     'project' : u'wikipedia',
+    #     'lang' : u'be-x-old',
+    #     'headerTemplate' : u'Вікі любіць славутасьці/Вяршыня сьпісу',
+    #     'rowTemplate' : u'Вікі любіць славутасьці/Элемэнт сьпісу',
+    #     'commonsTemplate' : u'Belarus heritage',
+    #     'commonsTrackerCategory' : u'Cultural heritage monuments in Belarus with known IDs',
+    #     'commonsCategoryBase' : u'Cultural heritage monuments in Belarus',
+    #     'autoGeocode' : True,
+    #     'unusedImagesPage' : u'User:ErfgoedBot/Unused images of Belarusian heritage monuments',
+    #     'imagesWithoutIdPage' : u'User:ErfgoedBot/Images of Belarusian heritage monuments without ID',
+    #     'namespaces' : [4],
+    #     'table' : u'monuments_by_(be-x-old)',
+    #     'truncate' : False,
+    #     'primkey' : u'id',
+    #     'fields' : [
+    #         {
+    #             'source' : u'шыфр',
+    #             'dest' : u'id',
+    #             'type' : u'varchar(25)',
+    #             'default' : '0'
+    #         },
+    #         {
+    #             'source' : u'назва',
+    #             'dest' : u'name',
+    #         },
+    #         {
+    #             'source' : u'vobłaść-iso',
+    #             'dest' : u'oblast-iso',
+    #         },
+    #         {
+    #             'source' : u'rajon',
+    #             'dest' : u'rajon',
+    #         },
+    #         {
+    #             'source' : u'датаваньне',
+    #             'dest' : u'date',
+    #         },
+    #         {
+    #             'source' : u'населены пункт',
+    #             'dest' : u'place',
+    #         },
+    #         {
+    #             'source' : u'адрэса',
+    #             'dest' : u'address',
+    #         },
+    #         {
+    #             'source' : u'катэгорыя',
+    #             'dest' : u'category',
+    #         },
+    #         {
+    #             'source' : u'шырата',
+    #             'dest' : u'lat',
+    #         },
+    #         {
+    #             'source' : u'даўгата',
+    #             'dest' : u'lon',
+    #         },
+    #         {
+    #             'source' : u'каардынаты',
+    #             'dest' : u'coordinates',
+    #         },
+    #         {
+    #             'source' : u'выява',
+    #             'dest' : u'image',
+    #         },
+    #         {
+    #             'source' : u'commonscat',
+    #             'dest' : u'commonscat',
+    #         },
+    #         {
+    #             'source' : u'грамадзкі набытак', # Boolean, not clear what the purpose is
+    #             'dest' : u'',
+    #         },
+    #         {
+    #             'source' : u'name',
+    #             'dest' : u'monument_article',
+    #             'conv' : u'extractWikilink',
+    #         },
+    #     ],
+    # },
     ('ca', 'en') : { # Historic Places of Canada in English
         'project' : u'wikipedia',
         'lang' : u'en',
