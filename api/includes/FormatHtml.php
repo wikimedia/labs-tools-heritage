@@ -74,8 +74,10 @@ class FormatHtml extends FormatBase {
 			if ( in_array( $name, $selectedItems ) ) {
 				if ($name == "image" || $name == "img_name") {
 					$cellData = self::genImage($value);
+				} elseif ($name == "registrant_url") {
+					$cellData = self::makeHTMLlink($value);
 				} elseif ($name == "source" || $name == "img_thumb") {
-					$cellData = self::prettifyUrls( $value ); 
+					$cellData = self::prettifyUrls( $value );
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
                     // not all datasets are ResultWrapper
@@ -115,6 +117,10 @@ class FormatHtml extends FormatBase {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
+	}
+
+	static function makeHTMLlink($text) {
+		return '<a href="' . htmlspecialchars( $text ) . '">' . htmlspecialchars( $text ) . '</a>';
 	}
 
 	static function genImage($img) {
