@@ -78,9 +78,8 @@ class FormatWikitable extends FormatBase {
 	 * Make this a nice link if it is a url (source column)
 	 */
 	static function prettifyUrls($text) {
-		if ( preg_match( '/(http:\/\/([^\.]*)\.wikipedia\.org\/w\/index.php\?title=(.*))&redirect=no&useskin=monobook&oldid=(.*)/', $text, $m ) ) {
-			/* Our current sources are: http://ca.wikipedia.org http://nl.wikipedia.org http://be-x-old.wikipedia.org http://en.wikipedia.org http://et.wikipedia.org http://es.wikipedia.org/ http://fr.wikipedia.org http://lb.wikipedia.org http://pl.wikipedia.org http://pt.wikipedia.org */
-			return '[' . htmlspecialchars( $m[1] . '&oldid=' . $m[4] ) .' '. htmlspecialchars( $m[2] . ': ' . str_replace( '_', ' ', $m[3] ) ) . ']';
+		if ( preg_match( '/(https?:)?\/\/((\w+)\.wikipedia\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $m ) ) {
+			return '[//' . htmlspecialchars( $m[2]  ) .' '. htmlspecialchars( $m[3] . ': ' . str_replace( '_', ' ', $m[4] ) ) . ']';
 		} else {
 			// Normal text
 			return htmlspecialchars( $text );
