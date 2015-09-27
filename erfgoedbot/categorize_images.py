@@ -33,6 +33,10 @@ class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedErro
     message = u"No CommonsCat could be retrieved through Wikidata for %s"
     pass
 
+
+class NoCategoryToAddException(Exception):
+    pass
+
 # Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
 commonscatTemplates = {
     '_default': (u'Commonscat', []),
@@ -311,25 +315,14 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
     return newcats
 
 
-def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=False):
+def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, new_categories, comment, verbose=False):
     oldtext = page.get()
-    # Remove dupes
-    newcats_set = set(newcats)
-    # Make sure we do not add the base category
-    newcats_set = newcats_set - set([commonsCategoryBase])
-    if not newcats_set:
-        # No categories to add. We do not want to remove the base one
+    categories_to_add = deduplicate_categories(new_categories)
+    categories_to_add = remove_base_category_from_categories_to_add_if_present(new_categories, commonsCategoryBase)
+    try:
+        final_text = replace_default_cat_with_new_categories_in_image_text(oldtext, commonsCategoryBase, categories_to_add)
+    except NoCategoryToAddException:
         return False
-    # In any case we remove the base category
-    newtext = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
-    # Make sure we do not add categories that were already there
-    commons_site = pywikibot.Site(u'commons', u'commons')
-    currentcats_set = set(textlib.getCategoryLinks(oldtext, site=commons_site))
-    final_categories = newcats_set - currentcats_set
-    if final_categories:
-        final_text = textlib.replaceCategoryLinks(newtext, final_categories, addOnly=True)
-    else:
-        final_text = newtext
     if verbose:
         pywikibot.showDiff(oldtext, final_text)
     try:
@@ -338,6 +331,37 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
     except pywikibot.EditConflict:
         pywikibot.output(
             u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
+        return False
+
+
+def deduplicate_categories(categories):
+    return list(set(categories))
+
+
+def remove_base_category_from_categories_to_add_if_present(categories, base_category):
+    return set(categories) - set([base_category])
+
+
+def replace_default_cat_with_new_categories_in_image_text(oldtext, commonsCategoryBase, newcats):
+    if not newcats:
+        # No categories to add. We do not want to remove the base one
+        raise NoCategoryToAddException()
+    # In any case we remove the base category
+    page_text_without_old_category = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
+    commons_site = pywikibot.Site(u'commons', u'commons')
+    currentcats = textlib.getCategoryLinks(oldtext, site=commons_site)
+    final_categories = filter_out_categories_to_add(newcats, currentcats)
+    if final_categories:
+        final_text = textlib.replaceCategoryLinks(page_text_without_old_category, final_categories, addOnly=True)
+    else:
+        final_text = page_text_without_old_category
+    return final_text
+
+
+def filter_out_categories_to_add(new_categories, current_categories):
+    """Make sure we do not add categories that were already there."""
+    final_categories = set(new_categories) - set(current_categories)
+    return list(final_categories)
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
