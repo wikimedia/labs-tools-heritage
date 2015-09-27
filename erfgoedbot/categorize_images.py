@@ -235,7 +235,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
     if newcats:
         comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
             commonsTemplateName, monumentId)
-        replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment)
+        replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
         pywikibot.output(u'Categories not found for %s' % page.title())
 
@@ -311,7 +311,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
     return newcats
 
 
-def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment):
+def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=False):
     oldtext = page.get()
     # Remove dupes
     newcats_set = set(newcats)
@@ -330,7 +330,8 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
         final_text = textlib.replaceCategoryLinks(newtext, final_categories, addOnly=True)
     else:
         final_text = newtext
-    pywikibot.showDiff(oldtext, final_text)
+    if verbose:
+        pywikibot.showDiff(oldtext, final_text)
     try:
         page.put(final_text, comment)
         return True
