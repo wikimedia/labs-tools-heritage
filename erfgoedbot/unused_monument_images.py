@@ -24,6 +24,7 @@ def connectDatabase():
     '''
     conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
                            passwd=config.db_password, use_unicode=True, charset='utf8')
+    conn.ping(True)
     cursor = conn.cursor()
     return (conn, cursor)
 
