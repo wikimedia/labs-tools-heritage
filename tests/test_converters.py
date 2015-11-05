@@ -1,7 +1,11 @@
 """Unit tests for converters."""
 
 import unittest
-from erfgoedbot.converters import extractWikilink, remove_commons_category_prefix
+from erfgoedbot.converters import (
+    extractWikilink,
+    remove_commons_category_prefix,
+    CH1903Converter
+)
 
 
 class TestExtractWikilink(unittest.TestCase):
@@ -56,3 +60,15 @@ class TestRemoveCommonsCategoryPrefix(unittest.TestCase):
     def test_remove_commons_category_prefix_with_no_prefix_should_return(self):
         text = 'Tropaeum Traiani'
         self.assertEquals(remove_commons_category_prefix(text), "Tropaeum Traiani")
+
+
+class TestCH1903Converter(unittest.TestCase):
+
+    """Test the CH1903Converter method."""
+
+    def test_CH1903Converter_empty(self):
+        self.assertEquals(CH1903Converter('', ''), (0, 0))
+
+    def test_CH1903Converter_dummy(self):
+        expected = (45.42221774940194, -0.15036807152500034)
+        self.assertEquals(CH1903Converter('1', '1'), expected)
