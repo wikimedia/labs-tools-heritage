@@ -16,14 +16,14 @@ class VectorTemplate extends BaseTemplate {
 	public function execute() {
 		global $wgLang, $wgVectorUseIconWatch;
 
-		$this->skin = $this->data['skin'];
+		$this->skin = $this->getSkin();
 
 		// Build additional attributes for navigation urls
 		//$nav = $this->skin->buildNavigationUrls();
 		$nav = $this->data['content_navigation'];
 
 		if ( $wgVectorUseIconWatch ) {
-			$mode = $this->skin->getTitle()->userIsWatching() ? 'unwatch' : 'watch';
+			$mode = $this->skin->isWatched( $this->skin-<getTitle() ) ? 'unwatch' : 'watch';
 			if ( isset( $nav['actions'][$mode] ) ) {
 				$nav['views'][$mode] = $nav['actions'][$mode];
 				$nav['views'][$mode]['class'] = rtrim( 'icon ' . $nav['views'][$mode]['class'], ' ' );
