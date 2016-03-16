@@ -51,6 +51,7 @@ def connectDatabase2():
     '''
     conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p',
                            user=config.db_username, passwd=config.db_password, use_unicode=True, charset='utf8')
+    conn.ping(True)
     cursor = conn.cursor()
     return (conn, cursor)
 
@@ -155,7 +156,7 @@ def updateImage(countrycode, monumentId, name, conn, cursor):
     Update an entry for a single image
     '''
     query = u"""REPLACE INTO `image` (`country`, `id`, `img_name`) VALUES (%s, %s, %s)"""
-    with warnings.catch_warnings(record=True) as w:
+    with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
         cursor.execute(query, (countrycode, monumentId, name,))
 
