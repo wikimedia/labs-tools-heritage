@@ -1,2 +1,3 @@
 pywikibot
 MySQL-python
+requests
