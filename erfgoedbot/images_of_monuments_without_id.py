@@ -53,7 +53,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
-    project = countryconfig.get('project', u'wikipedia')
+    project = countryconfig.get('project') or u'wikipedia'
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(
