@@ -110,7 +110,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         site = pywikibot.getSite(lang, project)
         page = pywikibot.Page(site, imagesWithoutIdPage)
         pywikibot.output(text)
-        page.put(text, comment)
+        page.put(text, comment, minorEdit=False)
 
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):

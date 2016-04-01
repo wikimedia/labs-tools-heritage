@@ -121,7 +121,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
     pywikibot.output(text)
-    page.put(text, comment)
+    page.put(text, comment, minorEdit=False)
 
     return totalImages
 
