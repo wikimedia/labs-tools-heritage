@@ -48,6 +48,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         return False
 
     unusedImagesPage = countryconfig.get('unusedImagesPage')
+    project = countryconfig.get('project', u'wikipedia')
     commonsTrackerCategory = countryconfig.get(
         'commonsTrackerCategory'). replace(u' ', u'_')
 
@@ -117,7 +118,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     # text = text + getInterwikisUnusedImages(countrycode, lang)
 
-    site = pywikibot.Site(lang, u'wikipedia')
+    site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
     pywikibot.output(text)
     page.put(text, comment)
@@ -215,8 +216,9 @@ def main():
     (conn2, cursor2) = connectDatabase2()
 
     for arg in pywikibot.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode':
+            countrycode = value
 
     if countrycode:
         lang = pywikibot.Site().language()
