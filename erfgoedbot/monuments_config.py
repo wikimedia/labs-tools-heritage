@@ -6846,7 +6846,7 @@ countries = {
         'commonsCategoryBase' : u'Cultural heritage monuments in Russia',
         'autoGeocode' : False,
         'unusedImagesPage' : u'Культурное наследие России/Неиспользуемые изображения',
-        'imagesWithoutIdPage' : u'Культурное наследие России/Проблемные изображения',
+        'imagesWithoutIdPage' : u'Культурное наследие России/Изображения без ID',
         'registrantUrlBase' : u'http://kulturnoe-nasledie.ru/monuments.php?id=%s',
         'namespaces' : [0],
         'table' : u'monuments_ru_(ru)',

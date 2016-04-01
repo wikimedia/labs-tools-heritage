@@ -13,12 +13,10 @@ python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 
 
 '''
-import sys
 import monuments_config as mconfig
 import wikipedia
 import config
 import MySQLdb
-import time
 ##import re, imagerecat, pagegenerators, catlib
 
 
@@ -55,6 +53,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
+    project = countryconfig.get('project', u'wikipedia')
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(
@@ -108,8 +107,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     if imagesWithoutIdPage:
         comment = u'Images without an id'
 
-        site = wikipedia.getSite(lang, u'wikipedia')
-
+        site = wikipedia.getSite(lang, project)
         page = wikipedia.Page(site, imagesWithoutIdPage)
         wikipedia.output(text)
         page.put(text, comment)
@@ -217,8 +215,9 @@ def main():
     (conn2, cursor2) = connectDatabase2()
 
     for arg in wikipedia.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode':
+            countrycode = value
 
     if countrycode:
         # looks like default lang is 'nl'
