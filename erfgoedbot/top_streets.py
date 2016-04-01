@@ -6,10 +6,10 @@ Make a list of top streets for a municipality. Bot expects two things on the com
 * -municipality : The name of the municipality (as it is in the database)
 * -minimum : (optional) The minimum of hits before we show the item
 '''
-import sys
 import monuments_config as mconfig
-import wikipedia, config
-import MySQLdb, time
+import pywikibot
+import config
+import MySQLdb
 from collections import Counter
 
 def connectDatabase():
@@ -69,19 +69,19 @@ def printTopStreets (addresses, minimum):
 		filteredStreets.append(topStreet1)
 		break
 
-    wikipedia.output(u'Filtered out the following. These are probably street parts:')
+    pywikibot.output(u'Filtered out the following. These are probably street parts:')
     for street in streets.most_common():
 	if street[1] < minimum:
 	    break
 	if street[0] in filteredStreets:
-	    wikipedia.output(u'* %s - %s' % street)
+	    pywikibot.output(u'* %s - %s' % street)
 
-    wikipedia.output(u'Found the following entries which are probably real streets:')
+    pywikibot.output(u'Found the following entries which are probably real streets:')
     for street in streets.most_common():
 	if street[1] < minimum:
 	    break
 	if not street[0] in filteredStreets:
-	    wikipedia.output(u'* %s - %s' % street)
+	    pywikibot.output(u'* %s - %s' % street)
 
 
 def main():
@@ -94,7 +94,7 @@ def main():
     # Connect database, we need that
     (conn, cursor) = connectDatabase()
     
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg [len('-countrycode:'):]
 	elif arg.startswith('-municipality:'):
@@ -103,7 +103,7 @@ def main():
 	    minimum = int(arg [len('-minimum:'):])
 
     if countrycode and municipality:
-	lang = wikipedia.getSite().language()
+	lang = pywikibot.getSite().language()
 	addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
 	printTopStreets (addresses, minimum)
     else:
@@ -113,4 +113,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        wikipedia.stopme()
+        pywikibot.stopme()

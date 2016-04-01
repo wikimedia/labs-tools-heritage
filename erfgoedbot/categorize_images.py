@@ -2,7 +2,8 @@
 # -*- coding: utf-8  -*-
 '''
 
-Bot to move images from commonsCategoryBase to subcategories based on the monument template and Commonscat links at the Wikipedia.
+Bot to move images from commonsCategoryBase to subcategories based on the monument
+template and Commonscat links at the Wikipedia.
 First checks if monument article or it's categories have commonscat template,
  if not then checks if monuments list or it's categories have commonscat template.
 
@@ -628,10 +629,11 @@ def main():
     (conn, cursor) = connectDatabase()
 
     for arg in pywikibot.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
-        elif arg.startswith('-overridecat:'):
-            overridecat = arg[len('-overridecat:'):]
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
+        elif option == '-overridecat:':
+            overridecat = value
 
     if countrycode:
         lang = pywikibot.Site().language()

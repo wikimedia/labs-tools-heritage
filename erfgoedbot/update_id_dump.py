@@ -12,13 +12,10 @@ python update_id_dump.py
 
 
 '''
-import sys
-import time
 import monuments_config as mconfig
-import wikipedia
+import pywikibot
 import MySQLdb
 import config
-import re
 import pagegenerators
 
 
@@ -90,8 +87,8 @@ def processMonument(countrycode, lang, params, source, countryconfig, conn, curs
 
         if (field == countryconfig.get('primkey')):
             id = value
-            wikipedia.output(u'Field: %s' % (field,))
-            wikipedia.output(u'Value: %s' % (value,))
+            pywikibot.output(u'Field: %s' % (field,))
+            pywikibot.output(u'Value: %s' % (value,))
 
     updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor)
     # print contents
@@ -117,9 +114,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
     Process all the monuments of one country
     '''
 
-    site = wikipedia.getSite(
+    site = pywikibot.getSite(
         countryconfig.get('lang'), countryconfig.get('project'))
-    rowTemplate = wikipedia.Page(
+    rowTemplate = pywikibot.Page(
         site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
     transGen = pagegenerators.ReferringPageGenerator(
@@ -156,25 +153,26 @@ def main():
     cursor = None
     (conn, cursor) = connectDatabase()
 
-    for arg in wikipedia.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
-        elif arg.startswith('-textfile:'):
-            textfile = arg[len('-textfile:'):]
+    for arg in pywikibot.handleArgs():
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
+        elif option == '-textfile:':
+            textfile = value
 
     query = u"""TRUNCATE table `id_dump`"""
     cursor.execute(query)
 
     if countrycode:
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.getSite().language()
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         if textfile:
-            wikipedia.output(u'Going to work on textfile.')
+            pywikibot.output(u'Going to work on textfile.')
             processTextfile(
                 textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
         else:
@@ -182,7 +180,7 @@ def main():
                 countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            wikipedia.output(
+            pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, conn, cursor)
 
@@ -190,4 +188,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        wikipedia.stopme()
+        pywikibot.stopme()

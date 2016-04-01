@@ -16,10 +16,10 @@ python add_coord_to_articles.py -countrycode:XX -lang:YY
 
 '''
 
-import sys, os
+import os
 import monuments_config as mconfig
-import wikipedia
-import re, MySQLdb, time
+import pywikibot
+import re, MySQLdb
 
 #coordinate templates for different language wikipedias
 wikiData = {
@@ -93,7 +93,7 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
     '''
     if (not coordconfig or not coordconfig.get('coordTemplate')):
         # No template found, just skip.
-        wikipedia.output(u'Language: %s has no coordTemplate set!' % lang)
+        pywikibot.output(u'Language: %s has no coordTemplate set!' % lang)
         return False
 
     (connWiki, cursorWiki) = connectWikiDatabase(lang)
@@ -129,7 +129,7 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
                     monumentsWithArticle.append(aMonument)
     
     if len(duplicateArticles):
-        wikipedia.output(u'Multiple references to following articles: %s in monument lists! Skipped those.' % duplicateArticles[:])
+        pywikibot.output(u'Multiple references to following articles: %s in monument lists! Skipped those.' % duplicateArticles[:])
     
     for aMonument in monumentsWithArticle:
         PageNs = WP_ARTICLE_NS
@@ -252,18 +252,18 @@ def addCoords(countrycode, lang, monument, coordconfig):
     if (countrycode and lang):
         coordTemplate = coordconfig.get('coordTemplate')
         coordTemplateSyntax = coordconfig.get('coordTemplateSyntax')
-        site = wikipedia.getSite(lang, 'wikipedia')
+        site = pywikibot.getSite(lang, 'wikipedia')
 
-        page = wikipedia.Page(site, monument.article)
+        page = pywikibot.Page(site, monument.article)
         try:
             text = page.get()
-        except wikipedia.NoPage: # First except, prevent empty pages
+        except pywikibot.NoPage: # First except, prevent empty pages
             return False
-        except wikipedia.IsRedirectPage: # second except, prevent redirect
-            wikipedia.output(u'%s is a redirect!' % monument.article)
+        except pywikibot.IsRedirectPage: # second except, prevent redirect
+            pywikibot.output(u'%s is a redirect!' % monument.article)
             return False
-        except wikipedia.Error: # third exception, take the problem and print
-            wikipedia.output(u"Some error, skipping..")
+        except pywikibot.Error: # third exception, take the problem and print
+            pywikibot.output(u"Some error, skipping..")
             return False       
     
         if coordTemplate in page.templates():
@@ -272,7 +272,7 @@ def addCoords(countrycode, lang, monument, coordconfig):
         newtext = text
         replCount = 1
         coordText = coordTemplateSyntax % (monument.lat, monument.lon, countrycode.upper() )
-        localCatName = wikipedia.getSite().namespace(WP_CATEGORY_NS)
+        localCatName = pywikibot.getSite().namespace(WP_CATEGORY_NS)
         catStart = r'\[\[(' + localCatName + '|Category):'
         catStartPlain = u'[[' + localCatName + ':'
         replacementText = u''
@@ -287,8 +287,8 @@ def addCoords(countrycode, lang, monument, coordconfig):
             if (matchWikipage and matchWikipage.group(1)): 
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
-            wikipedia.showDiff(text, newtext)
-            modPage = wikipedia.input(u'Modify page: %s ([y]/n) ?' % (monument.article) )
+            pywikibot.showDiff(text, newtext)
+            modPage = pywikibot.input(u'Modify page: %s ([y]/n) ?' % (monument.article) )
             if (modPage.lower == 'y' or modPage == ''):
                 page.put(newtext, comment)
             return True
@@ -304,20 +304,21 @@ def main():
 
     (connMon, cursorMon) = connectMonDatabase()
     
-    for arg in wikipedia.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg [len('-countrycode:'):]
+    for arg in pywikibot.handleArgs():
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
 
     if countrycode:
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.getSite().language()
 	if not mconfig.countries.get((countrycode, lang)):
-	    wikipedia.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+	    pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
 	    return False
-	wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+	pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 	processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), wikiData.get(lang), connMon, cursorMon)
     else:
 	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-	    wikipedia.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+	    pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 	    processCountry(countrycode, lang, countryconfig, wikiData.get(lang), connMon, cursorMon)
 
 
@@ -325,4 +326,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        wikipedia.stopme()
+        pywikibot.stopme()

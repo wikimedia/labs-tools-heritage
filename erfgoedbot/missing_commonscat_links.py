@@ -224,8 +224,9 @@ def main():
     (conn2, cursor2) = connectDatabase2()
 
     for arg in pywikibot.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
 
     if countrycode:
         lang = pywikibot.Site().language()

@@ -81,5 +81,5 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        # wikipedia.stopme()
+        # pywikibot.stopme()
         pass

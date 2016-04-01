@@ -14,7 +14,7 @@ python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 
 '''
 import monuments_config as mconfig
-import wikipedia
+import pywikibot
 import config
 import MySQLdb
 ##import re, imagerecat, pagegenerators, catlib
@@ -107,9 +107,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     if imagesWithoutIdPage:
         comment = u'Images without an id'
 
-        site = wikipedia.getSite(lang, project)
-        page = wikipedia.Page(site, imagesWithoutIdPage)
-        wikipedia.output(text)
+        site = pywikibot.getSite(lang, project)
+        page = pywikibot.Page(site, imagesWithoutIdPage)
+        pywikibot.output(text)
         page.put(text, comment)
 
 
@@ -188,8 +188,8 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     '''
     Add the commonsTemplate with identifier to the image.
     '''
-    site = wikipedia.getSite('commons', 'commons')
-    page = wikipedia.ImagePage(site, image)
+    site = pywikibot.getSite('commons', 'commons')
+    page = pywikibot.ImagePage(site, image)
     if not page.exists() or page.isRedirectPage() or page.isEmpty():
         return False
 
@@ -201,7 +201,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
 
     comment = u'Adding template %s based on usage in list' % (commonsTemplate,)
 
-    wikipedia.showDiff(text, newtext)
+    pywikibot.showDiff(text, newtext)
     page.put(newtext, comment)
     return True
 
@@ -214,25 +214,25 @@ def main():
     (conn, cursor) = connectDatabase()
     (conn2, cursor2) = connectDatabase2()
 
-    for arg in wikipedia.handleArgs():
+    for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
 
     if countrycode:
         # looks like default lang is 'nl'
-        lang = wikipedia.getSite().language()
+        lang = pywikibot.getSite().language()
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            wikipedia.output(
+            pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
@@ -242,4 +242,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        wikipedia.stopme()
+        pywikibot.stopme()

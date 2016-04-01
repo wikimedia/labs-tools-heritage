@@ -5,17 +5,11 @@
 Bot to add {{Object location dec}} to monuments. Location is based on information from the monuments database.
 
 '''
-import sys
 import monuments_config as mconfig
-import wikipedia
+import pywikibot
 import config
 import pagegenerators
-import catlib
-import re
-import imagerecat
 import MySQLdb
-import config
-import time
 
 
 def connectDatabase():
@@ -54,7 +48,7 @@ def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2
 
 
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
-    site = wikipedia.getSite(u'commons', u'commons')
+    site = pywikibot.getSite(u'commons', u'commons')
     query = u"""SELECT  page_title, cl_sortkey FROM page
 JOIN templatelinks ON page_id=tl_from
 JOIN categorylinks ON page_id=cl_from
@@ -79,7 +73,7 @@ AND loccat.cl_to='Media_with_locations') LIMIT 10000"""
             # Nothing left
             break
         if pageName:
-            page = wikipedia.Page(site, 'File:' + unicode(pageName, 'utf-8'))
+            page = pywikibot.Page(site, 'File:' + unicode(pageName, 'utf-8'))
             try:
                 monumentId = unicode(sortkey, 'utf-8')
                 # Just want the first line
@@ -94,16 +88,16 @@ AND loccat.cl_to='Media_with_locations') LIMIT 10000"""
                 monumentId = monumentId.lstrip(u'_')
                 yield (page, monumentId)
             except ValueError:
-                wikipedia.output(u'Got value error for %s' % (monumentId,))
+                pywikibot.output(u'Got value error for %s' % (monumentId,))
 
 
 def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor):
-    wikipedia.output(u'Working on: %s with id %s' % (page.title(), monumentId))
+    pywikibot.output(u'Working on: %s with id %s' % (page.title(), monumentId))
 
     # First check if the identifier returns something useful
     coordinates = getCoordinates(monumentId, countrycode, lang, conn, cursor)
     if not coordinates:
-        wikipedia.output(
+        pywikibot.output(
             u'File contains an unknown identifier: %s' % monumentId)
         return False
 
@@ -114,7 +108,7 @@ def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor
     templates = page.templates()
 
     if u'Location' in page.templates() or u'Location dec' in page.templates() or u'Object location' in page.templates() or u'Object location dec' in page.templates():
-        wikipedia.output(
+        pywikibot.output(
             u'Location template already found at: %s' % page.title())
         return False
 
@@ -151,16 +145,16 @@ LIMIT 1"""
 def addLocation(page, locationTemplate):
     try:
         oldtext = page.get()
-    except wikipedia.NoPage:
+    except pywikibot.NoPage:
         # For some reason we sometimes get a NoPage Exception
-        wikipedia.output(u'No text found at %s. Skipping' % (page.title(),))
+        pywikibot.output(u'No text found at %s. Skipping' % (page.title(),))
         return False
 
     comment = u'Adding object location based on monument identifier'
 
     newtext = putAfterTemplate(
         oldtext, u'Information', locationTemplate, loose=True)
-    wikipedia.showDiff(oldtext, newtext)
+    pywikibot.showDiff(oldtext, newtext)
     page.put(newtext, comment)
 
 
@@ -211,13 +205,13 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
     else:
         if loose:
             newtext = oldtext
-            cats = wikipedia.getCategoryLinks(newtext)
-            ll = wikipedia.getLanguageLinks(newtext)
-            nextext = wikipedia.removeLanguageLinks(newtext)
-            newtext = wikipedia.removeCategoryLinks(newtext)
+            cats = pywikibot.getCategoryLinks(newtext)
+            ll = pywikibot.getLanguageLinks(newtext)
+            nextext = pywikibot.removeLanguageLinks(newtext)
+            newtext = pywikibot.removeCategoryLinks(newtext)
             newtext = newtext + u'\n' + toadd
-            newtext = wikipedia.replaceCategoryLinks(newtext, cats)
-            newtext = wikipedia.replaceLanguageLinks(newtext, ll)
+            newtext = pywikibot.replaceCategoryLinks(newtext, cats)
+            newtext = pywikibot.replaceLanguageLinks(newtext, ll)
 
     return newtext
 
@@ -232,29 +226,30 @@ def main():
     generator = None
     genFactory = pagegenerators.GeneratorFactory()
 
-    for arg in wikipedia.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
+    for arg in pywikibot.handleArgs():
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
 
-    lang = wikipedia.getSite().language()
-    wikipedia.setSite(wikipedia.getSite(u'commons', u'commons'))
+    lang = pywikibot.getSite().language()
+    pywikibot.setSite(pywikibot.getSite(u'commons', u'commons'))
 
     if countrycode:
         if not mconfig.countries.get((countrycode, lang)):
-            wikipedia.output(
+            pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        wikipedia.output(
+        pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         locateCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             if not countryconfig.get('autoGeocode'):
-                wikipedia.output(
+                pywikibot.output(
                     u'"%s" in language "%s" is not supported in auto geocode mode (yet).' % (countrycode, lang))
             else:
-                wikipedia.output(
+                pywikibot.output(
                     u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
                 locateCountry(
                     countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
@@ -263,4 +258,4 @@ if __name__ == "__main__":
     try:
         main()
     finally:
-        wikipedia.stopme()
+        pywikibot.stopme()

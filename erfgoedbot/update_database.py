@@ -486,13 +486,14 @@ def main():
     (conn, cursor) = connectDatabase()
 
     for arg in pywikibot.handleArgs():
-        if arg.startswith('-countrycode:'):
-            countrycode = arg[len('-countrycode:'):]
-        elif arg.startswith('-textfile:'):
-            textfile = arg[len('-textfile:'):]
-        elif arg.startswith('-daysback:'):
-            daysBack = int(arg[len('-daysback:'):])
-        elif arg == u'-fullupdate':
+        option, sep, value = arg.partition(':')
+        if option == '-countrycode:':
+            countrycode = value
+        elif option == '-textfile:':
+            textfile = value
+        elif option == '-daysback:':
+            daysBack = int(value)
+        elif option == u'-fullupdate':
             fullUpdate = True
         else:
             raise Exception(
