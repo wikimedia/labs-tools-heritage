@@ -25,7 +25,7 @@ Todo:
 
 '''
 #
-# (C) Multichill, 2009, 
+# (C) Multichill, 2009,
 # (C) Strainu, 2011
 #
 # Distributed under the terms of the MIT license.
@@ -55,7 +55,7 @@ flickr_allowed_license = {
 
 ripper_config = {
     'lang': u'ro',
-	'group': u'1700892@N25',
+        'group': u'1700892@N25',
     'monument_template': u'Monument istoric',
     'monument_regexp': u'((lmi=)?)([a-z]{1,2})-(i|ii|iii|iv)-([a-z])-([a-z])-([0-9]{5}(\.[0-9]{2})?)',
     'categories': u'[[Category:Historical monuments in Romania]]\n[[Category:Images from Wiki Loves Monuments 2011 in Romania]]\n[[Category:Flickr images from Wiki Loves Monuments 2011 in Romania]]',
@@ -233,7 +233,7 @@ def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
             description = description.replace(u'{{flickrreview}}',
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
-											  
+
     description = description + u'\n{{Wiki Loves Monuments 2011|' + ripper_config['lang'] + '}}'
     description = description + u'{{' + ripper_config['monument_template'] + '|' + getMonumentId(photoInfo) + '}}\n'
     description = description + u'\n' + ripper_config['categories'] + '\n'
@@ -598,7 +598,7 @@ def main():
             removeCategories = True
         elif arg == '-autonomous':
             autonomous = True
-			
+
     if group_id == u'':
         group_id = ripper_config['group']
 

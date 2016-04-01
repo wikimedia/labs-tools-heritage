@@ -6,13 +6,13 @@ get coordinates from the Monuments database and
     add coordinate template to articles in Wikipedia
 
 @author Kentaur
-    
+
 Usage:
 # loop through all countries
 python add_coord_to_articles.py
 
 # work on specific country-lang
-python add_coord_to_articles.py -countrycode:XX -lang:YY    
+python add_coord_to_articles.py -countrycode:XX -lang:YY
 
 '''
 
@@ -24,12 +24,12 @@ import re, MySQLdb
 #coordinate templates for different language wikipedias
 wikiData = {
     ('et') : {
-	'coordTemplate' : 'Coordinate',
+        'coordTemplate' : 'Coordinate',
     #coordTemplateSyntax % (lat, lon, countrycode.upper() )
     'coordTemplateSyntax' : u'{{Coordinate|NS=%f|EW=%f|type=landmark|region=%s}}'
     },
     ('fr') : {
-	'coordTemplate' : 'coord',
+        'coordTemplate' : 'coord',
     #{{coord|52.51626|13.3777|type:landmark_region:DE|format=dms|display=title}}
     'coordTemplateSyntax' : u'{{coord|%f|%f|type:landmark_region=%s|format=dms|display=title}}'
     }
@@ -59,8 +59,8 @@ class Monument:
      self.lat = None
      self.lon = None
      self.source = u''
-     
-     
+
+
 # functions
 
 def connectMonDatabase():
@@ -68,7 +68,7 @@ def connectMonDatabase():
     Connect to the monuments mysql database
     '''
     conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db,
-        read_default_file=os.path.expanduser("~/.my.cnf"), 
+        read_default_file=os.path.expanduser("~/.my.cnf"),
         use_unicode=True, charset='utf8')
     cursor = conn.cursor()
     return (conn, cursor)
@@ -82,7 +82,7 @@ def connectWikiDatabase(lang):
         dbName = lang + 'wiki_p'
         #coordDbName = 'u_dispenser_p'
         conn = MySQLdb.connect(host=hostName, db=dbName,
-            read_default_file=os.path.expanduser("~/.my.cnf"), 
+            read_default_file=os.path.expanduser("~/.my.cnf"),
             use_unicode=True, charset='utf8')
         cursor = conn.cursor()
         return (conn, cursor)
@@ -97,23 +97,23 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
         return False
 
     (connWiki, cursorWiki) = connectWikiDatabase(lang)
-    
+
     withCoordinates = getMonumentsWithCoordinates(countrycode, lang, cursorMon)
 
     articleNames = []
     duplicateArticles = []
     monumentsWithArticle = []
-    
+
     for aMonument in withCoordinates:
         article_name = u''
         result = re.match("\[\[(.+?)\|.+?\]\]", aMonument.name)
-        if (result and result.group(1)): 
+        if (result and result.group(1)):
             article_name = result.group(1)
 
         result = re.match("\[\[([^\|]+?)\]\]", aMonument.name)
-        if (result and result.group(1)): 
+        if (result and result.group(1)):
             article_name = result.group(1)
-        
+
         if (article_name):
             if article_name not in duplicateArticles:
                 if article_name in articleNames:
@@ -127,20 +127,20 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
                     articleNames.append(article_name)
                     aMonument.article = article_name
                     monumentsWithArticle.append(aMonument)
-    
+
     if len(duplicateArticles):
         pywikibot.output(u'Multiple references to following articles: %s in monument lists! Skipped those.' % duplicateArticles[:])
-    
+
     for aMonument in monumentsWithArticle:
         PageNs = WP_ARTICLE_NS
-        followRedirect = True  
+        followRedirect = True
         (retStatus, pageId, redirNs, redirTitle) = getPageId(aMonument.article, connWiki, cursorWiki, PageNs, followRedirect)
         if (retStatus == 'FOLLOWED_REDIR' and redirNs == WP_ARTICLE_NS):
             aMonument.article = redirTitle
         if (pageId):
             if not hasCoordinates(pageId, lang, cursorWiki):
                 addCoords(countrycode, lang, aMonument, coordconfig)
-        
+
 
 
 def getMonumentsWithCoordinates(countrycode, lang, cursor):
@@ -148,7 +148,7 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
     Get monuments with coordinates from monuments database for a certain country/language combination.
     '''
     result = []
-    query = """SELECT id, name, lat, lon, source FROM monuments_all 
+    query = """SELECT id, name, lat, lon, source FROM monuments_all
                    WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s"""
     cursor.execute(query, (countrycode, lang))
 
@@ -159,10 +159,10 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
             aMon = Monument()
             aMon.country = countrycode
             aMon.wikilang = lang
-            (aMon.id, aMon.name, aMon.lat, aMon.lon, aMon.source) = row           
+            (aMon.id, aMon.name, aMon.lat, aMon.lon, aMon.source) = row
             result.append(aMon)
         except TypeError:
-            break    
+            break
 
     return result
 
@@ -170,14 +170,14 @@ def hasCoordinates(pageId, lang, cursor):
     '''
     check if Article has Article coords in WP coords DB
     '''
-    
+
     if (pageId and lang):
         coordTable = 'u_dispenser_p.coord_' + lang + 'wiki'
 
         # check if primary coordinate i.e. article coordinate exists for pageId
         query = """SELECT gc_from FROM %s
                       WHERE (gc_from = %s AND gc_primary = 1)
-                      LIMIT 1""" 
+                      LIMIT 1"""
         # FIXME escape & sanitize coordTable and pageId
         cursor.execute(query % (coordTable, int(pageId) ))
 
@@ -192,8 +192,8 @@ def getPageId(pageName, conn, cursor, pageNamespace = WP_ARTICLE_NS, followRedir
     '''
     get Wikipedia pagename pageId
     '''
-    
-    #underscores   
+
+    #underscores
     pageName = pageName.replace(u' ', u'_')
     retStatus = ''
     pageId = ''
@@ -201,7 +201,7 @@ def getPageId(pageName, conn, cursor, pageNamespace = WP_ARTICLE_NS, followRedir
     redirTitle = u''
 
     #FIXME page_titles like 'Château_de_Bercy' won't work, but titles like 'Käru' do ??
-    query = """SELECT page_id, page_is_redirect FROM page 
+    query = """SELECT page_id, page_is_redirect FROM page
                    WHERE page_namespace = %s AND page_title = %s"""
     cursor.execute(query, (pageNamespace, pageName))
     if DEBUG:
@@ -221,7 +221,7 @@ def getPageId(pageName, conn, cursor, pageNamespace = WP_ARTICLE_NS, followRedir
                 retStatus = 'REDIRECT'
         else:
             retStatus = 'OK'
-    
+
     return (retStatus, pageId, redirNs, redirTitle)
 
 def getRedirPageNsTitle(pageId, cursor):
@@ -232,7 +232,7 @@ def getRedirPageNsTitle(pageId, cursor):
     if (pageId):
         pageNs = ''
         pageTitle = u''
-    
+
         query = """SELECT rd_namespace, rd_title FROM redirect
                 WHERE rd_from = %s"""
         cursor.execute(query, (pageId,))
@@ -240,10 +240,10 @@ def getRedirPageNsTitle(pageId, cursor):
         if (cursor.rowcount > 0):
             row = cursor.fetchone()
             (pageNs, pageTitle) = row
-    
+
         return (pageNs, pageTitle)
-    
-    
+
+
 def addCoords(countrycode, lang, monument, coordconfig):
     '''
     Add the coordinates to article.
@@ -264,8 +264,8 @@ def addCoords(countrycode, lang, monument, coordconfig):
             return False
         except pywikibot.Error: # third exception, take the problem and print
             pywikibot.output(u"Some error, skipping..")
-            return False       
-    
+            return False
+
         if coordTemplate in page.templates():
             return False
 
@@ -277,14 +277,14 @@ def addCoords(countrycode, lang, monument, coordconfig):
         catStartPlain = u'[[' + localCatName + ':'
         replacementText = u''
         replacementText = coordText + '\n\n' + catStartPlain
-    
+
         # insert coordinate template before categories
         newtext = re.sub(catStart, replacementText, newtext, replCount, flags=re.IGNORECASE)
 
         if text != newtext:
             wikilist = u''
             matchWikipage = re.search("title=(.+?)&", monument.source)
-            if (matchWikipage and matchWikipage.group(1)): 
+            if (matchWikipage and matchWikipage.group(1)):
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
             pywikibot.showDiff(text, newtext)
@@ -296,14 +296,14 @@ def addCoords(countrycode, lang, monument, coordconfig):
             return False
     else:
         return False
-    
+
 def main():
     countrycode = u''
     connMon = None
     cursorMon = None
 
     (connMon, cursorMon) = connectMonDatabase()
-    
+
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
         if option == '-countrycode:':
@@ -311,15 +311,15 @@ def main():
 
     if countrycode:
         lang = pywikibot.getSite().language()
-	if not mconfig.countries.get((countrycode, lang)):
-	    pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
-	    return False
-	pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), wikiData.get(lang), connMon, cursorMon)
+        if not mconfig.countries.get((countrycode, lang)):
+            pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+            return False
+        pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+        processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), wikiData.get(lang), connMon, cursorMon)
     else:
-	for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-	    pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-	    processCountry(countrycode, lang, countryconfig, wikiData.get(lang), connMon, cursorMon)
+        for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            processCountry(countrycode, lang, countryconfig, wikiData.get(lang), connMon, cursorMon)
 
 
 if __name__ == "__main__":

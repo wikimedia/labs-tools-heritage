@@ -28,15 +28,15 @@ def getAddresses(countrycode, lang, municipality, conn, cursor):
     result = []
     query = u"""SELECT address FROM monuments_all WHERE country=%s AND lang=%s AND municipality=%s ORDER BY address ASC""";
     cursor.execute(query, (countrycode, lang, municipality))
-    
+
     while True:
-	try:
-	    row = cursor.fetchone()
-	    (address,) = row
-	    result.append(address)
-	except TypeError:
-	    break
-    
+        try:
+            row = cursor.fetchone()
+            (address,) = row
+            result.append(address)
+        except TypeError:
+            break
+
     return result
 
 def printTopStreets (addresses, minimum):
@@ -45,43 +45,43 @@ def printTopStreets (addresses, minimum):
     '''
     streets = Counter() #collections.Counter
     for address in addresses:
-	address = address.replace(u'{{sorteer|', u'')
-	temp = u''
-	partslist = []
-	for addrPart in address.split(u' '):
-	    temp = temp + u' ' + addrPart
-	    partslist.append(temp.strip())
-	
-	streets.update(partslist)
-   
+        address = address.replace(u'{{sorteer|', u'')
+        temp = u''
+        partslist = []
+        for addrPart in address.split(u' '):
+            temp = temp + u' ' + addrPart
+            partslist.append(temp.strip())
+
+        streets.update(partslist)
+
     topStreets = []
 
     for street in streets.most_common():
-	if street[1] < minimum:
-	    break
-	topStreets.append(street[0])
+        if street[1] < minimum:
+            break
+        topStreets.append(street[0])
 
     filteredStreets = []
 
     for topStreet1 in topStreets:
-	for topStreet2 in topStreets:
-	    if topStreet1 != topStreet2 and topStreet2.startswith(topStreet1):
-		filteredStreets.append(topStreet1)
-		break
+        for topStreet2 in topStreets:
+            if topStreet1 != topStreet2 and topStreet2.startswith(topStreet1):
+                filteredStreets.append(topStreet1)
+                break
 
     pywikibot.output(u'Filtered out the following. These are probably street parts:')
     for street in streets.most_common():
-	if street[1] < minimum:
-	    break
-	if street[0] in filteredStreets:
-	    pywikibot.output(u'* %s - %s' % street)
+        if street[1] < minimum:
+            break
+        if street[0] in filteredStreets:
+            pywikibot.output(u'* %s - %s' % street)
 
     pywikibot.output(u'Found the following entries which are probably real streets:')
     for street in streets.most_common():
-	if street[1] < minimum:
-	    break
-	if not street[0] in filteredStreets:
-	    pywikibot.output(u'* %s - %s' % street)
+        if street[1] < minimum:
+            break
+        if not street[0] in filteredStreets:
+            pywikibot.output(u'* %s - %s' % street)
 
 
 def main():
@@ -93,21 +93,21 @@ def main():
     cursor = None
     # Connect database, we need that
     (conn, cursor) = connectDatabase()
-    
+
     for arg in pywikibot.handleArgs():
         if arg.startswith('-countrycode:'):
             countrycode = arg [len('-countrycode:'):]
-	elif arg.startswith('-municipality:'):
-	    municipality = arg [len('-municipality:'):]
-	elif arg.startswith('-minimum:'):
-	    minimum = int(arg [len('-minimum:'):])
+        elif arg.startswith('-municipality:'):
+            municipality = arg [len('-municipality:'):]
+        elif arg.startswith('-minimum:'):
+            minimum = int(arg [len('-minimum:'):])
 
     if countrycode and municipality:
-	lang = pywikibot.getSite().language()
-	addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
-	printTopStreets (addresses, minimum)
+        lang = pywikibot.getSite().language()
+        addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
+        printTopStreets (addresses, minimum)
     else:
-	print u'Usage'
+        print u'Usage'
 
 if __name__ == "__main__":
     try:

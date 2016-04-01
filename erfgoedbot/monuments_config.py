@@ -1524,7 +1524,7 @@ countries = {
             },
         ],
     },
-	('ch', 'fr') : { # Monuments in Switzerland in French
+        ('ch', 'fr') : { # Monuments in Switzerland in French
         'project' : u'wikipedia',
         'lang' : u'fr',
         'headerTemplate' : u'En-tête de tableau Monuments (Suisse)',
@@ -1548,7 +1548,7 @@ countries = {
                 'source' : u'photo',
                 'dest' : u'photo',
             },
-			{
+                        {
                 'source' : u'description-photo',
                 'dest' : u'description-photo',
             },
@@ -1576,11 +1576,11 @@ countries = {
                 'source' : u'adresse',
                 'dest' : u'addresse',
             },
-			{
+                        {
                 'source' : u'adresse-affiché',
                 'dest' : u'adresse-affiche',
             },
-			{
+                        {
                 'source' : u'adresse-affichée',
                 'dest' : u'adresse-affichee',
             },
@@ -1592,7 +1592,7 @@ countries = {
                 'source' : u'longitude',
                 'dest' : u'lon',
             },
-			{
+                        {
                 'source' : u'région-ISO',
                 'dest' : u'region-iso',
             },
@@ -1611,7 +1611,7 @@ countries = {
             },
         ]
     },
-	('ch', 'it') : { # Monuments in Switzerland in Italian
+        ('ch', 'it') : { # Monuments in Switzerland in Italian
         'project' : u'wikipedia',
         'lang' : u'it',
         'headerTemplate' : u'Intestazione della tabella dei beni culturali (Svizzera)',
@@ -1643,58 +1643,58 @@ countries = {
                 'source' : u'commonscat',
                 'dest' : u'commonscat',
             },
-			{
+                        {
                 'source' : u'oggetto',
                 'dest' : u'oggetto',
             },
-			{
+                        {
                 'source' : u'oggetto-visualizzato',
                 'dest' : u'oggetto-visualizzato',
             },
-			{
+                        {
                 'source' : u'categoria',
                 'dest' : u'categoria',
             },
-			{
+                        {
                 'source' : u'tipo',
                 'dest' : u'tipo',
             },
-			{
+                        {
                 'source' : u'indirizzo',
                 'dest' : u'indirizzo',
             },
-			{
+                        {
                 'source' : u'indirizzo-visualizzato',
                 'dest' : u'indirizzo-visualizzato',
             },
-			{
+                        {
                 'source' : u'latitudine',
                 'dest' : u'lat',
             },
-			{
+                        {
                 'source' : u'longitudine',
                 'dest' : u'lon',
             },
-			{
+                        {
                 'source' : u'regione-ISO',
                 'dest' : u'region-iso',
             },
-			{
+                        {
                 'source' : u'comune',
                 'dest' : u'comune',
             },
-			{
+                        {
                 'source' : u'cantone',
                 'dest' : u'cantone',
             },
-			{
+                        {
                 'source' : u'oggetto',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
         ]
     },
-	('ch', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste Schweiz Tabellenzeile'
+        ('ch', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste Schweiz Tabellenzeile'
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste Schweiz Tabellenkopf',
@@ -1726,19 +1726,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-	    {
+            {
                 'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-	    {
+            {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-	    {
+            {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-	    {
+            {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1746,7 +1746,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-	    {
+            {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1766,7 +1766,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-	    {
+            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -1778,7 +1778,7 @@ countries = {
 
         ]
     },
-	('ch2', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz Tabellenzeile'
+        ('ch2', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz Tabellenzeile'
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste2 Schweiz Tabellenkopf',
@@ -1809,19 +1809,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-	    {
+            {
                 'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-	    {
+            {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-	    {
+            {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-	    {
+            {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1829,7 +1829,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-	    {
+            {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1849,7 +1849,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-	    {
+            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -1861,7 +1861,7 @@ countries = {
 
         ]
     },
-	('ch3', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz-ZH Tabellenzeile'
+        ('ch3', 'de') : { # Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz-ZH Tabellenzeile'
         'project' : u'wikipedia',
         'lang' : u'de',
         'headerTemplate' : u'Denkmalliste2 Schweiz-ZH Tabellenkopf',
@@ -1892,19 +1892,19 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-	    {
+            {
                 'source' : u'Objekt',
                 'dest' : u'objekt',
             },
-	    {
+            {
                 'source' : u'Anzeige-Objekt',
                 'dest' : u'anzeige-objekt',
             },
-	    {
+            {
                 'source' : u'Kategorie',
                 'dest' : u'kategorie',
             },
-	    {
+            {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
@@ -1912,7 +1912,7 @@ countries = {
                 'source' : u'Adresse',
                 'dest' : u'adresse',
             },
-	    {
+            {
                 'source' : u'Anzeige-Adresse',
                 'dest' : u'anzeige-adresse',
             },
@@ -1932,7 +1932,7 @@ countries = {
                 'source' : u'Längengrad',
                 'dest' : u'lon',
             },
-	    {
+            {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -2001,11 +2001,11 @@ countries = {
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
-			{
+                        {
                 'source' : u'Typ',
                 'dest' : u'typ',
             },
-			{
+                        {
                 'source' : u'Region-ISO',
                 'dest' : u'region-iso',
             },
@@ -2193,35 +2193,35 @@ countries = {
                 'source' : u'Commonscat',
                 'dest' : u'commonscat',
             },
-	    {
+            {
                 'source' : u'region-iso',
                 'dest' : u'region-iso',
             },
-			{
+                        {
                 'source' : u'A',
                 'dest' : u'typ_a',
             },
-			{
+                        {
                 'source' : u'Arch',
                 'dest' : u'typ_arch',
             },
-			{
+                        {
                 'source' : u'B',
                 'dest' : u'typ_b',
             },
-			{
+                        {
                 'source' : u'E',
                 'dest' : u'typ_e',
             },
-			{
+                        {
                 'source' : u'M',
                 'dest' : u'typ_m',
             },
-			{
+                        {
                 'source' : u'O',
                 'dest' : u'typ_o',
             },
-			{
+                        {
                 'source' : u'S',
                 'dest' : u'typ_s',
             },
@@ -2256,19 +2256,19 @@ countries = {
                 'source' : u'nom',
                 'dest' : u'nom',
             },
-			{
+                        {
                 'source' : u'description',
                 'dest' : u'description',
             },
-			{
+                        {
                 'source' : u'region',
                 'dest' : u'region',
             },
-			{
+                        {
                 'source' : u'region_iso',
                 'dest' : u'region_iso',
             },
-			{
+                        {
                 'source' : u'ville',
                 'dest' : u'ville',
             },
@@ -2424,23 +2424,23 @@ countries = {
                 'source' : u'Obec_článek',
                 'dest' : u'municipality_article',
             },
-			{
+                        {
                 'source' : u'Zeměpisná_šířka',
                 'dest' : u'lat',
             },
-			{
+                        {
                 'source' : u'Zeměpisná_délka',
                 'dest' : u'lon',
             },
-			{
+                        {
                 'source' : u'Popis',
                 'dest' : u'description',
             },
-			{
+                        {
                 'source' : u'Památkou_od',
                 'dest' : u'monument_since',
             },
-			{
+                        {
                 'source' : u'Poznámka',
                 'dest' : u'remark',
             },
@@ -4351,7 +4351,7 @@ countries = {
                 'source' : u'name',
                 'dest' : u'name',
             },
-			 {
+                         {
                 'source' : u'alternative_names',
                 'dest' : u'alternative_names',
             },
@@ -4402,7 +4402,7 @@ countries = {
             },
         ],
     },
-	('hk', 'en') : { # Declared Monuments in Hong Kong in English
+        ('hk', 'en') : { # Declared Monuments in Hong Kong in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'HK Declared Monument header',
@@ -4425,32 +4425,32 @@ countries = {
                 'source' : u'name',
                 'dest' : u'name',
             },
-	    {
+            {
                 'source' : u'image',
                 'dest' : u'image',
             },
-	    {
+            {
                 'source' : u'declaration_date',
                 'dest' : u'declaration_date',
             },
-	    {
+            {
                 'source' : u'location',
                 'dest' : u'location',
             },
-	    {
+            {
                 'source' : u'description',
                 'dest' : u'description',
             },
-	    {
+            {
                 'source' : u'refs',
                 'dest' : u'refs',
             },
-	    {
+            {
                 'source' : u'region',
                 'dest' : u'region',
             },
 
-	    {
+            {
                 'source' : u'caption',
                 'dest' : u'caption',
             },
@@ -4462,14 +4462,14 @@ countries = {
                 'source' : u'lon',
                 'dest' : u'lon',
             },
-	    {
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
             },
         ],
     },
-	('hk-hb', 'en') : { # Historic Buildings (Grade I-III) in Hong Kong in English
+        ('hk-hb', 'en') : { # Historic Buildings (Grade I-III) in Hong Kong in English
         'project' : u'wikipedia',
         'lang' : u'en',
         'headerTemplate' : u'HK Historic Building header',
@@ -4492,27 +4492,27 @@ countries = {
                 'source' : u'name',
                 'dest' : u'name',
             },
-	    {
+            {
                 'source' : u'image',
                 'dest' : u'image',
             },
-	    {
+            {
                 'source' : u'location',
                 'dest' : u'location',
             },
-	    {
+            {
                 'source' : u'refs',
                 'dest' : u'refs',
             },
-	    {
+            {
                 'source' : u'region',
                 'dest' : u'region',
             },
-	    {
+            {
                 'source' : u'district',
                 'dest' : u'district',
             },
-	    {
+            {
                 'source' : u'grade',
                 'dest' : u'grade',
             },
@@ -4524,7 +4524,7 @@ countries = {
                 'source' : u'lon',
                 'dest' : u'lon',
             },
-	    {
+            {
                 'source' : u'name',
                 'dest' : u'monument_article',
                 'conv' : u'extractWikilink',
@@ -4679,7 +4679,7 @@ countries = {
                 'source' : u'state_iso',
                 'dest' : u'state_iso',
             },
- 			 {
+                         {
                 'source' : u'circle',
                 'dest' : u'circle',
                 'type' : 'varchar(1)',
@@ -5426,7 +5426,7 @@ countries = {
                 'source' : u'lag',
                 'dest' : u'lag',
             },
-			{
+                        {
                 'source' : u'region-iso',
                 'dest' : u'region-iso',
             },
@@ -5434,7 +5434,7 @@ countries = {
                 'source' : u'uertschaft',
                 'dest' : u'uertschaft',
             },
-			{
+                        {
                 'source' : u'offiziellen_numm',
                 'dest' : u'offiziellen_numm',
             },
@@ -7409,7 +7409,7 @@ countries = {
                 'source' : u'Stav',
                 'dest' : u'stav',
             },
-			{
+                        {
                 'source' : u'popis',
                 'dest' : u'popis',
             },
@@ -7443,7 +7443,7 @@ countries = {
                 'source' : u'dĺžka',
                 'dest' : u'lon',
             },
-			{
+                        {
                 'source' : u'Beschreibung-de',
                 'dest' : u'beschreibung-de',
             },
@@ -7779,7 +7779,7 @@ countries = {
                 'source' : u'iso',
                 'dest' : u'iso_oblast',
             },
-			 {
+                         {
                 'source' : u'район',
                 'dest' : u'rayon',
             },
@@ -8222,7 +8222,7 @@ countries = {
         ],
     },
 
-	# Wiki Loves Public Art configuration
+        # Wiki Loves Public Art configuration
     ('wlpa-at', 'de') : { # WLPA in Austria in German
         'project' : u'wikipedia',
         'lang' : u'de',
@@ -8313,7 +8313,7 @@ countries = {
             },
         ],
     },
-	('wlpa-es-ct', 'ca') : { # WLPA in Catalonia in Catalan
+        ('wlpa-es-ct', 'ca') : { # WLPA in Catalonia in Catalan
         'project' : u'wikipedia',
         'lang' : u'ca',
         'headerTemplate' : u'Capçalera art públic',

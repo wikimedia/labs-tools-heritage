@@ -25,7 +25,7 @@ Todo:
 
 '''
 #
-# (C) Multichill, 2009, 
+# (C) Multichill, 2009,
 # (C) Strainu, 2011
 #
 # Distributed under the terms of the MIT license.
@@ -56,7 +56,7 @@ flickr_allowed_license = {
 ripper_config = {
     'country': u'es',
     'lang': u'es',
-    'group': u'1737383@N20', # Hint: Take the group id from the head\link to rss 
+    'group': u'1737383@N20', # Hint: Take the group id from the head\link to rss
     'monument_template': u'BIC',
     'flickr_tagprefix': u'bic=',
     'monument_regexp': u'(?:BIC[:=]?)(RI-51-([0-9]+)(-[0-9]+)?)',
@@ -242,7 +242,7 @@ def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
             description = description.replace(u'{{flickrreview}}',
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
-											  
+
     description = description + u'\n{{Wiki Loves Monuments 2011|' + ripper_config['country'] + '}}'
     description = description + u'\n' + ripper_config['categories'] + '\n'
     description = description.replace(u'{{subst:unc}}\n', u'')
@@ -608,7 +608,7 @@ def main():
             removeCategories = True
         elif arg == '-autonomous':
             autonomous = True
-			
+
     if group_id == u'':
         group_id = ripper_config['group']
 

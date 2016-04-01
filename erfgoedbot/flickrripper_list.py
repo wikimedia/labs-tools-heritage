@@ -25,7 +25,7 @@ Todo:
 
 '''
 #
-# (C) Multichill, 2009, 
+# (C) Multichill, 2009,
 # (C) Strainu, 2011
 #
 # Distributed under the terms of the MIT license.
@@ -70,7 +70,7 @@ templates_for_flickr_license = {
 ripper_config = {
     'country': u'es',
     'lang': u'es',
-    'group': u'2241639@N23', # Hint: Take the group id from the head\link to rss 
+    'group': u'2241639@N23', # Hint: Take the group id from the head\link to rss
     'monument_template': u'BIC',
     'monument_regexp': u'(?:BIC *[:=]? *)(RI-..-([0-9]+)(-[0-9]+)?)',
     'categories': u'[[Category:Cultural heritage monuments in Spain]]\n[[Category:Flickr images from Wiki Loves Monuments 2013 in Spain]]',
@@ -83,13 +83,13 @@ def getPhoto(flickr = None, photo_id = ''):
     TODO: Add exception handling
 
     '''
-    
+
     gotPhoto = False
     while not gotPhoto:
         try:
             photoInfo = flickr.photos_getInfo(photo_id=photo_id)
             #xml.etree.ElementTree.dump(photoInfo)
-            
+
             # TODO: Replace this call with the attributes of the <photo> tag. See http://www.flickr.com/services/api/misc.urls.html
             photoSizes = flickr.photos_getSizes(photo_id=photo_id)
             #xml.etree.ElementTree.dump(photoSizes)
@@ -99,27 +99,27 @@ def getPhoto(flickr = None, photo_id = ''):
             pywikibot.output(u'Flickr api problem, sleeping')
             time.sleep(30)
 
-	# Return an object with all the relevant fields
-	photo = {}
-	photo['photo_id'] = photo_id
-	photo['url'] = getPhotoUrl(photoSizes)
-	photo['license'] = int(photoInfo.find('photo').attrib['license']) # Numeric value
-	photo['title'] = photoInfo.find('photo').find('title').text
-	if photo['title'] is not None:
-		photo['title'] = photo['title'].strip()
-	photo['user_id'] = photoInfo.find('photo').find('owner').attrib['nsid']
-	photo['username'] = photoInfo.find('photo').find('owner').attrib['username']
-	photo['realname'] = photoInfo.find('photo').find('owner').attrib['realname']
-	photo['location'] = photoInfo.find('photo').find('owner').attrib['location']
-	photo['description'] = photoInfo.find('photo').find('description').text
-	photo['date_taken'] = photoInfo.find('photo').find('dates').attrib['taken']
-	photo['date_posted'] = photoInfo.find('photo').find('dates').attrib['posted']
-	photo['tags'] = getTags(photoInfo)
-	
-	location = photoInfo.find('photo').find('location')
-	if location is not None:
-	    photo['latitude'] = location.attrib['latitude']
-	    photo['longitude'] = location.attrib['longitude']
+        # Return an object with all the relevant fields
+        photo = {}
+        photo['photo_id'] = photo_id
+        photo['url'] = getPhotoUrl(photoSizes)
+        photo['license'] = int(photoInfo.find('photo').attrib['license']) # Numeric value
+        photo['title'] = photoInfo.find('photo').find('title').text
+        if photo['title'] is not None:
+                photo['title'] = photo['title'].strip()
+        photo['user_id'] = photoInfo.find('photo').find('owner').attrib['nsid']
+        photo['username'] = photoInfo.find('photo').find('owner').attrib['username']
+        photo['realname'] = photoInfo.find('photo').find('owner').attrib['realname']
+        photo['location'] = photoInfo.find('photo').find('owner').attrib['location']
+        photo['description'] = photoInfo.find('photo').find('description').text
+        photo['date_taken'] = photoInfo.find('photo').find('dates').attrib['taken']
+        photo['date_posted'] = photoInfo.find('photo').find('dates').attrib['posted']
+        photo['tags'] = getTags(photoInfo)
+
+        location = photoInfo.find('photo').find('location')
+        if location is not None:
+            photo['latitude'] = location.attrib['latitude']
+            photo['longitude'] = location.attrib['longitude']
     photo['photopage'] = photoInfo.find('photo').find('urls').find('url').text
 
     return photo
@@ -154,19 +154,19 @@ def downloadPhoto(photoUrl = '', imagedir = False):
     TODO: Add exception handling
 
     '''
-    
+
     filename = False
     if imagedir:
         filename = os.path.join(imagedir,posixpath.basename(urllib.url2pathname(photoUrl)))
-        
+
         if os.path.exists(filename):
             return StringIO.StringIO(io.open(filename, "rb").read())
-    
+
     imageFile=urllib.urlopen(photoUrl).read()
-    
+
     if filename:
         io.open(filename, "wb").write(imageFile)
-    
+
     return StringIO.StringIO(imageFile)
 
 def findDuplicateImages(photoStream=None,
@@ -203,45 +203,45 @@ def getFlinfoDescription(photo_id = 0):
     return rawDescription.decode('utf-8')
 
 def getDescription(photo):
-	'''
-	Get the description, similar to flinfo, but without connecting to a remote server
-	 Differences with flinfo:
-	  * flinfo doesn't show seconds for the date
-	  * flinfo converts some tags into categories
-	  * This doesn't undo html entities (but MediaWiki will!)
-	'''
-	
-	author = u'[http://www.flickr.com/people/' + photo['user_id'] + ' '
-	
-	if photo['realname']:
-		author += photo['realname']
-	else:
-		author += photo['username']
-	author += ']'
-	if photo['location']:
-		author += u' from ' + photo['location']
-	
-	if photo['description'] is not None:
-		desc = photo['description']
-	elif photo['title'] is not None:
-		desc = photo['title']
-	else:
-		desc = u''
-	
-	if photo['title'] is not None:
-		source = photo['title']
-	else:
-		source = 'Flickr'
-	
-	# Don't create wikilinks by error
-	desc = desc.replace('[', '&#x5B;')
-	desc = desc.replace(']', '&#x5D;')
-	
-	desc = re.sub('<a href="([^"]+)"(?: target="_blank")?(?: rel="nofollow")?>([^<]*)</a>', '[\\1 \\2]', desc) # Convert html links to wikitext
-	desc = re.sub('<b>([^"]+)</b>', "'''\\1'''", desc) # Convert html bold to wikitext
-	desc = re.sub('<i>([^"]+)</i>', "''\\1''", desc) # Convert html italic to wikitext
-	
-	description = u'''{{Information
+        '''
+        Get the description, similar to flinfo, but without connecting to a remote server
+         Differences with flinfo:
+          * flinfo doesn't show seconds for the date
+          * flinfo converts some tags into categories
+          * This doesn't undo html entities (but MediaWiki will!)
+        '''
+
+        author = u'[http://www.flickr.com/people/' + photo['user_id'] + ' '
+
+        if photo['realname']:
+                author += photo['realname']
+        else:
+                author += photo['username']
+        author += ']'
+        if photo['location']:
+                author += u' from ' + photo['location']
+
+        if photo['description'] is not None:
+                desc = photo['description']
+        elif photo['title'] is not None:
+                desc = photo['title']
+        else:
+                desc = u''
+
+        if photo['title'] is not None:
+                source = photo['title']
+        else:
+                source = 'Flickr'
+
+        # Don't create wikilinks by error
+        desc = desc.replace('[', '&#x5B;')
+        desc = desc.replace(']', '&#x5D;')
+
+        desc = re.sub('<a href="([^"]+)"(?: target="_blank")?(?: rel="nofollow")?>([^<]*)</a>', '[\\1 \\2]', desc) # Convert html links to wikitext
+        desc = re.sub('<b>([^"]+)</b>', "'''\\1'''", desc) # Convert html bold to wikitext
+        desc = re.sub('<i>([^"]+)</i>', "''\\1''", desc) # Convert html italic to wikitext
+
+        description = u'''{{Information
 |Description=%s
 |Source=[%s %s]
 |Date=%s
@@ -250,18 +250,18 @@ def getDescription(photo):
 |other_versions=
 }}
 ''' % (desc, photo['photopage'], source, photo['date_taken'], author)
-	
-	try:
-		description += u"{{Location dec|" + photo['latitude'] + "|" + photo['longitude'] + "|source:Flickr}}\n"
-	except:
-		True
 
-	description += u"\n=={{int:license-header}}==\n"
-	description += templates_for_flickr_license[photo['license']]
-	description += u"\n{{flickrreview}}\n"
-	description += u"\n{{subst:unc}}\n" # Mark the file as uncategorized
-	
-	return description
+        try:
+                description += u"{{Location dec|" + photo['latitude'] + "|" + photo['longitude'] + "|source:Flickr}}\n"
+        except:
+                True
+
+        description += u"\n=={{int:license-header}}==\n"
+        description += templates_for_flickr_license[photo['license']]
+        description += u"\n{{flickrreview}}\n"
+        description += u"\n{{subst:unc}}\n" # Mark the file as uncategorized
+
+        return description
 
 def getFilename(photo, photoStream, site=pywikibot.getSite(u'commons', u'commons'),
                 project=u'Flickr'):
@@ -376,7 +376,7 @@ def buildDescription(photo, flinfoDescription=u'', flickrreview=False, reviewer=
             description = description.replace(u'{{flickrreview}}',
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
-											  
+
     description = description + u'\n{{Wiki Loves Monuments 2013|' + ripper_config['country'] + '}}'
     description = description + u'\n' + ripper_config['categories'] + '\n'
     description = description.replace(u'{{subst:unc}}\n', u'')
@@ -387,33 +387,33 @@ def buildDescription(photo, flinfoDescription=u'', flickrreview=False, reviewer=
     return description
 
 def compareDescriptions(photo):
-	flinfoDescription = getFlinfoDescription(photo['photo_id'])
-	description = getDescription(photo)
-	
-	flinfoDescription = re.sub('(\\[\\[Category:[^\\]]+\\]\\]\n)+', '{{subst:unc}}', flinfoDescription).strip()
-	description = re.sub('(Date=[0-9-]+ [0-9-]+:[0-9-]+):[0-9-]+', '\\1', description).strip()
-	if (flinfoDescription == description):
-		print photo['photo_id'], " equal\n"
-		return
-	print photo['photo_id'], " differs:\n"
-	
-	f = io.open(photo['photo_id'] + '-flinfo.txt', 'w')
-	f.write(flinfoDescription)
-	f.close()
-	f = io.open(photo['photo_id'] + '-info.txt', 'w')
-	f.write(description)
-	f.close()
-	
-	pywikibot.output(flinfoDescription)
-	pywikibot.output("//****//\n")
-	pywikibot.output(description)
-	return
+        flinfoDescription = getFlinfoDescription(photo['photo_id'])
+        description = getDescription(photo)
+
+        flinfoDescription = re.sub('(\\[\\[Category:[^\\]]+\\]\\]\n)+', '{{subst:unc}}', flinfoDescription).strip()
+        description = re.sub('(Date=[0-9-]+ [0-9-]+:[0-9-]+):[0-9-]+', '\\1', description).strip()
+        if (flinfoDescription == description):
+                print photo['photo_id'], " equal\n"
+                return
+        print photo['photo_id'], " differs:\n"
+
+        f = io.open(photo['photo_id'] + '-flinfo.txt', 'w')
+        f.write(flinfoDescription)
+        f.close()
+        f = io.open(photo['photo_id'] + '-info.txt', 'w')
+        f.write(description)
+        f.close()
+
+        pywikibot.output(flinfoDescription)
+        pywikibot.output("//****//\n")
+        pywikibot.output(description)
+        return
 
 def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                  override=u'', addCategory=u'', removeCategories=False,
                  autonomous=False):
         ''' Process a single Flickr photo '''
-        
+
         #Don't upload duplicate images, should add override option
         duplicates = findDuplicateImages(photoStream)
         if duplicates:
@@ -432,7 +432,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                 while True:
                     (newPhotoDescription, newFilename, skip) = Tkdialog(
                         photoDescription, photoStream, filename, u' '.join(photo['tags'])).run()
-                    
+
                     if skip or newFilename == filename:
                         break
                     if not pywikibot.Page(site, u'File:' + newFilename).exists():
@@ -444,7 +444,7 @@ def processPhoto(photo, photoStream, flickrreview=False, reviewer=u'',
                 newPhotoDescription = photoDescription
                 newFilename = filename
                 skip = False
-        
+
         #pywikibot.output(newPhotoDescription)
         #if (pywikibot.Page(title=u'File:'+ filename, site=pywikibot.getSite()).exists()):
         # I should probably check if the hash is the same and if not upload it under a different name
@@ -499,7 +499,7 @@ class Tkdialog:
         self.descriptionField.insert(END, photoDescription)
         self.descriptionField.config(state=NORMAL, height=12, width=100, padx=0, pady=0, wrap=WORD, yscrollcommand=self.descriptionScrollbar.set)
         self.descriptionScrollbar.config(command=self.descriptionField.yview)
-        
+
         # Show flickr tags for reference on description
         self.tagsLabel=Label(self.root,text=u"Flickr tags")
         self.tagsField=Entry(self.root, width=100)
@@ -530,7 +530,7 @@ class Tkdialog:
         self.descriptionLabel.grid(row=15, column=0)
         self.descriptionField.grid(row=15, column=1, columnspan=3)
         self.descriptionScrollbar.grid(row=15, column=5)
-        
+
 
     def getImage(self, photo, width, height):
         ''' Take the StringIO object and build an imageTK thumbnail '''
@@ -831,8 +831,8 @@ def main():
                 imagedir = arg[10:]
         else:
             pywikibot.output(u'Bad argument `%s\' given' % arg)
-            return        
-			
+            return
+
     if group_id == u'':
         group_id = ripper_config['group']
 
@@ -847,7 +847,7 @@ def main():
     else:
         usage()
         return
-     
+
     first = True
     for photo in iterator:
         if json_out:
@@ -855,24 +855,24 @@ def main():
                 json_out.write(',\n')
             json_out.write(json.dumps(photo))
             first = False
-        
+
         if action == 1:
-			print photo['url']
-        
+                        print photo['url']
+
         if action >= 2:
             if isAllowedLicense(photo) or override:
                 photoStream = downloadPhoto(photo['url'], imagedir)
-                
+
                 if action >= 3:
                     uploadedPhotos += processPhoto(photo, photoStream, flickrreview,
                                            reviewer, override, addCategory,
                                            removeCategories, autonomous)
             totalPhotos += 1
-    
+
     if json_out:
         json_out.write(']')
         json_out.close()
-    
+
     pywikibot.output(u'Finished running')
     pywikibot.output(u'Total photos: ' + str(totalPhotos))
     pywikibot.output(u'Uploaded photos: ' + str(uploadedPhotos))

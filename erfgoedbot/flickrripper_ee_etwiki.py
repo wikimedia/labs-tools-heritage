@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
 '''
-Tool to copy a flickr stream to Estonian Wikipedia 
+Tool to copy a flickr stream to Estonian Wikipedia
 
 # Get a set to work on (start with just a username).
 # * Make it possible to delimit the set (from/to)
@@ -25,7 +25,7 @@ Todo:
 
 '''
 #
-# (C) Multichill, 2009, 
+# (C) Multichill, 2009,
 # (C) Strainu, 2011
 #
 # Distributed under the terms of the MIT license.
@@ -56,7 +56,7 @@ flickr_allowed_license = {
 ripper_config = {
     'country': u'ee',
     'lang': u'et',
-	'group': u'1742046@N20',
+        'group': u'1742046@N20',
     'monument_template': u'Kultuurimälestis',
     'flickr_tagprefix': u'knr=',
     'monument_regexp': u'((knr=)?)([0-9]+)',
@@ -235,7 +235,7 @@ def buildDescription(flinfoDescription=u'', flickrreview=False, reviewer=u'',
             description = description.replace(u'{{flickrreview}}',
                                               u'{{flickrreview|' + reviewer +
                                               '|{{subst:CURRENTYEAR}}-{{subst:CURRENTMONTH}}-{{subst:CURRENTDAY2}}}}')
-											  
+
     description = description.replace(u'{{flickrreview}}', u'{{KunstiteoseFoto}}')
     description = description + u'\n{{Wiki Loves Monuments 2011|' + ripper_config['country'] + '}}'
     description = description + u'\n' + ripper_config['categories'] + '\n'
@@ -600,7 +600,7 @@ def main():
             removeCategories = True
         elif arg == '-autonomous':
             autonomous = True
-			
+
     if group_id == u'':
         group_id = ripper_config['group']
 
