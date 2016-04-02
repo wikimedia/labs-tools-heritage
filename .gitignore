@@ -1,2 +1,5 @@
 erfgoedbot/sql/create_table_monuments*
 erfgoedbot/sql/create_table_wlpa*
+.coverage
+.tox
+*.pyc
