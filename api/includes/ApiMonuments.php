@@ -151,6 +151,13 @@ class ApiMonuments extends ApiBase {
 			$value = $this->getParam( "sr$field" );
 			if ( $value === false ) continue;
 
+			// Some fields should always be (end) fussy
+			if ( !$dbMiserMode and in_array( $field, array( "address" ) ) ) {
+				if ( substr($value, -1) !== "%" ) {
+					$value .= "%" ;
+				}
+			}
+
 			if ( is_string( $value ) && substr( $value, 0, 1 ) == '~' ) {
 				if ( !isset( $fulltextColumns[$field] ) ) {
 					$this->error( "Column `$field` does not support full-text search`" );
