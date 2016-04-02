@@ -388,7 +388,7 @@ SELECT 'bo' AS `country`,
 /* Belarus */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'by' AS `country`,
-       'be-x-old' AS `lang`,
+       'be-tarask' AS `lang`,
         `id` AS `id`,
 		'by' AS `adm0`,
 		LOWER(`oblast-iso`) AS `adm1`,
@@ -408,7 +408,7 @@ SELECT 'by' AS `country`,
         `changed` AS `changed`,
         `monument_article` AS `monument_article`,
         '' AS `registrant_url`
-        FROM `monuments_by_(be-x-old)`;
+        FROM `monuments_by_(be-tarask)`;
 /*  Canada in English 3 times because of the 3 levels in one source table */
 REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url` )
 SELECT 'ca' AS `country`,

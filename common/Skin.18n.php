@@ -1969,7 +1969,7 @@ $messages['sgs'] = array(
  *
  * @author MediaWiki translators
  */
-$messages['be-x-old'] = array(
+$messages['be-tarask'] = array(
 	'personaltools' => 'Persuonalėnē rakondā',
 	'toolbox' => 'Rakondā',
 	'otherlanguages' => 'Kėtuom kalbuom',
