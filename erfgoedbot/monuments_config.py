@@ -4016,6 +4016,14 @@ countries = {
                 'dest': u'date',
             },
             {
+                'source': u'lat',
+                'dest': u'lat',
+            },
+            {
+                'source': u'long',
+                'dest': u'lon',
+            },
+            {
                 'source': u'image',
                 'dest': u'image',
             },
