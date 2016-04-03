@@ -4012,6 +4012,10 @@ countries = {
                 'dest': u'type',
             },
             {
+                'source': u'écartement',
+                'dest': u'ecartement',
+            },
+            {
                 'source': u'date',
                 'dest': u'date',
             },
