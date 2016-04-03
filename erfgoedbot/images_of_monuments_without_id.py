@@ -2,8 +2,8 @@
 # -*- coding: utf-8  -*-
 '''
 
-Add monument-ID-templates to images on Commons -- based on the image usage in the lists -- and
-  make a galleries of monuments without an id at Commons
+Add monument-ID-templates to images on Commons -- based on the image usage in
+  the lists -- and make a galleries of monuments without an id at Commons
 
 Usage:
 # loop thtough all countries
@@ -17,7 +17,6 @@ import monuments_config as mconfig
 import pywikibot
 import config
 import MySQLdb
-##import re, imagerecat, pagegenerators, catlib
 
 
 def connectDatabase():
@@ -75,7 +74,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     text = u'<gallery>\n'
 
     for image in withoutTemplate:
-        if not image in ignoreList:
+        if image not in ignoreList:
             # An image is in the category and is in the list of used images
             if withPhoto.get(image):
                 added = addCommonsTemplate(
@@ -92,7 +91,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     for image in withPhoto:
         # Skip images which already have the templates and the ones in without
         # templates to prevent duplicates
-        if not image in ignoreList and not image in withTemplate and not image in withoutTemplate:
+        if image not in ignoreList and \
+                image not in withTemplate and \
+                image not in withoutTemplate:
             added = addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
             if not added:
