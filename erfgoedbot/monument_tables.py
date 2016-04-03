@@ -11,7 +11,8 @@ import monuments_config as mconfig
 
 def processCountry(countrycode, lang, countryconfig):
     # These are not listed in the monument config
-    extra_cols = "  `source` varchar(255) NOT NULL DEFAULT '',\n" "  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n"
+    extra_cols = "  `source` varchar(510) NOT NULL DEFAULT '',\n" \
+                 "  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n"
 
     table = countryconfig.get('table')
     f = open("sql/create_table_" + table + ".sql", "w")
