@@ -397,7 +397,7 @@ def processText(text, source, countryconfig, conn, cursor, page=None, unknownFie
         unknownFields = {}
 
     if not page:
-        site = site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
+        site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
         page = pywikibot.Page(site, u'User:Multichill/Zandbak')
     templates = page.templatesWithParams()
     headerDefaults = {}
