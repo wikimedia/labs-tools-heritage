@@ -1,0 +1,11 @@
+[
+    {
+      "name" : "heritage-api",
+      "title" : "Monuments database API",
+      "description" : "An API to query the monuments database",
+      "url" : "https://tools.wmflabs.org/heritage/api/",
+      "keywords" : "wlm, wikilovesmonuments, api",
+      "author" : "Multichill, Lokal_Profil, Platonides",
+      "repository" : "https://github.com/wikimedia/labs-tools-heritage/tree/master/api"
+    }
+]
