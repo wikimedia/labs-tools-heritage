@@ -1,7 +1,7 @@
 #!/usr/bin/python
-#$ -l h_rt=0:30:00
-#$ -j y
-#$ -o $HOME/erfgoedbot/update_id_dump.out
+# $ -l h_rt=0:30:00
+# $ -j y
+# $ -o $HOME/erfgoedbot/update_id_dump.out
 # -*- coding: utf-8  -*-
 '''
 Update the id_dump table from some wiki page(s)

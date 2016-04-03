@@ -19,19 +19,20 @@ python add_coord_to_articles.py -countrycode:XX -lang:YY
 import os
 import monuments_config as mconfig
 import pywikibot
-import re, MySQLdb
+import re
+import MySQLdb
 
-#coordinate templates for different language wikipedias
+# coordinate templates for different language wikipedias
 wikiData = {
-    ('et') : {
-        'coordTemplate' : 'Coordinate',
-    #coordTemplateSyntax % (lat, lon, countrycode.upper() )
-    'coordTemplateSyntax' : u'{{Coordinate|NS=%f|EW=%f|type=landmark|region=%s}}'
+    ('et'): {
+        'coordTemplate': 'Coordinate',
+        # coordTemplateSyntax % (lat, lon, countrycode.upper() )
+        'coordTemplateSyntax': u'{{Coordinate|NS=%f|EW=%f|type=landmark|region=%s}}'
     },
-    ('fr') : {
-        'coordTemplate' : 'coord',
-    #{{coord|52.51626|13.3777|type:landmark_region:DE|format=dms|display=title}}
-    'coordTemplateSyntax' : u'{{coord|%f|%f|type:landmark_region=%s|format=dms|display=title}}'
+    ('fr'): {
+        'coordTemplate': 'coord',
+        # {{coord|52.51626|13.3777|type:landmark_region:DE|format=dms|display=title}}
+        'coordTemplateSyntax': u'{{coord|%f|%f|type:landmark_region=%s|format=dms|display=title}}'
     }
 }
 
@@ -49,16 +50,16 @@ DEBUG = True
 # classes
 
 class Monument:
-#Constructor with default arguments
-   def __init__(self, id = None):
-     self.id = id
-     self.name = u''
-     self.country = u''
-     self.wikilang = u''
-     self.article = u''
-     self.lat = None
-     self.lon = None
-     self.source = u''
+    # Constructor with default arguments
+    def __init__(self, id=None):
+        self.id = id
+        self.name = u''
+        self.country = u''
+        self.wikilang = u''
+        self.article = u''
+        self.lat = None
+        self.lon = None
+        self.source = u''
 
 
 # functions
@@ -67,11 +68,13 @@ def connectMonDatabase():
     '''
     Connect to the monuments mysql database
     '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db,
+    conn = MySQLdb.connect(
+        host=mconfig.db_server, db=mconfig.db,
         read_default_file=os.path.expanduser("~/.my.cnf"),
         use_unicode=True, charset='utf8')
     cursor = conn.cursor()
     return (conn, cursor)
+
 
 def connectWikiDatabase(lang):
     '''
@@ -80,14 +83,17 @@ def connectWikiDatabase(lang):
     if (lang):
         hostName = lang + 'wiki.labsdb'
         dbName = lang + 'wiki_p'
-        #coordDbName = 'u_dispenser_p'
-        conn = MySQLdb.connect(host=hostName, db=dbName,
+        # coordDbName = 'u_dispenser_p'
+        conn = MySQLdb.connect(
+            host=hostName, db=dbName,
             read_default_file=os.path.expanduser("~/.my.cnf"),
             use_unicode=True, charset='utf8')
         cursor = conn.cursor()
         return (conn, cursor)
 
-def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, cursorMon):
+
+def processCountry(countrycode, lang, countryconfig, coordconfig,
+                   connMon, cursorMon):
     '''
     Work on a single country.
     '''
@@ -142,7 +148,6 @@ def processCountry(countrycode, lang, countryconfig, coordconfig, connMon, curso
                 addCoords(countrycode, lang, aMonument, coordconfig)
 
 
-
 def getMonumentsWithCoordinates(countrycode, lang, cursor):
     '''
     Get monuments with coordinates from monuments database for a certain country/language combination.
@@ -152,7 +157,7 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
                    WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s"""
     cursor.execute(query, (countrycode, lang))
 
-    #result = cursor.fetchall ()
+    # result = cursor.fetchall ()
     while True:
         try:
             row = cursor.fetchone()
@@ -165,6 +170,7 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
             break
 
     return result
+
 
 def hasCoordinates(pageId, lang, cursor):
     '''
@@ -179,7 +185,7 @@ def hasCoordinates(pageId, lang, cursor):
                       WHERE (gc_from = %s AND gc_primary = 1)
                       LIMIT 1"""
         # FIXME escape & sanitize coordTable and pageId
-        cursor.execute(query % (coordTable, int(pageId) ))
+        cursor.execute(query % (coordTable, int(pageId)))
 
         if (cursor.rowcount > 0):
             return True
@@ -188,19 +194,21 @@ def hasCoordinates(pageId, lang, cursor):
     else:
         return False
 
-def getPageId(pageName, conn, cursor, pageNamespace = WP_ARTICLE_NS, followRedirect = False):
+
+def getPageId(pageName, conn, cursor,
+              pageNamespace=WP_ARTICLE_NS, followRedirect=False):
     '''
     get Wikipedia pagename pageId
     '''
 
-    #underscores
+    # underscores
     pageName = pageName.replace(u' ', u'_')
     retStatus = ''
     pageId = ''
     redirNs = ''
     redirTitle = u''
 
-    #FIXME page_titles like 'Château_de_Bercy' won't work, but titles like 'Käru' do ??
+    # FIXME page_titles like 'Château_de_Bercy' won't work, but titles like 'Käru' do ??
     query = """SELECT page_id, page_is_redirect FROM page
                    WHERE page_namespace = %s AND page_title = %s"""
     cursor.execute(query, (pageNamespace, pageName))
@@ -223,6 +231,7 @@ def getPageId(pageName, conn, cursor, pageNamespace = WP_ARTICLE_NS, followRedir
             retStatus = 'OK'
 
     return (retStatus, pageId, redirNs, redirTitle)
+
 
 def getRedirPageNsTitle(pageId, cursor):
     '''
@@ -257,12 +266,12 @@ def addCoords(countrycode, lang, monument, coordconfig):
         page = pywikibot.Page(site, monument.article)
         try:
             text = page.get()
-        except pywikibot.NoPage: # First except, prevent empty pages
+        except pywikibot.NoPage:  # First except, prevent empty pages
             return False
-        except pywikibot.IsRedirectPage: # second except, prevent redirect
+        except pywikibot.IsRedirectPage:  # second except, prevent redirect
             pywikibot.output(u'%s is a redirect!' % monument.article)
             return False
-        except pywikibot.Error: # third exception, take the problem and print
+        except pywikibot.Error:  # third exception, take the problem and print
             pywikibot.output(u"Some error, skipping..")
             return False
 
@@ -271,7 +280,8 @@ def addCoords(countrycode, lang, monument, coordconfig):
 
         newtext = text
         replCount = 1
-        coordText = coordTemplateSyntax % (monument.lat, monument.lon, countrycode.upper() )
+        coordText = coordTemplateSyntax % (monument.lat, monument.lon,
+                                           countrycode.upper())
         localCatName = pywikibot.getSite().namespace(WP_CATEGORY_NS)
         catStart = r'\[\[(' + localCatName + '|Category):'
         catStartPlain = u'[[' + localCatName + ':'
@@ -288,7 +298,7 @@ def addCoords(countrycode, lang, monument, coordconfig):
                 wikilist = matchWikipage.group(1)
             comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
             pywikibot.showDiff(text, newtext)
-            modPage = pywikibot.input(u'Modify page: %s ([y]/n) ?' % (monument.article) )
+            modPage = pywikibot.input(u'Modify page: %s ([y]/n) ?' % (monument.article))
             if (modPage.lower == 'y' or modPage == ''):
                 page.put(newtext, comment)
             return True
@@ -296,6 +306,7 @@ def addCoords(countrycode, lang, monument, coordconfig):
             return False
     else:
         return False
+
 
 def main():
     countrycode = u''
