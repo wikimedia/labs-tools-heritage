@@ -1155,7 +1155,7 @@ SELECT 'fr' AS `country`,
         `registrant_url` AS `registrant_url`
         FROM `monuments_fr_(fr)`;
 /* French object monuments in French */
-REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `registrant_url` )
+REPLACE INTO `monuments_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `registrant_url` )
 SELECT 'fr-object' AS `country`,
        'fr' AS `lang`,
       `palissy` AS `id`,
@@ -1164,7 +1164,6 @@ SELECT 'fr-object' AS `country`,
       LOWER(`departement_iso`) AS `adm2`,
       `commune` AS `adm3`,
       NULL AS `adm4`,
-      `monument` AS `name`,
       `adresse` AS `address`,
       `commune` AS `municipality`,
       `lat` AS `lat`,
