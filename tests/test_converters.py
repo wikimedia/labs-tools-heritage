@@ -4,6 +4,7 @@ import unittest
 from erfgoedbot.converters import (
     ucfirst,
     extractWikilink,
+    extract_elements_from_template_param,
     remove_commons_category_prefix,
     CH1903Converter
 )
@@ -90,3 +91,21 @@ class TestCH1903Converter(unittest.TestCase):
     def test_CH1903Converter_dummy(self):
         expected = (45.42221774940194, -0.15036807152500034)
         self.assertEquals(CH1903Converter('1', '1'), expected)
+
+
+class TestExtractElementsFromTemplateParam(unittest.TestCase):
+
+    """Test the extract_elements_from_template_param method."""
+
+    def test_extract_elements_from_template_param_empty_string(self):
+        self.assertEquals(extract_elements_from_template_param(''), ('', ''))
+
+    def test_extract_elements_from_template_param(self):
+        input_value = 'id=identifiant'
+        expected = (u'id', u'identifiant')
+        self.assertEquals(extract_elements_from_template_param(input_value), expected)
+
+    def test_extract_elements_from_template_param_with_reference(self):
+        input_value = 'name=My monument name<ref>Serious reference</ref>'
+        expected = (u'name', u'My monument name')
+        self.assertEquals(extract_elements_from_template_param(input_value), expected)
