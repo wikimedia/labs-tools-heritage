@@ -7,8 +7,8 @@ Bot to add {{Object location dec}} to monuments. Location is based on informatio
 '''
 import monuments_config as mconfig
 import pywikibot
-import config
-import pagegenerators
+from pywikibot import config
+from pywikibot import pagegenerators
 import MySQLdb
 
 

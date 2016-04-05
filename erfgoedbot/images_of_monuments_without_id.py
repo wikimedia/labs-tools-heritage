@@ -15,7 +15,7 @@ python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 '''
 import monuments_config as mconfig
 import pywikibot
-import config
+from pywikibot import config
 import MySQLdb
 
 

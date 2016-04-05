@@ -8,7 +8,7 @@ Make a list of top streets for a municipality. Bot expects two things on the com
 '''
 import monuments_config as mconfig
 import pywikibot
-import config
+from pywikibot import config
 import MySQLdb
 from collections import Counter
 
