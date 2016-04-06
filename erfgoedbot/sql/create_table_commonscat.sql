@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS `commonscat`;
+
 CREATE TABLE `commonscat` (
   `site` ENUM ('be-tarask', 'ca', 'da', 'de', 'en', 'es', 'et', 'fr', 'gl', 'lb', 'nl', 'no', 'pl', 'pt', 'ro', 'sv' ) NOT NULL, -- Wikipedia the title belongs to
   `title`  VARCHAR (255) NOT NULL DEFAULT '', -- Title at site

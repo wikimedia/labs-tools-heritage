@@ -1,8 +1,8 @@
 /* Create table for all country tables
- * 
+ *
  * Please keep this list sorted by country code!
  *
- * If you change something please test it. 
+ * If you change something please test it.
  *
  * FoP: ''=no info, 'pd'=Public domain or otherwise free (e.g. suitable CC license), 'FoP'=Copyrighted, FoP applies, 'noFoP'=Copyrighted, FoP does not apply
  */
@@ -38,7 +38,7 @@ CREATE TABLE `wlpa_all_tmp` (
   `creator` varchar(255) NOT NULL DEFAULT '',
   `fop` enum('', 'pd', 'FoP', 'noFoP') not null,
   `registrant_url` varchar(255) NOT NULL DEFAULT '',
-  `monument_random` mediumint(8) unsigned DEFAULT NULL, 
+  `monument_random` mediumint(8) unsigned DEFAULT NULL,
   PRIMARY KEY (`country`,`lang`,`id`),
   KEY `admin_levels0` (`adm0`, `lang`, `name`, `country`, `id`),
   KEY `admin_levels1` (`adm0`, `adm1`, `lang`, `name`, `country`, `id`),
@@ -55,109 +55,125 @@ CREATE TABLE `wlpa_all_tmp` (
 TRUNCATE TABLE `wlpa_all_tmp`;
 
 /* Austria in German */
-REPLACE INTO `wlpa_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url` )
-SELECT 'at' AS `country`,
-       'de' AS `lang`, 
-       CONCAT(`Region`, '-', `ID`) AS `id`,
-		'at' AS `adm0`,
-		NULL AS `adm1`,
-		NULL AS `adm2`,
-		`Region` AS `adm3`,
-		NULL AS `adm4`,
-        `Name` AS `name`,
-        `Adresse` AS `address`,
-        '' AS `municipality`,
-        `lat` AS `lat`,
-        `lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-        `Foto` AS `image`,
-		`Commonscat` AS `commonscat`,
-        `source` AS `source`,
-        `changed` AS `changed`,
-        `Artikel` AS `monument_article`,
-        `Kunstler` AS `creator`,
-        '' AS `fop`,
-        '' AS `registrant_url`
-        FROM `wlpa_at_(de)`;
+REPLACE INTO
+  `wlpa_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url`
+  ) SELECT
+    'at' AS `country`,
+    'de' AS `lang`,
+    CONCAT(`Region`, '-', `ID`) AS `id`,
+    'at' AS `adm0`,
+    NULL AS `adm1`,
+    NULL AS `adm2`,
+    `Region` AS `adm3`,
+    NULL AS `adm4`,
+    `Name` AS `name`,
+    `Adresse` AS `address`,
+    '' AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `Foto` AS `image`,
+    `Commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `Artikel` AS `monument_article`,
+    `Kunstler` AS `creator`,
+    '' AS `fop`,
+    '' AS `registrant_url`
+    FROM `wlpa_at_(de)`;
+
 /* Catalonia in Catalan */
-REPLACE INTO `wlpa_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url` )
-SELECT 'es-ct' AS `country`,
-       'ca' AS `lang`, 
-       `codi` AS `id`,
-		'es' AS `adm0`,
-		'es-ct' AS `adm1`,
-		NULL AS `adm2`,
-		`municipi` AS `adm3`,
-		NULL AS `adm4`,
-        `titol` AS `name`,
-        `lloc` AS `address`,
-        `municipi` AS `municipality`,
-        `lat` AS `lat`,
-        `lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-        `imatge` AS `image`,
-		`commonscat` AS `commonscat`,
-        `source` AS `source`,
-        `changed` AS `changed`,
-        `monument_article` AS `monument_article`,
-        `autor` AS `creator`,
-        `fop` AS `fop`,
-        `registrant_url` AS `registrant_url`
-        FROM `wlpa_es-ct_(ca)`;
+REPLACE INTO
+  `wlpa_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url`
+  ) SELECT
+    'es-ct' AS `country`,
+    'ca' AS `lang`,
+    `codi` AS `id`,
+    'es' AS `adm0`,
+    'es-ct' AS `adm1`,
+    NULL AS `adm2`,
+    `municipi` AS `adm3`,
+    NULL AS `adm4`,
+    `titol` AS `name`,
+    `lloc` AS `address`,
+    `municipi` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `imatge` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `autor` AS `creator`,
+    `fop` AS `fop`,
+    `registrant_url` AS `registrant_url`
+    FROM `wlpa_es-ct_(ca)`;
+
 /* Finland in Finnish */
-REPLACE INTO `wlpa_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url` )
-SELECT 'fi' AS `country`,
-       'fi' AS `lang`, 
-       `id` AS `id`,
-		'fi' AS `adm0`,
-		LOWER(`maakunta`) AS `adm1`,
-		`kunta` AS `adm2`,
-		NULL AS `adm3`,
-		NULL AS `adm4`,
-        `nimi` AS `name`,
-        `sijainti` AS `address`,
-        `kunta` AS `municipality`,
-        `lat` AS `lat`,
-        `lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-        `kuva` AS `image`,
-		`commonscat` AS `commonscat`,
-        `source` AS `source`,
-        `changed` AS `changed`,
-        `monument_article` AS `monument_article`,
-        `tekija` AS `creator`,
-        `fop` AS `fop`,
-        `url` AS `registrant_url`
-        FROM `wlpa_fi_(fi)`;
+REPLACE INTO
+  `wlpa_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url`
+  ) SELECT
+    'fi' AS `country`,
+    'fi' AS `lang`,
+    `id` AS `id`,
+    'fi' AS `adm0`,
+    LOWER(`maakunta`) AS `adm1`,
+    `kunta` AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `nimi` AS `name`,
+    `sijainti` AS `address`,
+    `kunta` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `kuva` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `tekija` AS `creator`,
+    `fop` AS `fop`,
+    `url` AS `registrant_url`
+    FROM `wlpa_fi_(fi)`;
+
 /* Israel in English */
-REPLACE INTO `wlpa_all_tmp` (`country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url` )
-SELECT 'il' AS `country`,
-       'en' AS `lang`, 
-       `id` AS `id`,
-		'il' AS `adm0`,
-		LOWER(`district`) AS `adm1`,
-		`municipality` AS `adm2`,
-		NULL AS `adm3`,
-		NULL AS `adm4`,
-        `title` AS `name`,
-        `address` AS `address`,
-        `municipality` AS `municipality`,
-        `lat` AS `lat`,
-        `lon` AS `lon`,
-		ROUND(`lat` * @granularity) AS `lat_int`,
-		ROUND(`lon` * @granularity) AS `lon_int`,
-        `image` AS `image`,
-		`commonscat` AS `commonscat`,
-        `source` AS `source`,
-        `changed` AS `changed`,
-        `monument_article` AS `monument_article`,
-        `artist` AS `creator`,
-        `fop` AS `fop`,
-        '' AS `registrant_url`
-        FROM `wlpa_il_(en)`;
+REPLACE INTO
+  `wlpa_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `creator`, `fop`, `registrant_url`
+  ) SELECT
+    'il' AS `country`,
+    'en' AS `lang`,
+    `id` AS `id`,
+    'il' AS `adm0`,
+    LOWER(`district`) AS `adm1`,
+    `municipality` AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `title` AS `name`,
+    `address` AS `address`,
+    `municipality` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    `artist` AS `creator`,
+    `fop` AS `fop`,
+    '' AS `registrant_url`
+    FROM `wlpa_il_(en)`;
+
 /* Add next here */
 
 -- UPDATE `wlpa_all_tmp` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
