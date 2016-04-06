@@ -2,6 +2,7 @@
 
 import mock
 import unittest
+import pywikibot
 
 from erfgoedbot import update_database
 
@@ -292,9 +293,9 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         val = 'something'
         self.contents[u'source-field'] = val
 
-        with self.assertRaises(KeyError) as cm:
+        with self.assertRaises(pywikibot.Error) as cm:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            self.assertEqual(cm.exception, u'unknown')
+            self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: unknown')
 
     def test_trigger_problematic_check(self):
         # It is a known bug that any function can be triggered using a check
@@ -308,9 +309,9 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         val = 'something'
         self.contents[u'source-field'] = val
 
-        with mock.patch('erfgoedbot.update_database.connectDatabase', autospec=False) as mock_connectDatabase:
+        with self.assertRaises(pywikibot.Error) as cm:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_connectDatabase.assert_called_once_with(val, self.monumentKey, self.country_config, self.mock_page)
+            self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: connectDatabase')
 
 
 class TestCheckLatNoCountryBbox(TestUpdateDatabaseBase):

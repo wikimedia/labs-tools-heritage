@@ -56,10 +56,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -138,10 +140,12 @@ countries = {
             {
                 'source': u'լայն',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'երկ',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'հղում',
@@ -214,10 +218,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'area',
@@ -294,10 +300,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -436,10 +444,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
         ],
     },
@@ -497,10 +507,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -578,10 +590,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -667,10 +681,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -754,10 +770,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -936,10 +954,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'architect',
@@ -1038,10 +1058,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'architecte',
@@ -1142,10 +1164,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'architect',
@@ -1227,10 +1251,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -1303,10 +1329,12 @@ countries = {
             {
                 'source': u'шырата',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'даўгата',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'каардынаты',
@@ -1378,10 +1406,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -1491,10 +1521,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'construction',
@@ -1587,10 +1619,12 @@ countries = {
             {
                 'source': u'latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'région-ISO',
@@ -1670,10 +1704,12 @@ countries = {
             {
                 'source': u'latitudine',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitudine',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'regione-ISO',
@@ -1761,10 +1797,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Region-ISO',
@@ -1844,10 +1882,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Region-ISO',
@@ -1927,10 +1967,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Region-ISO',
@@ -1983,10 +2025,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Foto',
@@ -2180,10 +2224,12 @@ countries = {
             {
                 'source': u'latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Photo',
@@ -2275,10 +2321,12 @@ countries = {
             {
                 'source': u'latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -2341,10 +2389,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -2427,10 +2477,12 @@ countries = {
             {
                 'source': u'Zeměpisná_šířka',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Zeměpisná_délka',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Popis',
@@ -2498,10 +2550,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -2570,10 +2624,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -2671,10 +2727,12 @@ countries = {
             {
                 'source': u'NS',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'EW',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
         ],
     },
@@ -2734,10 +2792,12 @@ countries = {
             {
                 'source': u'NS',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'EW',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Nummer',
@@ -2817,10 +2877,12 @@ countries = {
             {
                 'source': u'NS',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'EW',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
         ],
     },
@@ -2875,10 +2937,12 @@ countries = {
             {
                 'source': u'NS',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'EW',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bezeichnung',
@@ -2934,10 +2998,12 @@ countries = {
             {
                 'source': u'NS',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'EW',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Region',
@@ -3034,10 +3100,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'kommunenr',
@@ -3141,10 +3209,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'billede',
@@ -3219,10 +3289,12 @@ countries = {
             {
                 'source': u'دائرة عرض',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'خط طول',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'صورة',
@@ -3371,10 +3443,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -3461,10 +3535,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'id_aut',
@@ -3562,10 +3638,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -3651,10 +3729,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'notas',
@@ -3740,10 +3820,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -3826,10 +3908,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -3908,10 +3992,12 @@ countries = {
             {
                 'source': u'latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'titre coordonnées',
@@ -4022,10 +4108,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -4112,10 +4200,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'show_notes',
@@ -4191,10 +4281,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'type',
@@ -4293,10 +4385,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'lb_type',
@@ -4368,10 +4462,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'function',
@@ -4466,10 +4562,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -4541,10 +4639,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'name',
@@ -4603,10 +4703,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'name',
@@ -4676,10 +4778,12 @@ countries = {
             {
                 'source': u'szélesség',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'hosszúság',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'státusz',
@@ -4746,10 +4850,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -4809,10 +4915,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -4913,10 +5021,12 @@ countries = {
             {
                 'source': u'LAT',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'LONG',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'תמונה',
@@ -5008,10 +5118,12 @@ countries = {
             {
                 'source': u'LAT',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'LONG',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'תמונה',
@@ -5062,10 +5174,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'regione',
@@ -5125,10 +5239,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nomcoor',
@@ -5242,10 +5358,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'ObjektID',
@@ -5296,10 +5414,12 @@ countries = {
             {
                 'source': u'عرض',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'طول',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'صورة',
@@ -5386,10 +5506,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'type',
@@ -5467,10 +5589,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -5537,10 +5661,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bild',
@@ -5642,10 +5768,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -5716,10 +5844,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -5781,10 +5911,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -5869,10 +6001,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -5949,10 +6083,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -6051,10 +6187,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Region-ISO',
@@ -6110,10 +6248,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -6197,10 +6337,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'county_iso',
@@ -6308,10 +6450,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'description',
@@ -6377,10 +6521,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'provincia',
@@ -6451,10 +6597,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -6515,10 +6663,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'color',
@@ -6580,10 +6730,12 @@ countries = {
             {
                 'source': u'szerokość',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'długość',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'koordynaty',  # To get rid of errors
@@ -6662,10 +6814,12 @@ countries = {
             {
                 'source': u'szerokość',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'długość',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'koordynaty',  # To get rid of errors
@@ -6748,10 +6902,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'imagem',
@@ -6823,6 +6979,7 @@ countries = {
             {
                 'source': u'Lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Coordonate',
@@ -6831,6 +6988,7 @@ countries = {
             {
                 'source': u'Lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Imagine',
@@ -6901,10 +7059,12 @@ countries = {
             {
                 'source': u'гшир',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'гдуж',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Слика',
@@ -6970,10 +7130,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -7048,10 +7210,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bild',
@@ -7139,10 +7303,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bild',
@@ -7217,10 +7383,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bild',
@@ -7292,10 +7460,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'bild',
@@ -7407,10 +7577,12 @@ countries = {
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
         ],
     },
@@ -7522,10 +7694,12 @@ countries = {
             {
                 'source': u'šírka',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'dĺžka',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Beschreibung-de',
@@ -7590,10 +7764,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -7672,10 +7848,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'ภาพ',
@@ -7766,10 +7944,12 @@ countries = {
             {
                 'source': u'latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',
@@ -7958,10 +8138,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nolatlon',
@@ -8044,10 +8226,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'nolatlon',
@@ -8111,10 +8295,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -8198,10 +8384,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'dirección',
@@ -8298,10 +8486,12 @@ countries = {
             {
                 'source': u'Latitude',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Longitude',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
         ],
     },
@@ -8369,10 +8559,12 @@ countries = {
             {
                 'source': u'Längengrad',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'Breitengrad',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'Beschreibung',
@@ -8455,10 +8647,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'idurl',
@@ -8559,10 +8753,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'lon',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'kuva',
@@ -8645,10 +8841,12 @@ countries = {
             {
                 'source': u'lat',
                 'dest': u'lat',
+                'check': u'checkLat',
             },
             {
                 'source': u'long',
                 'dest': u'lon',
+                'check': u'checkLon',
             },
             {
                 'source': u'image',

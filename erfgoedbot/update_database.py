@@ -128,6 +128,17 @@ def checkLon(lon, monumentKey, countryconfig, sourcePage):
             return True
 
 
+def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
+    """Run a named check."""
+    if check == 'checkLat':
+        return checkLat(fieldValue, monumentKey, countryconfig, sourcePage)
+    elif check == 'checkLon':
+        return checkLon(fieldValue, monumentKey, countryconfig, sourcePage)
+    else:
+        raise pywikibot.Error('Un-defined check in config for %s: %s'
+                              % (countryconfig.get('table'), check))
+
+
 def convertField(field, contents, countryconfig):
     '''
     Convert a field
@@ -190,7 +201,9 @@ def convertField(field, contents, countryconfig):
                 return u'noFoP'
         except ValueError:
             return u'noFoP'
-    return u''
+    else:
+        raise pywikibot.Error('Un-defined converter in config for %s: %s'
+                              % (countryconfig.get('table'), field.get('conv')))
 
 
 def unknownFieldsStatistics(countryconfig, unknownFields):
@@ -233,7 +246,7 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
             fieldnames.append(field.get('dest'))
 
             # Do some conversions here
-            fieldValue = u''
+            fieldValue = u''  # Should this be None?
             if field.get('conv'):
                 fieldValue = convertField(field, contents, countryconfig)
             else:
@@ -242,8 +255,9 @@ def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
             if field.get('check'):
                 # check data
                 # run function with name field.get('check')
-                globals()[field.get('check')](
-                    fieldValue, monumentKey, countryconfig, sourcePage)
+                if not run_check(field.get('check'), fieldValue, monumentKey,
+                                 countryconfig, sourcePage):
+                    fieldValue = u''  # throw away input if check fails
             fieldvalues.append(fieldValue)
 
     if countryconfig.get('countryBbox'):
