@@ -34,7 +34,6 @@ CREATE TABLE `monuments_all_tmp` (
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `monument_article` varchar(255) NOT NULL DEFAULT '',
   `registrant_url` varchar(255) NOT NULL DEFAULT '',
-  `monument_random` mediumint(8) unsigned DEFAULT NULL,
   PRIMARY KEY (`country`,`lang`,`id`),
   KEY `admin_levels0` (`adm0`, `lang`, `name`, `country`, `id`),
   KEY `admin_levels1` (`adm0`, `adm1`, `lang`, `name`, `country`, `id`),
@@ -43,7 +42,6 @@ CREATE TABLE `monuments_all_tmp` (
   KEY `admin_levels4` (`adm4`(32), `lang`, `name`, `country`, `id`),
   KEY `name` (`name`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
-  KEY `monument_random` (`monument_random`),
   FULLTEXT KEY `name_address_ft` (`name`, `address`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -2739,9 +2737,6 @@ REPLACE INTO
     '' AS `registrant_url` /* FIXME: Add this field to source table */
     FROM `monuments_za_(en)`;
 -- UPDATE `monuments_all_tmp` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
-
---  generate random values
-UPDATE `monuments_all_tmp` SET `monument_random`=ROUND(1000000 * RAND() );
 
 DROP TABLE IF EXISTS `monuments_all`;
 

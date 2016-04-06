@@ -38,7 +38,6 @@ CREATE TABLE `wlpa_all_tmp` (
   `creator` varchar(255) NOT NULL DEFAULT '',
   `fop` enum('', 'pd', 'FoP', 'noFoP') not null,
   `registrant_url` varchar(255) NOT NULL DEFAULT '',
-  `monument_random` mediumint(8) unsigned DEFAULT NULL,
   PRIMARY KEY (`country`,`lang`,`id`),
   KEY `admin_levels0` (`adm0`, `lang`, `name`, `country`, `id`),
   KEY `admin_levels1` (`adm0`, `adm1`, `lang`, `name`, `country`, `id`),
@@ -48,7 +47,6 @@ CREATE TABLE `wlpa_all_tmp` (
   KEY `name` (`name`),
   KEY `creator` (`creator`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
-  KEY `monument_random` (`monument_random`),
   FULLTEXT KEY `name_address_ft` (`name`, `address`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -177,9 +175,6 @@ REPLACE INTO
 /* Add next here */
 
 -- UPDATE `wlpa_all_tmp` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
-
---  generate random values
-UPDATE `wlpa_all_tmp` SET `monument_random`=ROUND(1000000 * RAND() );
 
 DROP TABLE IF EXISTS `wlpa_all`;
 
