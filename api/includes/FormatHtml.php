@@ -130,8 +130,8 @@ class FormatHtml extends FormatBase {
 		$img = str_replace(" ","_",$img);
 		$md5 = md5($img);
 
-		$url = 'http://upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.rawurlencode($img).'/100px-'.rawurlencode($img);
+		$url = '//upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.rawurlencode($img).'/100px-'.rawurlencode($img);
 		// FIXME: Check if this is save (just including $url)
-		return '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($img) . '"><img src="' . $url . '" /></a>';
+		return '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode($img) . '"><img src="' . $url . '" /></a>';
 	}
 }

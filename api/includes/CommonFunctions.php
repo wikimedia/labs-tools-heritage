@@ -19,7 +19,7 @@ function processWikitext($wikilang, $text, $makelinks) {
     $result = $text;
     $differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
     $simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
-    $wikiUrl = 'http://' . $wikilang . '.wikipedia.org/wiki/';
+    $wikiUrl = '//' . $wikilang . '.wikipedia.org/wiki/';
     $differentLinkReplace = "'<a href=\"" . $wikiUrl ."' . rawurlencode('$1') . '\">$2</a>'";
     $simpleLinkReplace = "'<a href=\"". $wikiUrl ."' . rawurlencode('$1') . '\">$1</a>'";
     if ( $makelinks ) {
