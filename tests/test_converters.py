@@ -2,10 +2,28 @@
 
 import unittest
 from erfgoedbot.converters import (
+    ucfirst,
     extractWikilink,
     remove_commons_category_prefix,
     CH1903Converter
 )
+
+
+class TestUcFirst(unittest.TestCase):
+
+    """Test the ucfirst method."""
+
+    def test_ucfirst_on_empty_string_returns_empty_string(self):
+        self.assertEquals(ucfirst(''), '')
+
+    def test_ucfirst_capitalizes_string(self):
+        self.assertEquals(ucfirst('abcd'), 'Abcd')
+
+    def test_ucfirst_on_already_capitalized_string_is_constant(self):
+        self.assertEquals(ucfirst('Abcd'), 'Abcd')
+
+    def test_ucfirst_keeps_capitalized_bits(self):
+        self.assertEquals(ucfirst('abcD'), 'AbcD')
 
 
 class TestExtractWikilink(unittest.TestCase):
