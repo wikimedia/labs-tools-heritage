@@ -69,3 +69,14 @@ def remove_commons_category_prefix(text):
     if match:
         result = match.group('category')
     return result
+
+
+def extract_elements_from_template_param(template_param):
+
+    """Extract and sanitize the contents of a parsed template param."""
+
+    (field, _, value) = template_param.partition(u'=')
+    # Remove leading or trailing spaces
+    field = field.strip()
+    value = value.split("<ref")[0].strip()
+    return (field, value)

@@ -18,7 +18,12 @@ import pywikibot
 import MySQLdb
 from pywikibot import config
 from pywikibot import pagegenerators
-from converters import CH1903Converter, extractWikilink, remove_commons_category_prefix
+from converters import (
+    extractWikilink,
+    extract_elements_from_template_param,
+    remove_commons_category_prefix,
+    CH1903Converter
+)
 
 
 def connectDatabase():
@@ -295,11 +300,7 @@ def processHeader(params, countryconfig):
         validFields.append(field.get(u'source'))
 
     for param in params:
-        # Split at =
-        (field, sep, value) = param.partition(u'=')
-        # Remove leading or trailing spaces
-        field = field.strip()
-        value = value.split("<ref")[0].strip()
+        (field, value) = extract_elements_from_template_param(param)
 
         # Check first that field is not empty
         if field.strip():
@@ -334,11 +335,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
     contents['title'] = title
 
     for param in params:
-        # Split at =
-        (field, sep, value) = param.partition(u'=')
-        # Remove leading or trailing spaces
-        field = field.strip()
-        value = value.split("<ref")[0].strip()
+        (field, value) = extract_elements_from_template_param(param)
 
         # Check first that field is not empty
         if field.strip():
