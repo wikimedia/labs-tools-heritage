@@ -85,11 +85,11 @@ class FormatHtmllist extends FormatBase {
         if ( isset($row->name) and $row->name ) {
             if ( isset($row->monument_article) and $row->monument_article ) {
                 $makeLinks = false;
-                $article_url = '//'. $row->lang .'.wikipedia.org/wiki/'. htmlspecialchars( $row->monument_article );
-                $desc .= '<h2><a href="'. $article_url .'">'. processWikitext($row->lang, $row->name, $makeLinks) . '</a></h2>';
+                $article_url = '//'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article );
+                $desc .= '<h2><a href="'. $article_url .'">'. processWikitext($row->lang, $row->name, $makeLinks, $row->project) . '</a></h2>';
             } else {
                 $makeLinks = true;
-                $desc .= '<h2>'. processWikitext($row->lang, $row->name, $makeLinks) . '</h2>';
+                $desc .= '<h2>'. processWikitext($row->lang, $row->name, $makeLinks, $row->project) . '</h2>';
             }
         }
         $desc .= '<ul>';
@@ -101,7 +101,7 @@ class FormatHtmllist extends FormatBase {
                     $desc .= '<li> ' . htmlspecialchars($I18N->msg('db-field-' . $name ) ) . ': ';
                     if ( in_array( $name, $hasWikitext ) ) {
                         $makeLinks = true;
-			$desc .= processWikitext($row->lang, $value, $makeLinks);
+			$desc .= processWikitext($row->lang, $value, $makeLinks, $row->project);
                     } else {
                         if ( strcmp($name, 'id') == 0 and 
                                isset($row->registrant_url) and $row->registrant_url) {

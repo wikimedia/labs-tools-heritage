@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS `monuments_all_tmp`;
 CREATE TABLE `monuments_all_tmp` (
   `country` varchar(10) binary NOT NULL DEFAULT '',
   `lang` varchar(10) binary NOT NULL DEFAULT '',
+  `project` varchar(150) NOT NULL DEFAULT 'wikipedia',
   `id` varchar(25) NOT NULL DEFAULT '0',
   `adm0` varchar(3) binary NOT NULL DEFAULT '',
   `adm1` varchar(7) binary DEFAULT NULL,
@@ -2293,10 +2294,11 @@ REPLACE INTO
 /* Russia in Russian */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `project`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
   ) SELECT
     'ru' AS `country`,
     'ru' AS `lang`,
+    'wikivoyage' AS `project`,
     `id` AS `id`,
     'ru' AS `adm0`,
     LOWER(`region_iso`) AS `adm1`,

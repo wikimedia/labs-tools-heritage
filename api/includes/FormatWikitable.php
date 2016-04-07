@@ -4,7 +4,7 @@ error_reporting(E_ALL);
  * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work 
  */
-//functions: processWikitext
+//functions: matchWikiprojectLink
 require_once('CommonFunctions.php');
 
 class FormatWikitable extends FormatBase {
@@ -78,17 +78,20 @@ class FormatWikitable extends FormatBase {
 	 * Make this a nice link if it is a url (source column)
 	 */
 	static function prettifyUrls($text) {
-		if ( preg_match( '/(https?:)?\/\/((\w+)\.wikipedia\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $m ) ) {
-			return '[//' . htmlspecialchars( $m[2]  ) .' '. htmlspecialchars( $m[3] . ': ' . str_replace( '_', ' ', $m[4] ) ) . ']';
-		} else {
+		try {
+			$m = matchWikiprojectLink( $text );
+			$encodedLinkText = str_replace( '_', ' ', $m[4] );
+			$linkText = urldecode( $encodedLinkText );
+			return '[//' . htmlspecialchars( $m[2]  ) .' '. htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
+		} catch (Exception $e) {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
 	}
 
-        static function genImage($img) {
-         if ($img != "") {
-          return '[[File:'.$img.'|100px]]';
-         }
-        }
+	static function genImage($img) {
+		if ($img != "") {
+			return '[[File:'.$img.'|100px]]';
+		}
+	}
 }

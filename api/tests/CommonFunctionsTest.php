@@ -37,6 +37,14 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function test_processWikitext_nolinks_wikiproject()
+    {
+        $this->assertEquals(
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', False, 'wikivoyage'),
+            'Lorem Ipsum Dolor'
+        );
+    }
+
     public function test_processWikitext_makelinks_form_1()
     {
         $this->assertEquals(
@@ -51,6 +59,37 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
             processWikitext('fr', 'Lorem [[Ipsum|Sin amet]] Dolor', True),
             'Lorem <a href="//fr.wikipedia.org/wiki/Ipsum">Sin amet</a> Dolor'
         );
+    }
+
+    public function test_processWikitext_makelinks_wikiproject()
+    {
+        $this->assertEquals(
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', True, 'wikivoyage'),
+            'Lorem <a href="//fr.wikivoyage.org/wiki/Ipsum">Ipsum</a> Dolor'
+        );
+    }
+
+    public function test_matchWikiprojectLink_no_match()
+    {
+        $input = 'not-a-link';
+        $this->setExpectedException('Exception');  // present in phpUnit 4.8
+        // $this->expectException('Exception');  // present in phpUnit 5.2+
+        // $this->expectExceptionMessage('No project link in text.');  // present in phpUnit 5.2+
+        matchWikiprojectLink( $input );
+    }
+
+    public function test_matchWikiprojectLink_match()
+    {
+        $input = 'https://fr.wikipedia.org/w/index.php?title=some_title&oldid=00000';
+        $output = Array(
+            "https://fr.wikipedia.org/w/index.php?title=some_title&oldid=00000",
+            "https:",
+            "fr.wikipedia.org/w/index.php?title=some_title&oldid=00000",
+            "fr",
+            "some_title",
+            "00000"
+            );
+        $this->assertEquals(matchWikiprojectLink($input), $output);
     }
 
     public function test_replaceSpaces()

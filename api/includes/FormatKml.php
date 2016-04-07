@@ -40,7 +40,7 @@ class FormatKml extends FormatBase {
             echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
             if ( isset($row->name) ) {
                 $makeLinks = false;
-                echo '<name>' . htmlspecialchars( processWikitext($row->lang, $row->name, $makeLinks) ) . '</name>';
+                echo '<name>' . htmlspecialchars( processWikitext($row->lang, $row->name, $makeLinks, $row->project) ) . '</name>';
             }
             echo '<description>';
             $desc = '';
@@ -59,7 +59,7 @@ class FormatKml extends FormatBase {
                         $desc .= '<li> ' . _('db-field-' . $name ) . ' - ';
                         if ( in_array( $name, $hasWikitext ) ) {
                             $makeLinks = true;
-                            $desc .= processWikitext($row->lang, $value, $makeLinks);
+                            $desc .= processWikitext($row->lang, $value, $makeLinks, $row->project);
                         } else {
                             $desc .= $value;
                         }

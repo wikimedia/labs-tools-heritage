@@ -54,7 +54,7 @@ class FormatGpx extends FormatBase {
 		// src
 		echo '<src>' . htmlspecialchars ( $row->source ) . '</src>';
 		// FIXME: Only include link if set
-		echo '<link>' . 'http://'. $row->lang .'.wikipedia.org/wiki/'. htmlspecialchars( $row->monument_article ) . '</link>';
+		echo '<link>' . 'http://'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article ) . '</link>';
 		// sym (icon)
 		echo '</wpt>';
 	}

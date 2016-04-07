@@ -4,7 +4,7 @@ error_reporting(E_ALL);
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work 
  */
-//functions: processWikitext
+//functions: processWikitext, matchWikiprojectLink, getImageFromCommons
 require_once('CommonFunctions.php');
 
 class FormatHtml extends FormatBase {
@@ -83,10 +83,12 @@ class FormatHtml extends FormatBase {
                     // not all datasets are ResultWrapper
                     if ( is_object($row) && isset($row->lang) ) {
                         $lang = $row->lang;
+                        $project = $row->project;
                     } else { // assume $row is array
                         $lang = $row['lang'];
+                        $project = $row['project'];
                     }
-                    $cellData = processWikitext($lang, $value, $makeLinks);
+                    $cellData = processWikitext($lang, $value, $makeLinks, $project);
 				} elseif (strpos(strrev($name),'tcp_') === 0) { // capture Statistics _pct fields
                     $tdattrs = ' class="ht'.(intval($value/10)).'"';
                     $cellData = $value; //.' %' // this will break sorting! :(;
@@ -111,12 +113,13 @@ class FormatHtml extends FormatBase {
 	 * Make this a nice link if it is a url (source column)
 	 */
 	static function prettifyUrls($text) {
-		if ( preg_match( '/(https?:)?\/\/((\w+)\.wikipedia\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $m ) ) {
+		try {
+			$m = matchWikiprojectLink( $text );
 			$encodedLinkText = str_replace( '_', ' ', $m[4] );
 			$linkText = urldecode( $encodedLinkText );
 			return '<a href="https://' . htmlspecialchars( $m[2] ) . '">' .
 				htmlspecialchars( $linkText ) . '</a>';
-		} else {
+		} catch (Exception $e) {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
@@ -130,10 +133,8 @@ class FormatHtml extends FormatBase {
 		if ( $img == "" )
 			return '';
 
-		$img = str_replace(" ","_",$img);
-		$md5 = md5($img);
-
-		$url = '//upload.wikimedia.org/wikipedia/commons/thumb/'.substr($md5,0,1).'/'.substr($md5,0,2).'/'.rawurlencode($img).'/100px-'.rawurlencode($img);
+		$img = str_replace(" ", "_", $img);
+		$url = getImageFromCommons( $img, 100 );
 		// FIXME: Check if this is save (just including $url)
 		return '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode($img) . '"><img src="' . $url . '" /></a>';
 	}
