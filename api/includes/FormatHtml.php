@@ -112,7 +112,10 @@ class FormatHtml extends FormatBase {
 	 */
 	static function prettifyUrls($text) {
 		if ( preg_match( '/(https?:)?\/\/((\w+)\.wikipedia\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $m ) ) {
-	        return '<a href="https://' . htmlspecialchars( $m[2] ) . '">' . htmlspecialchars( $m[3] . ': ' . str_replace( '_', ' ', $m[4] ) ) . '</a>';
+			$encodedLinkText = str_replace( '_', ' ', $m[4] );
+			$linkText = urldecode( $encodedLinkText );
+			return '<a href="https://' . htmlspecialchars( $m[2] ) . '">' .
+				htmlspecialchars( $linkText ) . '</a>';
 		} else {
 			// Normal text
 			return htmlspecialchars( $text );
