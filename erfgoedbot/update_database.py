@@ -386,16 +386,13 @@ def lookupSourceField(destination, countryconfig):
             return field.get('source')
 
 
-def processText(text, source, countryconfig, conn, cursor, page=None, unknownFields=None):
+def processPage(page, source, countryconfig, conn, cursor, unknownFields=None):
     '''
     Process a text containing one or multiple instances of the monument row template
     '''
     if not unknownFields:
         unknownFields = {}
 
-    if not page:
-        site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
-        page = pywikibot.Page(site, u'User:Multichill/Zandbak')
     templates = page.templatesWithParams()
     headerDefaults = {}
 
@@ -452,20 +449,9 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
     for page in generator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking
-            unknownFields = processText(page.get(), page.permalink(
-            ), countryconfig, conn, cursor, page=page, unknownFields=unknownFields)
+            unknownFields = processPage(page, page.permalink(), countryconfig, conn, cursor, unknownFields=unknownFields)
 
     unknownFieldsStatistics(countryconfig, unknownFields)
-
-
-def processTextfile(textfile, countryconfig, conn, cursor):
-    '''
-    Process the contents of a text file containing one or more lines with the Tabelrij rijksmonument template
-    '''
-    file = open(textfile, 'r')
-    for line in file:
-        processText(
-            line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
 
 
 def main():
@@ -475,7 +461,6 @@ def main():
     # First find out what to work on
 
     countrycode = u''
-    textfile = u''
     fullUpdate = True
     daysBack = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
@@ -486,15 +471,13 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode:':
             countrycode = value
-        elif option == '-textfile:':
-            textfile = value
         elif option == '-daysback:':
             daysBack = int(value)
         elif option == u'-fullupdate':
             fullUpdate = True
         else:
             raise Exception(
-                "Bad parameters. Expected -countrycode, -textfile, -daysback, -fullupdate or  pywikipediabot args.")
+                "Bad parameters. Expected -countrycode, -daysback, -fullupdate or  pywikipediabot args.")
 
     if countrycode:
         lang = pywikibot.Site().language()
@@ -504,17 +487,14 @@ def main():
             return False
         pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        if textfile:
-            pywikibot.output(u'Going to work on textfile.')
-            processTextfile(
-                textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
-        else:
-            try:
-                processCountry(
-                    mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
-            except Exception, e:
-                pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
-                pywikibot.output(str(e))
+
+        try:
+            processCountry(
+                mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
+        except Exception, e:
+            pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
+            pywikibot.output(str(e))
+
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(
