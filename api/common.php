@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL); 
+error_reporting(E_ALL);
 ini_set('display_errors', true);
 ini_set('html_errors', false);
 
@@ -14,14 +14,14 @@ require_once( "$tsI18nDir/ToolStart.php" );
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
 	isset( $toolserver_password )? $toolserver_password : $dbPassword );
 if (!$dbStatus) {
-    die( "Coudn't connect to db! ". mysql_error() );
+	die( "Coudn't connect to db! ". mysql_error() );
 }
-    
+
 $opts = array(
-    'domain' => 'MonumentsAPI', // name of your main text-domain here
-    'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
-    'suppresserrors' => false, // Krinkle heeft het stukgemaakt
-    );
+	'domain' => 'MonumentsAPI', // name of your main text-domain here
+	'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
+	'suppresserrors' => false, // Krinkle heeft het stukgemaakt
+	);
 $I18N = new TsIntuition( $opts );
 
 header ('Content-type: text/html; charset=utf-8');

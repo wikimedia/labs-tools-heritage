@@ -4,11 +4,11 @@ class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
 	private $apiUrl = 'api.php';
 	private $I18N = NULL;
-    
+
 	function __construct($I18N) {
 		$this->I18N = $I18N;
 	}
-    
+
 	public function getSearchPage() {
 		$result = array ();
 		$result[] = '<html>';
@@ -26,7 +26,7 @@ class SearchPage {
 		return implode ("\n", $result);
 	}
 
-   	private function getSearchForm() {
+	private function getSearchForm() {
 		$result = array ();
 		$result[] = '<form action="'. $this->apiUrl .'">';
 		$result[] = '<input type="hidden" name="action" value="search">';
@@ -48,7 +48,7 @@ class SearchPage {
 		/* FIXME i18n languages */
 		$result[] = '<td><label>Languages</label></td>';
 		$result[] = '<td>&nbsp;<!-- Empty, no search for languages --></td>';
-		$result[] = '<td>'; 
+		$result[] = '<td>';
 		$result = array_merge($result, $this->getLanguagesFilter());
 		$result[] = '</td>';
 		$result[] = '</tr>';
@@ -101,7 +101,7 @@ class SearchPage {
 		/* FIXME i18n output language */
 		$result[] = '<td><label>Output language</label></td>';
 		$result[] = '<td colspan="2">';
-	        $result = array_merge( $result, $this->getOutputLanguageSelect() );
+		$result = array_merge( $result, $this->getOutputLanguageSelect() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -119,7 +119,7 @@ class SearchPage {
 		$result[] = '</form>';
 		return $result;
 	}
-    
+
 	private function getCountriesFilter() {
 		/*
 		 * Pull the countries from the database and build a nice select box
@@ -132,7 +132,7 @@ class SearchPage {
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
-		/*  FIXME localize */
+		/* FIXME localize */
 		foreach ( $qres as $row ) {
 			$option = '<option value="'. htmlspecialchars($row->country) . '"';
 			if (@$_GET['country'] == $row->country) $option .= ' selected="selected"';
@@ -143,7 +143,7 @@ class SearchPage {
 
 		return $result;
 	}
-        
+
 	private function getLanguagesFilter() {
 		/*
 	 	 * Pull the languages from the database and build a nice select box
@@ -156,7 +156,7 @@ class SearchPage {
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
-		/*  FIXME localize */
+		/* FIXME localize */
 		foreach ( $qres as $row ) {
 			$option = '<option value="'. htmlspecialchars($row->lang) .'"';
 			if (@$_GET['lang'] == $row->lang) $option .= ' selected="selected"';
@@ -193,7 +193,7 @@ class SearchPage {
 		);
 		return $this->getSelect ( $selectName , $options );
 	}
-	
+
 	private function getMunicipalitySelect() {
 		/*
 		 *
@@ -263,8 +263,8 @@ class SearchPage {
 			'xml' => 'XML',
 			'dynamickml' => 'Dynamic KML (Google Earth/Google Maps)',
 			'kml' => 'Static KML (Google Earth/Google Maps)',
-                        'html' => 'HTML table',
-                        'wikitable' => 'Wiki table'
+			'html' => 'HTML table',
+			'wikitable' => 'Wiki table'
 		);
 
 		return $this->getSelect ( $selectName , $options );
@@ -273,7 +273,7 @@ class SearchPage {
 
 	private function getSelect ( $selectName, $options, $selected = false ) {
 		/*
-		 * 
+		 *
 		 */
 		$result = array();
 		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '>';

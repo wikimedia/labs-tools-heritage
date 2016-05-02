@@ -23,17 +23,16 @@ class ApiMonuments extends ApiBase {
 			/* FIXME: Copy from http://etherpad.wikimedia.org/WLM-tech*/
 		);
 	}
-	
+
 	function getAllowedParams() {
 		global $dbMiserMode;
 		$defaultParams = $this->getDefaultAllowedParams();
 		$params = array(
 			'props' => array( ApiBase::PARAM_DFLT => Monuments::$dbFields,
 				ApiBase::PARAM_TYPE => Monuments::$dbFields, ApiBase::PARAM_ISMULTI => true ),
-
-    		'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-    		'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-    		'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'srquery' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'bbox' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+			'BBOX' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 			'coord' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
 			'radius' => array(
 				ApiBase::PARAM_DFLT => false,
@@ -41,31 +40,31 @@ class ApiMonuments extends ApiBase {
 				ApiBase::PARAM_MIN => 1,
 				ApiBase::PARAM_MAX => $dbMiserMode ? 500000 : 10000,
 			),
-    		'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
-    	);
+			'srcontinue' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' ),
+		);
 		$params = array_merge( $defaultParams, $params );
-    	
-    	foreach ( Monuments::$dbFields as $field ) {
+
+		foreach ( Monuments::$dbFields as $field ) {
 			$params["sr$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'string' );
 			$params["srwith$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 			$params["srwithout$field"] = array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'boolean' );
 		}
 
-        $params['stcountry'] = array( ApiBase::PARAM_DFLT => 'pt', ApiBase::PARAM_TYPE => 'string' );
-        $params['stitem'] = array( ApiBase::PARAM_DFLT => Statistics::$aItems,
-            ApiBase::PARAM_TYPE => Statistics::$aItems, ApiBase::PARAM_ISMULTI => true );
+		$params['stcountry'] = array( ApiBase::PARAM_DFLT => 'pt', ApiBase::PARAM_TYPE => 'string' );
+		$params['stitem'] = array( ApiBase::PARAM_DFLT => Statistics::$aItems,
+			ApiBase::PARAM_TYPE => Statistics::$aItems, ApiBase::PARAM_ISMULTI => true );
 
-        $params['ctcountry'] = array( ApiBase::PARAM_DFLT => array_keys(ContestStatistics::$activeCountries), 
-            ApiBase::PARAM_TYPE => array_keys(ContestStatistics::$activeCountries), ApiBase::PARAM_ISMULTI => true );
-        $params['ctscope'] = array( ApiBase::PARAM_DFLT => ContestStatistics::$ctScopes[0], ApiBase::PARAM_TYPE => ContestStatistics::$ctScopes );
-        $params['ctitem'] = array( ApiBase::PARAM_DFLT => array(),
-            ApiBase::PARAM_TYPE => array_merge( ContestStatistics::$reportUserCols, ContestStatistics::$reportCountryCols, ContestStatistics::$reportDumpCols ), ApiBase::PARAM_ISMULTI => true );
+		$params['ctcountry'] = array( ApiBase::PARAM_DFLT => array_keys(ContestStatistics::$activeCountries),
+			ApiBase::PARAM_TYPE => array_keys(ContestStatistics::$activeCountries), ApiBase::PARAM_ISMULTI => true );
+		$params['ctscope'] = array( ApiBase::PARAM_DFLT => ContestStatistics::$ctScopes[0], ApiBase::PARAM_TYPE => ContestStatistics::$ctScopes );
+		$params['ctitem'] = array( ApiBase::PARAM_DFLT => array(),
+			ApiBase::PARAM_TYPE => array_merge( ContestStatistics::$reportUserCols, ContestStatistics::$reportCountryCols, ContestStatistics::$reportDumpCols ), ApiBase::PARAM_ISMULTI => true );
 		$params['ctfrom'] = array( ApiBase::PARAM_DFLT => '20110901000000', ApiBase::PARAM_TYPE => 'string' );
 		$params['ctorderby'] = array( ApiBase::PARAM_DFLT => 'n_images', ApiBase::PARAM_TYPE => 'string' );
 
 		return $params;
 	}
-	
+
 	function executeModule() {
 		switch ( $this->getParam( 'action' ) ) {
 			case 'search':
@@ -74,10 +73,10 @@ class ApiMonuments extends ApiBase {
 			case 'statistics':
 			case 'statisticsdb':
 				$this->statistics_db();
-                break;
+				break;
 			case 'statisticsct':
 				$this->statistics_ct();
-                break;
+				break;
 				break;
 			case 'help':
 			default:
@@ -120,14 +119,14 @@ class ApiMonuments extends ApiBase {
 
 		// @todo: set to empty array after beta 3 is released
 		$fulltextColumns = array( 'name' => 1 );
-        
-        if ( $this->getParam('format') == 'dynamickml' ) {
-            #don't search just pass along the search parameters to kml network link file
-            $DynKml = new DynamicKml;
-            $reqUrl = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-            $DynKml->output($reqUrl);
-            return;
-        }
+
+		if ( $this->getParam('format') == 'dynamickml' ) {
+			#don't search just pass along the search parameters to kml network link file
+			$DynKml = new DynamicKml;
+			$reqUrl = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+			$DynKml->output($reqUrl);
+			return;
+		}
 
 		$props = $this->getParam( 'props' );
 		$where = array();
@@ -178,7 +177,7 @@ class ApiMonuments extends ApiBase {
 				if ( is_string( $value ) ) {
 					$value = static::fixWikiTextPipeExplosion( $value );
 				}
-				
+
 				$where[$field] = $value;
 			}
 		}
@@ -189,17 +188,17 @@ class ApiMonuments extends ApiBase {
 			$orderby = array_merge( array( 'name' ), $orderby );
 			$where[] = $this->fulltextSearch( array( 'name', 'address' ), $fulltextQuery );
 		}
-        
-        if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {
+
+		if ( $this->getParam('bbox') || $this->getParam('BBOX') || $this->getParam( 'coord' ) ) {
 			$spatialMode = true;
 			$smartFilter = true;
 			$enableUseLang = false;
 			$useDefaultLang = true;
 			if ( $this->getParam('bbox') ) {
-                $bbox = $this->getParam('bbox');
-            } else {
-                $bbox = $this->getParam('BBOX');
-            }
+				$bbox = $this->getParam('bbox');
+			} else {
+				$bbox = $this->getParam('BBOX');
+			}
 			if ( $bbox ) {
 				$coords = preg_split('/,|\s/', $bbox);
 				if ( count( $coords ) != 4 ) {
@@ -238,7 +237,7 @@ class ApiMonuments extends ApiBase {
 			$props[] = 'lat';
 			$props[] = 'lon';
 			$props = array_unique( $props );
-        } elseif ( $this->getParam( 'sradm0' ) ) {
+		} elseif ( $this->getParam( 'sradm0' ) ) {
 			for ( $i = 0; $i < 5 && $this->getParam( "sradm{$i}" ) !== false; $i++) {
 				$forceIndex = "admin_levels{$i}";
 			}
@@ -267,7 +266,7 @@ class ApiMonuments extends ApiBase {
 		}
 
 		$limit = $this->getParam( 'limit' );
-		
+
 		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $props ), Monuments::$dbTable, $where,
 			$orderby, $spatialMode ? null : ( $limit + 1 ), $forceIndex );
 
@@ -356,46 +355,46 @@ class ApiMonuments extends ApiBase {
 		}
 		return 1;
 	}
-	
+
 	function statistics_db() {
-        
+
 		global $dbMiserMode;
 		if ( $dbMiserMode ) {
 			$this->error( 'action=statistics is disabled due to miser mode' );
 		}
 		$st = new Statistics( $db = Database::getDb() );
-        $items = $this->getParam( 'stitem' );
-        $filters = explode('|', $this->getParam('stcountry'));
-        $limit = $this->getParam( 'limit' );
+		$items = $this->getParam( 'stitem' );
+		$filters = explode('|', $this->getParam('stcountry'));
+		$limit = $this->getParam( 'limit' );
 
-        $r = $st->retrieveReport($items, $filters, $limit);
-        $this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
+		$r = $st->retrieveReport($items, $filters, $limit);
+		$this->getFormatter()->output($r, 9999999, 'stcontinue', array_merge(array('country', 'municipality'), $st->getAxis('columns')), Monuments::$dbPrimaryKey );
 	}
 
 	function statistics_ct() {
 		$st = new ContestStatistics( $db = Database::getDb() );
 
 
-        $ctscope = $this->getParam( 'ctscope' );
-        $ctitems = $this->getParam( 'ctitem' );
-        if ( count($ctitems)<=0 ) {
-            if ( $ctscope == 'user' ) {
-                $ctitems = ContestStatistics::$reportUserCols;
-            } elseif ( $ctscope == 'country' ) {
-                $ctitems = ContestStatistics::$reportCountryCols;
-            } else { /* scope=images */
-                $ctitems = array();
-            }
-        }
-        $ctcountries = $this->getParam( 'ctcountry' );
-        $limit = $this->getParam( 'limit' );
-        $ctfrom = $this->getParam( 'ctfrom' );
-        $ctorderby = $this->getParam( 'ctorderby' );
+		$ctscope = $this->getParam( 'ctscope' );
+		$ctitems = $this->getParam( 'ctitem' );
+		if ( count($ctitems)<=0 ) {
+			if ( $ctscope == 'user' ) {
+				$ctitems = ContestStatistics::$reportUserCols;
+			} elseif ( $ctscope == 'country' ) {
+				$ctitems = ContestStatistics::$reportCountryCols;
+			} else { /* scope=images */
+				$ctitems = array();
+			}
+		}
+		$ctcountries = $this->getParam( 'ctcountry' );
+		$limit = $this->getParam( 'limit' );
+		$ctfrom = $this->getParam( 'ctfrom' );
+		$ctorderby = $this->getParam( 'ctorderby' );
 
-        $r = $st->retrieveReport($ctscope, $ctitems, $ctcountries, $ctfrom, $limit, $ctorderby);
-        $this->getFormatter()->output($r, 9999999, 'stcontinue', $st->getAxis('columns'), ContestStatistics::$dbPrimaryKey );
+		$r = $st->retrieveReport($ctscope, $ctitems, $ctcountries, $ctfrom, $limit, $ctorderby);
+		$this->getFormatter()->output($r, 9999999, 'stcontinue', $st->getAxis('columns'), ContestStatistics::$dbPrimaryKey );
 	}
-    
+
 	/**
 	 * Returns a bounding rectangle around a given point
 	 *

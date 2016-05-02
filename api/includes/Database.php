@@ -188,7 +188,7 @@ class Database {
 		return mysql_data_seek( $wrapper->result, $rowNumber );
 	}
 
-    function sanitize($sSQL) {
-        return mysql_real_escape_string( $sSQL, $this->db );
-    }
+	function sanitize($sSQL) {
+		return mysql_real_escape_string( $sSQL, $this->db );
+	}
 }

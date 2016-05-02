@@ -7,18 +7,18 @@
 
 class DynamicKml {
 
-    function output($request_url) {
-        header( "Content-Type: application/vnd.google-earth.kml+xml" );
-        $replCount = 1;
-        $kml_url = htmlspecialchars( str_replace('format=dynamickml', 'format=kml', $request_url, $replCount) );
-        $desc = 'Cultural heritage monuments database for <a 
+	function output($request_url) {
+		header( "Content-Type: application/vnd.google-earth.kml+xml" );
+		$replCount = 1;
+		$kml_url = htmlspecialchars( str_replace('format=dynamickml', 'format=kml', $request_url, $replCount) );
+		$desc = 'Cultural heritage monuments database for <a 
 href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
-        $desc = htmlspecialchars( $desc );
-        $folderName = 'Wiki Loves Monuments';
-        $folderName = htmlspecialchars( $folderName );
-        $linkName = 'Monuments';
-        $linkName = htmlspecialchars( $linkName );
-        echo '<?xml version="1.0" encoding="UTF-8"?>
+		$desc = htmlspecialchars( $desc );
+		$folderName = 'Wiki Loves Monuments';
+		$folderName = htmlspecialchars( $folderName );
+		$linkName = 'Monuments';
+		$linkName = htmlspecialchars( $linkName );
+		echo '<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
  <Folder>
   <name>'. $folderName .'</name>
@@ -40,7 +40,7 @@ href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
  </Folder>
 </kml>
 ';
-    } //func
+	} //func
 
 	
 } //class

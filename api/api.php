@@ -5,7 +5,7 @@ require dirname( __FILE__ ) . '/autoloader.php';
 require dirname( __FILE__ ) . '/includes/Defaults.php';
 /**
  * Look for config overrides
- * 
+ *
  * First look in p_erfgoed's parent dir, then in p_erfgoed root.
  * Otherwise, erfgoed will just use Defaults.php.
  */
@@ -30,7 +30,7 @@ if ( $tsI18nDir ) {
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
 	$dbPassword );
 if (!$dbStatus) {
-    die( "Coudn't connect to db! ". mysql_error() );
+	die( "Coudn't connect to db! ". mysql_error() );
 }
 
 ApiMain::dispatch();

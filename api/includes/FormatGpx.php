@@ -19,7 +19,6 @@ class FormatGpx extends FormatBase {
 		echo ' xmlns="http://www.topografix.com/GPX/1/0"';
 		echo ' xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">';
 
-		    
 	}
 	
 	function outputBegin($selectedItems) {
@@ -45,7 +44,7 @@ class FormatGpx extends FormatBase {
 		echo ' lon="' . htmlspecialchars ( $row->lon ) . '"';
 		echo '>';
 		// FIXME: Check if the time format is correct.
-		echo '<time>' .  htmlspecialchars ( date('c', strtotime($row->changed) ) ) . '</time>';
+		echo '<time>' . htmlspecialchars ( date('c', strtotime($row->changed) ) ) . '</time>';
 		// FIXME: Remove wikitext from name
 		echo '<name>' . htmlspecialchars ( $row->id ) . '</name>';
 		// cmt

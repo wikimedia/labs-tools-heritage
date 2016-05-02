@@ -30,20 +30,20 @@ abstract class ApiBase {
 	function setError($errorCode) {
 		$this->errors[] = $errorCode;
 	}
-	
+
 	public function getDefaultAllowedParams() {
 		global $dbMiserMode;
 		$params = array(
-			'format' => array( ApiBase::PARAM_DFLT => 'xmlfm', 
-    			ApiBase::PARAM_TYPE => $dbMiserMode
+			'format' => array( ApiBase::PARAM_DFLT => 'xmlfm',
+				ApiBase::PARAM_TYPE => $dbMiserMode
 					? array( 'json', 'xml', 'xmlfm' )
 					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
 			'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
 			'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
-    		'action' => array(
-				ApiBase::PARAM_DFLT => 'help', 
-    			ApiBase::PARAM_TYPE => ApiMain::getActions()
+			'action' => array(
+				ApiBase::PARAM_DFLT => 'help',
+				ApiBase::PARAM_TYPE => ApiMain::getActions()
 			),
 			'uselang' => array(
 				ApiBase::PARAM_DFLT => false,
@@ -86,7 +86,7 @@ abstract class ApiBase {
 					}
 				} elseif ( $p == 'integer' ) {
 					$i = intval( $_GET[$name] ); // @fixme this will return 0 on failure, or 1 if it's a non-empty array... is this desired?
-					$cache[$name] = min( max( $i, $allowed[$name][ApiBase::PARAM_MIN] ), 
+					$cache[$name] = min( max( $i, $allowed[$name][ApiBase::PARAM_MIN] ),
 						$allowed[$name][ApiBase::PARAM_MAX]);
 				} elseif ( $p == 'boolean' ) {
 					if ( $_GET[$name] == '0' || ( $_GET[$name] == 'no' ) ) {
@@ -121,7 +121,7 @@ abstract class ApiBase {
 		}
 		return $cache[$name];
 	}
-	
+
 	/**
 	 * Returns an array with all the parameters
 	 * If $params is an array, they override existing values
@@ -147,7 +147,7 @@ abstract class ApiBase {
 	 */
 	function getUrl($params = false) {
 		$p = $this->getParams($params);
-		
+
 		if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
 			$query = http_build_query( $p, '', '&', PHP_QUERY_RFC3986 );
 		} else {
@@ -155,7 +155,7 @@ abstract class ApiBase {
 		}
 		return $_SERVER["SCRIPT_NAME"] . "?$query";
 	}
-	
+
 	function getFullUrl($params = false) {
 		if ( isset( $_SERVER['HTTPS'] ) && ( $_SERVER['HTTPS'] == 'on' ) ) {
 			$url = 'https://';
@@ -208,7 +208,7 @@ abstract class ApiBase {
 		$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
 		return new $formatter( $this );
 	}
-	
+
 	function error( $message ) {
 		throw new Exception( $message );
 	}
@@ -250,7 +250,7 @@ abstract class ApiBase {
 	 *
 	 * There are times, particularly in wikitext, when a value may
 	 * contain a pipe. Eg:
-	 *    [[Alameda, California|Alameda]]
+	 * 	[[Alameda, California|Alameda]]
 	 *
 	 * This is problematic when you are receiving a pipe-delimited
 	 * string that contains one or more of these cases, particularly
