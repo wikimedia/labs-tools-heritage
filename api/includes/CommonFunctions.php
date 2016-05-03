@@ -20,11 +20,21 @@ function processWikitext($wikilang, $text, $makelinks) {
     $differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
     $simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
     $wikiUrl = '//' . $wikilang . '.wikipedia.org/wiki/';
-    $differentLinkReplace = "'<a href=\"" . $wikiUrl ."' . rawurlencode('$1') . '\">$2</a>'";
-    $simpleLinkReplace = "'<a href=\"". $wikiUrl ."' . rawurlencode('$1') . '\">$1</a>'";
+    $differentLinkReplace = function($m) use($wikiUrl) {
+        return '<a href="' . $wikiUrl . rawurlencode( $m[1] ) . '">'. $m[2] .'</a>';
+    };
+    $simpleLinkReplace = function($m) use($wikiUrl) {
+        return '<a href="' . $wikiUrl . rawurlencode( $m[1] ) . '">'. $m[1] .'</a>';
+    };
     if ( $makelinks ) {
-        $result = preg_replace($differentLinkRegex . "e", $differentLinkReplace, $result);
-        $result = preg_replace($simpleLinkRegex . "e", $simpleLinkReplace, $result);
+        $result = preg_replace_callback(
+            $differentLinkRegex,
+            $differentLinkReplace,
+            $result);
+        $result = preg_replace_callback(
+            $simpleLinkRegex,
+            $simpleLinkReplace,
+            $result);
         $result = $result;
     } else {
         $result = preg_replace($differentLinkRegex, "$2", $result);
