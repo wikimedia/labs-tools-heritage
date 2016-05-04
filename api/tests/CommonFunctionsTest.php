@@ -8,48 +8,48 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
     public function test_getImageFromCommons()
     {
         $this->assertEquals(
-            getImageFromCommons('Example.jpg', 200),
-            "//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/200px-Example.jpg"
+            "//upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/200px-Example.jpg",
+            getImageFromCommons('Example.jpg', 200)
         );
     }
 
     public function test_processWikitext_empty()
     {
         $this->assertEquals(
-            processWikitext('fr', '', True),
-            ''
+            '',
+            processWikitext('fr', '', True)
         );
     }
 
     public function test_processWikitext_nolinks_form_1()
     {
         $this->assertEquals(
-            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', False),
-            'Lorem Ipsum Dolor'
+            'Lorem Ipsum Dolor',
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', False)
         );
     }
 
     public function test_processWikitext_nolinks_form_2()
     {
         $this->assertEquals(
-            processWikitext('fr', 'Lorem [[Ipsum|Sin amet]] Dolor', False),
-            'Lorem Sin amet Dolor'
+            'Lorem Sin amet Dolor',
+            processWikitext('fr', 'Lorem [[Ipsum|Sin amet]] Dolor', False)
         );
     }
 
     public function test_processWikitext_nolinks_wikiproject()
     {
         $this->assertEquals(
-            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', False, 'wikivoyage'),
-            'Lorem Ipsum Dolor'
+            'Lorem Ipsum Dolor',
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', False, 'wikivoyage')
         );
     }
 
     public function test_processWikitext_makelinks_form_1()
     {
         $this->assertEquals(
-            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', True),
-            'Lorem <a href="//fr.wikipedia.org/wiki/Ipsum">Ipsum</a> Dolor'
+            'Lorem <a href="//fr.wikipedia.org/wiki/Ipsum">Ipsum</a> Dolor',
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', True)
         );
     }
 
@@ -64,8 +64,8 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
     public function test_processWikitext_makelinks_wikiproject()
     {
         $this->assertEquals(
-            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', True, 'wikivoyage'),
-            'Lorem <a href="//fr.wikivoyage.org/wiki/Ipsum">Ipsum</a> Dolor'
+            'Lorem <a href="//fr.wikivoyage.org/wiki/Ipsum">Ipsum</a> Dolor',
+            processWikitext('fr', 'Lorem [[Ipsum]] Dolor', True, 'wikivoyage')
         );
     }
 
@@ -81,7 +81,7 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
     public function test_matchWikiprojectLink_match()
     {
         $input = 'https://fr.wikipedia.org/w/index.php?title=some_title&oldid=00000';
-        $output = Array(
+        $expected = Array(
             "https://fr.wikipedia.org/w/index.php?title=some_title&oldid=00000",
             "https:",
             "fr.wikipedia.org/w/index.php?title=some_title&oldid=00000",
@@ -90,13 +90,13 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
             "some_title",
             "00000"
             );
-        $this->assertEquals(matchWikiprojectLink($input), $output);
+        $this->assertEquals($expected, matchWikiprojectLink($input));
     }
 
     public function test_matchWikiprojectLink_match_wikimedia()
     {
         $input = 'https://commons.wikimedia.org/w/index.php?title=some_title&oldid=00000';
-        $output = Array(
+        $expected = Array(
             "https://commons.wikimedia.org/w/index.php?title=some_title&oldid=00000",
             "https:",
             "commons.wikimedia.org/w/index.php?title=some_title&oldid=00000",
@@ -105,14 +105,14 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
             "some_title",
             "00000"
             );
-        $this->assertEquals(matchWikiprojectLink($input), $output);
+        $this->assertEquals($expected, matchWikiprojectLink($input));
     }
 
     public function test_replaceSpaces()
     {
         $this->assertEquals(
-            replaceSpaces("a b c"),
-            "a_b_c"
+            "a_b_c",
+            replaceSpaces("a b c")
         );
     }
 
