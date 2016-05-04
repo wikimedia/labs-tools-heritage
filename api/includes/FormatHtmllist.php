@@ -123,7 +123,7 @@ class FormatHtmllist extends FormatBase {
 		if ( isset($row->source) and $row->source ) {
 			if (preg_match("/^(.+?)&/", $row->source, $matches) ) { 
 				$wikiListUrl = $matches[1];
-				$desc .= '<li><a href="' . $wikiListUrl. '">' . $I18N->msg('source-monuments-list-on-wikipedia') . '</a></li>';
+				$desc .= '<li><a href="' . $wikiListUrl. '">' . $I18N->msg('source-monuments-list') . '</a></li>';
 			} 
 		}
         
