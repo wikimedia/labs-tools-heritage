@@ -80,7 +80,7 @@ class FormatWikitable extends FormatBase {
 	static function prettifyUrls($text) {
 		try {
 			$m = matchWikiprojectLink( $text );
-			$encodedLinkText = str_replace( '_', ' ', $m[4] );
+			$encodedLinkText = str_replace( '_', ' ', $m[5] );
 			$linkText = urldecode( $encodedLinkText );
 			return '[//' . htmlspecialchars( $m[2]  ) .' '. htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
 		} catch (Exception $e) {

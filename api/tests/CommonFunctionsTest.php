@@ -86,6 +86,22 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
             "https:",
             "fr.wikipedia.org/w/index.php?title=some_title&oldid=00000",
             "fr",
+            "wikipedia",
+            "some_title",
+            "00000"
+            );
+        $this->assertEquals(matchWikiprojectLink($input), $output);
+    }
+
+    public function test_matchWikiprojectLink_match_wikimedia()
+    {
+        $input = 'https://commons.wikimedia.org/w/index.php?title=some_title&oldid=00000';
+        $output = Array(
+            "https://commons.wikimedia.org/w/index.php?title=some_title&oldid=00000",
+            "https:",
+            "commons.wikimedia.org/w/index.php?title=some_title&oldid=00000",
+            "commons",
+            "wikimedia",
             "some_title",
             "00000"
             );
