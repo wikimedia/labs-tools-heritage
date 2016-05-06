@@ -251,7 +251,7 @@ class ApiMonuments extends ApiBase {
 		}
 
 		/* FIXME: User should be able to set sort fields and order */
-		if ( $this->in_array( getParam('format'), array( 'kml', 'html' ) ) ) {
+		if ( in_array( $this->getParam('format'), array( 'kml', 'html' ) ) ) {
 			$orderby = array('country', 'municipality', 'address');
 		}
 		$continue = $this->getParam( 'srcontinue' );
