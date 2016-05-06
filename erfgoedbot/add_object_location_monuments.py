@@ -218,6 +218,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
 
 def main():
     countrycode = u''
+    lang = u''
 
     # Connect database, we need that
     (conn, cursor) = connectDatabase()
@@ -230,11 +231,16 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
+        else:
+            raise Exception(
+                "Bad parameters. Expected -countrycode, -lang "
+                "or pywikipediabot args.")
 
-    lang = pywikibot.getSite().language()
     pywikibot.setSite(pywikibot.getSite(u'commons', u'commons'))
 
-    if countrycode:
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -243,6 +249,9 @@ def main():
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         locateCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
+    elif countrycode or lang:
+        raise Exception(
+            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             if not countryconfig.get('autoGeocode'):

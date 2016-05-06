@@ -105,13 +105,18 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
         elif option == '-municipality':
             municipality = value
         elif option == '-minimum':
             minimum = int(value)
+        else:
+            raise Exception(
+                "Bad parameters. Expected -countrycode, -lang, -municipality, -minimum "
+                "or pywikipediabot args.")
 
-    if countrycode and municipality:
-        lang = pywikibot.getSite().language()
+    if countrycode and lang and municipality:
         addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
         printTopStreets(addresses, minimum)
     else:

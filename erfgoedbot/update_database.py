@@ -461,6 +461,7 @@ def main():
     # First find out what to work on
 
     countrycode = u''
+    lang = u''
     fullUpdate = True
     daysBack = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
@@ -471,16 +472,18 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
         elif option == '-daysback':
             daysBack = int(value)
-        elif option == u'-fullupdate':
+        elif option == u'-fullupdate':  # does nothing since this is already default
             fullUpdate = True
         else:
             raise Exception(
-                "Bad parameters. Expected -countrycode, -daysback, -fullupdate or pywikipediabot args.")
+                "Bad parameters. Expected -countrycode, -lang, -daysback, "
+                "-fullupdate or pywikipediabot args.")
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -494,7 +497,9 @@ def main():
         except Exception, e:
             pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
             pywikibot.output(str(e))
-
+    elif countrycode or lang:
+        raise Exception(
+            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(
