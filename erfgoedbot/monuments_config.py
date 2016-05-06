@@ -723,7 +723,7 @@ countries = {
                 'dest': u'commune',
             },
             {
-                'source': u'section_communale',
+                'source': u'section communale',
                 'dest': u'section_communale',
             },
             {
@@ -740,11 +740,11 @@ countries = {
                 'dest': u'adresse',
             },
             {
-                'source': u'nom_objet',
+                'source': u'nom objet',
                 'dest': u'nom_objet',
             },
             {
-                'source': u'année_construction',
+                'source': u'année construction',
                 'dest': u'annee_construction',
             },
             {
@@ -752,11 +752,11 @@ countries = {
                 'dest': u'architecte',
             },
             {
-                'source': u'lat',
+                'source': u'latitude',
                 'dest': u'lat',
             },
             {
-                'source': u'lon',
+                'source': u'longitude',
                 'dest': u'lon',
             },
             {
@@ -764,11 +764,11 @@ countries = {
                 'dest': u'image',
             },
             {
-                'source': u'commonscat',
+                'source': u'catégorie commons',
                 'dest': u'commonscat',
             },
             {
-                'source': u'nom_objet',
+                'source': u'nom objet',
                 'dest': u'monument_article',
                 'conv': u'extractWikilink',
             },
@@ -987,7 +987,7 @@ countries = {
         'primkey': ('id_commune', 'clt-pex', 'id_objet'),  # or do I use CLT/PEX here?
         'fields': [
             {
-                'source': u'id_commune',
+                'source': u'id commune',
                 'dest': u'id_commune',
                 'type': 'int(8)',
             },
@@ -998,7 +998,7 @@ countries = {
                 'default': '0',
             },
             {
-                'source': u'id_objet',
+                'source': u'id objet',
                 'dest': u'id_objet',
                 'type': 'varchar(15)',
                 'default': '0',
@@ -1012,7 +1012,7 @@ countries = {
                 'dest': u'descr_nl',
             },
             {
-                'source': u'nom_objet',
+                'source': u'nom objet',
                 'dest': u'nom_objet',
             },
             {
@@ -1020,7 +1020,7 @@ countries = {
                 'dest': u'commune',
             },
             {
-                'source': u'section_communale',
+                'source': u'section communale',
                 'dest': u'section_communale',
             },
             {
@@ -1036,11 +1036,11 @@ countries = {
                 'dest': u'objtype',
             },
             {
-                'source': u'lat',
+                'source': u'latitude',
                 'dest': u'lat',
             },
             {
-                'source': u'lon',
+                'source': u'longitude',
                 'dest': u'lon',
             },
             {
@@ -1048,7 +1048,7 @@ countries = {
                 'dest': u'architecte',
             },
             {
-                'source': u'année_construction',
+                'source': u'année construction',
                 'dest': u'annee_construction',
             },
             {
@@ -1060,7 +1060,7 @@ countries = {
                 'dest': u'',
             },
             {
-                'source': u'commonscat',
+                'source': u'catégorie commons',
                 'dest': u'commonscat',
             },
             {
@@ -1068,7 +1068,7 @@ countries = {
                 'dest': u'',
             },
             {
-                'source': u'nom_objet',
+                'source': u'nom objet',
                 'dest': u'monument_article',
                 'conv': u'extractWikilink',
             },
