@@ -1,5 +1,9 @@
 #!/bin/bash
-ssh  tools-login.wmflabs.org <<'ENDSSH'
+user="";
+if [ -n "$1" ]; then
+  user="$1"@
+fi
+ssh "$user"tools-login.wmflabs.org <<'ENDSSH'
 become heritage
 cd heritage
 git pull
