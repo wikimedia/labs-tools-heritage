@@ -630,9 +630,9 @@ def main():
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
-        if option == '-countrycode:':
+        if option == '-countrycode':
             countrycode = value
-        elif option == '-overridecat:':
+        elif option == '-overridecat':
             overridecat = value
 
     if countrycode:

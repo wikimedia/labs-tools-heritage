@@ -225,7 +225,7 @@ def main():
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
-        if option == '-countrycode:':
+        if option == '-countrycode':
             countrycode = value
 
     if countrycode:

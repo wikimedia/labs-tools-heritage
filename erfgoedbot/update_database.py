@@ -469,15 +469,15 @@ def main():
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
-        if option == '-countrycode:':
+        if option == '-countrycode':
             countrycode = value
-        elif option == '-daysback:':
+        elif option == '-daysback':
             daysBack = int(value)
         elif option == u'-fullupdate':
             fullUpdate = True
         else:
             raise Exception(
-                "Bad parameters. Expected -countrycode, -daysback, -fullupdate or  pywikipediabot args.")
+                "Bad parameters. Expected -countrycode, -daysback, -fullupdate or pywikipediabot args.")
 
     if countrycode:
         lang = pywikibot.Site().language()

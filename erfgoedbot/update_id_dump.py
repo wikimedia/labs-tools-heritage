@@ -155,9 +155,9 @@ def main():
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
-        if option == '-countrycode:':
+        if option == '-countrycode':
             countrycode = value
-        elif option == '-textfile:':
+        elif option == '-textfile':
             textfile = value
 
     query = u"""TRUNCATE table `id_dump`"""
