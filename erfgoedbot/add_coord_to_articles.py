@@ -310,7 +310,6 @@ def addCoords(countrycode, lang, monument, coordconfig):
 
 def main():
     countrycode = u''
-    lang = u''
     connMon = None
     cursorMon = None
 
@@ -320,22 +319,14 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
-        elif option == '-lang':
-            lang = value
-        else:
-            raise Exception(
-                "Bad parameters. Expected -countrycode, -lang "
-                "or pywikipediabot args.")
 
-    if countrycode and lang:
+    if countrycode:
+        lang = pywikibot.getSite().language()
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), wikiData.get(lang), connMon, cursorMon)
-    elif countrycode or lang:
-        raise Exception(
-            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
