@@ -217,6 +217,7 @@ def makeStatistics(mconfig, totals):
 
 def main():
     countrycode = u''
+    lang = u''
     conn = None
     cursor = None
     # Connect database, we need that
@@ -227,9 +228,14 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
+        else:
+            raise Exception(
+                "Bad parameters. Expected -countrycode, -lang "
+                "or pywikipediabot args.")
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -238,6 +244,9 @@ def main():
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
+    elif countrycode or lang:
+        raise Exception(
+            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():

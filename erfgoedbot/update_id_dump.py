@@ -148,6 +148,7 @@ def main():
     # First find out what to work on
 
     countrycode = u''
+    lang = u''
     textfile = u''
     conn = None
     cursor = None
@@ -157,14 +158,19 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
         elif option == '-textfile':
             textfile = value
+        else:
+            raise Exception(
+                "Bad parameters. Expected -countrycode, -lang, -textfile "
+                "or pywikipediabot args.")
 
     query = u"""TRUNCATE table `id_dump`"""
     cursor.execute(query)
 
-    if countrycode:
-        lang = pywikibot.getSite().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -178,6 +184,9 @@ def main():
         else:
             processCountry(
                 countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
+    elif countrycode or lang:
+        raise Exception(
+            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(

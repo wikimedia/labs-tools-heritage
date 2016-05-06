@@ -621,8 +621,8 @@ def getCommonscatTemplates(lang=None):
 def main():
 
     countrycode = u''
-    overridecat = u''
     lang = u''
+    overridecat = u''
     conn = None
     cursor = None
     # Connect database, we need that
@@ -632,11 +632,16 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-lang':
+            lang = value
         elif option == '-overridecat':
             overridecat = value
+        else:
+            raise Exception(
+                "Bad parameters. Expected -countrycode, -lang, -overridecat "
+                "or pywikipediabot args.")
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -647,6 +652,9 @@ def main():
         # print commonsCatTemplates
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), commonsCatTemplates, conn, cursor, overridecat=overridecat)
+    elif countrycode or lang:
+        raise Exception(
+            "The \"countrycode\" and \"lang\" arguments must be used together.")
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
