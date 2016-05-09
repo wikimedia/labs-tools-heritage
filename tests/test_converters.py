@@ -1,3 +1,4 @@
+# -*- coding: utf-8  -*-
 """Unit tests for converters."""
 
 import unittest
@@ -6,6 +7,7 @@ from erfgoedbot.converters import (
     extractWikilink,
     extract_elements_from_template_param,
     remove_commons_category_prefix,
+    sanitize_wikitext_string,
     CH1903Converter
 )
 
@@ -105,7 +107,41 @@ class TestExtractElementsFromTemplateParam(unittest.TestCase):
         expected = (u'id', u'identifiant')
         self.assertEquals(extract_elements_from_template_param(input_value), expected)
 
-    def test_extract_elements_from_template_param_with_reference(self):
-        input_value = 'name=My monument name<ref>Serious reference</ref>'
-        expected = (u'name', u'My monument name')
+    def test_extract_elements_from_template_param_with_spaces(self):
+        input_value = 'id = identifiant'
+        expected = (u'id', u'identifiant')
         self.assertEquals(extract_elements_from_template_param(input_value), expected)
+
+
+class TestSanitizeWikitextString(unittest.TestCase):
+
+    """Test the sanitize_wikitext_string method."""
+
+    def test_sanitize_wikitext_string_empty_string(self):
+        self.assertEquals(sanitize_wikitext_string(''), '')
+
+    def test_sanitize_wikitext_string_no_features(self):
+        input_value = 'My monument name'
+        expected = u'My monument name'
+        self.assertEquals(sanitize_wikitext_string(input_value), expected)
+
+    def test_sanitize_wikitext_string_with_reference_at_the_end(self):
+        input_value = 'My monument name<ref>Serious reference</ref>'
+        expected = u'My monument name'
+        self.assertEquals(sanitize_wikitext_string(input_value), expected)
+
+    def test_sanitize_wikitext_string_with_reused_reference_at_the_end(self):
+        input_value = 'My monument name<ref name="refA"/>'
+        expected = u'My monument name'
+        self.assertEquals(sanitize_wikitext_string(input_value), expected)
+
+    def test_sanitize_wikitext_string_with_comment_at_the_end(self):
+        input_value = u'2.51058<!--coordenades de patmapa ajustades automàticament-->'
+        self.assertEquals(sanitize_wikitext_string(input_value), '2.51058')
+        self.assertEquals(sanitize_wikitext_string(u'Aaa Ccc <!-- B -->'), u'Aaa Ccc')
+
+    def test_sanitize_wikitext_string_with_comment_in_the_middle(self):
+        expected = u'Aaa Ccc'
+        self.assertEquals(sanitize_wikitext_string(u'Aaa <!-- B -->Ccc'), expected)
+        self.assertEquals(sanitize_wikitext_string(u'Aaa <!-- B b b --> Ccc'), expected)
+        self.assertEquals(sanitize_wikitext_string(u'Aaa<!-- B b b --> Ccc'), expected)

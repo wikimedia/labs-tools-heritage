@@ -78,5 +78,13 @@ def extract_elements_from_template_param(template_param):
     (field, _, value) = template_param.partition(u'=')
     # Remove leading or trailing spaces
     field = field.strip()
+    return (field, sanitize_wikitext_string(value))
+
+
+def sanitize_wikitext_string(value):
+
+    """Removes undesirable wikitext features from a string."""
+
     value = value.split("<ref")[0].strip()
-    return (field, value)
+    value = re.sub(r"\s?<!--.*?-->\s?", ' ', value)
+    return value.strip()
