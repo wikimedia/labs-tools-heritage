@@ -108,6 +108,21 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, matchWikiprojectLink($input));
     }
 
+    public function test_matchWikiprojectLink_match_with_hyphen()
+    {
+        $input = 'https://be-tarask.wikipedia.org/w/index.php?title=some_title&oldid=00000';
+        $expected = Array(
+            "https://be-tarask.wikipedia.org/w/index.php?title=some_title&oldid=00000",
+            "https:",
+            "be-tarask.wikipedia.org/w/index.php?title=some_title&oldid=00000",
+            "be-tarask",
+            "wikipedia",
+            "some_title",
+            "00000"
+            );
+        $this->assertEquals($expected, matchWikiprojectLink($input));
+    }
+
     public function test_replaceSpaces()
     {
         $this->assertEquals(

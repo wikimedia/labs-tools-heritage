@@ -54,7 +54,7 @@ function matchWikiprojectLink($text) {
     $projects = array("wikipedia", "wikivoyage", "wikidata", "wikimedia");
     $projectRegex = "(" . join("|", $projects) . ")";
     $var = NULL;
-    if (!preg_match( '/(https?:)?\/\/((\w+)\.' . $projectRegex . '\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $var )) {
+    if (!preg_match( '/(https?:)?\/\/(([a-z\-]+)\.' . $projectRegex . '\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $var )) {
         throw new Exception('No project link in text.');
     }
     return $var;
