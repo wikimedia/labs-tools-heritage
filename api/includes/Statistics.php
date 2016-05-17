@@ -17,7 +17,9 @@ class Statistics extends StatisticsBase {
 	static $fieldPrefix = 'st_';
 
 	var $lastDay = '';
-	static $aItems = array('address', 'address_pct', 'coordinates', 'coordinates_pct', 'image', 'image_pct', 'municipality', 'municipality_pct', 'name', 'name_pct', 'total' );
+	static $aItems = array(
+		'address', 'address_pct', 'coordinates', 'coordinates_pct', 'image',
+		'image_pct', 'municipality', 'municipality_pct', 'name', 'name_pct', 'total' );
 
 
 	function getLatestDay() {
@@ -79,10 +81,11 @@ class Statistics extends StatisticsBase {
 			//var_dump($row);
 			$group[$row[$gc]] = 1;
 			$idxs[$row[$gi]] = 1;
-			list($country,$municipality) = explode(':', $row[$gi], 2);
+			list($country,$municipality,$lang,$project) = explode(':', $row[$gi], 4);
 			$this->report[$row[$gi]]['country'] = $country;
-			$this->report[$row[$gi]]['lang'] = $country == 'us' ? 'en' : $country;
 			$this->report[$row[$gi]]['municipality'] = $municipality;
+			$this->report[$row[$gi]]['lang'] = $lang;
+			$this->report[$row[$gi]]['project'] = $project;
 			$this->report[$row[$gi]][$row[$gc]] = $row['value'];
 		}
 		//var_dump($this->report);

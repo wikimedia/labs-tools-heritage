@@ -7,7 +7,8 @@
  *
  * NOTE May be optimized by INSERTing in batches
  */
-
+//functions: processWikitext
+require_once('CommonFunctions.php');
 
 /*
 *
@@ -71,24 +72,19 @@ class StatsBuilder extends Statistics {
 	}
 
 
-	/** Helper to fix encoding
-	*/
-	static function fixEncoding($sString, $bToUTF8=true) {
-		/*
-		if ( $bToUTF8 ) {
-			return utf8_encode($sString);
-		}
-		*/
-		return $sString;
+	/** Helper to make idx identifier
+	 */
+	static function makeIdx($row) {
+		return $row[0] . ':' . processWikitext($row[2], $row[1], False) . ':' .
+			$row[2] . ':' . $row[3];
 	}
-
 
 	/** Calculate totals
 	 * @return false on error, true otherwise
 	 */
 	private function getTotals() {
 		$this->debug('Determining Totals');
-		$sql = 'SELECT country, municipality, COUNT(1) AS total
+		$sql = 'SELECT country, municipality, lang, project, COUNT(1) AS total
 			FROM '.Monuments::$dbTable.'
 			GROUP BY country, municipality';
 		$wres = new ResultWrapper( $this->db, $this->db->query( $sql ) );
@@ -97,8 +93,9 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ($row = $wres->fetchRow()) {
-			$idx = $this->db->sanitize($row[0].':'.StatsBuilder::fixEncoding($row[1], true));
-			$this->setReportItem(Statistics::$fieldPrefix.'total', $idx, $row[2]);
+			$idx = $this->db->sanitize(StatsBuilder::makeIdx($row));
+			$count = $row[4];  // update if makeIdx changes
+			$this->setReportItem(Statistics::$fieldPrefix.'total', $idx, $count);
 		}
 		return true;
 	}
@@ -133,7 +130,7 @@ class StatsBuilder extends Statistics {
 		$sql = 'ALTER TABLE '.$tmp_table.' ADD UNIQUE INDEX idx1(country,municipality)';
 		$this->db->query($sql);
 
-		$sql = 'SELECT m1.country, m1.municipality, IF(m2.non_blank IS NULL,0,m2.non_blank) AS non_blank
+		$sql = 'SELECT m1.country, m1.municipality, m1.lang, m1.project, IF(m2.non_blank IS NULL,0,m2.non_blank) AS non_blank
 		  FROM '.Monuments::$dbTable.' m1
 		  LEFT JOIN '.$tmp_table.' m2 ON m2.country = m1.country AND m2.municipality = m1.municipality
 		  GROUP BY m1.country, m1.municipality';
@@ -144,9 +141,10 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ( $row = $oRes->fetchRow() ) {
-			$idx = $row[0].':'.$this->db->sanitize(StatsBuilder::fixEncoding($row[1],true));
-			$this->setReportItem($report_as, $idx, $row[2]);
-			$value_pct = sprintf("%.2f", 100*$row[2]/$this->report[Statistics::$fieldPrefix.'total'][$idx]);
+			$idx = $this->db->sanitize(StatsBuilder::makeIdx($row));
+			$count = $row[4];  // update if makeIdx changes
+			$this->setReportItem($report_as, $idx, $count);
+			$value_pct = sprintf("%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][$idx]);
 			$this->setReportItem($report_as.'_pct', $idx, $value_pct);
 		}
 		return true;
