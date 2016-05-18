@@ -81,7 +81,7 @@ class Statistics extends StatisticsBase {
 			//var_dump($row);
 			$group[$row[$gc]] = 1;
 			$idxs[$row[$gi]] = 1;
-			list($country,$municipality,$lang,$project) = explode(':', $row[$gi], 4);
+			list($country,$municipality,$lang,$project) = Statistics::invertIdx($row[$gi]);
 			$this->report[$row[$gi]]['country'] = $country;
 			$this->report[$row[$gi]]['municipality'] = $municipality;
 			$this->report[$row[$gi]]['lang'] = $lang;
@@ -98,6 +98,21 @@ class Statistics extends StatisticsBase {
 		return $this->report;
 	}
 
+	/** Helper to make idx identifier
+	 */
+	static function makeIdx($row) {
+		// Need to replace any naturally occuring ':' in row[1]
+		$muni = str_replace(':', '&#58;', $row[1]);
+		return $row[0] . ':' . $muni . ':' . $row[2] . ':' . $row[3];
+	}
+
+	/** Helper to invert idx identifier
+	 */
+	static function invertIdx($idx) {
+		list($country, $municipality, $lang, $project) = explode(':', $idx, 4);
+		$municipality = str_replace('&#58;', ':', $municipality);
+		return array($country, $municipality, $lang, $project);
+	}
 
 	function getAxis($sAxis) {
 		return $this->axis[$sAxis];

@@ -71,14 +71,6 @@ class StatsBuilder extends Statistics {
 		$this->db->query($sql);
 	}
 
-
-	/** Helper to make idx identifier
-	 */
-	static function makeIdx($row) {
-		return $row[0] . ':' . processWikitext($row[2], $row[1], False) . ':' .
-			$row[2] . ':' . $row[3];
-	}
-
 	/** Calculate totals
 	 * @return false on error, true otherwise
 	 */
@@ -93,7 +85,7 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ($row = $wres->fetchRow()) {
-			$idx = $this->db->sanitize(StatsBuilder::makeIdx($row));
+			$idx = $this->db->sanitize(Statistics::makeIdx($row));
 			$count = $row[4];  // update if makeIdx changes
 			$this->setReportItem(Statistics::$fieldPrefix.'total', $idx, $count);
 		}
@@ -141,7 +133,7 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ( $row = $oRes->fetchRow() ) {
-			$idx = $this->db->sanitize(StatsBuilder::makeIdx($row));
+			$idx = $this->db->sanitize(Statistics::makeIdx($row));
 			$count = $row[4];  // update if makeIdx changes
 			$this->setReportItem($report_as, $idx, $count);
 			$value_pct = sprintf("%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][$idx]);
