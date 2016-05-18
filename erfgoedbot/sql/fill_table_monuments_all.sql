@@ -2740,6 +2740,11 @@ REPLACE INTO
     FROM `monuments_za_(en)`;
 -- UPDATE `monuments_all_tmp` SET lat_int = ROUND(lat * @granularity), lon_int = ROUND(lon * @granularity);
 
+/* when both lat and lon = 0 something went wrong */
+UPDATE `monuments_all_tmp`
+SET `lat`=NULL, `lon`=NULL, `lat_int`=NULL, `lon_int`=NULL
+WHERE `lat`=0 AND `lon`=0;
+
 DROP TABLE IF EXISTS `monuments_all`;
 
 ALTER TABLE `monuments_all_tmp` RENAME TO `monuments_all`;
