@@ -1,0 +1,19 @@
+web:
+  build: .
+  dockerfile: conf/Dockerfile.web
+  ports:
+    - "8000:80"
+  links:
+    - db
+  volumes:
+    - .:/var/www/
+db:
+  build: ./conf
+  dockerfile: Dockerfile.db
+  volumes:
+    - ./mysql:/etc/mysql/conf.d
+  environment:
+    MYSQL_ROOT_PASSWORD: root_password
+    MYSQL_DATABASE: s51138__heritage_p
+    MYSQL_USER: heritage
+    MYSQL_PASSWORD: password

@@ -15,4 +15,9 @@ Monuments Database and API
 
 A PHP [API](https://commons.wikimedia.org/wiki/Commons:Monuments_database/API) exploiting the [MySQL database](https://commons.wikimedia.org/wiki/Commons:Monuments_database).
 
-To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests.
+To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests and [docker-compose](https://docs.docker.com/compose/) to spin-up a local development environment.
+
+```
+sh bin/download_monuments_database_dump.sh
+docker-compose up -d
+```

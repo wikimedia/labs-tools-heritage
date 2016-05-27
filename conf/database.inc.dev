@@ -1,0 +1,14 @@
+<?php
+$dbUser = 'heritage';
+$dbPassword = 'password';
+
+$dbServer = 'db';
+$dbDatabase = 's51138__heritage_p';
+
+$subdivisionsPath = '/data/project/heritage/subdivisions';
+$cldrPath = '/data/project/heritage/cldr';
+
+$dbMiserMode = false;
+$cacheDir = '/data/project/heritage/temp';
+
+$tsI18nDir = '';
