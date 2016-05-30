@@ -8,5 +8,8 @@
             "parallel-lint . --exclude vendor",
             "phpunit api/tests"
         ]
+    },
+    "require": {
+        "Krinkle/intuition": "^0.2.3"
     }
 }
