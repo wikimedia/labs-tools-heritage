@@ -148,6 +148,11 @@ class TestFillTableMonumentsOntoMonumentsConfig(TestFillTableMonumentsBase):
         msg = '%s in fill_table_monuments_all not present in monuments_config'
         self.assert_all_in(self.data.keys(), self.config_tables, msg=msg)
 
+    def test_fill_table_monuments_all_config_tables_used(self):
+        """Ensure that all monuments_config tables are used."""
+        msg = '%s in monuments_config not used in fill_table_monuments_all'
+        self.assert_all_in(self.config_tables, self.data.keys(), msg=msg)
+
     def test_fill_table_monuments_all_source_in_config(self):
         """Ensure all sources are present in the corresponding config entry."""
         for table, dataset in self.data.iteritems():
