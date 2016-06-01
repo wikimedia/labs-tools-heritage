@@ -5,7 +5,7 @@ import unittest
 from erfgoedbot import monuments_config as config
 
 
-class TestMonumentConfigValidation(unittest.TestCase):
+class TestMonumentsConfigValidation(unittest.TestCase):
 
     """Test that monuments_config is valid."""
 
