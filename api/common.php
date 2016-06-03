@@ -20,19 +20,19 @@ if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_overrid
 	require dirname( dirname( __FILE__ ) ) . "/{$config_override}";
 }
 
-/* Localization */
-if ( $tsI18nDir ) {
-	require_once( "$tsI18nDir/ToolStart.php" );
-	$opts = array(
-		'domain' => 'MonumentsAPI', // name of your main text-domain here
-		'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
-		'suppresserrors' => false, // Krinkle heeft het stukgemaakt
-		);
-	$I18N = new TsIntuition( $opts );
-} else {
-	$I18N = null;
-}
+/* Localization
+ * We are loading Intuition as a library via Composer
+ */
+require_once __DIR__ . '/../vendor/autoload.php';
 
+$opts = array(
+	'domain' => 'MonumentsAPI', // name of your main text-domain here
+	'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
+	'suppresserrors' => false, // Krinkle heeft het stukgemaakt
+	);
+$I18N = new Intuition( $opts );
+
+/* Database */
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
 	isset( $toolserver_password )? $toolserver_password : $dbPassword );
 if (!$dbStatus) {
