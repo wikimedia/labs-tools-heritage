@@ -59,6 +59,18 @@ function matchWikiprojectLink($text) {
 	return $var;
 }
 
+function urlencodeWikiprojectLink($var, $drop_oldid = false) {
+	/* Takes a matching group from matchWikiprojectLink
+	 * and returns an url with the pagename urlencoded.
+	 */
+	$site = $var[3] . '.' . $var[4] . '.org';
+	$title = urlencode( $var[5] );
+	if ( $drop_oldid ){
+		return $site . '/w/index.php?title=' . $title;
+	}
+	return $site . '/w/index.php?title=' . $title . '&oldid=' . $var[6];
+}
+
 function replaceSpaces( $in_string ) {
 	return str_replace(' ', '_', $in_string);
 }
@@ -79,4 +91,15 @@ function makeWikidataWikilink($qid) {
 	} else {
 		return '';
 	}
+}
+
+function makeHTMLlink( $url, $text=false ) {
+	/*
+	 * Creates a html link with correctly escaped characters.
+	 * Defaults to using the url as link text if no alternative is given.
+	 */
+	if ( ! $text ) {
+		$text = $url;
+	}
+	return '<a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a>';
 }

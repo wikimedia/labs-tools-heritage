@@ -5,7 +5,7 @@ error_reporting( E_ALL );
  * This output is for users (and not automated tools) so internationalization will be used.
  *
  */
-// functions: processWikitext
+// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink
 require_once ( 'CommonFunctions.php' );
 
 class FormatHtmllist extends FormatBase {
@@ -85,8 +85,11 @@ class FormatHtmllist extends FormatBase {
 		if ( isset( $row->name ) and $row->name ) {
 			if ( isset( $row->monument_article ) and $row->monument_article ) {
 				$makeLinks = false;
-				$article_url = '//'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article );
-				$desc .= '<h2><a href="'. $article_url .'">'. processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</a></h2>';
+				$article_url = '//'. $row->lang . '.' . $row->project . '.org/wiki/' . $row->monument_article;
+				$desc .= '<h2>';
+				$desc .= makeHTMLlink( $article_url, processWikitext(
+					$row->lang, $row->name, $makeLinks, $row->project ) );
+				$desc .= '</h2>';
 			} else {
 				$makeLinks = true;
 				$desc .= '<h2>'. processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</h2>';
@@ -105,13 +108,9 @@ class FormatHtmllist extends FormatBase {
 					} else {
 						if ( strcmp( $name, 'id' ) == 0 and
 							   isset( $row->registrant_url ) and $row->registrant_url ) {
-							$desc .= '<a href="' . htmlspecialchars( $row->registrant_url ) . '">';
-							$desc .= htmlspecialchars( $value );
-							$desc .= '</a>';
+							$desc .= makeHTMLlink( $row->registrant_url, $value );
 						} elseif ( strcmp( $name, 'wd_item' ) == 0 ) {
-							$desc .= '<a href="' . makeWikidataUrl( $value ) . '">';
-							$desc .= htmlspecialchars( $value );
-							$desc .= '</a>';
+							$desc .= makeHTMLlink( makeWikidataUrl( $value ), $value );
 						} else {
 							$desc .= htmlspecialchars( $value );
 						}
@@ -125,9 +124,12 @@ class FormatHtmllist extends FormatBase {
 		}
 
 		if ( isset( $row->source ) and $row->source ) {
-			if ( preg_match( "/^(.+?)&/", $row->source, $matches ) ) {
-				$wikiListUrl = $matches[1];
-				$desc .= '<li><a href="' . $wikiListUrl. '">' . $I18N->msg( 'source-monuments-list' ) . '</a></li>';
+			$m = matchWikiprojectLink( $row->source );
+			if ( $m ) {
+				$encodedLink = '//' . urlencodeWikiprojectLink( $m, true );
+				$desc .= '<li>';
+				$desc .= makeHTMLlink( $encodedLink, $I18N->msg( 'source-monuments-list' ) );
+				$desc .= '</li>';
 			}
 		}
 

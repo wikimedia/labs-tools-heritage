@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl
+// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink
 require_once ( 'CommonFunctions.php' );
 
 class FormatHtml extends FormatBase {
@@ -60,7 +60,7 @@ $this->linebreak();
 				if ( in_array( $name, $selectedItems ) ) {
 					// $label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
 					echo '<th class="sortheader">' . _i18n( 'db-field-' . $name ) . '</th>';
-$this->linebreak();
+					$this->linebreak();
 				}
 			}
 			echo '</tr>';
@@ -78,12 +78,12 @@ $this->linebreak();
 				if ( $name == "image" || $name == "img_name" ) {
 					$cellData = self::genImage( $value );
 				} elseif ( $name == "registrant_url" ) {
-					$cellData = self::makeHTMLlink( $value );
+					$cellData = makeHTMLlink( $value );
 				} elseif ( $name == "source" || $name == "img_thumb" ) {
 					$cellData = self::prettifyUrls( $value );
 				} elseif ( $name == "wd_item" ) {
 					$link = makeWikidataUrl( $value );
-					$cellData = self::makeHTMLlink( $link, $value );
+					$cellData = makeHTMLlink( $link, $value );
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
 					// not all datasets are ResultWrapper
@@ -105,11 +105,11 @@ $this->linebreak();
 				}
 
 				echo '<td'.$tdattrs.'>' . $cellData . '</td>';
-$this->linebreak();
+				$this->linebreak();
 			}
 		}
 		echo '</tr>';
-$this->linebreak();
+		$this->linebreak();
 	}
 
 	function outputEnd() {
@@ -126,26 +126,19 @@ $this->linebreak();
 	static function prettifyUrls( $text ) {
 		try {
 			$m = matchWikiprojectLink( $text );
-			$encodedLinkText = str_replace( '_', ' ', $m[5] );
-			$linkText = urldecode( $encodedLinkText );
-			return self::makeHTMLlink( 'https://' . $m[2], $linkText );
+			$linkText = str_replace( '_', ' ', $m[5] );
+			$encodedLink = urlencodeWikiprojectLink( $m );
+			return makeHTMLlink( 'https://' . $encodedLink, $linkText );
 		} catch ( Exception $e ) {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
 	}
 
-	static function makeHTMLlink( $url, $text=false ) {
-		if ( ! $text ) {
-			$text = $url;
-		}
-		return '<a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a>';
-	}
-
 	static function genImage( $img ) {
 		if ( $img == "" ) {
 			return '';
-	 }
+		}
 
 		$img = str_replace( " ", "_", $img );
 		$url = getImageFromCommons( $img, 100 );

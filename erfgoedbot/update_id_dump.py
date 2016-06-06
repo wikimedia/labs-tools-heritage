@@ -110,7 +110,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
         if page.exists() and not page.isRedirectPage():
             # Do some checking
             processPage(countrycode, lang,
-                        page.permalink(), countryconfig, conn, cursor, page=page)
+                        page.permalink(percent_encoded=False),
+                        countryconfig, conn, cursor, page=page)
 
 
 def main():

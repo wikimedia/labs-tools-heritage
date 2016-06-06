@@ -21,7 +21,7 @@ class FormatWikitableTest extends PHPUnit_Framework_TestCase
 
 	public function test_prettifyUrls_match_encoded() {
 
-		$input = 'http://sv.wikipedia.org/w/index.php?title=%C3%B6&oldid=00000';
+		$input = 'http://sv.wikipedia.org/w/index.php?title=ö&oldid=00000';
 		$expected = '[//sv.wikipedia.org/w/index.php?title=%C3%B6&amp;oldid=00000 sv: ö]';
 		$this->assertEquals( $expected, FormatWikitable::prettifyUrls( $input ) );
 	}

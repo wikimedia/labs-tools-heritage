@@ -36,7 +36,7 @@ class FormatWikitable extends FormatBase {
 		$continue = substr( $continue, 1 );
 
 		echo '|}';
-$this->linebreak();
+		$this->linebreak();
 		$this->isTableOpen = false;
 
 		echo '<p style="text-align:right;">[https://tools.wmflabs.org/heritage' .
@@ -50,7 +50,7 @@ $this->linebreak();
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
 					echo '!' . $name;
-$this->linebreak();
+					$this->linebreak();
 				}
 			}
 			$this->isTableOpen = true;
@@ -71,7 +71,7 @@ $this->linebreak();
 				}
 
 				echo '|' . $cellData;
-$this->linebreak();
+				$this->linebreak();
 			}
 		}
 	}
@@ -87,9 +87,10 @@ $this->linebreak();
 	static function prettifyUrls( $text ) {
 		try {
 			$m = matchWikiprojectLink( $text );
-			$encodedLinkText = str_replace( '_', ' ', $m[5] );
-			$linkText = urldecode( $encodedLinkText );
-			return '[//' . htmlspecialchars( $m[2] ) .' '. htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
+			$linkText = str_replace( '_', ' ', $m[5] );
+			$encodedLink = urlencodeWikiprojectLink( $m );
+			return '[//' . htmlspecialchars( $encodedLink ) . ' ' .
+				htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
 		} catch ( Exception $e ) {
 			// Normal text
 			return htmlspecialchars( $text );
