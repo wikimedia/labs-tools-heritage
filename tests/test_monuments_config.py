@@ -131,6 +131,21 @@ class TestMonumentsConfigValidation(unittest.TestCase):
                     self.assertIn(field.get('conv'), recognized,
                                   msg=self.label)
 
+    def test_monuments_config_generateRegistrantUrl_converter(self):
+        """Ensure correct usage of generateRegistrantUrl converter.
+
+        Ensure that a config with a generateRegistrantUrl
+        has a valid registrantUrlBase.
+        """
+        for key, data in config.countries.iteritems():
+            self.set_label(key)
+            for field in data['fields']:
+                if field.get('conv') == 'generateRegistrantUrl':
+                    registrantUrlBase = data.get('registrantUrlBase')
+                    msg = "No valid registrantUrlBase for %s" % (self.label)
+                    self.assertTrue(registrantUrlBase, msg=msg)
+                    self.assertIn('%s', registrantUrlBase, msg=msg)
+
     def test_monuments_config_known_checkers(self):
         """Ensure the only known checkers are used in field entries."""
         recognized = ['checkLon', 'checkLat']

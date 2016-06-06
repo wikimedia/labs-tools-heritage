@@ -530,7 +530,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -985,7 +984,6 @@ countries = {
             {
                 'source': u'',  # niscode + '-' + objcode
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -1097,7 +1095,6 @@ countries = {
             {
                 'source': u'',  # niscode + '-' + objcode
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -1195,7 +1192,6 @@ countries = {
             {
                 'source': u'',  # niscode + '-' + objcode
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -2412,7 +2408,6 @@ countries = {
             {
                 'source': u'designation',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -3312,7 +3307,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -3482,7 +3476,6 @@ countries = {
             {
                 'source': u'',  # idurl: sipca/<IDFIELD>
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -4501,7 +4494,6 @@ countries = {
             {
                 'source': u'hb',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -4808,7 +4800,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -5437,7 +5428,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -6465,7 +6455,6 @@ countries = {
             {
                 'source': u'number',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -6682,7 +6671,6 @@ countries = {
             {
                 'source': u'number',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -6841,7 +6829,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -7790,7 +7777,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -7883,7 +7869,6 @@ countries = {
             {
                 'source': u'register',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
@@ -7967,7 +7952,6 @@ countries = {
             {
                 'source': u'id',
                 'dest': u'registrant_url',
-                'conv': u'generateRegistrantUrl',
             },
         ],
     },
