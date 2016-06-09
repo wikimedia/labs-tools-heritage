@@ -1,54 +1,111 @@
+td,
+th,
+table {
+  border: 1px solid gray;
+  border-collapse: collapse;
+  font-family: Helvetica, Arial, sans-serif;
+}
 
-td, th,table { border: 1px solid gray; border-collapse: collapse; font-family: Helvetica, Arial, sans-serif;}
-th { background:steelblue; }
-tr{ background:lightsteelblue; opacity:0.8; }
-tr:hover { opacity:0.99; }
-tr#header { opacity:0.99; }
-td.ht0 { background-color: #f00; }
-td.ht1 { background-color: #f30; }
-td.ht2 { background-color: #f60; }
-td.ht3 { background-color: #f90; }
-td.ht4 { background-color: #fc0; }
-td.ht5 { background-color: #ff0; }
-td.ht6 { background-color: #cf0; }
-td.ht7 { background-color: #9f0; }
-td.ht8 { background-color: #6f0; }
-td.ht9 { background-color: #3f0; }
-td.ht10 { background-color: #0f0; }
-img { 
-    border: medium none;
-    vertical-align: middle;
+th {
+  background: steelblue;
+}
+
+tr {
+  background: lightsteelblue;
+  opacity: 0.8;
+}
+
+tr:hover {
+  opacity: 0.99;
+}
+
+tr#header {
+  opacity: 0.99;
+}
+
+td.ht0 {
+  background-color: #f00;
+}
+
+td.ht1 {
+  background-color: #f30;
+}
+
+td.ht2 {
+  background-color: #f60;
+}
+
+td.ht3 {
+  background-color: #f90;
+}
+
+td.ht4 {
+  background-color: #fc0;
+}
+
+td.ht5 {
+  background-color: #ff0;
+}
+
+td.ht6 {
+  background-color: #cf0;
+}
+
+td.ht7 {
+  background-color: #9f0;
+}
+
+td.ht8 {
+  background-color: #6f0;
+}
+
+td.ht9 {
+  background-color: #3f0;
+}
+
+td.ht10 {
+  background-color: #0f0;
+}
+
+img {
+  border: medium none;
+  vertical-align: middle;
 }
 
 /* some overrides for the toolbox search result, keep above selectors, maybe needed at other place */
-
 table.wlm-result {
- font-size:12px;
- background-color:#efefef;
- border-collapse:collapse;
+  font-size: 12px;
+  background-color: #efefef;
+  border-collapse: collapse;
 }
+
 table.wlm-result tr {
- opacity:1;
+  opacity: 1;
 }
+
 table.wlm-result th {
- background-color:#A90000;
- white-space:nowrap;
- color:#fff;
+  background-color: #a90000;
+  white-space: nowrap;
+  color: #fff;
 }
+
 table.wlm-result td {
- color:#333;
- border:2px solid #fff;
- padding:2px;
- background-color:#efefef;
- opacity:1;
+  color: #333;
+  border: 2px solid #fff;
+  padding: 2px;
+  background-color: #efefef;
+  opacity: 1;
 }
+
 table.wlm-result tr:hover td {
- background-color:#fff;
-  opacity:1;
+  background-color: #fff;
+  opacity: 1;
 }
+
 table.wlm-result td img {
- margin:-2px;
+  margin: -2px;
 }
+
 table.wlm-result th a.sortheader {
- margin-left:2px;
+  margin-left: 2px;
 }
