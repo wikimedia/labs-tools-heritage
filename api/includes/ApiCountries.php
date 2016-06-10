@@ -1,14 +1,14 @@
 <?php
 
 class ApiCountries extends ApiBase {
-	public static $defaultLanguages = array(
+	public static $defaultLanguages = [
 		'be' => 'nl',
 		'ch' => 'de',
 		'es' => 'es',
 		'fr' => 'fr',
 		'sk' => 'sk',
 		'it' => 'it',
-	);
+	];
 
 	public function __construct() {
 		$this->setTopLevelNodeName( 'countries' );
@@ -21,7 +21,7 @@ class ApiCountries extends ApiBase {
 
 	public function executeModule() {
 		$countries = self::getInfo();
-		$res = array();
+		$res = [];
 		$formatter = $this->getFormatter();
 		$isJson = stripos( 'json', get_class( $formatter ) ) !== false;
 		foreach ( $countries as $code => $languages ) {
@@ -33,7 +33,7 @@ class ApiCountries extends ApiBase {
 			}
 			$res[] = $row;
 		}
-		$formatter->output( $res, 10000, null, array( 'code', 'languages', 'default' ), null );
+		$formatter->output( $res, 10000, null, [ 'code', 'languages', 'default' ], null );
 	}
 
 	public static function getDefaultLanguage( $country ) {
@@ -54,7 +54,7 @@ class ApiCountries extends ApiBase {
 			return $languages;
 		}
 		$info = self::getInfo();
-		$languages = array();
+		$languages = [];
 		foreach ( $info as $country ) {
 			$languages = array_merge( $languages, $country );
 		}
@@ -85,14 +85,14 @@ class ApiCountries extends ApiBase {
 	}
 
 	private static function getInfoFromDB() {
-		$ret = array();
+		$ret = [];
 		$db = Database::getDb();
 		$res = new ResultWrapper( $db, $db->query( 'SELECT country, lang, adm0 FROM `monuments_all` GROUP BY country, lang' ) );
 		foreach ( $res as $row ) {
 			$country = $row->adm0;
 			$lang = $row->lang;
 			if ( !isset( $ret[$country] ) ) {
-				$ret[$country] = array();
+				$ret[$country] = [];
 			}
 			if ( !isset( $ret[$country][$lang] ) ) {
 				$ret[$country][$lang] = count( $ret[$country] );

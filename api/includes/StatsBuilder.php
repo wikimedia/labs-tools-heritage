@@ -7,8 +7,8 @@
  *
  * NOTE May be optimized by INSERTing in batches
  */
-//functions: processWikitext
-require_once('CommonFunctions.php');
+// functions: processWikitext
+require_once ( 'CommonFunctions.php' );
 
 /*
 *
@@ -37,45 +37,44 @@ class StatsBuilder extends Statistics {
 	*/
 	static $bBuildInRAM = true;
 
-	function __construct($oDB = null) {
-		parent::__construct($oDB);
-		$this->aFields = array(
-			'name' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'name' ),
-			'address' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'address' ),
-			'municipality' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'municipality' ),
-			'image' => array( 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'image' ),
-			'coordinates' => array( 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix.'coordinates' ),
-		);
-		ini_set('memory_limit', '512M');
+	function __construct( $oDB = null ) {
+		parent::__construct( $oDB );
+		$this->aFields = [
+			'name' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'name' ],
+			'address' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'address' ],
+			'municipality' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'municipality' ],
+			'image' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'image' ],
+			'coordinates' => [ 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix.'coordinates' ],
+		];
+		ini_set( 'memory_limit', '512M' );
 	}
 
-	function storeValue($item,$index,$value) {
-		//$this->debug($item."[$index] = ".$value);
+	function storeValue( $item,$index,$value ) {
+		// $this->debug($item."[$index] = ".$value);
 
 		// NOTE http://dev.mysql.com/doc/refman/5.5/en/insert-delayed.html
 		//   INSERT DELAYED should be used only for INSERT statements that specify value lists.
 		//   The server ignores DELAYED for INSERT ... SELECT or INSERT ... ON DUPLICATE KEY UPDATE statements.
 		// Anyway, from the benchmarks, there was no actual gain.
 		$sql = 'INSERT INTO '.Statistics::$dbTable.' VALUES("'.$this->getLatestDay().'","'.$item.'","'.$index.'","'.$value.'") ON DUPLICATE KEY UPDATE value = "'.$value.'"';
-		//$this->debug("  + SQL: $sql");
-		return $this->db->query($sql);
+		// $this->debug("  + SQL: $sql");
+		return $this->db->query( $sql );
 	}
-
 
 	/**
 	 * Wipe "Latest Day" statistics (removing changing)
 	 */
 	private function clearLatestData() {
-		$this->debug('Clearing latest stats: '.$this->getLatestDay());
+		$this->debug( 'Clearing latest stats: '.$this->getLatestDay() );
 		$sql = 'DELETE FROM '.Statistics::$dbTable.' WHERE day = "'.$this->getLatestDay().'"';
-		$this->db->query($sql);
+		$this->db->query( $sql );
 	}
 
 	/** Calculate totals
 	 * @return false on error, true otherwise
 	 */
 	private function getTotals() {
-		$this->debug('Determining Totals');
+		$this->debug( 'Determining Totals' );
 		$sql = 'SELECT country, municipality, lang, project, COUNT(1) AS total
 			FROM '.Monuments::$dbTable.'
 			GROUP BY country, municipality';
@@ -84,16 +83,16 @@ class StatsBuilder extends Statistics {
 			return false;
 		}
 
-		while ($row = $wres->fetchRow()) {
-			$idx = $this->db->sanitize(Statistics::makeIdx($row));
+		while ( $row = $wres->fetchRow() ) {
+			$idx = $this->db->sanitize( Statistics::makeIdx( $row ) );
 			$count = $row[4];  // update if makeIdx changes
-			$this->setReportItem(Statistics::$fieldPrefix.'total', $idx, $count);
+			$this->setReportItem( Statistics::$fieldPrefix.'total', $idx, $count );
 		}
 		return true;
 	}
 
-	private function getFilterForField($field) {
-		switch($this->aFields[$field]['type']) {
+	private function getFilterForField( $field ) {
+		switch ( $this->aFields[$field]['type'] ) {
 		case 'latlon':
 			$filter = 'lat <> 0 AND lon <> 0';
 			break;
@@ -104,10 +103,9 @@ class StatsBuilder extends Statistics {
 		return $filter;
 	}
 
+	private function getFieldStats( $field ) {
 
-	private function getFieldStats($field) {
-
-		$filter = $this->getFilterForField($field);
+		$filter = $this->getFilterForField( $field );
 		$report_as = $this->aFields[$field]['report_as'];
 
 		$tmp_table = 'tmp_'.$field;
@@ -117,87 +115,84 @@ class StatsBuilder extends Statistics {
 			FROM '.Monuments::$dbTable.'
 			WHERE '.$filter.'
 			GROUP BY country, municipality';
-		$this->db->query($sql);
+		$this->db->query( $sql );
 
 		$sql = 'ALTER TABLE '.$tmp_table.' ADD UNIQUE INDEX idx1(country,municipality)';
-		$this->db->query($sql);
+		$this->db->query( $sql );
 
 		$sql = 'SELECT m1.country, m1.municipality, m1.lang, m1.project, IF(m2.non_blank IS NULL,0,m2.non_blank) AS non_blank
 		  FROM '.Monuments::$dbTable.' m1
 		  LEFT JOIN '.$tmp_table.' m2 ON m2.country = m1.country AND m2.municipality = m1.municipality
 		  GROUP BY m1.country, m1.municipality';
-		$oRes = new ResultWrapper( $this->db, $this->db->query($sql) );
+		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg("ERROR: failed to get total:".$field);
+			$this->setErrorMsg( "ERROR: failed to get total:".$field );
 			return false;
 		}
 
 		while ( $row = $oRes->fetchRow() ) {
-			$idx = $this->db->sanitize(Statistics::makeIdx($row));
+			$idx = $this->db->sanitize( Statistics::makeIdx( $row ) );
 			$count = $row[4];  // update if makeIdx changes
-			$this->setReportItem($report_as, $idx, $count);
-			$value_pct = sprintf("%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][$idx]);
-			$this->setReportItem($report_as.'_pct', $idx, $value_pct);
+			$this->setReportItem( $report_as, $idx, $count );
+			$value_pct = sprintf( "%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][$idx] );
+			$this->setReportItem( $report_as.'_pct', $idx, $value_pct );
 		}
 		return true;
 	}
-
 
 	/** Helper - to simplify direct database loading
 	 * NOTE: remember to keep a copy of 'totals' in $this->report;
 	 */
-	public function setReportItem($item, $idx, $value) {
-		//$this->debug('REPORT['.$item.']['.$idx.'] = '.$value);
+	public function setReportItem( $item, $idx, $value ) {
+		// $this->debug('REPORT['.$item.']['.$idx.'] = '.$value);
 		// we will need the totals in RAM anyway
-		if ( ($item === Statistics::$fieldPrefix.'total') or StatsBuilder::$bBuildInRAM ) {
+		if ( ( $item === Statistics::$fieldPrefix.'total' ) or StatsBuilder::$bBuildInRAM ) {
 			$this->report[$item][$idx] = $value;
 		}
 
 		if ( !StatsBuilder::$bBuildInRAM ) {
-			$this->storeValue($item,$idx,$value);
+			$this->storeValue( $item, $idx, $value );
 		}
 	}
-
 
 	public function buildReport() {
 		$nTimeStart = time();
-		$this->debug('buildReport(): start');
+		$this->debug( 'buildReport(): start' );
 		$this->clearLatestData();
 		if ( !$this->getTotals() ) {
-			$this->setErrorMsg("ERROR: failed to get totals");
+			$this->setErrorMsg( "ERROR: failed to get totals" );
 			return false;
 		}
-		foreach ($this->aFields as $field => $fdata) {
-			$this->debug(' + Building report for field: '.$field);
+		foreach ( $this->aFields as $field => $fdata ) {
+			$this->debug( ' + Building report for field: '.$field );
 			$nTimeStart2 = time();
-			$this->getFieldStats($field);
+			$this->getFieldStats( $field );
 			$nTimeEnd2 = time();
-			$this->debug('   - Time elapsed: '.($nTimeEnd2 - $nTimeStart2).' seconds.');
+			$this->debug( '   - Time elapsed: '.( $nTimeEnd2 - $nTimeStart2 ).' seconds.' );
 		}
 		$nTimeEnd = time();
-		$this->debug(' - Time elapsed: '.($nTimeEnd - $nTimeStart).' seconds.');
+		$this->debug( ' - Time elapsed: '.( $nTimeEnd - $nTimeStart ).' seconds.' );
 		return true;
 	}
-
 
 	/**
 	 * Store report
 	 */
 	public function storeReport() {
 		$nTimeStart = time();
-		$this->debug('storeReport(): start');
+		$this->debug( 'storeReport(): start' );
 		if ( StatsBuilder::$bBuildInRAM ) {
-			foreach ($this->report as $item => $table) {
-				$this->debug(' + Storing report for item: '.$item);
-				foreach ($table as $idx => $val) {
-					if ( !$this->storeValue($item,$idx,$val) ) {
+			foreach ( $this->report as $item => $table ) {
+				$this->debug( ' + Storing report for item: '.$item );
+				foreach ( $table as $idx => $val ) {
+					if ( !$this->storeValue( $item, $idx, $val ) ) {
 						return false;
 					}
 				}
 			}
 		}
 		$nTimeEnd = time();
-		$this->debug(' - Time elapsed: '.($nTimeEnd - $nTimeStart).' seconds.');
+		$this->debug( ' - Time elapsed: '.( $nTimeEnd - $nTimeStart ).' seconds.' );
 	}
 
 }

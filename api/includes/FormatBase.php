@@ -5,16 +5,16 @@
  * @author Platonides
  */
 abstract class FormatBase {
-	
+
 	protected $api;
 	protected $continueParams;
 	protected $filter;
-	
-	function __construct(ApiBase $api) {
+
+	function __construct( ApiBase $api ) {
 		$this->api = $api;
 	}
-	
-	function setContinueParams($params) {
+
+	function setContinueParams( $params ) {
 		$this->continueParams = $params;
 	}
 
@@ -27,14 +27,14 @@ abstract class FormatBase {
 	}
 
 	abstract function getContentType();
-	abstract function outputBegin($selectedItems);
-	abstract function outputContinue($row, $continueKey, $primaryKey);
-	abstract function outputRow($row, $selectedItems);
+	abstract function outputBegin( $selectedItems );
+	abstract function outputContinue( $row, $continueKey, $primaryKey );
+	abstract function outputRow( $row, $selectedItems );
 	abstract function outputEnd();
 
-	function output($result, $limit, $continueKey, $selectedItems, $primaryKey) {
+	function output( $result, $limit, $continueKey, $selectedItems, $primaryKey ) {
 		$this->headers();
-		
+
 		$this->outputBegin( $selectedItems );
 		$count = 0;
 		foreach ( $result as $row ) {

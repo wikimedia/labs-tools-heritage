@@ -18,16 +18,16 @@ class ApiAdminTree extends ApiBase {
 	public function getAllowedParams() {
 		$defaultParams = $this->getDefaultAllowedParams();
 
-		$params = array(
-			'admtree' => array(
+		$params = [
+			'admtree' => [
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
-			),
-			'admtranslate' => array(
+			],
+			'admtranslate' => [
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'boolean',
-			),
-		);
+			],
+		];
 		$params = array_merge_recursive( $defaultParams, $params );
 		return $params;
 	}
@@ -52,7 +52,7 @@ class ApiAdminTree extends ApiBase {
 	 */
 	public function adminlevels() {
 		$admtree = $this->getParam( 'admtree' );
-		$display_fields = array( 'name', 'translated' );
+		$display_fields = [ 'name', 'translated' ];
 
 		if ( $admtree ) {
 			$display_fields[] = 'level';
@@ -83,12 +83,12 @@ class ApiAdminTree extends ApiBase {
 	}
 
 	private function getTranslations( array $adminTree ) {
-		$result = array();
+		$result = [];
 		for ( $i = 0; $i < count( $adminTree ); $i++ ) {
-			$row = array(
+			$row = [
 				'level' => $i,
 				'name' => $adminTree[$i]
-			);
+			];
 			$this->translateRow( $row );
 			$result[] = $row;
 		}
@@ -106,10 +106,10 @@ class ApiAdminTree extends ApiBase {
 	 * @return array
 	 */
 	private function getAdmDetails( $lang, $name, $level=false, $parent=false ) {
-		$data = array();
+		$data = [];
 		$db = Database::getDb();
-		$fields = array( 'id', 'name', 'level' );
-		$where = array( 'name' => $name, 'lang' => $lang );
+		$fields = [ 'id', 'name', 'level' ];
+		$where = [ 'name' => $name, 'lang' => $lang ];
 		if ( $level !== false ) {
 			$where['level'] = $level;
 		}
@@ -129,13 +129,13 @@ class ApiAdminTree extends ApiBase {
 	 * @return array
 	 */
 	private function getTopLevelAdmNames() {
-		$data = array();
+		$data = [];
 		$db = Database::getDb();
 		// get a list of countries
 		$useLang = $this->getParam( 'uselang' ); // Not getUseLang() because that will throw an exception w/o adm0
 		$lang = $useLang ? Language::newFromCode( $useLang ) : null;
 		$res = new ResultWrapper( $db, $db->query( 'SELECT `id`, `name` FROM `admin_tree` WHERE `level` = 0 GROUP BY `name`' ) );
-		while( $row = $db->fetchAssoc( $res ) ) {
+		while ( $row = $db->fetchAssoc( $res ) ) {
 			$fallbackLang = ApiCountries::getDefaultLanguage( $row['name'] );
 			$this->translateRow( $row, $lang && $lang->hasData() ? $lang : Language::newFromCode( $fallbackLang ) );
 			$data[] = $row;
@@ -149,13 +149,13 @@ class ApiAdminTree extends ApiBase {
 	 * @return array
 	 */
 	private function getImmediateAdminLevelChildren( $id ) {
-		$data = array();
+		$data = [];
 		$db = Database::getDb();
-		$fields = array( 'id', 'name', 'level' );
-		$where = array(
+		$fields = [ 'id', 'name', 'level' ];
+		$where = [
 			'parent' => $id,
-		);
- 		$res = $db->select ( $fields, 'admin_tree', $where, array( 'name' ) );
+		];
+			$res = $db->select( $fields, 'admin_tree', $where, [ 'name' ] );
 		while ( $row = $db->fetchAssoc( $res ) ) {
 			if ( $row['level'] <= 2 ) {
 				$this->translateRow( $row );
@@ -182,7 +182,7 @@ class ApiAdminTree extends ApiBase {
 	 * @return array
 	 */
 	private function getChildrenFromTree( $lang, array $admtree ) {
-		$data = array();
+		$data = [];
 		$tree_depth = count( $admtree );
 
 		// get the topmost level details
@@ -203,7 +203,7 @@ class ApiAdminTree extends ApiBase {
 					// there's are no child zones
 					return $data;
 				} elseif ( count( $adm_details ) > 1 ) {
-					$parent_id = array();
+					$parent_id = [];
 					foreach ( $adm_details as $adm_detail ) {
 						$parent_id[] = $adm_detail['id'];
 					}

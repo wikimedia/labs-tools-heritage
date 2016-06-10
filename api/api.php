@@ -1,6 +1,6 @@
 <?php
 
 /* Entry point for the monuments api */
-require dirname( __FILE__ ) . '/common.php';
+require __DIR__ . '/common.php';
 
 ApiMain::dispatch();

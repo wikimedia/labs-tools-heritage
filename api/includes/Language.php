@@ -2,18 +2,18 @@
 class Language {
 	private $data;
 	private $code;
-	private static $languageCache = array();
+	private static $languageCache = [];
 	private $fallback;
 
-	private static $subdivisionOverrides = array(
+	private static $subdivisionOverrides = [
 		'Be' => 'Be-x-old',
-	);
+	];
 
-	private static $cldrOverrides = array(
+	private static $cldrOverrides = [
 		'No' => 'Nb',
 		'Sr' => 'Sr_ec',
 		'Be_x_old' => 'Be',
-	);
+	];
 
 	private function __construct( $code, array $data ) {
 		$this->code = $code;
@@ -43,7 +43,7 @@ class Language {
 
 	private static function getRawData( $code ) {
 		global $cldrPath, $subdivisionsPath;
-		$data = array();
+		$data = [];
 		if ( $cldrPath && $subdivisionsPath ) {
 			$prettyCode = ucfirst( $code );
 			$subCode = isset( self::$subdivisionOverrides[$prettyCode] )
@@ -51,11 +51,11 @@ class Language {
 				: $prettyCode;
 			$file = "{$subdivisionsPath}/subdivisions/Subdivisions{$subCode}.php";
 			if ( is_file( $file ) ) {
-				$subdivisions = array();
-				require_once( $file );
+				$subdivisions = [];
+				require_once ( $file );
 				$overrides_file = "{$subdivisionsPath}/overrides/Overrides{$subCode}.php";
 				if ( is_file( $overrides_file ) ) {
-					require_once( $overrides_file );
+					require_once ( $overrides_file );
 				}
 				$data['subdivisions'] = $subdivisions;
 			}
@@ -65,8 +65,8 @@ class Language {
 				: $prettyCode;
 			$file = "{$cldrPath}/CldrNames/CldrNames{$cldrCode}.php";
 			if ( is_file( $file ) ) {
-				$countryNames = array();
-				require_once( $file );
+				$countryNames = [];
+				require_once ( $file );
 				$data['countryNames'] = $countryNames;
 			}
 		}
@@ -79,14 +79,14 @@ class Language {
 			// Run tools/scrape-fallbacks.php to update this information
 			$fallbacks = unserialize( file_get_contents( dirname( __DIR__ ) . '/data/LanguageFallbacks.ser' ) );
 			// WLM-specific overrides due to the state of CLDR
-			$fallbacks['pt'] = array( 'pt-br' );
-			$fallbacks['pt-br'] = array( 'en' );
+			$fallbacks['pt'] = [ 'pt-br' ];
+			$fallbacks['pt-br'] = [ 'en' ];
 		}
 
 		if ( isset( $fallbacks[$this->code] ) ) {
 			return $fallbacks[$this->code];
 		}
-		return array();
+		return [];
 	}
 
 	public function hasData() {

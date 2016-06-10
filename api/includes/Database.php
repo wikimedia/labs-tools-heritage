@@ -26,9 +26,9 @@ class Database {
 	 *
 	 * @return string
 	 */
-	function implodeIdentifier($list) {
+	function implodeIdentifier( $list ) {
 		$l = '';
-		foreach( $list as $item ) {
+		foreach ( $list as $item ) {
 			$l .= ', ' . $this->escapeIdentifier( $item );
 		}
 		return substr( $l, 1 );
@@ -40,24 +40,25 @@ class Database {
 	 *
 	 * @return string
 	 */
-	function implodeConds($where, $glue) {
+	function implodeConds( $where, $glue ) {
 		$text = '';
-		foreach ($where as $key => $value) {
+		foreach ( $where as $key => $value ) {
 			if ( is_int( $key ) ) {
 				$text .= $value . $glue;
 			} else {
-				
+
 				if ( is_array( $value ) ) {
 					if ( count( $value ) > 1 ) {
 						$text .= $this->escapeIdentifier( $key ) . ' IN (' . $this->quote( $value[0] );
-						for ( $i = 1; $i < count( $value ); $i++ )
+						for ( $i = 1; $i < count( $value ); $i++ ) {
 							$text .= ', ' . $this->quote( $value[$i] );
+	     }
 						$text .= ')' . $glue;
 					} else {
 						$value = $value[0];
 					}
 				}
-				
+
 				if ( !is_array( $value ) ) {
 					$text .= $this->escapeIdentifier( $key ) . '=' . $this->quote( $value ) . $glue;
 				}
@@ -76,8 +77,8 @@ class Database {
 	 *
 	 * @return ResultWrapper
 	 */
-	function select($fields, $table, $where, $orderBy = false, $limit = false, $forceIndex = false) {
-		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " . 
+	function select( $fields, $table, $where, $orderBy = false, $limit = false, $forceIndex = false ) {
+		$sql = "SELECT " . $this->implodeIdentifier( $fields ) . " FROM " .
 			$this->escapeIdentifier( $table );
 		if ( $forceIndex !== false ) {
 			$sql .= ' FORCE INDEX( ' . $this->escapeIdentifier( $forceIndex ) . ' ) ';
@@ -85,39 +86,41 @@ class Database {
 		if ( count( $where ) > 0 ) {
 			$sql .= " WHERE (" . $this->implodeConds( $where, ') AND (' ) . ')';
 		}
-		
-		if ( $orderBy )
+
+		if ( $orderBy ) {
 			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
-		if ( $limit )
+	 }
+		if ( $limit ) {
 			$sql .= " LIMIT $limit";
+	 }
 		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
-	
-	function insert($table, $fields) {
-		return $this->insertion('INSERT', $table, $fields);
+
+	function insert( $table, $fields ) {
+		return $this->insertion( 'INSERT', $table, $fields );
 	}
-	
-	function replace($table, $fields) {
-		return $this->insertion('REPLACE', $table, $fields);
+
+	function replace( $table, $fields ) {
+		return $this->insertion( 'REPLACE', $table, $fields );
 	}
-	
-	protected function insertion($action, $table, $fields) {
+
+	protected function insertion( $action, $table, $fields ) {
 		$sql = "$action INTO " . $this->escapeIdentifier( $table );
 		$sql2 = ') VALUES ';
-		
+
 		$sep = '(';
-		
-		foreach ($fields as $name => $value) {
+
+		foreach ( $fields as $name => $value ) {
 			$sql .= $sep . $this->escapeIdentifier( $name );
 			$sql2 .= $sep . $this->quote( $value );
 			$sep = ',';
 		}
-		
-		return $this->query($sql . $sql2 . ')');
+
+		return $this->query( $sql . $sql2 . ')' );
 	}
-	
+
 	/* Mysql specific */
-	function query($sql) {
+	function query( $sql ) {
 		// don't log teh useless SET NAMES utf8
 		$time = 0;
 		if ( !preg_match( '/^SET\b/i', $sql ) ) {
@@ -141,8 +144,8 @@ class Database {
 		}
 		return $res;
 	}
-	
-	static function define($server, $database, $username, $password) {
+
+	static function define( $server, $database, $username, $password ) {
 		self::$singleton = new Database();
 		self::$singleton->db = @mysql_connect( $server, $username, $password );
 		if ( !self::$singleton->db ) {
@@ -152,43 +155,43 @@ class Database {
 		self::$singleton->query( 'SET NAMES utf8' );
 		return mysql_select_db( $database, self::$singleton->db );
 	}
-	
-	function quote($str) {
+
+	function quote( $str ) {
 		return "'" . $this->sanitize( $str ) . "'";
 	}
-	
-	function escapeIdentifier($str) {
+
+	function escapeIdentifier( $str ) {
 		return "`$str`";
 	}
-	
-	function numRows($wrapper) {
+
+	function numRows( $wrapper ) {
 		return mysql_num_rows( $wrapper->result );
 	}
-	
-	function fetchObject($wrapper) {
+
+	function fetchObject( $wrapper ) {
 		@$obj = mysql_fetch_object( $wrapper->result );
 		return $obj;
 	}
-	
-	function fetchRow($wrapper) {
+
+	function fetchRow( $wrapper ) {
 		@$obj = mysql_fetch_row( $wrapper->result );
 		return $obj;
 	}
-	
-	function fetchAssoc($wrapper) {
+
+	function fetchAssoc( $wrapper ) {
 		@$obj = mysql_fetch_assoc( $wrapper->result );
 		return $obj;
 	}
-	
-	function freeResult($wrapper) {
+
+	function freeResult( $wrapper ) {
 		/* No-op*/
 	}
-	
-	function dataSeek($wrapper, $rowNumber) {
+
+	function dataSeek( $wrapper, $rowNumber ) {
 		return mysql_data_seek( $wrapper->result, $rowNumber );
 	}
 
-	function sanitize($sSQL) {
+	function sanitize( $sSQL ) {
 		return mysql_real_escape_string( $sSQL, $this->db );
 	}
 }

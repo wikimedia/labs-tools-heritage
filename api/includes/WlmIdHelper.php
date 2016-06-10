@@ -6,24 +6,24 @@
  */
 
 class WlmIdHelper extends ExternalAPI {
-	static $wlmids = array(
+	static $wlmids = [
 		'Portugal' => 'WLM-PT',
-		);
+		];
 
-	function parseWlmId($img, $country) {
-		$text = $this->getPageText('File:'.$img);
+	function parseWlmId( $img, $country ) {
+		$text = $this->getPageText( 'File:'.$img );
 		if ( !$text ) {
 			return false;
 		}
-		//$this->debug(' + TPL for '.$country.': '.$tpl);
-		if ( !isset(WlmIdHelper::$wlmids[$country]) ) {
+		// $this->debug(' + TPL for '.$country.': '.$tpl);
+		if ( !isset( WlmIdHelper::$wlmids[$country] ) ) {
 			return false;
 		}
-		$matches = array();
-		if ( !preg_match_all('/\{\{'.WlmIdHelper::$wlmids[$country].'\|([^\|\}]+)/', $text, $matches) ) {
+		$matches = [];
+		if ( !preg_match_all( '/\{\{'.WlmIdHelper::$wlmids[$country].'\|([^\|\}]+)/', $text, $matches ) ) {
 			return false;
 		}
-		if ( !isset($matches[1][0]) ) {
+		if ( !isset( $matches[1][0] ) ) {
 			return false;
 		}
 		return $matches[1][0];

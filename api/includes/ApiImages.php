@@ -6,7 +6,6 @@
  */
 class ApiImages extends ApiBase {
 
-
 	public function __construct() {
 		$this->setTopLevelNodeName( 'images' );
 		$this->setObjectNodeName( 'image' );
@@ -15,31 +14,31 @@ class ApiImages extends ApiBase {
 	public function getAllowedParams() {
 		$defaultParams = $this->getDefaultAllowedParams();
 
-		$params = array(
-			'imcountry' => array(
+		$params = [
+			'imcountry' => [
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
-			),
-			'imid' => array(
+			],
+			'imid' => [
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string',
-			),
-			'imwidth' => array(
+			],
+			'imwidth' => [
 				 ApiBase::PARAM_DFLT => 220,
 				 ApiBase::PARAM_TYPE => 'integer',
 				 ApiBase::PARAM_MIN => 1,
 				 ApiBase::PARAM_MAX => 9999999999,
-			 ),
-			 'imcontinue' => array(
+			 ],
+			 'imcontinue' => [
 				 ApiBase::PARAM_DFLT => '',
 				 ApiBase::PARAM_TYPE => 'string',
-			 ),
-			 'props' => array(
-				 ApiBase::PARAM_DFLT => array( 'country', 'id', 'img_name' ),
-				 ApiBase::PARAM_TYPE => array( 'country', 'id', 'img_name' ),
+			 ],
+			 'props' => [
+				 ApiBase::PARAM_DFLT => [ 'country', 'id', 'img_name' ],
+				 ApiBase::PARAM_TYPE => [ 'country', 'id', 'img_name' ],
 				 ApiBase::PARAM_ISMULTI => true ,
-			 ),
-		);
+			 ],
+		];
 		$params = array_merge_recursive( $defaultParams, $params );
 		return $params;
 	}
@@ -61,23 +60,23 @@ class ApiImages extends ApiBase {
 	 *
 	 */
 	public function images() {
-		//$display_fields = array( 'country', 'id', 'img_name', 'img_thumb', 'img_page');
-		
+		// $display_fields = array( 'country', 'id', 'img_name', 'img_thumb', 'img_page');
+
 		$country = $this->getParam( "imcountry" );
 		$id = $this->getParam( "imid" );
 		$width = $this->getParam( "imwidth" );
 		$limit = $this->getParam( "limit" );
 		$continue = $this->getParam( "imcontinue" );
-		
+
 		$db = Database::getDb();
-		$fields = array( 'country', 'id', 'img_name' );
-		$props = $this->getParam( "props");
+		$fields = [ 'country', 'id', 'img_name' ];
+		$props = $this->getParam( "props" );
 
 		// FIXME: Escaping?
-		$where = array( 'country' => $country, 'id' => $id );
-		
+		$where = [ 'country' => $country, 'id' => $id ];
+
 		$res = $db->select( $props, 'image', $where );
-		$rows = array();
+		$rows = [];
 		while ( $row = $db->fetchAssoc( $res ) ) {
 			$this->imageLinksRow( $row, $width );
 			$rows[] = $row;
@@ -85,8 +84,8 @@ class ApiImages extends ApiBase {
 		// FIXME: Implement the paging
 		// $continueKey = null;
 		$limit = 99999999;
-		$primaryKey = array('country', 'id');
-		$this->getFormatter()->output( $rows, $limit, 'continue', $props, $primaryKey);
+		$primaryKey = [ 'country', 'id' ];
+		$this->getFormatter()->output( $rows, $limit, 'continue', $props, $primaryKey );
 	}
 	/*
 	 * Add a link to a thumbnail and to the image page
@@ -94,6 +93,6 @@ class ApiImages extends ApiBase {
 	 */
 	private function imageLinksRow( &$row, $width ) {
 		$row['img_thumb'] = 'http://commons.wikimedia.org/w/thumb.php?f=' . $row['img_name'] . '&width=' . $width;
-		$row['img_page'] = 'https://commons.wikimedia.org/w/index.php?title=File:' . $row['img_name']; 
+		$row['img_page'] = 'https://commons.wikimedia.org/w/index.php?title=File:' . $row['img_name'];
 	}
 }

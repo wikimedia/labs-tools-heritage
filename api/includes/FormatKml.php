@@ -4,15 +4,12 @@
  * Kml output type
  */
 
+// functions
+require_once ( 'CommonFunctions.php' );
 
-//functions
-require_once('CommonFunctions.php');
-
-
-//class
+// class
 
 class FormatKml extends FormatBase {
-
 
 	function getContentType() {
 		return "application/vnd.google-earth.kml+xml";
@@ -23,43 +20,43 @@ class FormatKml extends FormatBase {
 		echo '<?xml version="1.0" encoding="UTF-8"?>';
 	}
 
-	function outputBegin($selectedItems) {
+	function outputBegin( $selectedItems ) {
 		echo '<kml xmlns="http://www.opengis.net/kml/2.2">';
 		echo '<Document>
         <Style id="monumentStyle"><IconStyle id="monumentIcon"><Icon><href>//maps.google.com/mapfiles/kml/paddle/ylw-blank.png</href></Icon></IconStyle></Style>
         <Style id="monPicStyle"><IconStyle id="monPicIcon"><Icon><href>//maps.google.com/mapfiles/kml/paddle/blu-circle.png</href></Icon></IconStyle></Style>';
 	}
 
-	function outputContinue($row, $continueKey, $primaryKey) {
+	function outputContinue( $row, $continueKey, $primaryKey ) {
 	}
 
-	function outputRow($row, $selectedItems) {
-		if ( isset($row->lon) and isset($row->lat) ) {
+	function outputRow( $row, $selectedItems ) {
+		if ( isset( $row->lon ) and isset( $row->lat ) ) {
 			echo '<Placemark';
 			$placemarkId = $row->country . $row->lang . $row->id;
 			echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
-			if ( isset($row->name) ) {
+			if ( isset( $row->name ) ) {
 				$makeLinks = false;
-				echo '<name>' . htmlspecialchars( processWikitext($row->lang, $row->name, $makeLinks, $row->project) ) . '</name>';
+				echo '<name>' . htmlspecialchars( processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) ) . '</name>';
 			}
 			echo '<description>';
 			$desc = '';
-			if ( isset($row->image) and $row->image ) {
+			if ( isset( $row->image ) and $row->image ) {
 				$imgsize = 100;
-				$desc .= '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode($row->image) . '">';
-				$desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) . '" align="right" />';
+				$desc .= '<a href="http://commons.wikimedia.org/wiki/File:' . rawurlencode( $row->image ) . '">';
+				$desc .= '<img src="' . getImageFromCommons( $row->image, $imgsize ) . '" align="right" />';
 				$desc .= '</a>';
 			}
 			$desc .= '<ul>';
-			$hasWikitext = array('name', 'address', 'municipality');
-			$listFields = array('id', 'name', 'address', 'municipality');
+			$hasWikitext = [ 'name', 'address', 'municipality' ];
+			$listFields = [ 'id', 'name', 'address', 'municipality' ];
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
 					if ( in_array( $name, $listFields ) ) {
-						$desc .= '<li> ' . _('db-field-' . $name ) . ' - ';
+						$desc .= '<li> ' . _( 'db-field-' . $name ) . ' - ';
 						if ( in_array( $name, $hasWikitext ) ) {
 							$makeLinks = true;
-							$desc .= processWikitext($row->lang, $value, $makeLinks, $row->project);
+							$desc .= processWikitext( $row->lang, $value, $makeLinks, $row->project );
 						} else {
 							$desc .= $value;
 						}
@@ -68,11 +65,11 @@ class FormatKml extends FormatBase {
 				}
 			}
 			$desc .= '</ul>';
-			//echo '<![CDATA[';
+			// echo '<![CDATA[';
 			echo htmlspecialchars( $desc );
-			//echo ']]>';
+			// echo ']]>';
 			echo '</description>';
-			if ( isset($row->image) and $row->image ) {
+			if ( isset( $row->image ) and $row->image ) {
 				$styleUrl = '#monPicStyle';
 			} else {
 				$styleUrl = '#monumentStyle';

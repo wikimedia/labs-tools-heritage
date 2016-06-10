@@ -24,42 +24,42 @@ abstract class ApiBase {
 	 */
 	protected $object_node_name = "node";
 
-	protected abstract function executeModule();
+	abstract protected function executeModule();
 
-	protected $errors = array();
-	function setError($errorCode) {
+	protected $errors = [];
+	function setError( $errorCode ) {
 		$this->errors[] = $errorCode;
 	}
 
 	public function getDefaultAllowedParams() {
 		global $dbMiserMode;
-		$params = array(
-			'format' => array( ApiBase::PARAM_DFLT => 'xmlfm',
+		$params = [
+			'format' => [ ApiBase::PARAM_DFLT => 'xmlfm',
 				ApiBase::PARAM_TYPE => $dbMiserMode
-					? array( 'json', 'xml', 'xmlfm' )
-					: array( 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ) ),
-			'callback' => array( ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ),
-			'limit' => array( ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
-				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ),
-			'action' => array(
+					? [ 'json', 'xml', 'xmlfm' ]
+					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ] ],
+			'callback' => [ ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ],
+			'limit' => [ ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
+				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ],
+			'action' => [
 				ApiBase::PARAM_DFLT => 'help',
 				ApiBase::PARAM_TYPE => ApiMain::getActions()
-			),
-			'uselang' => array(
+			],
+			'uselang' => [
 				ApiBase::PARAM_DFLT => false,
 				ApiBase::PARAM_TYPE => 'string'
-			),
-		);
+			],
+		];
 		return $params;
 	}
 
 	abstract function getAllowedParams();
 
-	function getParam($name) {
-		static $cache = array();
+	function getParam( $name ) {
+		static $cache = [];
 		if ( !isset( $cache[$name] ) ) {
 			$allowed = $this->getAllowedParams();
-			if ( !isset($allowed[$name]) ) {
+			if ( !isset( $allowed[$name] ) ) {
 				throw new Exception( sprintf( 'Asked for a forbidden parameter: %s', $name ) );
 			}
 
@@ -75,7 +75,7 @@ abstract class ApiBase {
 						}
 					} else {
 						$items = explode( '|', $_GET[$name] );
-						$cache[$name] = array();
+						$cache[$name] = [];
 						foreach ( $items as $item ) {
 							if ( in_array( $item, $p ) ) {
 								$cache[$name][] = $item;
@@ -87,7 +87,7 @@ abstract class ApiBase {
 				} elseif ( $p == 'integer' ) {
 					$i = intval( $_GET[$name] ); // @fixme this will return 0 on failure, or 1 if it's a non-empty array... is this desired?
 					$cache[$name] = min( max( $i, $allowed[$name][ApiBase::PARAM_MIN] ),
-						$allowed[$name][ApiBase::PARAM_MAX]);
+						$allowed[$name][ApiBase::PARAM_MAX] );
 				} elseif ( $p == 'boolean' ) {
 					if ( $_GET[$name] == '0' || ( $_GET[$name] == 'no' ) ) {
 						$cache[$name] = false;
@@ -126,13 +126,13 @@ abstract class ApiBase {
 	 * Returns an array with all the parameters
 	 * If $params is an array, they override existing values
 	 */
-	function getParams($params = false) {
-		$p = array();
-		foreach ($this->getAllowedParams() as $name => $value) {
-			if (isset($params[$name])) {
+	function getParams( $params = false ) {
+		$p = [];
+		foreach ( $this->getAllowedParams() as $name => $value ) {
+			if ( isset( $params[$name] ) ) {
 				$p[$name] = $params[$name];
 			} elseif ( isset( $_GET[$name] ) and strlen( $_GET[$name] ) ) {
-				$p[$name] = $this->getParam($name);
+				$p[$name] = $this->getParam( $name );
 				if ( is_array( $p[$name] ) ) {
 					$p[$name] = implode( '|', $p[$name] );
 				}
@@ -145,8 +145,8 @@ abstract class ApiBase {
 	 * Returns the url for this page.
 	 * If $params is an array, they override existing values
 	 */
-	function getUrl($params = false) {
-		$p = $this->getParams($params);
+	function getUrl( $params = false ) {
+		$p = $this->getParams( $params );
 
 		if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
 			$query = http_build_query( $p, '', '&', PHP_QUERY_RFC3986 );
@@ -156,7 +156,7 @@ abstract class ApiBase {
 		return $_SERVER["SCRIPT_NAME"] . "?$query";
 	}
 
-	function getFullUrl($params = false) {
+	function getFullUrl( $params = false ) {
 		if ( isset( $_SERVER['HTTPS'] ) && ( $_SERVER['HTTPS'] == 'on' ) ) {
 			$url = 'https://';
 		} else {
@@ -269,6 +269,8 @@ abstract class ApiBase {
 		$replacement = "$1//pipe//$3";
 		$value = preg_replace( $pattern, $replacement, $value );
 		$value = explode( '|', $value );
-		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val ); }, $value );
+		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val );
+
+	 }, $value );
 	}
 }

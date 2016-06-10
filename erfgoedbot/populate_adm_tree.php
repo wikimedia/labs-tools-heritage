@@ -9,7 +9,7 @@
  * @author Arthur Richards <arichards@wikimedia.org>
  */
 
-if ( php_sapi_name() != 'cli' ) {
+if ( PHP_SAPI != 'cli' ) {
 	die( 'This is a command-line script' );
 }
 
@@ -22,8 +22,8 @@ ini_set( 'memory_limit', '200M' );
 define( 'VERBOSE', false );
 
 $t0 = microtime( true );
-require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/public_html/api/includes/Defaults.php' );
-require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc' );
+require_once ( dirname( dirname( __DIR__ ) ) . '/public_html/api/includes/Defaults.php' );
+require_once ( dirname( dirname( __DIR__ ) ) . '/database.inc' );
 
 // make the db connection, check for errors
 $db = new mysqli( $dbServer, $dbUser, $dbPassword, $dbDatabase );
@@ -39,37 +39,37 @@ handleDbError( $query );
 
 echo "Rebuilding table...\n";
 // build a data structure of unique admin values and their parents. store them as keys for easy retrieval.
-$admin_levels = array();
+$admin_levels = [];
 $monuments_query = "SELECT `lang`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4` FROM `monuments_all`";
 if ( $result = $db->query( $monuments_query ) ) {
 	while ( $row = $result->fetch_object() ) {
 		$adm0 = trim( $row->adm0 );
 		$lang = $row->lang;
 		if ( !isset( $admin_levels[$lang] ) ) {
-			$admin_levels[$lang] = array();
+			$admin_levels[$lang] = [];
 		}
 		if ( !isset( $admin_levels[$lang][$adm0] ) ) {
-			$admin_levels[$lang][$adm0] = array();
+			$admin_levels[$lang][$adm0] = [];
 		}
 		if ( $row->adm1 ) {
 			$adm1 = trim( $row->adm1 );
 			if ( !isset( $admin_levels[$lang][$adm0][$adm1] ) ) {
-				$admin_levels[$lang][$adm0][$adm1] = array();
+				$admin_levels[$lang][$adm0][$adm1] = [];
 			}
 			if ( $row->adm2 ) {
 				$adm2 = trim( $row->adm2 );
 				if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2] ) ) {
-					$admin_levels[$lang][$adm0][$adm1][$adm2] = array();
+					$admin_levels[$lang][$adm0][$adm1][$adm2] = [];
 				}
 				if ( $row->adm3 ) {
 					$adm3 = trim( $row->adm3 );
 					if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2][$adm3] ) ) {
-						$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3] = array();
+						$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3] = [];
 					}
 					if ( $row->adm4 ) {
 						$adm4 = trim( $row->adm4 );
 						if ( !isset( $admin_levels[$lang][$adm0][$adm1][$adm2][$adm3][$adm4] ) && $adm4 ) {
-							$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3][$adm4] = array();
+							$admin_levels[$lang][$adm0][$adm1][$adm2][$adm3][$adm4] = [];
 						}
 					}
 				}
@@ -144,7 +144,8 @@ function insert_sub_adm( $lang, $level, $adm, $parentId ) {
  * Helper function for verbose output.
  */
 function out( $str ) {
-	if ( VERBOSE ) echo $str . "\n";
+	if ( VERBOSE ) { echo $str . "\n";
+	}
 }
 
 /**

@@ -4,13 +4,12 @@
  * KML network link generation
  */
 
-
 class DynamicKml {
 
-	function output($request_url) {
+	function output( $request_url ) {
 		header( "Content-Type: application/vnd.google-earth.kml+xml" );
 		$replCount = 1;
-		$kml_url = htmlspecialchars( str_replace('format=dynamickml', 'format=kml', $request_url, $replCount) );
+		$kml_url = htmlspecialchars( str_replace( 'format=dynamickml', 'format=kml', $request_url, $replCount ) );
 		$desc = 'Cultural heritage monuments database for <a 
 href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
 		$desc = htmlspecialchars( $desc );
@@ -40,7 +39,6 @@ href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
  </Folder>
 </kml>
 ';
-	} //func
+	} // func
 
-	
-} //class
+} // class

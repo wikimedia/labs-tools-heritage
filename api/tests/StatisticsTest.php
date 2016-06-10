@@ -1,46 +1,45 @@
 <?php
 
-require(dirname(__FILE__).'/../includes/StatisticsBase.php');
-require(dirname(__FILE__).'/../includes/Statistics.php');
+require ( __DIR__.'/../includes/StatisticsBase.php' );
+require ( __DIR__.'/../includes/Statistics.php' );
 
 class StatisticsTest extends PHPUnit_Framework_TestCase
 {
 
-	public function test_makeIdx()
-	{
-		$row = array('country','municipality','lang','project');
+	public function test_makeIdx() {
+
+		$row = [ 'country','municipality','lang','project' ];
 		$this->assertEquals(
 			"country:municipality:lang:project",
-			Statistics::makeIdx($row)
+			Statistics::makeIdx( $row )
 		);
 	}
 
-	public function test_makeIdx_colon()
-	{
-		$row = array('country','[[se:municipality]]','lang','project');
+	public function test_makeIdx_colon() {
+
+		$row = [ 'country','[[se:municipality]]','lang','project' ];
 		$this->assertEquals(
 			"country:[[se&#58;municipality]]:lang:project",
-			Statistics::makeIdx($row)
+			Statistics::makeIdx( $row )
 		);
 	}
 
-	public function test_invertIdx()
-	{
+	public function test_invertIdx() {
+
 		$idx = "country:municipality:lang:project";
 		$this->assertEquals(
-			array('country','municipality','lang','project'),
-			Statistics::invertIdx($idx)
+			[ 'country','municipality','lang','project' ],
+			Statistics::invertIdx( $idx )
 		);
 	}
 
-	public function test_invertIdx_colon()
-	{
+	public function test_invertIdx_colon() {
+
 		$idx = "country:[[se&#58;municipality]]:lang:project";
 		$this->assertEquals(
-			array('country','[[se:municipality]]','lang','project'),
-			Statistics::invertIdx($idx)
+			[ 'country','[[se:municipality]]','lang','project' ],
+			Statistics::invertIdx( $idx )
 		);
 	}
 
 }
-?>

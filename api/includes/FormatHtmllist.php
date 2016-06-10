@@ -1,12 +1,12 @@
 <?php
-error_reporting(E_ALL);
+error_reporting( E_ALL );
 /**
  * HTML list output type, based on XML
  * This output is for users (and not automated tools) so internationalization will be used.
  *
  */
-//functions: processWikitext
-require_once('CommonFunctions.php');
+// functions: processWikitext
+require_once ( 'CommonFunctions.php' );
 
 class FormatHtmllist extends FormatBase {
 
@@ -37,10 +37,10 @@ class FormatHtmllist extends FormatBase {
 	function outputTitle( $result, $numRows ) {
 
 		$title = '';
-		if ($numRows == 1) {
+		if ( $numRows == 1 ) {
 			foreach ( $result as $row ) {
-				if ( isset($row->name) and $row->name ) {
-					$title = htmlspecialchars(  processWikitext('', $row->name, false) );
+				if ( isset( $row->name ) and $row->name ) {
+					$title = htmlspecialchars( processWikitext( '', $row->name, false ) );
 				}
 				break;
 			}
@@ -52,7 +52,7 @@ class FormatHtmllist extends FormatBase {
 		echo '<div class="main">';
 	}
 
-	function outputContinue($row, $continueKey, $primaryKey) {
+	function outputContinue( $row, $continueKey, $primaryKey ) {
 		global $I18N;
 		$continue = '';
 		foreach ( $primaryKey as $key ) {
@@ -61,10 +61,10 @@ class FormatHtmllist extends FormatBase {
 		$continue = substr( $continue, 1 );
 
 		echo '<p style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">' . $I18N->msg('next-page') . '</a></p>';
+			htmlspecialchars( $this->api->getUrl( [ $continueKey => $continue ] ) ) . '">' . $I18N->msg( 'next-page' ) . '</a></p>';
 	}
 
-	function outputRow($row, $selectedItems) {
+	function outputRow( $row, $selectedItems ) {
 		global $I18N;
 		$desc = '';
 		$this->rowNumberIsOdd = 1 - $this->rowNumberIsOdd;
@@ -75,36 +75,36 @@ class FormatHtmllist extends FormatBase {
 			$desc .= '<div class="row evenRow">';
 		}
 
-		if ( isset($row->image) and $row->image ) {
+		if ( isset( $row->image ) and $row->image ) {
 			$imgsize = 100;
-			$desc .= '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode($row->image) . '">';
-			$desc .= '<img src="' . getImageFromCommons($row->image, $imgsize) . '" align="right" />';
+			$desc .= '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode( $row->image ) . '">';
+			$desc .= '<img src="' . getImageFromCommons( $row->image, $imgsize ) . '" align="right" />';
 			$desc .= '</a>';
 		}
 
-		if ( isset($row->name) and $row->name ) {
-			if ( isset($row->monument_article) and $row->monument_article ) {
+		if ( isset( $row->name ) and $row->name ) {
+			if ( isset( $row->monument_article ) and $row->monument_article ) {
 				$makeLinks = false;
 				$article_url = '//'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article );
-				$desc .= '<h2><a href="'. $article_url .'">'. processWikitext($row->lang, $row->name, $makeLinks, $row->project) . '</a></h2>';
+				$desc .= '<h2><a href="'. $article_url .'">'. processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</a></h2>';
 			} else {
 				$makeLinks = true;
-				$desc .= '<h2>'. processWikitext($row->lang, $row->name, $makeLinks, $row->project) . '</h2>';
+				$desc .= '<h2>'. processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</h2>';
 			}
 		}
 		$desc .= '<ul>';
-		$hasWikitext = array('address', 'municipality');
-		$sepListedFields = array('name', 'image', 'lat', 'lon', 'source', 'monument_article', 'registrant_url');
+		$hasWikitext = [ 'address', 'municipality' ];
+		$sepListedFields = [ 'name', 'image', 'lat', 'lon', 'source', 'monument_article', 'registrant_url' ];
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
 				if ( !in_array( $name, $sepListedFields ) ) {
-					$desc .= '<li> ' . htmlspecialchars($I18N->msg('db-field-' . $name ) ) . ': ';
+					$desc .= '<li> ' . htmlspecialchars( $I18N->msg( 'db-field-' . $name ) ) . ': ';
 					if ( in_array( $name, $hasWikitext ) ) {
 						$makeLinks = true;
-						$desc .= processWikitext($row->lang, $value, $makeLinks, $row->project);
+						$desc .= processWikitext( $row->lang, $value, $makeLinks, $row->project );
 					} else {
-						if ( strcmp($name, 'id') == 0 and
-							   isset($row->registrant_url) and $row->registrant_url) {
+						if ( strcmp( $name, 'id' ) == 0 and
+							   isset( $row->registrant_url ) and $row->registrant_url ) {
 							$desc .= '<a href="' . htmlspecialchars( $row->registrant_url ) . '">';
 							$desc .= htmlspecialchars( $value );
 							$desc .= '</a>';
@@ -114,16 +114,16 @@ class FormatHtmllist extends FormatBase {
 					}
 					$desc .= '</li>';
 				}
-			 }
+			}
 		}
-		if ( isset($row->lat) and $row->lat ) {
-			$desc .= '<li>' . $I18N->msg('location') . ': ' . $row->lat . ', ' . $row->lon . '</li>';
+		if ( isset( $row->lat ) and $row->lat ) {
+			$desc .= '<li>' . $I18N->msg( 'location' ) . ': ' . $row->lat . ', ' . $row->lon . '</li>';
 		}
 
-		if ( isset($row->source) and $row->source ) {
-			if (preg_match("/^(.+?)&/", $row->source, $matches) ) {
+		if ( isset( $row->source ) and $row->source ) {
+			if ( preg_match( "/^(.+?)&/", $row->source, $matches ) ) {
 				$wikiListUrl = $matches[1];
-				$desc .= '<li><a href="' . $wikiListUrl. '">' . $I18N->msg('source-monuments-list') . '</a></li>';
+				$desc .= '<li><a href="' . $wikiListUrl. '">' . $I18N->msg( 'source-monuments-list' ) . '</a></li>';
 			}
 		}
 
@@ -138,7 +138,7 @@ class FormatHtmllist extends FormatBase {
 		echo "</body>\n</html>";
 	}
 
-	function output($result, $limit, $continueKey, $selectedItems, $primaryKey) {
+	function output( $result, $limit, $continueKey, $selectedItems, $primaryKey ) {
 		$this->headers();
 
 		$numRows = $result->numRows();
@@ -154,6 +154,5 @@ class FormatHtmllist extends FormatBase {
 		}
 		$this->outputEnd();
 	}
-
 
 }

@@ -3,31 +3,31 @@
 class SearchPage {
 	private $fieldStyle = 'style="width:300px"';
 	private $apiUrl = 'api.php';
-	private $I18N = NULL;
+	private $I18N = null;
 
-	function __construct($I18N) {
+	function __construct( $I18N ) {
 		$this->I18N = $I18N;
 	}
 
 	public function getSearchPage() {
-		$result = array ();
+		$result = [];
 		$result[] = '<html>';
 		$result[] = '<head>';
 		$result[] = '<title>'. _( 'search-title' ) .'</title>';
 		$result[] = '</head>';
 		$result[] = '<body>';
 		$result[] = '<H1>'. _( 'search-monuments-database' ) .'</H1>';
-		$result = array_merge($result, $this->getSearchForm());
+		$result = array_merge( $result, $this->getSearchForm() );
 		$result[] = '<br/><hr/>';
 		$result[] = $this->I18N->getPromoBox();
 		$result[] = '</body>';
 		$result[] = '</html>';
 
-		return implode ("\n", $result);
+		return implode( "\n", $result );
 	}
 
 	private function getSearchForm() {
-		$result = array ();
+		$result = [];
 		$result[] = '<form action="'. $this->apiUrl .'">';
 		$result[] = '<input type="hidden" name="action" value="search">';
 		$result[] = '<table border="1">';
@@ -41,7 +41,7 @@ class SearchPage {
 		$result[] = '<td><label>Countries</label></td>';
 		$result[] = '<td>&nbsp;<!-- Empty, no search for country --></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getCountriesFilter());
+		$result = array_merge( $result, $this->getCountriesFilter() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -49,7 +49,7 @@ class SearchPage {
 		$result[] = '<td><label>Languages</label></td>';
 		$result[] = '<td>&nbsp;<!-- Empty, no search for languages --></td>';
 		$result[] = '<td>';
-		$result = array_merge($result, $this->getLanguagesFilter());
+		$result = array_merge( $result, $this->getLanguagesFilter() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -57,7 +57,7 @@ class SearchPage {
 		$result[] = '<td><label>Name</label></td>';
 		$result[] = '<td><input type="text" name="srname" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
-	//$result = array_merge($result, $this->getNameSelect());
+	// $result = array_merge($result, $this->getNameSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -65,7 +65,7 @@ class SearchPage {
 		$result[] = '<td><label>Address</label></td>';
 		$result[] = '<td><input type="text" name="sraddress" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
-	//$result = array_merge($result, $this->getAddressSelect());
+	// $result = array_merge($result, $this->getAddressSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -73,7 +73,7 @@ class SearchPage {
 		$result[] = '<td><label>Municipality</label></td>';
 		$result[] = '<td><input type="text" name="srmunicipality" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
-	//$result = array_merge($result, $this->getMunicipalitySelect());
+	// $result = array_merge($result, $this->getMunicipalitySelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -81,7 +81,7 @@ class SearchPage {
 		$result[] = '<td><label>Coordinates</label></td>';
 		$result[] = '<td><!-- Lat/lon bounding box --><!-- Lat/lon distance --></td>';
 		$result[] = '<td>';
-	//$result = array_merge($result, $this->getCoordinatesSelect());
+	// $result = array_merge($result, $this->getCoordinatesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -90,7 +90,7 @@ class SearchPage {
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';
 		$result[] = '<input type="checkbox" name="srwithoutimages" id="srwithoutimages" value="1"><label for="srwithoutimages">Only monuments without images</label>'; // FIXME: i18n
-	//$result = array_merge($result, $this->getImagesSelect());
+	// $result = array_merge($result, $this->getImagesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -108,7 +108,7 @@ class SearchPage {
 		/* FIXME i18n format */
 		$result[] = '<td><label>Output format</label></td>';
 		$result[] = '<td colspan="2">';
-		$result = array_merge($result, $this->getOutputFormatSelect());
+		$result = array_merge( $result, $this->getOutputFormatSelect() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
@@ -125,18 +125,19 @@ class SearchPage {
 		 * Pull the countries from the database and build a nice select box
 		 */
 
-		$result = array ();
+		$result = [];
 		$result[] = '<select name="srcountry" ' . $this->fieldStyle . '>';
-		$result[] = '<option value="">' . _html('filter-all-countries') . '</option>';
+		$result[] = '<option value="">' . _html( 'filter-all-countries' ) . '</option>';
 
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT country FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY country";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
-			$option = '<option value="'. htmlspecialchars($row->country) . '"';
-			if (@$_GET['country'] == $row->country) $option .= ' selected="selected"';
-			$option .= '>'. htmlspecialchars($row->country) .'</option>';
+			$option = '<option value="'. htmlspecialchars( $row->country ) . '"';
+			if ( @$_GET['country'] == $row->country ) { $option .= ' selected="selected"';
+	  }
+			$option .= '>'. htmlspecialchars( $row->country ) .'</option>';
 			$result[] = $option;
 		}
 		$result[] = '</select>';
@@ -148,19 +149,20 @@ class SearchPage {
 		/*
 	 	 * Pull the languages from the database and build a nice select box
 		 */
-		$result = array ();
+		$result = [];
 		$result[] = '<select name="srlang" ' .$this->fieldStyle . '>';
 		/* FIXME Pull from database and localize */
-		$result[] = '<option value="">' . _html('filter-all-languages') . '</option>';
+		$result[] = '<option value="">' . _html( 'filter-all-languages' ) . '</option>';
 
 		$db = Database::getDb();
 		$sql = "SELECT DISTINCT lang FROM " . $db->escapeIdentifier( Monuments::$dbTable ) . " ORDER BY lang";
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
-			$option = '<option value="'. htmlspecialchars($row->lang) .'"';
-			if (@$_GET['lang'] == $row->lang) $option .= ' selected="selected"';
-			$option .= '>'. htmlspecialchars($row->lang) .'</option>';
+			$option = '<option value="'. htmlspecialchars( $row->lang ) .'"';
+			if ( @$_GET['lang'] == $row->lang ) { $option .= ' selected="selected"';
+	  }
+			$option .= '>'. htmlspecialchars( $row->lang ) .'</option>';
 			$result[] = $option;
 		}
 		$result[] = '</select>';
@@ -173,12 +175,12 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'NameFilter';
-		$options = array (
+		$options = [
 			'all' => 'All',
 			'set' => 'Only with name',
 			'unset' => 'Only without name',
-		);
-		return $this->getSelect ( $selectName , $options );
+		];
+		return $this->getSelect( $selectName, $options );
 	}
 
 	private function getAddressSelect() {
@@ -186,12 +188,12 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'AddressFilter';
-		$options = array (
+		$options = [
 			'all' => 'All',
 			'set' => 'Only with address',
 			'unset' => 'Only without address',
-		);
-		return $this->getSelect ( $selectName , $options );
+		];
+		return $this->getSelect( $selectName, $options );
 	}
 
 	private function getMunicipalitySelect() {
@@ -199,12 +201,12 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'MunicipalityFilter';
-		$options = array (
+		$options = [
 			'all' => 'All',
 			'set' => 'Only with municipality',
 			'unset' => 'Only without municipality',
-		);
-		return $this->getSelect ( $selectName , $options );
+		];
+		return $this->getSelect( $selectName, $options );
 	}
 
 	private function getCoordinatesSelect() {
@@ -212,12 +214,12 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'CoordinatesFilter';
-		$options = array (
+		$options = [
 			'all' => 'All',
 			'set' => 'Only with coordinates',
 			'unset' => 'Only without coordinates',
-		);
-		return $this->getSelect ( $selectName , $options );
+		];
+		return $this->getSelect( $selectName, $options );
 	}
 
 	private function getImagesSelect() {
@@ -225,12 +227,12 @@ class SearchPage {
 		 *
 		 */
 		$selectName = 'ImagesFilter';
-		$options = array (
+		$options = [
 			'all' => 'All',
 			'set' => 'Only with image',
 			'unset' => 'Only without image',
-		);
-		return $this->getSelect ( $selectName , $options );
+		];
+		return $this->getSelect( $selectName, $options );
 	}
 
 	private function getOutputLanguageSelect() {
@@ -249,7 +251,7 @@ class SearchPage {
 		);
 		 */
 
-		return $this->getSelect ( $selectName , $options, $this->I18N->getLang() );
+		return $this->getSelect( $selectName, $options, $this->I18N->getLang() );
 	}
 
 	private function getOutputFormatSelect() {
@@ -259,23 +261,22 @@ class SearchPage {
 		$selectName = 'format';
 		/* FIXME pull from formats */
 		// $options = $apiOutputFormats;
-		$options = array (
+		$options = [
 			'xml' => 'XML',
 			'dynamickml' => 'Dynamic KML (Google Earth/Google Maps)',
 			'kml' => 'Static KML (Google Earth/Google Maps)',
 			'html' => 'HTML table',
 			'wikitable' => 'Wiki table'
-		);
+		];
 
-		return $this->getSelect ( $selectName , $options );
+		return $this->getSelect( $selectName, $options );
 	}
 
-
-	private function getSelect ( $selectName, $options, $selected = false ) {
+	private function getSelect( $selectName, $options, $selected = false ) {
 		/*
 		 *
 		 */
-		$result = array();
+		$result = [];
 		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '>';
 		foreach ( $options as $value => $name ) {
 			$result[] = '<option value="' . htmlspecialchars( $value ) . '"' .

@@ -8,7 +8,7 @@ class FormatGpx extends FormatBase {
 	function getContentType() {
 		return "application/xml";
 	}
-	
+
 	function headers() {
 		parent::headers();
 		echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
@@ -20,14 +20,14 @@ class FormatGpx extends FormatBase {
 		echo ' xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">';
 
 	}
-	
-	function outputBegin($selectedItems) {
+
+	function outputBegin( $selectedItems ) {
 		// FIXME: Check if time format is correct
-		echo '<time>' . date('c') . '</time>';
+		echo '<time>' . date( 'c' ) . '</time>';
 		// FIXME: Add bounds
 		// <bounds minlat="42.401051" minlon="-71.126602" maxlat="42.468655" maxlon="-71.102973"/>
 	}
-	function outputContinue($row, $continueKey, $primaryKey) {
+	function outputContinue( $row, $continueKey, $primaryKey ) {
 		/* $continue = '';
 		 * foreach ( $primaryKey as $key ) {
 		 *	$continue .= "|" . rawurlencode( $row->$key );
@@ -36,22 +36,22 @@ class FormatGpx extends FormatBase {
 		 * echo '<continue ' . $continueKey . '="' . htmlspecialchars( $continue ) . '" />';
 		 */
 	}
-	
-	function outputRow($row, $selectedItems) {
+
+	function outputRow( $row, $selectedItems ) {
 		// FIXME: Only include item if proper lat and lon are set
 		echo '<wpt';
-		echo ' lat="' . htmlspecialchars ( $row->lat ) . '"';
-		echo ' lon="' . htmlspecialchars ( $row->lon ) . '"';
+		echo ' lat="' . htmlspecialchars( $row->lat ) . '"';
+		echo ' lon="' . htmlspecialchars( $row->lon ) . '"';
 		echo '>';
 		// FIXME: Check if the time format is correct.
-		echo '<time>' . htmlspecialchars ( date('c', strtotime($row->changed) ) ) . '</time>';
+		echo '<time>' . htmlspecialchars( date( 'c', strtotime( $row->changed ) ) ) . '</time>';
 		// FIXME: Remove wikitext from name
-		echo '<name>' . htmlspecialchars ( $row->id ) . '</name>';
+		echo '<name>' . htmlspecialchars( $row->id ) . '</name>';
 		// cmt
 		// FIXME: Clean up or remove
-		echo '<desc>' . htmlspecialchars ( $row->name ) . '</desc>';
+		echo '<desc>' . htmlspecialchars( $row->name ) . '</desc>';
 		// src
-		echo '<src>' . htmlspecialchars ( $row->source ) . '</src>';
+		echo '<src>' . htmlspecialchars( $row->source ) . '</src>';
 		// FIXME: Only include link if set
 		echo '<link>' . 'http://'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article ) . '</link>';
 		// sym (icon)

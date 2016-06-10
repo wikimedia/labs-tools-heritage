@@ -1,11 +1,11 @@
 <?php
-error_reporting(E_ALL);
+error_reporting( E_ALL );
 /**
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work
  */
-//functions: processWikitext, matchWikiprojectLink, getImageFromCommons
-require_once('CommonFunctions.php');
+// functions: processWikitext, matchWikiprojectLink, getImageFromCommons
+require_once ( 'CommonFunctions.php' );
 
 class FormatHtml extends FormatBase {
 	function getContentType() {
@@ -23,18 +23,22 @@ class FormatHtml extends FormatBase {
 
 	private $isTableOpen;
 
-	function outputBegin($selectedItems) {
-		echo '<html>';$this->linebreak();
-		echo '<head>';$this->linebreak();
-		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';$this->linebreak();
-		echo '<link media="all" type="text/css" href="jscss/style.css" rel="stylesheet">';$this->linebreak();
+	function outputBegin( $selectedItems ) {
+		echo '<html>';
+$this->linebreak();
+		echo '<head>';
+$this->linebreak();
+		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
+$this->linebreak();
+		echo '<link media="all" type="text/css" href="jscss/style.css" rel="stylesheet">';
+$this->linebreak();
 		echo '<script src="jscss/custom.js" type="text/javascript"></script>';
 		echo "</head>\n<body>\n<table class=\"sortable wlm-result\" id=\"sortable_table_id_0\">\n";
 
 		$this->isFirstRow = true;
 	}
 
-	function outputContinue($row, $continueKey, $primaryKey) {
+	function outputContinue( $row, $continueKey, $primaryKey ) {
 		global $I18N;
 		$continue = '';
 		foreach ( $primaryKey as $key ) {
@@ -46,25 +50,26 @@ class FormatHtml extends FormatBase {
 		$this->isTableOpen = false;
 
 		echo '<p style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( array( $continueKey => $continue ) ) ) . '">' . $I18N->msg('next-page') . '</a></p>';
+			htmlspecialchars( $this->api->getUrl( [ $continueKey => $continue ] ) ) . '">' . $I18N->msg( 'next-page' ) . '</a></p>';
 	}
 
-	function outputRow($row, $selectedItems) {
+	function outputRow( $row, $selectedItems ) {
 		global $I18N;
-		if (!$this->isTableOpen) {
+		if ( !$this->isTableOpen ) {
 			echo '<tr id="header">';
 
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
-					//$label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
-					echo '<th class="sortheader">' . $I18N->msg('db-field-' . $name ) . '</th>'; $this->linebreak();
+					// $label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
+					echo '<th class="sortheader">' . $I18N->msg( 'db-field-' . $name ) . '</th>';
+$this->linebreak();
 				}
 			}
 			echo '</tr>';
 			$this->isTableOpen = true;
 		}
 
-		$hasWikitext = array('name', 'address', 'municipality');
+		$hasWikitext = [ 'name', 'address', 'municipality' ];
 
 		echo '<tr>';
 		$this->linebreak();
@@ -72,39 +77,42 @@ class FormatHtml extends FormatBase {
 			$tdattrs = '';
 			$cellData = '';
 			if ( in_array( $name, $selectedItems ) ) {
-				if ($name == "image" || $name == "img_name") {
-					$cellData = self::genImage($value);
-				} elseif ($name == "registrant_url") {
-					$cellData = self::makeHTMLlink($value);
-				} elseif ($name == "source" || $name == "img_thumb") {
+				if ( $name == "image" || $name == "img_name" ) {
+					$cellData = self::genImage( $value );
+				} elseif ( $name == "registrant_url" ) {
+					$cellData = self::makeHTMLlink( $value );
+				} elseif ( $name == "source" || $name == "img_thumb" ) {
 					$cellData = self::prettifyUrls( $value );
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
 					// not all datasets are ResultWrapper
-					if ( is_object($row) && isset($row->lang) ) {
+					if ( is_object( $row ) && isset( $row->lang ) ) {
 						$lang = $row->lang;
 						$project = $row->project;
 					} else { // assume $row is array
 						$lang = $row['lang'];
 						$project = $row['project'];
 					}
-					$cellData = processWikitext($lang, $value, $makeLinks, $project);
-				} elseif (strpos(strrev($name),'tcp_') === 0) { // capture Statistics _pct fields
-					$tdattrs = ' class="ht'.(intval($value/10)).'"';
-					$cellData = $value; //.' %' // this will break sorting! :(;
+					$cellData = processWikitext( $lang, $value, $makeLinks, $project );
+				} elseif ( strpos( strrev( $name ), 'tcp_' ) === 0 ) { // capture Statistics _pct fields
+					$tdattrs = ' class="ht'.( intval( $value/10 ) ).'"';
+					$cellData = $value; // .' %' // this will break sorting! :(;
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}
 
-				echo '<td'.$tdattrs.'>' . $cellData . '</td>';$this->linebreak();
+				echo '<td'.$tdattrs.'>' . $cellData . '</td>';
+$this->linebreak();
 			}
 		}
-		echo '</tr>';$this->linebreak();
+		echo '</tr>';
+$this->linebreak();
 	}
 
 	function outputEnd() {
-		if ($this->isTableOpen)
+		if ( $this->isTableOpen ) {
 			echo "</table>\n";
+	 }
 
 		echo "</body>\n</html>";
 	}
@@ -112,30 +120,31 @@ class FormatHtml extends FormatBase {
 	/**
 	 * Make this a nice link if it is a url (source column)
 	 */
-	static function prettifyUrls($text) {
+	static function prettifyUrls( $text ) {
 		try {
 			$m = matchWikiprojectLink( $text );
 			$encodedLinkText = str_replace( '_', ' ', $m[5] );
 			$linkText = urldecode( $encodedLinkText );
 			return '<a href="https://' . htmlspecialchars( $m[2] ) . '">' .
 				htmlspecialchars( $linkText ) . '</a>';
-		} catch (Exception $e) {
+		} catch ( Exception $e ) {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
 	}
 
-	static function makeHTMLlink($text) {
+	static function makeHTMLlink( $text ) {
 		return '<a href="' . htmlspecialchars( $text ) . '">' . htmlspecialchars( $text ) . '</a>';
 	}
 
-	static function genImage($img) {
-		if ( $img == "" )
+	static function genImage( $img ) {
+		if ( $img == "" ) {
 			return '';
+	 }
 
-		$img = str_replace(" ", "_", $img);
+		$img = str_replace( " ", "_", $img );
 		$url = getImageFromCommons( $img, 100 );
 		// FIXME: Check if this is save (just including $url)
-		return '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode($img) . '"><img src="' . $url . '" /></a>';
+		return '<a href="//commons.wikimedia.org/wiki/File:' . rawurlencode( $img ) . '"><img src="' . $url . '" /></a>';
 	}
 }

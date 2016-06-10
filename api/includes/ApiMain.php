@@ -10,7 +10,7 @@ class ApiMain {
 	 * @TODO refactor this list to get registered either by config or somehow
 	 *   automagically so new API action creators do not have to edit this file
 	 */
-	protected static $actionMap = array(
+	protected static $actionMap = [
 		'search' => 'Monuments',
 		'statistics' => 'Monuments',
 		'statisticsdb' => 'Monuments',
@@ -18,7 +18,7 @@ class ApiMain {
 		'adminlevels' => 'AdminTree',
 		'countries' => 'Countries',
 		'images' => 'Images',
-	);
+	];
 
 	public static function getActions() {
 		return array_keys( self::$actionMap );
@@ -37,7 +37,7 @@ class ApiMain {
 			$actionClass = 'Api' . self::$actionMap[$action];
 			$obj = new $actionClass;
 			$obj->executeModule();
-		} catch( Exception $e ) {
+		} catch ( Exception $e ) {
 			Debug::log( 'Exception: ' . $e->getMessage() );
 			$format = $api->getFormatter();
 			$format->headers();
@@ -223,4 +223,3 @@ class ApiDummy extends ApiBase {
 	}
 }
 
-?>

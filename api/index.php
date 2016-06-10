@@ -1,6 +1,6 @@
 <?php
-require dirname( __FILE__ ) . '/common.php';
-require dirname( __FILE__ ) . '/searchPage.php';
+require __DIR__ . '/common.php';
+require __DIR__ . '/searchPage.php';
 
-$searchPage = new SearchPage($I18N);
+$searchPage = new SearchPage( $I18N );
 echo $searchPage->getSearchPage();
