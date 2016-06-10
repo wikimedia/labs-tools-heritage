@@ -1,13 +1,6 @@
 <?php
 
-/* Localization. */
-require_once( '/home/project/i/n/t/intuition/ToolserverI18N/ToolStart.php' );
-
-$opts = array(
-    'domain' => 'MonumentsAPI', // name of your main text-domain here
-    'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
-);
-$I18N = new TsIntuition( $opts );
+require_once( dirname( dirname( __FILE__ ) ) . '/api/common.php' );
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -23,8 +16,8 @@ $I18N = new TsIntuition( $opts );
 	<div id="header">
 	    <a href="#"><img id="wlm-logo" src="img/logo-wiki-loves-monuments.png" width="80"  alt="Wiki loves monuments logo" /></a>
 	    <h2>Wlm Toolbox</h2>
-	    <h1>A set of tools related to <span>Wiki Loves Monuments</span></span></h1>  	 
-	</div><!-- end header --> 
+	    <h1>A set of tools related to <span>Wiki Loves Monuments</span></span></h1>
+	</div><!-- end header -->
 	<div id="maincontainer">
 	    <div id="leftnav">
 		<ul class="first">
@@ -35,12 +28,12 @@ $I18N = new TsIntuition( $opts );
 		    </ul>
 		    </li>
 		</ul>
-	    </div><!-- end leftnav--> 
+	    </div><!-- end leftnav-->
 	    <div id="content">
 		<h2>Home</h2>
 		<p>this is only a starting point</p>
-	    </div><!-- end content --> 
-	</div><!-- end maincontainer --> 		
+	    </div><!-- end content -->
+	</div><!-- end maincontainer -->
 	<br style="clear:left;" />
     </div> <!-- end wrapper -->
 </body>

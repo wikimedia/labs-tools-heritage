@@ -7,29 +7,29 @@ require_once( dirname( dirname( __FILE__ ) ) . '/api/common.php' );
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>Wiki Loves Monuments Toolbox</title>
-	    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" href="css/default_css.css" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="css/default_css.css" />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>
     <script src="js/jquery.js" type="text/javascript" />
-    	
+
     </script>
         </head>
 <body>
 	<div id="wrapper">
 
 		<div id="header">
-	
+
 
 				<a href="#"><img id="wlm-logo" src="img/logo-wiki-loves-monuments.png" width="80"  alt="Wiki loves monuments logo" /></a>
 			  <h2>Wlm Toolbox</h2>
-		<h1>A set of tools related to <span>Wiki Loves Monuments</span></span></h1>  	 
-			  
-		</div><!-- end header --> 
+		<h1>A set of tools related to <span>Wiki Loves Monuments</span></span></h1>
+
+		</div><!-- end header -->
 
 	<div id="maincontainer">
 
 
-	  
+
 <div id="leftnav">
   <ul class="first">
   	<li><a href="index.php">Home</a>
@@ -38,15 +38,15 @@ require_once( dirname( dirname( __FILE__ ) ) . '/api/common.php' );
 	    	<li><a href="search.php">Search Form</a></li>
 	    </ul>
 	   </li>
-	  </ul>  
-	  	 
-</div><!-- end leftnav--> 
+	  </ul>
+
+</div><!-- end leftnav-->
 
 <div id="content">
 
 
 <h2>Search Monuments</h2>
-<form method="get" action="http://toolserver.org/~erfgoed/api/api.php">
+<form method="get" action="https://tools.wmflabs.org/heritage/api/api.php">
 			<input type="hidden" name="action" value="search" />
 			<input type="hidden" name="limit" value="100" />
 
@@ -93,7 +93,7 @@ Format		</label>
 ?>
 		</select>
 		<input type="hidden" name="srcountry" value="" id="srcountry" />
-		
+
 		</td>
 	</tr>
 		</td>
@@ -164,6 +164,7 @@ Items		</label>
 			<option value="lon" selected="selected"> <?php echo _('db-field-lon') ?> </option>
 			<option value="image" selected="selected"> <?php echo _('db-field-image') ?> </option>
 			<option value="source" selected="selected"> <?php echo _('db-field-source') ?> </option>
+			<option value="project" selected="selected"> <?php echo _('db-field-project') ?> </option>
 			<option value="changed" selected="selected"> <?php echo _('db-field-changed') ?> </option>
 		</select>
 		<input type="hidden" name="props" value="" id="props" />
@@ -186,39 +187,39 @@ Output URL <small>for easy copy + paste</small>			</label><br/>
 		<textarea name="#" id="url" rows="3" style="width:520px;"></textarea>
 		</td>
 	</tr>
-	
+
 </table>
 
 </form>
-<!-- props=lon&props=image  must be props=lon|image|... --> 
+<!-- props=lon&props=image  must be props=lon|image|... -->
 
 
 <script type="text/javascript">
      function displayVals() {
-     /* get and convert values for on-the-fly query string */ 
+     /* get and convert values for on-the-fly query string */
       var format = "&format=" + $("#format").val();
       var props =  "&props="+ ($("#props-filler").val() || []).join('|');
-       	var countries = ($("#country-filler").val() || []).join('|').toLowerCase(); 
+       	var countries = ($("#country-filler").val() || []).join('|').toLowerCase();
       var srcountry = "&srcountry=" + countries;
       var srname = ($("#srname").val() != "") ? "&srname=" + $("#srname").val() : "";
       var srid = ($("#srid").val() != "") ? "&srid=" + $("#srid").val() : "";
       var sraddress = ($("#sraddress").val() != "") ? "&sraddress=" + $("#sraddress").val() : "";
       var srmunicipality = ($("#srmunicipality").val() != "") ? "&srmunicipality=" + $("#srmunicipality").val() : "";
       var srwithoutimage = ($("#srwithoutimage:checked").val() == 1) ?  "&srwithoutimage=" + $("#srwithoutimage:checked").val() : "";
-      var url = encodeURI("http://toolserver.org/~erfgoed/api/api.php?action=search&limit=100" + format + srname + srid + sraddress + srmunicipality + srcountry + props + srwithoutimage);
+      var url = encodeURI("https://tools.wmflabs.org/heritage/api/api.php?action=search&limit=100" + format + srname + srid + sraddress + srmunicipality + srcountry + props + srwithoutimage);
 	$('#url').val(url);
-	
-	 /* set hidden fields values for proper GET request */  
+
+	 /* set hidden fields values for proper GET request */
 	 $('#props').val(($("#props-filler").val() || []).join('|'));
     $('#srcountry').val(countries);
     }
 
     $("select").change(displayVals);
     $("input").change(displayVals);
-    displayVals();    
+    displayVals();
 </script>
-</div><!-- end content --> 
-</div><!-- end maincontainer --> 		
+</div><!-- end content -->
+</div><!-- end maincontainer -->
 
 
 <br style="clear:left;" />
