@@ -453,8 +453,8 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
         # Preloading first because the whole page needs to be fetched to get
         # the time
         pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
-        begintime = datetime.datetime.utcnow(
-        ) + datetime.timedelta(days=0 - daysBack)
+        begintime = datetime.datetime.utcnow() + \
+            datetime.timedelta(days=0 - daysBack)
         generator = pagegenerators.EdittimeFilterPageGenerator(
             pregenerator, begintime=begintime)
 

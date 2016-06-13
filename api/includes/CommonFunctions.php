@@ -45,11 +45,10 @@ function processWikitext($wikilang, $text, $makelinks, $wikiproject = "wikipedia
 }
 
 //Separates the parsing from the prettifying
-//FIXME: should support other wikiprojects
 function matchWikiprojectLink($text) {
 	/* Determine if a string is a wikipedia link
-	 * If the pattern matches returns 1, and populates $m with the matches
-	 * If the pattern doesn't match returns 0
+	 * If the pattern matches, returns an array with the matching parts
+	 * If the pattern doesn't match, returns NULL
 	 */
 	$projects = array("wikipedia", "wikivoyage", "wikidata", "wikimedia");
 	$projectRegex = "(" . join("|", $projects) . ")";
