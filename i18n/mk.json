@@ -4,6 +4,7 @@
 			"Bjankuloski06"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Пребарување на споменици",
 	"search-monuments-database": "Пребарување на базата на споменици",
 	"search-table-th-field": "Поле",
@@ -46,6 +47,5 @@
 	"toolbox-nav-search": "Пребарај",
 	"toolbox-title-searchmonuments": "Пребарување на споменици",
 	"location": "Место",
-	"source-monuments-list-on-wikipedia": "Изворен список на споменици на Википедија",
 	"source-monuments-list": "Изворен список на споменици на Викимедиин проект"
 }

@@ -9,6 +9,7 @@
 			"Wladek92"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Recherche de monuments",
 	"search-monuments-database": "Rechercher parmi les monuments",
 	"search-table-th-field": "Champ",
@@ -51,6 +52,5 @@
 	"toolbox-nav-search": "Rechercher",
 	"toolbox-title-searchmonuments": "Rechercher des monuments",
 	"location": "Emplacement",
-	"source-monuments-list-on-wikipedia": "Liste des monuments d'origine sur Wikipédia",
 	"source-monuments-list": "Liste des monuments source sur un projet Wikimédia"
 }

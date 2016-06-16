@@ -4,6 +4,7 @@
 			"Minh Nguyen"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Tìm kiếm đài tưởng niệm",
 	"search-monuments-database": "Tìm kiếm cơ sở dữ liệu đài tưởng niệm",
 	"search-table-th-field": "Trường",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Thống kê",
 	"toolbox-nav-search": "Tìm kiếm",
 	"toolbox-title-searchmonuments": "Tìm kiếm đài tưởng niệm",
-	"location": "Vị trí",
-	"source-monuments-list-on-wikipedia": "Danh sách đài kỷ niệm nguồn tại Wikipedia"
+	"location": "Vị trí"
 }

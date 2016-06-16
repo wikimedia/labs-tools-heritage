@@ -8,6 +8,7 @@
 			"Vivaelcelta"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Búsqueda de monumentos",
 	"search-monuments-database": "Buscar en la base de datos de monumentos",
 	"search-table-th-field": "Campo",
@@ -49,6 +50,5 @@
 	"toolbox-nav-statistics": "Estadísticas",
 	"toolbox-nav-search": "Buscar",
 	"toolbox-title-searchmonuments": "Buscar monumentos",
-	"location": "Ubicación",
-	"source-monuments-list-on-wikipedia": "Lista de monumentos de origen en Wikipedia"
+	"location": "Ubicación"
 }

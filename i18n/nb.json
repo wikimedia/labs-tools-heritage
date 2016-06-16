@@ -4,6 +4,7 @@
 			"Nghtwlkr"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Monumentsøk",
 	"search-monuments-database": "Søk i monumentdatabasen",
 	"search-table-th-field": "Felt",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Statistikk",
 	"toolbox-nav-search": "Søk",
 	"toolbox-title-searchmonuments": "Søk etter monumenter",
-	"location": "Sted",
-	"source-monuments-list-on-wikipedia": "Kildeliste over monumenter på Wikipedia"
+	"location": "Sted"
 }

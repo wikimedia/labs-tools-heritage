@@ -4,6 +4,7 @@
 			"Dbc334"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Iskanje spomenikov",
 	"search-monuments-database": "Preišči zbirko podatkov o spomenikih",
 	"search-table-th-field": "Polje",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Statistika",
 	"toolbox-nav-search": "Iskanje",
 	"toolbox-title-searchmonuments": "Iskanje spomenikov",
-	"location": "Nahajališče",
-	"source-monuments-list-on-wikipedia": "Izvirni seznam spomenikov na Wikipediji"
+	"location": "Nahajališče"
 }

@@ -9,6 +9,7 @@
 			"Liuxinyu970226"
 		]
 	},
+	"title": "古迹 API",
 	"search-title": "搜寻古迹",
 	"search-monuments-database": "搜寻古迹资料库",
 	"search-table-th-field": "字段",
@@ -51,6 +52,5 @@
 	"toolbox-nav-search": "搜索",
 	"toolbox-title-searchmonuments": "寻找古迹",
 	"location": "位置",
-	"source-monuments-list-on-wikipedia": "维基百科上古迹列表的来源",
 	"source-monuments-list": "维基百科项目上的古迹列表来源"
 }

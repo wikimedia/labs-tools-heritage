@@ -8,6 +8,7 @@
 			"Jeleniccz"
 		]
 	},
+	"title": "Monumenten-API",
 	"search-title": "Monumenten zoeken",
 	"search-monuments-database": "De database met monumenten doorzoeken",
 	"search-table-th-field": "Veld",
@@ -50,6 +51,5 @@
 	"toolbox-nav-search": "Zoeken",
 	"toolbox-title-searchmonuments": "Monumenten zoeken",
 	"location": "Locatie",
-	"source-monuments-list-on-wikipedia": "Monumentenbronlijst op Wikipedia",
 	"source-monuments-list": "Bron monumenten lijst op een Wikimedia-project"
 }

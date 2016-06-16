@@ -6,6 +6,7 @@
 			"Samat"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Műemlékek keresés",
 	"search-monuments-database": "Keresés a műemléki adatbázisban",
 	"search-table-th-field": "Mező",
@@ -45,6 +46,5 @@
 	"toolbox-nav-statistics": "Statisztika",
 	"toolbox-nav-search": "Keresés",
 	"toolbox-title-searchmonuments": "Műemlékek keresése",
-	"location": "Helyszín",
-	"source-monuments-list-on-wikipedia": "A műemlék keresése a Wikipédián"
+	"location": "Helyszín"
 }

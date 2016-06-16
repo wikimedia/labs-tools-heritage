@@ -6,6 +6,7 @@
 			"Stelistcristi"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Căutare monumente",
 	"search-monuments-database": "Căutare în baza de date a monumentelor",
 	"search-table-th-field": "Câmp",
@@ -46,6 +47,5 @@
 	"toolbox-nav-statistics": "Statistici",
 	"toolbox-nav-search": "Căutare",
 	"toolbox-title-searchmonuments": "Căutare monumente",
-	"location": "Loc",
-	"source-monuments-list-on-wikipedia": "Lista sursă cu monumente de pe Wikipedia"
+	"location": "Loc"
 }

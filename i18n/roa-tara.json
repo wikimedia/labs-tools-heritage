@@ -4,6 +4,7 @@
 			"Joetaras"
 		]
 	},
+	"title": "API de ''Monument''",
 	"search-title": "Ricerche de le monuminde",
 	"search-monuments-database": "Cirche le archivije de le monuminde",
 	"search-table-th-field": "Cambe",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Statisteche",
 	"toolbox-nav-search": "Cirche",
 	"toolbox-title-searchmonuments": "Cirche le monuminde",
-	"location": "Luèche",
-	"source-monuments-list-on-wikipedia": "Sorgende le l'elenghe de le monuminde sus a Uicchipèdie"
+	"location": "Luèche"
 }

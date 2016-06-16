@@ -4,6 +4,7 @@
 			"AnakngAraw"
 		]
 	},
+	"title": "API ng mga bantayog",
 	"search-title": "Paghahanap sa mga bantayog",
 	"search-monuments-database": "Maghanap sa kalipunan ng dato ng mga bantayog",
 	"search-table-th-field": "Kahanayan",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Estadistika",
 	"toolbox-nav-search": "Maghanap",
 	"toolbox-title-searchmonuments": "Maghanap sa mga bantayog",
-	"location": "Kinalalagyan",
-	"source-monuments-list-on-wikipedia": "Listahan ng mga bantayog na pinagmulan na nasa Wikipedia"
+	"location": "Kinalalagyan"
 }

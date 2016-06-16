@@ -4,6 +4,7 @@
 			"Robby"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Monumenter sichen",
 	"search-monuments-database": "An der Datebank vun de Monumenter sichen",
 	"search-table-th-field": "Feld",
@@ -45,6 +46,5 @@
 	"toolbox-nav-statistics": "Statistiken",
 	"toolbox-nav-search": "Sichen",
 	"toolbox-title-searchmonuments": "Monumenter sichen",
-	"location": "Plaz",
-	"source-monuments-list-on-wikipedia": "Lëscht vun de Monumenter déi op Wikipedia benotzt gëtt"
+	"location": "Plaz"
 }

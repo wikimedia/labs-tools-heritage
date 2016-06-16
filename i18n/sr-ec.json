@@ -4,6 +4,7 @@
 			"Rancher"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Претрага споменика",
 	"search-monuments-database": "Претрага базе података са споменицима",
 	"search-table-th-field": "Поље",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Статистика",
 	"toolbox-nav-search": "Претражи",
 	"toolbox-title-searchmonuments": "Претрага споменика",
-	"location": "Место",
-	"source-monuments-list-on-wikipedia": "Изворни списак споменика на Википедији"
+	"location": "Место"
 }

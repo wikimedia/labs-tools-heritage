@@ -4,6 +4,7 @@
 			"Xuacu"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Gueta de monumentos",
 	"search-monuments-database": "Guetar na base de datos de monumentos",
 	"search-table-th-field": "Campu",
@@ -46,6 +47,5 @@
 	"toolbox-nav-search": "Guetar",
 	"toolbox-title-searchmonuments": "Guetar monumentos",
 	"location": "Allugamientu",
-	"source-monuments-list-on-wikipedia": "Llista de monumentos d'orixe na Wikipedia",
 	"source-monuments-list": "Llista de monumentos d'orixe nun proyeutu de Wikimedia"
 }

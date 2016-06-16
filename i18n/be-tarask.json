@@ -7,6 +7,7 @@
 			"Red Winged Duck"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Пошук славутасьцяў",
 	"search-monuments-database": "Пошук у базе зьвестак славутасьцяў",
 	"search-table-th-field": "Поле",
@@ -49,6 +50,5 @@
 	"toolbox-nav-search": "Пошук",
 	"toolbox-title-searchmonuments": "Пошук славутасьцяў",
 	"location": "Месцазнаходжаньне",
-	"source-monuments-list-on-wikipedia": "Крыніца сьпісу славутасьцяў у Вікіпэдыі",
 	"source-monuments-list": "Крыніца сьпісу славутасьцяў у праекце Вікімэдыі"
 }

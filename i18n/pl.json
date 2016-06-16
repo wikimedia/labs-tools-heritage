@@ -10,6 +10,7 @@
 			"Woytecr"
 		]
 	},
+	"title": "Zabytki API",
 	"search-title": "Wyszukiwanie zabytków",
 	"search-monuments-database": "Przeszukiwanie bazy danych zabytków",
 	"search-table-th-field": "Pole",
@@ -50,6 +51,5 @@
 	"toolbox-nav-statistics": "Statystyki",
 	"toolbox-nav-search": "Szukaj",
 	"toolbox-title-searchmonuments": "Szukaj zabytków",
-	"location": "Lokalizacja",
-	"source-monuments-list-on-wikipedia": "Lista zabytków w Wikipedii"
+	"location": "Lokalizacja"
 }

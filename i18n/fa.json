@@ -9,6 +9,7 @@
 			"ZxxZxxZ"
 		]
 	},
+	"title": "بناهای API",
 	"search-title": "جستجو در آثار تاریخی",
 	"search-monuments-database": "جستجوی پایگاه داده آثار تاریخی",
 	"search-table-th-field": "زمینه",
@@ -49,6 +50,5 @@
 	"toolbox-nav-statistics": "آمار",
 	"toolbox-nav-search": "جستجو",
 	"toolbox-title-searchmonuments": "جستجوی یادبودها",
-	"location": "مکان",
-	"source-monuments-list-on-wikipedia": "فهرست منابع آثار تاریخی در ویکی‌پدیا"
+	"location": "مکان"
 }

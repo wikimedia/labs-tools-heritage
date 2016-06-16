@@ -6,6 +6,7 @@
 			"Metalhead64"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Denkmalsuche",
 	"search-monuments-database": "Denkmalsuche in der Datenbank",
 	"search-table-th-field": "Feld",
@@ -48,6 +49,5 @@
 	"toolbox-nav-search": "Suche",
 	"toolbox-title-searchmonuments": "Denkmalsuche",
 	"location": "Standort",
-	"source-monuments-list-on-wikipedia": "Liste der Denkmäler in der Wikipedia mit Quellen versehen",
 	"source-monuments-list": "Quelldenkmalliste auf einem Wikimedia-Projekt"
 }

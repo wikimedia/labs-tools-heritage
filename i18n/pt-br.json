@@ -7,6 +7,7 @@
 			"Luckas"
 		]
 	},
+	"title": "Monumentos API",
 	"search-title": "Busca de monumentos",
 	"search-monuments-database": "Pesquisar na base de dados de monumentos",
 	"search-table-th-field": "Campo",
@@ -47,6 +48,5 @@
 	"toolbox-nav-statistics": "Estatísticas",
 	"toolbox-nav-search": "Pesquisar",
 	"toolbox-title-searchmonuments": "Buscar monumentos",
-	"location": "Localização",
-	"source-monuments-list-on-wikipedia": "Fonte da lista de monumentos na Wikipédia"
+	"location": "Localização"
 }

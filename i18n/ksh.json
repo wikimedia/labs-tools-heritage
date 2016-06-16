@@ -4,6 +4,7 @@
 			"Purodha"
 		]
 	},
+	"title": "Monnumänte-<i lang=\"en\">API</i>",
 	"search-title": "Noch Dänkmöhler söhke",
 	"search-monuments-database": "En dä Sammlong vun de Dänkmöhler söhke",
 	"search-table-th-field": "Fäld",
@@ -46,6 +47,5 @@
 	"toolbox-nav-search": "Söhke",
 	"toolbox-title-searchmonuments": "Noh Dängkmöhler söhke",
 	"location": "Plaz",
-	"source-monuments-list-on-wikipedia": "Leß met de Dängkmöhler op de Wikkipeedija",
 	"source-monuments-list": "Leß met de Monomänte (en em Projäk)"
 }

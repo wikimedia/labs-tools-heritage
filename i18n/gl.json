@@ -5,6 +5,7 @@
 			"Toliño"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Procura de monumentos",
 	"search-monuments-database": "Procurar na base de datos de monumentos",
 	"search-table-th-field": "Campo",
@@ -45,6 +46,5 @@
 	"toolbox-nav-statistics": "Estatísticas",
 	"toolbox-nav-search": "Procurar",
 	"toolbox-title-searchmonuments": "Buscar monumentos",
-	"location": "Localización",
-	"source-monuments-list-on-wikipedia": "Lista de monumentos de orixe na Wikipedia"
+	"location": "Localización"
 }

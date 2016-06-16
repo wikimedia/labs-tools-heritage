@@ -4,6 +4,7 @@
 			"Anakmalaysia"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Carian monumen",
 	"search-monuments-database": "Cari pangkalan data monumen",
 	"search-table-th-field": "Medan",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Statistik",
 	"toolbox-nav-search": "Cari",
 	"toolbox-title-searchmonuments": "Cari monumen",
-	"location": "Lokasi",
-	"source-monuments-list-on-wikipedia": "Sumberkan senarai monumen di Wikipedia"
+	"location": "Lokasi"
 }

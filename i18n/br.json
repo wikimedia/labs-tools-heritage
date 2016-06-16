@@ -7,6 +7,7 @@
 			"Y-M D"
 		]
 	},
+	"title": "Savadurioù API",
 	"search-title": "Klask monumantoù",
 	"search-monuments-database": "Klask e diaz roadennoù ar monumantoù",
 	"search-table-th-field": "Maezienn",
@@ -47,6 +48,5 @@
 	"toolbox-nav-statistics": "Stadegoù",
 	"toolbox-nav-search": "Klask",
 	"toolbox-title-searchmonuments": "Klask monumantoù",
-	"location": "Lec'hiadur",
-	"source-monuments-list-on-wikipedia": "Roll ar monumantoù orin war Wikipedia"
+	"location": "Lec'hiadur"
 }

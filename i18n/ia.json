@@ -4,6 +4,7 @@
 			"McDutchie"
 		]
 	},
+	"title": "Monuments API",
 	"search-title": "Recerca de monumentos",
 	"search-monuments-database": "Cercar in le base de datos de monumentos",
 	"search-table-th-field": "Campo",
@@ -44,6 +45,5 @@
 	"toolbox-nav-statistics": "Statisticas",
 	"toolbox-nav-search": "Recerca",
 	"toolbox-title-searchmonuments": "Cercar monumentos",
-	"location": "Loco",
-	"source-monuments-list-on-wikipedia": "Lista de monumentos de origine in Wikipedia"
+	"location": "Loco"
 }

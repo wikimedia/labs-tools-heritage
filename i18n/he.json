@@ -6,6 +6,7 @@
 			"YaronSh"
 		]
 	},
+	"title": "API של אתרי מורשת",
 	"search-title": "הצגת כל האתרים",
 	"search-monuments-database": "חיפוש במסד הנתונים של האתרים",
 	"search-table-th-field": "שדה",
@@ -48,6 +49,5 @@
 	"toolbox-nav-search": "חיפוש",
 	"toolbox-title-searchmonuments": "חיפוש אתרי מורשת",
 	"location": "מיקום",
-	"source-monuments-list-on-wikipedia": "רשימת האנדרטאות המקורית בוויקיפדיה",
 	"source-monuments-list": "רשימת האתרים המקורית במיזם ויקימדיה"
 }
