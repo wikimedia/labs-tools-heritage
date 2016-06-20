@@ -6,7 +6,8 @@
 			"Nemo bis",
 			"Otourly",
 			"Ximo17",
-			"ZioNicco"
+			"ZioNicco",
+			"Einreiher"
 		]
 	},
 	"search-title": "Ricerca monumenti",
@@ -14,7 +15,7 @@
 	"search-table-th-field": "Campo",
 	"search-table-th-filter": "Filtro",
 	"search-table-th-search": "Cerca",
-	"filter-all-countries": "Tutti i paesi",
+	"filter-all-countries": "Tutti i Paesi",
 	"filter-all-languages": "Tutte le lingue",
 	"db-field-country": "Stato",
 	"db-field-lang": "Lingua",
@@ -26,7 +27,7 @@
 	"db-field-lon": "Longitudine",
 	"db-field-image": "Immagine",
 	"db-field-changed": "Modificato",
-	"db-field-source": "Fonte",
+	"db-field-source": "Origine",
 	"db-field-monument_article": "Voce sul monumento",
 	"db-field-registrant_url": "URL del registro",
 	"db-field-st_address": "Indirizzi",
@@ -41,8 +42,8 @@
 	"db-field-st_name_pct": "Nomi %",
 	"db-field-st_total": "Numero totale",
 	"db-field-commonscat": "Categoria Commons",
-	"toolbox-label-searchtipps": "utilizzare il % termine o termine% o  %termine%  per la ricerca fuzzy",
-	"toolbox-meta-title": "Strumento Wiki Ama i Monumenti",
+	"toolbox-label-searchtipps": "utilizza \"%termine\", \"termine%\" o  \"%termine%\"  per la ricerca fuzzy",
+	"toolbox-meta-title": "Strumenti di Wiki Loves Monuments",
 	"toolbox-main-title": "Strumenti WAM",
 	"toolbox-main-description": "Una raccolta di strumenti relativi a",
 	"toolbox-wikilovesmonuments": "Wiki Ama i Monumenti",
