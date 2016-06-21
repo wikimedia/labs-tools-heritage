@@ -6,7 +6,9 @@
     "grunt": "0.4.5",
     "grunt-banana-checker": "0.4.0",
     "grunt-cli": "0.1.13",
-    "grunt-jsonlint": "^1.0.8"
+    "grunt-jsonlint": "^1.0.8",
+    "grunt-stylelint": "^0.4.0",
+    "stylelint-config-standard": "^8.0.0"
   },
   "private": true
 }
