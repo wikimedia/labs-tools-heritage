@@ -282,6 +282,21 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             mock_checkLon.assert_called_once_with(lon, self.monumentKey, self.country_config, self.mock_page)
 
+    def test_trigger_checkWD(self):
+        self.country_config['fields'].append(
+            {
+                'source': u'wd_item',
+                'dest': u'wd_item',
+                'check': u'checkWD',
+            }
+        )
+        wd_item = 'Q123'
+        self.contents[u'wd_item'] = wd_item
+
+        with mock.patch('erfgoedbot.update_database.check_wikidata', autospec=True) as mock_check_wikidata:
+            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_check_wikidata.assert_called_once_with(wd_item, self.monumentKey, self.mock_page)
+
     def test_trigger_unknown_check(self):
         self.country_config['fields'].append(
             {
@@ -453,4 +468,67 @@ class TestCheckLonWithCountryBbox(TestUpdateDatabaseBase):
     def test_lon_inside_Bbox(self):
         lon = '13.37'
         result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
+        self.assertEqual(result, True)
+
+
+class TestCheckWikidata(TestUpdateDatabaseBase):
+
+    def setUp(self):
+        super(TestCheckWikidata, self).setUp()
+        self.monumentKey = 'Some-key'
+
+    def test_empty_wd_item(self):
+        wd_item = ''
+        result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
+        self.assertEqual(result, None)
+
+    def test_non_Q_part(self):
+        wd_item = 'P123'
+        expected_errorMsg = u"Invalid wikidata value: %s for monument %s" % (
+            wd_item, self.monumentKey)
+        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
+            result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
+            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
+            self.assertEqual(result, False)
+
+    def test_non_integer_part(self):
+        wd_item = 'Que?'
+        expected_errorMsg = u"Invalid wikidata value: %s for monument %s" % (
+            wd_item, self.monumentKey)
+        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
+            result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
+            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
+            self.assertEqual(result, False)
+
+    def test_valid_wd_item(self):
+        wd_item = 'Q123'
+        result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
+        self.assertEqual(result, True)
+
+
+class TestIsInt(TestUpdateDatabaseBase):
+
+    def test_empty_string_fail(self):
+        s = ''
+        result = update_database.is_int(s)
+        self.assertEqual(result, False)
+
+    def test_None_fail(self):
+        s = None
+        result = update_database.is_int(s)
+        self.assertEqual(result, False)
+
+    def test_random_string_fail(self):
+        s = 'random_string'
+        result = update_database.is_int(s)
+        self.assertEqual(result, False)
+
+    def test_float_fail(self):
+        s = '123.456'
+        result = update_database.is_int(s)
+        self.assertEqual(result, False)
+
+    def test_valid_int_succeed(self):
+        s = '123'
+        result = update_database.is_int(s)
         self.assertEqual(result, True)

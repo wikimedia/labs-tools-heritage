@@ -30,6 +30,7 @@ CREATE TABLE `monuments_all_tmp` (
   `lat_int` smallint(6) DEFAULT NULL,
   `lon_int` smallint(6) DEFAULT NULL,
   `image` varchar(255) NOT NULL DEFAULT '',
+  `wd_item` varchar(255) DEFAULT NULL,
   `commonscat` varchar(255) NOT NULL DEFAULT '',
   `source` varchar(510) NOT NULL DEFAULT '',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -2292,7 +2293,7 @@ REPLACE INTO
 /* Russia in Russian */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `project`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `project`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'ru' AS `country`,
     'ru' AS `lang`,
@@ -2315,7 +2316,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_ru_(ru)`;
 
 /* Sweden (BBR Monuments) in Swedish */

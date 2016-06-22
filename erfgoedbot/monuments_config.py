@@ -6755,6 +6755,11 @@ countries = {
                 'dest': u'registrant_url',
                 'conv': u'generateRegistrantUrl',
             },
+            {
+                'source': u'wdid',
+                'dest': u'wd_item',
+                'check': u'checkWD',
+            },
         ],
     },
     ('se-bbr', 'sv'): {  # BBR Monuments in Sweden in Swedish
