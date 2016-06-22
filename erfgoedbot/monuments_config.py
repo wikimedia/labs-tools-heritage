@@ -4738,6 +4738,74 @@ countries = {
             },
         ],
     },
+    ('ir', 'fa'): {  # National monuments in Iran in Farsi
+        'project': u'wikipedia',
+        'lang': u'fa',
+        'headerTemplate': u'سرآیند_یادمان_ایران',
+        'rowTemplate': u'ردیف یادمان ایران',
+        'commonsTemplate': u'Cultural Heritage Iran',
+        'commonsTrackerCategory': u'Cultural heritage monuments in Iran with known IDs',
+        'commonsCategoryBase': u'Cultural heritage monuments in Iran',
+        'unusedImagesPage': u'User:LilyOfTheWest/Unused images',
+        'imagesWithoutIdPage': u'User:LilyOfTheWest/Images without Id',
+        'namespaces': [0],
+        'table': u'monuments_ir_(fa)',
+        'truncate': False,
+        'primkey': u'id',
+        'fields': [
+            {
+                'source': u'شناسه',
+                'dest': u'id',
+            },
+            {
+                'source': u'توضیح',
+                'dest': u'name',
+            },
+            {
+                'source': u'شهر',
+                'dest': u'city',
+            },
+            {
+                'source': u'مکان',
+                'dest': u'address',
+            },
+            {
+                'source': u'تاریخ ثبت',
+                'dest': u'registration_date',
+            },
+            {
+                'source': u'قدمت',
+                'dest': u'age',
+            },
+            {
+                'source': u'عکس',
+                'dest': u'image',
+            },
+            {
+                'source': u'ISO',
+                'dest': u'ISO',
+            },
+            {
+                'source': u'طول جغرافیایی',
+                'dest': u'lat',
+                'check': u'checkLat',
+            },
+            {
+                'source': u'عرض جغرافیایی',
+                'dest': u'lon',
+                'check': u'checkLon',
+            },
+            {
+                'source': u'commonscat',
+                'dest': u'commonscat',
+            },
+            {
+                'source': u'توضیح',
+                'dest': u'monument_article',
+                'conv': u'extractWikilink',
+            },
+        ],
+    },
     ('it', 'it'): {  # Monuments in Italy in Italian
         'project': u'wikipedia',
         'lang': u'it',

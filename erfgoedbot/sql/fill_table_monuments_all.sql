@@ -1617,6 +1617,34 @@ REPLACE INTO
     '' AS `registrant_url`
     FROM `monuments_ie_(en)`;
 
+/* Iran in Farsi */
+REPLACE INTO
+  `monuments_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+  ) SELECT
+    'ir' AS `country`,
+    'fa' AS `lang`,
+    `id` AS `id`,
+    'ir' AS `adm0`,
+    LOWER(`ISO`) AS `adm1`,
+    NULL AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `name` AS `name`,
+    'address' AS `address`,
+    `city` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    '' AS `registrant_url`
+    FROM `monuments_ir_(fa)`;
+
 /* Italy in Italian */
 REPLACE INTO
   `monuments_all_tmp` (
