@@ -4748,7 +4748,7 @@ countries = {
         'commonsCategoryBase': u'Cultural heritage monuments in Iran',
         'unusedImagesPage': u'User:LilyOfTheWest/Unused images',
         'imagesWithoutIdPage': u'User:LilyOfTheWest/Images without Id',
-        'namespaces': [0],
+        'namespaces': [4],
         'table': u'monuments_ir_(fa)',
         'truncate': False,
         'primkey': u'id',
