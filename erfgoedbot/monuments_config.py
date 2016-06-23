@@ -5475,6 +5475,11 @@ countries = {
                 'dest': u'registrant_url',
                 'conv': u'generateRegistrantUrl',
             },
+            {
+                'source': u'wd_item',
+                'dest': u'wd_item',
+                'check': u'checkWD',
+            },
         ],
     },
     ('nl-aw', 'en'): {  # Monuments in Aruba in English
@@ -5609,6 +5614,11 @@ countries = {
                 'source': u'objectnr',
                 'dest': u'registrant_url',
             },
+            {
+                'source': u'wd_item',
+                'dest': u'wd_item',
+                'check': u'checkWD',
+            },
         ],
     },
     ('nl-gem', 'nl'): {  # Gemeentelijke monumenten in the Netherlands in Dutch
@@ -5694,6 +5704,11 @@ countries = {
                 'source': u'object',
                 'dest': u'monument_article',
                 'conv': u'extractWikilink',
+            },
+            {
+                'source': u'wd_item',
+                'dest': u'wd_item',
+                'check': u'checkWD',
             },
         ],
     },
@@ -5800,6 +5815,11 @@ countries = {
             {
                 'source': u'oorspr_fun',
                 'dest': u'oorspr_fun',
+            },
+            {
+                'source': u'wd_item',
+                'dest': u'wd_item',
+                'check': u'checkWD',
             },
         ],
     },
