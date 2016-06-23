@@ -216,12 +216,13 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
         site, u'Commons:Monuments database/Unknown fields/%s' % (countryconfig.get('table'),))
 
     text = u'{| class="wikitable sortable"\n'
-    text = text + u'! Field !! Count\n'
+    text += u'! Field !! Count\n'
     for key, value in unknownFields.items():
-        text = text + u'|-\n'
-        text = text + u'| %s || %s\n' % (key, value)
+        text += u'|-\n'
+        text += u'| %s || %s\n' % (key, value)
 
-    text = text + u'|}'
+    text += u'|}\n'
+    text += u'[[Category:Commons:Monuments database/Unknown fields]]'
     comment = u'Updating the list of unknown fields'
     page.put(text, comment)
 
