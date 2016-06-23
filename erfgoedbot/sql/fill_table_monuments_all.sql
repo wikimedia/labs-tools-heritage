@@ -1901,7 +1901,7 @@ REPLACE INTO
 /* Netherlands in Dutch */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'nl' AS `country`,
     'nl' AS `lang`,
@@ -1923,7 +1923,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_nl_(nl)`;
 
 /* Aruba in English */
@@ -1957,7 +1958,7 @@ REPLACE INTO
 /* Aruba in Dutch */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'nl-aw' AS `country`,
     'nl' AS `lang`,
@@ -1979,13 +1980,14 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_nl-aw_(nl)`;
 
 /* Netherlands (gemeentelijke monumenten) in Dutch */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'nl-gem' AS `country`,
     'nl' AS `lang`,
@@ -2007,13 +2009,14 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    '' AS `registrant_url`
+    '' AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_nl-gem_(nl)`;
 
 /* Netherlands (provinciale monumenten) in Dutch */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'nl-prov' AS `country`,
     'nl' AS `lang`,
@@ -2035,7 +2038,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_nl-prov_(nl)`;
 
 /* Norway in Norwegian */
