@@ -1631,7 +1631,7 @@ REPLACE INTO
     NULL AS `adm3`,
     NULL AS `adm4`,
     `name` AS `name`,
-    'address' AS `address`,
+    `address` AS `address`,
     `city` AS `municipality`,
     `lat` AS `lat`,
     `lon` AS `lon`,

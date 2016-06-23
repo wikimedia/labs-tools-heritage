@@ -155,3 +155,17 @@ class TestMonumentsConfigValidation(unittest.TestCase):
                 if field.get('check'):
                     self.assertIn(field.get('check'), recognized,
                                   msg=self.label)
+
+    def test_monuments_config_underscored_templates(self):
+        """Ensure template param names do not contain namespace or underscore.
+
+        The precence of a ':' is used as a signal for the namespace being
+        included.
+        """
+        template_params = ['headerTemplate', 'rowTemplate', 'commonsTemplate']
+        for key, data in config.countries.iteritems():
+            self.set_label(key)
+            for template in template_params:
+                if data.get(template):
+                    self.assertNotIn('_', data.get(template), msg=self.label)
+                    self.assertNotIn(':', data.get(template), msg=self.label)

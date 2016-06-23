@@ -4741,7 +4741,7 @@ countries = {
     ('ir', 'fa'): {  # National monuments in Iran in Farsi
         'project': u'wikipedia',
         'lang': u'fa',
-        'headerTemplate': u'سرآیند_یادمان_ایران',
+        'headerTemplate': u'سرآیند یادمان ایران',
         'rowTemplate': u'ردیف یادمان ایران',
         'commonsTemplate': u'Cultural Heritage Iran',
         'commonsTrackerCategory': u'Cultural heritage monuments in Iran with known IDs',
@@ -4784,6 +4784,10 @@ countries = {
             {
                 'source': u'ISO',
                 'dest': u'ISO',
+            },
+            {
+                'source': u'استان',
+                'dest': u'province',
             },
             {
                 'source': u'طول جغرافیایی',
