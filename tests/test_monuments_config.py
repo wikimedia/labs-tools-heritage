@@ -148,7 +148,7 @@ class TestMonumentsConfigValidation(unittest.TestCase):
 
     def test_monuments_config_known_checkers(self):
         """Ensure the only known checkers are used in field entries."""
-        recognized = ['checkLon', 'checkLat']
+        recognized = ['checkLon', 'checkLat', 'checkWD']
         for key, data in config.countries.iteritems():
             self.set_label(key)
             for field in data['fields']:

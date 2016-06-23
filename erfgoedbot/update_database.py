@@ -128,12 +128,35 @@ def checkLon(lon, monumentKey, countryconfig, sourcePage):
             return True
 
 
+def is_int(s):
+    """Check if a string is a valid int."""
+    try:
+        int(s)
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
+def check_wikidata(wd_item, monumentKey, sourcePage):
+    """Check that a value is a potential wikidata entity."""
+    if len(wd_item):
+        if wd_item.startswith('Q') and is_int(wd_item[1:]):
+            return True
+        else:
+            errorMsg = u"Invalid wikidata value: %s for monument %s" % (
+                wd_item, monumentKey)
+            reportDataError(errorMsg, sourcePage, monumentKey)
+            return False
+
+
 def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
     """Run a named check."""
     if check == 'checkLat':
         return checkLat(fieldValue, monumentKey, countryconfig, sourcePage)
     elif check == 'checkLon':
         return checkLon(fieldValue, monumentKey, countryconfig, sourcePage)
+    elif check == 'checkWD':
+        return check_wikidata(fieldValue, monumentKey, sourcePage)
     else:
         raise pywikibot.Error('Un-defined check in config for %s: %s'
                               % (countryconfig.get('table'), check))
