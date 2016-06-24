@@ -17,6 +17,8 @@ from pywikibot import config
 import re
 import MySQLdb
 
+_logger = "missing_commonscat"
+
 
 def connectDatabase():
     '''
@@ -64,9 +66,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     commonscats = getMonumentCommonscats(
         commonsTrackerCategory, conn2, cursor2)
 
-    pywikibot.output(u'withoutCommonscat %s elements' %
-                     (len(withoutCommonscat),))
-    pywikibot.output(u'commonscats %s elements' % (len(commonscats),))
+    pywikibot.log(u'withoutCommonscat %s elements' % (len(withoutCommonscat),))
+    pywikibot.log(u'commonscats %s elements' % (len(commonscats),))
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
@@ -102,7 +103,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                         categoryName, 'utf-8'), unicode(categoryName, 'utf-8').replace(u'_', u' '), monumentId, wikiSourceList)
                 totalCategories = totalCategories + 1
         except ValueError:
-            pywikibot.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.warning(u'Got value error for %s' % (monumentId,))
 
     # text = text + u'</gallery>'
 
@@ -119,7 +120,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     site = pywikibot.Site(lang, u'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
-    pywikibot.output(text)
+    pywikibot.debug(text, _logger)
     page.put(text, comment)
 
     return totalCategories
@@ -211,7 +212,7 @@ def makeStatistics(mconfig, totals):
         site, u'Commons:Monuments database/Missing commonscat links/Statistics')
 
     comment = u'Updating missing commonscat links statistics. Total missing links: %s' % totalCategories
-    pywikibot.output(text)
+    pywikibot.debug(text, _logger)
     page.put(newtext=text, comment=comment)
 
 
@@ -231,17 +232,17 @@ def main():
     if countrycode:
         lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             totals[(countrycode, lang)] = processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
