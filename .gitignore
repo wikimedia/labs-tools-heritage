@@ -4,6 +4,7 @@ erfgoedbot/sql/create_table_wlpa*
 .coverage
 .tox
 *.pyc
+*.gz
 
 composer.lock
 vendor
