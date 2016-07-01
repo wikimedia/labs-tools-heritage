@@ -52,7 +52,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     unusedImagesPage = countryconfig.get('unusedImagesPage')
     project = countryconfig.get('project', u'wikipedia')
     commonsTrackerCategory = countryconfig.get(
-        'commonsTrackerCategory'). replace(u' ', u'_')
+        'commonsTrackerCategory').replace(u' ', u'_')
 
     withoutPhoto = getMonumentsWithoutPhoto(countrycode, lang, conn, cursor)
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
@@ -62,7 +62,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
-    text = text + u'<gallery>\n'
+    text += u'<gallery>\n'
     totalImages = 0
     maxImages = 1000
 
@@ -102,17 +102,17 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 # pywikibot.output(wikiSourceList)
                 # pywikibot.output(imageName)
                 if totalImages <= maxImages:
-                    text = text + \
+                    text += \
                         u'File:%s|[[%s|%s]]\n' % (
                             unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
-                totalImages = totalImages + 1
+                totalImages += 1
         except ValueError:
             pywikibot.warning(u'Got value error for %s' % (monumentId,))
 
-    text = text + u'</gallery>'
+    text += u'</gallery>'
 
     if totalImages >= maxImages:
-        text = text + \
+        text += \
             u'<!-- Maximum number of images reached: %s, total of unused images: %s -->\n' % (
                 maxImages, totalImages)
         comment = u'Images to be used in monument lists: %s (gallery maximum reached), total of unused images: %s' % (
@@ -120,7 +120,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     else:
         comment = u'Images to be used in monument lists: %s' % totalImages
 
-    # text = text + getInterwikisUnusedImages(countrycode, lang)
+    # text += getInterwikisUnusedImages(countrycode, lang)
 
     site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
@@ -135,7 +135,7 @@ def getInterwikisUnusedImages(countrycode, lang):
     for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
         if countrycode == countrycode2 and lang != lang2:
             if countryconfig.get('unusedImagesPage'):
-                result = result + \
+                result += \
                     u'[[%s:%s]]\n' % (
                         lang2, countryconfig.get('unusedImagesPage'))
 
@@ -181,26 +181,26 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
 
 def makeStatistics(mconfig, totals):
     text = u'{| class="wikitable sortable"\n'
-    text = text + \
+    text += \
         u'! country !! lang !! data-sort-type="number"|total !! page !! row template !! Commons template\n'
 
     totalImages = 0
     for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
         if countryconfig.get('unusedImagesPage') and countryconfig.get('commonsTemplate'):
-            text = text + u'|-\n'
-            text = text + u'| %s ' % countrycode
-            text = text + u'|| %s ' % lang
-            text = text + u'|| %s ' % totals.get((countrycode, lang))
-            totalImages = totalImages + totals.get((countrycode, lang))
-            text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get(
+            text += u'|-\n'
+            text += u'| %s ' % countrycode
+            text += u'|| %s ' % lang
+            text += u'|| %s ' % totals.get((countrycode, lang))
+            totalImages += totals.get((countrycode, lang))
+            text += u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get(
                 'unusedImagesPage'), countryconfig.get('unusedImagesPage'))
-            text = text + u'|| [[:%s:Template:%s|%s]] ' % (
+            text += u'|| [[:%s:Template:%s|%s]] ' % (
                 lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
-            text = text + \
+            text += \
                 u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
-    text = text + u'|- class="sortbottom"\n'
-    text = text + u'| || || %s \n' % totalImages
-    text = text + u'|}\n'
+    text += u'|- class="sortbottom"\n'
+    text += u'| || || %s \n' % totalImages
+    text += u'|}\n'
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(

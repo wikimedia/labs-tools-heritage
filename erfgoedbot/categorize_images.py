@@ -558,13 +558,13 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     pgenerator = pagegenerators.PreloadingGenerator(
         pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
     for page in pgenerator:
-        totalImages = totalImages + 1
+        totalImages += 1
         success = False
         if not totalImages >= 10000:
             success = categorizeImage(
                 countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
         if success:
-            categorizedImages = categorizedImages + 1
+            categorizedImages += 1
 
     return (countrycode, lang, commonsCategoryBase.title(withNamespace=False), commonsTemplate, totalImages, categorizedImages)
 
@@ -574,7 +574,7 @@ def outputStatistics(statistics):
     Output the results of the bot as a nice wikitable
     '''
     output = u'{| class="wikitable sortable"\n'
-    output = output + \
+    output += \
         u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! data-sort-type="number"|Total images !! data-sort-type="number"|Categorized images !! data-sort-type="number"|Images left !! data-sort-type="number"|Current image count\n'
 
     totalImages = 0
@@ -582,28 +582,28 @@ def outputStatistics(statistics):
     leftoverImages = 0
 
     for row in statistics:
-        output = output + u'|-\n'
-        output = output + u'|| %s \n' % (row[0],)
-        output = output + u'|| %s \n' % (row[1],)
-        output = output + u'|| [[:Category:%s]] \n' % (row[2],)
-        output = output + u'|| {{tl|%s}} \n' % (row[3],)
+        output += u'|-\n'
+        output += u'|| %s \n' % (row[0],)
+        output += u'|| %s \n' % (row[1],)
+        output += u'|| [[:Category:%s]] \n' % (row[2],)
+        output += u'|| {{tl|%s}} \n' % (row[3],)
 
-        totalImages = totalImages + row[4]
-        output = output + u'|| %s \n' % (row[4],)
+        totalImages += row[4]
+        output += u'|| %s \n' % (row[4],)
 
-        categorizedImages = categorizedImages + row[5]
-        output = output + u'|| %s \n' % (row[5],)
+        categorizedImages += row[5]
+        output += u'|| %s \n' % (row[5],)
 
         leftover = row[4] - row[5]
-        leftoverImages = leftoverImages + leftover
+        leftoverImages += leftover
 
-        output = output + u'|| %s \n' % (leftover,)
-        output = output + u'|| {{PAGESINCATEGORY:%s|files}} \n' % (row[2],)
+        output += u'|| %s \n' % (leftover,)
+        output += u'|| {{PAGESINCATEGORY:%s|files}} \n' % (row[2],)
 
-    output = output + u'|- class="sortbottom"\n'
-    output = output + u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (
+    output += u'|- class="sortbottom"\n'
+    output += u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (
         totalImages, categorizedImages, leftoverImages)
-    output = output + u'|}\n'
+    output += u'|}\n'
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
@@ -625,7 +625,7 @@ def getCommonscatTemplates(lang=None):
     else:
         (prim, backups) = commonscatTemplates[u'_default']
     result.append(prim)
-    result = result + backups
+    result += backups
     return result
 
 

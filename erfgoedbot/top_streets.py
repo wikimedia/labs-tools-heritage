@@ -54,7 +54,7 @@ def printTopStreets(addresses, minimum):
         temp = u''
         partslist = []
         for addrPart in address.split(u' '):
-            temp = temp + u' ' + addrPart
+            temp += u' ' + addrPart
             partslist.append(temp.strip())
 
         streets.update(partslist)

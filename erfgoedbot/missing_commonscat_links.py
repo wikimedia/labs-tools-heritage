@@ -71,7 +71,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
-    # text = text + u'<gallery>\n'
+    # text += u'<gallery>\n'
     totalCategories = 0
     maxCategories = 1000
 
@@ -99,16 +99,16 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 # pywikibot.output(wikiSourceList)
                 # pywikibot.output(imageName)
                 if totalCategories <= maxCategories:
-                    text = text + u'* <nowiki>|</nowiki> %s = [[:Commons:Category:%s|%s]] - %s @ [[%s]]\n' % (commonscatField, unicode(
+                    text += u'* <nowiki>|</nowiki> %s = [[:Commons:Category:%s|%s]] - %s @ [[%s]]\n' % (commonscatField, unicode(
                         categoryName, 'utf-8'), unicode(categoryName, 'utf-8').replace(u'_', u' '), monumentId, wikiSourceList)
-                totalCategories = totalCategories + 1
+                totalCategories += 1
         except ValueError:
             pywikibot.warning(u'Got value error for %s' % (monumentId,))
 
-    # text = text + u'</gallery>'
+    # text += u'</gallery>'
 
     if totalCategories >= maxCategories:
-        text = text + \
+        text += \
             u'<!-- Maximum number of categories reached: %s, total of missing commonscat links: %s -->\n' % (
                 maxCategories, totalCategories)
         comment = u'Commonscat links to be made in monument lists: %s (list maximum reached),  total of missing commonscat links: %s' % (
@@ -116,7 +116,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     else:
         comment = u'Commonscat links to be made in monument lists: %s' % totalCategories
 
-    text = text + getInterwikisMissingCommonscatPage(countrycode, lang)
+    text += getInterwikisMissingCommonscatPage(countrycode, lang)
 
     site = pywikibot.Site(lang, u'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
@@ -140,7 +140,7 @@ def getInterwikisMissingCommonscatPage(countrycode, lang):
     for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
         if countrycode == countrycode2 and lang != lang2:
             if countryconfig.get('missingCommonscatPage'):
-                result = result + \
+                result += \
                     u'[[%s:%s]]\n' % (
                         lang2, countryconfig.get('missingCommonscatPage'))
 
@@ -186,26 +186,26 @@ def getMonumentCommonscats(commonsTrackerCategory, conn, cursor):
 
 def makeStatistics(mconfig, totals):
     text = u'{| class="wikitable sortable"\n'
-    text = text + \
+    text += \
         u'! country !! lang !! total !! page !! row template !! Commons template\n'
 
     totalCategories = 0
     for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
         if countryconfig.get('missingCommonscatPage') and countryconfig.get('commonsTemplate'):
-            text = text + u'|-\n'
-            text = text + u'| %s ' % countrycode
-            text = text + u'|| %s ' % lang
-            text = text + u'|| %s ' % totals.get((countrycode, lang))
-            totalCategories = totalCategories + totals.get((countrycode, lang))
-            text = text + u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get(
+            text += u'|-\n'
+            text += u'| %s ' % countrycode
+            text += u'|| %s ' % lang
+            text += u'|| %s ' % totals.get((countrycode, lang))
+            totalCategories += totals.get((countrycode, lang))
+            text += u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get(
                 'missingCommonscatPage'), countryconfig.get('missingCommonscatPage'))
-            text = text + u'|| [[:%s:Template:%s|%s]] ' % (
+            text += u'|| [[:%s:Template:%s|%s]] ' % (
                 lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
-            text = text + \
+            text += \
                 u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
-    text = text + u'|- class="sortbottom"\n'
-    text = text + u'| || || %s \n' % totalCategories
-    text = text + u'|}\n'
+    text += u'|- class="sortbottom"\n'
+    text += u'| || || %s \n' % totalCategories
+    text += u'|}\n'
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(

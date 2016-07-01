@@ -39,7 +39,7 @@ def outputStatistics(statistics):
     '''
 
     output = u'{| class="wikitable sortable"\n'
-    output = output + \
+    output += \
         u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! data-sort-type="number"|total !! data-sort-type="number"|name !! data-sort-type="number"|address !! data-sort-type="number"|municipality !!data-sort-type="number"| coordinates !! data-sort-type="number"|image !! data-sort-type="number"|commonscat !! data-sort-type="number"|article !! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] !! data-sort-type="number"|adm2 !! data-sort-type="number"|adm3 !!data-sort-type="number"| adm4 !! data-sort-type="number"|source pages\n'
 
     totals = {}
@@ -67,82 +67,82 @@ def outputStatistics(statistics):
             # print language
             # print statistics[country][language]
 
-            output = output + u'|-\n'
-            output = output + \
+            output += u'|-\n'
+            output += \
                 u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=%(country)s&format=html&limit=0 %(country)s] ' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(lang)s || %(all)s ' % statistics[country][language]
-            output = output + \
+            output += \
                 u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(commonscat)s <small>(%(commonscatPercentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(article)s <small>(%(articlePercentage)s%%)</small>' % statistics[
                     country][language]
 
-            output = output + \
+            output += \
                 u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=%(adm0iso)s %(adm1)s] <small>(%(adm1Percentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(adm3)s <small>(%(adm3Percentage)s%%)</small>' % statistics[
                     country][language]
-            output = output + \
+            output += \
                 u'|| %(adm4)s <small>(%(adm4Percentage)s%%)</small>' % statistics[
                     country][language]
 
-            output = output + \
+            output += \
                 u'|| %(source)s\n' % statistics[country][language]
 
-            totals['all'] = totals['all'] + \
+            totals['all'] += \
                 statistics[country][language]['all']
-            totals['name'] = totals['name'] + \
+            totals['name'] += \
                 statistics[country][language]['name']
-            totals['address'] = totals['address'] + \
+            totals['address'] += \
                 statistics[country][language]['address']
-            totals['municipality'] = totals['municipality'] + \
+            totals['municipality'] += \
                 statistics[country][language]['municipality']
-            totals['coordinates'] = totals['coordinates'] + \
+            totals['coordinates'] += \
                 statistics[country][language]['coordinates']
-            totals['image'] = totals['image'] + \
+            totals['image'] += \
                 statistics[country][language]['image']
-            totals['commonscat'] = totals['commonscat'] + \
+            totals['commonscat'] += \
                 statistics[country][language]['commonscat']
-            totals['article'] = totals['article'] + \
+            totals['article'] += \
                 statistics[country][language]['article']
 
-            totals['adm0'] = totals['adm0'] + \
+            totals['adm0'] += \
                 statistics[country][language]['adm0']
-            totals['adm1'] = totals['adm1'] + \
+            totals['adm1'] += \
                 statistics[country][language]['adm1']
-            totals['adm2'] = totals['adm2'] + \
+            totals['adm2'] += \
                 statistics[country][language]['adm2']
-            totals['adm3'] = totals['adm3'] + \
+            totals['adm3'] += \
                 statistics[country][language]['adm3']
-            totals['adm4'] = totals['adm4'] + \
+            totals['adm4'] += \
                 statistics[country][language]['adm4']
 
-            totals['source'] = totals['source'] + \
+            totals['source'] += \
                 statistics[country][language]['source']
 
     totals['namePercentage'] = round(
@@ -171,38 +171,38 @@ def outputStatistics(statistics):
     totals['adm4Percentage'] = round(
         1.0 * totals['adm4'] / totals['all'] * 100, 2)
 
-    output = output + u'|- class="sortbottom"\n'
-    output = output + u'| '
-    output = output + u'|| || %(all)s' % totals
-    output = output + \
+    output += u'|- class="sortbottom"\n'
+    output += u'| '
+    output += u'|| || %(all)s' % totals
+    output += \
         u'|| %(name)s <small>(%(namePercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(address)s <small>(%(addressPercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(municipality)s <small>(%(municipalityPercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(coordinates)s <small>(%(coordinatesPercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(image)s <small>(%(imagePercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(commonscat)s <small>(%(commonscatPercentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(article)s <small>(%(articlePercentage)s%%)</small>' % totals
 
-    output = output + \
+    output += \
         u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(adm1)s <small>(%(adm1Percentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(adm2)s <small>(%(adm2Percentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(adm3)s <small>(%(adm3Percentage)s%%)</small>' % totals
-    output = output + \
+    output += \
         u'|| %(adm4)s <small>(%(adm4Percentage)s%%)</small>' % totals
 
-    output = output + u'|| %(source)s\n' % totals
+    output += u'|| %(source)s\n' % totals
 
-    output = output + u'|}\n'
+    output += u'|}\n'
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(site, u'Commons:Monuments database/Statistics')
 

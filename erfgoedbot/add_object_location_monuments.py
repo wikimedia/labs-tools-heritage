@@ -209,7 +209,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
             ll = pywikibot.getLanguageLinks(newtext)
             nextext = pywikibot.removeLanguageLinks(newtext)
             newtext = pywikibot.removeCategoryLinks(newtext)
-            newtext = newtext + u'\n' + toadd
+            newtext += u'\n' + toadd
             newtext = pywikibot.replaceCategoryLinks(newtext, cats)
             newtext = pywikibot.replaceLanguageLinks(newtext, ll)
 

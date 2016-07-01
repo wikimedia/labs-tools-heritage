@@ -55,22 +55,22 @@ def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, c
     j = 0
     for fieldname in fieldnames:
         if j == 0:
-            query = query + u"""`%s`""" % (fieldname,)
+            query += u"""`%s`""" % (fieldname,)
         else:
-            query = query + u""", `%s`""" % (fieldname,)
-        j = j + 1
+            query += u""", `%s`""" % (fieldname,)
+        j += 1
 
-    query = query + u""") VALUES ("""
+    query += u""") VALUES ("""
 
     j = 0
     for fieldvalue in fieldvalues:
         if j == 0:
-            query = query + u"""%s"""
+            query += u"""%s"""
         else:
-            query = query + u""", %s"""
-        j = j + 1
+            query += u""", %s"""
+        j += 1
 
-    query = query + u""")"""
+    query += u""")"""
     cursor.execute(query, fieldvalues)
 
 
