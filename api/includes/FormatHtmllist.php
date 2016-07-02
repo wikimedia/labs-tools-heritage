@@ -108,6 +108,10 @@ class FormatHtmllist extends FormatBase {
 							$desc .= '<a href="' . htmlspecialchars( $row->registrant_url ) . '">';
 							$desc .= htmlspecialchars( $value );
 							$desc .= '</a>';
+						} elseif ( strcmp( $name, 'wd_item' ) == 0 ) {
+							$desc .= '<a href="' . makeWikidataUrl( $value ) . '">';
+							$desc .= htmlspecialchars( $value );
+							$desc .= '</a>';
 						} else {
 							$desc .= htmlspecialchars( $value );
 						}
