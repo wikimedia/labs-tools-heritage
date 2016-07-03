@@ -24,6 +24,8 @@ from pywikibot import textlib
 import re
 import MySQLdb
 
+_logger = "categorize_images"
+
 
 class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
     message = u"No Monument Identifier could be found for %s"
@@ -195,30 +197,31 @@ def connectDatabase():
 
 
 def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
-    pywikibot.output(u'Working on: %s' % page.title())
+    pywikibot.log(u'Working on: %s' % page.title())
     site = pywikibot.Site(u'commons', u'commons')
     commonsTemplate = pywikibot.Page(site, 'Template:%s' % commonsTemplateName)
     currentcats = list(page.categories())
     if commonsCategoryBase not in currentcats:
-        pywikibot.output(u'%s category not found at: %s. Someone probably already categorized it.' % (
+        pywikibot.log(u'%s category not found at: %s. Someone probably already categorized it.' % (
             commonsCategoryBase, page.title()))
         return False
 
     if u'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
-        pywikibot.output(u'%s in %s is a placeholder, skipping it.' % (
+        pywikibot.log(u'%s in %s is a placeholder, skipping it.' % (
             page.title(), commonsCategoryBase))
         return False
 
     templates = page.templates()
     if commonsTemplate not in templates:
-        pywikibot.output(u'%s template not found at: %s' %
-                         (commonsTemplate, page.title()))
+        pywikibot.log(u'%s template not found at: %s' % (
+            commonsTemplate, page.title()))
         return False
 
     try:
         monumentId = get_monument_id(page, commonsTemplate)
     except NoMonumentIdentifierFoundException:
-        pywikibot.output(u'Didn\'t find a valid monument identifier')
+        pywikibot.warning(u'Didn\'t find a valid monument identifier at: %s' % (
+            page.title(),))
         return False
 
     monData = getMonData(countrycode, lang, monumentId, conn, cursor)
@@ -227,11 +230,12 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
             monumentId = int(monumentId)
             monData = getMonData(countrycode, lang, monumentId, conn, cursor)
         except ValueError:
-            pywikibot.output(
-                u'Can\'t convert %s to an integer' % (monumentId,))
+            pywikibot.debug(
+                u'Can\'t convert %s to an integer' % (monumentId,), _logger)
 
     if not monData:
-        pywikibot.output(
+        # Triage as log since there are plenty of valid reasons for this
+        pywikibot.log(
             u'Monument with id %s not in monuments database' % (monumentId, ))
         return False
 
@@ -243,7 +247,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
             commonsTemplateName, monumentId)
         replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
-        pywikibot.output(u'Categories not found for %s' % page.title())
+        pywikibot.log(u'Categories not found for %s' % page.title())
 
 
 def get_monument_id(page, commonsTemplate):
@@ -254,7 +258,9 @@ def get_monument_id(page, commonsTemplate):
                 try:
                     monumentId = params[0]
                 except ValueError:
-                    pywikibot.output(u'Unable to extract a valid id')
+                    pywikibot.warning(
+                        u'Unable to extract a valid id for %s on %s' % (
+                            template, page.title()))
                 break
     if not monumentId:
         raise NoMonumentIdentifierFoundException(page)
@@ -273,10 +279,12 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
             cat = pywikibot.Category(commons_site, monumentCommonscat)
             newcats.append(cat)
         except ValueError:
-            pywikibot.output(u'The Commonscat field for %s contains an invalid category %s' % (
-                monumentId, monumentCommonscat))
+            pywikibot.warning(
+                u'The Commonscat field for %s contains an invalid category %s' % (
+                    monumentId, monumentCommonscat))
         except pywikibot.exceptions.InvalidTitle:
-            pywikibot.output(u'Incorrect category title %s' % (monumentCommonscat,))
+            pywikibot.warning(
+                u'Incorrect category title %s' % (monumentCommonscat,))
     # Option two is to use the article about the monument and see if it has
     # Commonscat links
     if not newcats:
@@ -296,12 +304,14 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                             newcats.append(
                                 getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
                 except pywikibot.SectionError:
-                    pywikibot.output(u'Incorrect redirect at %s' %
-                                     (monumentArticle.title(),))
+                    pywikibot.warning(u'Incorrect redirect at %s' % (
+                        monumentArticle.title(),))
             except pywikibot.exceptions.InvalidTitle:
-                pywikibot.output(u'Incorrect article title %s' % (monumentArticleTitle,))
+                pywikibot.warning(u'Incorrect article title %s' % (
+                    monumentArticleTitle,))
             except pywikibot.exceptions.Error as e:
-                pywikibot.output(u'Error occured with monument %s: %s' % (monumentId, str(e)))
+                pywikibot.error(u'Error occured with monument %s: %s' % (
+                    monumentId, str(e)))
     # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
         monumentList = getList(lang, monumentSource)
@@ -313,7 +323,8 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         try:
             newcats = getCategories(monumentList, commonsCatTemplates)
         except pywikibot.exceptions.Error as e:
-            pywikibot.output(u'Error occured with monument %s: %s' % (monumentId, str(e)))
+            pywikibot.error(u'Error occured with monument %s: %s' % (
+                monumentId, str(e)))
     return newcats
 
 
@@ -331,7 +342,7 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
         page.put(final_text, comment)
         return True
     except pywikibot.EditConflict:
-        pywikibot.output(
+        pywikibot.log(
             u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
         return False
 
@@ -378,7 +389,7 @@ def getMonData(countrycode, lang, monumentId, conn, cursor):
         row = cursor.fetchone()
         return row
     except TypeError:
-        pywikibot.output(u'Didn\'t find anything for id %s' % (monumentId,))
+        pywikibot.warning(u'Didn\'t find anything for id %s' % (monumentId,))
         return False
 
 
@@ -524,7 +535,7 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
 
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
-        pywikibot.output(
+        pywikibot.warning(
             u'Language: %s has no commonsCatTemplates set!' % lang)
         return False
 
@@ -638,10 +649,10 @@ def main():
     if countrycode:
         lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         commonsCatTemplates = getCommonscatTemplates(lang)
         # print commonsCatTemplates
@@ -650,7 +661,7 @@ def main():
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(lang)
             result = processCountry(

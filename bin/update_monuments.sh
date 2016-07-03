@@ -13,7 +13,7 @@ cd /data/project/heritage/ || exit
 
 # Load any config changes into the source tables
 echo_time "Load changes to monuments_config..."
-/data/project/heritage/pywikibot/pwb.py  /data/project/heritage/erfgoedbot/monument_tables.py
+/data/project/heritage/pywikibot/pwb.py  /data/project/heritage/erfgoedbot/monument_tables.py -log
 
 # Recreate the source tables
 echo_time "Recreating the source tables..."
@@ -24,7 +24,7 @@ done
 
 # Update all of the source tables
 echo_time "Full source database update..."
-/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/update_database.py -fullupdate
+/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/update_database.py -fullupdate -log
 
 # Update the all monuments table
 echo_time "Update monuments_all table..."
@@ -40,7 +40,7 @@ php ./erfgoedbot/populate_adm_tree.php
 
 # Make statistics
 echo_time "Make statistics..."
-/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/database_statistics.py
+/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/database_statistics.py -log
 
 # Make more detailed statistics
 echo_time "Make more detailed statistics..."
@@ -48,11 +48,11 @@ php ./public_html/maintenance/_buildStats.php
 
 # Update the list of unused monuments
 echo_time "Update unused images list..."
-/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/unused_monument_images.py
+/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/unused_monument_images.py -log
 
 # Make a list of missing commonscat links
 echo_time "Make a list of missing commonscat links..."
-/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/missing_commonscat_links.py
+/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/missing_commonscat_links.py -log
 
 # Dump database to a file so people can play around with it
 cd ./public_html || exit
@@ -76,6 +76,6 @@ php ./prox_search/fill_table_prox_search.php
 
 # Categorize some images
 echo_time "Categorize images..."
-/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/categorize_images.py
+/data/project/heritage/pywikibot/pwb.py /data/project/heritage/erfgoedbot/categorize_images.py -log
 
 echo_time "Done with the update!"

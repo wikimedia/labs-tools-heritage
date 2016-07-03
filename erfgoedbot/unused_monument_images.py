@@ -17,6 +17,8 @@ from pywikibot import config
 import re
 import MySQLdb
 
+_logger = "unused_images"
+
 
 def connectDatabase():
     '''
@@ -55,8 +57,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     withoutPhoto = getMonumentsWithoutPhoto(countrycode, lang, conn, cursor)
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
-    pywikibot.output(u'withoutPhoto %s elements' % (len(withoutPhoto),))
-    pywikibot.output(u'photos %s elements' % (len(photos),))
+    pywikibot.log(u'withoutPhoto %s elements' % (len(withoutPhoto),))
+    pywikibot.log(u'photos %s elements' % (len(photos),))
 
     # People can add a /header template for with more info
     text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
@@ -91,7 +93,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 try:
                     wikiSourceList = m.group(1)
                 except AttributeError:
-                    pywikibot.output(u'Could not find wikiSourceList for %s (%s)' % (monumentId, withoutPhoto.get(monumentId)))
+                    pywikibot.warning(
+                        u'Could not find wikiSourceList for %s (%s)' % (
+                            monumentId, withoutPhoto.get(monumentId)))
                     continue
                 imageName = photos.get(catSortKey)
                 # pywikibot.output(u'Key %s returned a result' % (monumentId,))
@@ -103,7 +107,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                             unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
                 totalImages = totalImages + 1
         except ValueError:
-            pywikibot.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.warning(u'Got value error for %s' % (monumentId,))
 
     text = text + u'</gallery>'
 
@@ -120,7 +124,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
 
     site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
-    pywikibot.output(text)
+    pywikibot.debug(text, _logger)
     page.put(text, comment, minorEdit=False)
 
     return totalImages
@@ -203,7 +207,7 @@ def makeStatistics(mconfig, totals):
         site, u'Commons:Monuments database/Unused images/Statistics')
 
     comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
-    pywikibot.output(text)
+    pywikibot.debug(text, _logger)
     page.put(newtext=text, comment=comment)
 
 
@@ -223,17 +227,17 @@ def main():
     if countrycode:
         lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             totals[(countrycode, lang)] = processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)

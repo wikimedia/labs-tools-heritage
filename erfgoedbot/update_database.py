@@ -25,6 +25,8 @@ from converters import (
     CH1903Converter
 )
 
+_logger = "update_database"
+
 
 def connectDatabase():
     '''
@@ -38,11 +40,11 @@ def connectDatabase():
 
 
 def reportDataError(errorMsg, wikiPage, exceptWord, comment=''):
-
+    """Report data error to the talk page of the list."""
     if not comment:
         comment = errorMsg
 
-    pywikibot.output(errorMsg)
+    pywikibot.debug(errorMsg, _logger)
     talkPage = wikiPage.toggleTalkPage()
     try:
         content = talkPage.get()
@@ -384,8 +386,10 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
                 contents[field] = value
             else:
                 # FIXME: Include more information where it went wrong
-                pywikibot.output(
-                    u'Found unknown field on page %s : (%s: %s)' % (title, field, value))
+                pywikibot.debug(
+                    u'Found unknown field on page %s : (%s: %s)' % (
+                        title, field, value),
+                    _logger)
                 if field in unknownFields:
                     unknownFields[field] = unknownFields.get(field) + 1
                 else:
@@ -411,7 +415,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
         updateMonument(
             contents, source, countryconfig, conn, cursor, sourcePage)
     else:
-        pywikibot.output(u"No primkey available on %s" % title)
+        pywikibot.warning(u"No primkey available on %s" % title)
     return unknownFields
 
 
@@ -520,28 +524,30 @@ def main():
     if countrycode:
         lang = pywikibot.Site().language()
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
 
         try:
             processCountry(
                 mconfig.countries.get((countrycode, lang)), conn, cursor, fullUpdate, daysBack)
         except Exception, e:
-            pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
-            pywikibot.output(str(e))
+            pywikibot.error(
+                u"Unknown error occurred when processing country %s in lang %s\n%s" %
+                (countrycode, lang, str(e)))
 
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             try:
                 processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
             except Exception, e:
-                pywikibot.output("Unknown error occurred when processing country %s in lang %s" % (countrycode, lang))
-                pywikibot.output(str(e))
+                pywikibot.error(
+                    u"Unknown error occurred when processing country %s in lang %s\n%s" %
+                    (countrycode, lang, str(e)))
                 continue
     '''
 
