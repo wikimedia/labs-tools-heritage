@@ -6,7 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Heritage - tools for Wiki Loves Monuments</title>
     <link rel="stylesheet" href="//tools.wmflabs.org/static/res/bootstrap/3.1.1/css/bootstrap.min.css" />
-
+    <style>
+.dl-horizontal dd {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.container {
+  width: auto;
+  max-width: 800px;
+  padding: 0 15px;
+}
+    </style>
     </head>
   <body>
 
@@ -21,7 +31,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" style="margin:0px;padding:0px;margin-top:4px" href="http://www.wikilovesmonuments.org">
+          <a class="navbar-brand" style="margin:0px;padding:0px;margin-top:4px" href="https://www.wikilovesmonuments.org">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/LUSITANA_WLM_2011_d.svg/50px-LUSITANA_WLM_2011_d.svg.png" title="Wiki Loves Monuments" border="0"/>
           </a>
         </div>
@@ -35,22 +45,45 @@
         </div>
     </div>
     <hr />
-
     <!-- Content -->
 
   <h1>Heritage − Wiki Loves Monuments</h1>
   <p class='lead'>Welcome to heritage − Tools for Wiki Loves Monuments</p>
+      <div class="well">
+      <dl class="dl-horizontal">
+          <dt><a href='https://commons.wikimedia.org/wiki/Commons:Monuments_database'>Monuments database</a></dt>
+              <dd>A MySQL database of cultural heritage buildings harvested from Wikipedia</dd>
+          <dt><a href='https://commons.wikimedia.org/wiki/User:ErfgoedBot'>ErfgoedBot</a></dt>
+              <dd>A Python bot harvesting the lists in the database and doing maintenance work</dd>
+      </dl>
+      </div>
 
       <div class="well">
       <dl class="dl-horizontal">
           <dt><a href='./api'>API</a></dt>
-              <dd>An API to query our monuments database</dd>
+              <dd>An API to query the monuments database</dd>
+          <dt><a href='./toolbox'>Toolbox</a></dt>
+              <dd>An alternative, stubby front-end for the API</dd>
       </dl>
       </div>
 
     <!-- Footer -->
-    <div id="footer" class='footer navbar navbar-fixed-bottom'>
-    </div>
+    <footer class="footer navbar-fixed-bottom">
+    <div class="container">
+        <hr />
+        <ul class="pull-left list-inline">
+          <li>Source available on <a href="https://phabricator.wikimedia.org/diffusion/THER/">Wikimedia Phabricator</a> (mirrored on <a href="https://github.com/wikimedia/labs-tools-heritage/">GitHub</a>)
+          </li>
+        </ul>
+          <ul class="list-inline">
+          <ul class="pull-right list-inline">
+            <li><a href="https://phabricator.wikimedia.org/tag/wiki-loves-monuments/">Report bugs</a></li>
+            <li>
+                <a href="https://tools.wmflabs.org/sal/tools.heritage">Server Admin log</a>
+            </li>
+          </ul>
+      </div>
+    </footer>
 
     </div>
     <script src="//tools.wmflabs.org/static/res/bootstrap/3.1.1/js/bootstrap.min.js"></script>
