@@ -59,13 +59,15 @@
 	"db-field-st_total": "{{Identical|Total number}}",
 	"toolbox-label-searchtipps": "Instruction for how to perform a fuzzy search.",
 	"toolbox-meta-title": "Title used in the metadata header of the page.",
+	"toolbox-main-logo-alt": "Alt text for Wiki Loves Monuments logo.",
 	"toolbox-main-title": "Page header used in the top of every page of the toolbox.",
-	"toolbox-main-description": "Description of the toolbox, part 1.",
-	"toolbox-wikilovesmonuments": "Description of the toolbox, part 2.",
+	"toolbox-main-description": "Description of the toolbox.\nParameter: {{Msg-intuition|Monumentsapi-toolbox-wikilovesmonuments}}",
+	"toolbox-wikilovesmonuments": "The name of the competition.",
 	"toolbox-nav-homepage": "{{Identical|Homepage}}",
 	"toolbox-nav-statistics": "{{Identical|Statistics}}",
 	"toolbox-nav-search": "{{Identical|Search}}",
-	"toolbox-title-searchmonuments": "Title used in the top of the search page.",
+	"toolbox-title-searchmonuments": "Title used in the top of the toolbox search page.",
+	"toolbox-title-statistics": "Title used in the top of the toolbox statistics page.",
 	"location": "{{Identical|Location}}",
 	"source-monuments-list": "Link text for the \"source\" link. The link goes to the list on a Wikimedia project from which the data was imported."
 }

@@ -49,13 +49,15 @@
 	"db-field-st_total": "Total number",
 	"toolbox-label-searchtipps": "use %term or term% or %term% for fuzzy search",
 	"toolbox-meta-title": "Wiki Loves Monuments Toolbox",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments logo",
 	"toolbox-main-title": "WLM Toolbox",
-	"toolbox-main-description": "A set of tools related to",
+	"toolbox-main-description": "A set of tools related to $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Homepage",
 	"toolbox-nav-statistics": "Statistics",
 	"toolbox-nav-search": "Search",
 	"toolbox-title-searchmonuments": "Search monuments",
+	"toolbox-title-statistics": "Monument statistics",
 	"location": "Location",
 	"source-monuments-list": "Source monuments list on a Wikimedia project"
 }

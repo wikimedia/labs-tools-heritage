@@ -115,7 +115,7 @@ table {
 */
 body {
   background-color: #fff;
-  background-image: url(/theme/images/bg_stripes.png);
+  background-image: url(../img/bg_stripes.png);
   background-repeat: repeat;
   height: 100%;
 }
