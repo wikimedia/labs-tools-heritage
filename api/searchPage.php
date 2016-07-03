@@ -37,48 +37,42 @@ class SearchPage {
 		$result[] = '<th>' . _( 'search-table-th-filter' ) . '</th>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n countries */
-		$result[] = '<td><label>Countries</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-countries' ) . '</label></td>';
 		$result[] = '<td>&nbsp;<!-- Empty, no search for country --></td>';
 		$result[] = '<td>';
 		$result = array_merge( $result, $this->getCountriesFilter() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n languages */
-		$result[] = '<td><label>Languages</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-languages' ) . '</label></td>';
 		$result[] = '<td>&nbsp;<!-- Empty, no search for languages --></td>';
 		$result[] = '<td>';
 		$result = array_merge( $result, $this->getLanguagesFilter() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n name */
-		$result[] = '<td><label>Name</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-name' ) . '</label></td>';
 		$result[] = '<td><input type="text" name="srname" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	// $result = array_merge($result, $this->getNameSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n address */
-		$result[] = '<td><label>Address</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-address' ) . '</label></td>';
 		$result[] = '<td><input type="text" name="sraddress" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	// $result = array_merge($result, $this->getAddressSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n municipality */
-		$result[] = '<td><label>Municipality</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-municipality' ) . '</label></td>';
 		$result[] = '<td><input type="text" name="srmunicipality" ' . $this->fieldStyle . '></td>';
 		$result[] = '<td>';
 	// $result = array_merge($result, $this->getMunicipalitySelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME coordinates */
-		$result[] = '<td><label>Coordinates</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-coordinates' ) . '</label></td>';
 		$result[] = '<td><!-- Lat/lon bounding box --><!-- Lat/lon distance --></td>';
 		$result[] = '<td>';
 	// $result = array_merge($result, $this->getCoordinatesSelect());
@@ -86,34 +80,30 @@ class SearchPage {
 		$result[] = '</tr>';
 		$result[] = '<tr>';
 		/* FIXME i18n images */
-		$result[] = '<td><label>Images</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-images' ) . '</label></td>';
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';
-		$result[] = '<input type="checkbox" name="srwithoutimages" id="srwithoutimages" value="1"><label for="srwithoutimages">Only monuments without images</label>'; // FIXME: i18n
+		$result[] = '<input type="checkbox" name="srwithoutimages" id="srwithoutimages" value="1"><label for="srwithoutimages">' . _( 'search-table-checkbox-only-images' ) . '</label>';
 	// $result = array_merge($result, $this->getImagesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n output */
-		$result[] = '<th colspan="3">Output</th>';
+		$result[] = '<th colspan="3">' . _( 'search-table-th-output' ) . '</th>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n output language */
-		$result[] = '<td><label>Output language</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-output-language' ) . '</label></td>';
 		$result[] = '<td colspan="2">';
 		$result = array_merge( $result, $this->getOutputLanguageSelect() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n format */
-		$result[] = '<td><label>Output format</label></td>';
+		$result[] = '<td><label>' . _( 'search-table-tr-output-format' ) . '</label></td>';
 		$result[] = '<td colspan="2">';
 		$result = array_merge( $result, $this->getOutputFormatSelect() );
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n search */
-		$result[] = '<td colspan="3" align="right"><input type="submit" value="Search"> </td>';
+		$result[] = '<td colspan="3" align="right"><input type="submit" value="' . _( 'search-table-button-search' ) . '"> </td>';
 		$result[] = '</tr>';
 		$result[] = '</table>';
 		$result[] = '</form>';
