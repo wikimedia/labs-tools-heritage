@@ -1,4 +1,4 @@
-	{
+{
 	"@metadata": [],
 	"title": "Monuments API",
 	"search-title": "Monuments search",
@@ -35,7 +35,7 @@
 	"db-field-registrant_url": "Registrant URL",
 	"db-field-commonscat": "Commons category",
 	"db-field-wd_item": "Wikidata item",
-	"db-field-wd_project": "Wikimedia project",
+	"db-field-project": "Wikimedia project",
 	"db-field-st_address": "Addresses",
 	"db-field-st_address_pct": "Addresses %",
 	"db-field-st_coordinates": "Coordinates",

@@ -45,7 +45,7 @@
 	"db-field-registrant_url": "Translation of the field \"registrant_url\" in the monuments database.\n\nExamples of registrant URLs:\n* http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=PA00088517\n* http://register.muinas.ee/?menuID=monument&action=view&id=20875",
 	"db-field-commonscat": "Translation of the field \"commonscat\" in the monuments database. This is the title of a category on Wikimedia Commons with images of the monument.",
 	"db-field-wd_item": "Translation of the field \"wd_item\" in the monuments database. This is the id of a Wikidata item.",
-	"db-field-wd_project": "Translation of the field \"project\" in the monuments database. This is the title of a Wikimedia Project.",
+	"db-field-project": "Translation of the field \"project\" in the monuments database. This is the title of a Wikimedia Project.",
 	"db-field-st_address": "{{Identical|Address}}",
 	"db-field-st_address_pct": "{{Identical|Address}}",
 	"db-field-st_coordinates": "{{Identical|Coordinates}}",
