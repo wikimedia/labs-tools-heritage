@@ -26,12 +26,12 @@ if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_overrid
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $opts = array(
-	'domain' => 'monumentsapi', // name of your main text-domain here
+	'domain' => 'heritage', // name of your main text-domain here
 	'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
 	'suppresserrors' => false, // Krinkle heeft het stukgemaakt
 	);
 $I18N = new Intuition( $opts );
-$I18N->registerDomain( 'monumentsapi', __DIR__ . '/../i18n' );
+$I18N->registerDomain( 'heritage', __DIR__ . '/../i18n' );
 
 /* Database */
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
