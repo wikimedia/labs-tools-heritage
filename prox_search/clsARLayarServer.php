@@ -27,7 +27,7 @@ Usage:
 	See http://www.lightrod.org/mediawiki/index.php/Layar_API  to create a Layar.
 
 
-Author: Peter Abrahamson  peter@atomjump.com  18 Feb 09. Document last update 4 July 09.	
+Author: Peter Abrahamson  peter@atomjump.com  18 Feb 09. Document last update 4 July 09.
 */
 
 // functions
@@ -39,7 +39,7 @@ require_once( 'clsBasicGeosearch.php' );
 //class
 
 class clsARLayarServer extends clsBasicGeosearch {
-	
+
 	public $layar_name;
 	public $layar_attribution;
 	public $layar_latitude;
@@ -85,12 +85,12 @@ class clsARLayarServer extends clsBasicGeosearch {
 	public $max_records;
 	private $debug;
 	private $javascript_server;
-	
+
 	//With thanks to the basis for this code from
 	//http://teknograd.wordpress.com/2009/10/19/augmented-reality-create-your-own-layar-layer/
-	
-	
-	public function layar_request($params)	
+
+
+	public function layar_request($params)
 	{
 		//Get optional paramters
 		$this->layar_name = isset($params['layar_name']) ? $params['layar_name'] : "LightRod.org";
@@ -132,14 +132,14 @@ class clsARLayarServer extends clsBasicGeosearch {
 		$this->layar_more_pages = isset($params['morePages']) ? $params['morePages'] : false;
 		$this->layar_type = isset($params['type']) ? $params['type'] : null;
 		$this->debug = isset($params['debug']) ? $params['debug'] : false;
-		
-		
-	
-		//Set the header to respond to the request as a JSON array 
+
+
+
+		//Set the header to respond to the request as a JSON array
 		if($this->debug == false) {
 			header('Content-type: application/json');
 		}
-	
+
 		//Get request params from Layar client
 		$this->layar_latitude = $_GET["lat"];
 		$this->layar_longitude = $_GET["lon"];
@@ -152,20 +152,20 @@ class clsARLayarServer extends clsBasicGeosearch {
 		}
 		$this->javascript_server = isset($_REQUEST['jsServer']) ? $_REQUEST['jsServer'] : null;		//This is unique for a javascript variable return, useful for google maps client apps
 		$this->max_records = isset($_REQUEST['show']) ? $_REQUEST['show'] : 10;	//10 by default
-	
+
 	}
-	
-	
+
+
 	public function layar_response($results, $show_more = false)
 	{
-	
+
 		// If we don’t get any hits lets send back error/nothing.
 		if (count($results) == 0)
 		{
-			$arr = array("hotspots"=> array(), 
+			$arr = array("hotspots"=> array(),
 					"layer"=>$this->layar_name,
 					"errorString"=>"Sorry, there are no results close to you.",
-					"morePages"=>false, 
+					"morePages"=>false,
 					"errorCode"=>21,
 					"nextPageKey"=>null,
 					"searchFilters"=>$this->layar_filters,		//Custom to lightrod
@@ -179,15 +179,15 @@ class clsARLayarServer extends clsBasicGeosearch {
 			echo json_encode($arr);
 			exit(0); // Exit as we don’t want to run code below this if error/nothing.
 		}
-		
-		
-		
+
+
+
 
 		// Lets start building valid return.
 		$returnJSONArray = array("layer"=>$this->layar_name,
 					 "errorString"=>"ok",
 					 "morePages"=>$show_more,
-					 "errorCode"=>0, 
+					 "errorCode"=>0,
 					 "nextPageKey"=>$this->layar_next_page_key + count($results), //+1	//The more page
 					 						//is the existing number and
 					 						//the number of results
@@ -199,8 +199,8 @@ class clsARLayarServer extends clsBasicGeosearch {
 					 "filter3Text"=>$this->layar_filter_3_text,		//Custom to lightrod
 					 "filter3Param"=>$this->layar_filter_3_param		//Custom to lightrod
 					 );
-					 
-		
+
+
 		//Loop through each result and display each line
 		foreach($results as $row)
 		{
@@ -210,11 +210,11 @@ class clsARLayarServer extends clsBasicGeosearch {
 				$autoTriggerOnly = null;
 				if($row[$this->layar_autoTriggerOnly] == "true") {
 					$autoTriggerOnly = true;
-				} 
+				}
 				if($row[$this->layar_autoTriggerOnly] == "false") {
 					$autoTriggerOnly = false;
-				} 	 
-			
+				}
+
                 $main_uri = 'http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry='. htmlspecialchars($row['country']) . '&srlang=' . htmlspecialchars($row['lang']) . '&srid='. htmlspecialchars($row['id']) .'&props=image|name|address|municipality|lat|lon|id|country|source|monument_article|registrant_url';
 				$main_label = 'info';
 				$actions[] = array("uri" => $main_uri,
@@ -223,7 +223,7 @@ class clsARLayarServer extends clsBasicGeosearch {
 						   "autoTriggerOnly" => $autoTriggerOnly,
 						   "layerURL" => $row[$this->layar_layerURL]);  //This is a lightrod addition
 			//}
-			if ( $row['monument_article'] ) { 
+			if ( $row['monument_article'] ) {
 				$wikiUrl = 'http://'. $row['lang'] .'.wikipedia.org/wiki/';
 				$articleUrl = $wikiUrl . htmlspecialchars( $row['monument_article'] );
 				$wikiLabel = 'wikipedia';
@@ -234,14 +234,14 @@ class clsARLayarServer extends clsBasicGeosearch {
 			$uploadUrl = 'http://commons.wikimedia.org/w/index.php?title=Special:UploadWizard&campaign=wlm-' . htmlspecialchars($row['country']) . '&id='. htmlspecialchars($row['id']) .'&descriptionlang={{{descriptionlang|'. htmlspecialchars($row['lang']) .'}}}&description='. htmlspecialchars($row['name']) .'&lat='. htmlspecialchars($row['lat']) .'&lon='. htmlspecialchars($row['lon']);
 			$actions[] = array("uri" => $uploadUrl,
 	                      "label" => 'upload image');
-	
-			
+
+
 			$object = array( "baseURL" => $row[$this->layar_baseURL],
 				"full" => $row[$this->layar_full],
 				"reduced" => $row[$this->layar_reduced],
 				"icon" => $row[$this->layar_icon],
 				"size" => is_null($this->layar_size) ? null : (float)$row[$this->layar_size] );
-				
+
 			$rel = null;
 			if($row[$this->layar_rel] == "true") {
 				$rel = true;
@@ -251,9 +251,9 @@ class clsARLayarServer extends clsBasicGeosearch {
 			}
 			$transform = array("rel" => $rel,
 				"angle" => (float)$row[$this->layar_angle],
-				"scale" => (float)$row[$this->layar_scale]);	
-			
-			//MY 
+				"scale" => (float)$row[$this->layar_scale]);
+
+			//MY
 			$imageURL = '';
 			if ($row['image']) {
 				$thumbSize = 100;
@@ -265,9 +265,9 @@ class clsARLayarServer extends clsBasicGeosearch {
 			$line2 = processWikitext($wikilang, $row['address'], $makelinks);
 			$line3 = processWikitext($wikilang, $row['municipality'], $makelinks);
 			$line4 = strtoupper($row['country']) . ', id: '. $row['id'];
-			
+
 			$returnJSONArray["hotspots"][] = array(
-			
+
 				"actions" => $actions,
 				"attribution" => $this->layar_attribution,
 				"distance" => $row['raw_dist']*1000, // km back to meter!
@@ -285,13 +285,13 @@ class clsARLayarServer extends clsBasicGeosearch {
 				"alt" => is_null($this->layar_alt) ? null : (int)$row[$this->layar_alt],
 				"relative_alt" => is_null($this->layar_relative_alt) ? null : (int)$row[$this->layar_relative_alt],
 				"type" => is_null($this->layar_type) ? 0 : (int)$row[$this->layar_type]);
-		
+
 		}
-		
+
 		if($this->javascript_server == 1) {
 			//A call back using this library http://www.sergeychernyshev.com/javascript/remoteloader/
 			//echo "SERGEYCHE.remoteloader.callback(" . json_encode($returnJSONArray) . ")";
-			
+
 			//Ie. was caching this response so that adding new markers weren't being found
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past

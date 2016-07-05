@@ -18,8 +18,7 @@
     <exclude-pattern>vendor</exclude-pattern>
     <exclude-pattern>api/tripplanner</exclude-pattern>
     <exclude-pattern>common</exclude-pattern>
-    <exclude-pattern>layar</exclude-pattern>
     <exclude-pattern>map</exclude-pattern>
-    <exclude-pattern>prox_search</exclude-pattern>
+    <exclude-pattern>prox_search/cls</exclude-pattern>
     <exclude-pattern>tools</exclude-pattern>
 </ruleset>
