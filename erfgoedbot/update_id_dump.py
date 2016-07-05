@@ -7,7 +7,7 @@
 Update the id_dump table from some wiki page(s)
 
 Usage:
-# loop thtough all countries
+# loop through all countries
 python update_id_dump.py
 
 
@@ -15,8 +15,12 @@ python update_id_dump.py
 import monuments_config as mconfig
 import pywikibot
 import MySQLdb
-import config
-import pagegenerators
+from pywikibot import config
+from pywikibot import pagegenerators
+
+from converters import (
+    extract_elements_from_template_param
+)
 
 
 def connectDatabase():
@@ -30,7 +34,7 @@ def connectDatabase():
     return (conn, cursor)
 
 
-def updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor):
+def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor):
     '''
     FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
     '''
@@ -40,7 +44,7 @@ def updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor):
     fieldnames.append('source')
     fieldvalues.append(source)
     fieldnames.append('id')
-    fieldvalues.append(id)
+    fieldvalues.append(identifier)
     fieldnames.append('country')
     fieldvalues.append(countrycode)
     fieldnames.append('lang')
@@ -67,7 +71,6 @@ def updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor):
         j = j + 1
 
     query = query + u""")"""
-
     cursor.execute(query, fieldvalues)
 
 
@@ -76,37 +79,28 @@ def processMonument(countrycode, lang, params, source, countryconfig, conn, curs
     Process a single instance of a monument row template
     '''
 
-    id = u''
+    identifier = u''
 
     for param in params:
-        # Split at =
-        (field, sep, value) = param.partition(u'=')
-        # Remove leading or trailing spaces
-        field = field.strip()
-        value = value.strip()
+        (field, value) = extract_elements_from_template_param(param)
 
         if (field == countryconfig.get('primkey')):
-            id = value
-            pywikibot.output(u'Field: %s' % (field,))
-            pywikibot.output(u'Value: %s' % (value,))
+            identifier = value
 
-    updateMonument(countrycode, lang, id, source, countryconfig, conn, cursor)
-    # print contents
-    # time.sleep(5)
+    updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor)
 
 
-def processText(countrycode, lang, text, source, countryconfig, conn, cursor, page=None):
+def processPage(countrycode, lang, source, countryconfig, conn, cursor, page=None):
     '''
-    Process a text containing one or multiple instances of the monument row template
+    Process a page containing one or multiple instances of the monument row template
     '''
-    templates = page.templatesWithParams(thistxt=text)
+    templates = page.templatesWithParams()
+
     for (template, params) in templates:
-        if template == countryconfig.get('rowTemplate'):
-            # print template
-            # print params
+        template_name = template.title(withNamespace=False)
+        if template_name == countryconfig.get('rowTemplate'):
             processMonument(
                 countrycode, lang, params, source, countryconfig, conn, cursor)
-            # time.sleep(5)
 
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor):
@@ -127,18 +121,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
     for page in pregenerator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking
-            processText(countrycode, lang, page.get(),
+            processPage(countrycode, lang,
                         page.permalink(), countryconfig, conn, cursor, page=page)
-
-
-def processTextfile(textfile, countryconfig, conn, cursor):
-    '''
-    Process the contents of a text file containing one or more lines with the Tabelrij rijksmonument template
-    '''
-    file = open(textfile, 'r')
-    for line in file:
-        processText(
-            line.decode('UTF-8').strip(), textfile, countryconfig, conn, cursor)
 
 
 def main():
@@ -148,7 +132,6 @@ def main():
     # First find out what to work on
 
     countrycode = u''
-    textfile = u''
     conn = None
     cursor = None
     (conn, cursor) = connectDatabase()
@@ -157,8 +140,6 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
-        elif option == '-textfile':
-            textfile = value
 
     query = u"""TRUNCATE table `id_dump`"""
     cursor.execute(query)
@@ -166,21 +147,16 @@ def main():
     if countrycode:
         lang = pywikibot.getSite().language()
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        if textfile:
-            pywikibot.output(u'Going to work on textfile.')
-            processTextfile(
-                textfile, mconfig.countries.get((countrycode, lang)), conn, cursor)
-        else:
-            processCountry(
-                countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
+        processCountry(
+            countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, conn, cursor)
 
