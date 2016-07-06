@@ -6,6 +6,7 @@ Create the monuments tables SQL from monuments_config.py
 Author: Platonides
 '''
 
+import os
 import monuments_config as mconfig
 
 
@@ -15,7 +16,8 @@ def processCountry(countrycode, lang, countryconfig):
                  "  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n"
 
     table = countryconfig.get('table')
-    f = open("sql/create_table_" + table + ".sql", "w")
+    sql_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
+    f = open(os.path.join(sql_dir, "create_table_%s.sql" % table), "w")
     f.write("connect " + mconfig.db + " " + mconfig.db_server + ";\n")
     f.write("DROP TABLE IF EXISTS `" + table + "`;\n")
     f.write("CREATE TABLE IF NOT EXISTS `" + table + "` (\n")
