@@ -62,3 +62,21 @@ function matchWikiprojectLink($text) {
 function replaceSpaces( $in_string ) {
 	return str_replace(' ', '_', $in_string);
 }
+
+function makeWikidataUrl($qid) {
+	/* Creates a URL to Wikidata from a Qid */
+	if ( $qid ) {
+		return "https://www.wikidata.org/wiki/$qid";
+	} else {
+		return '';
+	}
+}
+
+function makeWikidataWikilink($qid) {
+	/* Creates a wikilink to Wikidata from a Qid */
+	if ( $qid ) {
+		return "[[d:$qid]]";
+	} else {
+		return '';
+	}
+}

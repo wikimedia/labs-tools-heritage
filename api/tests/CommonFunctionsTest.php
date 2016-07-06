@@ -131,5 +131,36 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function test_makeWikidataUrl()
+	{
+		$this->assertEquals(
+			"https://www.wikidata.org/wiki/Q5943",
+			makeWikidataUrl("Q5943")
+		);
+	}
+
+	public function test_makeWikidataUrl_empty_returns_empty_string()
+	{
+		$this->assertEquals(
+			"",
+			makeWikidataUrl("")
+		);
+	}
+
+	public function test_makeWikidataWikilink()
+	{
+		$this->assertEquals(
+			"[[d:Q5943]]",
+			makeWikidataWikilink("Q5943")
+		);
+	}
+
+	public function test_makeWikidataWikilink_empty_returns_empty_string()
+	{
+		$this->assertEquals(
+			"",
+			makeWikidataWikilink("")
+		);
+	}
 }
 ?>

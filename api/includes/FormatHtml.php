@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: processWikitext, matchWikiprojectLink, getImageFromCommons
+// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl
 require_once ( 'CommonFunctions.php' );
 
 class FormatHtml extends FormatBase {
@@ -83,6 +83,9 @@ $this->linebreak();
 					$cellData = self::makeHTMLlink( $value );
 				} elseif ( $name == "source" || $name == "img_thumb" ) {
 					$cellData = self::prettifyUrls( $value );
+				} elseif ( $name == "wd_item" ) {
+					$link = makeWikidataUrl( $value );
+					$cellData = self::makeHTMLlink( $link, $value );
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
 					// not all datasets are ResultWrapper
@@ -125,16 +128,18 @@ $this->linebreak();
 			$m = matchWikiprojectLink( $text );
 			$encodedLinkText = str_replace( '_', ' ', $m[5] );
 			$linkText = urldecode( $encodedLinkText );
-			return '<a href="https://' . htmlspecialchars( $m[2] ) . '">' .
-				htmlspecialchars( $linkText ) . '</a>';
+			return self::makeHTMLlink( 'https://' . $m[2], $linkText );
 		} catch ( Exception $e ) {
 			// Normal text
 			return htmlspecialchars( $text );
 		}
 	}
 
-	static function makeHTMLlink( $text ) {
-		return '<a href="' . htmlspecialchars( $text ) . '">' . htmlspecialchars( $text ) . '</a>';
+	static function makeHTMLlink( $url, $text=false ) {
+		if ( ! $text ) {
+			$text = $url;
+		}
+		return '<a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a>';
 	}
 
 	static function genImage( $img ) {

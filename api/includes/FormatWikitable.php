@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: matchWikiprojectLink
+// functions: matchWikiprojectLink, makeWikidataWikilink
 require_once ( 'CommonFunctions.php' );
 
 class FormatWikitable extends FormatBase {
@@ -39,7 +39,7 @@ class FormatWikitable extends FormatBase {
 $this->linebreak();
 		$this->isTableOpen = false;
 
-		echo '<p style="text-align:right;">[http://toolserver.org' .
+		echo '<p style="text-align:right;">[https://tools.wmflabs.org/heritage' .
 			 $this->api->getUrl( [ $continueKey => $continue ] ) . ' next page]</p>';
 	}
 
@@ -64,6 +64,8 @@ $this->linebreak();
 					$cellData = self::genImage( $value );
 				} elseif ( $name == "source" ) {
 					$cellData = self::prettifyUrls( $value );
+				} elseif ( $name == "wd_item" ) {
+					$cellData = makeWikidataWikilink( $value );
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}

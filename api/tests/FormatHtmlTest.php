@@ -41,4 +41,17 @@ class FormatHtmlTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals( $expected, FormatHtml::genImage( $input ) );
 	}
 
+	public function test_makeHTMLlink_with_one_argument_uses_the_url_as_text() {
+		$input = 'http://example.com';
+		$expected = '<a href="http://example.com">http://example.com</a>';
+		$this->assertEquals( $expected, FormatHtml::makeHTMLlink( $input ) );
+	}
+
+	public function test_makeHTMLlink_two_arguments() {
+		$input1 = 'http://example.com';
+		$input2= 'Example';
+		$expected = '<a href="http://example.com">Example</a>';
+		$this->assertEquals( $expected, FormatHtml::makeHTMLlink( $input1, $input2 ) );
+	}
+
 }
