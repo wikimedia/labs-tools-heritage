@@ -3,7 +3,8 @@
 		"authors": [
 			"Beria",
 			"Hamilton Abreu",
-			"Sarilho1"
+			"Sarilho1",
+			"Vitorvicentevalente"
 		]
 	},
 	"search-title": "Pesquisa de monumentos",
@@ -11,6 +12,17 @@
 	"search-table-th-field": "Campo",
 	"search-table-th-filter": "Filtro",
 	"search-table-th-search": "Pesquisar",
+	"search-table-tr-countries": "Países",
+	"search-table-tr-languages": "Idiomas",
+	"search-table-tr-name": "Nome",
+	"search-table-tr-address": "Endereço",
+	"search-table-tr-municipality": "Município",
+	"search-table-tr-coordinates": "Coordenadas",
+	"search-table-tr-images": "Imagens",
+	"search-table-tr-output-language": "Idioma de saída",
+	"search-table-tr-output-format": "Formato de saída",
+	"search-table-checkbox-only-images": "Apenas monumentos sem imagens",
+	"search-table-button-search": "Pesquisar",
 	"filter-all-countries": "Todos os países",
 	"filter-all-languages": "Todos os idiomas",
 	"db-field-country": "País",
@@ -26,6 +38,8 @@
 	"db-field-source": "Fonte",
 	"db-field-monument_article": "Artigo do monumento",
 	"db-field-registrant_url": "URL de registo",
+	"db-field-wd_item": "Item Wikidata",
+	"db-field-wd_project": "Projeto Wikimedia",
 	"db-field-st_address": "Endereços",
 	"db-field-st_address_pct": "Endereços %",
 	"db-field-st_coordinates": "Coordenadas",

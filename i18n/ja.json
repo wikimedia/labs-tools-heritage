@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Schu",
-			"Shirayuki"
+			"Shirayuki",
+			"Otokoume"
 		]
 	},
 	"search-title": "モニュメント検索",
@@ -10,6 +11,15 @@
 	"search-table-th-field": "フィールド",
 	"search-table-th-filter": "絞り込む",
 	"search-table-th-search": "検索",
+	"search-table-tr-countries": "国",
+	"search-table-tr-languages": "言語",
+	"search-table-tr-name": "名前",
+	"search-table-tr-address": "住所",
+	"search-table-tr-municipality": "市町村",
+	"search-table-tr-coordinates": "緯度経度",
+	"search-table-tr-images": "画像",
+	"search-table-tr-output-format": "出力形式",
+	"search-table-button-search": "検索",
 	"filter-all-countries": "すべての国",
 	"filter-all-languages": "すべての言語",
 	"db-field-country": "国",
@@ -25,6 +35,8 @@
 	"db-field-source": "ソース",
 	"db-field-monument_article": "モニュメント ページ",
 	"db-field-registrant_url": "登録 URL",
+	"db-field-wd_item": "ウィキデータ項目",
+	"db-field-wd_project": "ウィキメディア・プロジェクト",
 	"db-field-st_address": "アドレス",
 	"db-field-st_address_pct": "アドレス %",
 	"db-field-st_coordinates": "座標",

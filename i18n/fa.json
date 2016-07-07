@@ -6,7 +6,8 @@
 			"Leyth",
 			"Mjbmr",
 			"Reza1615",
-			"ZxxZxxZ"
+			"ZxxZxxZ",
+			"Alifakoor"
 		]
 	},
 	"title": "بناهای API",
@@ -15,6 +16,17 @@
 	"search-table-th-field": "زمینه",
 	"search-table-th-filter": "پالایه",
 	"search-table-th-search": "جستجو",
+	"search-table-th-output": "خروجی",
+	"search-table-tr-countries": "کشورها",
+	"search-table-tr-languages": "زبان",
+	"search-table-tr-name": "نام",
+	"search-table-tr-municipality": "شهرداری",
+	"search-table-tr-coordinates": "مختصات",
+	"search-table-tr-images": "تصویر",
+	"search-table-tr-output-language": "زبان خروجی",
+	"search-table-tr-output-format": "قالب خروجی",
+	"search-table-checkbox-only-images": "تنها یادمان‌های بدون تصویر",
+	"search-table-button-search": "جستجو",
 	"filter-all-countries": "تمام کشورها",
 	"filter-all-languages": "همۀ زبان‌ها",
 	"db-field-country": "کشور",

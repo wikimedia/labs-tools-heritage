@@ -1,12 +1,25 @@
 {
 	"@metadata": {
 		"authors": [
-			"David1010"
+			"David1010",
+			"MIKHEIL"
 		]
 	},
 	"search-table-th-field": "ველი",
 	"search-table-th-filter": "ფილტრი",
 	"search-table-th-search": "ძიება",
+	"search-table-th-output": "გამოცემა",
+	"search-table-tr-countries": "ქვეყნები",
+	"search-table-tr-languages": "ენები",
+	"search-table-tr-name": "სახელი",
+	"search-table-tr-address": "მისამართი",
+	"search-table-tr-municipality": "მუნიციპალიტეტი",
+	"search-table-tr-coordinates": "კოორდინატები",
+	"search-table-tr-images": "სურათები",
+	"search-table-tr-output-language": "გამოცემული ენა",
+	"search-table-tr-output-format": "გამოშვებული ფორმატი",
+	"search-table-checkbox-only-images": "მხოლოდ მონუმენტები სურათების გარეშე",
+	"search-table-button-search": "ძიება",
 	"filter-all-countries": "ყველა ქვეყანა",
 	"filter-all-languages": "ყველა ენა",
 	"db-field-country": "ქვეყანა",

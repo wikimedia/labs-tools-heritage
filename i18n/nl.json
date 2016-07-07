@@ -5,7 +5,8 @@
 			"SPQRobin",
 			"Siebrand",
 			"Wiki13",
-			"Jeleniccz"
+			"Jeleniccz",
+			"Sjoerddebruin"
 		]
 	},
 	"title": "Monumenten-API",
@@ -29,6 +30,9 @@
 	"db-field-source": "Bron",
 	"db-field-monument_article": "Monumentartikel",
 	"db-field-registrant_url": "URL naar register",
+	"db-field-commonscat": "Commons categorie",
+	"db-field-wd_item": "Wikidata-item",
+	"db-field-wd_project": "Wikimedia-project",
 	"db-field-st_address": "Adressen",
 	"db-field-st_address_pct": "Adressen %",
 	"db-field-st_coordinates": "Coördinaten",
@@ -40,7 +44,6 @@
 	"db-field-st_name": "Namen",
 	"db-field-st_name_pct": "Namen %",
 	"db-field-st_total": "Totaal aantal",
-	"db-field-commonscat": "Commons categorie",
 	"toolbox-label-searchtipps": "gebruik %trefwoord, trefwoord% of %trefwoord% voor fuzzyzoeken",
 	"toolbox-meta-title": "Werkbalk voor Wiki Loves Monuments",
 	"toolbox-main-title": "Werkbalk WLM",
