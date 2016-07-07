@@ -79,7 +79,6 @@ class SearchPage {
 		$result[] = '</td>';
 		$result[] = '</tr>';
 		$result[] = '<tr>';
-		/* FIXME i18n images */
 		$result[] = '<td><label>' . _( 'search-table-tr-images' ) . '</label></td>';
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';

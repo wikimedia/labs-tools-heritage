@@ -415,7 +415,8 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage, hea
         updateMonument(
             contents, source, countryconfig, conn, cursor, sourcePage)
     else:
-        pywikibot.warning(u"No primkey available on %s" % title)
+        pywikibot.warning(u"No primkey available on %s (%s)" % (
+            title, countryconfig.get('table')))
     return unknownFields
 
 
@@ -519,7 +520,8 @@ def main():
             fullUpdate = True
         else:
             raise Exception(
-                "Bad parameters. Expected -countrycode, -daysback, -fullupdate or pywikipediabot args.")
+                "Bad parameters. Expected -countrycode, -daysback, "
+                "-fullupdate or pywikibot args.")
 
     if countrycode:
         lang = pywikibot.Site().language()
