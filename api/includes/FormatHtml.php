@@ -89,7 +89,9 @@ $this->linebreak();
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
 					// not all datasets are ResultWrapper
-					if ( is_object( $row ) && isset( $row->lang ) ) {
+					if ( is_object( $row )
+							&& isset( $row->lang )
+							&& isset( $row->project ) ) {
 						$lang = $row->lang;
 						$project = $row->project;
 					} else { // assume $row is array
