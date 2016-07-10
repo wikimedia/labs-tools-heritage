@@ -8,7 +8,7 @@ echo $toolboxPage->getPageIntro();
 <div id="content">
 
 
-<h2><?php echo _( 'toolbox-title-statistics' ) ?></h2>
+<h2><?php echo _i18n( 'toolbox-title-statistics' ) ?></h2>
 <form method="get" action="https://tools.wmflabs.org/heritage/api/api.php">
 			<input type="hidden" name="action" value="statistics" />
 			<input type="hidden" name="format" value="html" />
@@ -23,7 +23,7 @@ echo $toolboxPage->getPageIntro();
 	</tr>
 	<tr-->
 		<th><label for="#">
-<?php echo _( 'db-field-country' ) ?>		</label>
+<?php echo _i18n( 'db-field-country' ) ?>		</label>
 		</th>
 		<td>
 		<select id="stcountry" name="stcountry" multiple="multiple" size="5">
@@ -69,11 +69,11 @@ Items		</label>
 		<select id="stitem" name="stitem" multiple="multiple" size="5">
 			<option value="total" selected="selected">Total number</option>
 			<option value="name_pct" selected="selected">name pct</option>
-			<option value="address"><?php echo _( 'db-field-address' ) ?></option>
+			<option value="address"><?php echo _i18n( 'db-field-address' ) ?></option>
 			<option value="address_pct" selected="selected">address_pct</option>
-			<option value="municipality"><?php echo _( 'db-field-municipality' ) ?></option>
+			<option value="municipality"><?php echo _i18n( 'db-field-municipality' ) ?></option>
 			<option value="municipality_pct" selected="selected">municipality_pct</option>
-			<option value="image"><?php echo _( 'db-field-image' ) ?></option>
+			<option value="image"><?php echo _i18n( 'db-field-image' ) ?></option>
 			<option value="image_pct" selected="selected">image_pct</option>
 			<option value="coordinates"> coordinates </option>
 			<option value="coordinates_pct" selected="selected">coordinates_pct</option>

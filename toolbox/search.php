@@ -8,7 +8,7 @@ echo $toolboxPage->getPageIntro();
 <div id="content">
 
 
-<h2><?php echo _( 'toolbox-title-searchmonuments' ) ?></h2>
+<h2><?php echo _i18n( 'toolbox-title-searchmonuments' ) ?></h2>
 <form method="get" action="https://tools.wmflabs.org/heritage/api/api.php">
 			<input type="hidden" name="action" value="search" />
 			<input type="hidden" name="limit" value="100" />
@@ -40,7 +40,7 @@ Format		</label>
 		</td>
 	</tr>
 		<th><label for="stitems">
-<?php echo _( 'db-field-country' ) ?>	</label>
+<?php echo _i18n( 'db-field-country' ) ?>	</label>
 		</th>
 		<td>
 		<select id="country-filler" multiple="multiple" size="5">
@@ -64,7 +64,7 @@ Format		</label>
 	<tr>
 		<th>
 			<label for="srname">
-<?php echo _( 'db-field-name' ) ?><br />	 <small>use %term or term% or %term% for fuzzy search </small>
+<?php echo _i18n( 'db-field-name' ) ?><br />	 <small>use %term or term% or %term% for fuzzy search </small>
 			</label>
 		</th>
 		<td>
@@ -74,7 +74,7 @@ Format		</label>
 	<tr>
 		<th>
 			<label for="srid">
-<?php echo _( 'db-field-id' ) ?>
+<?php echo _i18n( 'db-field-id' ) ?>
 			</label>
 		</th>
 		<td>
@@ -84,7 +84,7 @@ Format		</label>
 	<tr>
 		<th>
 			<label for="sraddress">
-<?php echo _( 'db-field-address' ) ?>
+<?php echo _i18n( 'db-field-address' ) ?>
 			</label>
 		</th>
 		<td>
@@ -94,7 +94,7 @@ Format		</label>
 	<tr>
 		<th>
 			<label for="srmunicipality">
-<?php echo _( 'db-field-municipality' ) ?>
+<?php echo _i18n( 'db-field-municipality' ) ?>
 			</label>
 		</th>
 		<td>
@@ -117,18 +117,18 @@ Items		</label>
 		</th>
 		<td>
 		<select id="props-filler" multiple="multiple" size="5">
-			<option value="country" selected="selected"> <?php echo _( 'db-field-country' ) ?> </option>
-			<option value="lang" selected="selected"> <?php echo _( 'db-field-lang' ) ?> </option>
-			<option value="id" selected="selected"> <?php echo _( 'db-field-id' ) ?> </option>
-			<option value="name" selected="selected"> <?php echo _( 'db-field-name' ) ?> </option>
-			<option value="address" selected="selected"> <?php echo _( 'db-field-address' ) ?> </option>
-			<option value="municipality" selected="selected"> <?php echo _( 'db-field-municipality' ) ?> </option>
-			<option value="lat" selected="selected"> <?php echo _( 'db-field-lat' ) ?> </option>
-			<option value="lon" selected="selected"> <?php echo _( 'db-field-lon' ) ?> </option>
-			<option value="image" selected="selected"> <?php echo _( 'db-field-image' ) ?> </option>
-			<option value="source" selected="selected"> <?php echo _( 'db-field-source' ) ?> </option>
-			<option value="project" selected="selected"> <?php echo _( 'db-field-project' ) ?> </option>
-			<option value="changed" selected="selected"> <?php echo _( 'db-field-changed' ) ?> </option>
+			<option value="country" selected="selected"> <?php echo _i18n( 'db-field-country' ) ?> </option>
+			<option value="lang" selected="selected"> <?php echo _i18n( 'db-field-lang' ) ?> </option>
+			<option value="id" selected="selected"> <?php echo _i18n( 'db-field-id' ) ?> </option>
+			<option value="name" selected="selected"> <?php echo _i18n( 'db-field-name' ) ?> </option>
+			<option value="address" selected="selected"> <?php echo _i18n( 'db-field-address' ) ?> </option>
+			<option value="municipality" selected="selected"> <?php echo _i18n( 'db-field-municipality' ) ?> </option>
+			<option value="lat" selected="selected"> <?php echo _i18n( 'db-field-lat' ) ?> </option>
+			<option value="lon" selected="selected"> <?php echo _i18n( 'db-field-lon' ) ?> </option>
+			<option value="image" selected="selected"> <?php echo _i18n( 'db-field-image' ) ?> </option>
+			<option value="source" selected="selected"> <?php echo _i18n( 'db-field-source' ) ?> </option>
+			<option value="project" selected="selected"> <?php echo _i18n( 'db-field-project' ) ?> </option>
+			<option value="changed" selected="selected"> <?php echo _i18n( 'db-field-changed' ) ?> </option>
 		</select>
 		<input type="hidden" name="props" value="" id="props" />
 		</td>

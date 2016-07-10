@@ -39,7 +39,6 @@ $this->linebreak();
 	}
 
 	function outputContinue( $row, $continueKey, $primaryKey ) {
-		global $I18N;
 		$continue = '';
 		foreach ( $primaryKey as $key ) {
 			$continue .= "|" . rawurlencode( $row->$key );
@@ -50,18 +49,17 @@ $this->linebreak();
 		$this->isTableOpen = false;
 
 		echo '<p style="text-align:right;"><a href="' .
-			htmlspecialchars( $this->api->getUrl( [ $continueKey => $continue ] ) ) . '">' . $I18N->msg( 'next-page' ) . '</a></p>';
+			htmlspecialchars( $this->api->getUrl( [ $continueKey => $continue ] ) ) . '">' . _i18n( 'next-page' ) . '</a></p>';
 	}
 
 	function outputRow( $row, $selectedItems ) {
-		global $I18N;
 		if ( !$this->isTableOpen ) {
 			echo '<tr id="header">';
 
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
 					// $label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
-					echo '<th class="sortheader">' . $I18N->msg( 'db-field-' . $name ) . '</th>';
+					echo '<th class="sortheader">' . _i18n( 'db-field-' . $name ) . '</th>';
 $this->linebreak();
 				}
 			}
