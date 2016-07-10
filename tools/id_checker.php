@@ -36,8 +36,8 @@ if ( isset( $_GET["country"] ) and isset( $_GET["lang"] ) ) {
 	print '<h1>Duplicate IDs in wikilists, as of '. $date .', with limit '. $dupe_limit .'</h1>';
 	print '<table>';
 	print '<tr id="header">
-	<th>' . _( 'db-field-id' ) . '</th>
-	<th>' . _( 'db-field-source' ) . '</th>
+	<th>' . _i18n( 'db-field-id' ) . '</th>
+	<th>' . _i18n( 'db-field-source' ) . '</th>
 	</tr>';
 	$sql = sprintf( "SELECT count(*) AS count, id FROM `id_dump` WHERE (`country` = %s AND `lang`=%s) GROUP BY id HAVING count>1 ORDER BY `id_dump`.`id` ASC LIMIT %s",
 				 $db->quote( $country ),

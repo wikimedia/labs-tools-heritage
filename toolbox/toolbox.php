@@ -46,7 +46,7 @@ class ToolboxPage {
 	public function getHead() {
 		$result = [];
 		$result[] = '<head>';
-		$result[] = '  <title>'. _( 'toolbox-meta-title' ) .'</title>';
+		$result[] = '  <title>'. _i18n( 'toolbox-meta-title' ) .'</title>';
 		$result[] = '  <meta http-equiv="content-type" content="text/html; charset=utf-8">';
 		$result[] = '  <link rel="stylesheet" type="text/css" href="css/default_css.css" />';
 		$result[] = '  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>';
@@ -59,10 +59,10 @@ class ToolboxPage {
 		$result = [];
 		$result[] = '    <div id="leftnav">';
 		$result[] = '    <ul class="first">';
-		$result[] = '      <li><a href="index.php">'. _( 'toolbox-nav-homepage' ) .'</a>';
+		$result[] = '      <li><a href="index.php">'. _i18n( 'toolbox-nav-homepage' ) .'</a>';
 		$result[] = '      <ul>';
-		$result[] = '      <li><a href="statistics.php">'. _( 'toolbox-nav-statistics' ) .'</a></li>';
-		$result[] = '      <li><a href="search.php">'. _( 'toolbox-nav-search' ) .'</a></li>';
+		$result[] = '      <li><a href="statistics.php">'. _i18n( 'toolbox-nav-statistics' ) .'</a></li>';
+		$result[] = '      <li><a href="search.php">'. _i18n( 'toolbox-nav-search' ) .'</a></li>';
 		$result[] = '      </ul>';
 		$result[] = '      </li>';
 		$result[] = '  </ul>';
@@ -73,13 +73,13 @@ class ToolboxPage {
 	public function getBodyHeader() {
 		$result = [];
 		$result[] = '  <div id="header">';
-		$result[] = '    <a href="#"><img id="wlm-logo" src="img/logo-wiki-loves-monuments.png" width="80" alt="'. _( 'toolbox-main-logo-alt' ) .'" /></a>';
-		$result[] = '    <h2>'. _( 'toolbox-main-title' ) .'</h2>';
+		$result[] = '    <a href="#"><img id="wlm-logo" src="img/logo-wiki-loves-monuments.png" width="80" alt="'. _i18n( 'toolbox-main-logo-alt' ) .'" /></a>';
+		$result[] = '    <h2>'. _i18n( 'toolbox-main-title' ) .'</h2>';
 		$wlm = [
 			'variables' => [
-				'<span>' . _( 'toolbox-wikilovesmonuments' ) . '</span>' ]
+				'<span>' . _i18n( 'toolbox-wikilovesmonuments' ) . '</span>' ]
 			];
-		$result[] = '    <h1>'. _( 'toolbox-main-description', $wlm ) .'</h1>';
+		$result[] = '    <h1>'. _i18n( 'toolbox-main-description', $wlm ) .'</h1>';
 		$result[] = '  </div><!-- end header -->';
 		return $result;
 	}

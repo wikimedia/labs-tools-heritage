@@ -27,11 +27,29 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $opts = array(
 	'domain' => 'heritage', // name of your main text-domain here
-	'globalfunctions' => true, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
+	'globalfunctions' => false, // defines _(), _e() and _g() as shortcut for $I18N->msg( .. )
 	'suppresserrors' => false, // Krinkle heeft het stukgemaakt
 	);
 $I18N = new Intuition( $opts );
 $I18N->registerDomain( 'heritage', __DIR__ . '/../i18n' );
+
+if ( !function_exists( '_i18n' ) and !function_exists( '_html' ) ) {
+	// defines _i18n() as shortcut for $I18N->msg( .. )
+	function _i18n( $key, $options = array() ) {
+		global $I18N;
+		return $I18N->msg( $key, $options );
+	}
+	// defines _html() as shortcut for _i18n() escaped as html
+	function _html( $key, $options = array() ) {
+		if ( is_string( $options ) ) {
+			$options = array( 'domain' => $options );
+		}
+		$options = array_merge( $options, array( 'escape' => 'html' ) );
+		return _i18n( $key, $options );
+	}
+}else{
+	trigger_error( "_i18n() or _html() already defined", E_USER_WARNING);
+}
 
 /* Database */
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
