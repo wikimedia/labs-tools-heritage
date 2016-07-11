@@ -5,7 +5,8 @@
 			"Erdemaslancan",
 			"Incelemeelemani",
 			"Khutuck",
-			"Uğurkent"
+			"Uğurkent",
+			"Sayginer"
 		]
 	},
 	"search-title": "Anıt arama",
@@ -13,6 +14,8 @@
 	"search-table-th-field": "Alan",
 	"search-table-th-filter": "Süzgeç",
 	"search-table-th-search": "Ara",
+	"search-table-tr-languages": "Diller",
+	"search-table-button-search": "Ara",
 	"filter-all-countries": "Bütün ülkeler",
 	"filter-all-languages": "Bütün diller",
 	"db-field-country": "Ülke",

@@ -32,7 +32,7 @@
 	"db-field-registrant_url": "URL naar register",
 	"db-field-commonscat": "Commons categorie",
 	"db-field-wd_item": "Wikidata-item",
-	"db-field-wd_project": "Wikimedia-project",
+	"db-field-project": "Wikimedia-project",
 	"db-field-st_address": "Adressen",
 	"db-field-st_address_pct": "Adressen %",
 	"db-field-st_coordinates": "Coördinaten",

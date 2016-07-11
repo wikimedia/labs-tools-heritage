@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Papuass"
+			"Papuass",
+			"Silraks"
 		]
 	},
 	"search-title": "Pieminekļu meklēšana",
@@ -9,6 +10,16 @@
 	"search-table-th-field": "Lauks",
 	"search-table-th-filter": "Filtrs",
 	"search-table-th-search": "Meklēt",
+	"search-table-tr-countries": "Valstis",
+	"search-table-tr-languages": "Valodas",
+	"search-table-tr-name": "Nosaukums",
+	"search-table-tr-address": "Adrese",
+	"search-table-tr-municipality": "Pašvaldība",
+	"search-table-tr-coordinates": "Koordinātas",
+	"search-table-tr-images": "Attēli",
+	"search-table-tr-output-language": "Izvades valoda",
+	"search-table-tr-output-format": "Izvades formāts",
+	"search-table-checkbox-only-images": "Tikai kultūras pieminekļus bez attēliem",
 	"filter-all-countries": "Visas valstis",
 	"filter-all-languages": "Visas valodas",
 	"db-field-country": "Valsts",
@@ -24,6 +35,7 @@
 	"db-field-source": "Avots",
 	"db-field-monument_article": "Pieminekļa raksts",
 	"db-field-registrant_url": "Reģistratora URL",
+	"db-field-project": "Wikimedia projekts",
 	"db-field-st_address": "Adreses",
 	"db-field-st_address_pct": "Adreses %",
 	"db-field-st_coordinates": "Koordinātas:",
@@ -38,5 +50,6 @@
 	"toolbox-nav-statistics": "Statistika",
 	"toolbox-nav-search": "Meklēt",
 	"toolbox-title-searchmonuments": "Meklēt pieminekļus",
+	"toolbox-title-statistics": "Kultūras pieminekļu statistika",
 	"location": "Atrašanās vieta"
 }

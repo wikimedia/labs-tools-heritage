@@ -27,7 +27,7 @@
 	"db-field-registrant_url": "URL во регистарот",
 	"db-field-commonscat": "Категорија на Ризницата",
 	"db-field-wd_item": "Предмет на Википодатоците",
-	"db-field-wd_project": "Викимедиин проект",
+	"db-field-project": "Викимедиин проект",
 	"db-field-st_address": "Адреси",
 	"db-field-st_address_pct": "Адреси %",
 	"db-field-st_coordinates": "Координати %",
