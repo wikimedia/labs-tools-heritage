@@ -3,7 +3,8 @@
 		"authors": [
 			"Arnaugir",
 			"SMP",
-			"Toniher"
+			"Toniher",
+			"Macofe"
 		]
 	},
 	"search-title": "Cerca de monuments",
@@ -11,6 +12,17 @@
 	"search-table-th-field": "Paràmetre",
 	"search-table-th-filter": "Filtre",
 	"search-table-th-search": "Cerca",
+	"search-table-th-output": "Sortida",
+	"search-table-tr-countries": "Països",
+	"search-table-tr-languages": "Llengües",
+	"search-table-tr-name": "Nom",
+	"search-table-tr-address": "Adreça",
+	"search-table-tr-municipality": "Municipi",
+	"search-table-tr-coordinates": "Coordenades",
+	"search-table-tr-images": "Imatges",
+	"search-table-tr-output-language": "Llengua de sortida",
+	"search-table-tr-output-format": "Format de sortida",
+	"search-table-button-search": "Cerca",
 	"filter-all-countries": "Tots els països",
 	"filter-all-languages": "Tots els idiomes",
 	"db-field-country": "Estat",

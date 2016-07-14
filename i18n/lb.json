@@ -51,11 +51,12 @@
 	"toolbox-meta-title": "\"Wiki Loves Monuments\"-Geschirkëscht",
 	"toolbox-main-logo-alt": "Logo vu Wiki Loves Monuments",
 	"toolbox-main-title": "WLM Geschirkëscht",
-	"toolbox-main-description": "'Geschirkëscht' fir",
+	"toolbox-main-description": "'Geschirkëscht' fir $1",
 	"toolbox-wikilovesmonuments": "\"Wiki Loves Monuments\"",
 	"toolbox-nav-homepage": "Haaptsäit",
 	"toolbox-nav-statistics": "Statistiken",
 	"toolbox-nav-search": "Sichen",
 	"toolbox-title-searchmonuments": "Monumenter sichen",
+	"toolbox-title-statistics": "Statistike vum Monument",
 	"location": "Plaz"
 }

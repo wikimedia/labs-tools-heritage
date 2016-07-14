@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Rancher"
+			"Rancher",
+			"Сербијана"
 		]
 	},
 	"title": "Monuments API",
@@ -39,7 +40,7 @@
 	"toolbox-label-searchtipps": "користите %term, term% или %term% за нејасну претрагу",
 	"toolbox-meta-title": "Оквир са алаткама „Вики воли споменике“",
 	"toolbox-main-title": "Оквир са алаткама WLM",
-	"toolbox-main-description": "Скуп алатки повезаних са",
+	"toolbox-main-description": "Скуп алатки повезаних са $1",
 	"toolbox-wikilovesmonuments": "Вики воли споменике",
 	"toolbox-nav-homepage": "Почетна страница",
 	"toolbox-nav-statistics": "Статистика",

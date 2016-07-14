@@ -3,7 +3,8 @@
 		"authors": [
 			"E THP",
 			"Koroğlu",
-			"Mousa"
+			"Mousa",
+			"Ilğım"
 		]
 	},
 	"search-title": "عابیده‌لر آختارماغی",
@@ -11,6 +12,13 @@
 	"search-table-th-field": "ساحه",
 	"search-table-th-filter": "سۆزگَج",
 	"search-table-th-search": "آختار",
+	"search-table-tr-countries": "اؤلکه‌لر",
+	"search-table-tr-languages": "دیل‌لر",
+	"search-table-tr-name": "آد",
+	"search-table-tr-address": "آدرس",
+	"search-table-tr-municipality": "بلدیه",
+	"search-table-tr-images": "شکیل",
+	"search-table-button-search": "آختار",
 	"filter-all-countries": "بوتون اؤلکه‌لر",
 	"filter-all-languages": "بوتون دیل‌لر",
 	"db-field-country": "اؤلکه",
@@ -40,7 +48,7 @@
 	"toolbox-label-searchtipps": "موبهم آختارماق اوچون %سؤزجوک or سؤزجوک% یادا %سؤزجوک% ایستیفاده ائدین",
 	"toolbox-meta-title": "ویکی سئویم عابیده‌لری آراج‌قوتوسو",
 	"toolbox-main-title": "WLM آراج‌قوتوسو",
-	"toolbox-main-description": "بونا ایلگیلی اولان آراجلار:",
+	"toolbox-main-description": "$1-ه ایلگیلی اوْلان آراجلار:",
 	"toolbox-wikilovesmonuments": "ویکی سئویم عابیده‌لری",
 	"toolbox-nav-homepage": "ائو",
 	"toolbox-nav-statistics": "آمار",

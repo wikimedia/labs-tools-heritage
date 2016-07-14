@@ -4,7 +4,8 @@
 			"Beria",
 			"Hamilton Abreu",
 			"Sarilho1",
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Macofe"
 		]
 	},
 	"search-title": "Pesquisa de monumentos",
@@ -12,6 +13,7 @@
 	"search-table-th-field": "Campo",
 	"search-table-th-filter": "Filtro",
 	"search-table-th-search": "Pesquisar",
+	"search-table-th-output": "Saída",
 	"search-table-tr-countries": "Países",
 	"search-table-tr-languages": "Idiomas",
 	"search-table-tr-name": "Nome",
@@ -51,6 +53,7 @@
 	"db-field-st_name": "Nomes",
 	"db-field-st_name_pct": "Nomes %",
 	"db-field-st_total": "Número total",
+	"toolbox-main-description": "Um conjunto de ferramentas relacionadas com $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Página principal",
 	"toolbox-nav-statistics": "Estatísticas",
