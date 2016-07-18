@@ -5,7 +5,8 @@
 			"DCamer",
 			"Eleferen",
 			"Rave",
-			"Александр Сигачёв"
+			"Александр Сигачёв",
+			"Okras"
 		]
 	},
 	"search-title": "Поиск сооружений",
@@ -13,6 +14,12 @@
 	"search-table-th-field": "Поле",
 	"search-table-th-filter": "Фильтр",
 	"search-table-th-search": "Поиск",
+	"search-table-tr-countries": "Страны",
+	"search-table-tr-languages": "Языки",
+	"search-table-tr-address": "Адрес",
+	"search-table-tr-municipality": "Муниципалитет",
+	"search-table-tr-coordinates": "Координаты",
+	"search-table-tr-images": "Изображения",
 	"filter-all-countries": "Все страны",
 	"filter-all-languages": "Все языки",
 	"db-field-country": "Страна",
@@ -42,7 +49,7 @@
 	"toolbox-label-searchtipps": "используйте %term, term% или %term% для поиска устарелых данных",
 	"toolbox-meta-title": "Инструменты Wiki Loves Monuments",
 	"toolbox-main-title": "Инструменты WLM",
-	"toolbox-main-description": "Набор инструментов, связанных с",
+	"toolbox-main-description": "Набор инструментов, связанных с $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Домашняя страница",
 	"toolbox-nav-statistics": "Статистика",

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"Tokvo"
 		]
 	},
 	"title": "Monuments API",
@@ -10,6 +11,10 @@
 	"search-table-th-field": "Campu",
 	"search-table-th-filter": "Peñera",
 	"search-table-th-search": "Guetar",
+	"search-table-tr-countries": "Países",
+	"search-table-tr-address": "Direición",
+	"search-table-tr-coordinates": "Coordenaes",
+	"search-table-checkbox-only-images": "Namái monumentos ensin imaxes",
 	"filter-all-countries": "Tolos países",
 	"filter-all-languages": "Toles llingües",
 	"db-field-country": "País",
