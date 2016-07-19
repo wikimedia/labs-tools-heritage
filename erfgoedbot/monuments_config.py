@@ -1388,6 +1388,18 @@ countries = {
                 'dest': u'address',
             },
             {
+                'source': u'region',
+                'dest': u'region',
+            },
+            {
+                'source': u'provinceId',
+                'dest': u'provinceId',
+            },
+            {
+                'source': u'coordname',
+                'dest': u'coordname',
+            },
+            {
                 'source': u'municipality',
                 'dest': u'municipality',
             },
@@ -1423,6 +1435,11 @@ countries = {
                 'type': 'int(11)',
             },
             {
+                'source': u'idf2',
+                'dest': u'idf2',
+                'type': 'int(11)',
+            },
+            {
                 'source': u'idp',
                 'dest': u'idp',
                 'type': 'int(11)',
@@ -1441,6 +1458,11 @@ countries = {
                 'source': u'idf',  # FIXME: Should be a list or tuple of the 3 fields
                 'dest': u'registrant_url',
                 'conv': u'generateRegistrantUrl',
+            },
+            {
+                'source': u'wikidata',
+                'dest': u'wd_item',
+                'check': u'checkWD',
             },
         ],
     },
