@@ -3881,7 +3881,20 @@ countries = {
                 'check': u'checkLon',
             },
             {
+                'source': u'notes',
+                'dest': u'notes',
+            },
+            {
                 'source': u'show_notes',
+                'dest': u'',
+            },
+            {
+                'source': u'wikidata',
+                'dest': u'wd_item',
+                'check': u'checkWD',
+            },
+            {
+                'source': u'show_wikidata',
                 'dest': u'',
             },
             {
