@@ -80,12 +80,12 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 added = addCommonsTemplate(
                     image, commonsTemplate, withPhoto.get(image))
                 if not added:
-                    text = text + \
+                    text += \
                         u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (
                             image, commonsTemplate, withPhoto.get(image))
             # An image is in the category and is not in the list of used images
             else:
-                text = text + u'File:%s\n' % (image,)
+                text += u'File:%s\n' % (image,)
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
@@ -97,11 +97,11 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
             added = addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
             if not added:
-                text = text + \
+                text += \
                     u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (
                         image, commonsTemplate, withPhoto.get(image))
 
-    text = text + u'</gallery>'
+    text += u'</gallery>'
 
     # imagesWithoutIdPage isn't set for every source, just skip it if it's not
     # set

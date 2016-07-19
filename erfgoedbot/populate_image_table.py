@@ -166,21 +166,21 @@ def makeStatistics(totals):
     Make statistics on the number of indexed images and put these on Commons
     '''
     text = u'{| class="wikitable sortable"\n'
-    text = text + \
+    text += \
         u'! country !! total !! tracker template !! tracker category\n'
     totalImages = 0
     print totals
     for (countrycode, countryresults) in sorted(totals.iteritems()):
-        text = text + u'|-\n'
-        text = text + u'| %s ' % countrycode
-        text = text + u'|| %s ' % countryresults.get('totalImages')
-        totalImages = totalImages + countryresults.get('totalImages')
-        text = text + u'|| {{tl|%s}}' % countryresults.get('commonsTemplate')
-        text = text + u'|| [[:Category:%s|%s]]\n' % (countryresults.get(
+        text += u'|-\n'
+        text += u'| %s ' % countrycode
+        text += u'|| %s ' % countryresults.get('totalImages')
+        totalImages += countryresults.get('totalImages')
+        text += u'|| {{tl|%s}}' % countryresults.get('commonsTemplate')
+        text += u'|| [[:Category:%s|%s]]\n' % (countryresults.get(
             'commonsTrackerCategory'), countryresults.get('commonsTrackerCategory'))
-    text = text + u'|- class="sortbottom"\n'
-    text = text + u'| || %s \n' % totalImages
-    text = text + u'|}\n'
+    text += u'|- class="sortbottom"\n'
+    text += u'| || %s \n' % totalImages
+    text += u'|}\n'
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
