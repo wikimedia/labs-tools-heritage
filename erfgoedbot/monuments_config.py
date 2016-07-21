@@ -87,6 +87,64 @@ countries = {
             },
         ],
     },
+    ('al', 'sq'): {  # Monuments in Albania in Albanian
+        'project': u'wikipedia',
+        'lang': u'sq',
+        'headerTemplate': u'Kreu Monumentet në Shqipëri',
+        'rowTemplate': u'Rreshti Monumentet në Shqipëri',
+        'commonsTemplate': u'Cultural Heritage Albania',
+        'commonsTrackerCategory': u'Cultural heritage monuments in Albania with known IDs',
+        'commonsCategoryBase': u'Cultural heritage monuments in Albania',
+        'autoGeocode': False,
+        'unusedImagesPage': u'Wikipedia:WikiProjekti Vende Historike/Shqipëri/Foto të papërdorura',
+        'imagesWithoutIdPage': u'Wikipedia:WikiProjekti Vende Historike/Shqipëri/Foto pa nr. unik',
+        'registrantUrlBase': u'',
+        'namespaces': [0],
+        'table': u'monuments_al_(sq)',
+        'truncate': False,
+        'primkey': u'idno',
+        'fields': [
+            {
+                'source': u'Emërtimi',
+                'dest': u'name',
+            },
+            {
+                'source': u'Nr',
+                'dest': u'idno',
+            },
+            {
+                'source': u'Lokacioni',
+                'dest': u'place',
+            },
+            {
+                'source': u'Bashkia',
+                'dest': u'municipality',
+            },
+            {
+                'source': u'lat',
+                'dest': u'lat',
+                'check': u'checkLat',
+            },
+            {
+                'source': u'lon',
+                'dest': u'lon',
+                'check': u'checkLon',
+            },
+            {
+                'source': u'Imazh',
+                'dest': u'image',
+            },
+            {
+                'source': u'Emërtimi',
+                'dest': u'monument_article',
+                'conv': u'extractWikilink',
+            },
+            {
+                'source': u'',
+                'dest': u'registrant_url',
+            },
+        ],
+    },
     ('am', 'hy'): {  # Monuments in Armenia in Armenian
         'project': u'wikipedia',
         'lang': u'hy',
@@ -8029,6 +8087,80 @@ countries = {
             {
                 'source': u'monumento_categoría',
                 'dest': u'commonscat',
+            },
+        ],
+    },
+    ('xk', 'sq'): {  # Monuments in Kosovo in Albanian
+        'project': u'wikipedia',
+        'lang': u'sq',
+        'headerTemplate': u'Kreu Monumentet në Kosovë',
+        'rowTemplate': u'Rreshti Monumentet në Kosovë',
+        'commonsTemplate': u'Cultural Heritage Kosovo',
+        'commonsTrackerCategory': u'Cultural heritage monuments in Kosovo with known IDs',
+        'commonsCategoryBase': u'Cultural heritage monuments in Kosovo',
+        'autoGeocode': False,
+        'unusedImagesPage': u'Wikipedia:WikiProjekti Vende Historike/Kosovë/Foto të papërdorura',
+        'imagesWithoutIdPage': u'Wikipedia:WikiProjekti Vende Historike/Kosovë/Foto pa nr. unik',
+        'registrantUrlBase': u'',
+        'namespaces': [0],
+        'table': u'monuments_xk_(sq)',
+        'truncate': False,
+        'primkey': u'idno',
+        'fields': [
+            {
+                'source': u'Emërtimi',
+                'dest': u'name',
+            },
+            {
+                'source': u'Periudhat_Datimi',
+                'dest': u'date_period',
+            },
+            {
+                'source': u'Vendi',
+                'dest': u'place',
+            },
+            {
+                'source': u'Komuna',
+                'dest': u'municipality',
+            },
+            {
+                'source': u'Statusi_Nr_Vendimit',
+                'dest': u'status',
+            },
+            {
+                'source': u'Kategoria',
+                'dest': u'category',
+            },
+            {
+                'source': u'Nenkategoria',
+                'dest': u'subcategory',
+            },
+            {
+                'source': u'lat',
+                'dest': u'lat',
+                'check': u'checkLat',
+            },
+            {
+                'source': u'lon',
+                'dest': u'lon',
+                'check': u'checkLon',
+            },
+            {
+                'source': u'Nr_Unik',
+                'dest': u'idno',
+            },
+            {
+                'source': u'Imazh',
+                'dest': u'image',
+            },
+            {
+                'source': u'Emërtimi',
+                'dest': u'monument_article',
+                'conv': u'extractWikilink',
+            },
+            {
+                'source': u'',
+                'dest': u'registrant_url',
             },
         ],
     },
