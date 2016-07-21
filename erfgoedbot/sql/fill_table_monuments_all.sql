@@ -473,7 +473,7 @@ REPLACE INTO
 /*  Canada in English (Federal) */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'ca' AS `country`,
     'en' AS `lang`,
@@ -495,14 +495,15 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_ca_(en)`
     WHERE NOT (`idf` IS NULL OR `idf`=''); -- Federal
 
 /*  Canada in English (Provincial) */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'ca' AS `country`,
     'en' AS `lang`,
@@ -524,14 +525,15 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_ca_(en)`
     WHERE (`idf` IS NULL OR `idf`='') AND NOT (`idp` IS NULL OR `idp`=''); -- Provincial
 
 /*  Canada in English (Municipal) */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'ca' AS `country`,
     'en' AS `lang`,
@@ -553,7 +555,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_ca_(en)`
     WHERE (`idf` IS NULL OR `idf`='') AND (`idp` IS NULL OR `idp`='') AND NOT (`idm` IS NULL OR `idm`=''); -- Municipal
 
