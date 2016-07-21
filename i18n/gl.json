@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Elisardojm",
-			"Toliño"
+			"Toliño",
+			"Banjo"
 		]
 	},
 	"title": "Monuments API",
@@ -11,6 +12,13 @@
 	"search-table-th-field": "Campo",
 	"search-table-th-filter": "Filtro",
 	"search-table-th-search": "Procurar",
+	"search-table-tr-countries": "Países",
+	"search-table-tr-languages": "Linguas",
+	"search-table-tr-name": "Nome",
+	"search-table-tr-address": "Enderezo",
+	"search-table-tr-coordinates": "Coordenadas",
+	"search-table-tr-images": "Imaxes",
+	"search-table-button-search": "Procurar",
 	"filter-all-countries": "Todos os países",
 	"filter-all-languages": "Todas as linguas",
 	"db-field-country": "País",

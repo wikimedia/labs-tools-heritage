@@ -3,7 +3,8 @@
 		"authors": [
 			"Anakmalaysia",
 			"Objectivesea",
-			"Yekrats"
+			"Yekrats",
+			"Orikrin1998"
 		]
 	},
 	"search-title": "Serĉi monumentojn",
@@ -11,6 +12,12 @@
 	"search-table-th-field": "Kampo",
 	"search-table-th-filter": "Filtri",
 	"search-table-th-search": "Serĉi",
+	"search-table-tr-countries": "Nacioj",
+	"search-table-tr-languages": "Lingvoj",
+	"search-table-tr-name": "Nomo",
+	"search-table-tr-images": "Bildoj",
+	"search-table-checkbox-only-images": "Nur monumentoj sen bildoj",
+	"search-table-button-search": "Serĉi",
 	"filter-all-countries": "Ĉiuj landoj",
 	"filter-all-languages": "Ĉiuj lingvoj",
 	"db-field-country": "Lando",
