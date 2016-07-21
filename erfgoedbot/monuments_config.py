@@ -3685,6 +3685,14 @@ countries = {
                 'dest': u'tri adresse',
             },
             {
+                'source': u'département',
+                'dest': u'département',
+            },
+            {
+                'source': u'tri département',
+                'dest': u'tri_departement',
+            },
+            {
                 'source': u'latitude',
                 'dest': u'lat',
                 'check': u'checkLat',
