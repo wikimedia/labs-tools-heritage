@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ansumang",
-			"Jnanaranjan Sahu"
+			"Jnanaranjan Sahu",
+			"DareDevil"
 		]
 	},
 	"search-title": "କୀର୍ତିରାଜି ଖୋଜିବେ",
@@ -10,6 +11,17 @@
 	"search-table-th-field": "କ୍ଷେତ୍ର",
 	"search-table-th-filter": "ଛାଣିବା",
 	"search-table-th-search": "ଖୋଜିବେ",
+	"search-table-th-output": "ଫଳାଫଳ",
+	"search-table-tr-countries": "ଦେଶସବୁ",
+	"search-table-tr-languages": "ଭାଷା",
+	"search-table-tr-name": "ନାମ",
+	"search-table-tr-address": "ଠିକଣା",
+	"search-table-tr-municipality": "ମୁନିସିପାଲିଟି",
+	"search-table-tr-coordinates": "ସହଯୋଗ କରେ",
+	"search-table-tr-images": "ଛବିଗୁଡିକ",
+	"search-table-tr-output-language": "ଆଉଟ୍‌ପୁଟ୍‌ ଭାଷା",
+	"search-table-tr-output-format": "ଆଉଟ୍‌ପୁଟ୍‌ ବିନ୍ୟାସ",
+	"search-table-button-search": "ଖୋଜନ୍ତୁ",
 	"filter-all-countries": "ସମସ୍ତ ଦେଶ",
 	"filter-all-languages": "ସମସ୍ତ ଭାଷା",
 	"db-field-country": "ଦେଶ",

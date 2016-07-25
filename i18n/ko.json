@@ -52,12 +52,14 @@
 	"db-field-st_total": "총계",
 	"toolbox-label-searchtipps": "퍼지 검색은 %term 또는 term% 또는 %term% 사용",
 	"toolbox-meta-title": "위키 기념물을 사랑하다 도구모음",
+	"toolbox-main-logo-alt": "위키 기념물을 사랑하다 로고",
 	"toolbox-main-title": "WLM 도구모음",
-	"toolbox-main-description": "관련된 도구 집합",
+	"toolbox-main-description": "$1 관련 도구 집합",
 	"toolbox-wikilovesmonuments": "위키 기념물을 사랑하다",
 	"toolbox-nav-homepage": "대문페이지",
 	"toolbox-nav-statistics": "통계",
 	"toolbox-nav-search": "검색",
 	"toolbox-title-searchmonuments": "기념물 검색",
+	"toolbox-title-statistics": "기념물 통계",
 	"location": "위치"
 }

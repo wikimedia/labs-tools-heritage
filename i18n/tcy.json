@@ -2,30 +2,31 @@
 	"@metadata": {
 		"authors": [
 			"BHARATHESHA ALASANDEMAJALU",
-			"VASANTH S.N."
+			"VASANTH S.N.",
+			"Vishwanatha Badikana"
 		]
 	},
-	"search-table-tr-countries": "ದೇಶೊಲು",
-	"search-table-tr-languages": "ಭಾಸೆಲು",
+	"search-table-tr-countries": "ದೇಸೊಲು",
+	"search-table-tr-languages": "ಬಾಸೆಲು",
 	"search-table-tr-name": "ಪುದರ್",
 	"search-table-tr-address": "ಪತ್ತೆ",
 	"search-table-tr-images": "ಚಿತ್ರೊ",
 	"search-table-button-search": "ನಾಡ್‍ಲೆ",
-	"db-field-country": "ದೇಶೊ",
-	"db-field-lang": "ಭಾಸೆ",
+	"db-field-country": "ದೇಸೊ",
+	"db-field-lang": "ಬಾಸೆ",
 	"db-field-name": "ಪುದರ್",
 	"db-field-address": "ಪತ್ತೆ",
-	"db-field-municipality": "ಪುರಸಭೆ",
-	"db-field-lat": "ಅಕ್ಷಾಂಶ",
-	"db-field-lon": "ರೇಖಾಂಶ",
+	"db-field-municipality": "ಪುರಸಬೆ",
+	"db-field-lat": "ಅಕ್ಸಾಂಸೊ",
+	"db-field-lon": "ರೇಕಾಂಸೊ",
 	"db-field-image": "ಚಿತ್ರೊ",
 	"db-field-source": "ಮೂಲೊ",
 	"db-field-project": "ವಿಕಿಮೀಡಿಯ ಯೋಜನೆಲು",
 	"db-field-st_image": "ಚಿತ್ರೊ",
-	"db-field-st_municipality": "ಪುರಸಭೆ",
-	"db-field-st_municipality_pct": "ಪುರಸಭೆ %",
-	"db-field-st_total": "ಒಟ್ಟು ಸಂಖ್ಯೆ",
-	"toolbox-nav-statistics": "ಅಂಕಿ ಅಂಶೊಲು",
+	"db-field-st_municipality": "ಪುರಸಬೆ",
+	"db-field-st_municipality_pct": "ಪುರಸಬೆ %",
+	"db-field-st_total": "ಒಟ್ಟು ಸಂಕ್ಯೆ",
+	"toolbox-nav-statistics": "ಅಂಕಿ ಅಂಸೊಲು",
 	"toolbox-nav-search": "ನಾಡ್‍ಲೆ",
-	"location": "ಸ್ಥಳೊ"
+	"location": "ಸ್ತಲೊ"
 }
