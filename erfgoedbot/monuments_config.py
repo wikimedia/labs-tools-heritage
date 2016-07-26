@@ -4857,6 +4857,8 @@ countries = {
             {
                 'source': u'شناسه',
                 'dest': u'id',
+                'conv': u'to_default_numeral',
+                'check': u'checkInt',
             },
             {
                 'source': u'توضیح',

@@ -4,6 +4,7 @@
 """Conversion methods"""
 
 import re
+from erfgoedbot.checkers import is_int
 
 
 def CH1903Converter(x, y):
@@ -83,8 +84,23 @@ def extract_elements_from_template_param(template_param):
 
 def sanitize_wikitext_string(value):
 
-    """Removes undesirable wikitext features from a string."""
+    """Remove undesirable wikitext features from a string."""
 
     value = value.split("<ref")[0].strip()
     value = re.sub(r"\s?<!--.*?-->\s?", ' ', value)
     return value.strip()
+
+
+def int_to_european_digits(text):
+
+    """
+    Convert integer in recognized scripts to European digits.
+
+    European Digits meaning 0123456789 (slight clarification per
+    https://en.wikipedia.org/wiki/Arabic_numerals)
+
+    Returns an empty string on fail and trims any leading zeros.
+    """
+    if is_int(text):
+        return u'%d' % int(text)
+    return u''

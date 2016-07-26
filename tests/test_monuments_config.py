@@ -119,7 +119,7 @@ class TestMonumentsConfigValidation(unittest.TestCase):
     def test_monuments_config_known_converters(self):
         """Ensure the only known converters are used in field entries."""
         recognized = [
-            'extractWikilink', 'generateRegistrantUrl',
+            'extractWikilink', 'generateRegistrantUrl', 'to_default_numeral',
             'CH1903ToLat', 'CH1903ToLon', 'remove_commons_category_prefix',
             'es-ct-fop', 'il-fop', 'fi-fop',
             'generateRegistrantUrl-wlpa-es-ct', 'generateRegistrantUrl-sv-ship'
@@ -148,7 +148,7 @@ class TestMonumentsConfigValidation(unittest.TestCase):
 
     def test_monuments_config_known_checkers(self):
         """Ensure the only known checkers are used in field entries."""
-        recognized = ['checkLon', 'checkLat', 'checkWD']
+        recognized = ['checkLon', 'checkLat', 'checkWD', 'checkInt']
         for key, data in config.countries.iteritems():
             self.set_label(key)
             for field in data['fields']:

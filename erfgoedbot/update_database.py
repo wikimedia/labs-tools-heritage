@@ -22,12 +22,14 @@ from converters import (
     extractWikilink,
     extract_elements_from_template_param,
     remove_commons_category_prefix,
-    CH1903Converter
+    CH1903Converter,
+    int_to_european_digits
 )
 from checkers import (
     checkLat,
     checkLon,
     check_wikidata,
+    check_integer,
     check_lat_with_lon
 )
 
@@ -52,6 +54,8 @@ def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
         return checkLon(fieldValue, monumentKey, countryconfig, sourcePage)
     elif check == 'checkWD':
         return check_wikidata(fieldValue, monumentKey, sourcePage)
+    elif check == 'checkInt':
+        return check_integer(fieldValue, monumentKey, sourcePage)
     else:
         raise pywikibot.Error('Un-defined check in config for %s: %s'
                               % (countryconfig.get('table'), check))
@@ -68,6 +72,9 @@ def convertField(field, contents, countryconfig):
             countryconfig.get('registrantUrlBase'):
         return countryconfig.get('registrantUrlBase') % (
             contents.get(field.get('source')),)
+    elif field.get('conv') == 'to_default_numeral':
+        return int_to_european_digits(
+            contents.get(field.get('source')))
     elif field.get('conv') == 'CH1903ToLat':
         (lat, lon) = CH1903Converter(
             contents.get('CH1903_X'), contents.get('CH1903_Y'))

@@ -37,6 +37,11 @@ class TestIsInt(unittest.TestCase):
         result = checkers.is_int(s)
         self.assertEqual(result, True)
 
+    def test_other_script_succeed(self):
+        s = u'۱۲۳۴۵۶۷۸۹۰'
+        result = checkers.is_int(s)
+        self.assertEqual(result, True)
+
 
 class TestCheckersBase(unittest.TestCase):
 
@@ -245,4 +250,37 @@ class TestCheckWikidata(TestCheckersBase):
     def test_valid_wd_item(self):
         wd_item = 'Q123'
         result = checkers.check_wikidata(wd_item, self.monumentKey, self.mock_page)
+        self.assertEqual(result, True)
+
+
+class TestCheckInteger(TestCheckersBase):
+
+    def setUp(self):
+        super(TestCheckInteger, self).setUp()
+        self.error_msg = u"Invalid integer value: %s for monument %s"
+
+    def test_check_integer_empty_string(self):
+        text = ''
+        expected_errorMsg = self.error_msg % (text, self.monumentKey)
+        with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
+            result = checkers.check_integer(text, self.monumentKey, self.mock_page)
+            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
+            self.assertEqual(result, False)
+
+    def test_check_integer_random_string(self):
+        text = 'random string'
+        expected_errorMsg = self.error_msg % (text, self.monumentKey)
+        with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
+            result = checkers.check_integer(text, self.monumentKey, self.mock_page)
+            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
+            self.assertEqual(result, False)
+
+    def test_check_integer_valid_integer_string(self):
+        text = '123'
+        result = checkers.check_integer(text, self.monumentKey, self.mock_page)
+        self.assertEqual(result, True)
+
+    def test_check_integer_valid_integer_int(self):
+        text = 123
+        result = checkers.check_integer(text, self.monumentKey, self.mock_page)
         self.assertEqual(result, True)

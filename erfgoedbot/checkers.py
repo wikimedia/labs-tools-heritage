@@ -132,3 +132,13 @@ def check_lat_with_lon(fieldnames, monumentKey, sourcePage):
         errorMsg = u"Latitude is not set for monument %s." % (
             monumentKey, )
         reportDataError(errorMsg, sourcePage, monumentKey)
+
+
+def check_integer(text, monumentKey, sourcePage):
+    """Check that a value is an integer."""
+    if not is_int(text):
+        errorMsg = u"Invalid integer value: %s for monument %s" % (
+            text, monumentKey)
+        reportDataError(errorMsg, sourcePage, monumentKey)
+        return False
+    return True

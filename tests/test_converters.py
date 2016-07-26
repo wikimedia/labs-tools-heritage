@@ -8,7 +8,8 @@ from erfgoedbot.converters import (
     extract_elements_from_template_param,
     remove_commons_category_prefix,
     sanitize_wikitext_string,
-    CH1903Converter
+    CH1903Converter,
+    int_to_european_digits
 )
 
 
@@ -145,3 +146,35 @@ class TestSanitizeWikitextString(unittest.TestCase):
         self.assertEquals(sanitize_wikitext_string(u'Aaa <!-- B -->Ccc'), expected)
         self.assertEquals(sanitize_wikitext_string(u'Aaa <!-- B b b --> Ccc'), expected)
         self.assertEquals(sanitize_wikitext_string(u'Aaa<!-- B b b --> Ccc'), expected)
+
+
+class TestIntToEuropeanDigits(unittest.TestCase):
+
+    """Test the int_to_european_digits method."""
+
+    def test_int_to_european_digits_empty_string(self):
+        self.assertEquals(int_to_european_digits(''), '')
+
+    def test_int_to_european_digits_random_string(self):
+        in_data = u'random string'
+        self.assertEquals(int_to_european_digits(in_data), '')
+
+    def test_int_to_european_digits_number_in(self):
+        in_data = 1234567890
+        self.assertEquals(int_to_european_digits(in_data),
+                          '1234567890')
+
+    def test_int_to_european_digits_european_in(self):
+        in_data = u'1234567890'
+        self.assertEquals(int_to_european_digits(in_data),
+                          '1234567890')
+
+    def test_int_to_european_digits_farsi_in(self):
+        in_data = u'۱۲۳۴۵۶۷۸۹۰'
+        self.assertEquals(int_to_european_digits(in_data),
+                          '1234567890')
+
+    def test_int_to_european_digits_arabic_in(self):
+        in_data = u'١٢٣٤٥٦٧٨٩٠'
+        self.assertEquals(int_to_european_digits(in_data),
+                          '1234567890')
