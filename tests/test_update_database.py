@@ -153,10 +153,8 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
 
     def setUp(self):
         super(TestCountryBboxRequireLatLon, self).setUp()
-        # why require countryBbox to trigger this?
         self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
         self.monumentKey = 'some-key'
-        self.source = 'DummySource'
         self.contents = {
             'title': 'MockPageTitle',
             u'id': self.monumentKey,
@@ -164,26 +162,13 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
             'source': self.source
         }
 
-    def test_countryBbox_no_lat_or_lon(self):
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
+    def test_countryBbox_calls_check(self):
+        expected_fieldnames = [u'source', u'id', u'name']
+        with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            assert not mock_reportDataError.called  # mock 3.5 has assert_not_called()
+            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monumentKey, self.mock_page)
 
-    def test_countryBbox_lat_no_lon(self):
-        self.country_config['fields'].append(
-            {
-                'source': u'lat',
-                'dest': u'lat',
-            }
-        )
-        self.contents['lat'] = '123'
-        expected_errorMsg = u"Longitude is not set for monument %s." % self.monumentKey
-
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-
-    def test_countryBbox_lon_no_lat(self):
+    def test_countryBbox_calls_check_with_lon(self):
         self.country_config['fields'].append(
             {
                 'source': u'lon',
@@ -191,29 +176,10 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
             }
         )
         self.contents['lon'] = '123'
-        expected_errorMsg = u"Latitude is not set for monument %s." % self.monumentKey
-
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
+        expected_fieldnames = [u'source', u'id', u'name', 'lon']
+        with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-
-    def test_countryBbox_lat_and_lon(self):
-        self.country_config['fields'] += [
-            {
-                'source': u'lat',
-                'dest': u'lat',
-            },
-            {
-                'source': u'lon',
-                'dest': u'lon',
-            },
-        ]
-        self.contents['lat'] = '123'
-        self.contents['lon'] = '123'
-
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            assert not mock_reportDataError.called  # mock 3.5 has assert_not_called()
+            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monumentKey, self.mock_page)
 
 
 class TestTriggerConversion(TestUpdateDatabaseBase):
@@ -244,7 +210,6 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
     def setUp(self):
         super(TestTriggerChecks, self).setUp()
         self.monumentKey = 'some-key'
-        self.source = 'DummySource'
         self.contents = {
             'title': 'MockPageTitle',
             u'id': self.monumentKey,
@@ -327,208 +292,3 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         with self.assertRaises(pywikibot.Error) as cm:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: connectDatabase')
-
-
-class TestCheckLatNoCountryBbox(TestUpdateDatabaseBase):
-
-    def setUp(self):
-        super(TestCheckLatNoCountryBbox, self).setUp()
-        self.monumentKey = 'Some-key'
-
-    def test_empty_lat(self):
-        lat = ''
-        result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, None)
-
-    def test_non_float_lat(self):
-        lat = 'some_string'
-        expected_errorMsg = u"Invalid latitude value: %s for monument %s" % (
-            lat, self.monumentKey)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_positive_out_of_bounds_lat(self):
-        lat = '90.1'
-        expected_errorMsg = u"Latitude for monument %s out of range: %s" % (
-            self.monumentKey, lat)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_negative_out_of_bounds_lat(self):
-        lat = '-90.1'
-        expected_errorMsg = u"Latitude for monument %s out of range: %s" % (
-            self.monumentKey, lat)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_valid_int_lat(self):
-        lat = '85'
-        result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-    def test_valid_float_lat(self):
-        lat = '-13.37'
-        result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-
-class TestCheckLatWithCountryBbox(TestUpdateDatabaseBase):
-
-    def setUp(self):
-        super(TestCheckLatWithCountryBbox, self).setUp()
-        self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
-        self.monumentKey = 'Some-key'
-
-    def test_lat_outside_Bbox(self):
-        lat = '-1.337'
-        expected_errorMsg = u"Latitude for monument %s out of country area: %s" % (
-            self.monumentKey, lat)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_lat_inside_Bbox(self):
-        lat = '13.37'
-        result = update_database.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-
-class TestCheckLonNoCountryBbox(TestUpdateDatabaseBase):
-
-    def setUp(self):
-        super(TestCheckLonNoCountryBbox, self).setUp()
-        self.monumentKey = 'Some-key'
-
-    def test_empty_lon(self):
-        lon = ''
-        result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, None)
-
-    def test_non_float_lon(self):
-        lon = 'some_string'
-        expected_errorMsg = u"Invalid longitude value: %s for monument %s" % (
-            lon, self.monumentKey)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_positive_out_of_bounds_lon(self):
-        lon = '180.1'
-        expected_errorMsg = u"Longitude for monument %s out of range: %s" % (
-            self.monumentKey, lon)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_negative_out_of_bounds_lon(self):
-        lon = '-180.1'
-        expected_errorMsg = u"Longitude for monument %s out of range: %s" % (
-            self.monumentKey, lon)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_valid_int_lon(self):
-        lon = '85'
-        result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-    def test_valid_float_lon(self):
-        lon = '-13.37'
-        result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-
-class TestCheckLonWithCountryBbox(TestUpdateDatabaseBase):
-
-    def setUp(self):
-        super(TestCheckLonWithCountryBbox, self).setUp()
-        self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
-        self.monumentKey = 'Some-key'
-
-    def test_lon_outside_Bbox(self):
-        lon = '-1.337'
-        expected_errorMsg = u"Longitude for monument %s out of country area: %s" % (
-            self.monumentKey, lon)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_lon_inside_Bbox(self):
-        lon = '13.37'
-        result = update_database.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
-        self.assertEqual(result, True)
-
-
-class TestCheckWikidata(TestUpdateDatabaseBase):
-
-    def setUp(self):
-        super(TestCheckWikidata, self).setUp()
-        self.monumentKey = 'Some-key'
-
-    def test_empty_wd_item(self):
-        wd_item = ''
-        result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
-        self.assertEqual(result, None)
-
-    def test_non_Q_part(self):
-        wd_item = 'P123'
-        expected_errorMsg = u"Invalid wikidata value: %s for monument %s" % (
-            wd_item, self.monumentKey)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_non_integer_part(self):
-        wd_item = 'Que?'
-        expected_errorMsg = u"Invalid wikidata value: %s for monument %s" % (
-            wd_item, self.monumentKey)
-        with mock.patch('erfgoedbot.update_database.reportDataError', autospec=True) as mock_reportDataError:
-            result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
-            mock_reportDataError.assert_called_once_with(expected_errorMsg, self.mock_page, self.monumentKey)
-            self.assertEqual(result, False)
-
-    def test_valid_wd_item(self):
-        wd_item = 'Q123'
-        result = update_database.check_wikidata(wd_item, self.monumentKey, self.mock_page)
-        self.assertEqual(result, True)
-
-
-class TestIsInt(TestUpdateDatabaseBase):
-
-    def test_empty_string_fail(self):
-        s = ''
-        result = update_database.is_int(s)
-        self.assertEqual(result, False)
-
-    def test_None_fail(self):
-        s = None
-        result = update_database.is_int(s)
-        self.assertEqual(result, False)
-
-    def test_random_string_fail(self):
-        s = 'random_string'
-        result = update_database.is_int(s)
-        self.assertEqual(result, False)
-
-    def test_float_fail(self):
-        s = '123.456'
-        result = update_database.is_int(s)
-        self.assertEqual(result, False)
-
-    def test_valid_int_succeed(self):
-        s = '123'
-        result = update_database.is_int(s)
-        self.assertEqual(result, True)
