@@ -77,6 +77,34 @@ REPLACE INTO
     `registrant_url` AS `registrant_url`
     FROM `monuments_ad_(ca)`;
 
+/* Albania in Albanian */
+REPLACE INTO
+  `monuments_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+  ) SELECT
+    'al' AS `country`,
+    'sq' AS `lang`,
+    `idno` AS `id`,
+    'al' AS `adm0`,
+    NULL AS `adm1`,
+    NULL AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `name` AS `name`,
+    `place` AS `address`,
+    `municipality` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    '' AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    '' AS `registrant_url`
+    FROM `monuments_al_(sq)`;
+
 /* Armenia in Armenian */
 REPLACE INTO
   `monuments_all_tmp` (
@@ -2720,6 +2748,34 @@ REPLACE INTO
     `monumento_enlace` AS `monument_article`,
     '' AS `registrant_url`
     FROM `monuments_ve_(es)`;
+
+/* Kosovo in Albanian */
+REPLACE INTO
+  `monuments_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+  ) SELECT
+    'xk' AS `country`,
+    'sq' AS `lang`,
+    `idno` AS `id`,
+    'xk' AS `adm0`,
+    NULL AS `adm1`,
+    NULL AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `name` AS `name`,
+    `place` AS `address`,
+    `municipality` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    '' AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    '' AS `registrant_url`
+    FROM `monuments_xk_(sq)`;
 
 /* South Africa in English */
 REPLACE INTO
