@@ -41,7 +41,7 @@ class NoCategoryToAddException(Exception):
     pass
 
 # Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
-commonscatTemplates = {
+wikipedia_commonscat_templates = {
     '_default': (u'Commonscat', []),
     'af': (u'CommonsKategorie', [u'commonscat']),
     'an': (u'Commonscat', [u'Commons cat']),
@@ -269,7 +269,7 @@ def get_monument_id(page, commonsTemplate):
 
 def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
     (monumentName, monumentCommonscat,
-     monumentArticleTitle, monumentSource) = monData
+     monumentArticleTitle, monumentSource, project) = monData
     commons_site = pywikibot.Site(u'commons', u'commons')
     newcats = []
     # First try to add a category based on the commonscat field in the list
@@ -285,12 +285,13 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         except pywikibot.exceptions.InvalidTitle:
             pywikibot.warning(
                 u'Incorrect category title %s' % (monumentCommonscat,))
+
     # Option two is to use the article about the monument and see if it has
     # Commonscat links
     if not newcats:
         monumentArticle = None
         if monumentArticleTitle:
-            project_site = pywikibot.Site(lang, u'wikipedia')
+            project_site = pywikibot.Site(lang, project)
             monumentArticle = pywikibot.Page(project_site, monumentArticleTitle)
         if monumentArticle:
             try:
@@ -312,9 +313,10 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
             except pywikibot.exceptions.Error as e:
                 pywikibot.error(u'Error occured with monument %s: %s' % (
                     monumentId, str(e)))
+
     # Option three is to see if the list contains Commonscat links (whole list)
     if not newcats:
-        monumentList = getList(lang, monumentSource)
+        monumentList = getList(lang, project, monumentSource)
         # print monumentList
         if not monumentList:
             return False
@@ -378,10 +380,11 @@ def filter_out_categories_to_add(new_categories, current_categories):
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
-    '''
-    Get monument name and source from db
-    '''
-    query = u"""SELECT `name`, `commonscat`, `monument_article`, `source` FROM monuments_all WHERE (country=%s AND lang=%s AND id=%s) LIMIT 1"""
+    """Get monument name and source from db."""
+    query = u"SELECT `name`, `commonscat`, `monument_article`, `source`, `project` " \
+            u"FROM monuments_all " \
+            u"WHERE (country=%s AND lang=%s AND id=%s) " \
+            u"LIMIT 1"
 
     cursor.execute(query, (countrycode, lang, monumentId))
 
@@ -393,38 +396,18 @@ def getMonData(countrycode, lang, monumentId, conn, cursor):
         return False
 
 
-def getArticle(lang, monumentName):
-    '''
-    Get monument article page from wikilink at monumentName
-    '''
-
-    if monumentName:
-        regex = u'^\[\[(.+?)(\||\])'
-
-        match = re.search(regex, monumentName)
-        if not match:
-            return False
-
-        page_title = match.group(1)
-        site = pywikibot.Site(lang, u'wikipedia')
-
-        return pywikibot.Page(site, page_title)
-    else:
-        return False
-
-
-def getList(lang, monumentSource):
+def getList(lang, project, monumentSource):
     '''
     Get listpage
     '''
     if monumentSource:
-        regex = u'^(https:)?//%s.wikipedia.org/w/index.php\?title=(.+?)&' % (
-            lang,)
+        regex = u'^(https:)?//%s.%s.org/w/index.php\?title=(.+?)&' % (
+            lang, project)
         match = re.search(regex, monumentSource)
         if not match:
             return False
         page_title = match.group(2)
-        site = pywikibot.Site(lang, u'wikipedia')
+        site = pywikibot.Site(lang, project)
         return pywikibot.Page(site, page_title)
     else:
         return False
@@ -504,12 +487,13 @@ def get_commonscat_template_in_page(page, commonsCatTemplates):
 
 
 def get_Commons_category_via_Wikidata(page):
-    '''
+    """
     Get Commons Category from the linked Wikidata item and P373.
 
-    Raises: NoCommonsCatFromWikidataItemException if either there is no linked item
-            or it does not bear P373 or a sitelink to Commons
-    '''
+    Raises: NoCommonsCatFromWikidataItemException if either there is no linked
+            item or it does not bear P373 or a sitelink to a category page on
+            Commons.
+    """
     try:
         data_item = page.data_item()
         claims = data_item.get()['claims']
@@ -517,8 +501,12 @@ def get_Commons_category_via_Wikidata(page):
             return 'Category:' + claims['P373'][0].getTarget()
         else:
             commons_site = pywikibot.Site(u'commons', u'commons')
-            return data_item.getSitelink(commons_site)
-    except (pywikibot.NoPage, KeyError):
+            commons_page = data_item.getSitelink(commons_site)
+            if commons_page.startswith('Category:'):
+                return commons_page
+            else:
+                raise NoCommonsCatFromWikidataItemException(page)
+    except (pywikibot.NoPage, KeyError, NoCommonsCatFromWikidataItemException):
         raise NoCommonsCatFromWikidataItemException(page)
 
 
@@ -544,7 +532,6 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
 
     site = pywikibot.Site(u'commons', u'commons')
     generator = None
-    genFactory = pagegenerators.GeneratorFactory()
     commonsTemplate = countryconfig.get('commonsTemplate')
 
     if overridecat:
@@ -614,16 +601,20 @@ def outputStatistics(statistics):
     page.put(newtext=output, comment=comment)
 
 
-def getCommonscatTemplates(lang=None):
-    '''Get the template name in a language. Expects the language code.
-    Return as tuple containing the primary template and it's alternatives
+def getCommonscatTemplates(lang=None, project=None):
+    """
+    Get the template name in a language on a project.
 
-    '''
+    Expects the language code and project.
+    Return as tuple containing the primary template and it's alternatives
+    """
+    project = project or u'wikipedia'  # default to wikipedia
+
     result = []
-    if lang in commonscatTemplates:
-        (prim, backups) = commonscatTemplates[lang]
+    if project == u'wikipedia' and lang in wikipedia_commonscat_templates:
+        (prim, backups) = wikipedia_commonscat_templates[lang]
     else:
-        (prim, backups) = commonscatTemplates[u'_default']
+        (prim, backups) = wikipedia_commonscat_templates[u'_default']
     result.append(prim)
     result += backups
     return result
@@ -654,16 +645,19 @@ def main():
             return False
         pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        commonsCatTemplates = getCommonscatTemplates(lang)
+        countryconfig = mconfig.countries.get((countrycode, lang))
+        commonsCatTemplates = getCommonscatTemplates(
+            lang, countryconfig.get('project'))
         # print commonsCatTemplates
-        processCountry(countrycode, lang, mconfig.countries.get(
-            (countrycode, lang)), commonsCatTemplates, conn, cursor, overridecat=overridecat)
+        processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
+                       conn, cursor, overridecat=overridecat)
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            commonsCatTemplates = getCommonscatTemplates(lang)
+            commonsCatTemplates = getCommonscatTemplates(
+                lang, countryconfig.get('project'))
             result = processCountry(
                 countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
             if result:
