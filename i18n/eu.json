@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"An13sa",
-			"Subi"
+			"Subi",
+			"Sator"
 		]
 	},
 	"search-title": "Monumentuen bilaketa",
@@ -31,6 +32,7 @@
 	"db-field-st_municipality_pct": "Udalerria %",
 	"db-field-st_name": "Izenak",
 	"db-field-st_name_pct": "Izenak %",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments logoa",
 	"toolbox-nav-homepage": "Hasiera orria",
 	"toolbox-nav-statistics": "Estatistikak",
 	"toolbox-nav-search": "Bilatu",
