@@ -5,7 +5,27 @@ import unittest
 from erfgoedbot import monuments_config as config
 
 
-class TestMonumentsConfigValidation(unittest.TestCase):
+class CustomAssertions:
+    """Custom assertions."""
+
+    def assert_all_in(self, first, second, msg=None):
+        """Assert that all first is in second."""
+        # assert(all(i in second for i in first), msg=msg)
+        for i in first:
+            self.assertIn(i, second, msg=msg)
+
+    def assert_is_ascii(self, text, msg=None):
+        """Assert that a string is ascii."""
+        error_msg = u'"%s" not ascii' % text
+        if msg:
+            error_msg = u'%s : %s' % (error_msg, msg)
+        try:
+            text.decode('ascii')
+        except UnicodeEncodeError:
+            raise AssertionError(error_msg)
+
+
+class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
 
     """Test that monuments_config is valid."""
 
@@ -16,12 +36,6 @@ class TestMonumentsConfigValidation(unittest.TestCase):
     def set_label(self, key):
         """Set self label based on the country key."""
         self.label = u'%s_(%s)' % key
-
-    def assert_all_in(self, first, second, msg=None):
-        """Test that all first is in second."""
-        # assert(all(i in second for i in first), msg=msg)
-        for i in first:
-            self.assertIn(i, second, msg=msg)
 
     def test_monuments_config_valid_base_variables(self):
         """Ensure the base variables are present and of the right type."""
@@ -115,6 +129,13 @@ class TestMonumentsConfigValidation(unittest.TestCase):
                 self.assert_all_in(required, field.keys(), msg=self.label)
                 self.assert_all_in(field.keys(), required + optional,
                                    msg=self.label)
+
+    def test_monuments_config_country_field_dests_ascii(self):
+        """Ensure the country field dest entries are all ascii."""
+        for key, data in config.countries.iteritems():
+            self.set_label(key)
+            for field in data['fields']:
+                self.assert_is_ascii(field.get('dest'), msg=self.label)
 
     def test_monuments_config_known_converters(self):
         """Ensure the only known converters are used in field entries."""
