@@ -3744,7 +3744,7 @@ countries = {
             },
             {
                 'source': u'département',
-                'dest': u'département',
+                'dest': u'departement',
             },
             {
                 'source': u'tri département',
