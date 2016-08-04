@@ -2,27 +2,8 @@
 """Validation for monuments_config."""
 
 import unittest
+from custom_assertions import CustomAssertions
 from erfgoedbot import monuments_config as config
-
-
-class CustomAssertions:
-    """Custom assertions."""
-
-    def assert_all_in(self, first, second, msg=None):
-        """Assert that all first is in second."""
-        # assert(all(i in second for i in first), msg=msg)
-        for i in first:
-            self.assertIn(i, second, msg=msg)
-
-    def assert_is_ascii(self, text, msg=None):
-        """Assert that a string is ascii."""
-        error_msg = u'"%s" not ascii' % text
-        if msg:
-            error_msg = u'%s : %s' % (error_msg, msg)
-        try:
-            text.decode('ascii')
-        except UnicodeEncodeError:
-            raise AssertionError(error_msg)
 
 
 class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
