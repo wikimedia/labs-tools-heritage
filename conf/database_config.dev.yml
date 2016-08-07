@@ -1,0 +1,10 @@
+---
+monuments_db:
+  server: db
+  db_name: s51138__heritage_p
+  username: heritage
+  password: password
+
+commons_db:
+  server: commonswiki.labsdb
+  db_name: commonswiki_p

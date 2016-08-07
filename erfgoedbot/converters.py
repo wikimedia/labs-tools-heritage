@@ -4,7 +4,7 @@
 """Conversion methods"""
 
 import re
-from erfgoedbot.checkers import is_int
+from checkers import is_int
 
 
 def CH1903Converter(x, y):

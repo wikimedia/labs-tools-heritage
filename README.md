@@ -13,6 +13,14 @@ You can override them via the `database_config.yml` file.
 
 To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
 
+To spin-up a development environement:
+
+```
+python erfgoedbot/monument_tables.py
+docker-compose -f docker-compose-bot.yml up -d
+docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_id_dump.py
+```
+
 
 Monuments Database and API
 --------------------------
@@ -22,6 +30,6 @@ A PHP [API](https://commons.wikimedia.org/wiki/Commons:Monuments_database/API) e
 To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests and [docker-compose](https://docs.docker.com/compose/) to spin-up a local development environment.
 
 ```
-sh bin/download_monuments_database_dump.sh
+./bin/download_monuments_database_dump.sh
 docker-compose up -d
 ```

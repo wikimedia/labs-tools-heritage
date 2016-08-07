@@ -1,0 +1,22 @@
+bot:
+  extends:
+    file: docker-compose-base.yml
+    service: bot
+  links:
+    - db
+  volumes:
+    - "./conf/database_config.dev.yml:/code/erfgoedbot/database_config.yml:ro"
+
+db:
+  extends:
+    file: docker-compose-base.yml
+    service: db_empty
+
+web:
+  extends:
+    file: docker-compose-base.yml
+    service: web
+  links:
+    - db
+  volumes:
+    - .:/var/www/

@@ -1,0 +1,35 @@
+web:
+  build: .
+  dockerfile: conf/Dockerfile.web
+  ports:
+    - "8000:80"
+
+db_dump:
+  build: ./conf/
+  dockerfile: Dockerfile.dbdump
+  volumes:
+    - ./mysql:/etc/mysql/conf.d
+  environment:
+    MYSQL_ROOT_PASSWORD: root_password
+    MYSQL_DATABASE: s51138__heritage_p
+    MYSQL_USER: heritage
+    MYSQL_PASSWORD: password
+
+db_empty:
+  build: .
+  dockerfile: conf/Dockerfile.dbempty
+  volumes:
+    - ./mysql:/etc/mysql/conf.d
+  environment:
+    MYSQL_ROOT_PASSWORD: root_password
+    MYSQL_DATABASE: s51138__heritage_p
+    MYSQL_USER: heritage
+    MYSQL_PASSWORD: password
+
+bot:
+  build: .
+  dockerfile: conf/Dockerfile.bot
+  volumes:
+    - .:/code
+  environment:
+    PYWIKIBOT2_NO_USER_CONFIG: 1
