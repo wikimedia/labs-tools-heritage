@@ -13,11 +13,11 @@ python update_database.py -countrycode:XX -lang:YY
 '''
 import warnings
 import datetime
-import monuments_config as mconfig
+
 import pywikibot
-import MySQLdb
-from pywikibot import config
 from pywikibot import pagegenerators
+
+import monuments_config as mconfig
 from converters import (
     extractWikilink,
     extract_elements_from_template_param,
@@ -32,18 +32,9 @@ from checkers import (
     check_integer,
     check_lat_with_lon
 )
+from database_connection import connect_to_monuments_database
 
 _logger = "update_database"
-
-
-def connectDatabase():
-    """Connect to the mysql database, if it fails, go down in flames."""
-    conn = MySQLdb.connect(
-        host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-        passwd=config.db_password, use_unicode=True, charset='utf8')
-    conn.ping(True)
-    cursor = conn.cursor()
-    return (conn, cursor)
 
 
 def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
@@ -395,7 +386,7 @@ def main():
     daysBack = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
-    (conn, cursor) = connectDatabase()
+    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')

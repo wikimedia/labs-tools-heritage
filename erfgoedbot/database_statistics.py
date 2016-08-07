@@ -5,22 +5,9 @@ Update the statistics of the monuments database at https://commons.wikimedia.org
 FIXME: Too much code duplication. Should probably just have one list of the possible fields for the functions to work on.
 
 '''
-import monuments_config as mconfig
 import pywikibot
-import MySQLdb
-from pywikibot import config
 
-
-def connectDatabase():
-    '''
-    Connect to the mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db,
-                           user=config.db_username, passwd=config.db_password,
-                           use_unicode=True, charset='utf8')
-    conn.ping(True)
-    cursor = conn.cursor()
-    return (conn, cursor)
+from database_connection import connect_to_monuments_database
 
 
 def getCount(query, cursor):
@@ -331,7 +318,7 @@ def main():
 
     conn = None
     cursor = None
-    (conn, cursor) = connectDatabase()
+    (conn, cursor) = connect_to_monuments_database()
 
     statistics = {}
 

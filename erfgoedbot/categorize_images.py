@@ -16,13 +16,14 @@ python categorize_images.py
 python categorize_images.py -countrycode:ee -lang:et
 
 '''
-import monuments_config as mconfig
+import re
+
 import pywikibot
-from pywikibot import config
 from pywikibot import pagegenerators
 from pywikibot import textlib
-import re
-import MySQLdb
+
+import monuments_config as mconfig
+from database_connection import connect_to_monuments_database
 
 _logger = "categorize_images"
 
@@ -183,17 +184,6 @@ ignoreTemplates = {
            u'Template category', u'Wikipedia category'
            u'分类重定向', u'追蹤分類', u'共享資源', u'追蹤分類'],
 }
-
-
-def connectDatabase():
-    '''
-    Connect to the mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-                           passwd=config.db_password, use_unicode=True, charset='utf8')
-    conn.ping(True)
-    cursor = conn.cursor()
-    return (conn, cursor)
 
 
 def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
@@ -628,7 +618,7 @@ def main():
     conn = None
     cursor = None
     # Connect database, we need that
-    (conn, cursor) = connectDatabase()
+    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
