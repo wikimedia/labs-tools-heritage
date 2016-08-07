@@ -1,24 +1,62 @@
 # -*- coding: utf-8  -*-
+
+import os
 import MySQLdb
-import monuments_config as mconfig
-from pywikibot import config
+import yaml
+
+from pywikibot import config as pywikibot_config
+
+DEFAULT_CONFIG_FILE_NAME = 'database_config.default.yml'
+OVERRIDE_CONFIG_FILE_NAME = 'database_config.yml'
+
+
+def _get_current_directory():
+    """Return the absolute path of the current file."""
+    return os.path.dirname(os.path.abspath(__file__))
+
+
+def _get_database_config_file():
+    current_dir = _get_current_directory()
+    config_file = os.path.join(current_dir, DEFAULT_CONFIG_FILE_NAME)
+    override_config_file = os.path.join(current_dir, OVERRIDE_CONFIG_FILE_NAME)
+    if os.path.isfile(override_config_file):
+        config_file = override_config_file
+    return config_file
+
+
+def _get_database_config():
+    config_file = _get_database_config_file()
+    return yaml.safe_load(open(config_file, 'r'))
+
+
+def get_monuments_database_config():
+    return _get_database_config()['monuments_db']
+
+
+def get_commons_database_config():
+    return _get_database_config()['commons_db']
 
 
 def connect_to_monuments_database():
-    """Connect to the mysql monuments database, if it fails, go down in flames."""
+    """Connect to the mysql monuments database."""
+    db_config = get_monuments_database_config()
+    username = db_config.get('username', pywikibot_config.db_username)
+    password = db_config.get('password', pywikibot_config.db_password)
     conn = MySQLdb.connect(
-        host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-        passwd=config.db_password, use_unicode=True, charset='utf8')
+        host=db_config['server'], db=db_config['db_name'],
+        user=username, passwd=password,
+        use_unicode=True, charset='utf8')
     conn.ping(True)
     cursor = conn.cursor()
     return (conn, cursor)
 
 
 def connect_to_commons_database():
-    '''
-    Connect to the commons mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p',
-                           user=config.db_username, passwd=config.db_password, use_unicode=True, charset='latin1')
+    """Connect to the commons mysql database."""
+    db_config = get_commons_database_config()
+    conn = MySQLdb.connect(
+        host=db_config['server'], db=db_config['db_name'],
+        user=pywikibot_config.db_username, passwd=pywikibot_config.db_password,
+        use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)

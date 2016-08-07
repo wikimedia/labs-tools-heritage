@@ -7,6 +7,10 @@ ErfgoedBot
 
 A Python MediaWiki bot doing mighty things. See [Commons:User:ErfgoedBot](https://commons.wikimedia.org/wiki/User:ErfgoedBot)
 
+By default, the bot connects to the monuments database using the credentials
+`pywikibot_config.db_username` and `pywikibot_config.db_password`.
+You can override them via the `database_config.yml` file.
+
 To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
 
 

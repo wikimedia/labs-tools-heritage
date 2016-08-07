@@ -39,8 +39,6 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
 
     def test_monuments_config_valid_base_variables(self):
         """Ensure the base variables are present and of the right type."""
-        self.assertIsInstance(config.db_server, str)
-        self.assertIsInstance(config.db, str)
         self.assertIsInstance(config.countries, dict)
 
     def test_monuments_config_valid_country_keys(self):

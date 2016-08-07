@@ -1,3 +1,4 @@
 pywikibot
 MySQL-python
 requests
+PyYAML
