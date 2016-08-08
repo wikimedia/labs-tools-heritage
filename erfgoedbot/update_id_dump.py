@@ -12,26 +12,14 @@ python update_id_dump.py
 
 
 '''
-import monuments_config as mconfig
 import pywikibot
-import MySQLdb
-from pywikibot import config
 from pywikibot import pagegenerators
 
+import monuments_config as mconfig
 from converters import (
     extract_elements_from_template_param
 )
-
-
-def connectDatabase():
-    '''
-    Connect to the mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-                           passwd=config.db_password, use_unicode=True, charset='utf8')
-    conn.ping(True)
-    cursor = conn.cursor()
-    return (conn, cursor)
+from database_connection import connect_to_monuments_database
 
 
 def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor):
@@ -134,7 +122,7 @@ def main():
     countrycode = u''
     conn = None
     cursor = None
-    (conn, cursor) = connectDatabase()
+    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')

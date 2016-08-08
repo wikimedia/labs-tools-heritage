@@ -6,23 +6,11 @@ Make a list of top streets for a municipality. Bot expects two things on the com
 * -municipality : The name of the municipality (as it is in the database)
 * -minimum : (optional) The minimum of hits before we show the item
 '''
-import monuments_config as mconfig
-import pywikibot
-from pywikibot import config
-import MySQLdb
 from collections import Counter
 
+import pywikibot
 
-def connectDatabase():
-    '''
-    Connect to the monuments mysql database, if it fails, go down in flames.
-    This database is utf-8 encoded.
-    '''
-    conn = MySQLdb.connect(
-        host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-        passwd=config.db_password, use_unicode=True, charset='utf8')
-    cursor = conn.cursor()
-    return (conn, cursor)
+from database_connection import connect_to_monuments_database
 
 
 def getAddresses(countrycode, lang, municipality, conn, cursor):
@@ -99,7 +87,7 @@ def main():
     conn = None
     cursor = None
     # Connect database, we need that
-    (conn, cursor) = connectDatabase()
+    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')

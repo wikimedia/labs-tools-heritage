@@ -5,31 +5,11 @@
 Bot to add {{Object location dec}} to monuments. Location is based on information from the monuments database.
 
 '''
-import monuments_config as mconfig
 import pywikibot
-from pywikibot import config
 from pywikibot import pagegenerators
-import MySQLdb
 
-
-def connectDatabase():
-    '''
-    Connect to the monuments mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-                           passwd=config.db_password, use_unicode=True, charset='utf8')
-    cursor = conn.cursor()
-    return (conn, cursor)
-
-
-def connectDatabase2():
-    '''
-    Connect to the commons mysql database, if it fails, go down in flames
-    '''
-    conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p',
-                           user=config.db_username, passwd=config.db_password, use_unicode=True, charset='latin1')
-    cursor = conn.cursor()
-    return (conn, cursor)
+import monuments_config as mconfig
+from database_connection import connect_to_monuments_database, connect_to_commons_database
 
 
 def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
@@ -220,8 +200,8 @@ def main():
     countrycode = u''
 
     # Connect database, we need that
-    (conn, cursor) = connectDatabase()
-    (conn2, cursor2) = connectDatabase2()
+    (conn, cursor) = connect_to_monuments_database()
+    (conn2, cursor2) = connect_to_commons_database()
 
     generator = None
     genFactory = pagegenerators.GeneratorFactory()

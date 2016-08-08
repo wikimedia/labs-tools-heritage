@@ -13,33 +13,10 @@ python images_of_monuments_without_id.py -countrycode:XX -lang:YY
 
 
 '''
-import monuments_config as mconfig
 import pywikibot
-from pywikibot import config
-import MySQLdb
 
-
-def connectDatabase():
-    '''
-    Connect to the monuments mysql database, if it fails, go down in flames.
-    This database is utf-8 encoded.
-    '''
-    conn = MySQLdb.connect(host=mconfig.db_server, db=mconfig.db, user=config.db_username,
-                           passwd=config.db_password, use_unicode=True, charset='utf8')
-    conn.ping(True)
-    cursor = conn.cursor()
-    return (conn, cursor)
-
-
-def connectDatabase2():
-    '''
-    Connect to the commons mysql database, if it fails, go down in flames
-    This database is latin1 encoded.
-    '''
-    conn = MySQLdb.connect('commonswiki.labsdb', db='commonswiki_p',
-                           user=config.db_username, passwd=config.db_password, use_unicode=True, charset='latin1')
-    cursor = conn.cursor()
-    return (conn, cursor)
+import monuments_config as mconfig
+from database_connection import connect_to_monuments_database, connect_to_commons_database
 
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
@@ -212,8 +189,8 @@ def main():
     conn = None
     cursor = None
     # Connect database, we need that
-    (conn, cursor) = connectDatabase()
-    (conn2, cursor2) = connectDatabase2()
+    (conn, cursor) = connect_to_monuments_database()
+    (conn2, cursor2) = connect_to_commons_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')

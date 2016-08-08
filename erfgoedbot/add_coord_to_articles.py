@@ -15,12 +15,12 @@ python add_coord_to_articles.py
 python add_coord_to_articles.py -countrycode:XX -lang:YY
 
 '''
-
-import os
-import monuments_config as mconfig
-import pywikibot
 import re
-import MySQLdb
+
+import pywikibot
+
+import monuments_config as mconfig
+from database_connection import connect_to_monuments_database, connect_to_commons_database
 
 # coordinate templates for different language wikipedias
 wikiData = {
@@ -64,33 +64,6 @@ class Monument:
 
 # functions
 
-def connectMonDatabase():
-    '''
-    Connect to the monuments mysql database
-    '''
-    conn = MySQLdb.connect(
-        host=mconfig.db_server, db=mconfig.db,
-        read_default_file=os.path.expanduser("~/.my.cnf"),
-        use_unicode=True, charset='utf8')
-    cursor = conn.cursor()
-    return (conn, cursor)
-
-
-def connectWikiDatabase(lang):
-    '''
-    Connect to the wiki database
-    '''
-    if (lang):
-        hostName = lang + 'wiki.labsdb'
-        dbName = lang + 'wiki_p'
-        # coordDbName = 'u_dispenser_p'
-        conn = MySQLdb.connect(
-            host=hostName, db=dbName,
-            read_default_file=os.path.expanduser("~/.my.cnf"),
-            use_unicode=True, charset='utf8')
-        cursor = conn.cursor()
-        return (conn, cursor)
-
 
 def processCountry(countrycode, lang, countryconfig, coordconfig,
                    connMon, cursorMon):
@@ -102,7 +75,7 @@ def processCountry(countrycode, lang, countryconfig, coordconfig,
         pywikibot.output(u'Language: %s has no coordTemplate set!' % lang)
         return False
 
-    (connWiki, cursorWiki) = connectWikiDatabase(lang)
+    (connWiki, cursorWiki) = connect_to_commons_database(lang)
 
     withCoordinates = getMonumentsWithCoordinates(countrycode, lang, cursorMon)
 
@@ -313,7 +286,7 @@ def main():
     connMon = None
     cursorMon = None
 
-    (connMon, cursorMon) = connectMonDatabase()
+    (connMon, cursorMon) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
