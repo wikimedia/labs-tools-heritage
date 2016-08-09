@@ -10,3 +10,7 @@ composer.lock
 vendor
 
 node_modules
+
+*.iml
+
+daily-uploads/bower_components

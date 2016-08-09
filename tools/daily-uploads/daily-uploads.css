@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: scroll;
+}
+
+body {
+    background-color: #5D6365;
+    color: #000000;
+    font-family: sans-serif;
+}
+
+fieldset {
+    border: none;
+}
+
+.grid-sizer,
+.grid-item {
+    width: 320px;
+    margin: 10px;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+}
+
+.grid-item:hover {
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.8);
+}
+
+.grid-item {
+    float: left;
+}
+
+.grid-item a {
+    display: flex;
+}
+
+form {
+    margin: 20px;
+}
+
+.outset {
+    margin: 20px auto 20px auto;
+    width: 90%;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
+}
+
+#images:after {
+    content: '';
+    display: block;
+    clear: both;
+}

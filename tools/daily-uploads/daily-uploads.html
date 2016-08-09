@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily uploads</title>
+    <script type="application/ecmascript" src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type="application/ecmascript" src="//tools-static.wmflabs.org/cdnjs/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
+    <script type="application/ecmascript" src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery.isotope/3.0.1/isotope.pkgd.min.js"></script>
+    <script type="application/ecmascript" src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery.imagesloaded/4.1.0/imagesloaded.pkgd.min.js"></script>
+    <script type="application/ecmascript" src="daily-uploads.js"></script>
+    <link rel="stylesheet" href="daily-uploads.css">
+</head>
+<body onload="dailyUploads()">
+
+<div id="form" class="outset">
+    <form>
+        <fieldset>
+            <label for="day">Day</label>
+            <input type="date" id="day" name="day" data-bind="value: day" />
+        </fieldset>
+        <fieldset>
+            <label for="category">Category (without namespace prefix)</label>
+            <input type="text" id="category" name="category" data-bind="value: category" size="50"/>
+        </fieldset>
+        <fieldset>
+            <button data-bind="click: updateImages">Load</button>
+        </fieldset>
+    </form>
+</div>
+
+<div id="images" class="outset">
+    <!--<div class="grid-sizer"></div>-->
+    <!-- ko foreach: images -->
+    <div class="grid-item"><a data-bind="attr: {href: descurl}" target="_blank"><img data-bind="attr: {src: thumburl, alt: title}"/></a></div>
+    <!-- /ko -->
+</div>
+
+</body>
+</html>

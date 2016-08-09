@@ -6,7 +6,15 @@ web:
   links:
     - db
   volumes:
-    - .:/var/www/
+    - ./api:/var/www/html/api
+    - ./common:/var/www/html/common
+    - ./html/index.html:/var/www/html/index.php
+    - ./layar:/var/www/html/layar
+    - ./maintenance:/var/www/html/maintenance
+    - ./map:/var/www/html/map
+    - ./toolbox:/var/www/html/toolbox
+    - ./toolinfo.json:/var/www/html/toolinfo.json
+    - ./tools:/var/www/html/tools
 db:
   build: ./conf
   dockerfile: Dockerfile.db

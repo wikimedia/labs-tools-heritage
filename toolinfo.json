@@ -1,11 +1,20 @@
 [
-    {
-      "name" : "heritage-api",
-      "title" : "Monuments database API",
-      "description" : "An API to query the monuments database",
-      "url" : "https://tools.wmflabs.org/heritage/api/",
-      "keywords" : "wlm, wikilovesmonuments, api",
-      "author" : "Multichill, Lokal_Profil, Platonides",
-      "repository" : "https://github.com/wikimedia/labs-tools-heritage/tree/master/api"
-    }
+  {
+    "name" : "heritage-api",
+    "title" : "Monuments database API",
+    "description" : "An API to query the monuments database",
+    "url" : "https://tools.wmflabs.org/heritage/api/",
+    "keywords" : "wlm, wikilovesmonuments, api",
+    "author" : "Multichill, Lokal_Profil, Platonides",
+    "repository" : "https://github.com/wikimedia/labs-tools-heritage/tree/master/api"
+  },
+  {
+    "name": "heritage-daily-uploads",
+    "title": "Daily uploads",
+    "description": "A tool to list all the pictures uploaded to a Commons category during a day.",
+    "url": "https://tools.wmflabs.org/heritage/tools/daily-uploads/daily-uploads.html",
+    "keywords": "wlm, wle, potd, images, commons, contest",
+    "author": "EdouardHue",
+    "repository": "https://github.com/wikimedia/labs-tools-heritage/tree/master/tools/daily-uploads"
+  }
 ]
