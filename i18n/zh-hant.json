@@ -42,6 +42,7 @@
 	"db-field-registrant_url": "註冊者的url",
 	"db-field-commonscat": "維基共享資源分類",
 	"db-field-wd_item": "維基數據項目",
+	"db-field-project": "維基媒體計劃",
 	"db-field-st_address": "地址",
 	"db-field-st_address_pct": "地址 %",
 	"db-field-st_coordinates": "座標",

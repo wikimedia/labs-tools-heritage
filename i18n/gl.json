@@ -34,6 +34,8 @@
 	"db-field-source": "Orixe",
 	"db-field-monument_article": "Artigo do monumento",
 	"db-field-registrant_url": "URL do titular",
+	"db-field-commonscat": "Categoría de Commons",
+	"db-field-wd_item": "Elemento de Wikidata",
 	"db-field-project": "Proxecto Wikimedia",
 	"db-field-st_address": "Enderezos",
 	"db-field-st_address_pct": "Enderezos %",

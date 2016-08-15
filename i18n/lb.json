@@ -18,6 +18,8 @@
 	"search-table-tr-municipality": "Gemeng",
 	"search-table-tr-coordinates": "Koordinaten",
 	"search-table-tr-images": "Biller",
+	"search-table-tr-output-language": "Zil-Sprooch",
+	"search-table-tr-output-format": "Zil-Format",
 	"search-table-checkbox-only-images": "Nëmme Monumenter ouni Biller",
 	"search-table-button-search": "Sichen",
 	"filter-all-countries": "All Länner",
