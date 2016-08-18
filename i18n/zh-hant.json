@@ -20,10 +20,12 @@
 	"search-table-tr-languages": "語言",
 	"search-table-tr-name": "名稱",
 	"search-table-tr-address": "地址",
+	"search-table-tr-municipality": "自治市",
 	"search-table-tr-coordinates": "座標",
 	"search-table-tr-images": "圖像",
 	"search-table-tr-output-language": "輸出語言",
 	"search-table-tr-output-format": "輸出格式",
+	"search-table-checkbox-only-images": "僅限沒有圖片的古蹟",
 	"search-table-button-search": "搜尋",
 	"filter-all-countries": "所有國家",
 	"filter-all-languages": "所有語言",
@@ -64,5 +66,6 @@
 	"toolbox-nav-statistics": "統計",
 	"toolbox-nav-search": "搜尋",
 	"toolbox-title-searchmonuments": "搜尋古蹟",
+	"toolbox-title-statistics": "古蹟統計內容",
 	"location": "位置"
 }
