@@ -13,5 +13,5 @@ class Monuments {
 		'changed'
 	];
 
-	static $dbPrimaryKey = [ 'country', 'lang', 'id' ];
+	static $dbPrimaryKey = [ 'country', 'lang', 'project', 'id' ];
 }
