@@ -1,0 +1,37 @@
+{
+	"@metadata": {
+		"authors": [
+			"Snævar"
+		]
+	},
+	"search-title": "Leita að minnismerkjum",
+	"search-monuments-database": "Leita í minnismerkja gagnabankanum",
+	"search-table-th-field": "Reitur",
+	"search-table-th-filter": "Sía",
+	"search-table-th-search": "Leita",
+	"search-table-th-output": "Úttak",
+	"search-table-tr-countries": "Lönd",
+	"search-table-tr-languages": "Tungumál",
+	"search-table-tr-name": "Nafn",
+	"search-table-tr-address": "Heimilisfang",
+	"search-table-tr-municipality": "Sveitarfélag",
+	"search-table-tr-coordinates": "Hnit",
+	"search-table-tr-images": "Myndir",
+	"search-table-tr-output-language": "Tungumál úttaks",
+	"search-table-checkbox-only-images": "Aðeins minnismerki án mynda",
+	"search-table-button-search": "Leita",
+	"filter-all-countries": "Öll lönd",
+	"filter-all-languages": "Öll tungumál",
+	"db-field-country": "Land",
+	"db-field-lang": "Tungumál",
+	"db-field-id": "Auðkenni",
+	"db-field-name": "Nafn",
+	"db-field-address": "Heimilisfang",
+	"db-field-municipality": "Sveitarfélag",
+	"db-field-lat": "Breiddargráða",
+	"db-field-lon": "Lengdargráða",
+	"db-field-image": "Mynd",
+	"db-field-changed": "Breytt",
+	"db-field-source": "Uppruni",
+	"db-field-monument_article": "Síða minnismerkja"
+}

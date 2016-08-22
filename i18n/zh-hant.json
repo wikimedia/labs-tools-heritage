@@ -13,7 +13,7 @@
 	"search-title": "搜尋古蹟",
 	"search-monuments-database": "搜尋古蹟資料庫",
 	"search-table-th-field": "欄位",
-	"search-table-th-filter": "搜尋",
+	"search-table-th-filter": "篩選",
 	"search-table-th-search": "搜尋",
 	"search-table-th-output": "輸出",
 	"search-table-tr-countries": "國家",
@@ -67,5 +67,6 @@
 	"toolbox-nav-search": "搜尋",
 	"toolbox-title-searchmonuments": "搜尋古蹟",
 	"toolbox-title-statistics": "古蹟統計內容",
-	"location": "位置"
+	"location": "位置",
+	"source-monuments-list": "維基媒體計劃上的紀念建築清單來源"
 }
