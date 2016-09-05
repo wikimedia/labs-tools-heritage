@@ -5,7 +5,8 @@
 			"Jezevec",
 			"PSJG-Tyler",
 			"Vks",
-			"Dvorapa"
+			"Dvorapa",
+			"Walter Klosse"
 		]
 	},
 	"search-title": "Hledat památky",
@@ -40,6 +41,7 @@
 	"db-field-source": "Zdroj",
 	"db-field-monument_article": "Článek o památce",
 	"db-field-registrant_url": "url zaregistrovaného",
+	"db-field-commonscat": "Commons kategorie",
 	"db-field-wd_item": "Položka Wikidat",
 	"db-field-project": "Projekt Wikimedia",
 	"db-field-st_address": "Adresy",
@@ -64,5 +66,6 @@
 	"toolbox-nav-search": "Hledat",
 	"toolbox-title-searchmonuments": "Hledat monumenty",
 	"toolbox-title-statistics": "Statistiky památek",
-	"location": "Místo"
+	"location": "Místo",
+	"source-monuments-list": "Seznam památek na Wikipedii se zdroji"
 }
