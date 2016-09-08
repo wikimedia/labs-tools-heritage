@@ -230,12 +230,12 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
             u'Monument with id %s not in monuments database' % (monumentId, ))
         return False
 
-    newcats = get_new_categories(monumentId, monData, lang, commonsCatTemplates)
+    (newcats, categorisation_method) = get_new_categories(monumentId, monData, lang, commonsCatTemplates)
 
     # See if one of the three options worked
     if newcats:
-        comment = u'Adding categories based on [[Template:%s]] with identifier %s' % (
-            commonsTemplateName, monumentId)
+        comment = u'Adding categories based on [[Template:%s]] with identifier %s (method %s)' % (
+            commonsTemplateName, monumentId, categorisation_method)
         replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
         pywikibot.log(u'Categories not found for %s' % page.title())
@@ -263,12 +263,14 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
      monumentArticleTitle, monumentSource, project) = monData
     commons_site = pywikibot.Site(u'commons', u'commons')
     newcats = []
+    categorisation_method = ''
     # First try to add a category based on the commonscat field in the list
     if monumentCommonscat:
         # Might want to include some error checking here
         try:
             cat = pywikibot.Category(commons_site, monumentCommonscat)
             newcats.append(cat)
+            categorisation_method = 'A: CommonsCat in the monument list'
         except ValueError:
             pywikibot.warning(
                 u'The Commonscat field for %s contains an invalid category %s' % (
@@ -292,9 +294,9 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                     for commonsCatTemplateName in commonsCatTemplates:
                         commonsCatTemplate = pywikibot.Page(project_site, 'Template:%s' % commonsCatTemplateName)
                         if is_template_present_in_page(commonsCatTemplate, monumentArticle):
-                            newcats = []
-                            newcats.append(
-                                getCategoryFromCommonscat(monumentArticle, commonsCatTemplates))
+                            (new_cat, method) = getCategoryFromCommonscat(monumentArticle, commonsCatTemplates)
+                            newcats.append(new_cat)
+                            categorisation_method = 'B%s: CommonsCat on the monument article' % method
                 except pywikibot.SectionError:
                     pywikibot.warning(u'Incorrect redirect at %s' % (
                         monumentArticle.title(),))
@@ -314,11 +316,11 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         if monumentList.isRedirectPage():
             monumentList = monumentList.getRedirectTarget()
         try:
-            newcats = getCategories(monumentList, commonsCatTemplates)
+            (newcats, categorisation_method) = get_categories_from_source_page(monumentList, commonsCatTemplates)
         except pywikibot.exceptions.Error as e:
             pywikibot.error(u'Error occured with monument %s: %s' % (
                 monumentId, str(e)))
-    return newcats
+    return (newcats, categorisation_method)
 
 
 def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, new_categories, comment, verbose=False):
@@ -409,27 +411,32 @@ def is_template_present_in_page(template, page):
     return template in [x[0] for x in page.templatesWithParams()]
 
 
-def getCategories(page, commonsCatTemplates):
+def get_categories_from_source_page(page, commonsCatTemplates):
     '''
     Get Commons categories based on page.
     1. If page contains a Commonscat template, use that category
     2. Else, try getting it from Wikidata
     3. Else pull Commonscat links from upper categories
     '''
-    result = set()
+    new_categories = set()
+    categorisation_method = ''
     for commonsCatTemplateName in commonsCatTemplates:
         commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
         if is_template_present_in_page(commonsCatTemplate, page):
-            result.add(getCategoryFromCommonscat(page, commonsCatTemplates))
-    if not len(result):
+            (new_cat, _) = getCategoryFromCommonscat(page, commonsCatTemplates)
+            new_categories.add(new_cat)
+            categorisation_method = 'C1: CommonsCat on the monument list page'
+    if not len(new_categories):
         try:
-            result.add(get_Commons_category_via_Wikidata(page))
+            new_categories.add(get_Commons_category_via_Wikidata(page))
+            categorisation_method = 'C2: via Wikidata on the monument list page'
         except NoCommonsCatFromWikidataItemException:
             pass
-    if not len(result):
-        result = get_categories_from_upper_categories(page, commonsCatTemplates)
+    if not len(new_categories):
+        new_categories = get_categories_from_upper_categories(page, commonsCatTemplates)
+        categorisation_method = 'D: from upper categories of monument list page'
 
-    return result
+    return (new_categories, categorisation_method)
 
 
 def get_categories_from_upper_categories(page, commonsCatTemplates):
@@ -438,7 +445,7 @@ def get_categories_from_upper_categories(page, commonsCatTemplates):
         for commonsCatTemplateName in commonsCatTemplates:
             commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
             if is_template_present_in_page(commonsCatTemplate, cat):
-                new_cat = getCategoryFromCommonscat(cat, commonsCatTemplates)
+                (new_cat, method) = getCategoryFromCommonscat(cat, commonsCatTemplates)
                 new_categories.add(new_cat)
         try:
             site = pywikibot.Site(u'commons', u'commons')
@@ -455,6 +462,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     Get a Commons category based on a page with a Commonscat template
     '''
     cat_title = None
+    categorisation_method = '1'  # By 'default', we do not rely on Wikidata
     (template, params) = get_commonscat_template_in_page(page, commonsCatTemplates)
 
     if len(params) >= 1:
@@ -463,6 +471,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
     if not cat_title:
         try:
             cat_title = get_Commons_category_via_Wikidata(page)
+            categorisation_method = '2'
         except NoCommonsCatFromWikidataItemException:
             pass
 
@@ -471,7 +480,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
 
     site = pywikibot.Site(u'commons', u'commons')
     cat = pywikibot.Category(site, cat_title)
-    return cat
+    return (cat, categorisation_method)
 
 
 def get_commonscat_template_in_page(page, commonsCatTemplates):
