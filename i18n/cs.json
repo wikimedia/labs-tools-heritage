@@ -6,7 +6,8 @@
 			"PSJG-Tyler",
 			"Vks",
 			"Dvorapa",
-			"Walter Klosse"
+			"Walter Klosse",
+			"Mormegil"
 		]
 	},
 	"search-title": "Hledat památky",
@@ -41,7 +42,7 @@
 	"db-field-source": "Zdroj",
 	"db-field-monument_article": "Článek o památce",
 	"db-field-registrant_url": "url zaregistrovaného",
-	"db-field-commonscat": "Commons kategorie",
+	"db-field-commonscat": "Kategorie na Commons",
 	"db-field-wd_item": "Položka Wikidat",
 	"db-field-project": "Projekt Wikimedia",
 	"db-field-st_address": "Adresy",
@@ -67,5 +68,5 @@
 	"toolbox-title-searchmonuments": "Hledat monumenty",
 	"toolbox-title-statistics": "Statistiky památek",
 	"location": "Místo",
-	"source-monuments-list": "Seznam památek na Wikipedii se zdroji"
+	"source-monuments-list": "Zdrojový seznam památek na projektu Wikimedia"
 }
