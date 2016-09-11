@@ -174,3 +174,17 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
         self.assertEquals(
             categorize_images.get_Commons_category_via_Wikidata(self.mock_page),
             expected)
+
+
+class TestGetCategoriesFromUpperCategories(unittest.TestCase):
+
+    """Test the get_categories_from_upper_categories method."""
+
+    def setUp(self):
+        self.mock_page = mock.create_autospec(
+            categorize_images.pywikibot.Page)
+
+    def test_get_categories_from_upper_categories_with_no_categories_returns_empty_set(self):
+        self.mock_page.categories.return_value = []
+        result = categorize_images.get_categories_from_upper_categories(self.mock_page, None)
+        self.assertEquals(result, set())

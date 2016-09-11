@@ -427,24 +427,27 @@ def getCategories(page, commonsCatTemplates):
         except NoCommonsCatFromWikidataItemException:
             pass
     if not len(result):
-        # print page.categories()
-        for cat in page.categories():
-            # print cat
-            for commonsCatTemplateName in commonsCatTemplates:
-                commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
-                # print commonsCatTemplate
-                if is_template_present_in_page(commonsCatTemplate, cat):
-                    # print u'hit!'
-                    result.add(
-                        getCategoryFromCommonscat(cat, commonsCatTemplates))
-            try:
-                site = pywikibot.Site(u'commons', u'commons')
-                new_cat_title = get_Commons_category_via_Wikidata(cat)
-                new_cat = pywikibot.Category(site, new_cat_title)
-                result.add(new_cat)
-            except NoCommonsCatFromWikidataItemException:
-                pass
+        result = get_categories_from_upper_categories(page)
+
     return result
+
+
+def get_categories_from_upper_categories(page, commonsCatTemplates):
+    new_categories = set()
+    for cat in page.categories():
+        for commonsCatTemplateName in commonsCatTemplates:
+            commonsCatTemplate = pywikibot.Page(page.site, 'Template:%s' % commonsCatTemplateName)
+            if is_template_present_in_page(commonsCatTemplate, cat):
+                new_cat = getCategoryFromCommonscat(cat, commonsCatTemplates)
+                new_categories.add(new_cat)
+        try:
+            site = pywikibot.Site(u'commons', u'commons')
+            new_cat_title = get_Commons_category_via_Wikidata(cat)
+            new_cat = pywikibot.Category(site, new_cat_title)
+            new_categories.add(new_cat)
+        except NoCommonsCatFromWikidataItemException:
+            pass
+    return new_categories
 
 
 def getCategoryFromCommonscat(page, commonsCatTemplates):
