@@ -3,6 +3,7 @@
 
 import unittest
 import re
+from custom_assertions import CustomAssertions
 from erfgoedbot import monuments_config as config
 
 
@@ -73,22 +74,7 @@ SomeText
                               expected_sources)
 
 
-class TestFillTableMonumentsBase(unittest.TestCase):
-
-    """Base class introducing assert_all_in method."""
-
-    def assert_all_in(self, first, second, msg=None):
-        """Test that all first is in second, else append failing to msg."""
-        failing = []
-        for i in first:
-            try:
-                self.assertIn(i, second, msg=msg)
-            except AssertionError:
-                failing.append(i)
-        self.assertEqual(failing, [], msg=msg % ', '.join(failing))
-
-
-class FillTableMonumentsValidation(TestFillTableMonumentsBase):
+class FillTableMonumentsValidation(unittest.TestCase, CustomAssertions):
 
     """Validate fill_table_monuments_all.sql."""
 
@@ -115,7 +101,8 @@ class FillTableMonumentsValidation(TestFillTableMonumentsBase):
             self.assert_all_in(required, dataset['replaced'], msg=msg)
 
 
-class TestFillTableMonumentsOntoMonumentsConfig(TestFillTableMonumentsBase):
+class TestFillTableMonumentsOntoMonumentsConfig(unittest.TestCase,
+                                                CustomAssertions):
 
     """Compatibility of fill_table_monuments_all.sql with monuments_config."""
 
