@@ -33,8 +33,9 @@ class FormatCsv extends FormatBase {
 		$needComma = false;
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
-				if ( $needComma ) { echo ',';
-	   }
+				if ( $needComma ) {
+					echo ',';
+				}
 				echo self::csvQuote( $value );
 				$needComma = true;
 			}
