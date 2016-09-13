@@ -7,6 +7,25 @@ import mock
 from erfgoedbot import categorize_images
 
 
+class TestGetCommonsCatTemplates(unittest.TestCase):
+
+    def test_getCommonscatTemplates_with_defaults(self):
+        result = categorize_images.getCommonscatTemplates()
+        self.assertEquals(result, [u'Commonscat'])
+
+    def test_getCommonscatTemplates_with_one_alternative(self):
+        result = categorize_images.getCommonscatTemplates(lang='af')
+        self.assertEquals(result, [u'CommonsKategorie', u'commonscat'])
+
+    def test_getCommonscatTemplates_with_two_alternatives(self):
+        result = categorize_images.getCommonscatTemplates(lang='ca')
+        self.assertEquals(result, [u'Commonscat', u'Commons cat', u'Commons category'])
+
+    def test_getCommonscatTemplates_with_wikivoyage(self):
+        result = categorize_images.getCommonscatTemplates(project='wikivoyage')
+        self.assertEquals(result, [u'Commonscat'])
+
+
 class TestReplaceCategories(unittest.TestCase):
 
     """Test the replace_default_cat_with_new_categories_in_image_text method."""
