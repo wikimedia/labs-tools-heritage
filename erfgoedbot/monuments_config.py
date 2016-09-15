@@ -4274,6 +4274,75 @@ countries = {
             },
         ],
     },
+    ('ge', 'ka'): {  # Monuments in Georgia in Georgian
+        'project': u'wikipedia',
+        'lang': u'ka',
+        'headerTemplate': u'GEO Monument header',
+        'rowTemplate': u'GEO Monument row',
+        'commonsTemplate': u'Cultural Heritage Georgia',
+        'commonsTrackerCategory': u'Cultural heritage monuments in Georgia with known IDs',
+        'commonsCategoryBase': u'Cultural heritage monuments in Georgia',
+        'autoGeocode': False,
+        'unusedImagesPage': u'ვიკიპედია:გამოუყენებელი სურათები',
+        'imagesWithoutIdPage': u'ვიკიპედია:სურათები იდენტიფიკატორის გარეშე',
+        'registrantUrlBase': u'',
+        'namespaces': [4],
+        'table': u'monuments_ge_(ka)',
+        'truncate': False,
+        'primkey': u'id',
+        'fields': [
+            {
+                'source': u'state_iso',
+                'dest': u'region_iso',
+            },
+            {
+                'source': u'municipality',
+                'dest': u'municipality',
+            },
+            {
+                'source': u'name',
+                'dest': u'name',
+            },
+            {
+                'source': u'ID',
+                'dest': u'id',
+            },
+            {
+                'source': u'type',
+                'dest': u'type',
+            },
+            {
+                'source': u'date',
+                'dest': u'date',
+            },
+            {
+                'source': u'lat',
+                'dest': u'lat',
+                'check': u'checkLat',
+            },
+            {
+                'source': u'lon',
+                'dest': u'lon',
+                'check': u'checkLon',
+            },
+            {
+                'source': u'address',
+                'dest': u'address',
+            },
+            {
+                'source': u'image',
+                'dest': u'image',
+            },
+            {
+                'source': u'commonscat',
+                'dest': u'commonscat',
+            },
+            {
+                'source': u'ref',
+                'dest': u'registrant_url',
+            },
+        ],
+    },
     ('gh', 'en'): {  # Ghana monuments in English
         'project': u'wikipedia',
         'lang': u'en',

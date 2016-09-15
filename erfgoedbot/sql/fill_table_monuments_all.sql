@@ -1482,6 +1482,34 @@ REPLACE INTO
     `registrant_url` AS `registrant_url`
     FROM `monuments_gb-wls_(en)`;
 
+/* Georgia in Georgian */
+REPLACE INTO
+  `monuments_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+  ) SELECT
+    'ge' AS `country`,
+    'ka' AS `lang`,
+    `id` AS `id`,
+    'ge' AS `adm0`,
+    LOWER(`region_iso`) AS `adm1`,
+    `municipality` AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `name` AS `name`,
+    `address` AS `address`,
+    `municipality` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    '' AS `monument_article`, -- Not available
+    `registrant_url` AS `registrant_url`
+    FROM `monuments_ge_(ka)`;
+
 /* Ghana in English */
 REPLACE INTO
   `monuments_all_tmp` (
