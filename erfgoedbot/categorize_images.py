@@ -427,7 +427,7 @@ def getCategories(page, commonsCatTemplates):
         except NoCommonsCatFromWikidataItemException:
             pass
     if not len(result):
-        result = get_categories_from_upper_categories(page)
+        result = get_categories_from_upper_categories(page, commonsCatTemplates)
 
     return result
 
