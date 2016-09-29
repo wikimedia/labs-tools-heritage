@@ -5,7 +5,7 @@ bot:
   links:
     - db
   volumes:
-    - "./conf/database_config.dev.yml:/code/erfgoedbot/database_config.yml:ro"
+    - "./conf/database_config.dev.yml:/code/erfgoedbot/database_config.yml"
 
 db:
   extends:

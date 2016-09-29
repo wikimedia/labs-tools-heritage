@@ -16,10 +16,10 @@ db_dump:
     MYSQL_PASSWORD: password
 
 db_empty:
-  build: .
-  dockerfile: conf/Dockerfile.dbempty
+  image: mysql:5.5.49
   volumes:
     - ./mysql:/etc/mysql/conf.d
+    - ./erfgoedbot/sql/:/docker-entrypoint-initdb.d/
   environment:
     MYSQL_ROOT_PASSWORD: root_password
     MYSQL_DATABASE: s51138__heritage_p
@@ -32,4 +32,4 @@ bot:
   volumes:
     - .:/code
   environment:
-    PYWIKIBOT2_NO_USER_CONFIG: 1
+    PYWIKIBOT2_NO_USER_CONFIG: 2

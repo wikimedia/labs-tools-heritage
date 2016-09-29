@@ -13,13 +13,23 @@ You can override them via the `database_config.yml` file.
 
 To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
 
-To spin-up a development environement:
+To spin-up a development environement simulating harvesting:
 
 ```
+# Create database tables
 python erfgoedbot/monument_tables.py
-docker-compose -f docker-compose-bot.yml up -d
-docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_id_dump.py
+
+# Build and start the Docker containers
+docker-compose -f docker-compose-bot.yml up --build -d
+
+# Run the bot to harvest a country
+docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_database.py -countrycode:ge -lang:ka -log
+
+# Update the monuments_all table
+docker-compose -f docker-compose-bot.yml run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql
 ```
+
+The web interface will be accessible on http://localhost:8000/
 
 
 Monuments Database and API
@@ -33,3 +43,5 @@ To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests and [do
 ./bin/download_monuments_database_dump.sh
 docker-compose up -d
 ```
+
+The web interface will be accessible on http://localhost:8000/
