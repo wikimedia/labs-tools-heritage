@@ -4592,7 +4592,7 @@ countries = {
         'rowTemplate': u'ASI Monument row',
         'commonsTemplate': u'ASI Monument',
         'unusedImagesPage': u'Wikipedia:WikiProject India/Wiki Loves Monuments/Unused ASI Monuments images',
-        'commonsTrackerCategory': u'ASI Monuments with known IDs',
+        'commonsTrackerCategory': u"ASI monuments with known ID's",
         'commonsCategoryBase': u'Cultural heritage monuments in India',
         'namespaces': [0, 4],
         'table': u'monuments_in_(en)',
