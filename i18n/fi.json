@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nike",
-			"Olli"
+			"Olli",
+			"Pyscowicz"
 		]
 	},
 	"search-title": "Monumenttien haku",
@@ -10,6 +11,8 @@
 	"search-table-th-field": "Kenttä",
 	"search-table-th-filter": "Suodin",
 	"search-table-th-search": "Haku",
+	"search-table-tr-images": "Kuvat",
+	"search-table-button-search": "Haku",
 	"filter-all-countries": "Kaikki maat",
 	"filter-all-languages": "Kaikki kielet",
 	"db-field-country": "Maa",
@@ -25,6 +28,9 @@
 	"db-field-source": "Lähde",
 	"db-field-monument_article": "Monumenttiartikkeli",
 	"db-field-registrant_url": "Rekisteröity osoite",
+	"db-field-commonscat": "Commons-luokka",
+	"db-field-wd_item": "Wikidata-kohde",
+	"db-field-project": "Wikimedia-projekti",
 	"db-field-st_address": "Osoitteet",
 	"db-field-st_address_pct": "Osoitteet %",
 	"db-field-st_coordinates": "Koordinaatit",
@@ -38,8 +44,9 @@
 	"db-field-st_total": "Kokonaismäärä",
 	"toolbox-label-searchtipps": "Käytä %term, term% tai %term% sumeaa hakua varten",
 	"toolbox-meta-title": "Wikirakkausmonumenttien työkalulaatikko",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments-logo",
 	"toolbox-main-title": "WLM-työkalulaatikko",
-	"toolbox-main-description": "Työkaluja, jotka liittyvät kohteeseen",
+	"toolbox-main-description": "Työkaluja jotka liittyvät kohteeseen $1",
 	"toolbox-wikilovesmonuments": "Wikirakkausmonumentit",
 	"toolbox-nav-homepage": "Etusivu",
 	"toolbox-nav-statistics": "Tilastot",
