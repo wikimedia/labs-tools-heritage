@@ -16,6 +16,8 @@ python categorize_images.py
 python categorize_images.py -countrycode:ee -lang:et
 
 '''
+import json
+import os
 import re
 
 import pywikibot
@@ -41,150 +43,11 @@ class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedErro
 class NoCategoryToAddException(Exception):
     pass
 
-# Contains the commonscat templates for most Wikipedia's (taken from ex-commonscat.py)
-wikipedia_commonscat_templates = {
-    '_default': (u'Commonscat', []),
-    'af': (u'CommonsKategorie', [u'commonscat']),
-    'an': (u'Commonscat', [u'Commons cat']),
-    'ar': (u'تصنيف كومنز',
-           [u'Commonscat', u'تصنيف كومونز', u'Commons cat', u'CommonsCat']),
-    'arz': (u'Commons cat', [u'Commoncat']),
-    'az': (u'CommonsKat', [u'Commonscat']),
-    'bn': (u'কমন্সক্যাট', [u'Commonscat']),
-    'ca': (u'Commonscat', [u'Commons cat', u'Commons category']),
-    'crh': (u'CommonsKat', [u'Commonscat']),
-    'cs': (u'Commonscat', [u'Commons cat']),
-    'da': (u'Commonscat',
-           [u'Commons cat', u'Commons category', u'Commonscat left',
-            u'Commonscat2']),
-    'en': (u'Commons category',
-           [u'Commoncat', u'Commonscat', u'Commons cat', u'Commons+cat',
-            u'Commonscategory', u'Commons and category', u'Commonscat-inline',
-            u'Commons category-inline', u'Commons2', u'Commons category multi',
-            u'Cms-catlist-up', u'Catlst commons', u'Commonscat show2',
-            u'Sister project links']),
-    'es': (u'Commonscat',
-           [u'Ccat', u'Commons cat', u'Categoría Commons',
-            u'Commonscat-inline']),
-    'et': (u'Commonsi kategooria',
-           [u'Commonscat', u'Commonskat', u'Commons cat', u'Commons category']),
-    'eu': (u'Commonskat', [u'Commonscat']),
-    'fa': (u'ویکی‌انبار-رده',
-           [u'Commonscat', u'Commons cat', u'انبار رده', u'Commons category',
-            u'انبار-رده', u'جعبه پیوند به پروژه‌های خواهر',
-            u'در پروژه‌های خواهر', u'پروژه‌های خواهر']),
-    'fr': (u'Commonscat', [u'CommonsCat', u'Commons cat', u'Commons category']),
-    'frp': (u'Commonscat', [u'CommonsCat']),
-    'ga': (u'Catcómhaoin', [u'Commonscat']),
-    'he': (u'ויקישיתוף בשורה', []),
-    'hi': (u'Commonscat', [u'Commons2', u'Commons cat', u'Commons category']),
-    'hu': (u'Commonskat', [u'Közvagyonkat']),
-    'hy': (u'Վիքիպահեստ կատեգորիա',
-           [u'Commonscat', u'Commons cat', u'Commons category']),
-    'id': (u'Commonscat',
-           [u'Commons cat', u'Commons2', u'CommonsCat', u'Commons category']),
-    'is': (u'CommonsCat', [u'Commonscat']),
-    'ja': (u'Commonscat', [u'Commons cat', u'Commons category']),
-    'jv': (u'Commonscat', [u'Commons cat']),
-    'kaa': (u'Commons cat', [u'Commonscat']),
-    'kk': (u'Commonscat', [u'Commons2']),
-    'ko': (u'Commonscat', [u'Commons cat', u'공용분류']),
-    'la': (u'CommuniaCat', []),
-    'mk': (u'Ризница-врска',
-           [u'Commonscat', u'Commons cat', u'CommonsCat', u'Commons2',
-            u'Commons category']),
-    'ml': (u'Commonscat', [u'Commons cat', u'Commons2']),
-    'ms': (u'Kategori Commons', [u'Commonscat', u'Commons category']),
-    'nn': (u'Commonscat', [u'Commons cat']),
-    'os': (u'Commonscat', [u'Commons cat']),
-    'pt': (u'Commonscat', [u'Commons cat']),
-    'ro': (u'Commonscat', [u'Commons cat']),
-    'ru': (u'Commonscat', [u'Викисклад-кат', u'Commons category']),
-    'simple': (u'Commonscat',
-               [u'Commons cat', u'Commons cat multi', u'Commons category',
-                u'Commons category multi', u'CommonsCompact',
-                u'Commons-inline']),
-    'sh': (u'Commonscat', [u'Commons cat']),
-    'sl': (u'Kategorija v Zbirki',
-           [u'Commonscat', u'Kategorija v zbirki', u'Commons cat',
-            u'Katzbirke']),
-    'sq': (u'Commonscat', [u'Commonskat', u'Commonsart', u'CommonsCat']),
-    'sv': (u'Commonscat',
-           [u'Commonscat-rad', u'Commonskat', u'Commons cat', u'Commonscatbox',
-            u'Commonscat-box']),
-    'sw': (u'Commonscat', [u'Commons2', u'Commons cat']),
-    'te': (u'Commonscat', [u'Commons cat']),
-    'tr': (u'Commons kategori',
-           [u'CommonsKat', u'Commonscat', u'Commons cat']),
-    'uk': (u'Commonscat', [u'Commons cat', u'Category', u'Commonscat-inline']),
-    'vi': (u'Commonscat',
-           [u'Commons2', u'Commons cat', u'Commons category', u'Commons+cat']),
-    'zh': (u'Commonscat', [u'Commons cat', u'Commons category']),
-    'zh-classical': (u'共享類', [u'Commonscat']),
-    'zh-yue': (u'同享類',
-               [u'Commonscat', u'共享類 ', u'Commons cat', u'Commons category']),
-}
 
-ignoreTemplates = {
-    'af': [u'commons'],
-    'ar': [u'تحويلة تصنيف', u'كومنز', u'كومونز', u'Commons'],
-    'be-tarask': [u'Commons', u'Commons category'],
-    'cs': [u'Commons', u'Sestřičky', u'Sisterlinks'],
-    'da': [u'Commons', u'Commons left', u'Commons2', u'Commonsbilleder',
-           u'Commonskat', u'Commonscat2', u'GalleriCommons', u'Søsterlinks'],
-    'de': [u'Commons', u'ZhSZV', u'Bauwerk-stil-kategorien',
-           u'Bauwerk-funktion-kategorien', u'KsPuB',
-           u'Kategoriesystem Augsburg-Infoleiste',
-           u'Kategorie Ge', u'Kategorie v. Chr. Ge',
-           u'Kategorie Geboren nach Jh. v. Chr.', u'Kategorie Geboren nach Jh.',
-           u'!Kategorie Gestorben nach Jh. v. Chr.',
-           u'!Kategorie Gestorben nach Jh.',
-           u'Kategorie Jahr', u'Kategorie Jahr v. Chr.',
-           u'Kategorie Jahrzehnt', u'Kategorie Jahrzehnt v. Chr.',
-           u'Kategorie Jahrhundert', u'Kategorie Jahrhundert v. Chr.',
-           u'Kategorie Jahrtausend', u'Kategorie Jahrtausend v. Chr.'],
-    'en': [u'Category redirect', u'Commons', u'Commonscat1A', u'Commoncats',
-           u'Commonscat4Ra',
-           u'Sisterlinks', u'Sisterlinkswp', u'Sister project links',
-           u'Tracking category', u'Template category', u'Wikipedia category'],
-    'eo': [u'Commons',
-           (u'Projekto/box', 'commons='),
-           (u'Projekto', 'commons='),
-           (u'Projektoj', 'commons='),
-           (u'Projektoj', 'commonscat=')],
-    'es': [u'Commons', u'IprCommonscat'],
-    'eu': [u'Commons'],
-    'fa': [u'Commons', u'ویکی‌انبار', u'Category redirect', u'رده بهتر',
-           u'جعبه پیوند به پروژه‌های خواهر', u'در پروژه‌های خواهر',
-           u'پروژه‌های خواهر'],
-    'fi': [u'Commonscat-rivi', u'Commons-rivi', u'Commons'],
-    'fr': [u'Commons', u'Commons-inline', (u'Autres projets', 'commons=')],
-    'fy': [u'Commons', u'CommonsLyts'],
-    'he': [u'מיזמים'],
-    'hr': [u'Commons', (u'WProjekti', 'commonscat=')],
-    'is': [u'Systurverkefni', u'Commons'],
-    'it': [(u'Ip', 'commons='), (u'Interprogetto', 'commons=')],
-    'ja': [u'CommonscatS', u'SisterlinksN', u'Interwikicat'],
-    'ms': [u'Commons', u'Sisterlinks', u'Commons cat show2'],
-    'nds-nl': [u'Commons'],
-    'nl': [u'Commons', u'Commonsklein', u'Commonscatklein', u'Catbeg',
-           u'Catsjab', u'Catwiki'],
-    'om': [u'Commons'],
-    'pt': [u'Correlatos',
-           u'Commons',
-           u'Commons cat multi',
-           u'Commons1',
-           u'Commons2'],
-    'simple': [u'Sisterlinks'],
-    'ru': [u'Навигация', u'Навигация для категорий', u'КПР', u'КБР',
-           u'Годы в России', u'commonscat-inline'],
-    'tt': [u'Навигация'],
-    'zh': [u'Category redirect', u'cr', u'Commons',
-           u'Sisterlinks', u'Sisterlinkswp',
-           u'Tracking category', u'Trackingcatu',
-           u'Template category', u'Wikipedia category'
-           u'分类重定向', u'追蹤分類', u'共享資源', u'追蹤分類'],
-}
+def _load_wikipedia_commonscat_templates():
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+    json_file = os.path.join(data_dir, 'wikipedia_commonscat_templates.json')
+    return json.load(open(json_file, 'r'))
 
 
 def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
@@ -609,9 +472,11 @@ def getCommonscatTemplates(lang=None, project=None):
     Get the template name in a language on a project.
 
     Expects the language code and project.
-    Return as tuple containing the primary template and it's alternatives
+    Return as list containing the primary template and it's alternatives
     """
     project = project or u'wikipedia'  # default to wikipedia
+
+    wikipedia_commonscat_templates = _load_wikipedia_commonscat_templates()
 
     result = []
     if project == u'wikipedia' and lang in wikipedia_commonscat_templates:
