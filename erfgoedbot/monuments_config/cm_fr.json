@@ -1,0 +1,67 @@
+{
+    "country": "cm",
+    "lang": "fr",
+    "description": "Monuments in Cameroun in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_cm_(fr)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Monument Cameroun header",
+    "rowTemplate": "Monument Cameroun ligne",
+    "commonsTemplate": "Cultural Heritage Cameroon",
+    "commonsTrackerCategory": "Cultural heritage monuments in Cameroon with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Cameroon",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "region_iso",
+            "source": "region_iso"
+        },
+        {
+            "dest": "ville",
+            "source": "ville"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        }
+    ]
+}

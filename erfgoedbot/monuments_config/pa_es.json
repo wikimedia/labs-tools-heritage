@@ -1,0 +1,77 @@
+{
+    "country": "pa",
+    "lang": "es",
+    "description": "Monuments in Panama in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_pa_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Fila PCN",
+    "rowTemplate": "Fila PCN",
+    "commonsTemplate": "PCN",
+    "commonsTrackerCategory": "Cultural heritage monuments in Panama with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Panama",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos del Patrimonio Cultural de la Nación sin usar",
+    "imagesWithoutIdPage": "User:Multichill/PCN without id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "registro",
+            "default": "",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "nombre",
+            "source": "nombre"
+        },
+        {
+            "dest": "descripcion",
+            "source": "descripción"
+        },
+        {
+            "dest": "articulo",
+            "source": "artículo"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "vease",
+            "source": "véase"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "provincia",
+            "source": "provincia"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        }
+    ]
+}

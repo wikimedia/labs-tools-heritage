@@ -1,0 +1,93 @@
+{
+    "country": "th",
+    "lang": "th",
+    "description": "Cultural heritage monuments in land in Thai",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_th_(th)",
+    "truncate": false,
+    "primkey": "register",
+    "headerTemplate": "หัวโบราณสถาน",
+    "rowTemplate": "แถวโบราณสถาน",
+    "commonsTemplate": "Cultural Heritage Thailand",
+    "commonsTrackerCategory": "Cultural heritage monuments in Thailand with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Thailand",
+    "unusedImagesPage": "วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่ได้ใช้",
+    "imagesWithoutIdPage": "วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่มีรหัส",
+    "fields": [
+        {
+            "dest": "register",
+            "source": "ทะเบียน",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "name",
+            "source": "ชื่อ"
+        },
+        {
+            "dest": "note",
+            "source": "หมายเหตุ"
+        },
+        {
+            "dest": "province",
+            "source": "จังหวัด"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "code"
+        },
+        {
+            "dest": "district",
+            "source": "อำเภอ"
+        },
+        {
+            "dest": "tambon",
+            "source": "ตำบล"
+        },
+        {
+            "dest": "location",
+            "source": "ที่ตั้ง"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "ภาพ"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "announced",
+            "source": "ประกาศ"
+        },
+        {
+            "dest": "url",
+            "source": "ลิงก์"
+        },
+        {
+            "dest": "reference",
+            "source": "อ้างอิง"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "register"
+        }
+    ]
+}

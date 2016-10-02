@@ -1,0 +1,133 @@
+{
+    "country": "gb-eng",
+    "lang": "en",
+    "description": "United Kingdom: Listed buildings in England in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_gb-eng_(en)",
+    "truncate": false,
+    "primkey": "uid",
+    "headerTemplate": "EH listed building header",
+    "rowTemplate": "EH listed building row",
+    "commonsTemplate": "Listed building England",
+    "commonsTrackerCategory": "Listed buildings in England with known IDs",
+    "commonsCategoryBase": "Listed buildings in England",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of listed buildings in England",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of listed buildings in England without ID",
+    "missingCommonscatPage": "Wikipedia:WikiProject Historic sites/Missing commons category links for listed buildings in England",
+    "registrantUrlBase": "http://list.english-heritage.org.uk/resultsingle.aspx?uid=%s",
+    "fields": [
+        {
+            "dest": "uid",
+            "source": "uid",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "subdivision_iso",
+            "source": "subdivision_iso"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "grade",
+            "source": "grade"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "",
+            "source": "show_architect"
+        },
+        {
+            "dest": "date_listed",
+            "source": "date_listed"
+        },
+        {
+            "dest": "",
+            "source": "show_listed"
+        },
+        {
+            "dest": "completed",
+            "source": "completed"
+        },
+        {
+            "dest": "grid_ref",
+            "source": "grid_ref"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "notes",
+            "source": "notes"
+        },
+        {
+            "dest": "",
+            "source": "show_notes"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
+        },
+        {
+            "dest": "",
+            "source": "show_wikidata"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "",
+            "source": "show_img"
+        },
+        {
+            "dest": "upload_desc",
+            "source": "upload_desc"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "reference",
+            "source": "reference"
+        },
+        {
+            "dest": "",
+            "source": "show_ref"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "uid",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

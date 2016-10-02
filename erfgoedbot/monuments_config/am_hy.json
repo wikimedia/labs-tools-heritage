@@ -1,0 +1,86 @@
+{
+    "country": "am",
+    "lang": "hy",
+    "description": "Monuments in Armenia in Armenian",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_am_(hy)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Հուշարձան վերնագիր",
+    "rowTemplate": "Հուշարձան ցանկ",
+    "commonsTemplate": "Cultural Heritage Armenia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Armenia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Armenia",
+    "unusedImagesPage": "Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Հայաստանի հուշարձանների չօգտագործված լուսանկարներ",
+    "imagesWithoutIdPage": "Վիքիպեդիա:Վիքին սիրում է հուշարձաններ 2013/Հայաստանի հուշարձանների լուսանկարներ առանց համարանիշի",
+    "registrantUrlBase": "http://www.arlis.am/DocumentView.aspx?DocID=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "համարանիշ",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "մարզ"
+        },
+        {
+            "dest": "municipality",
+            "source": "համայնք"
+        },
+        {
+            "dest": "description",
+            "source": "հուշարձան"
+        },
+        {
+            "dest": "monument_article",
+            "source": "հոդված"
+        },
+        {
+            "dest": "importance",
+            "source": "նշանակություն"
+        },
+        {
+            "dest": "date",
+            "source": "կառուցված"
+        },
+        {
+            "dest": "address",
+            "source": "հասցե"
+        },
+        {
+            "dest": "lat",
+            "source": "լայն",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "երկ",
+            "check": "checkLon"
+        },
+        {
+            "dest": "gov_doc_id",
+            "source": "հղում"
+        },
+        {
+            "dest": "image",
+            "source": "պատկեր"
+        },
+        {
+            "dest": "commonscat",
+            "source": "վիքիպահեստ"
+        },
+        {
+            "dest": "notes",
+            "source": "նշում"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "gov_doc_id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

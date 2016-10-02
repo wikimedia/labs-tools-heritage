@@ -1,0 +1,82 @@
+{
+    "country": "de-he",
+    "lang": "de",
+    "description": "Kulturdenkmäler in Hessen in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_de-he_(de)",
+    "truncate": false,
+    "primkey": "nummer",
+    "headerTemplate": "Denkmalliste Hessen Tabellenkopf",
+    "rowTemplate": "Denkmalliste Hessen Tabellenzeile",
+    "commonsTemplate": "Kulturdenkmal Hessen",
+    "commonsTrackerCategory": "Cultural heritage monuments in Hesse with known ID",
+    "commonsCategoryBase": "Cultural heritage monuments in Hesse",
+    "unusedImagesPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hessen/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hessen/Bilder ohne Nummer",
+    "registrantUrlBase": "http://denkxweb.denkmalpflege-hessen.de/cgi-bin/mapwalk.pl?event=Query.Details&obj=%s",
+    "fields": [
+        {
+            "dest": "nummer",
+            "source": "Nummer",
+            "type": "int(11)"
+        },
+        {
+            "dest": "stadt",
+            "source": "StadtOderGemeinde"
+        },
+        {
+            "dest": "ortsteil",
+            "source": "Ortsteil"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "bezeichnung",
+            "source": "Bezeichnung"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "bild",
+            "source": "Bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "Nummer",
+            "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "flur",
+            "source": "Flur"
+        },
+        {
+            "dest": "flurst",
+            "source": "Flurstück"
+        }
+    ]
+}

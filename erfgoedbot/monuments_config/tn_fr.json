@@ -1,0 +1,84 @@
+{
+    "country": "tn",
+    "lang": "fr",
+    "description": "Monuments in Tunisia in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_tn_(fr)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "En-tête de tableau monument Tunisie",
+    "rowTemplate": "Ligne de tableau monument Tunisie",
+    "commonsTemplate": "Cultural Heritage Tunisia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Tunisia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Tunisia",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments tunisiens non utilisées",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "gouvernorat_iso",
+            "source": "gouvernorat_iso"
+        },
+        {
+            "dest": "site",
+            "source": "site"
+        },
+        {
+            "dest": "monument",
+            "source": "monument"
+        },
+        {
+            "dest": "tri_monument",
+            "source": "tri monument"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "tri_adresse",
+            "source": "tri adresse"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "decret",
+            "source": "decret"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monument",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

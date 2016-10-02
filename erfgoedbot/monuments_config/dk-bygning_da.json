@@ -1,0 +1,115 @@
+{
+    "country": "dk-bygning",
+    "lang": "da",
+    "description": "Bygninger in Denmark in Danish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_dk-bygninger_(da)",
+    "truncate": false,
+    "primkey": [
+        "kommunenr",
+        "ejendomsnr",
+        "bygningsnr"
+    ],
+    "headerTemplate": "Tabelheader FBB",
+    "rowTemplate": "Tabelrække FBB",
+    "commonsTemplate": "Fredet bygning",
+    "commonsTrackerCategory": "Listed buildings in Denmark with known IDs",
+    "commonsCategoryBase": "Listed buildings in Denmark",
+    "unusedImagesPage": "Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede bygninger i Danmark",
+    "imagesWithoutIdPage": "User:Multichill/Protected buildings in Denmark without id",
+    "registrantUrlBase": "https://www.kulturarv.dk/fbb/sagvis.pub?sag=%s",
+    "fields": [
+        {
+            "dest": "systemnrbyg",
+            "source": "systemnrbyg",
+            "type": "int(11)"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "kommune",
+            "source": "kommune"
+        },
+        {
+            "dest": "sagsnavn",
+            "source": "sagsnavn"
+        },
+        {
+            "dest": "komplekstype",
+            "source": "komplekstype"
+        },
+        {
+            "dest": "opforelsesar",
+            "source": "opførelsesår"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "postnr",
+            "source": "postnr"
+        },
+        {
+            "dest": "by",
+            "source": "by"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "kommunenr",
+            "source": "kommunenr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "ejendomsnr",
+            "source": "ejendomsnr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "bygningsnr",
+            "source": "bygningsnr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "fredar",
+            "source": "fredår"
+        },
+        {
+            "dest": "sagsnr",
+            "source": "sagsnr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "billede",
+            "source": "billede"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "sagsnavn",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "sagsnr",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

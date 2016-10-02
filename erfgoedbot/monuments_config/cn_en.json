@@ -1,0 +1,73 @@
+{
+    "country": "cn",
+    "lang": "en",
+    "description": "Major National Historical and Cultural Sites in China in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_cn_(en)",
+    "truncate": false,
+    "primkey": "designation",
+    "headerTemplate": "NHS China header",
+    "rowTemplate": "NHS China row",
+    "commonsTemplate": "Cultural Heritage China",
+    "commonsTrackerCategory": "Cultural heritage monuments in China with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in China",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of cultural heritage in China",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of cultural heritage in China without ID",
+    "fields": [
+        {
+            "dest": "designation",
+            "source": "designation",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "province",
+            "source": "province"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "site",
+            "source": "site"
+        },
+        {
+            "dest": "chinese_name",
+            "source": "chinese_name"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "site",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "designation"
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+{
+    "country": "pk",
+    "lang": "en",
+    "description": "Monuments in Pakistan in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_pk_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "PKmonument header",
+    "rowTemplate": "PKmonument row",
+    "commonsTemplate": "Cultural Heritage Pakistan",
+    "commonsTrackerCategory": "Cultural heritage monuments in Pakistan with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Pakistan",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Pakistan",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Pakistan without an ID",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "color",
+            "source": "color"
+        },
+        {
+            "dest": "monument_article",
+            "source": "description",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "number"
+        }
+    ]
+}

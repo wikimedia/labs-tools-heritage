@@ -1,0 +1,80 @@
+{
+    "country": "bo",
+    "lang": "es",
+    "description": "Monuments in Bolivia in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_bo_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoBolivia/encabezado",
+    "rowTemplate": "MonumentoBolivia",
+    "commonsTemplate": "Monumento Bolivia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Bolivia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Bolivia",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Bolivia sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "iso",
+            "source": "ISO"
+        },
+        {
+            "dest": "departamento",
+            "source": "departamento"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "image",
+            "source": "imagen"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        }
+    ]
+}

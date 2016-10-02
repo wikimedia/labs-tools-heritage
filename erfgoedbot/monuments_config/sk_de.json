@@ -1,0 +1,111 @@
+{
+    "country": "sk",
+    "lang": "de",
+    "description": "Monuments in Slovakia in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_sk_(de)",
+    "truncate": false,
+    "primkey": "objektid",
+    "headerTemplate": "Denkmalliste Slowakei Tabellenkopf",
+    "rowTemplate": "Denkmalliste Slowakei Tabellenzeile",
+    "commonsTemplate": "Cultural Heritage Slovakia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Slovakia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Slovakia",
+    "unusedImagesPage": "User:Multichill/Unused Denkmal Slowakei",
+    "imagesWithoutIdPage": "User:Multichill/Denkmal Slowakei without ID",
+    "fields": [
+        {
+            "dest": "objektid",
+            "source": "ObjektID",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "name-sk",
+            "source": "Name"
+        },
+        {
+            "dest": "name-de",
+            "source": "Name-de"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "adresse-sort",
+            "source": "Adresse-Sort"
+        },
+        {
+            "dest": "region-iso",
+            "source": "Region-ISO"
+        },
+        {
+            "dest": "katastralgemeinde",
+            "source": "Katastralgemeinde"
+        },
+        {
+            "dest": "bearbeitungsdatum",
+            "source": "Bearbeitungsdatum"
+        },
+        {
+            "dest": "beschreibung-de",
+            "source": "Beschreibung-de"
+        },
+        {
+            "dest": "offiziellebeschreibung",
+            "source": "Offizielle Beschr."
+        },
+        {
+            "dest": "anzeige-artikel",
+            "source": "Anzeige-Artikel"
+        },
+        {
+            "dest": "konskriptionsnr",
+            "source": "Konskriptionsnr"
+        },
+        {
+            "dest": "obec",
+            "source": "Obec"
+        },
+        {
+            "dest": "kod_obce",
+            "source": "Kód obce",
+            "type": "int(11)"
+        },
+        {
+            "dest": "okres",
+            "source": "Okres"
+        },
+        {
+            "dest": "kod_okresu",
+            "source": "Kód okresu",
+            "type": "int(11)"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        }
+    ]
+}

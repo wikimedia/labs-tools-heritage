@@ -1,0 +1,83 @@
+{
+    "country": "ru",
+    "lang": "ru",
+    "description": "Monuments in Russia in Russian.",
+    "project": "wikivoyage",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ru_(ru)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Monument-title",
+    "rowTemplate": "Monument",
+    "commonsTrackerCategory": "Cultural heritage monuments in Russia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Russia",
+    "unusedImagesPage": "Культурное наследие России/Неиспользуемые изображения",
+    "imagesWithoutIdPage": "Культурное наследие России/Изображения без ID",
+    "registrantUrlBase": "http://kulturnoe-nasledie.ru/monuments.php?id=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "knid",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "region_iso",
+            "source": "region"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "city",
+            "source": "municipality"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "wiki"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "knid",
+            "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wdid",
+            "check": "checkWD"
+        }
+    ]
+}

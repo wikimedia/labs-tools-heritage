@@ -1,0 +1,95 @@
+{
+    "country": "es",
+    "lang": "ca",
+    "description": "Spain in Catalan table",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_es_(ca)",
+    "truncate": false,
+    "primkey": "bic",
+    "headerTemplate": "Capçalera BIC",
+    "rowTemplate": "Filera BIC",
+    "commonsTemplate": "BIC",
+    "commonsTrackerCategory": "Cultural heritage monuments in Spain with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Spain",
+    "unusedImagesPage": "Viquiprojecte:Monuments/Imatges_per_utilitzar",
+    "imagesWithoutIdPage": "User:Multichill/BIC without id",
+    "fields": [
+        {
+            "dest": "bic",
+            "source": "bic",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "prot",
+            "source": "prot",
+            "type": "enum('BC','BIC')"
+        },
+        {
+            "dest": "idurl",
+            "source": "idurl"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "tipus",
+            "source": "tipus"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "CCAA_iso",
+            "source": "regió1"
+        },
+        {
+            "dest": "provincia_iso",
+            "source": "regió2"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}

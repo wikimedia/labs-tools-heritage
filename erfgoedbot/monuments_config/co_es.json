@@ -1,0 +1,89 @@
+{
+    "country": "co",
+    "lang": "es",
+    "description": "Monuments in Colombia in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_co_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoColombia/encabezado",
+    "rowTemplate": "MonumentoColombia",
+    "commonsTemplate": "Monumento Nacional de Colombia",
+    "commonsTrackerCategory": "National monuments in Colombia with known IDs",
+    "commonsCategoryBase": "National monuments in Colombia",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin id",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Colombia sin usar",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(8)"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "departamento",
+            "source": "departamento"
+        },
+        {
+            "dest": "iso",
+            "source": "ISO"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace",
+            "default": "monumento"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "monumento_categoria",
+            "source": "monumento_categoría"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monumento_enlace"
+        }
+    ]
+}

@@ -1,0 +1,93 @@
+{
+    "country": "ch",
+    "lang": "fr",
+    "description": "Monuments in Switzerland in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_ch_(fr)",
+    "truncate": false,
+    "primkey": "no pbc",
+    "headerTemplate": "En-tête de tableau Monuments (Suisse)",
+    "rowTemplate": "Ligne de tableau Monuments (Suisse)",
+    "commonsTemplate": "Cultural property of national significance in Switzerland",
+    "commonsTrackerCategory": "Cultural properties of national significance in Switzerland with known IDs",
+    "commonsCategoryBase": "Cultural properties of national significance in Switzerland",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments suisse non utilisées",
+    "fields": [
+        {
+            "dest": "no pbc",
+            "source": "no PBC",
+            "type": "int(11)"
+        },
+        {
+            "dest": "photo",
+            "source": "photo"
+        },
+        {
+            "dest": "description-photo",
+            "source": "description-photo"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "objet",
+            "source": "objet"
+        },
+        {
+            "dest": "objet-affiche",
+            "source": "objet-affiché"
+        },
+        {
+            "dest": "categorie",
+            "source": "catégorie"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "addresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "adresse-affiche",
+            "source": "adresse-affiché"
+        },
+        {
+            "dest": "adresse-affichee",
+            "source": "adresse-affichée"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "region-iso",
+            "source": "région-ISO"
+        },
+        {
+            "dest": "commune",
+            "source": "commune"
+        },
+        {
+            "dest": "canton",
+            "source": "canton"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Objet",
+            "conv": "extractWikilink"
+        }
+    ]
+}

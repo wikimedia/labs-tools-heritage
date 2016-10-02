@@ -1,0 +1,74 @@
+{
+    "country": "se-arbetsl",
+    "lang": "sv",
+    "description": "Working Life Museums in Sweden in Swedish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_se-arbetsl_(sv)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Arbetslivsmuseum-huvud",
+    "rowTemplate": "Arbetslivsmuseum",
+    "commonsTemplate": "Arbetslivsmuseum",
+    "commonsTrackerCategory": "Working Life Museums in Sweden with known IDs",
+    "commonsCategoryBase": "Working Life Museums in Sweden",
+    "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av arbetslivsmuseum i Sverige",
+    "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av arbetslivsmuseum i Sverige utan ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": "0",
+            "type": "varchar(4)"
+        },
+        {
+            "dest": "namn",
+            "source": "namn"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "monument_article",
+            "source": "namn",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "typ",
+            "source": "typ"
+        },
+        {
+            "dest": "kommun",
+            "source": "kommun"
+        },
+        {
+            "dest": "ort",
+            "source": "ort"
+        },
+        {
+            "dest": "adress",
+            "source": "adress"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "bild",
+            "source": "bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ]
+}

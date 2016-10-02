@@ -1,0 +1,85 @@
+{
+    "country": "cz",
+    "lang": "cs",
+    "description": "Monuments in Czech Republic in Czech language",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_cz_(cs)",
+    "truncate": false,
+    "primkey": "id_objektu",
+    "headerTemplate": "Památky v Česku/začátek",
+    "rowTemplate": "Památky v Česku",
+    "commonsTemplate": "Cultural Heritage Czech Republic",
+    "commonsTrackerCategory": "Cultural monuments in the Czech Republic with known IDs",
+    "commonsCategoryBase": "Cultural monuments in the Czech Republic",
+    "unusedImagesPage": "Wikipedie:WikiProjekt Wiki Loves Monuments/Nevyužité obrázky",
+    "imagesWithoutIdPage": "User:Multichill/Images of cultural heritage monuments in Czech Republic without id",
+    "missingCommonscatPage": "Wikipedie:WikiProjekt Wiki Loves Monuments/Missing commons category links",
+    "fields": [
+        {
+            "dest": "id_objektu",
+            "source": "Id_objektu",
+            "type": "varchar(20)"
+        },
+        {
+            "dest": "image",
+            "source": "Obrázek"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commons"
+        },
+        {
+            "dest": "name",
+            "source": "Název"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Článek"
+        },
+        {
+            "dest": "address",
+            "source": "Adresa"
+        },
+        {
+            "dest": "kraj-iso",
+            "source": "kraj-iso"
+        },
+        {
+            "dest": "okres-iso",
+            "source": "okres-iso"
+        },
+        {
+            "dest": "municipality",
+            "source": "Obec"
+        },
+        {
+            "dest": "municipality_article",
+            "source": "Obec_článek"
+        },
+        {
+            "dest": "lat",
+            "source": "Zeměpisná_šířka",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Zeměpisná_délka",
+            "check": "checkLon"
+        },
+        {
+            "dest": "description",
+            "source": "Popis"
+        },
+        {
+            "dest": "monument_since",
+            "source": "Památkou_od"
+        },
+        {
+            "dest": "remark",
+            "source": "Poznámka"
+        }
+    ]
+}

@@ -1,0 +1,83 @@
+{
+    "country": "se-ship",
+    "lang": "sv",
+    "description": "Listed historical ships in Sweden in Swedish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_se-ship_(sv)",
+    "truncate": false,
+    "primkey": "signal",
+    "headerTemplate": "K-fartyg-huvud",
+    "rowTemplate": "K-fartyg",
+    "commonsTemplate": "K-Fartyg",
+    "commonsTrackerCategory": "Listed historical ships in Sweden with known IDs",
+    "commonsCategoryBase": "Listed historical ships in Sweden",
+    "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av kulturmärkta fartyg i Sverige",
+    "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av kulturmärkta fartyg i Sverige utan ID",
+    "registrantUrlBase": "http://www.sjohistoriska.se/sv/Kusten-runt/Fartyg--batar/K-markning-av-fartyg/K-markta-fartyg/%s",
+    "fields": [
+        {
+            "dest": "signal",
+            "source": "signal",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "namn",
+            "source": "namn"
+        },
+        {
+            "dest": "artikel",
+            "source": "artikel"
+        },
+        {
+            "dest": "funktion",
+            "source": "funktion"
+        },
+        {
+            "dest": "byggar",
+            "source": "byggår"
+        },
+        {
+            "dest": "varv",
+            "source": "varv"
+        },
+        {
+            "dest": "hemmahamn",
+            "source": "hemmahamn"
+        },
+        {
+            "dest": "material",
+            "source": "material"
+        },
+        {
+            "dest": "dimensioner",
+            "source": "dimensioner"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "bild",
+            "source": "bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "signal",
+            "conv": "generateRegistrantUrl-sv-ship"
+        }
+    ]
+}

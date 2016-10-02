@@ -1,0 +1,112 @@
+{
+    "country": "at",
+    "lang": "de",
+    "description": "Monuments in Austria in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_at_(de)",
+    "truncate": false,
+    "primkey": "objektid",
+    "headerTemplate": "Denkmalliste Österreich Tabellenkopf",
+    "rowTemplate": "Denkmalliste Österreich Tabellenzeile",
+    "commonsTemplate": "Denkmalgeschütztes Objekt Österreich",
+    "commonsTrackerCategory": "Cultural heritage monuments in Austria with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Austria",
+    "unusedImagesPage": "User:Multichill/Unused Denkmal Österreich",
+    "imagesWithoutIdPage": "User:Multichill/Denkmal Österreich without ID",
+    "missingCommonscatPage": "User:ErfgoedBot/Denkmal Österreich missing commons category links",
+    "fields": [
+        {
+            "dest": "objektid",
+            "source": "ObjektID",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "fotobeschreibung",
+            "source": "Fotobeschreibung"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "name",
+            "source": "Name"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "anzeige-Name",
+            "source": "Anzeige-Name"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "adresse-sort",
+            "source": "Adresse-Sort"
+        },
+        {
+            "dest": "region-iso",
+            "source": "Region-ISO"
+        },
+        {
+            "dest": "katastralgemeinde",
+            "source": "Katastralgemeinde"
+        },
+        {
+            "dest": "gemeinde",
+            "source": "Gemeinde"
+        },
+        {
+            "dest": "gemeindekennzahl",
+            "source": "Gemeindekennzahl",
+            "type": "int(11)"
+        },
+        {
+            "dest": "bezirk",
+            "source": "Bezirk"
+        },
+        {
+            "dest": "bezirkskennzahl",
+            "source": "Bezirkskennzahl",
+            "type": "int(11)"
+        },
+        {
+            "dest": "grundstucksnummer",
+            "source": "Grundstücksnummer"
+        },
+        {
+            "dest": "status",
+            "source": "Status"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "bearbeitungsdatum",
+            "source": "Bearbeitungsdatum"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        }
+    ]
+}

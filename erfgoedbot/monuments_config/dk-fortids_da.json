@@ -1,0 +1,93 @@
+{
+    "country": "dk-fortids",
+    "lang": "da",
+    "description": "Fortidsminder in Denmark in Danish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_dk-fortidsminder_(da)",
+    "truncate": false,
+    "primkey": "systemnummer",
+    "headerTemplate": "Tabelheader FF",
+    "rowTemplate": "Tabelrække FF",
+    "commonsTemplate": "Fortidsminde",
+    "commonsTrackerCategory": "Archaeological monuments in Denmark with known IDs",
+    "commonsCategoryBase": "Archaeological monuments in Denmark",
+    "unusedImagesPage": "Wikipedia:Wiki Loves Monuments/Ubrugte filer med fredede fortidsminder i Danmark",
+    "imagesWithoutIdPage": "User:Multichill/Archaeological monuments in Denmark without id",
+    "registrantUrlBase": "http://www.kulturarv.dk/fundogfortidsminder/Lokalitet/%s",
+    "fields": [
+        {
+            "dest": "fredningsnummer",
+            "source": "fredningsnummer",
+            "type": "int(11)"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "kommune",
+            "source": "kommune"
+        },
+        {
+            "dest": "stednavn",
+            "source": "stednavn"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "datering",
+            "source": "datering"
+        },
+        {
+            "dest": "sevaedighed",
+            "source": "seværdighed"
+        },
+        {
+            "dest": "systemnummer",
+            "source": "systemnummer",
+            "type": "int(11)"
+        },
+        {
+            "dest": "anlnr",
+            "source": "anlnr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "billede",
+            "source": "billede"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "bemaerkning",
+            "source": "bemærkning"
+        },
+        {
+            "dest": "monument_article",
+            "source": "stednavn",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "systemnummer",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

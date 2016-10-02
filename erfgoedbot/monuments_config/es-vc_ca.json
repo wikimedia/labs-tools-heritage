@@ -1,0 +1,100 @@
+{
+    "country": "es-vc",
+    "lang": "ca",
+    "description": "Monuments in Valencia in Catalan table",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_es-vc_(ca)",
+    "truncate": false,
+    "primkey": "bic",
+    "headerTemplate": "Capçalera BIC Val",
+    "rowTemplate": "Filera BIC Val",
+    "commonsTemplate": "BIC",
+    "commonsTrackerCategory": "Cultural heritage monuments in Spain with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Spain",
+    "registrantUrlBase": "http://www.cult.gva.es/dgpa/bics/Detalles_bics.asp?IdInmueble=%s",
+    "fields": [
+        {
+            "dest": "bic",
+            "source": "bic",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "idurl",
+            "source": "idurl",
+            "type": "int(11)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "prot",
+            "source": "prot",
+            "type": "enum('BIC','BRL')"
+        },
+        {
+            "dest": "estil",
+            "source": "estil"
+        },
+        {
+            "dest": "epoca",
+            "source": "època"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "CCAA_iso",
+            "source": "regió1"
+        },
+        {
+            "dest": "provincia_iso",
+            "source": "regió2"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "idurl",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

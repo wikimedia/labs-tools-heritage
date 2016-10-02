@@ -1,0 +1,76 @@
+{
+    "country": "xk",
+    "lang": "sq",
+    "description": "Monuments in Kosovo in Albanian",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_xk_(sq)",
+    "truncate": false,
+    "primkey": "idno",
+    "headerTemplate": "Kreu Monumentet në Kosovë",
+    "rowTemplate": "Rreshti Monumentet në Kosovë",
+    "commonsTemplate": "Cultural Heritage Kosovo",
+    "commonsTrackerCategory": "Cultural heritage monuments in Kosovo with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Kosovo",
+    "unusedImagesPage": "Wikipedia:WikiProjekti Vende Historike/Kosovë/Foto të papërdorura",
+    "imagesWithoutIdPage": "Wikipedia:WikiProjekti Vende Historike/Kosovë/Foto pa nr. unik",
+    "fields": [
+        {
+            "dest": "name",
+            "source": "Emërtimi"
+        },
+        {
+            "dest": "date_period",
+            "source": "Periudhat_Datimi"
+        },
+        {
+            "dest": "place",
+            "source": "Vendi"
+        },
+        {
+            "dest": "municipality",
+            "source": "Komuna"
+        },
+        {
+            "dest": "status",
+            "source": "Statusi_Nr_Vendimit"
+        },
+        {
+            "dest": "category",
+            "source": "Kategoria"
+        },
+        {
+            "dest": "subcategory",
+            "source": "Nenkategoria"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "idno",
+            "source": "Nr_Unik"
+        },
+        {
+            "dest": "image",
+            "source": "Imazh"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Emërtimi",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}

@@ -1,0 +1,96 @@
+{
+    "country": "nl-gem",
+    "lang": "nl",
+    "description": "Gemeentelijke monumenten in the Netherlands in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_nl-gem_(nl)",
+    "truncate": false,
+    "primkey": [
+        "gemcode",
+        "objnr"
+    ],
+    "headerTemplate": "Tabelkop gemeentelijke monumenten",
+    "rowTemplate": "Tabelrij gemeentelijk monument",
+    "commonsTemplate": "Gemeentelijk monument",
+    "commonsTrackerCategory": "Gemeentelijke monumenten with known IDs",
+    "commonsCategoryBase": "Gemeentelijke monumenten",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto's van gemeentelijke monumenten",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto's van gemeentelijke monumenten zonder id",
+    "fields": [
+        {
+            "dest": "gemcode",
+            "source": "gemcode",
+            "type": "varchar(4)"
+        },
+        {
+            "dest": "objnr",
+            "source": "objnr",
+            "type": "varchar(10)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso",
+            "type": ""
+        },
+        {
+            "dest": "gemeente",
+            "source": "gemeente",
+            "type": ""
+        },
+        {
+            "dest": "object",
+            "source": "object"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "",
+            "source": "RD_x"
+        },
+        {
+            "dest": "",
+            "source": "RD_y"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "object",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wd_item",
+            "check": "checkWD"
+        }
+    ]
+}

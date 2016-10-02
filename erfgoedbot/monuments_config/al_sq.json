@@ -1,0 +1,60 @@
+{
+    "country": "al",
+    "lang": "sq",
+    "description": "Monuments in Albania in Albanian",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_al_(sq)",
+    "truncate": false,
+    "primkey": "idno",
+    "headerTemplate": "Kreu Monumentet në Shqipëri",
+    "rowTemplate": "Rreshti Monumentet në Shqipëri",
+    "commonsTemplate": "Cultural Heritage Albania",
+    "commonsTrackerCategory": "Cultural heritage monuments in Albania with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Albania",
+    "unusedImagesPage": "Wikipedia:WikiProjekti Vende Historike/Shqipëri/Foto të papërdorura",
+    "imagesWithoutIdPage": "Wikipedia:WikiProjekti Vende Historike/Shqipëri/Foto pa nr. unik",
+    "fields": [
+        {
+            "dest": "name",
+            "source": "Emërtimi"
+        },
+        {
+            "dest": "idno",
+            "source": "Nr"
+        },
+        {
+            "dest": "place",
+            "source": "Lokacioni"
+        },
+        {
+            "dest": "municipality",
+            "source": "Bashkia"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "Imazh"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Emërtimi",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}

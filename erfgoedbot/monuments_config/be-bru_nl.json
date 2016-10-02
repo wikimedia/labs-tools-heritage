@@ -1,0 +1,82 @@
+{
+    "country": "be-bru",
+    "lang": "nl",
+    "description": "Monuments in Brussels in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-bru_(nl)",
+    "truncate": false,
+    "primkey": "code",
+    "headerTemplate": "Tabelkop erfgoed Brussels Hoofdstedelijk Gewest",
+    "rowTemplate": "Tabelrij erfgoed Brussels Hoofdstedelijk Gewest",
+    "commonsTemplate": "Monument Brussels",
+    "commonsTrackerCategory": "Cultural heritage monuments in Brussels with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Brussels",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Brussel/Ongebruikte foto's",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Brussel/Foto's zonder id",
+    "fields": [
+        {
+            "dest": "code",
+            "source": "code",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "omschrijving",
+            "source": "omschrijving"
+        },
+        {
+            "dest": "plaats",
+            "source": "plaats"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "bouwdoor",
+            "source": "bouwdoor"
+        },
+        {
+            "dest": "bouwstijl",
+            "source": "bouwstijl"
+        },
+        {
+            "dest": "objtype",
+            "source": "objtype"
+        },
+        {
+            "dest": "beschermd",
+            "source": "beschermd"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "omschrijving",
+            "conv": "extractWikilink"
+        }
+    ]
+}

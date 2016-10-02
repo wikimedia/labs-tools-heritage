@@ -1,0 +1,69 @@
+{
+    "country": "de-by",
+    "lang": "de",
+    "description": "Baudenkmäler in Bayern in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_de-by_(de)",
+    "truncate": false,
+    "primkey": "nummer",
+    "headerTemplate": "Denkmalliste Bayern Tabellenkopf",
+    "rowTemplate": "Denkmalliste Bayern Tabellenzeile",
+    "commonsTemplate": "Baudenkmal Bayern",
+    "commonsTrackerCategory": "Cultural heritage monuments in Bavaria with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Bavaria",
+    "unusedImagesPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Bayern/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Bayern/Bilder ohne Nummer",
+    "fields": [
+        {
+            "dest": "nummer",
+            "source": "Nummer",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "stadt",
+            "source": "Gemeinde"
+        },
+        {
+            "dest": "ortsteil",
+            "source": "Ortsteil"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "bezeichnung",
+            "source": "Bezeichnung"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "bild",
+            "source": "Bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        }
+    ]
+}

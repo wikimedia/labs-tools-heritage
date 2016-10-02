@@ -1,0 +1,128 @@
+{
+    "country": "nl",
+    "lang": "nl",
+    "description": "Rijksmonumenten in the Netherlands in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_nl_(nl)",
+    "truncate": false,
+    "primkey": "objrijksnr",
+    "headerTemplate": "Tabelkop rijksmonumenten",
+    "rowTemplate": "Tabelrij rijksmonument",
+    "commonsTemplate": "Rijksmonument",
+    "commonsTrackerCategory": "Rijksmonumenten with known IDs",
+    "commonsCategoryBase": "Rijksmonumenten",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto's",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto's zonder id",
+    "missingCommonscatPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Missende commonscat links",
+    "registrantUrlBase": "http://monumentenregister.cultureelerfgoed.nl/php/main.php?cAction=search&sCompMonNr=%s",
+    "fields": [
+        {
+            "dest": "objrijksnr",
+            "source": "objrijksnr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso",
+            "type": ""
+        },
+        {
+            "dest": "woonplaats",
+            "source": "woonplaats"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "",
+            "source": "adres_sort"
+        },
+        {
+            "dest": "objectnaam",
+            "source": "objectnaam"
+        },
+        {
+            "dest": "type_obj",
+            "source": "type_obj",
+            "type": "enum('G','A')"
+        },
+        {
+            "dest": "oorspr_functie",
+            "source": "oorspr_functie",
+            "type": "varchar(128)"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "",
+            "source": "bouwjaar_sort"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "",
+            "source": "architect_sort"
+        },
+        {
+            "dest": "cbs_tekst",
+            "source": "cbs_tekst"
+        },
+        {
+            "dest": "",
+            "source": "RD_x"
+        },
+        {
+            "dest": "",
+            "source": "RD_y"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "postcode",
+            "source": "postcode"
+        },
+        {
+            "dest": "buurt",
+            "source": "buurt"
+        },
+        {
+            "dest": "monument_article",
+            "source": "objectnaam",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "objrijksnr",
+            "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wd_item",
+            "check": "checkWD"
+        }
+    ]
+}

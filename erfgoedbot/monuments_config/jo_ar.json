@@ -1,0 +1,69 @@
+{
+    "country": "jo",
+    "lang": "ar",
+    "description": "Monuments in Jordan in Arabic",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_jo_(ar)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "رأسية معالم الأردن",
+    "rowTemplate": "معلم الأردن",
+    "commonsTemplate": "Cultural Heritage Jordan",
+    "commonsTrackerCategory": "Cultural heritage monuments in Jordan with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Jordan",
+    "unusedImagesPage": "ويكيبيديا:الويكي تهوى المعالم 2013/الأردن/Unused images",
+    "imagesWithoutIdPage": "ويكيبيديا:الويكي تهوى المعالم 2013/الأردن/Images without id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "رقم",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "name",
+            "source": "اسم"
+        },
+        {
+            "dest": "description",
+            "source": "وصف"
+        },
+        {
+            "dest": "position",
+            "source": "موقع"
+        },
+        {
+            "dest": "lat",
+            "source": "عرض",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "طول",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "صورة"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

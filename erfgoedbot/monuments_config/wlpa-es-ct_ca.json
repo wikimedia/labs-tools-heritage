@@ -1,0 +1,97 @@
+{
+    "country": "wlpa-es-ct",
+    "lang": "ca",
+    "description": "WLPA in Catalonia in Catalan",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "wlpa_es-ct_(ca)",
+    "truncate": false,
+    "primkey": "codi",
+    "headerTemplate": "Capçalera art públic",
+    "rowTemplate": "Filera art públic",
+    "commonsTemplate": "Art públic Barcelona",
+    "commonsTrackerCategory": "Public art in Spain with known IDs",
+    "commonsCategoryBase": "Public art in Catalonia",
+    "unusedImagesPage": "User:Multichill/Unused public art in Spain",
+    "imagesWithoutIdPage": "User:Multichill/Public art in Spain without ID",
+    "registrantUrlBase": "http://w10.bcn.es/APPS/gmocataleg_monum/FitxaMonumentAc.do?idioma=CA&codiMonumIntern=/%s",
+    "fields": [
+        {
+            "dest": "codi",
+            "source": "codi",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "titol",
+            "source": "títol"
+        },
+        {
+            "dest": "descripcio",
+            "source": "descripció"
+        },
+        {
+            "dest": "autor",
+            "source": "autor"
+        },
+        {
+            "dest": "data",
+            "source": "data"
+        },
+        {
+            "dest": "material",
+            "source": "material"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "idurl",
+            "source": "idurl"
+        },
+        {
+            "dest": "fop",
+            "source": "panorama",
+            "conv": "es-ct-fop"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "idurl",
+            "conv": "generateRegistrantUrl-wlpa-es-ct"
+        },
+        {
+            "dest": "monument_article",
+            "source": "títol",
+            "conv": "extractWikilink"
+        }
+    ]
+}

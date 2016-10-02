@@ -1,0 +1,79 @@
+{
+    "country": "ee",
+    "lang": "et",
+    "description": "Rijksmonumenten in the Estonia in Estoian",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_ee_(et)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "KRR päis",
+    "rowTemplate": "KRR rida",
+    "commonsTemplate": "Kultuurimälestis",
+    "commonsTrackerCategory": "Cultural heritage monuments in Estonia (with known IDs)",
+    "commonsCategoryBase": "Cultural heritage monuments in Estonia",
+    "unusedImagesPage": "Vikipeedia:Vikiprojekt_Kultuuripärand/Kasutamata kultuurimälestiste pildid",
+    "imagesWithoutIdPage": "Vikipeedia:Vikiprojekt_Kultuuripärand/Ilma registri numbrita pildid",
+    "registrantUrlBase": "http://register.muinas.ee/?menuID=monument&action=view&id=%s",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "int(11)"
+        },
+        {
+            "dest": "maakond",
+            "source": "maakond"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "nimi",
+            "source": "nimi"
+        },
+        {
+            "dest": "liik",
+            "source": "liik"
+        },
+        {
+            "dest": "aadress",
+            "source": "aadress"
+        },
+        {
+            "dest": "omavalitsus",
+            "source": "omavalitsus"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        },
+        {
+            "dest": "pilt",
+            "source": "pilt"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commons"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nimi",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "number",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

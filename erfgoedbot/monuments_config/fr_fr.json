@@ -1,0 +1,117 @@
+{
+    "country": "fr",
+    "lang": "fr",
+    "description": "Monuments in France in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_fr_(fr)",
+    "truncate": false,
+    "primkey": "notice",
+    "headerTemplate": "En-tête de tableau MH",
+    "rowTemplate": "Ligne de tableau MH",
+    "commonsTemplate": "Mérimée",
+    "commonsTrackerCategory": "Cultural heritage monuments in France with known IDs",
+    "commonsCategoryBase": "Monuments historiques in France",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments français non utilisées",
+    "imagesWithoutIdPage": "Projet:Monuments historiques/Images de monuments français sans identifiant",
+    "registrantUrlBase": "http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s",
+    "fields": [
+        {
+            "dest": "tri",
+            "source": "tri",
+            "default": "0"
+        },
+        {
+            "dest": "monument",
+            "source": "monument"
+        },
+        {
+            "dest": "region_iso",
+            "source": "région_iso"
+        },
+        {
+            "dest": "departement_iso",
+            "source": "département_iso"
+        },
+        {
+            "dest": "commune",
+            "source": "commune"
+        },
+        {
+            "dest": "tri commune",
+            "source": "tri commune"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "tri adresse",
+            "source": "tri adresse"
+        },
+        {
+            "dest": "departement",
+            "source": "département"
+        },
+        {
+            "dest": "tri_departement",
+            "source": "tri département"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "titre_coordonnees",
+            "source": "titre coordonnées"
+        },
+        {
+            "dest": "notice",
+            "source": "notice",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "protection",
+            "source": "protection"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "portrait",
+            "source": "portrait"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "id",
+            "source": "id"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monument",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "notice",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

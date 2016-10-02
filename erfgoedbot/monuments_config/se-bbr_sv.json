@@ -1,0 +1,84 @@
+{
+    "country": "se-bbr",
+    "lang": "sv",
+    "description": "BBR Monuments in Sweden in Swedish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_se-bbr_(sv)",
+    "truncate": false,
+    "primkey": "bbr",
+    "headerTemplate": "BBR-huvud",
+    "rowTemplate": "BBR",
+    "commonsTemplate": "BBR",
+    "commonsTrackerCategory": "Listed buildings in Sweden with known IDs",
+    "commonsCategoryBase": "Listed buildings in Sweden",
+    "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av byggnadsminnen i Sverige",
+    "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av byggnadsminnen i Sverige utan ID",
+    "registrantUrlBase": "http://www.bebyggelseregistret.raa.se/bbr2/anlaggning/visaHistorik.raa?page=historik&visaHistorik=true&anlaggningId=%s",
+    "fields": [
+        {
+            "dest": "bbr",
+            "source": "bbr",
+            "default": "0",
+            "type": "varchar(14)"
+        },
+        {
+            "dest": "namn",
+            "source": "namn"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "funktion",
+            "source": "funktion"
+        },
+        {
+            "dest": "byggar",
+            "source": "byggår"
+        },
+        {
+            "dest": "arkitekt",
+            "source": "arkitekt"
+        },
+        {
+            "dest": "plats",
+            "source": "plats"
+        },
+        {
+            "dest": "kommun",
+            "source": "kommun"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "bild",
+            "source": "bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "namn",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "bbr",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

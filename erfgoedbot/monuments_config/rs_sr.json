@@ -1,0 +1,75 @@
+{
+    "country": "rs",
+    "lang": "sr",
+    "description": "Monuments in Serbia in Serbian",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_rs_(sr)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Споменици заглавље",
+    "rowTemplate": "Споменици ред",
+    "commonsTemplate": "Cultural Heritage Serbia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Serbia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Serbia",
+    "unusedImagesPage": "Википедија:Списак знаменитих места у Србији/Неискоришћени слике",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "ИД",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "city",
+            "source": "Насеље"
+        },
+        {
+            "dest": "address",
+            "source": "Адреса"
+        },
+        {
+            "dest": "name",
+            "source": "Назив"
+        },
+        {
+            "dest": "district",
+            "source": "Општина"
+        },
+        {
+            "dest": "iso_okrug",
+            "source": "iso"
+        },
+        {
+            "dest": "city_district",
+            "source": "Градска_општина"
+        },
+        {
+            "dest": "authority",
+            "source": "Надлежни_завод"
+        },
+        {
+            "dest": "lat",
+            "source": "гшир",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "гдуж",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "Слика"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Назив"
+        }
+    ]
+}

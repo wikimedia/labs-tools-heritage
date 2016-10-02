@@ -1,0 +1,69 @@
+{
+    "country": "in",
+    "lang": "en",
+    "description": "Monuments in India in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_in_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "ASI Monument header",
+    "rowTemplate": "ASI Monument row",
+    "commonsTemplate": "ASI Monument",
+    "commonsTrackerCategory": "ASI monuments with known ID's",
+    "commonsCategoryBase": "Cultural heritage monuments in India",
+    "unusedImagesPage": "Wikipedia:WikiProject India/Wiki Loves Monuments/Unused ASI Monuments images",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "varchar(20)"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "state_iso",
+            "source": "state_iso"
+        },
+        {
+            "dest": "circle",
+            "source": "circle",
+            "type": "varchar(1)"
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+    "country": "it-bz",
+    "lang": "de",
+    "description": "Monuments in South Tirol in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_it-bz_(de)",
+    "truncate": false,
+    "primkey": "objektid",
+    "headerTemplate": "Denkmalliste Südtirol Tabellenkopf",
+    "rowTemplate": "Denkmalliste Südtirol Tabellenzeile",
+    "commonsTemplate": "Denkmalgeschütztes Objekt Südtirol",
+    "commonsTrackerCategory": "Cultural heritage monuments in South Tyrol with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in South Tyrol",
+    "unusedImagesPage": "Portal:Südtirol/Mitmachen/WLM2012/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Portal:Südtirol/Mitmachen/WLM2012/Bilder ohne ID",
+    "registrantUrlBase": "http://www.provinz.bz.it/denkmalpflege/themen/1071.asp?status=detail&id=%s",
+    "fields": [
+        {
+            "dest": "objektid",
+            "source": "ObjektID",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "fotobeschreibung",
+            "source": "Fotobeschreibung"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "name",
+            "source": "Name"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "anzeige-Name",
+            "source": "Anzeige-Name"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "adresse-sort",
+            "source": "Adresse-Sort"
+        },
+        {
+            "dest": "region-iso",
+            "source": "Region-ISO"
+        },
+        {
+            "dest": "gemeinde",
+            "source": "Gemeinde"
+        },
+        {
+            "dest": "gemeindekennzahl",
+            "source": "Gemeindekennzahl",
+            "type": "int(15)"
+        },
+        {
+            "dest": "katastralgemeinde",
+            "source": "Katastralgemeinde"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "eintragung",
+            "source": "Eintragung Datum"
+        },
+        {
+            "dest": "beschluss",
+            "source": "Beschluss"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "ObjektID",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

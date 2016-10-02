@@ -1,0 +1,96 @@
+{
+    "country": "es",
+    "lang": "es",
+    "description": "Rijksmonumenten in Spain in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_es_(es)",
+    "truncate": false,
+    "primkey": "bic",
+    "headerTemplate": "Cabecera BIC",
+    "rowTemplate": "Fila BIC",
+    "commonsTemplate": "BIC",
+    "commonsTrackerCategory": "Cultural heritage monuments in Spain with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Spain",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de Bienes de Interés Cultural sin usar",
+    "imagesWithoutIdPage": "User:Multichill/BIC without id",
+    "fields": [
+        {
+            "dest": "bic",
+            "source": "bic",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "nombre",
+            "source": "nombre"
+        },
+        {
+            "dest": "nombrecoor",
+            "source": "nombrecoor"
+        },
+        {
+            "dest": "tipobic",
+            "source": "tipobic"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "lugar",
+            "source": "lugar",
+            "type": "varchar(400)"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "id_aut",
+            "source": "id_aut",
+            "type": "varchar(21)"
+        },
+        {
+            "dest": "fecha",
+            "source": "fecha"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "commonscat",
+            "source": "categoría-Commons"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        },
+        {
+            "dest": "CCAA_iso",
+            "source": "CCAA_iso"
+        },
+        {
+            "dest": "provincia_iso",
+            "source": "provincia_iso"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nombre",
+            "conv": "extractWikilink"
+        }
+    ]
+}

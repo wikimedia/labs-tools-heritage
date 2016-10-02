@@ -1,0 +1,81 @@
+{
+    "country": "gh",
+    "lang": "en",
+    "description": "Ghana monuments in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_gh_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Ghana Monument header",
+    "rowTemplate": "Ghana Monument row",
+    "commonsTemplate": "Cultural Heritage Ghana",
+    "commonsTrackerCategory": "Cultural heritage monuments in Ghana with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Ghana",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Ghana\\’s material cultural heritage",
+    "registrantUrlBase": "http://www.ghanamuseums.org/what-is-gmmb.php",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "alternative_names",
+            "source": "alternative_names"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "region_iso",
+            "source": "region_iso"
+        },
+        {
+            "dest": "original_function",
+            "source": "original_function"
+        },
+        {
+            "dest": "built",
+            "source": "built"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "comment",
+            "source": "comment"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

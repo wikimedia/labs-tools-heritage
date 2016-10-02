@@ -1,0 +1,64 @@
+{
+    "country": "ie",
+    "lang": "en",
+    "description": "Monuments in Ireland",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ie_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "NMI list header",
+    "rowTemplate": "NMI list item",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "townland",
+            "source": "townland"
+        },
+        {
+            "dest": "county",
+            "source": "county"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

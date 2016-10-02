@@ -35,7 +35,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         # TODO resolve tmp
         required = [
             'project', 'lang', 'headerTemplate', 'rowTemplate', 'namespaces',
-            'table', 'truncate', 'primkey', 'fields'
+            'table', 'truncate', 'primkey', 'fields', 'country', 'description'
         ]
         optional = [
             'countryBbox', 'missingCommonscatPage', 'imagesWithoutIdPage',

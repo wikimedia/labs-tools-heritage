@@ -1,0 +1,86 @@
+{
+    "country": "by",
+    "lang": "be-tarask",
+    "description": "Belarus in Belarussian",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_by_(be-tarask)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Вікі любіць славутасьці/Вяршыня сьпісу",
+    "rowTemplate": "Вікі любіць славутасьці/Элемэнт сьпісу",
+    "commonsTemplate": "Belarus heritage",
+    "commonsTrackerCategory": "Cultural heritage monuments in Belarus with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Belarus",
+    "unusedImagesPage": "User:ErfgoedBot/Unused images of Belarusian heritage monuments",
+    "imagesWithoutIdPage": "User:ErfgoedBot/Images of Belarusian heritage monuments without ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "шыфр",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "name",
+            "source": "назва"
+        },
+        {
+            "dest": "oblast-iso",
+            "source": "vobłaść-iso"
+        },
+        {
+            "dest": "rajon",
+            "source": "rajon"
+        },
+        {
+            "dest": "date",
+            "source": "датаваньне"
+        },
+        {
+            "dest": "place",
+            "source": "населены пункт"
+        },
+        {
+            "dest": "address",
+            "source": "адрэса"
+        },
+        {
+            "dest": "category",
+            "source": "катэгорыя"
+        },
+        {
+            "dest": "lat",
+            "source": "шырата",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "даўгата",
+            "check": "checkLon"
+        },
+        {
+            "dest": "coordinates",
+            "source": "каардынаты"
+        },
+        {
+            "dest": "image",
+            "source": "выява"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "",
+            "source": "грамадзкі набытак"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

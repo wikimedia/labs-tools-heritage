@@ -1,0 +1,97 @@
+{
+    "country": "be-vlg",
+    "lang": "en",
+    "description": "Onroerend Erfgoed in Vlaanderen in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-vlg_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Table header BE",
+    "rowTemplate": "Table row BE",
+    "commonsTemplate": "Onroerend erfgoed",
+    "commonsTrackerCategory": "Onroerend erfgoed with known IDs",
+    "commonsCategoryBase": "Onroerend erfgoed in Flanders",
+    "registrantUrlBase": "https://inventaris.onroerenderfgoed.be/dibe/relict/%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "town",
+            "source": "town"
+        },
+        {
+            "dest": "commune",
+            "source": "commune"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "section",
+            "source": "section"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "descr_en",
+            "source": "descr_en"
+        },
+        {
+            "dest": "objectnaam",
+            "source": "objectnaam"
+        },
+        {
+            "dest": "descr_de",
+            "source": "descr_de"
+        },
+        {
+            "dest": "nom_objet",
+            "source": "nom_objet"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "descr_en",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}
