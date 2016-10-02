@@ -7,23 +7,55 @@ import mock
 from erfgoedbot import categorize_images
 
 
+class TestLoadWikipediaCommonscatTemplates(unittest.TestCase):
+
+    """Test the _load_wikipedia_commonscat_templates method."""
+
+    def test_load_wikipedia_commonscat_templates(self):
+        """Ensure commonscat json file is present and contains _default key."""
+        try:
+            data = categorize_images._load_wikipedia_commonscat_templates()
+        except IOError:
+            self.fail("Commonscat json file not found")
+        self.assertIn(u'_default', data.keys())
+
+
 class TestGetCommonsCatTemplates(unittest.TestCase):
+
+    """Test the getCommonscatTemplates method."""
+
+    def setUp(self):
+        patcher = mock.patch('erfgoedbot.categorize_images._load_wikipedia_commonscat_templates')
+        self.mock_load_templates = patcher.start()
+        self.mock_load_templates.return_value = {
+            "_default": [
+                "default_template", []
+            ],
+            "lang_1": [
+                "lang_1_main_template", ["lang_1_template_1"]
+            ],
+            "lang_2": [
+                "lang_2_main_template", ["lang_2_template_1", "lang_2_template_2"]
+            ],
+        }
+        self.addCleanup(patcher.stop)
 
     def test_getCommonscatTemplates_with_defaults(self):
         result = categorize_images.getCommonscatTemplates()
-        self.assertEquals(result, [u'Commonscat'])
+        self.assertEquals(result, [u'default_template'])
 
     def test_getCommonscatTemplates_with_one_alternative(self):
-        result = categorize_images.getCommonscatTemplates(lang='af')
-        self.assertEquals(result, [u'CommonsKategorie', u'commonscat'])
+        result = categorize_images.getCommonscatTemplates(lang='lang_1')
+        self.assertEquals(result, [u'lang_1_main_template', u'lang_1_template_1'])
 
     def test_getCommonscatTemplates_with_two_alternatives(self):
-        result = categorize_images.getCommonscatTemplates(lang='ca')
-        self.assertEquals(result, [u'Commonscat', u'Commons cat', u'Commons category'])
+        result = categorize_images.getCommonscatTemplates(lang='lang_2')
+        self.assertEquals(
+            result, [u'lang_2_main_template', u'lang_2_template_1', u'lang_2_template_2'])
 
     def test_getCommonscatTemplates_with_wikivoyage(self):
         result = categorize_images.getCommonscatTemplates(project='wikivoyage')
-        self.assertEquals(result, [u'Commonscat'])
+        self.assertEquals(result, [u'default_template'])
 
 
 class TestReplaceCategories(unittest.TestCase):
