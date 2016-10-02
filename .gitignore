@@ -1,16 +1,25 @@
+*.pyc
+
+# erfgoedbot created files
 erfgoedbot/sql/create_table_monuments*
 erfgoedbot/sql/create_table_wlpa*
 
-.coverage
-.tox
-*.pyc
-*.gz
+# pywikibot created files
+logs
+apicache
+*.ctrl
 
-composer.lock
+# third-party libraries
 vendor
-
 node_modules
 
-*.iml
+# tox/composer/docker files
+.coverage
+htmlcov
+.tox
+composer.lock
+erfgoedbot/database_config.yml
+conf/monuments_db.sql.gz
 
-daily-uploads/bower_components
+# IDE files
+*.iml
