@@ -8,19 +8,16 @@ Author: Platonides
 
 import os
 import monuments_config as mconfig
-from database_connection import get_monuments_database_config
 
 
 def processCountry(countrycode, lang, countryconfig):
     # These are not listed in the monument config
-    db_config = get_monuments_database_config()
     extra_cols = "  `source` varchar(510) NOT NULL DEFAULT '',\n" \
                  "  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n"
 
     table = countryconfig.get('table')
     sql_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
     f = open(os.path.join(sql_dir, "create_table_%s.sql" % table), "w")
-    f.write("connect " + db_config['db_name'] + " " + db_config['server'] + ";\n")
     f.write("DROP TABLE IF EXISTS `" + table + "`;\n")
     f.write("CREATE TABLE IF NOT EXISTS `" + table + "` (\n")
 
