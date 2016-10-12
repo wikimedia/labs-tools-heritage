@@ -133,6 +133,7 @@ class ApiMonuments extends ApiBase {
 		$forceIndex = false;
 		$orderby = Monuments::$dbPrimaryKey;
 		$db = Database::getDb();
+		$formatter = $this->getFormatter();
 		$enableUseLang = true;
 		$useDefaultLang = false;
 		$smartFilter = false;
@@ -251,9 +252,12 @@ class ApiMonuments extends ApiBase {
 		}
 
 		/* FIXME: User should be able to set sort fields and order */
-		if ( in_array( $this->getParam( 'format' ), [ 'kml', 'html' ] ) ) {
-			$orderby = [ 'country', 'municipality', 'address' ];
+		// add format specific order_by
+		$formatOrderby = $formatter->getRequiredOrderBy();
+		if ( $formatOrderby ){
+			$orderby = $formatOrderby;
 		}
+
 		$continue = $this->getParam( 'srcontinue' );
 		if ( $continue && !$spatialMode ) {
 			$v = explode( '|', $continue );
@@ -267,6 +271,9 @@ class ApiMonuments extends ApiBase {
 		}
 
 		$limit = $this->getParam( 'limit' );
+
+		// add any properties expected to be ordered by
+		$props = array_unique( array_merge( $orderby, $props ) );
 
 		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $props ), Monuments::$dbTable, $where,
 			$orderby, $spatialMode ? null : ( $limit + 1 ), $forceIndex );
@@ -321,7 +328,6 @@ class ApiMonuments extends ApiBase {
 			$res = $rows;
 		}
 
-		$formatter = $this->getFormatter();
 		$formatter->setRowFilter(
 			function( $row ) {
 				if ( isset( $row->lat ) && isset( $row->lon )

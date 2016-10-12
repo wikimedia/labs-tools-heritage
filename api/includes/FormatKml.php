@@ -15,6 +15,10 @@ class FormatKml extends FormatBase {
 		return "application/vnd.google-earth.kml+xml";
 	}
 
+	function getRequiredOrderBy() {
+		return [ 'country', 'municipality', 'address' ];
+	}
+
 	function headers() {
 		parent::headers();
 		echo '<?xml version="1.0" encoding="UTF-8"?>';
