@@ -1,0 +1,68 @@
+{
+    "country": "ch-old",
+    "lang": "en",
+    "description": "Monuments in Switzerland in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments-old_ch_(en)",
+    "truncate": false,
+    "primkey": "kgs_nr",
+    "headerTemplate": "SIoCPoNaRS header",
+    "rowTemplate": "SIoCPoNaRS row",
+    "commonsTemplate": "Cultural property of national significance in Switzerland",
+    "commonsTrackerCategory": "Cultural properties of national significance in Switzerland with known IDs",
+    "commonsCategoryBase": "Cultural properties of national significance in Switzerland",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Cultural properties of national significance in Switzerland",
+    "fields": [
+        {
+            "dest": "kgs_nr",
+            "source": "KGS_nr",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "canton",
+            "source": "canton"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "lat",
+            "source": "CH1903_X",
+            "conv": "CH1903ToLat"
+        },
+        {
+            "dest": "lon",
+            "source": "CH1903_Y",
+            "conv": "CH1903ToLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

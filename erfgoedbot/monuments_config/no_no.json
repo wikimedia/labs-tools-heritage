@@ -1,0 +1,102 @@
+{
+    "country": "no",
+    "lang": "no",
+    "description": "Monuments in Norway in No",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_no_(no)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Kulturminner header",
+    "rowTemplate": "Kulturminner row",
+    "commonsTemplate": "Monument Norge",
+    "commonsTrackerCategory": "Cultural heritage monuments in Norway with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Norway",
+    "unusedImagesPage": "User:Multichill/Unused monument photos",
+    "imagesWithoutIdPage": "User:Multichill/Monument photos without an ID",
+    "registrantUrlBase": "http://www.kulturminnesok.no/kulturminnesok/kulturminne/?LOK_ID=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "navn",
+            "source": "navn"
+        },
+        {
+            "dest": "artikkel",
+            "source": "artikkel"
+        },
+        {
+            "dest": "kategori",
+            "source": "kategori"
+        },
+        {
+            "dest": "datering",
+            "source": "datering",
+            "type": "varchar(128)"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "county_iso",
+            "source": "county_iso"
+        },
+        {
+            "dest": "kommunenr",
+            "source": "kommunenr",
+            "type": "int(10)"
+        },
+        {
+            "dest": "kommune",
+            "source": "kommune"
+        },
+        {
+            "dest": "vernetype",
+            "source": "vernetype"
+        },
+        {
+            "dest": "kat",
+            "source": "kat"
+        },
+        {
+            "dest": "tilrettel",
+            "source": "tilrettel"
+        },
+        {
+            "dest": "verdensarv",
+            "source": "verdensarv"
+        },
+        {
+            "dest": "bilde",
+            "source": "bilde"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "artikkel",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

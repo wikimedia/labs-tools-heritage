@@ -1,0 +1,92 @@
+{
+    "country": "be-vlg",
+    "lang": "nl",
+    "description": "Onroerend Erfgoed in Vlaanderen in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-vlg_(nl)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Tabelkop erfgoed Vlaanderen",
+    "rowTemplate": "Tabelrij erfgoed Vlaanderen",
+    "commonsTemplate": "Onroerend erfgoed",
+    "commonsTrackerCategory": "Onroerend erfgoed with known IDs",
+    "commonsCategoryBase": "Onroerend erfgoed in Flanders",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Ongebruikte foto's",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Vlaanderen/Foto's zonder id",
+    "registrantUrlBase": "https://inventaris.onroerenderfgoed.be/dibe/relict/%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "beschermd",
+            "source": "beschermd"
+        },
+        {
+            "dest": "gemeente",
+            "source": "gemeente"
+        },
+        {
+            "dest": "deelgem",
+            "source": "deelgem"
+        },
+        {
+            "dest": "deelgem_id",
+            "source": "deelgem_id",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "objectnaam",
+            "source": "objectnaam"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "objectnaam",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

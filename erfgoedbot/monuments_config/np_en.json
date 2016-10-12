@@ -1,0 +1,78 @@
+{
+    "country": "np",
+    "lang": "en",
+    "description": "Monuments in Nepal in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_np_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "Nepal Monument header",
+    "rowTemplate": "Nepal Monument row",
+    "commonsTemplate": "Cultural Heritage Nepal",
+    "commonsTrackerCategory": "Cultural heritage monuments in Nepal with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Nepal",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Nepal",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Nepal without an ID",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "region_iso",
+            "source": "region_iso"
+        },
+        {
+            "dest": "zone_iso",
+            "source": "zone_iso"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "monument_article",
+            "source": "description",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "number"
+        }
+    ]
+}

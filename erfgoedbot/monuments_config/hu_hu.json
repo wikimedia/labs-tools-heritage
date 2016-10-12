@@ -1,0 +1,96 @@
+{
+    "country": "hu",
+    "lang": "hu",
+    "description": "Monuments in Hungary in Hungarian",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_hu_(hu)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Műemléklistafej",
+    "rowTemplate": "Műemlék",
+    "commonsTemplate": "Monument Hungary",
+    "commonsTrackerCategory": "Cultural heritage monuments in Hungary with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Hungary",
+    "unusedImagesPage": "Wikipédia:Wiki Loves Monuments/Nem használt képek",
+    "imagesWithoutIdPage": "Wikipédia:Wiki Loves Monuments/Azonosító nélküli képek",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "azonosító",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "megnevezés"
+        },
+        {
+            "dest": "county",
+            "source": "megye"
+        },
+        {
+            "dest": "county_iso",
+            "source": "iso"
+        },
+        {
+            "dest": "regio",
+            "source": "régió"
+        },
+        {
+            "dest": "postcode",
+            "source": "irányítószám"
+        },
+        {
+            "dest": "town",
+            "source": "település"
+        },
+        {
+            "dest": "district",
+            "source": "kerület"
+        },
+        {
+            "dest": "address",
+            "source": "cím"
+        },
+        {
+            "dest": "parcel_number",
+            "source": "helyrajzi szám"
+        },
+        {
+            "dest": "lat",
+            "source": "szélesség",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "hosszúság",
+            "check": "checkLon"
+        },
+        {
+            "dest": "statusz",
+            "source": "státusz"
+        },
+        {
+            "dest": "leiras",
+            "source": "leírás"
+        },
+        {
+            "dest": "image",
+            "source": "kép"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonskat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "szócikk"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

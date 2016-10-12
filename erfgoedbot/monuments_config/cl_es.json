@@ -1,0 +1,90 @@
+{
+    "country": "cl",
+    "lang": "es",
+    "description": "National monuments in Chile in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_cl_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoChile/encabezado",
+    "rowTemplate": "MonumentoChile",
+    "commonsTemplate": "Monumento Nacional de Chile",
+    "commonsTrackerCategory": "National monuments in Chile with known IDs",
+    "commonsCategoryBase": "National monuments in Chile",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales de Chile sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de Monumentos nacionales de Chile sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(5)"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "comuna",
+            "source": "comuna"
+        },
+        {
+            "dest": "ISO",
+            "source": "ISO"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "decreto",
+            "source": "decreto"
+        },
+        {
+            "dest": "fecha",
+            "source": "fecha"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo",
+            "type": "enum('Error', 'MH','ZT','SN')"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monumento",
+            "conv": "extractWikilink"
+        }
+    ]
+}

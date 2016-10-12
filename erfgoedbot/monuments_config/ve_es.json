@@ -1,0 +1,80 @@
+{
+    "country": "ve",
+    "lang": "es",
+    "description": "Monuments in Venezuela in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_ve_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoVenezuela/encabezado",
+    "rowTemplate": "MonumentoVenezuela",
+    "commonsTemplate": "Monumento Venezuela",
+    "commonsTrackerCategory": "Cultural heritage monuments in Venezuela with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Venezuela",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Venezuela sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Venezuela sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "estado_iso",
+            "source": "estado_iso"
+        },
+        {
+            "dest": "estado",
+            "source": "estado"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "ciudad",
+            "source": "ciudad"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "image",
+            "source": "imagen"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        }
+    ]
+}

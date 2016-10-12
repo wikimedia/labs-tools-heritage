@@ -1,0 +1,91 @@
+{
+    "country": "jp-nhs",
+    "lang": "en",
+    "description": "National Historic Sites in Japan in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_jp-nhs_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "NHS Japan header",
+    "rowTemplate": "NHS Japan row",
+    "commonsTemplate": "NHS Japan",
+    "commonsTrackerCategory": "National historic sites of Japan with known IDs",
+    "commonsCategoryBase": "National historic sites of Japan",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of national historic sites of Japan",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of national historic sites of Japan without an ID",
+    "registrantUrlBase": "http://kunishitei.bunka.go.jp/bsys/maindetails.asp?register_id=401&item_id=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "prefecture",
+            "source": "prefecture"
+        },
+        {
+            "dest": "prefecture_iso",
+            "source": "prefecture_iso"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "name_kanji",
+            "source": "name_kanji"
+        },
+        {
+            "dest": "name_small",
+            "source": "name_small"
+        },
+        {
+            "dest": "name_simple",
+            "source": "name_simple"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "comments",
+            "source": "comments"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

@@ -1,0 +1,73 @@
+{
+    "country": "lu",
+    "lang": "lb",
+    "description": "Monuments in Luxemburg in Luxemburgish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_lu_(lb)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Nationale Monumenter header",
+    "rowTemplate": "Nationale Monumenter row",
+    "commonsCategoryBase": "Cultural heritage monuments in Luxembourg",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(7)"
+        },
+        {
+            "dest": "lag",
+            "source": "lag"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "uertschaft",
+            "source": "uertschaft"
+        },
+        {
+            "dest": "offiziellen_numm",
+            "source": "offiziellen_numm"
+        },
+        {
+            "dest": "beschreiwung",
+            "source": "beschreiwung"
+        },
+        {
+            "dest": "niveau",
+            "source": "niveau"
+        },
+        {
+            "dest": "klasseiert_zenter",
+            "source": "klasséiert_zënter"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "bild",
+            "source": "bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "offiziellen_numm",
+            "conv": "extractWikilink"
+        }
+    ]
+}

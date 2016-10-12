@@ -1,0 +1,79 @@
+{
+    "country": "ro",
+    "lang": "ro",
+    "description": "Monuments in Romania",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ro_(ro)",
+    "truncate": false,
+    "primkey": "cod",
+    "headerTemplate": "ÎnceputTabelLMI",
+    "rowTemplate": "ElementLMI",
+    "commonsTemplate": "Monument istoric",
+    "commonsTrackerCategory": "Cultural heritage monuments in Romania with known IDs",
+    "commonsCategoryBase": "Historical monuments in Romania",
+    "unusedImagesPage": "User:Multichill/Unused Monument istoric",
+    "imagesWithoutIdPage": "User:Multichill/Monument istoric without ID",
+    "fields": [
+        {
+            "dest": "cod",
+            "source": "Cod",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "denumire",
+            "source": "Denumire"
+        },
+        {
+            "dest": "judetul-iso",
+            "source": "Județul-iso"
+        },
+        {
+            "dest": "localitate",
+            "source": "Localitate"
+        },
+        {
+            "dest": "adresa",
+            "source": "Adresă"
+        },
+        {
+            "dest": "datare",
+            "source": "Datare"
+        },
+        {
+            "dest": "arhitect",
+            "source": "Arhitect"
+        },
+        {
+            "dest": "lat",
+            "source": "Lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "",
+            "source": "Coordonate"
+        },
+        {
+            "dest": "lon",
+            "source": "Lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "imagine",
+            "source": "Imagine"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commons",
+            "conv": "remove_commons_category_prefix"
+        },
+        {
+            "dest": "monument_article",
+            "source": "denumire",
+            "conv": "extractWikilink"
+        }
+    ]
+}

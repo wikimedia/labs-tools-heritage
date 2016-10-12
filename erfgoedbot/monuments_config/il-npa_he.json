@@ -1,0 +1,100 @@
+{
+    "country": "il-npa",
+    "lang": "he",
+    "description": "Israel notable public art (as defined by the Israel Museum) in Hebrew",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_il_(he)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "יצירת אמנות במרחב הציבורי בישראל כותרת",
+    "rowTemplate": "יצירת אמנות במרחב הציבורי בישראל בשורה",
+    "commonsTemplate": "Heritage site in Israel",
+    "commonsTrackerCategory": "Heritage sites in Israel with known IDs",
+    "commonsCategoryBase": "Heritage sites in Israel",
+    "unusedImagesPage": "ויקיפדיה:מיזמי ויקיפדיה/Wiki Loves Monuments/Unused images",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "מספר אתר",
+            "type": "varchar(20)"
+        },
+        {
+            "dest": "district",
+            "source": "מחוז"
+        },
+        {
+            "dest": "district-iso",
+            "source": "district-iso"
+        },
+        {
+            "dest": "name",
+            "source": "שם אתר"
+        },
+        {
+            "dest": "article",
+            "source": "שם ערך"
+        },
+        {
+            "dest": "name-en",
+            "source": "שם אתר באנגלית"
+        },
+        {
+            "dest": "description",
+            "source": "תיאור אתר"
+        },
+        {
+            "dest": "description-en",
+            "source": "תיאור אתר באנגלית"
+        },
+        {
+            "dest": "architect",
+            "source": "אדריכל"
+        },
+        {
+            "dest": "year",
+            "source": "שנת הקמה"
+        },
+        {
+            "dest": "type",
+            "source": "סוג אתר"
+        },
+        {
+            "dest": "commonscat",
+            "source": "קטגוריה בוויקישיתוף"
+        },
+        {
+            "dest": "address",
+            "source": "כתובת"
+        },
+        {
+            "dest": "municipality",
+            "source": "רשות מקומית"
+        },
+        {
+            "dest": "area",
+            "source": "גוש"
+        },
+        {
+            "dest": "lot",
+            "source": "חלקה"
+        },
+        {
+            "dest": "lat",
+            "source": "LAT",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "LONG",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "תמונה"
+        }
+    ]
+}

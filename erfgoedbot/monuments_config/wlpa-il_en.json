@@ -1,0 +1,91 @@
+{
+    "country": "wlpa-il",
+    "lang": "en",
+    "description": "WLPA in Israel in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "wlpa_il_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Public art in Israel - header",
+    "rowTemplate": "Public art in Israel - row",
+    "commonsTemplate": "Public Art Israel",
+    "commonsTrackerCategory": "Public art in Israel with known IDs",
+    "commonsCategoryBase": "Public art in Israel",
+    "unusedImagesPage": "User:Multichill/Unused public art in Israel",
+    "imagesWithoutIdPage": "User:Multichill/Public art in Israel without ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": 0,
+            "type": "int(6)"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        },
+        {
+            "dest": "artist",
+            "source": "artist"
+        },
+        {
+            "dest": "extArtistLink",
+            "source": "extArtistLink"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "year",
+            "source": "year"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "fop",
+            "source": "fop",
+            "conv": "il-fop"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "monument_article",
+            "source": "title",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ]
+}

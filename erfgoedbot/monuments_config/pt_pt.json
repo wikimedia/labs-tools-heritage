@@ -1,0 +1,87 @@
+{
+    "country": "pt",
+    "lang": "pt",
+    "description": "Monuments in Portugal (IGESPAR) in Portugese",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_pt_(pt)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "IGESPAR/cabeçalho",
+    "rowTemplate": "IGESPAR/linha",
+    "commonsTemplate": "IGESPAR",
+    "commonsTrackerCategory": "IGESPAR with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Portugal",
+    "unusedImagesPage": "Wikipédia:Projetos/Património de Portugal/Fotos IGESPAR não usadas",
+    "imagesWithoutIdPage": "User:Multichill/IGESPAR without an ID",
+    "registrantUrlBase": "http://www.igespar.pt/pt/patrimonio/pesquisa/geral/patrimonioimovel/detail/%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "designacoes",
+            "source": "designacoes"
+        },
+        {
+            "dest": "categoria",
+            "source": "categoria"
+        },
+        {
+            "dest": "tipologia",
+            "source": "tipologia"
+        },
+        {
+            "dest": "concelho",
+            "source": "concelho"
+        },
+        {
+            "dest": "freguesia",
+            "source": "freguesia"
+        },
+        {
+            "dest": "grau",
+            "source": "grau"
+        },
+        {
+            "dest": "ano",
+            "source": "ano"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "imagem",
+            "source": "imagem"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "designacoes",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

@@ -1,0 +1,123 @@
+{
+    "country": "sk",
+    "lang": "sk",
+    "description": "Monuments in Slovakia in Slovak",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_sk_(sk)",
+    "truncate": false,
+    "primkey": "idobjektu",
+    "headerTemplate": "Monuments tablehead-SK",
+    "rowTemplate": "Monuments tableline-SK",
+    "commonsTemplate": "Cultural Heritage Slovakia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Slovakia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Slovakia",
+    "unusedImagesPage": "User:Multichill/Unused Monument Slovakia",
+    "imagesWithoutIdPage": "User:Multichill/Monument Slovakia without ID",
+    "fields": [
+        {
+            "dest": "idobjektu",
+            "source": "IDobjektu",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "fotka",
+            "source": "Fotka"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "nazov-sk",
+            "source": "Názov"
+        },
+        {
+            "dest": "nazov-de",
+            "source": "Názov-de"
+        },
+        {
+            "dest": "clanok",
+            "source": "Článok"
+        },
+        {
+            "dest": "nazov_clanku",
+            "source": "Názov_článku"
+        },
+        {
+            "dest": "adresa",
+            "source": "Adresa"
+        },
+        {
+            "dest": "adresa_pre_triedenie",
+            "source": "Adresa_pre_triedenie"
+        },
+        {
+            "dest": "airka",
+            "source": "šírka"
+        },
+        {
+            "dest": "dlzka",
+            "source": "dĺžka"
+        },
+        {
+            "dest": "iso-regionu",
+            "source": "ISO-regiónu"
+        },
+        {
+            "dest": "katastralne_uzemie",
+            "source": "Katastrálne_územie"
+        },
+        {
+            "dest": "supisne_cislo",
+            "source": "Súpisné_číslo"
+        },
+        {
+            "dest": "stav",
+            "source": "Stav"
+        },
+        {
+            "dest": "popis",
+            "source": "popis"
+        },
+        {
+            "dest": "unifikovany_nazov_nkp",
+            "source": "Unifikovaný názov NKP"
+        },
+        {
+            "dest": "obec",
+            "source": "Obec"
+        },
+        {
+            "dest": "kod_obce",
+            "source": "Kód obce",
+            "type": "int(11)"
+        },
+        {
+            "dest": "okres",
+            "source": "Okres"
+        },
+        {
+            "dest": "kod_okresu",
+            "source": "Kód okresu",
+            "type": "int(11)"
+        },
+        {
+            "dest": "lat",
+            "source": "šírka",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "dĺžka",
+            "check": "checkLon"
+        },
+        {
+            "dest": "beschreibung-de",
+            "source": "Beschreibung-de"
+        }
+    ]
+}

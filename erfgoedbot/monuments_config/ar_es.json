@@ -1,0 +1,85 @@
+{
+    "country": "ar",
+    "lang": "es",
+    "description": "Monuments in Argentina in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_ar_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoArgentina/encabezado",
+    "rowTemplate": "MonumentoArgentina",
+    "commonsTemplate": "Monumento Argentino",
+    "commonsTrackerCategory": "Monuments in Argentina with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Argentina",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "localidad",
+            "source": "localidad"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace",
+            "default": "monumento"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monumento_enlace"
+        }
+    ]
+}

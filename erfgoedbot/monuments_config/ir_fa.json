@@ -1,0 +1,78 @@
+{
+    "country": "ir",
+    "lang": "fa",
+    "description": "National monuments in Iran in Farsi",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_ir_(fa)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "سرآیند یادمان ایران",
+    "rowTemplate": "ردیف یادمان ایران",
+    "commonsTemplate": "Cultural Heritage Iran",
+    "commonsTrackerCategory": "Cultural heritage monuments in Iran with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Iran",
+    "unusedImagesPage": "User:LilyOfTheWest/Unused images",
+    "imagesWithoutIdPage": "User:LilyOfTheWest/Images without Id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "شناسه",
+            "check": "checkInt",
+            "conv": "to_default_numeral"
+        },
+        {
+            "dest": "name",
+            "source": "توضیح"
+        },
+        {
+            "dest": "city",
+            "source": "شهر"
+        },
+        {
+            "dest": "address",
+            "source": "مکان"
+        },
+        {
+            "dest": "registration_date",
+            "source": "تاریخ ثبت"
+        },
+        {
+            "dest": "age",
+            "source": "قدمت"
+        },
+        {
+            "dest": "image",
+            "source": "عکس"
+        },
+        {
+            "dest": "ISO",
+            "source": "ISO"
+        },
+        {
+            "dest": "province",
+            "source": "استان"
+        },
+        {
+            "dest": "lat",
+            "source": "طول جغرافیایی",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "عرض جغرافیایی",
+            "check": "checkLon"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "توضیح",
+            "conv": "extractWikilink"
+        }
+    ]
+}

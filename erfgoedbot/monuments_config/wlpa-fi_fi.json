@@ -1,0 +1,95 @@
+{
+    "country": "wlpa-fi",
+    "lang": "fi",
+    "description": "WLPA in Finland in Finnish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "wlpa_fi_(fi)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Wlpa-teokset-alku",
+    "rowTemplate": "Wlpa-teokset-rivi",
+    "commonsTemplate": "Public Art Finland",
+    "commonsTrackerCategory": "Public art in Finland with known IDs",
+    "commonsCategoryBase": "Public art in Finland",
+    "unusedImagesPage": "User:Multichill/Unused public art in Finland",
+    "imagesWithoutIdPage": "User:Multichill/Public art in Finland without ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "nimi",
+            "source": "nimi"
+        },
+        {
+            "dest": "tekija",
+            "source": "tekijä"
+        },
+        {
+            "dest": "omistaja",
+            "source": "omistaja"
+        },
+        {
+            "dest": "valmistumisvuosi",
+            "source": "valmistumisvuosi"
+        },
+        {
+            "dest": "materiaali",
+            "source": "materiaali"
+        },
+        {
+            "dest": "tekijan_kuolinvuosi",
+            "source": "tekijän_kuolinvuosi"
+        },
+        {
+            "dest": "fop",
+            "source": "tekijän_kuolinvuosi",
+            "conv": "fi-fop"
+        },
+        {
+            "dest": "url",
+            "source": "url"
+        },
+        {
+            "dest": "sijainti",
+            "source": "sijainti"
+        },
+        {
+            "dest": "maakunta",
+            "source": "maakunta"
+        },
+        {
+            "dest": "kunta",
+            "source": "kunta"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "kuva",
+            "source": "kuva"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nimi",
+            "conv": "extractWikilink"
+        }
+    ]
+}

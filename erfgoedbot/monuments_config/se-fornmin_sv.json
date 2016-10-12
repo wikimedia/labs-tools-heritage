@@ -1,0 +1,91 @@
+{
+    "country": "se-fornmin",
+    "lang": "sv",
+    "description": "Fornminne Monuments in Sweden in Swedish",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_se-fornmin_(sv)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "FMIS-huvud",
+    "rowTemplate": "FMIS",
+    "commonsTemplate": "Fornminne",
+    "commonsTrackerCategory": "Archaeological monuments in Sweden with known IDs",
+    "commonsCategoryBase": "Archaeological monuments in Sweden",
+    "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av fornlämningar i Sverige",
+    "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av fornlämningar i Sverige utan ID",
+    "registrantUrlBase": "http://kulturarvsdata.se/raa/fmi/html/%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": "0",
+            "type": "varchar(14)"
+        },
+        {
+            "dest": "namn",
+            "source": "namn"
+        },
+        {
+            "dest": "raa-nr",
+            "source": "raä-nr"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "artikel",
+            "source": "artikel"
+        },
+        {
+            "dest": "typ",
+            "source": "typ"
+        },
+        {
+            "dest": "tillkomst",
+            "source": "tillkomst"
+        },
+        {
+            "dest": "kommun",
+            "source": "kommun"
+        },
+        {
+            "dest": "socken",
+            "source": "socken"
+        },
+        {
+            "dest": "landskap",
+            "source": "landskap"
+        },
+        {
+            "dest": "plats",
+            "source": "plats"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "bild",
+            "source": "bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

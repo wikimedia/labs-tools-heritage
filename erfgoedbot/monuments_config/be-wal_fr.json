@@ -1,0 +1,116 @@
+{
+    "country": "be-wal",
+    "lang": "fr",
+    "description": "Patrimoine immobilier classé in Wallonië in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-wal_(fr)",
+    "truncate": false,
+    "primkey": [
+        "id_commune",
+        "clt-pex",
+        "id_objet"
+    ],
+    "headerTemplate": "En-tête de tableau MH-Wal",
+    "rowTemplate": "Ligne de tableau MH-Wal",
+    "commonsTemplate": "Monument Wallonie",
+    "commonsTrackerCategory": "Cultural heritage monuments in Wallonia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Wallonia",
+    "unusedImagesPage": "Projet:Monuments_historiques/Images de monuments en Région wallonne non utilisées",
+    "fields": [
+        {
+            "dest": "id_commune",
+            "source": "id commune",
+            "type": "int(8)"
+        },
+        {
+            "dest": "clt-pex",
+            "source": "CLT/PEX",
+            "default": "0",
+            "type": "varchar(6)"
+        },
+        {
+            "dest": "id_objet",
+            "source": "id objet",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "descr_de",
+            "source": "descr_de"
+        },
+        {
+            "dest": "descr_nl",
+            "source": "descr_nl"
+        },
+        {
+            "dest": "nom_objet",
+            "source": "nom objet"
+        },
+        {
+            "dest": "commune",
+            "source": "commune"
+        },
+        {
+            "dest": "section_communale",
+            "source": "section communale"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "objtype",
+            "source": "objtype"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "architecte",
+            "source": "architecte"
+        },
+        {
+            "dest": "annee_construction",
+            "source": "année construction"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "",
+            "source": "portrait"
+        },
+        {
+            "dest": "commonscat",
+            "source": "catégorie commons"
+        },
+        {
+            "dest": "",
+            "source": "titre coordonnées"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom objet",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}

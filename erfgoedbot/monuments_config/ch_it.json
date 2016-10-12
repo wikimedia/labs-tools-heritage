@@ -1,0 +1,88 @@
+{
+    "country": "ch",
+    "lang": "it",
+    "description": "Monuments in Switzerland in Italian",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_ch_(it)",
+    "truncate": false,
+    "primkey": "no_pbc",
+    "headerTemplate": "Intestazione della tabella dei beni culturali (Svizzera)",
+    "rowTemplate": "Riga della tabella dei beni culturali (Svizzera)",
+    "commonsTemplate": "Cultural property of national significance in Switzerland",
+    "commonsTrackerCategory": "Cultural properties of national significance in Switzerland with known IDs",
+    "commonsCategoryBase": "Cultural properties of national significance in Switzerland",
+    "fields": [
+        {
+            "dest": "no_pbc",
+            "source": "no PBC",
+            "type": "int(11)"
+        },
+        {
+            "dest": "foto",
+            "source": "foto"
+        },
+        {
+            "dest": "descrizione-foto",
+            "source": "descrizione-foto"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "oggetto",
+            "source": "oggetto"
+        },
+        {
+            "dest": "oggetto-visualizzato",
+            "source": "oggetto-visualizzato"
+        },
+        {
+            "dest": "categoria",
+            "source": "categoria"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "indirizzo",
+            "source": "indirizzo"
+        },
+        {
+            "dest": "indirizzo-visualizzato",
+            "source": "indirizzo-visualizzato"
+        },
+        {
+            "dest": "lat",
+            "source": "latitudine",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitudine",
+            "check": "checkLon"
+        },
+        {
+            "dest": "region-iso",
+            "source": "regione-ISO"
+        },
+        {
+            "dest": "comune",
+            "source": "comune"
+        },
+        {
+            "dest": "cantone",
+            "source": "cantone"
+        },
+        {
+            "dest": "monument_article",
+            "source": "oggetto",
+            "conv": "extractWikilink"
+        }
+    ]
+}

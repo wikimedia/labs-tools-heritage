@@ -1,0 +1,74 @@
+{
+    "country": "nl-aw",
+    "lang": "nl",
+    "description": "Monuments in Aruba in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_nl-aw_(nl)",
+    "truncate": false,
+    "primkey": "objectnr",
+    "headerTemplate": "Tabelkop monumenten Aruba",
+    "rowTemplate": "Tabelrij monument Aruba",
+    "commonsTemplate": "Cultural Heritage Aruba",
+    "commonsTrackerCategory": "Cultural heritage monuments in Aruba with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Aruba",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto's van monumenten op Aruba",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto's van monumenten op Aruba zonder id",
+    "fields": [
+        {
+            "dest": "objectnr",
+            "source": "objectnr",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "omschrijving",
+            "source": "omschrijving"
+        },
+        {
+            "dest": "plaats",
+            "source": "plaats"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "omschrijving",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "objectnr"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wd_item",
+            "check": "checkWD"
+        }
+    ]
+}

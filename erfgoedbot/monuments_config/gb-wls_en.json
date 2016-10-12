@@ -1,0 +1,89 @@
+{
+    "country": "gb-wls",
+    "lang": "en",
+    "description": "United Kingdom: Listed buildings in Wales in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_gb-wls_(en)",
+    "truncate": false,
+    "primkey": "hb",
+    "headerTemplate": "Cadw listed building header",
+    "rowTemplate": "Cadw listed building row",
+    "commonsTemplate": "Listed building Wales",
+    "commonsTrackerCategory": "Listed buildings in Wales with known IDs",
+    "commonsCategoryBase": "Listed buildings in Wales",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Wales",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of listed buildings in Wales without ID",
+    "fields": [
+        {
+            "dest": "hb",
+            "source": "hb",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "subdivision_iso",
+            "source": "subdivision_iso"
+        },
+        {
+            "dest": "date_listed",
+            "source": "date_listed"
+        },
+        {
+            "dest": "grid_ref",
+            "source": "grid_ref"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "function",
+            "source": "function"
+        },
+        {
+            "dest": "notes",
+            "source": "notes"
+        },
+        {
+            "dest": "url",
+            "source": "url"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "upload_desc",
+            "source": "upload_desc"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "hb"
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+    "country": "dz",
+    "lang": "ar",
+    "description": "Monuments in Algeria in Arabic",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_dz_(ar)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "رأس معلم الجزائر",
+    "rowTemplate": "صف معلم الجزائر",
+    "commonsTemplate": "Cultural Heritage Algeria",
+    "commonsTrackerCategory": "Cultural heritage monuments in Algeria with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Algeria",
+    "unusedImagesPage": "User:ErfgoedBot/Unused images of monuments in Algeria",
+    "imagesWithoutIdPage": "User:ErfgoedBot/Images of monuments in Algeria without ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "رقم",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "name",
+            "source": "اسم"
+        },
+        {
+            "dest": "description",
+            "source": "وصف"
+        },
+        {
+            "dest": "site",
+            "source": "موقع"
+        },
+        {
+            "dest": "section",
+            "source": "قسم"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "ISO"
+        },
+        {
+            "dest": "city",
+            "source": "مدينة"
+        },
+        {
+            "dest": "lat",
+            "source": "دائرة عرض",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "خط طول",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "صورة"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

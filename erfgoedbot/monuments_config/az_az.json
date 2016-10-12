@@ -1,0 +1,82 @@
+{
+    "country": "az",
+    "lang": "az",
+    "description": "Monuments in Azerbaijan in Azerbaijani",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        4
+    ],
+    "table": "monuments_az_(az)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "AZE Monument header",
+    "rowTemplate": "AZE Monument row",
+    "commonsTemplate": "Cultural Heritage Azerbaijan",
+    "commonsTrackerCategory": "Cultural heritage monuments in Azerbaijan with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Azerbaijan",
+    "unusedImagesPage": "Vikipediya:Viki Abidələri Sevir 2013/Unused images of Cultural heritage monuments in Azerbaijan",
+    "imagesWithoutIdPage": "Vikipediya:Viki Abidələri Sevir 2013/Images of Cultural heritage monuments in Azerbaijan without an ID",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "ID",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "ray-iso",
+            "source": "ray-iso"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "ref",
+            "source": "ref"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

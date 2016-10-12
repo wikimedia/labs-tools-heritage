@@ -1,0 +1,83 @@
+{
+    "country": "ke",
+    "lang": "en",
+    "description": "Kenya in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ke_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Kenya Monument header",
+    "rowTemplate": "Kenya Monument row",
+    "commonsTemplate": "Kenya Monument",
+    "commonsTrackerCategory": "Kenya Monuments with known IDs",
+    "unusedImagesPage": "Wikipedia:Wiki Loves Monuments Kenya/Unused images",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "alternative_names",
+            "source": "alternative_names"
+        },
+        {
+            "dest": "gazette",
+            "source": "gazette"
+        },
+        {
+            "dest": "original_function",
+            "source": "original_function"
+        },
+        {
+            "dest": "built",
+            "source": "built"
+        },
+        {
+            "dest": "county",
+            "source": "county"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "comment",
+            "source": "comment"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

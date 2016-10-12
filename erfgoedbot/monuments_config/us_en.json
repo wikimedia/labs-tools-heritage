@@ -1,0 +1,104 @@
+{
+    "country": "us",
+    "lang": "en",
+    "description": "National Register of Historic Places listings in the United States in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_us_(en)",
+    "truncate": false,
+    "primkey": "refnum",
+    "headerTemplate": "NRHP header",
+    "rowTemplate": "NRHP row",
+    "commonsTemplate": "NRHP",
+    "commonsTrackerCategory": "National Register of Historic Places with known IDs",
+    "commonsCategoryBase": "National Register of Historic Places",
+    "unusedImagesPage": "Wikipedia:WikiProject National Register of Historic Places/Unused images",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject National Register of Historic Places/Images without refnum",
+    "missingCommonscatPage": "Wikipedia:WikiProject National Register of Historic Places/Missing commons category links",
+    "fields": [
+        {
+            "dest": "refnum",
+            "source": "refnum",
+            "type": "int(11)"
+        },
+        {
+            "dest": "pos",
+            "source": "pos",
+            "type": "int(3)"
+        },
+        {
+            "dest": "type",
+            "source": "type",
+            "default": "NRHP",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "article",
+            "source": "article"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "name_extra",
+            "source": "name_extra"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "city",
+            "source": "city"
+        },
+        {
+            "dest": "nocity",
+            "source": "nocity"
+        },
+        {
+            "dest": "county",
+            "source": "county"
+        },
+        {
+            "dest": "state_iso",
+            "source": "state_iso"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "date_extra",
+            "source": "date_extra"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nolatlon",
+            "source": "nolatlon"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        }
+    ]
+}

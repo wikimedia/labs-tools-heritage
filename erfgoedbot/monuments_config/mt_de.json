@@ -1,0 +1,83 @@
+{
+    "country": "mt",
+    "lang": "de",
+    "description": "Monuments in Malta in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_mt_(de)",
+    "truncate": false,
+    "primkey": "inventarnummer",
+    "headerTemplate": "Denkmalliste Malta Tabellenkopf",
+    "rowTemplate": "Denkmalliste Malta Tabellenzeile",
+    "commonsTemplate": "National Inventory of Cultural Property of the Maltese Islands",
+    "commonsTrackerCategory": "Cultural heritage monuments in Malta with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Malta",
+    "unusedImagesPage": "User:Multichill/Unused Denkmal Malta",
+    "imagesWithoutIdPage": "User:Multichill/Denkmal Malta without ID",
+    "registrantUrlBase": "http://www.culturalheritage.gov.mt/filebank/inventory/000%s.pdf",
+    "fields": [
+        {
+            "dest": "inventarnummer",
+            "source": "Inventarnummer",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "name-de",
+            "source": "Name-de"
+        },
+        {
+            "dest": "name-en",
+            "source": "Name-en"
+        },
+        {
+            "dest": "name-mt",
+            "source": "Name-mt"
+        },
+        {
+            "dest": "gemeinde",
+            "source": "Gemeinde"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        },
+        {
+            "dest": "region-iso",
+            "source": "Region-ISO"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "Inventarnummer",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

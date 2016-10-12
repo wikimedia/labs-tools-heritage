@@ -1,0 +1,90 @@
+{
+    "country": "mx",
+    "lang": "es",
+    "description": "Monuments in Mexico in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_mx_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoMéxico/encabezado",
+    "rowTemplate": "MonumentoMéxico",
+    "commonsTemplate": "Monumento de México",
+    "commonsTrackerCategory": "Monuments in Mexico with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Mexico",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de México sin id",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de México sin usar",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "iso",
+            "source": "ISO"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "localidad",
+            "source": "localidad"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo",
+            "type": "ENUM('Federal', 'Estatal', 'Municipal')"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace",
+            "default": "monumento"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "monumento_categoria",
+            "source": "monumento_categoría"
+        },
+        {
+            "dest": "imagen",
+            "source": "imagen"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "monumento_enlace"
+        }
+    ]
+}

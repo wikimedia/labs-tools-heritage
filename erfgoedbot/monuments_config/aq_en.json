@@ -1,0 +1,96 @@
+{
+    "country": "aq",
+    "lang": "en",
+    "description": "Monuments in Antarctica in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_aq_(en)",
+    "truncate": false,
+    "primkey": [
+        "type",
+        "number"
+    ],
+    "headerTemplate": "Antarctic Protected Area header",
+    "rowTemplate": "Antarctic Protected Area row",
+    "commonsTemplate": "Antarctic Protected Area",
+    "commonsTrackerCategory": "Antarctic Protected Areas with known IDs",
+    "commonsCategoryBase": "Antarctic Protected Areas",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Antarctic Protected Areas",
+    "fields": [
+        {
+            "dest": "type",
+            "source": "type",
+            "type": "varchar(4)"
+        },
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "int(4)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "proponent",
+            "source": "proponent"
+        },
+        {
+            "dest": "management",
+            "source": "management"
+        },
+        {
+            "dest": "adopted",
+            "source": "adopted"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "area",
+            "source": "area"
+        },
+        {
+            "dest": "M_plan",
+            "source": "M_plan"
+        },
+        {
+            "dest": "alt_country1",
+            "source": "alt_country1"
+        },
+        {
+            "dest": "alt_number1",
+            "source": "alt_number1"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "url"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+    "country": "fr-object",
+    "lang": "fr",
+    "description": "Object monuments in France in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_fr-object_(fr)",
+    "truncate": false,
+    "primkey": "palissy",
+    "headerTemplate": "En-tête de tableau objet MH",
+    "rowTemplate": "Ligne de tableau objet MH",
+    "commonsTemplate": "Palissy",
+    "commonsTrackerCategory": "Cultural heritage monument objects in France with known IDs",
+    "commonsCategoryBase": "Objets monuments historiques in France",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments mobiliers français non utilisées",
+    "imagesWithoutIdPage": "Projet:Monuments historiques/Images de monuments mobiliers français sans identifiant",
+    "registrantUrlBase": "http://www.culture.gouv.fr/public/mistral/palissy_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s",
+    "fields": [
+        {
+            "dest": "region_iso",
+            "source": "région_iso"
+        },
+        {
+            "dest": "departement_iso",
+            "source": "département_iso"
+        },
+        {
+            "dest": "commune",
+            "source": "commune",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "lieu",
+            "source": "lieu"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "palissy",
+            "source": "palissy",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "protection",
+            "source": "protection"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "ecartement",
+            "source": "écartement"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "palissy",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

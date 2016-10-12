@@ -1,0 +1,88 @@
+{
+    "country": "uy",
+    "lang": "es",
+    "description": "Monuments in Uruguay in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_uy_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoUruguay/encabezado",
+    "rowTemplate": "MonumentoUruguay",
+    "commonsTemplate": "Monumento Uruguay",
+    "commonsTrackerCategory": "Cultural heritage monuments in Uruguay with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Uruguay",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Uruguay sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Uruguay sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "dep_iso",
+            "source": "dep_iso"
+        },
+        {
+            "dest": "departamento",
+            "source": "departamento"
+        },
+        {
+            "dest": "localidad",
+            "source": "localidad"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "image",
+            "source": "imagen"
+        },
+        {
+            "dest": "autores",
+            "source": "autores"
+        },
+        {
+            "dest": "construido",
+            "source": "construido"
+        },
+        {
+            "dest": "tipo",
+            "source": "tipo"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        }
+    ]
+}

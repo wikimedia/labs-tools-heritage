@@ -1,0 +1,82 @@
+{
+    "country": "ad",
+    "lang": "ca",
+    "description": "Monuments in Andorra in Catalan table",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ad_(ca)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Capçalera BIC And",
+    "rowTemplate": "Filera BIC And",
+    "commonsTemplate": "Béns Andorra",
+    "commonsTrackerCategory": "Cultural heritage monuments in Andorra with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Andorra",
+    "unusedImagesPage": "Viquiprojecte:Monuments/Imatges per utilitzar d'Andorra",
+    "registrantUrlBase": "http://www.patrimonicultural.ad/banc/article.php?id=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "estil",
+            "source": "estil"
+        },
+        {
+            "dest": "epoca",
+            "source": "època"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

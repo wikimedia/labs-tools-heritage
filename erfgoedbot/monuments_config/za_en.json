@@ -1,0 +1,93 @@
+{
+    "country": "za",
+    "lang": "en",
+    "description": "Monuments in South Africa",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_za_(en)",
+    "truncate": false,
+    "primkey": "sitereference",
+    "headerTemplate": "SAHRA heritage site header",
+    "rowTemplate": "SAHRA heritage site row",
+    "commonsTemplate": "South African Heritage Site",
+    "commonsTrackerCategory": "South Africa Heritage Resources with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in South Africa",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of heritage sites in South Africa",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Heritage sites in South Africa without ID",
+    "fields": [
+        {
+            "dest": "sitereference",
+            "source": "SiteReference",
+            "default": "0",
+            "type": "varchar(20)"
+        },
+        {
+            "dest": "guid",
+            "source": "guid"
+        },
+        {
+            "dest": "site_name",
+            "source": "Site_name"
+        },
+        {
+            "dest": "magisterial_district",
+            "source": "Magisterial_district"
+        },
+        {
+            "dest": "municipal_name",
+            "source": "Municipal_name"
+        },
+        {
+            "dest": "town",
+            "source": "Town"
+        },
+        {
+            "dest": "erf_number",
+            "source": "Erf number"
+        },
+        {
+            "dest": "farm_number",
+            "source": "Farm number"
+        },
+        {
+            "dest": "portion",
+            "source": "Portion"
+        },
+        {
+            "dest": "nhra_status",
+            "source": "NHRA status"
+        },
+        {
+            "dest": "nmc_status",
+            "source": "NMC status"
+        },
+        {
+            "dest": "description",
+            "source": "Description"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "province_iso",
+            "source": "Province_iso"
+        },
+        {
+            "dest": "lat",
+            "source": "Latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Longitude",
+            "check": "checkLon"
+        }
+    ]
+}

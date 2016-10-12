@@ -1,0 +1,91 @@
+{
+    "country": "gb-sct",
+    "lang": "en",
+    "description": "United Kingdom: Listed buildings in Scotland in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_gb-sct_(en)",
+    "truncate": false,
+    "primkey": "hb",
+    "headerTemplate": "HS Scotland header",
+    "rowTemplate": "HS listed building row",
+    "commonsTemplate": "Listed building Scotland",
+    "commonsTrackerCategory": "Listed buildings in Scotland with known IDs",
+    "commonsCategoryBase": "Listed buildings in Scotland",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Scotland",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of listed buildings in Scotland without ID",
+    "registrantUrlBase": "http://hsewsf.sedsh.gov.uk/hslive/portal.hsstart?P_HBNUM=%s",
+    "fields": [
+        {
+            "dest": "hb",
+            "source": "hb",
+            "type": "int(11)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "date_listed",
+            "source": "date_listed"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "notes",
+            "source": "notes"
+        },
+        {
+            "dest": "grid_ref",
+            "source": "grid_ref"
+        },
+        {
+            "dest": "council_area",
+            "source": "council_area"
+        },
+        {
+            "dest": "council_iso",
+            "source": "council_iso"
+        },
+        {
+            "dest": "parbur",
+            "source": "parbur"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "lb_type",
+            "source": "lb_type"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "hb",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

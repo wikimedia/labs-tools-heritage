@@ -1,0 +1,107 @@
+{
+    "country": "es-ct",
+    "lang": "ca",
+    "description": "Monuments in Catalunya in Catalan table",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_es-ct_(ca)",
+    "truncate": false,
+    "primkey": "bic",
+    "headerTemplate": "Capçalera IPA",
+    "rowTemplate": "Filera IPA",
+    "commonsTemplate": "BIC",
+    "commonsTrackerCategory": "Cultural heritage monuments in Spain with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Spain",
+    "registrantUrlBase": "http://cultura.gencat.cat/invarquit/Fitxa.asp?idregistre=%s",
+    "fields": [
+        {
+            "dest": "bic",
+            "source": "id",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "idurl",
+            "source": "idurl"
+        },
+        {
+            "dest": "idurl2",
+            "source": "idurl2"
+        },
+        {
+            "dest": "prot",
+            "source": "prot",
+            "type": "enum('BCIN','BCIL')"
+        },
+        {
+            "dest": "idprot",
+            "source": "idprot"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "estil",
+            "source": "estil"
+        },
+        {
+            "dest": "epoca",
+            "source": "època"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "title",
+            "source": "title"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "CCAA_iso",
+            "source": "regió1"
+        },
+        {
+            "dest": "provincia_iso",
+            "source": "regió2"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "idurl",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

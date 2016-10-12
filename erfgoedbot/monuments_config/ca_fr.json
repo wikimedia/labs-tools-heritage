@@ -1,0 +1,111 @@
+{
+    "country": "ca",
+    "lang": "fr",
+    "description": "Historic Places of Canada in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        100
+    ],
+    "table": "monuments_ca_(fr)",
+    "truncate": false,
+    "primkey": "numero",
+    "headerTemplate": "En-tête de tableau LPC",
+    "rowTemplate": "Ligne de tableau LPC",
+    "commonsTemplate": "Historic Places in Canada",
+    "commonsTrackerCategory": "Heritage properties in Canada with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Canada",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments canada non utilisées",
+    "registrantUrlBase": "http://www.historicplaces.ca/fr/rep-reg/place-lieu.aspx?id=%s",
+    "fields": [
+        {
+            "dest": "numero",
+            "source": "numéro",
+            "type": "int(11)"
+        },
+        {
+            "dest": "id",
+            "source": "id"
+        },
+        {
+            "dest": "niveau",
+            "source": "niveau"
+        },
+        {
+            "dest": "tri",
+            "source": "tri"
+        },
+        {
+            "dest": "lieu",
+            "source": "lieu"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "portrait",
+            "source": "portrait"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "municipalite",
+            "source": "municipalité"
+        },
+        {
+            "dest": "tri_municipalite",
+            "source": "tri municipalité"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "tri_adresse",
+            "source": "tri adresse"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "construction",
+            "source": "construction"
+        },
+        {
+            "dest": "protection",
+            "source": "protection"
+        },
+        {
+            "dest": "reconnaissance",
+            "source": "reconnaissance"
+        },
+        {
+            "dest": "notes",
+            "source": "notes"
+        },
+        {
+            "dest": "monument_article",
+            "source": "lieu",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "numero",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

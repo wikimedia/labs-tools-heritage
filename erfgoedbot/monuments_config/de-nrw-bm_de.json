@@ -1,0 +1,76 @@
+{
+    "country": "de-nrw-bm",
+    "lang": "de",
+    "description": "Baudenkmaeler in Bergheim in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_de-nrw-bm_(de)",
+    "truncate": false,
+    "primkey": "nummer",
+    "headerTemplate": "Denkmalliste Bergheim Tabellenkopf",
+    "rowTemplate": "Denkmalliste Bergheim Tabellenzeile",
+    "commonsTemplate": "Kulturdenkmal Bergheim",
+    "commonsTrackerCategory": "Cultural heritage monuments in Bergheim with known ID",
+    "commonsCategoryBase": "Cultural heritage monuments in Bergheim",
+    "unusedImagesPage": "Wikipedia:Wiki Loves Monuments Bergheim/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Wikipedia:Wiki Loves Monuments Bergheim/Bilder ohne Nummer",
+    "fields": [
+        {
+            "dest": "nummer",
+            "source": "Nummer",
+            "type": "int(11)"
+        },
+        {
+            "dest": "ortsteil",
+            "source": "Ortsteil"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "bezeichnung",
+            "source": "Bezeichnung"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "bauzeit",
+            "source": "Bauzeit"
+        },
+        {
+            "dest": "eintragung",
+            "source": "Eintragung"
+        },
+        {
+            "dest": "aktenzeichen",
+            "source": "Aktenzeichen"
+        },
+        {
+            "dest": "bild",
+            "source": "Bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        }
+    ]
+}

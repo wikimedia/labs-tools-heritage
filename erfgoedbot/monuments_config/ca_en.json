@@ -1,0 +1,113 @@
+{
+    "country": "ca",
+    "lang": "en",
+    "description": "Historic Places of Canada in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ca_(en)",
+    "truncate": false,
+    "primkey": "dummyid",
+    "headerTemplate": "HPC header",
+    "rowTemplate": "HPC row",
+    "commonsTemplate": "Historic Places in Canada",
+    "commonsTrackerCategory": "Heritage properties in Canada with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Canada",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Historic Places in Canada",
+    "registrantUrlBase": "http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s",
+    "fields": [
+        {
+            "dest": "dummyid",
+            "source": "dummyid",
+            "type": "int(11)",
+            "auto_increment": false
+        },
+        {
+            "dest": "name",
+            "source": "name",
+            "type": ""
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "provinceId",
+            "source": "provinceId"
+        },
+        {
+            "dest": "coordname",
+            "source": "coordname"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "pc",
+            "source": "pc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "idf",
+            "source": "idf",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idf2",
+            "source": "idf2",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idp",
+            "source": "idp",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idm",
+            "source": "idm",
+            "type": "int(11)"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "idf",
+            "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
+        }
+    ]
+}

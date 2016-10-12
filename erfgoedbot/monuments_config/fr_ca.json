@@ -1,0 +1,80 @@
+{
+    "country": "fr",
+    "lang": "ca",
+    "description": "Monuments in France in Catalan table",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_fr_(ca)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Capçalera MH",
+    "rowTemplate": "Filera MH",
+    "commonsTemplate": "Mérimée",
+    "commonsTrackerCategory": "Cultural heritage monuments in France with known IDs",
+    "commonsCategoryBase": "Monuments historiques in France",
+    "unusedImagesPage": "Viquiprojecte:Monuments/Imatges per utilitzar de França",
+    "registrantUrlBase": "http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&FIELD_1=REF&VALUE_1=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": "0",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "prot",
+            "source": "prot",
+            "type": "enum('Error', 'C','I')"
+        },
+        {
+            "dest": "epoca",
+            "source": "època"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

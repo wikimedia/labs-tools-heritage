@@ -1,0 +1,71 @@
+{
+    "country": "hk",
+    "lang": "en",
+    "description": "Declared Monuments in Hong Kong in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_hk_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "HK Declared Monument header",
+    "rowTemplate": "HK Declared Monument row",
+    "commonsTemplate": "Declared monuments Hong Kong",
+    "commonsTrackerCategory": "Declared monuments of Hong Kong with known IDs",
+    "commonsCategoryBase": "Declared monuments of Hong Kong",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(8)"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "declaration_date",
+            "source": "declaration_date"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "refs",
+            "source": "refs"
+        },
+        {
+            "dest": "region",
+            "source": "region"
+        },
+        {
+            "dest": "caption",
+            "source": "caption"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        }
+    ]
+}

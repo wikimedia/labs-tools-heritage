@@ -1,0 +1,75 @@
+{
+    "country": "ph",
+    "lang": "en",
+    "description": "Monuments in the Philippines in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ph_(en)",
+    "truncate": false,
+    "primkey": "cp-wmph-id",
+    "headerTemplate": "Philippine cultural property header",
+    "rowTemplate": "Philippine cultural property row",
+    "commonsTemplate": "WMPH-ID",
+    "commonsTrackerCategory": "Cultural heritage monuments in the Philippines with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in the Philippines",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in the Philippines",
+    "fields": [
+        {
+            "dest": "cp-wmph-id",
+            "source": "cp-wmph-id",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "site_name",
+            "source": "site_name"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "region-iso",
+            "source": "region-iso"
+        },
+        {
+            "dest": "province",
+            "source": "province"
+        },
+        {
+            "dest": "province-iso",
+            "source": "province-iso"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "barangay",
+            "source": "barangay"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ]
+}

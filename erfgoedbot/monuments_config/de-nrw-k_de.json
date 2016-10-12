@@ -1,0 +1,69 @@
+{
+    "country": "de-nrw-k",
+    "lang": "de",
+    "description": "Baudenkmäler in Cologne in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_de-nrw-k_(de)",
+    "truncate": false,
+    "primkey": "nummer_denkmalliste",
+    "headerTemplate": "Denkmalliste Köln Tabellenkopf",
+    "rowTemplate": "Denkmalliste Köln Tabellenzeile",
+    "commonsTemplate": "Kulturdenkmal Köln",
+    "commonsTrackerCategory": "Cultural heritage monuments in Cologne with known ID",
+    "commonsCategoryBase": "Cultural heritage monuments in Cologne",
+    "unusedImagesPage": "Benutzer:Elya/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Benutzer:Elya/Bilder ohne Nummer",
+    "fields": [
+        {
+            "dest": "nummer_denkmalliste",
+            "source": "Nummer_Denkmalliste",
+            "type": "int(11)"
+        },
+        {
+            "dest": "ortsteil",
+            "source": "Ortsteil"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "bezeichnung",
+            "source": "Bezeichnung"
+        },
+        {
+            "dest": "bauzeit",
+            "source": "Bauzeit"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "bild",
+            "source": "Bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        },
+        {
+            "dest": "monument_article",
+            "source": "bezeichnung",
+            "conv": "extractWikilink"
+        }
+    ]
+}

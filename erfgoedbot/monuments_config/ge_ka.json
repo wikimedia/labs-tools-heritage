@@ -1,0 +1,71 @@
+{
+    "country": "ge",
+    "lang": "ka",
+    "description": "Monuments in Georgia in Georgian",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_ge_(ka)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "GEO Monument header",
+    "rowTemplate": "GEO Monument row",
+    "commonsTemplate": "Cultural Heritage Georgia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Georgia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Georgia",
+    "unusedImagesPage": "ვიკიპედია:გამოუყენებელი სურათები",
+    "imagesWithoutIdPage": "ვიკიპედია:სურათები იდენტიფიკატორის გარეშე",
+    "fields": [
+        {
+            "dest": "region_iso",
+            "source": "state_iso"
+        },
+        {
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "id",
+            "source": "ID"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "ref"
+        }
+    ]
+}

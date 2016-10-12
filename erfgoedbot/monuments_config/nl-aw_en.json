@@ -1,0 +1,69 @@
+{
+    "country": "nl-aw",
+    "lang": "en",
+    "description": "Monuments in Aruba in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_nl-aw_(en)",
+    "truncate": false,
+    "primkey": "objcode",
+    "headerTemplate": "Table header Aruba monuments",
+    "rowTemplate": "Table row Aruba monuments",
+    "commonsTemplate": "Cultural Heritage Aruba",
+    "commonsTrackerCategory": "Cultural heritage monuments in Aruba with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Aruba",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Cultural heritage monuments in Aruba",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of Cultural heritage monuments in Aruba without an ID",
+    "fields": [
+        {
+            "dest": "objcode",
+            "source": "objcode",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "descr_en",
+            "source": "descr_en"
+        },
+        {
+            "dest": "town",
+            "source": "town"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "descr_en",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "objcode"
+        }
+    ]
+}

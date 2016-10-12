@@ -1,0 +1,91 @@
+{
+    "country": "pl",
+    "lang": "pl",
+    "description": "Monuments in Poland in Polish (old system)",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_pl_(pl)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Zabytki/góra",
+    "rowTemplate": "Zabytki/wpis",
+    "commonsTemplate": "Zabytek nieruchomy",
+    "commonsTrackerCategory": "Cultural heritage monuments in Poland with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Poland",
+    "unusedImagesPage": "Wikiprojekt:Wiki Lubi Zabytki/Niewykorzystywane",
+    "imagesWithoutIdPage": "Wikiprojekt:Wiki Lubi Zabytki/Images without an ID",
+    "missingCommonscatPage": "Wikiprojekt:Wiki Lubi Zabytki/Missing_commonscat_links",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "default": "0",
+            "type": "int(11)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "województwo"
+        },
+        {
+            "dest": "powiat",
+            "source": "powiat"
+        },
+        {
+            "dest": "gmina",
+            "source": "gmina"
+        },
+        {
+            "dest": "miejscowosc",
+            "source": "miejscowość"
+        },
+        {
+            "dest": "numer",
+            "source": "numer"
+        },
+        {
+            "dest": "group_of_monuments",
+            "source": "zespół zabytków"
+        },
+        {
+            "dest": "nazwa",
+            "source": "nazwa"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "lat",
+            "source": "szerokość",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "długość",
+            "check": "checkLon"
+        },
+        {
+            "dest": "koordynaty",
+            "source": "koordynaty"
+        },
+        {
+            "dest": "zdjecie",
+            "source": "zdjęcie"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commons"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nazwa",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id"
+        }
+    ]
+}

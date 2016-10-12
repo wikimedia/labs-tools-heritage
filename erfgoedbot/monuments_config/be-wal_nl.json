@@ -1,0 +1,102 @@
+{
+    "country": "be-wal",
+    "lang": "nl",
+    "description": "Beschermd Erfgoed in Wallonië in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-wal_(nl)",
+    "truncate": false,
+    "primkey": [
+        "niscode",
+        "objcode"
+    ],
+    "headerTemplate": "Tabelkop erfgoed Wallonië",
+    "rowTemplate": "Tabelrij erfgoed Wallonië",
+    "commonsTemplate": "Monument Wallonie",
+    "commonsTrackerCategory": "Cultural heritage monuments in Wallonia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Wallonia",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Wallonië/Ongebruikte foto's",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Belgische Erfgoed Inventarisatie/Wallonië/Foto's zonder id",
+    "fields": [
+        {
+            "dest": "niscode",
+            "source": "niscode",
+            "type": "int(8)"
+        },
+        {
+            "dest": "objcode",
+            "source": "objcode",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "descr_de",
+            "source": "descr_de"
+        },
+        {
+            "dest": "descr_nl",
+            "source": "descr_nl"
+        },
+        {
+            "dest": "descr_fr",
+            "source": "descr_fr"
+        },
+        {
+            "dest": "gemeente",
+            "source": "gemeente"
+        },
+        {
+            "dest": "deelgemeente",
+            "source": "deelgemeente"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "objtype",
+            "source": "objtype"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "descr_nl",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}

@@ -1,0 +1,79 @@
+{
+    "country": "it",
+    "lang": "it",
+    "description": "Monuments in Italy in Italian",
+    "project": "wikipedia",
+    "namespaces": [
+        102
+    ],
+    "table": "monuments_it_(it)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "WLM2015-intestazione-tabella",
+    "rowTemplate": "WLM2015-riga",
+    "commonsTemplate": "Monumento italiano",
+    "commonsTrackerCategory": "Cultural heritage monuments in Italy with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Italy",
+    "unusedImagesPage": "Progetto:Wiki Loves Monuments 2015/immagini inutilizzate",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(20)"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "wikivoce",
+            "source": "wikivoce"
+        },
+        {
+            "dest": "comune",
+            "source": "comune"
+        },
+        {
+            "dest": "comune-id",
+            "source": "comune-id"
+        },
+        {
+            "dest": "indirizzo",
+            "source": "indirizzo"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "regione",
+            "source": "regione"
+        },
+        {
+            "dest": "regione-iso",
+            "source": "regione-iso"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "ente",
+            "source": "ente"
+        },
+        {
+            "dest": "immagine",
+            "source": "immagine"
+        },
+        {
+            "dest": "commonscat",
+            "source": "comcat"
+        }
+    ]
+}

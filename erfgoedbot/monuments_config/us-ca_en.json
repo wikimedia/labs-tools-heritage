@@ -1,0 +1,90 @@
+{
+    "country": "us-ca",
+    "lang": "en",
+    "description": "State monuments in California",
+    "project": "wikipedia",
+    "namespaces": [
+        0,
+        2
+    ],
+    "table": "monuments_us-ca_(en)",
+    "truncate": false,
+    "primkey": "refnum",
+    "headerTemplate": "CHL header",
+    "rowTemplate": "CHL row",
+    "commonsTemplate": "US-CHL",
+    "commonsTrackerCategory": "California Historical Landmarks with known IDs",
+    "commonsCategoryBase": "California Historical Landmarks",
+    "fields": [
+        {
+            "dest": "refnum",
+            "source": "refnum",
+            "type": "int(11)"
+        },
+        {
+            "dest": "pos",
+            "source": "pos",
+            "type": "int(3)"
+        },
+        {
+            "dest": "type",
+            "source": "type",
+            "default": "CHL",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "article",
+            "source": "article"
+        },
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "name_extra",
+            "source": "name_extra"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "city",
+            "source": "city"
+        },
+        {
+            "dest": "nocity",
+            "source": "nocity"
+        },
+        {
+            "dest": "county",
+            "source": "county"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nolatlon",
+            "source": "nolatlon"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        }
+    ]
+}

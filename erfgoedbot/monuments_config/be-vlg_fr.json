@@ -1,0 +1,91 @@
+{
+    "country": "be-vlg",
+    "lang": "fr",
+    "description": "Onroerend Erfgoed in Vlaanderen in French",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-vlg_(fr)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "En-tête de tableau MH-Fla",
+    "rowTemplate": "Ligne de tableau MH-Fla",
+    "commonsTemplate": "Onroerend erfgoed",
+    "commonsTrackerCategory": "Onroerend erfgoed with known IDs",
+    "commonsCategoryBase": "Onroerend erfgoed in Flanders",
+    "unusedImagesPage": "Projet:Monuments historiques/Images de monuments en Région flamande non utilisées",
+    "registrantUrlBase": "https://inventaris.onroerenderfgoed.be/dibe/relict/%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "classement",
+            "source": "classement"
+        },
+        {
+            "dest": "commune",
+            "source": "commune"
+        },
+        {
+            "dest": "section_communale",
+            "source": "section communale"
+        },
+        {
+            "dest": "section_communale_id",
+            "source": "section_communale_id",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "adresse",
+            "source": "adresse"
+        },
+        {
+            "dest": "nom_objet",
+            "source": "nom objet"
+        },
+        {
+            "dest": "annee_construction",
+            "source": "année construction"
+        },
+        {
+            "dest": "architecte",
+            "source": "architecte"
+        },
+        {
+            "dest": "lat",
+            "source": "latitude",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "longitude",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "catégorie commons"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom objet",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

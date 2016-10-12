@@ -1,0 +1,97 @@
+{
+    "country": "wlpa-at",
+    "lang": "de",
+    "description": "WLPA in Austria in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "wlpa_at_(de)",
+    "truncate": false,
+    "primkey": [
+        "Region",
+        "ID"
+    ],
+    "headerTemplate": "WLPA-AT-Kopf",
+    "rowTemplate": "WLPA-AT-Zeile",
+    "commonsTemplate": "Public Art Austria",
+    "commonsTrackerCategory": "Public art in Austria with known IDs",
+    "commonsCategoryBase": "Public art in Austria",
+    "unusedImagesPage": "User:Multichill/Unused public art in Austria",
+    "imagesWithoutIdPage": "User:Multichill/Public art in Austria without ID",
+    "fields": [
+        {
+            "dest": "ID",
+            "source": "ID",
+            "default": "0",
+            "type": "varchar(25)"
+        },
+        {
+            "dest": "Name",
+            "source": "Name"
+        },
+        {
+            "dest": "Name-Vulgo",
+            "source": "Name-Vulgo"
+        },
+        {
+            "dest": "Foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "Commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "Artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "Typ",
+            "source": "Typ"
+        },
+        {
+            "dest": "Adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "Adresse-Sort",
+            "source": "Adresse-Sort"
+        },
+        {
+            "dest": "Anzeige-Adresse",
+            "source": "Anzeige-Adresse"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "Beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "Standort",
+            "source": "Standort"
+        },
+        {
+            "dest": "Kunstler",
+            "source": "Künstler"
+        },
+        {
+            "dest": "Datierung",
+            "source": "Datierung"
+        },
+        {
+            "dest": "Region",
+            "source": "Region",
+            "default": "AT-9"
+        }
+    ]
+}

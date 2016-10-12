@@ -1,0 +1,66 @@
+{
+    "country": "it-88",
+    "lang": "ca",
+    "description": "Monuments in Sardinia",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_it-88_(ca)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Capçalera BC Sard",
+    "rowTemplate": "Filera BC Sard",
+    "registrantUrlBase": "http://www.sardegnacultura.it/j/v/253?v=2&s=%s",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "int(11)"
+        },
+        {
+            "dest": "nom",
+            "source": "nom"
+        },
+        {
+            "dest": "municipi",
+            "source": "municipi"
+        },
+        {
+            "dest": "lloc",
+            "source": "lloc"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "nomcoor",
+            "source": "nomcoor"
+        },
+        {
+            "dest": "imatge",
+            "source": "imatge"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "nom",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
+        }
+    ]
+}

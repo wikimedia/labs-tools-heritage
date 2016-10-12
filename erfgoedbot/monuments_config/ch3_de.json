@@ -1,0 +1,87 @@
+{
+    "country": "ch3",
+    "lang": "de",
+    "description": "Monuments in Switzerland in German, lists with template 'Denkmalliste2 Schweiz-ZH Tabellenzeile'",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ch3_(de)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Denkmalliste2 Schweiz-ZH Tabellenkopf",
+    "rowTemplate": "Denkmalliste2 Schweiz-ZH Tabellenzeile",
+    "commonsTemplate": "Cultural property of national significance in Switzerland",
+    "commonsTrackerCategory": "Cultural properties of national significance in Switzerland with known IDs",
+    "commonsCategoryBase": "Cultural properties of national significance in Switzerland",
+    "unusedImagesPage": "User:Multichill/Unused Schweizerisches Inventar der Kulturgüter von nationaler und regionaler Bedeutung images",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "ID"
+        },
+        {
+            "dest": "foto",
+            "source": "Foto"
+        },
+        {
+            "dest": "fotobeschreibung",
+            "source": "Fotobeschreibung"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "objekt",
+            "source": "Objekt"
+        },
+        {
+            "dest": "anzeige-objekt",
+            "source": "Anzeige-Objekt"
+        },
+        {
+            "dest": "kategorie",
+            "source": "Kategorie"
+        },
+        {
+            "dest": "typ",
+            "source": "Typ"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "anzeige-adresse",
+            "source": "Anzeige-Adresse"
+        },
+        {
+            "dest": "gemeinde",
+            "source": "Gemeinde"
+        },
+        {
+            "dest": "kanton",
+            "source": "Kanton"
+        },
+        {
+            "dest": "lat",
+            "source": "Breitengrad",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "Längengrad",
+            "check": "checkLon"
+        },
+        {
+            "dest": "region-iso",
+            "source": "Region-ISO"
+        },
+        {
+            "dest": "monument_article",
+            "source": "Objekt",
+            "conv": "extractWikilink"
+        }
+    ]
+}

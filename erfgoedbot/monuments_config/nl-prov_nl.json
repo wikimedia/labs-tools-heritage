@@ -1,0 +1,113 @@
+{
+    "country": "nl-prov",
+    "lang": "nl",
+    "description": "Provinciale monumenten in the Netherlands in Dutch",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_nl-prov_(nl)",
+    "truncate": false,
+    "primkey": "objnr",
+    "headerTemplate": "Tabelkop provinciale monumenten",
+    "rowTemplate": "Tabelrij provinciaal monument",
+    "commonsTemplate": "Provinciaal monument",
+    "commonsTrackerCategory": "Provinciale monumenten with known IDs",
+    "commonsCategoryBase": "Provinciale monumenten",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto's van provinciale monumenten",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto's van provinciale monumenten zonder id",
+    "fields": [
+        {
+            "dest": "objnr",
+            "source": "objnr",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "ISO-prov",
+            "type": ""
+        },
+        {
+            "dest": "gemeente",
+            "source": "gemeente",
+            "type": ""
+        },
+        {
+            "dest": "plaats",
+            "source": "plaats",
+            "type": ""
+        },
+        {
+            "dest": "object",
+            "source": "object"
+        },
+        {
+            "dest": "bouwjaar",
+            "source": "bouwjaar"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "adres",
+            "source": "adres"
+        },
+        {
+            "dest": "postcode",
+            "source": "postcode"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "object",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "url"
+        },
+        {
+            "dest": "MIP_nr",
+            "source": "MIP_nr"
+        },
+        {
+            "dest": "kadaster",
+            "source": "kadaster"
+        },
+        {
+            "dest": "rijksmonument",
+            "source": "rijksmonument"
+        },
+        {
+            "dest": "aangewezen",
+            "source": "aangewezen"
+        },
+        {
+            "dest": "oorspr_fun",
+            "source": "oorspr_fun"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wd_item",
+            "check": "checkWD"
+        }
+    ]
+}

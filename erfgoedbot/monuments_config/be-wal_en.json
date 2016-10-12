@@ -1,0 +1,105 @@
+{
+    "country": "be-wal",
+    "lang": "en",
+    "description": "Protected heritage sites in Wallona in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_be-wal_(en)",
+    "truncate": false,
+    "primkey": [
+        "niscode",
+        "objcode"
+    ],
+    "headerTemplate": "Table header Wallonia",
+    "rowTemplate": "Table row Wallonia",
+    "commonsTemplate": "Monument Wallonie",
+    "commonsTrackerCategory": "Cultural heritage monuments in Wallonia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Wallonia",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of protected heritage sites in Wallonia",
+    "fields": [
+        {
+            "dest": "niscode",
+            "source": "niscode",
+            "type": "int(8)"
+        },
+        {
+            "dest": "objcode",
+            "source": "objcode",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "descr_en",
+            "source": "descr_en"
+        },
+        {
+            "dest": "descr_de",
+            "source": "descr_de"
+        },
+        {
+            "dest": "descr_nl",
+            "source": "descr_nl"
+        },
+        {
+            "dest": "descr_fr",
+            "source": "descr_fr"
+        },
+        {
+            "dest": "section",
+            "source": "section"
+        },
+        {
+            "dest": "town",
+            "source": "town"
+        },
+        {
+            "dest": "prov-iso",
+            "source": "prov-iso"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "objtype",
+            "source": "objtype"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "architect",
+            "source": "architect"
+        },
+        {
+            "dest": "date",
+            "source": "date"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "descr_en",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "registrant_url",
+            "source": ""
+        }
+    ]
+}
