@@ -37,6 +37,10 @@ from database_connection import connect_to_monuments_database
 _logger = "update_database"
 
 
+class NoPrimkeyException(Exception):
+    pass
+
+
 def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
     """Run a named check."""
     if check == 'checkLat':
@@ -237,11 +241,8 @@ def processHeader(params, countryconfig):
 
 
 def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
-                    headerDefaults, unknownFields=None):
+                    headerDefaults, unknownFields):
     """Process a single instance of a monument row template."""
-    if not unknownFields:
-        unknownFields = {}
-
     title = sourcePage.title(True)
 
     # Get all the fields
@@ -297,9 +298,7 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
         updateMonument(
             contents, source, countryconfig, conn, cursor, sourcePage)
     else:
-        pywikibot.warning(u"No primkey available on %s (%s)" % (
-            title, countryconfig.get('table')))
-    return unknownFields
+        raise NoPrimkeyException
 
 
 def lookupSourceField(destination, countryconfig):
@@ -318,6 +317,7 @@ def processPage(page, source, countryconfig, conn, cursor, unknownFields=None):
 
     templates = page.templatesWithParams()
     headerDefaults = {}
+    primkey_exceptions = 0
 
     for (template, params) in templates:
         template_name = template.title(withNamespace=False)
@@ -326,14 +326,22 @@ def processPage(page, source, countryconfig, conn, cursor, unknownFields=None):
         if template_name == countryconfig.get('rowTemplate'):
             # print template
             # print params
-            unknownFields = processMonument(
-                params, source, countryconfig, conn, cursor, page,
-                headerDefaults, unknownFields=unknownFields)
+            try:
+                processMonument(
+                    params, source, countryconfig, conn, cursor, page,
+                    headerDefaults, unknownFields)
+            except NoPrimkeyException:
+                primkey_exceptions += 1
             # time.sleep(5)
         elif template_name == u'Commonscat' and len(params) >= 1:
             query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
             cursor.execute(
                 query, (countryconfig.get('lang'), page.title(True), params[0]))
+
+    # output missing primkey warning
+    if primkey_exceptions > 0:
+        pywikibot.warning(u"%d primkey(s) missing on %s (%s)" % (
+            primkey_exceptions, page.title(True), countryconfig.get('table')))
 
     return unknownFields
 

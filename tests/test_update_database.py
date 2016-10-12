@@ -37,25 +37,45 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
     def setUp(self):
         super(TestProcessMonumentNoPrimkey, self).setUp()
         self.country_config['primkey'] = None
+        self.header_defaults = {}
 
     def test_processMonument_with_empty_params_returns_empty_unknown_fields(self):
         params = {}
-        header_defaults = {}
-        result = update_database.processMonument(params, self.source, self.country_config, None, None, self.mock_page, header_defaults)
-        self.assertEqual(result, {})
+        unknown_fields = {}
+        with self.assertRaises(update_database.NoPrimkeyException):
+            update_database.processMonument(
+                params, self.source, self.country_config, None, None,
+                self.mock_page, self.header_defaults, unknown_fields)
+        self.assertEqual(unknown_fields, {})
 
     def test_processMonument_with_one_unknown_param_correctly_returns_unknown_fields(self):
         params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
-        header_defaults = {}
-        result = update_database.processMonument(params, self.source, self.country_config, None, None, self.mock_page, header_defaults)
-        self.assertEqual(result, {u'some_unknown_field': 1})
+        unknown_fields = {}
+        with self.assertRaises(update_database.NoPrimkeyException):
+            update_database.processMonument(
+                params, self.source, self.country_config, None, None,
+                self.mock_page, self.header_defaults, unknown_fields)
+        self.assertEqual(unknown_fields, {u'some_unknown_field': 1})
 
 
 class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
 
+    def test_processMonument_with_empty_primkey_value(self):
+        params = [u'id=', u'name=A Monument Name']
+        header_defaults = {}
+        unknown_fields = {}
+
+        with self.assertRaises(update_database.NoPrimkeyException):
+            update_database.processMonument(
+                params, self.source, self.country_config, None,
+                self.mock_cursor, self.mock_page, header_defaults,
+                unknown_fields)
+        self.assertEqual(unknown_fields, {})
+
     def test_processMonument_calls_updateMonument_and_returns_unknown_fields(self):
         params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
         header_defaults = {}
+        unknown_fields = {}
 
         expected_contents = {
             'title': 'MockPageTitle',
@@ -65,9 +85,14 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
         }
 
         with mock.patch('erfgoedbot.update_database.updateMonument', autospec=True) as mock_updateMonument:
-            result = update_database.processMonument(params, self.source, self.country_config, None, self.mock_cursor, self.mock_page, header_defaults)
-            mock_updateMonument.assert_called_once_with(expected_contents, 'DummySource', self.country_config, None, self.mock_cursor, self.mock_page)
-        self.assertEqual(result, {u'some_unknown_field': 1})
+            update_database.processMonument(
+                params, self.source, self.country_config, None,
+                self.mock_cursor, self.mock_page, header_defaults,
+                unknown_fields)
+            mock_updateMonument.assert_called_once_with(
+                expected_contents, 'DummySource', self.country_config, None,
+                self.mock_cursor, self.mock_page)
+        self.assertEqual(unknown_fields, {u'some_unknown_field': 1})
 
 
 class TestUpdateMonument(TestUpdateDatabaseBase):
@@ -147,6 +172,26 @@ class TestProcessPage(TestUpdateDatabaseBase):
                 self.country_config,
                 None, None, self.mock_page, {}, unknownFields={}
             )
+
+#    # awaiting solution to T147752
+#    def test_processPage_warning_on_NoPrimkeyException(self):
+#        self.country_config['rowTemplate'] = 'MockTemplate'
+#        ## two templates to ensure count works
+#        self.mock_page.templatesWithParams.return_value = [
+#            (self.mock_template, ['a', 'b']),
+#            (self.mock_template, ['a', 'b'])
+#        ]
+#
+#        warning_patcher = mock.patch('erfgoedbot.update_database.pywikibot.warning', autospec=True)
+#        mock_warning = warning_patcher.start()
+#        self.addCleanup(warning_patcher.stop)
+#
+#        with mock.patch('erfgoedbot.update_database.processMonument', autospec=True,
+#                        side_effect=update_database.NoPrimkeyException):
+#            update_database.processPage(
+#                self.mock_page, self.source, self.country_config, None, None)
+#            mock_warning.assert_called_once_with(
+#                u"2 primkey(s) missing on MockPageTitle (dummy_table)")
 
 
 class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
