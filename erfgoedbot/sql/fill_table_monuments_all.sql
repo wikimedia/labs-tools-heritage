@@ -1958,6 +1958,35 @@ REPLACE INTO
     '' AS `registrant_url`
     FROM `monuments_mx_(es)`;
 
+/* Nigeria in English */
+REPLACE INTO
+  `monuments_all_tmp` (
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
+  ) SELECT
+    'ng' AS `country`,
+    'en' AS `lang`,
+    `wd_item` AS `id`,
+    'ng' AS `adm0`,
+    NULL AS `adm1`,
+    NULL AS `adm2`,
+    NULL AS `adm3`,
+    NULL AS `adm4`,
+    `name` AS `name`,
+    `place` AS `address`,
+    `state` AS `municipality`,
+    `lat` AS `lat`,
+    `lon` AS `lon`,
+    ROUND(`lat` * @granularity) AS `lat_int`,
+    ROUND(`lon` * @granularity) AS `lon_int`,
+    `image` AS `image`,
+    `commonscat` AS `commonscat`,
+    `source` AS `source`,
+    `changed` AS `changed`,
+    `monument_article` AS `monument_article`,
+    '' AS `registrant_url`,
+    `wd_item` AS `wd_item`
+    FROM `monuments_ng_(en)`;
+
 /* Netherlands in Dutch */
 REPLACE INTO
   `monuments_all_tmp` (

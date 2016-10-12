@@ -1,0 +1,64 @@
+{
+    "country": "ng",
+    "lang": "en",
+    "description": "Monuments in Nigeria in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ng_(en)",
+    "truncate": false,
+    "primkey": "wd_item",
+    "headerTemplate": "Nigeria listed historic sites header",
+    "rowTemplate": "Nigeria listed historic sites item",
+    "commonsTemplate": "",
+    "commonsTrackerCategory": "",
+    "commonsCategoryBase": "Cultural heritage monuments in Nigeria",
+    "unusedImagesPage": "",
+    "imagesWithoutIdPage": "",
+    "fields": [
+        {
+            "dest": "name",
+            "source": "name"
+        },
+        {
+            "dest": "wd_item",
+            "source": "id"
+        },
+        {
+            "dest": "monument_article",
+            "source": "name",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "place",
+            "source": "location"
+        },
+        {
+            "dest": "state",
+            "source": "state"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ]
+}
