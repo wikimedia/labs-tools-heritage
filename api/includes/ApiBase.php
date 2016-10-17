@@ -36,8 +36,8 @@ abstract class ApiBase {
 		$params = [
 			'format' => [ ApiBase::PARAM_DFLT => 'xmlfm',
 				ApiBase::PARAM_TYPE => $dbMiserMode
-					? [ 'json', 'xml', 'xmlfm' ]
-					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable' ] ],
+					? [ 'json', 'jsonp', 'xml', 'xmlfm' ]
+					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable', 'jsonp' ] ],
 			'callback' => [ ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ],
 			'limit' => [ ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
 				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ],
@@ -98,7 +98,7 @@ abstract class ApiBase {
 						$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
 					}
 				} elseif ( $p == 'callback' ) {
-					if ( !preg_match( '/^[A-Za-z0-9]+$/', $_GET[$name] ) ) {
+					if ( !preg_match( '/^[A-Za-z0-9_]+$/', $_GET[$name] ) ) {
 						$this->setError( 'bad-callback-name', $_GET[$name] );
 						$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
 					} else {
@@ -205,7 +205,11 @@ abstract class ApiBase {
 	 * @return FormatBase
 	 */
 	function getFormatter() {
-		$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
+		if ( $this->getParam( 'format' ) == 'jsonp' ) {
+			$formatter = "FormatJson";
+		} else {
+			$formatter = "Format" . ucfirst( $this->getParam( 'format' ) );
+		}
 		return new $formatter( $this );
 	}
 
