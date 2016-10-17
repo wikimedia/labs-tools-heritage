@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nghtwlkr",
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Jon Harald Søby (WMNO)"
 		]
 	},
 	"title": "Monuments API",
@@ -11,6 +12,18 @@
 	"search-table-th-field": "Felt",
 	"search-table-th-filter": "Filter",
 	"search-table-th-search": "Søk",
+	"search-table-th-output": "Utdata",
+	"search-table-tr-countries": "Land",
+	"search-table-tr-languages": "Språk",
+	"search-table-tr-name": "Navn",
+	"search-table-tr-address": "Adresse",
+	"search-table-tr-municipality": "Kommune",
+	"search-table-tr-coordinates": "Koordinater",
+	"search-table-tr-images": "Bilder",
+	"search-table-tr-output-language": "Utdataspråk",
+	"search-table-tr-output-format": "Udataformat",
+	"search-table-checkbox-only-images": "Bare kulturminner uten bilder",
+	"search-table-button-search": "Søk",
 	"filter-all-countries": "Alle land",
 	"filter-all-languages": "Alle språk",
 	"db-field-country": "Land",
@@ -26,6 +39,9 @@
 	"db-field-source": "Kilde",
 	"db-field-monument_article": "Monumentside",
 	"db-field-registrant_url": "Registrator-URL",
+	"db-field-commonscat": "Commons-kategori",
+	"db-field-wd_item": "Wikidata-element",
+	"db-field-project": "Wikimedia-prosjekt",
 	"db-field-st_address": "Adresser",
 	"db-field-st_address_pct": "Adresser %",
 	"db-field-st_coordinates": "Koordinater",
@@ -39,12 +55,15 @@
 	"db-field-st_total": "Totalt antall",
 	"toolbox-label-searchtipps": "bruk %ord, ord% eller %ord% for uskarpt søk",
 	"toolbox-meta-title": "Wiki Loves Monuments-verktøykasse",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments' logo",
 	"toolbox-main-title": "WLM-verktøykasse",
-	"toolbox-main-description": "Et sett med verktøy relatert til",
+	"toolbox-main-description": "Et sett med verktøy relatert til $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves monuments",
 	"toolbox-nav-homepage": "Hjemmeside",
 	"toolbox-nav-statistics": "Statistikk",
 	"toolbox-nav-search": "Søk",
 	"toolbox-title-searchmonuments": "Søk etter monumenter",
-	"location": "Sted"
+	"toolbox-title-statistics": "Kulturminnestatistikk",
+	"location": "Sted",
+	"source-monuments-list": "Kildelister over kulturminner på et Wikimedia-prosjekt"
 }
