@@ -26,6 +26,15 @@ abstract class FormatBase {
 		$this->filter = $callback;
 	}
 
+	/**
+	 * Returns an array of properties which are used by the format to
+	 * order the results by.
+	 * @return array|null
+	 */
+	function getRequiredOrderBy() {
+		return null;
+	}
+
 	abstract function getContentType();
 	abstract function outputBegin( $selectedItems );
 	abstract function outputContinue( $row, $continueKey, $primaryKey );
