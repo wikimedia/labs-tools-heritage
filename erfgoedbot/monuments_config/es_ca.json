@@ -90,6 +90,11 @@
         {
             "dest": "registrant_url",
             "source": ""
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
         }
     ]
 }

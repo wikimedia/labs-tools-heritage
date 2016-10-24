@@ -1152,7 +1152,7 @@ REPLACE INTO
 /* Spain in Catalan */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'es' AS `country`,
     'ca' AS `lang`,
@@ -1174,7 +1174,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     `monument_article` AS `monument_article`,
-    '' AS `registrant_url`
+    '' AS `registrant_url`,
+    `wd_item` AS `wd_item`
     FROM `monuments_es_(ca)`;
 
 /* Spain in Spanish */
