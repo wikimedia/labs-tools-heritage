@@ -77,6 +77,11 @@
             "dest": "registrant_url",
             "source": "id",
             "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
         }
     ]
 }
