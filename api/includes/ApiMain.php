@@ -97,7 +97,7 @@ class ApiMain {
 			  srsource        - Search for source monument list wiki page.
 			  srchanged       - Search for changed.
 			  bbox            - left,bottom,right,top
-			                    Bounding box with topleft and bottomright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
+			                    Bounding box with bottomleft and topright latlong coordinates. E.g. bbox=11.54,48.14,11.543,48.145
 			  coord           - Coordinate to search around
 			  radius          - Search radius, used in conjunction with coord
 			  limit           - [integer]: the maximum number of results you will get back

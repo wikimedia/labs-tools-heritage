@@ -235,7 +235,7 @@ class ApiMonuments extends ApiBase {
 			$where['lon_int'] = self::intRange( $bl_lon, $tr_lon );
 			$where[] = "`lat` BETWEEN $bl_lat AND $tr_lat";
 			$where[] = "`lon` BETWEEN $bl_lon AND $tr_lon";
-			$orderby = false; // We'll sort manually later
+			$orderby = []; // We'll sort manually later
 			$props[] = 'lat';
 			$props[] = 'lon';
 			$props = array_unique( $props );
@@ -275,8 +275,10 @@ class ApiMonuments extends ApiBase {
 		// add any properties expected to be ordered by
 		$props = array_unique( array_merge( $orderby, $props ) );
 
-		$res = $db->select( array_merge( Monuments::$dbPrimaryKey, $props ), Monuments::$dbTable, $where,
-			$orderby, $spatialMode ? null : ( $limit + 1 ), $forceIndex );
+		$res = $db->select(
+			array_merge( Monuments::$dbPrimaryKey, $props ),
+			Monuments::$dbTable, $where, $orderby,
+			$spatialMode ? null : ( $limit + 1 ), $forceIndex );
 
 		if ( $smartFilter ) {
 			$rows = [];
