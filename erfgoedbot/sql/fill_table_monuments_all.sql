@@ -1012,7 +1012,7 @@ REPLACE INTO
 /* Hessen, Germany in German */
 REPLACE INTO
   `monuments_all_tmp` (
-    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`
+    `country`, `lang`, `id`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4`, `name`, `address`, `municipality`, `lat`, `lon`, `lat_int`, `lon_int`, `image`, `commonscat`, `source`, `changed`, `monument_article`, `registrant_url`, `wd_item`
   ) SELECT
     'de-he' AS `country`,
     'de' AS `lang`,
@@ -1034,7 +1034,8 @@ REPLACE INTO
     `source` AS `source`,
     `changed` AS `changed`,
     REPLACE( `artikel`, ' ', '_' ) AS `monument_article`,
-    `registrant_url` AS `registrant_url`
+    `registrant_url` AS `registrant_url`,
+     `wd_item` AS `wd_item`
     FROM `monuments_de-he_(de)`;
 
 /* Bergheim, NRW, Germany in German */

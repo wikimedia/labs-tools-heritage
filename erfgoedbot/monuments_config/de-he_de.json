@@ -77,6 +77,11 @@
         {
             "dest": "flurst",
             "source": "Flurstück"
+        },
+        {
+            "dest": "wd_item",
+            "source": "Wikidata",
+            "check": "checkWD"
         }
     ]
 }
