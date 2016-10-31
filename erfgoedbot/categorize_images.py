@@ -175,7 +175,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
         monumentList = getList(lang, project, monumentSource)
         # print monumentList
         if not monumentList:
-            return False
+            return ([], '')
         if monumentList.isRedirectPage():
             monumentList = monumentList.getRedirectTarget()
         try:
