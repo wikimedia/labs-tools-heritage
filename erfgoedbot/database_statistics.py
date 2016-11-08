@@ -27,7 +27,7 @@ def outputStatistics(statistics):
 
     output = u'{| class="wikitable sortable"\n'
     output += \
-        u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! data-sort-type="number"|total !! data-sort-type="number"|name !! data-sort-type="number"|address !! data-sort-type="number"|municipality !!data-sort-type="number"| coordinates !! data-sort-type="number"|image !! data-sort-type="number"|commonscat !! data-sort-type="number"|article !! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] !! data-sort-type="number"|adm2 !! data-sort-type="number"|adm3 !!data-sort-type="number"| adm4 !! data-sort-type="number"|source pages\n'
+        u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! data-sort-type="number"|total !! data-sort-type="number"|name !! data-sort-type="number"|address !! data-sort-type="number"|municipality !!data-sort-type="number"| coordinates !! data-sort-type="number"|image !! data-sort-type="number"|commonscat !! data-sort-type="number"|article !! data-sort-type="number"|wikidata !! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] !! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] !! data-sort-type="number"|adm2 !! data-sort-type="number"|adm3 !!data-sort-type="number"| adm4 !! data-sort-type="number"|source pages\n'
 
     totals = {}
 
@@ -39,6 +39,7 @@ def outputStatistics(statistics):
     totals['image'] = 0
     totals['commonscat'] = 0
     totals['article'] = 0
+    totals['wikidata'] = 0
 
     totals['adm0'] = 0
     totals['adm1'] = 0
@@ -81,6 +82,9 @@ def outputStatistics(statistics):
             output += \
                 u'|| %(article)s <small>(%(articlePercentage)s%%)</small>' % statistics[
                     country][language]
+            output += \
+                u'|| %(wikidata)s <small>(%(wikidataPercentage)s%%)</small>' % statistics[
+                    country][language]
 
             output += \
                 u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % statistics[
@@ -117,6 +121,8 @@ def outputStatistics(statistics):
                 statistics[country][language]['commonscat']
             totals['article'] += \
                 statistics[country][language]['article']
+            totals['wikidata'] += \
+                statistics[country][language]['wikidata']
 
             totals['adm0'] += \
                 statistics[country][language]['adm0']
@@ -146,6 +152,8 @@ def outputStatistics(statistics):
         1.0 * totals['commonscat'] / totals['all'] * 100, 2)
     totals['articlePercentage'] = round(
         1.0 * totals['article'] / totals['all'] * 100, 2)
+    totals['wikidataPercentage'] = round(
+        1.0 * totals['wikidata'] / totals['all'] * 100, 2)
 
     totals['adm0Percentage'] = round(
         1.0 * totals['adm0'] / totals['all'] * 100, 2)
@@ -175,6 +183,8 @@ def outputStatistics(statistics):
         u'|| %(commonscat)s <small>(%(commonscatPercentage)s%%)</small>' % totals
     output += \
         u'|| %(article)s <small>(%(articlePercentage)s%%)</small>' % totals
+    output += \
+        u'|| %(wikidata)s <small>(%(wikidataPercentage)s%%)</small>' % totals
 
     output += \
         u'|| %(adm0)s <small>(%(adm0Percentage)s%%)</small>' % totals
@@ -220,6 +230,8 @@ def getStatistics(country, language, conn, cursor):
         'commonscat'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (commonscat='' OR commonscat IS NULL)"""
     queries[
         'article'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (monument_article='' OR monument_article IS NULL)"""
+    queries[
+        'wikidata'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (wd_item='' OR wd_item IS NULL)"""
 
     queries[
         'adm0iso'] = u"""SELECT adm0 FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) LIMIT 1"""
@@ -258,6 +270,8 @@ def getStatistics(country, language, conn, cursor):
         1.0 * result['commonscat'] / result['all'] * 100, 2)
     result['articlePercentage'] = round(
         1.0 * result['article'] / result['all'] * 100, 2)
+    result['wikidataPercentage'] = round(
+        1.0 * result['wikidata'] / result['all'] * 100, 2)
 
     result['adm0Percentage'] = round(
         1.0 * result['adm0'] / result['all'] * 100, 2)
