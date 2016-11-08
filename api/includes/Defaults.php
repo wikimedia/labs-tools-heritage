@@ -8,3 +8,4 @@ $dbMiserMode = false;
 $cacheDir = '/data/project/heritage/temp';
 $cldrPath = false;
 $subdivisionsPath = false;
+$environment = 'production';

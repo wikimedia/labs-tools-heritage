@@ -12,3 +12,5 @@ $dbMiserMode = false;
 $cacheDir = '/data/project/heritage/temp';
 
 $tsI18nDir = '';
+
+$environment = 'dev';

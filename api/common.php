@@ -20,10 +20,30 @@ if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_overrid
 	require dirname( dirname( __FILE__ ) ) . "/{$config_override}";
 }
 
-/* Localization
- * We are loading Intuition as a library via Composer
+/**
+ * Loading libraries installed via Composer
  */
 require_once __DIR__ . '/../vendor/autoload.php';
+
+/**
+ * Raven client for error reporting
+ */
+if ( isset($sentryDSN) ){
+
+	$sentryClient = new Raven_Client($sentryDSN, array(
+		'name' => 'heritage',
+		'environment' => $environment,
+		'tags' => array(
+			'php_version' => phpversion(),
+		)
+	));
+	$sentryClient->install();
+}
+
+/**
+ * Localization
+ * Intuition was loaded via Composer
+ */
 
 $opts = array(
 	'domain' => 'heritage', // name of your main text-domain here
