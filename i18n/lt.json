@@ -45,6 +45,7 @@
 	"db-field-st_image": "Paveikslėlis",
 	"db-field-st_image_pct": "Paveikslėlis %",
 	"db-field-st_municipality": "Savivaldybė",
+	"db-field-st_municipality_pct": "Savivaldybė %",
 	"db-field-st_name": "Pavadinimai",
 	"db-field-st_name_pct": "Pavadinimai %",
 	"db-field-st_total": "Bendras skaičius",
