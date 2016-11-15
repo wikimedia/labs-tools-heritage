@@ -19,7 +19,7 @@ require_once ( 'CommonFunctions.php' );
   `idx` varchar(100) NOT NULL,
   `value` varchar(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`day`,`item`,`idx`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE monuments_all ADD INDEX idx_ctry_municp(country,municipality);

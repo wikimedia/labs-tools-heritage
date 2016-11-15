@@ -18,4 +18,4 @@ CREATE TABLE `prox_search` (
   INDEX peano1iv (int_peano1iv, point_id),
   INDEX peano2iv (int_peano2iv, point_id)
 
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
