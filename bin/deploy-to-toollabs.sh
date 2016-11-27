@@ -7,6 +7,9 @@ ssh "$user"tools-login.wmflabs.org <<'ENDSSH'
 become heritage
 cd heritage
 git pull
-git log @{1}.. --oneline  --reverse -C --no-merges
+git log @{1}.. --oneline --reverse -C --no-merges
 echo "Deploy done."
+echo "Please update the Server Admin Log via IRC:"
+echo "https://webchat.freenode.net/?channels=#wikimedia-labs"
+python bin/deploy_message_from_git_log.py `whoami`
 ENDSSH
