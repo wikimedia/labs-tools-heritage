@@ -51,7 +51,15 @@
 	"db-field-st_name_pct": "Nöfn %",
 	"db-field-st_total": "Fjöldi alls",
 	"toolbox-label-searchtipps": "notaðu %hugtak eða hugtak% eða %hugtak% fyrir loðna leit.",
+	"toolbox-meta-title": "Wiki loves monuments verkfærakassi",
+	"toolbox-main-logo-alt": "einkennismerki Wiki Loves Monuments",
+	"toolbox-main-title": "WLM verkfærakassi",
+	"toolbox-main-description": "Verkfæri sem tengjast $1",
+	"toolbox-nav-homepage": "Heimasíða",
+	"toolbox-nav-statistics": "Tölfræði",
 	"toolbox-nav-search": "Leit",
 	"toolbox-title-searchmonuments": "Leita eftir minnismerkjum",
-	"location": "Staðsetning"
+	"toolbox-title-statistics": "Tölfræði minnismerkja",
+	"location": "Staðsetning",
+	"source-monuments-list": "Uppruni minnismerkja listans á Wikimedia verkefni"
 }

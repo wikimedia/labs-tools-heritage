@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Likopiän tyttö"
+		]
+	},
+	"search-table-th-search": "Eččo",
+	"search-table-th-output": "Tuloš",
+	"search-table-tr-countries": "Muat",
+	"search-table-tr-languages": "Kielet",
+	"search-table-tr-name": "Nimi",
+	"search-table-tr-address": "Ošoiteh",
+	"search-table-tr-images": "Kuvat",
+	"search-table-button-search": "Eči",
+	"filter-all-countries": "Kaikki muat",
+	"filter-all-languages": "Kaikki kielet",
+	"db-field-country": "Mua",
+	"db-field-lang": "Kieli",
+	"db-field-name": "Nimi",
+	"db-field-address": "Ošoiteh",
+	"db-field-lat": "Levehyš",
+	"db-field-lon": "Pituš",
+	"db-field-image": "Kuva",
+	"db-field-project": "Wikimedija-projektit",
+	"db-field-st_address": "Ošoittehet",
+	"db-field-st_address_pct": "Ošoittehet %",
+	"db-field-st_image": "Kuva",
+	"db-field-st_image_pct": "Kuva %",
+	"db-field-st_name": "Nimet",
+	"db-field-st_name_pct": "Nimet %"
+}

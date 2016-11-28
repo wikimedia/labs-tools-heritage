@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"LexArt",
-			"Wizardist"
+			"Wizardist",
+			"Mechanizatar"
 		]
 	},
 	"search-title": "Пошук па славутасьцях",
@@ -10,6 +11,8 @@
 	"search-table-th-field": "Поле",
 	"search-table-th-filter": "Фільтр",
 	"search-table-th-search": "Знайсці",
+	"search-table-tr-languages": "Мовы",
+	"search-table-button-search": "Пошук",
 	"filter-all-countries": "Усе краіны",
 	"filter-all-languages": "Усе мовы",
 	"db-field-country": "Краіна",
@@ -25,9 +28,10 @@
 	"db-field-source": "Крыніца",
 	"db-field-monument_article": "Артыкул",
 	"db-field-registrant_url": "Запіс у рэестры",
+	"db-field-project": "Праект Вікімедыя",
 	"toolbox-label-searchtipps": "выкарыстоўвайце %запыт or запыт% ці %запыт% для недакладнага пошуку",
 	"toolbox-meta-title": "Прылады «Вікі любіць славутасьці»",
-	"toolbox-main-description": "Набор прыладаў, прызначаных для",
+	"toolbox-main-description": "Набор прыладаў, прызначаных для $1",
 	"toolbox-wikilovesmonuments": "«Вікі любіць славутасьці»",
 	"toolbox-nav-homepage": "Галоўная старонка",
 	"toolbox-nav-statistics": "Статыстыка",
