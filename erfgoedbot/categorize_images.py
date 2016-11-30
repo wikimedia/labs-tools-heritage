@@ -533,5 +533,6 @@ def main():
 
         outputStatistics(statistics)
 
+
 if __name__ == "__main__":
     main()

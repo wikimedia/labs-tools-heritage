@@ -148,6 +148,7 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, conn, cursor)
 
+
 if __name__ == "__main__":
     try:
         main()

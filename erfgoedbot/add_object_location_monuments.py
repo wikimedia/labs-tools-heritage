@@ -234,6 +234,7 @@ def main():
                 locateCountry(
                     countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
 
+
 if __name__ == "__main__":
     try:
         main()
