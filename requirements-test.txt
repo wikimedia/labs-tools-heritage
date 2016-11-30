@@ -4,3 +4,4 @@ mock
 nose
 nose-cov
 coverage
+yamllint
