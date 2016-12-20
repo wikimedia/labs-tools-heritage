@@ -18,6 +18,7 @@ python categorize_images.py -countrycode:ee -langcode:et
 '''
 import json
 import os
+import yaml
 
 import pywikibot
 from pywikibot import pagegenerators
@@ -60,6 +61,14 @@ def _load_wikipedia_commonscat_templates():
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     json_file = os.path.join(data_dir, 'wikipedia_commonscat_templates.json')
     return json.load(open(json_file, 'r'))
+
+
+def _load_ignored_categories():
+    data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+    yaml_file = os.path.join(data_dir, 'ignore_commons_categories.yml')
+    raw_list = yaml.load(open(yaml_file, 'r'))
+    commons_site = pywikibot.Site(u'commons', u'commons')
+    return [pywikibot.Category(commons_site, cat) for cat in raw_list]
 
 
 def categorizeImage(
@@ -243,11 +252,14 @@ def replace_default_cat_with_new_categories_in_image_text(
 
 def filter_out_categories_to_add(new_categories, unwanted_categories):
     """
-    Ensure hidden, duplicate or already present categories are not added.
+    Ensure unwanted categories are not added.
 
-    Requires the input to be lists of pywikibot.Category.
+    This included hidden, duplicate, ignored or already present categories.
+
+    Requires the inputs to be lists of pywikibot.Category.
     """
     candidate_categories = set(new_categories) - set(unwanted_categories)
+    candidate_categories -= set(_load_ignored_categories())
     final_categories = filter(lambda cat: not cat.isHiddenCategory(),
                               list(candidate_categories))
     return final_categories

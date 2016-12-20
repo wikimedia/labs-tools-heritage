@@ -20,6 +20,19 @@ class TestLoadWikipediaCommonscatTemplates(unittest.TestCase):
         self.assertIn(u'_default', data.keys())
 
 
+class TestLoadIgnoredCategories(unittest.TestCase):
+
+    """Test the _load_ignored_categories method."""
+
+    def test__load_ignored_categories(self):
+        """Ensure ignored categories YAML file is present and decodes to a list."""
+        try:
+            data = categorize_images._load_ignored_categories()
+        except IOError:
+            self.fail("YAML file not found")
+        self.assertTrue(isinstance(data, list))
+
+
 class TestGetCommonsCatTemplates(unittest.TestCase):
 
     """Test the getCommonscatTemplates method."""
@@ -162,6 +175,15 @@ class TestFilterOutCategoriesToAdd(unittest.TestCase):
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
         self.assertItemsEqual(result, [self.cat_A, self.cat_C])
+
+    def test_filter_out_ignored_categories(self):
+        new_categories = [self.cat_A, self.cat_B, self.cat_C]
+        current_categories = []
+        with mock.patch('erfgoedbot.categorize_images._load_ignored_categories', autospec=True) as mock_load_ignored_categories:
+            mock_load_ignored_categories.return_value = [self.cat_B, ]
+            result = categorize_images.filter_out_categories_to_add(
+                new_categories, current_categories)
+            self.assertItemsEqual(result, [self.cat_A, self.cat_C])
 
 
 class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
