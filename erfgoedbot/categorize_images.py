@@ -186,16 +186,22 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
     return (newcats, categorisation_method)
 
 
-def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, new_categories, comment, verbose=False):
-    oldtext = page.get()
-    categories_to_add = deduplicate_categories(new_categories)
-    categories_to_add = remove_base_category_from_categories_to_add_if_present(new_categories, commonsCategoryBase)
+def replace_default_cat_with_new_categories_in_image(
+        page, base_category, new_categories, comment, verbose=False):
+    old_text = page.get()
+    old_categories = list(page.categories())
+
+    # ensure base category is never re-added
+    old_categories.append(base_category)
+    categories_to_add = filter_out_categories_to_add(new_categories,
+                                                     old_categories)
     try:
-        final_text = replace_default_cat_with_new_categories_in_image_text(oldtext, commonsCategoryBase, categories_to_add)
+        final_text = replace_default_cat_with_new_categories_in_image_text(
+            old_text, base_category, categories_to_add)
     except NoCategoryToAddException:
         return False
     if verbose:
-        pywikibot.showDiff(oldtext, final_text)
+        pywikibot.showDiff(old_text, final_text)
     try:
         page.put(final_text, comment)
         return True
@@ -205,34 +211,31 @@ def replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, 
         return False
 
 
-def deduplicate_categories(categories):
-    return list(set(categories))
-
-
-def remove_base_category_from_categories_to_add_if_present(categories, base_category):
-    return set(categories) - set([base_category])
-
-
-def replace_default_cat_with_new_categories_in_image_text(oldtext, commonsCategoryBase, newcats):
-    if not newcats:
-        # No categories to add. We do not want to remove the base one
+def replace_default_cat_with_new_categories_in_image_text(
+        old_text, base_category, new_categories):
+    """Add new categories to page text and remove any base_category."""
+    if not new_categories:
+        # No categories to add. We do not want to remove the base one,
         raise NoCategoryToAddException()
-    # In any case we remove the base category
-    page_text_without_old_category = textlib.replaceCategoryInPlace(oldtext, commonsCategoryBase, None)
-    commons_site = pywikibot.Site(u'commons', u'commons')
-    currentcats = textlib.getCategoryLinks(oldtext, site=commons_site)
-    final_categories = filter_out_categories_to_add(newcats, currentcats)
-    if final_categories:
-        final_text = textlib.replaceCategoryLinks(page_text_without_old_category, final_categories, addOnly=True)
-    else:
-        final_text = page_text_without_old_category
+
+    # Remove base category
+    page_text_without_base_category = textlib.replaceCategoryInPlace(
+        old_text, base_category, None)
+    final_text = textlib.replaceCategoryLinks(
+        page_text_without_base_category, new_categories, addOnly=True)
     return final_text
 
 
-def filter_out_categories_to_add(new_categories, current_categories):
-    """Make sure we do not add categories that were already there."""
-    final_categories = set(new_categories) - set(current_categories)
-    return list(final_categories)
+def filter_out_categories_to_add(new_categories, unwanted_categories):
+    """
+    Ensure hidden, duplicate or already present categories are not added.
+
+    Requires the input to be lists of pywikibot.Category.
+    """
+    candidate_categories = set(new_categories) - set(unwanted_categories)
+    final_categories = filter(lambda cat: not cat.isHiddenCategory(),
+                              list(candidate_categories))
+    return final_categories
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):

@@ -94,69 +94,74 @@ class TestReplaceCategories(unittest.TestCase):
                 old_text, self.mock_old_category, new_categories)
 
 
-class TestDeduplicateCategories(unittest.TestCase):
-
-    def test_deduplicate_categories(self):
-        new_categories = ['A', 'B', 'A']
-        result = categorize_images.deduplicate_categories(new_categories)
-        expected = ['A', 'B']
-        self.assertItemsEqual(result, expected)
-
-    def test_deduplicate_categories_nothing_to_deduplicate(self):
-        new_categories = ['A', 'B']
-        result = categorize_images.deduplicate_categories(new_categories)
-        expected = ['A', 'B']
-        self.assertItemsEqual(result, expected)
-
-    def test_deduplicate_categories_no_categories(self):
-        new_categories = []
-        result = categorize_images.deduplicate_categories(new_categories)
-        expected = []
-        self.assertItemsEqual(result, expected)
-
-
-class TestRemoveBaseCategory(unittest.TestCase):
-
-    def test_remove_category_with_category_present(self):
-        result = categorize_images.remove_base_category_from_categories_to_add_if_present(
-            ['A', 'B'], 'A')
-        self.assertItemsEqual(result, ['B'])
-
-    def test_remove_category_without_category_present(self):
-        result = categorize_images.remove_base_category_from_categories_to_add_if_present(
-            ['B', 'C'], 'A')
-        self.assertItemsEqual(result, ['B', 'C'])
-
-
 class TestFilterOutCategoriesToAdd(unittest.TestCase):
 
+    def setUp(self):
+        self.cat_A = self.make_mock_cat('A')
+        self.cat_B = self.make_mock_cat('B')
+        self.cat_C = self.make_mock_cat('C')
+        self.cat_D = self.make_mock_cat('D')
+        self.cat_E = self.make_mock_cat('E')
+        self.cat_hidden = self.make_mock_cat('F', hidden=True)
+
+    def make_mock_cat(self, title, hidden=False):
+        mock_category = mock.create_autospec(
+            categorize_images.pywikibot.Category)
+        mock_category._link = categorize_images.pywikibot.Link(title, None)
+        if hidden:
+            mock_category.isHiddenCategory.return_value = True
+        else:
+            mock_category.isHiddenCategory.return_value = False
+        return mock_category
+
+    def test_filter_categories_no_categories(self):
+        new_categories = []
+        current_categories = []
+        result = categorize_images.filter_out_categories_to_add(
+            new_categories, current_categories)
+        self.assertEquals(result, [])
+
     def test_filter_categories_all_present(self):
-        new_categories = ['A', 'B']
-        current_categories = ['A', 'B', 'C']
+        new_categories = [self.cat_A, self.cat_B]
+        current_categories = [self.cat_A, self.cat_B, self.cat_C]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
         self.assertEquals(result, [])
 
     def test_filter_out_some_categories_present(self):
-        new_categories = ['A', 'B', 'C']
-        current_categories = ['A', 'B']
+        new_categories = [self.cat_A, self.cat_B, self.cat_C]
+        current_categories = [self.cat_A, self.cat_B]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertEquals(result, ['C'])
+        self.assertEquals(result, [self.cat_C])
 
     def test_filter_out_with_no_categories_among_present(self):
-        new_categories = ['A', 'B', 'C']
-        current_categories = ['D', 'E']
+        new_categories = [self.cat_A, self.cat_B, self.cat_C]
+        current_categories = [self.cat_D, self.cat_E]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, ['A', 'B', 'C'])
+        self.assertItemsEqual(result, [self.cat_A, self.cat_B, self.cat_C])
 
     def test_filter_out_with_no_categories_present(self):
-        new_categories = ['A', 'B', 'C']
+        new_categories = [self.cat_A, self.cat_B, self.cat_C]
         current_categories = []
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, ['A', 'B', 'C'])
+        self.assertItemsEqual(result, [self.cat_A, self.cat_B, self.cat_C])
+
+    def test_filter_out_deduplicate_categories(self):
+        new_categories = [self.cat_A, self.cat_B, self.cat_A]
+        current_categories = []
+        result = categorize_images.filter_out_categories_to_add(
+            new_categories, current_categories)
+        self.assertItemsEqual(result, [self.cat_A, self.cat_B])
+
+    def test_filter_out_hidden_categories(self):
+        new_categories = [self.cat_A, self.cat_hidden, self.cat_C]
+        current_categories = []
+        result = categorize_images.filter_out_categories_to_add(
+            new_categories, current_categories)
+        self.assertItemsEqual(result, [self.cat_A, self.cat_C])
 
 
 class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
