@@ -214,38 +214,29 @@ def getStatistics(country, language, conn, cursor):
     queries = {}
     result = {}
 
+    fields = [
+        ('name', 'name'),
+        ('address', 'address'),
+        ('municipality', 'municipality'),
+        ('coordinates', ('lat', 'lon')),
+        ('image', 'image'),
+        ('commonscat', 'commonscat'),
+        ('article', 'monument_article'),
+        ('wikidata', 'wd_item'),
+        ('adm0', 'adm0'),
+        ('adm1', 'adm1'),
+        ('adm2', 'adm2'),
+        ('adm3', 'adm3'),
+        ('adm4', 'adm4'),
+    ]
+
+    for (label, database_field) in fields:
+        queries[label] = build_query(database_field)
+
     queries[
         'all'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'"""
     queries[
-        'name'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (name='' OR name IS NULL)"""
-    queries[
-        'address'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (address='' OR address IS NULL)"""
-    queries[
-        'municipality'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (municipality='' OR municipality IS NULL)"""
-    queries[
-        'coordinates'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (lat=0 OR lat IS NULL) AND NOT (lon=0 OR lon IS NULL)"""
-    queries[
-        'image'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (image='' OR image IS NULL)"""
-    queries[
-        'commonscat'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (commonscat='' OR commonscat IS NULL)"""
-    queries[
-        'article'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (monument_article='' OR monument_article IS NULL)"""
-    queries[
-        'wikidata'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (wd_item='' OR wd_item IS NULL)"""
-
-    queries[
         'adm0iso'] = u"""SELECT adm0 FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) LIMIT 1"""
-    queries[
-        'adm0'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL)"""
-    queries[
-        'adm1'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm1='' OR adm1 IS NULL)"""
-    queries[
-        'adm2'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm2='' OR adm2 IS NULL)"""
-    queries[
-        'adm3'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm3='' OR adm3 IS NULL)"""
-    queries[
-        'adm4'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm4='' OR adm4 IS NULL)"""
-
     queries[
         'source'] = u"""SELECT COUNT(DISTINCT(source)) FROM monuments_all WHERE country='%s' AND lang='%s'"""
 
@@ -253,38 +244,25 @@ def getStatistics(country, language, conn, cursor):
     result['lang'] = language
 
     for (stat, query) in queries.items():
-        # print query % (country, language)
         result[stat] = getCount(query % (country, language), cursor)
 
-    result['namePercentage'] = round(
-        1.0 * result['name'] / result['all'] * 100, 2)
-    result['addressPercentage'] = round(
-        1.0 * result['address'] / result['all'] * 100, 2)
-    result['municipalityPercentage'] = round(
-        1.0 * result['municipality'] / result['all'] * 100, 2)
-    result['coordinatesPercentage'] = round(
-        1.0 * result['coordinates'] / result['all'] * 100, 2)
-    result['imagePercentage'] = round(
-        1.0 * result['image'] / result['all'] * 100, 2)
-    result['commonscatPercentage'] = round(
-        1.0 * result['commonscat'] / result['all'] * 100, 2)
-    result['articlePercentage'] = round(
-        1.0 * result['article'] / result['all'] * 100, 2)
-    result['wikidataPercentage'] = round(
-        1.0 * result['wikidata'] / result['all'] * 100, 2)
-
-    result['adm0Percentage'] = round(
-        1.0 * result['adm0'] / result['all'] * 100, 2)
-    result['adm1Percentage'] = round(
-        1.0 * result['adm1'] / result['all'] * 100, 2)
-    result['adm2Percentage'] = round(
-        1.0 * result['adm2'] / result['all'] * 100, 2)
-    result['adm3Percentage'] = round(
-        1.0 * result['adm3'] / result['all'] * 100, 2)
-    result['adm4Percentage'] = round(
-        1.0 * result['adm4'] / result['all'] * 100, 2)
+    for (field_label, _) in fields:
+        result[field_label + 'Percentage'] = compute_percentage(result[field_label], result['all'])
 
     return result
+
+
+def build_query(field_name):
+    base_query = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND """
+    query = u"""NOT ({0}='' OR {0} IS NULL)"""
+    if isinstance(field_name, tuple):
+        return base_query + ' AND '.join([query.format(x) for x in field_name])
+    else:
+        return base_query + query.format(field_name)
+
+
+def compute_percentage(value, total):
+    return round(1.0 * value / max(total, 1) * 100, 2)
 
 
 def getLanguages(country, conn, cursor):
