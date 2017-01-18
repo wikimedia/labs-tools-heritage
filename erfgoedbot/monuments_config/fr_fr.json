@@ -97,7 +97,7 @@
         },
         {
             "dest": "commonscat",
-            "source": "commonscat"
+            "source": "catégorie_commons"
         },
         {
             "dest": "id",
