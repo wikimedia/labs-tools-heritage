@@ -18,7 +18,7 @@
         {
             "dest": "id",
             "source": "id",
-            "type": "int(11)"
+            "type": "varchar(8)"
         },
         {
             "dest": "nom",
