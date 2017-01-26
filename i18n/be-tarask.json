@@ -4,7 +4,8 @@
 			"EugeneZelenko",
 			"Jim-by",
 			"Wizardist",
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Renessaince"
 		]
 	},
 	"search-title": "Пошук славутасьцяў",
@@ -42,7 +43,7 @@
 	"toolbox-label-searchtipps": "выкарыстоўвайце %запыт or запыт% ці %запыт% для недакладнага пошуку",
 	"toolbox-meta-title": "Прылады «Вікі любіць славутасьці»",
 	"toolbox-main-title": "WLM Toolbox",
-	"toolbox-main-description": "Набор прыладаў, прызначаных для",
+	"toolbox-main-description": "Набор прыладаў, прызначаных для $1",
 	"toolbox-wikilovesmonuments": "«Вікі любіць славутасьці»",
 	"toolbox-nav-homepage": "Галоўная старонка",
 	"toolbox-nav-statistics": "Статыстыка",
