@@ -40,7 +40,7 @@ def getSources(countrycode=u''):
     Get a dictionary of sources to go harvest
     '''
     sources = {}
-    for (icountrycode, lang), countryconfig in mconfig.countries.iteritems():
+    for (icountrycode, lang), countryconfig in mconfig.get_countries().iteritems():
         if not countrycode or (countrycode and countrycode == icountrycode):
             if icountrycode not in sources:
                 if countryconfig.get('commonsTemplate') and countryconfig.get('commonsTrackerCategory'):
