@@ -3,7 +3,8 @@
 		"authors": [
 			"Ansumang",
 			"Jnanaranjan Sahu",
-			"DareDevil"
+			"DareDevil",
+			"Susant purohit"
 		]
 	},
 	"search-title": "କୀର୍ତିରାଜି ଖୋଜିବେ",
@@ -37,6 +38,7 @@
 	"db-field-source": "ଆଧାର",
 	"db-field-monument_article": "କୀର୍ତିରାଜି ପ୍ରସଙ୍ଗ",
 	"db-field-registrant_url": "url ପଞ୍ଜୀକରଣ",
+	"db-field-project": "ଉଇକିମିଡ଼ିଆ ପ୍ରକଳ୍ପ",
 	"db-field-st_address": "ଠିକଣାଗୁଡିକ",
 	"db-field-st_address_pct": "Adresses %",
 	"db-field-st_coordinates": "ସହଯୋଗ କରେ",

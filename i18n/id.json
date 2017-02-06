@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Farras"
+			"Farras",
+			"Hidayatsrf"
 		]
 	},
 	"search-title": "Pencarian monumen",
@@ -9,6 +10,12 @@
 	"search-table-th-field": "Kolom",
 	"search-table-th-filter": "Penyaring",
 	"search-table-th-search": "Cari",
+	"search-table-tr-languages": "Bahasa",
+	"search-table-tr-name": "Nama",
+	"search-table-tr-address": "Alamat",
+	"search-table-tr-coordinates": "Koordinat",
+	"search-table-tr-images": "Gambar",
+	"search-table-button-search": "Cari",
 	"filter-all-countries": "Semua negara",
 	"filter-all-languages": "Semua bahasa",
 	"db-field-country": "Negara",
