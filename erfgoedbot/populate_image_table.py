@@ -93,7 +93,8 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             monumentId = monumentId.lstrip(u'_')
             # All uppercase, same happens in other list
             # monumentId = monumentId.upper()
-            updateImage(countrycode, monumentId, name, conn, cursor)
+            image_has_geolocation = has_geolocation(page_title)
+            updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
 
         except UnicodeDecodeError:
             pywikibot.output(
@@ -103,6 +104,13 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             pywikibot.output(u'Got value error for %s' % (monumentId,))
 
     return len(photos)
+
+
+def has_geolocation(page_title):
+    site = pywikibot.Site(u'commons', u'commons')
+    page = pywikibot.ImagePage(site, page_title)
+    geoloc_cat = pywikibot.Category(site, "Category:Media with locations")
+    return geoloc_cat in list(page.categories())
 
 
 def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
@@ -130,14 +138,14 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     return result
 
 
-def updateImage(countrycode, monumentId, name, conn, cursor):
+def updateImage(countrycode, monumentId, name, has_geolocation, conn, cursor):
     '''
     Update an entry for a single image
     '''
-    query = u"""REPLACE INTO `image` (`country`, `id`, `img_name`) VALUES (%s, %s, %s)"""
+    query = u"""REPLACE INTO `image` (`country`, `id`, `img_name`, `has_geolocation`) VALUES (%s, %s, %s, %s)"""
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        cursor.execute(query, (countrycode, monumentId, name,))
+        cursor.execute(query, (countrycode, monumentId, name, has_geolocation,))
 
 
 def makeStatistics(totals):
