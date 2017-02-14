@@ -35,6 +35,10 @@ import monuments_config as mconfig
 from database_connection import connect_to_monuments_database, connect_to_commons_database
 
 
+class CannotNormalizeException(Exception):
+    pass
+
+
 def getSources(countrycode=u''):
     """Get a dictionary of sources to go harvest."""
     sources = {}
@@ -75,32 +79,49 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
 
     for catSortKey, page_title in photos:
         try:
-            monumentId = unicode(catSortKey, 'utf-8')
-            name = unicode(page_title, 'utf-8')
-            # Just want the first line
-            mLines = monumentId.splitlines()
-            monumentId = mLines[0]
-            # Remove leading and trailing spaces
-            monumentId = monumentId.strip()
-            # Remove leading zero's. FIXME: This should be replaced with
-            # underscores
-            monumentId = monumentId.lstrip(u'0')
-            # Remove leading underscors.
-            monumentId = monumentId.lstrip(u'_')
-            # All uppercase, same happens in other list
-            # monumentId = monumentId.upper()
-            image_has_geolocation = has_geolocation(page_title)
-            updateImage(countrycode, monumentId, name,
-                        image_has_geolocation, conn, cursor)
+            monumentId = normalize_identifier(catSortKey)
+        except CannotNormalizeException:
+            pywikibot.output(
+                u'Could not normalize monument identifier %s (%s)' % (catSortKey, page_title))
+            # We could not normalize the monument identifier: not adding to the table
+            continue
 
+        try:
+            name = unicode(page_title, 'utf-8')
         except UnicodeDecodeError:
             pywikibot.output(
-                u'Got unicode decode error for %s' % (monumentId,))
+                u'Got unicode decode error with name %s (%s)' % (name, monumentId))
+            # This results in not tracking this file. That may not be the desired behaviour.
+            continue
         # UnicodeDecodeError is a subclass of ValueError and should catch most
         except ValueError:
-            pywikibot.output(u'Got value error for %s' % (monumentId,))
+            pywikibot.output(
+                u'Got value error with name %s (%s)' % (name, monumentId))
+            continue
 
+        image_has_geolocation = has_geolocation(page_title)
+        updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
     return len(photos)
+
+
+def normalize_identifier(data):
+    try:
+        monumentId = unicode(data, 'utf-8')
+        # Just want the first line
+        mLines = monumentId.splitlines()
+        monumentId = mLines[0]
+        # Remove leading and trailing spaces
+        monumentId = monumentId.strip()
+        # Remove leading zero's. FIXME: This should be replaced with
+        # underscores
+        monumentId = monumentId.lstrip(u'0')
+        # Remove leading underscors.
+        monumentId = monumentId.lstrip(u'_')
+        # All uppercase, same happens in other list
+        # monumentId = monumentId.upper()
+        return monumentId
+    except (UnicodeDecodeError, TypeError) as e:
+        raise CannotNormalizeException(e)
 
 
 def has_geolocation(page_title):
