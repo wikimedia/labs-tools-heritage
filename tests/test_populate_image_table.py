@@ -1,4 +1,7 @@
-"""Unit tests for update_database."""
+#!/usr/bin/python
+# -*- coding: utf-8  -*-
+
+"""Unit tests for populate_image_table."""
 
 import mock
 import unittest
@@ -43,3 +46,49 @@ class TestGetSources(unittest.TestCase):
             }
         }
         self.assertItemsEqual(result, expected)
+
+
+class TestProcessSource(unittest.TestCase):
+
+    def setUp(self):
+        self.country_config = {
+            "country": "aa",
+            "lang": "xx",
+            "commonsTemplate": "Template A",
+            "commonsTrackerCategory": "Tracker category A",
+        }
+        self.mock_cursor_1 = mock.Mock()
+        self.mock_cursor_2 = mock.Mock()
+        patcher = mock.patch('erfgoedbot.populate_image_table.getMonumentPhotos')
+        self.mock_get_monuments = patcher.start()
+
+        self.addCleanup(patcher.stop)
+
+    @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
+    @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
+    def test_processSource_with_two_okay_pictures(self, mock_updateImage, mock_has_geolocation):
+        mock_has_geolocation.return_value = True
+        self.mock_get_monuments.return_value = (
+            (' 00000044\nEXAMPLE - 01.JPG', 'Example_-_01.jpg'),
+            (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
+        )
+        result = populate_image_table.processSource('aa', self.country_config, None,
+                                                    self.mock_cursor_1, None, self.mock_cursor_2)
+        self.assertItemsEqual(mock_updateImage.mock_calls, [
+            mock.call('aa', u'44', u'Example_-_01.jpg', True, None, self.mock_cursor_1),
+            mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_1)])
+        self.assertEquals(result, 2)
+
+    @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
+    @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
+    def test_processSource_with_one_unicode_title(self, mock_updateImage, mock_has_geolocation):
+        mock_has_geolocation.return_value = True
+        self.mock_get_monuments.return_value = (
+            (' 00000044\nEXAMPLE - 01.JPG', '71_Cathédrale_Saint-Sauveur.JPG'),
+        )
+        result = populate_image_table.processSource('aa', self.country_config, None,
+                                                    self.mock_cursor_1, None, self.mock_cursor_2)
+        self.assertItemsEqual(mock_updateImage.mock_calls, [
+            mock.call('aa', u'44', u'71_Cath\xe9drale_Saint-Sauveur.JPG',
+                      True, None, self.mock_cursor_1)])
+        self.assertEquals(result, 1)
