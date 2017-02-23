@@ -1,10 +1,13 @@
 {
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "grunt": "grunt"
   },
   "devDependencies": {
+    "eslint-config-wikimedia": "0.5.0",
     "grunt": "1.0.1",
     "grunt-banana-checker": "0.4.0",
+    "grunt-eslint": "20.1.0",
     "grunt-jsonlint": "^1.0.8",
     "grunt-stylelint": "^0.4.0",
     "stylelint": "^6.9.0",
