@@ -6,5 +6,5 @@ CREATE TABLE `commonscat` (
   `commonscat` VARCHAR (255), -- Commons category into which files listed at title should be categorised
   `changed` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (site, title)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

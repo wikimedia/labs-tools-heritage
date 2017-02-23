@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `admin_tree` (
   `parent` INT,
   KEY `parent` (`parent`),
   KEY `level_name_lang` (`level`, `name`, `lang`)
-) ENGINE=INNODB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

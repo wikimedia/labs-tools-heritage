@@ -71,7 +71,7 @@ def processCountry(countrycode, lang, countryconfig):
 
     f.write('  PRIMARY KEY (`' + primkey.encode('utf8') + '`),\n')
     f.write('  KEY `latitude` (`lat`),\n  KEY `longitude` (`lon`)\n')
-    f.write(') ENGINE=MyISAM DEFAULT CHARSET=utf8;\n')
+    f.write(') ENGINE=InnoDB DEFAULT CHARSET=utf8;\n')
     f.close()
 
 

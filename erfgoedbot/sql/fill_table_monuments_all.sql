@@ -45,7 +45,7 @@ CREATE TABLE `monuments_all_tmp` (
   KEY `name` (`name`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
   FULLTEXT KEY `name_address_ft` (`name`, `address`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 TRUNCATE TABLE `monuments_all_tmp`;
 

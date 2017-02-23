@@ -48,7 +48,7 @@ CREATE TABLE `wlpa_all_tmp` (
   KEY `creator` (`creator`),
   KEY `coord` (`lat_int`,`lon_int`,`lat`),
   FULLTEXT KEY `name_address_ft` (`name`, `address`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 TRUNCATE TABLE `wlpa_all_tmp`;
 

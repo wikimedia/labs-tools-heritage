@@ -5,4 +5,4 @@ CREATE TABLE `id_dump` (
   `country` varchar(10) binary NOT NULL DEFAULT '',
   `lang` varchar(10) binary NOT NULL DEFAULT '',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -16,4 +16,4 @@ CREATE TABLE `image` (
   PRIMARY KEY (`country`,`id`, `img_name`),
   KEY `country_id` (`country`,`id`),
   KEY `img_name` (`img_name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
