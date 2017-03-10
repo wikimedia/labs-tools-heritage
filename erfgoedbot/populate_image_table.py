@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-'''
-
-Update the image table with all the images tracked by a template in https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_with_known_IDs
+"""
+Update the image table with all the images tracked by a template in
+https://commons.wikimedia.org/wiki/Category:Cultural_heritage_monuments_with_known_IDs
 
 The fields:
 * country - same as country field in the monuments_all table
@@ -15,7 +15,8 @@ First the bots loops over the configuration and gets:
 * commonsTrackerCategory
 Some countries are available in multiple languages. This is deduplicated
 
-For each combination the bot will loop over the Commons database and insert the information into the image table
+For each combination the bot will loop over the Commons database and insert the
+information into the image table.
 
 
 Make a gallery of unused photos so people can add them to monument lists
@@ -25,8 +26,7 @@ Usage:
 python populate_image_table.py
 # Do just a specific country
 python populate_image_table.py -countrycode:xx
-
-'''
+"""
 import warnings
 
 import pywikibot
@@ -36,9 +36,7 @@ from database_connection import connect_to_monuments_database, connect_to_common
 
 
 def getSources(countrycode=u''):
-    '''
-    Get a dictionary of sources to go harvest
-    '''
+    """Get a dictionary of sources to go harvest."""
     sources = {}
     for (icountrycode, lang), countryconfig in mconfig.get_countries().iteritems():
         if not countrycode or (countrycode and countrycode == icountrycode):
@@ -52,9 +50,7 @@ def getSources(countrycode=u''):
 
 
 def processSources(sources, conn, cursor, conn2, cursor2):
-    '''
-    Loop over all sources and process them. Very small right now, will probably exapnded later
-    '''
+    """Loop over all sources and process them."""
     result = sources
     for countrycode, countryconfig in sources.iteritems():
         totalImages = processSource(
@@ -64,9 +60,7 @@ def processSources(sources, conn, cursor, conn2, cursor2):
 
 
 def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
-    '''
-    Work on a single source (country).
-    '''
+    """Work on a single source (country)."""
 
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get(
@@ -74,8 +68,10 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
 
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
-    pywikibot.output(u'For country "%s" I found %s photos tagged with "{{%s}}" in [[Category:%s]]' % (
-        countrycode, len(photos), commonsTemplate, commonsTrackerCategory))
+    pywikibot.output(
+        u'For country "%s" I found %s photos tagged with "{{%s}}" in '
+        u'[[Category:%s]]' % (countrycode, len(photos), commonsTemplate,
+                              commonsTrackerCategory))
 
     for catSortKey, page_title in photos:
         try:
@@ -94,7 +90,8 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             # All uppercase, same happens in other list
             # monumentId = monumentId.upper()
             image_has_geolocation = has_geolocation(page_title)
-            updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
+            updateImage(countrycode, monumentId, name,
+                        image_has_geolocation, conn, cursor)
 
         except UnicodeDecodeError:
             pywikibot.output(
@@ -114,17 +111,18 @@ def has_geolocation(page_title):
 
 
 def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
-    '''
-    Get all the monument photos that are in a certain tracker category at Wikimedia Commons
-    '''
+    """Return all monument photos in a given tracker category on Commons."""
     result = []
 
-    query = u"""SELECT cl_sortkey, page_title FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s"""
+    query = (u"SELECT cl_sortkey, page_title "
+             u"FROM page "
+             u"JOIN categorylinks ON page_id=cl_from "
+             u"WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
     result = cursor.fetchall()
-    '''
+    """
     while True:
         try:
             row = cursor.fetchone()
@@ -134,24 +132,23 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
             #result[id] = image
         except TypeError:
             break
-    '''
+    """
     return result
 
 
 def updateImage(countrycode, monumentId, name, has_geolocation, conn, cursor):
-    '''
-    Update an entry for a single image
-    '''
-    query = u"""REPLACE INTO `image` (`country`, `id`, `img_name`, `has_geolocation`) VALUES (%s, %s, %s, %s)"""
+    """Update an entry for a single image."""
+    query = (u"REPLACE INTO `image` "
+             u"(`country`, `id`, `img_name`, `has_geolocation`) "
+             u"VALUES (%s, %s, %s, %s)")
     with warnings.catch_warnings(record=True):
         warnings.simplefilter("always")
-        cursor.execute(query, (countrycode, monumentId, name, has_geolocation,))
+        cursor.execute(query,
+                       (countrycode, monumentId, name, has_geolocation,))
 
 
 def makeStatistics(totals):
-    '''
-    Make statistics on the number of indexed images and put these on Commons
-    '''
+    """Make statistics on the number of indexed images and put on Commons."""
     text = u'{| class="wikitable sortable"\n'
     text += \
         u'! country !! total !! tracker template !! tracker category\n'
@@ -210,7 +207,8 @@ def main():
             return False
         else:
             pywikibot.output(
-                u'Found %s countries with monument tracker templates to work on' % (len(sources),))
+                u'Found %s countries with monument tracker templates to work on'
+                % (len(sources),))
             totals = processSources(sources, conn, cursor, conn2, cursor2)
 
             makeStatistics(totals)
