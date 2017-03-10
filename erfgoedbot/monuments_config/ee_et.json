@@ -75,5 +75,77 @@
             "source": "number",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "Estonian",
+    "sql_country": "Estonia",
+    "sql_data": {
+        "country": {
+            "value": "ee",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "et",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ee",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "omavalitsus",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nimi",
+            "type": "Field"
+        },
+        "address": {
+            "value": "aadress",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "omavalitsus",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "pilt",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

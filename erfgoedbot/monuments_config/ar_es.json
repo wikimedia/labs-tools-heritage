@@ -81,5 +81,81 @@
             "dest": "monument_article",
             "source": "monumento_enlace"
         }
-    ]
+    ],
+    "sql_lang": "Spanish",
+    "sql_country": "Argentina",
+    "sql_data": {
+        "country": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "es",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "adm4": {
+            "value": "localidad",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "direccion",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imagen",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "CONCAT('http://www.monumentosysitios.gov.ar/ficha.php?idMonumento=', id)",
+            "type": "Raw"
+        }
+    }
 }

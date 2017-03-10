@@ -85,5 +85,73 @@
             "dest": "monument_article",
             "source": "monumento_enlace"
         }
-    ]
+    ],
+    "sql_lang": "Spanish",
+    "sql_country": "Colombia",
+    "sql_data": {
+        "country": {
+            "value": "co",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "es",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "co",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "direccion",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imagen",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

@@ -83,5 +83,77 @@
             "source": "wikidata",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Catalan",
+    "sql_country": "Andorra",
+    "sql_data": {
+        "country": {
+            "value": "ad",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ca",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ad",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "nomcoor",
+            "type": "Field"
+        },
+        "address": {
+            "value": "lloc",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipi",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imatge",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

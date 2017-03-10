@@ -1,14 +1,14 @@
 {
-    "country": "ca",
+    "country": "ca-prov",
     "lang": "en",
     "description": "Historic Places of Canada in English",
     "project": "wikipedia",
     "namespaces": [
         0
     ],
-    "table": "monuments_ca_(en)",
+    "table": "monuments_ca-prov_(en)",
     "truncate": false,
-    "primkey": "dummyid",
+    "primkey": "idp",
     "headerTemplate": "HPC header",
     "rowTemplate": "HPC row",
     "commonsTemplate": "Historic Places in Canada",
@@ -18,10 +18,9 @@
     "registrantUrlBase": "http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s",
     "fields": [
         {
-            "dest": "dummyid",
-            "source": "dummyid",
-            "type": "int(11)",
-            "auto_increment": false
+            "dest": "idp",
+            "source": "idp",
+            "type": "int(11)"
         },
         {
             "dest": "name",
@@ -85,11 +84,6 @@
             "type": "int(11)"
         },
         {
-            "dest": "idp",
-            "source": "idp",
-            "type": "int(11)"
-        },
-        {
             "dest": "idm",
             "source": "idm",
             "type": "int(11)"
@@ -109,5 +103,82 @@
             "source": "wikidata",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "English # Provincial",
+    "sql_country": "Canada",
+    "sql_data": {
+        "country": {
+            "value": "ca",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "idp",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ca",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    },
+    "sql_where": "(`idf` IS NULL OR `idf`='') AND NOT (`idp` IS NULL OR `idp`='')"
 }

@@ -65,5 +65,77 @@
             "dest": "registrant_url",
             "source": "objcode"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Aruba",
+    "sql_data": {
+        "country": {
+            "value": "nl-aw",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "objcode",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "nl-aw",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "town",
+            "type": "Field"
+        },
+        "name": {
+            "value": "descr_en",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "town",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

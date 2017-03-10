@@ -18,6 +18,7 @@ To spin-up a development environement simulating harvesting:
 ```
 # Create database tables
 python erfgoedbot/monument_tables.py
+python fill_table_monuments_all.py
 
 # Build and start the Docker containers
 docker-compose -f docker-compose-bot.yml up --build -d

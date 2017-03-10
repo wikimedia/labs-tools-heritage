@@ -60,5 +60,65 @@
             "source": "name",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Ireland",
+    "sql_data": {
+        "country": {
+            "value": "ie",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ie",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "townland",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

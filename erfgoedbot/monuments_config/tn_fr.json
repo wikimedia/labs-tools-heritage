@@ -80,5 +80,77 @@
             "dest": "registrant_url",
             "source": "id"
         }
-    ]
+    ],
+    "sql_lang": "French",
+    "sql_country": "Tunisia",
+    "sql_data": {
+        "country": {
+            "value": "tn",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "tn",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`gouvernorat_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "site",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monument",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "site",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

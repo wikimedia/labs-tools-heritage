@@ -65,5 +65,77 @@
             "source": "circle",
             "type": "varchar(1)"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "India",
+    "sql_data": {
+        "country": {
+            "value": "in",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "in",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`state_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "circle",
+            "type": "Field"
+        },
+        "name": {
+            "value": "description",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "location",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "NULL",
+            "type": "Raw"
+        },
+        "registrant_url": {
+            "value": "NULL",
+            "type": "Raw"
+        }
+    }
 }

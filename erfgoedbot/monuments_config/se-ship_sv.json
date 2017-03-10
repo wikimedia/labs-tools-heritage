@@ -79,5 +79,57 @@
             "source": "signal",
             "conv": "generateRegistrantUrl-sv-ship"
         }
-    ]
+    ],
+    "sql_lang": "Swedish",
+    "sql_country": "Sweden (Listed historical ships)",
+    "sql_data": {
+        "country": {
+            "value": "se-ship",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "sv",
+            "type": "Text"
+        },
+        "id": {
+            "value": "signal",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "se",
+            "type": "Text"
+        },
+        "name": {
+            "value": "namn",
+            "type": "Field"
+        },
+        "address": {
+            "value": "hemmahamn",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "artikel",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

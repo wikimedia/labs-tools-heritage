@@ -69,5 +69,77 @@
             "dest": "registrant_url",
             "source": "number"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Pakistan",
+    "sql_data": {
+        "country": {
+            "value": "pk",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "pk",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "district",
+            "type": "Field"
+        },
+        "name": {
+            "value": "description",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "district",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

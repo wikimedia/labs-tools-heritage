@@ -73,5 +73,73 @@
             "dest": "registrant_url",
             "source": "id"
         }
-    ]
+    ],
+    "sql_lang": "Arabic",
+    "sql_country": "Algeria",
+    "sql_data": {
+        "country": {
+            "value": "dz",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "dz",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "prov-iso",
+            "type": "Field"
+        },
+        "adm2": {
+            "value": "city",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "prov-iso",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

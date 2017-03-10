@@ -82,5 +82,73 @@
             "source": "name",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Belarusian",
+    "sql_country": "Belarus",
+    "sql_data": {
+        "country": {
+            "value": "by",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "be-tarask",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "by",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`oblast-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "rajon",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "place",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

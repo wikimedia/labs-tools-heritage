@@ -78,5 +78,77 @@
             "dest": "registrant_url",
             "source": "id"
         }
-    ]
+    ],
+    "sql_lang": "Azerbaijani",
+    "sql_country": "Azerbaijan",
+    "sql_data": {
+        "country": {
+            "value": "az",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "az",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "az",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`ray-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

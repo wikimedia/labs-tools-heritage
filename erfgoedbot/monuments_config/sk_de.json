@@ -107,5 +107,81 @@
             "source": "Längengrad",
             "check": "checkLon"
         }
-    ]
+    ],
+    "sql_lang": "German",
+    "sql_country": "Slovakia",
+    "sql_data": {
+        "country": {
+            "value": "sk",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "objektid",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "sk",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "okres",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "obec",
+            "type": "Field"
+        },
+        "adm4": {
+            "value": "katastralgemeinde",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name-de",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "obec",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "foto",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `artikel`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
 }

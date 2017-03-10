@@ -79,5 +79,89 @@
             "source": "wdid",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Russian",
+    "sql_country": "Russia",
+    "sql_data": {
+        "country": {
+            "value": "ru",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ru",
+            "type": "Text"
+        },
+        "project": {
+            "value": "wikivoyage",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ru",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "district",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "city",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "city",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

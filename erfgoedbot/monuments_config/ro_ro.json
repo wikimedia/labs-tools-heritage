@@ -75,5 +75,73 @@
             "source": "denumire",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Romanian",
+    "sql_country": "Romania",
+    "sql_data": {
+        "country": {
+            "value": "ro",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ro",
+            "type": "Text"
+        },
+        "id": {
+            "value": "cod",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ro",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`judetul-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "localitate",
+            "type": "Field"
+        },
+        "name": {
+            "value": "denumire",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresa",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "localitate",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imagine",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

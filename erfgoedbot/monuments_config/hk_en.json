@@ -67,5 +67,69 @@
             "source": "name",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Hong Kong (declared monuments)",
+    "sql_data": {
+        "country": {
+            "value": "hk",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "hk",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "region",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "Hong Kong",
+            "type": "Text"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "NULL",
+            "type": "Raw"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

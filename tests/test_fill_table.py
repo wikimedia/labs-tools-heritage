@@ -5,6 +5,7 @@ import unittest
 import re
 from custom_assertions import CustomAssertions
 from erfgoedbot import monuments_config as config
+from erfgoedbot import fill_table_monuments_all as fill_table
 
 
 def isolate_dataset_entries(text):
@@ -79,8 +80,8 @@ class FillTableMonumentsValidation(unittest.TestCase, CustomAssertions):
     """Validate fill_table_monuments_all.sql."""
 
     def setUp(self):
-        with open('erfgoedbot/sql/fill_table_monuments_all.sql', 'r') as f:
-            self.text = f.read()
+        datasets = fill_table.get_all_dataset_sql()
+        self.text = fill_table.MonumentsAllSql(datasets).get_sql()
         self.data = isolate_dataset_entries(self.text)
 
     def test_fill_table_monuments_all_replaced(self):
@@ -92,9 +93,7 @@ class FillTableMonumentsValidation(unittest.TestCase, CustomAssertions):
 
     def test_fill_table_monuments_all_required_replacements(self):
         """Ensure the required variables are replaced, at least."""
-        required = [
-            'source', 'changed', 'lat_int', 'lon_int',
-            'country', 'lang', 'id', 'adm0']
+        required = ['source', 'changed', 'country', 'lang', 'id', 'adm0']
         for table, dataset in self.data.iteritems():
             msg = '%s in fill_table_monuments_all ' % table
             msg += 'missing required variable(s): %s'
@@ -107,8 +106,8 @@ class TestFillTableMonumentsOntoMonumentsConfig(unittest.TestCase,
     """Compatibility of fill_table_monuments_all.sql with monuments_config."""
 
     def setUp(self):
-        with open('erfgoedbot/sql/fill_table_monuments_all.sql', 'r') as f:
-            self.text = f.read()
+        datasets = fill_table.get_all_dataset_sql()
+        self.text = fill_table.MonumentsAllSql(datasets).get_sql()
         self.data = isolate_dataset_entries(self.text)
         self.process_config_tables()
 

@@ -69,5 +69,73 @@
             "source": "offiziellen_numm",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Luxemburgish",
+    "sql_country": "Luxemburg",
+    "sql_data": {
+        "country": {
+            "value": "lu",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "lb",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "lu",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "uertschaft",
+            "type": "Field"
+        },
+        "name": {
+            "value": "offiziellen_numm",
+            "type": "Field"
+        },
+        "address": {
+            "value": "lag",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "uertschaft",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

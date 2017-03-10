@@ -56,5 +56,61 @@
             "dest": "registrant_url",
             "source": ""
         }
-    ]
+    ],
+    "sql_lang": "Albanian",
+    "sql_country": "Albania",
+    "sql_data": {
+        "country": {
+            "value": "al",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "sq",
+            "type": "Text"
+        },
+        "id": {
+            "value": "idno",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "al",
+            "type": "Text"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "place",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

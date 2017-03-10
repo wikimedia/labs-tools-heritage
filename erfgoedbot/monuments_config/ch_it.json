@@ -84,5 +84,73 @@
             "source": "oggetto",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Italian",
+    "sql_country": "Switzerland",
+    "sql_data": {
+        "country": {
+            "value": "ch",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "it",
+            "type": "Text"
+        },
+        "id": {
+            "value": "no_pbc",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ch",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "comune",
+            "type": "Field"
+        },
+        "name": {
+            "value": "oggetto",
+            "type": "Field"
+        },
+        "address": {
+            "value": "indirizzo",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "comune",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "foto",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

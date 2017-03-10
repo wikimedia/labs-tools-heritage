@@ -78,5 +78,73 @@
             "source": "omschrijving",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Dutch",
+    "sql_country": "Brussels",
+    "sql_data": {
+        "country": {
+            "value": "be-bru",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "code",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "be",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "be-bru",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "plaats",
+            "type": "Field"
+        },
+        "name": {
+            "value": "omschrijving",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "plaats",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

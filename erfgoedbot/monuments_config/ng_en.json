@@ -60,5 +60,69 @@
             "dest": "commonscat",
             "source": "commonscat"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Nigeria",
+    "sql_data": {
+        "country": {
+            "value": "ng",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "wd_item",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ng",
+            "type": "Text"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "place",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "state",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

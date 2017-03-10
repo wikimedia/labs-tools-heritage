@@ -89,5 +89,81 @@
             "dest": "registrant_url",
             "source": "register"
         }
-    ]
+    ],
+    "sql_lang": "Thai",
+    "sql_country": "Thailand",
+    "sql_data": {
+        "country": {
+            "value": "th",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "th",
+            "type": "Text"
+        },
+        "id": {
+            "value": "register",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "th",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "district",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "tambon",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "district",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

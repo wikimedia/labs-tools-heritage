@@ -98,5 +98,73 @@
             "source": "id",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "Norwegian",
+    "sql_country": "Norway",
+    "sql_data": {
+        "country": {
+            "value": "no",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "no",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "no",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`county_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "kommune",
+            "type": "Field"
+        },
+        "name": {
+            "value": "navn",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "kommune",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bilde",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

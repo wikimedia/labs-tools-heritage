@@ -1,56 +1,59 @@
 {
-    "country": "es-vc",
-    "lang": "ca",
-    "description": "Monuments in Valencia in Catalan table",
+    "country": "ca-fed",
+    "lang": "en",
+    "description": "Historic Places of Canada in English",
     "project": "wikipedia",
     "namespaces": [
         0
     ],
-    "table": "monuments_es-vc_(ca)",
+    "table": "monuments_ca-fed_(en)",
     "truncate": false,
-    "primkey": "bic",
-    "headerTemplate": "Capçalera BIC Val",
-    "rowTemplate": "Filera BIC Val",
-    "commonsTemplate": "BIC",
-    "commonsTrackerCategory": "Cultural heritage monuments in Spain with known IDs",
-    "commonsCategoryBase": "Cultural heritage monuments in Spain",
-    "registrantUrlBase": "http://www.cult.gva.es/dgpa/bics/Detalles_bics.asp?IdInmueble=%s",
+    "primkey": "idf",
+    "headerTemplate": "HPC header",
+    "rowTemplate": "HPC row",
+    "commonsTemplate": "Historic Places in Canada",
+    "commonsTrackerCategory": "Heritage properties in Canada with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Canada",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Historic Places in Canada",
+    "registrantUrlBase": "http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s",
     "fields": [
         {
-            "dest": "bic",
-            "source": "bic",
-            "default": "0",
-            "type": "varchar(25)"
-        },
-        {
-            "dest": "idurl",
-            "source": "idurl",
+            "dest": "idf",
+            "source": "idf",
             "type": "int(11)"
         },
         {
-            "dest": "nom",
-            "source": "nom"
+            "dest": "name",
+            "source": "name",
+            "type": ""
         },
         {
-            "dest": "prot",
-            "source": "prot",
-            "type": "enum('BIC','BRL')"
+            "dest": "address",
+            "source": "address"
         },
         {
-            "dest": "estil",
-            "source": "estil"
+            "dest": "region",
+            "source": "region"
         },
         {
-            "dest": "epoca",
-            "source": "època"
+            "dest": "provinceId",
+            "source": "provinceId"
         },
         {
-            "dest": "municipi",
-            "source": "municipi"
+            "dest": "coordname",
+            "source": "coordname"
         },
         {
-            "dest": "lloc",
-            "source": "lloc"
+            "dest": "municipality",
+            "source": "municipality"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "pc",
+            "source": "pc"
         },
         {
             "dest": "lat",
@@ -63,37 +66,36 @@
             "check": "checkLon"
         },
         {
-            "dest": "nomcoor",
-            "source": "nomcoor"
-        },
-        {
-            "dest": "imatge",
-            "source": "imatge"
-        },
-        {
-            "dest": "title",
-            "source": "title"
+            "dest": "image",
+            "source": "image"
         },
         {
             "dest": "commonscat",
             "source": "commonscat"
         },
         {
-            "dest": "CCAA_iso",
-            "source": "regió1"
+            "dest": "idf2",
+            "source": "idf2",
+            "type": "int(11)"
         },
         {
-            "dest": "provincia_iso",
-            "source": "regió2"
+            "dest": "idp",
+            "source": "idp",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idm",
+            "source": "idm",
+            "type": "int(11)"
         },
         {
             "dest": "monument_article",
-            "source": "nom",
+            "source": "name",
             "conv": "extractWikilink"
         },
         {
             "dest": "registrant_url",
-            "source": "idurl",
+            "source": "idf",
             "conv": "generateRegistrantUrl"
         },
         {
@@ -102,47 +104,43 @@
             "check": "checkWD"
         }
     ],
-    "sql_lang": "Catalan",
-    "sql_country": "Valencia",
+    "sql_lang": "English # Federal",
+    "sql_country": "Canada",
     "sql_data": {
         "country": {
-            "value": "es",
-            "type": "Text"
-        },
-        "lang": {
             "value": "ca",
             "type": "Text"
         },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
         "id": {
-            "value": "bic",
+            "value": "idf",
             "type": "Field"
         },
         "adm0": {
-            "value": "es",
+            "value": "ca",
             "type": "Text"
         },
         "adm1": {
-            "value": "LOWER(`CCAA_iso`)",
+            "value": "LOWER(`prov_iso`)",
             "type": "Raw"
         },
         "adm2": {
-            "value": "LOWER(`provincia_iso`)",
-            "type": "Raw"
-        },
-        "adm3": {
-            "value": "municipi",
+            "value": "municipality",
             "type": "Field"
         },
         "name": {
-            "value": "nomcoor",
+            "value": "name",
             "type": "Field"
         },
         "address": {
-            "value": "lloc",
+            "value": "address",
             "type": "Field"
         },
         "municipality": {
-            "value": "municipi",
+            "value": "municipality",
             "type": "Field"
         },
         "lat": {
@@ -154,7 +152,7 @@
             "type": "Field"
         },
         "image": {
-            "value": "imatge",
+            "value": "image",
             "type": "Field"
         },
         "commonscat": {
@@ -173,9 +171,14 @@
             "value": "monument_article",
             "type": "Field"
         },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
         "wd_item": {
             "value": "wd_item",
             "type": "Field"
         }
-    }
+    },
+    "sql_where": "NOT (`idf` IS NULL OR `idf`='')"
 }

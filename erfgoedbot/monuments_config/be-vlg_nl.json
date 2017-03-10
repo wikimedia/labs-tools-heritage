@@ -88,5 +88,81 @@
             "source": "id",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "Dutch",
+    "sql_country": "Vlaanderen",
+    "sql_data": {
+        "country": {
+            "value": "be-vlg",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "be",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "be-vlg",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "name": {
+            "value": "objectnaam",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

@@ -89,5 +89,69 @@
             "source": "systemnummer",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "Danish",
+    "sql_country": "Denmark (fortidsminder)",
+    "sql_data": {
+        "country": {
+            "value": "dk-fortidsminder",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "da",
+            "type": "Text"
+        },
+        "id": {
+            "value": "systemnummer",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "dk",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "kommune",
+            "type": "Field"
+        },
+        "name": {
+            "value": "stednavn",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "billede",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

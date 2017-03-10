@@ -71,5 +71,81 @@
             "dest": "monument_article",
             "source": "Назив"
         }
-    ]
+    ],
+    "sql_lang": "Serbian",
+    "sql_country": "Serbia",
+    "sql_data": {
+        "country": {
+            "value": "rs",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "sr",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "rs",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso_okrug`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "district",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "city",
+            "type": "Field"
+        },
+        "adm4": {
+            "value": "city_district",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "city",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

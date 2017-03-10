@@ -74,5 +74,69 @@
             "source": "توضیح",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Farsi",
+    "sql_country": "Iran",
+    "sql_data": {
+        "country": {
+            "value": "ir",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "fa",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ir",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`ISO`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "city",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

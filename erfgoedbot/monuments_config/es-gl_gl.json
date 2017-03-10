@@ -86,5 +86,77 @@
             "source": "nomeoficial",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Galician",
+    "sql_country": "Galicia province (Spain)",
+    "sql_data": {
+        "country": {
+            "value": "es",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "gl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "bic",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "es",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "es-ga",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "provincia_iso",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "concello",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nomeoficial",
+            "type": "Field"
+        },
+        "address": {
+            "value": "lugar",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "concello",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imaxe",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

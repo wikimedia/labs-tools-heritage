@@ -113,5 +113,81 @@
             "source": "notice",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "French",
+    "sql_country": "France",
+    "sql_data": {
+        "country": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "id": {
+            "value": "notice",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "LOWER(`departement_iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "commune",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monument",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "commune",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }
