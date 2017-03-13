@@ -7,7 +7,8 @@
 			"Rave",
 			"Александр Сигачёв",
 			"Okras",
-			"Irus"
+			"Irus",
+			"Nitch"
 		]
 	},
 	"search-title": "Поиск сооружений",
@@ -58,7 +59,7 @@
 	"db-field-st_total": "Общее число",
 	"toolbox-label-searchtipps": "используйте %term, term% или %term% для поиска устарелых данных",
 	"toolbox-meta-title": "Инструменты Wiki Loves Monuments",
-	"toolbox-main-logo-alt": "Логотип Вики любит памятники",
+	"toolbox-main-logo-alt": "Логотип Wiki Loves Monuments",
 	"toolbox-main-title": "Инструменты WLM",
 	"toolbox-main-description": "Набор инструментов, связанных с $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
