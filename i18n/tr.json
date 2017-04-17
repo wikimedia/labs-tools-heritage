@@ -7,7 +7,8 @@
 			"Khutuck",
 			"Uğurkent",
 			"Sayginer",
-			"Alpkant"
+			"Alpkant",
+			"Vito Genovese"
 		]
 	},
 	"search-title": "Anıt arama",
@@ -41,7 +42,7 @@
 	"db-field-registrant_url": "Tescil Linki",
 	"db-field-commonscat": "Ortak kategori",
 	"db-field-wd_item": "Vikiveri ögesi",
-	"db-field-project": "Vikimedya projesi",
+	"db-field-project": "Wikimedia projesi",
 	"db-field-st_address": "Adresler",
 	"db-field-st_address_pct": "Adresleri %",
 	"db-field-st_coordinates": "Koordinatlar",
@@ -65,5 +66,5 @@
 	"toolbox-title-searchmonuments": "Anıt arama",
 	"toolbox-title-statistics": "Anıt İstatistikleri",
 	"location": "Konum",
-	"source-monuments-list": "Vikimedya projesindeki anıtların kaynak listesi"
+	"source-monuments-list": "Bir Wikimedia projesindeki kaynak anıtlar listesi"
 }
