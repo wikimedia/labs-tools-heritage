@@ -57,9 +57,10 @@ def processSources(sources, conn, cursor, conn2, cursor2):
     """Loop over all sources and process them."""
     result = sources
     for countrycode, countryconfig in sources.iteritems():
-        totalImages = processSource(
+        (totalImages, tracked_images) = processSource(
             countrycode, countryconfig, conn, cursor, conn2, cursor2)
         result[countrycode]['totalImages'] = totalImages
+        result[countrycode]['tracked_images'] = tracked_images
     return result
 
 
@@ -76,6 +77,8 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
         u'For country "%s" I found %s photos tagged with "{{%s}}" in '
         u'[[Category:%s]]' % (countrycode, len(photos), commonsTemplate,
                               commonsTrackerCategory))
+
+    tracked_photos = 0
 
     for catSortKey, page_title in photos:
         try:
@@ -100,8 +103,9 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
             continue
 
         image_has_geolocation = has_geolocation(page_title)
+        tracked_photos += 1
         updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
-    return len(photos)
+    return (len(photos), tracked_photos)
 
 
 def normalize_identifier(data):
@@ -172,19 +176,23 @@ def makeStatistics(totals):
     """Make statistics on the number of indexed images and put on Commons."""
     text = u'{| class="wikitable sortable"\n'
     text += \
-        u'! country !! total !! tracker template !! tracker category\n'
+        u'! country !! total !! tracked !! tracker template !! tracker category\n'
     totalImages = 0
+    tracked_images = 0
     print totals
     for (countrycode, countryresults) in sorted(totals.iteritems()):
         text += u'|-\n'
         text += u'| %s ' % countrycode
         text += u'|| %s ' % countryresults.get('totalImages')
         totalImages += countryresults.get('totalImages')
+        text += u'|| %s ' % countryresults.get('tracked_images')
+        tracked_images += countryresults.get('tracked_images')
         text += u'|| {{tl|%s}}' % countryresults.get('commonsTemplate')
         text += u'|| [[:Category:%s|%s]]\n' % (countryresults.get(
             'commonsTrackerCategory'), countryresults.get('commonsTrackerCategory'))
     text += u'|- class="sortbottom"\n'
     text += u'| || %s \n' % totalImages
+    text += u'| || %s \n' % tracked_images
     text += u'|}\n'
 
     site = pywikibot.Site('commons', 'commons')

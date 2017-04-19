@@ -77,7 +77,7 @@ class TestProcessSource(unittest.TestCase):
         self.assertItemsEqual(mock_updateImage.mock_calls, [
             mock.call('aa', u'44', u'Example_-_01.jpg', True, None, self.mock_cursor_1),
             mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_1)])
-        self.assertEquals(result, 2)
+        self.assertEquals(result, (2, 2))
 
     @mock.patch('erfgoedbot.populate_image_table.normalize_identifier', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
@@ -95,7 +95,7 @@ class TestProcessSource(unittest.TestCase):
         self.assertItemsEqual(mock_updateImage.mock_calls, [
             mock.call('aa', u'44', u'Example_-_02.jpg', False, None, self.mock_cursor_1)
         ])
-        self.assertEquals(result, 2)
+        self.assertEquals(result, (2, 1))
 
     @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
@@ -109,7 +109,7 @@ class TestProcessSource(unittest.TestCase):
         self.assertItemsEqual(mock_updateImage.mock_calls, [
             mock.call('aa', u'44', u'71_Cath\xe9drale_Saint-Sauveur.JPG',
                       True, None, self.mock_cursor_1)])
-        self.assertEquals(result, 1)
+        self.assertEquals(result, (1, 1))
 
 
 class TestNormalizeIdentifier(unittest.TestCase):
