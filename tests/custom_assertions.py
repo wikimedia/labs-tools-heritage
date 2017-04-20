@@ -15,13 +15,11 @@ class CustomAssertions:
                 error_msg = msg
             else:
                 error_msg = u'%s: %s' % (msg, error_msg)
-        failing = []
-        for i in first:
-            try:
-                self.assertIn(i, second, msg=msg)
-            except AssertionError:
-                failing.append(i)
-        self.assertEqual(failing, [], msg=error_msg % ', '.join(failing))
+        try:
+            self.assertLessEqual(set(first), set(second))
+        except AssertionError:
+            diff = set(first) - set(second)
+            raise AssertionError(error_msg % ', '.join(diff))
 
     def assert_is_ascii(self, text, msg=None):
         """Assert that a string is ascii."""
