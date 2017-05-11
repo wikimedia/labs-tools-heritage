@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jagwar"
+		]
+	},
+	"search-table-th-field": "Saha",
+	"search-table-th-filter": "Sivana",
+	"search-table-th-search": "Hikaroka",
+	"search-table-th-output": "Fivoaka",
+	"search-table-tr-countries": "Firenena",
+	"search-table-tr-languages": "Fiteny",
+	"search-table-tr-name": "Anarana",
+	"search-table-tr-address": "Adiresy",
+	"search-table-tr-municipality": "Tanàna",
+	"search-table-tr-images": "Sary",
+	"search-table-button-search": "Karoka",
+	"filter-all-countries": "Firenena rehetra",
+	"filter-all-languages": "Fiteny rehetra",
+	"db-field-country": "Firenena",
+	"db-field-lang": "Fiteny",
+	"db-field-id": "Mpamaritra",
+	"db-field-name": "Anarana",
+	"db-field-address": "Adiresy",
+	"db-field-municipality": "Tanàna",
+	"db-field-lat": "Laharam-pehintany",
+	"db-field-lon": "Laharan-jarahasina",
+	"db-field-image": "Sary",
+	"db-field-changed": "Niova",
+	"db-field-source": "Loharano",
+	"db-field-st_image": "Sary",
+	"db-field-st_image_pct": "Sary %",
+	"db-field-st_municipality": "Tanàna",
+	"db-field-st_municipality_pct": "Tanàna %",
+	"db-field-st_name": "Anarana",
+	"db-field-st_name_pct": "Anarana %",
+	"db-field-st_total": "Isa manontolo",
+	"toolbox-nav-statistics": "Statistika",
+	"toolbox-nav-search": "Hikaroka",
+	"location": "Toerana"
+}
