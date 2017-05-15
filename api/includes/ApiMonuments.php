@@ -149,8 +149,9 @@ class ApiMonuments extends ApiBase {
 		}
 		foreach ( Monuments::$dbFields as $field ) {
 			$value = $this->getParam( "sr$field" );
-			if ( $value === false ) { continue;
-	  }
+			if ( $value === false ) {
+				continue;
+			}
 
 			// Some fields should always be (end) fussy
 			if ( !$dbMiserMode and in_array( $field, [ "address" ] ) ) {
