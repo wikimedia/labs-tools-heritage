@@ -105,7 +105,8 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
                 u'Got value error with name %s (%s)' % (name, monumentId))
             continue
 
-        image_has_geolocation = has_geolocation(page_title)
+        image_has_geolocation = has_geolocation(name)
+
         tracked_photos += 1
         updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
     return (len(photos), tracked_photos)
