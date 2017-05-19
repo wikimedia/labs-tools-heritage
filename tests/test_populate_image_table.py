@@ -57,12 +57,22 @@ class TestProcessSource(unittest.TestCase):
             "commonsTemplate": "Template A",
             "commonsTrackerCategory": "Tracker category A",
         }
-        self.mock_cursor_1 = mock.Mock()
-        self.mock_cursor_2 = mock.Mock()
+        self.mock_cursor_commons = mock.Mock()
+        self.mock_cursor_monuments = mock.Mock()
         patcher = mock.patch('erfgoedbot.populate_image_table.getMonumentPhotos')
         self.mock_get_monuments = patcher.start()
 
+        patcher_2 = mock.patch('erfgoedbot.populate_image_table.connect_to_commons_database')
+        mock_connect_to_commons_database = patcher_2.start()
+        mock_connect_to_commons_database.return_value = (None, self.mock_cursor_commons)
+
+        patcher_3 = mock.patch('erfgoedbot.populate_image_table.connect_to_monuments_database')
+        mock_connect_to_monuments_database = patcher_3.start()
+        mock_connect_to_monuments_database.return_value = (None, self.mock_cursor_monuments)
+
         self.addCleanup(patcher.stop)
+        self.addCleanup(patcher_2.stop)
+        self.addCleanup(patcher_3.stop)
 
     @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
@@ -72,11 +82,10 @@ class TestProcessSource(unittest.TestCase):
             (' 00000044\nEXAMPLE - 01.JPG', 'Example_-_01.jpg'),
             (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
         )
-        result = populate_image_table.processSource('aa', self.country_config, None,
-                                                    self.mock_cursor_1, None, self.mock_cursor_2)
+        result = populate_image_table.processSource('aa', self.country_config)
         self.assertItemsEqual(mock_updateImage.mock_calls, [
-            mock.call('aa', u'44', u'Example_-_01.jpg', True, None, self.mock_cursor_1),
-            mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_1)])
+            mock.call('aa', u'44', u'Example_-_01.jpg', True, None, self.mock_cursor_monuments),
+            mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_monuments)])
         self.assertEquals(result, (2, 2))
 
     @mock.patch('erfgoedbot.populate_image_table.normalize_identifier', autospec=True)
@@ -90,10 +99,9 @@ class TestProcessSource(unittest.TestCase):
             (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
         )
         mock_normalize_identifier.side_effect = [populate_image_table.CannotNormalizeException, u'44']
-        result = populate_image_table.processSource('aa', self.country_config, None,
-                                                    self.mock_cursor_1, None, self.mock_cursor_2)
+        result = populate_image_table.processSource('aa', self.country_config)
         self.assertItemsEqual(mock_updateImage.mock_calls, [
-            mock.call('aa', u'44', u'Example_-_02.jpg', False, None, self.mock_cursor_1)
+            mock.call('aa', u'44', u'Example_-_02.jpg', False, None, self.mock_cursor_monuments)
         ])
         self.assertEquals(result, (2, 1))
 
@@ -104,11 +112,10 @@ class TestProcessSource(unittest.TestCase):
         self.mock_get_monuments.return_value = (
             (' 00000044\nEXAMPLE - 01.JPG', '71_Cathédrale_Saint-Sauveur.JPG'),
         )
-        result = populate_image_table.processSource('aa', self.country_config, None,
-                                                    self.mock_cursor_1, None, self.mock_cursor_2)
+        result = populate_image_table.processSource('aa', self.country_config)
         self.assertItemsEqual(mock_updateImage.mock_calls, [
             mock.call('aa', u'44', u'71_Cath\xe9drale_Saint-Sauveur.JPG',
-                      True, None, self.mock_cursor_1)])
+                      True, None, self.mock_cursor_monuments)])
         self.assertEquals(result, (1, 1))
 
 

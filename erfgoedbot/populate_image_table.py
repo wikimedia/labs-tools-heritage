@@ -53,18 +53,17 @@ def getSources(countrycode=u''):
     return sources
 
 
-def processSources(sources, conn, cursor, conn2, cursor2):
+def processSources(sources):
     """Loop over all sources and process them."""
     result = sources
     for countrycode, countryconfig in sources.iteritems():
-        (totalImages, tracked_images) = processSource(
-            countrycode, countryconfig, conn, cursor, conn2, cursor2)
+        (totalImages, tracked_images) = processSource(countrycode, countryconfig)
         result[countrycode]['totalImages'] = totalImages
         result[countrycode]['tracked_images'] = tracked_images
     return result
 
 
-def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
+def processSource(countrycode, countryconfig):
     """Work on a single source (country)."""
     pywikibot.output(
         u'Processing country "%s"' % (countrycode)
@@ -74,7 +73,9 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
     commonsTrackerCategory = countryconfig.get(
         'commonsTrackerCategory').replace(u' ', u'_')
 
+    (conn2, cursor2) = connect_to_commons_database()
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
+    cursor2.close()
 
     pywikibot.output(
         u'For country "%s" I found %s photos tagged with "{{%s}}" in '
@@ -82,6 +83,8 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
                               commonsTrackerCategory))
 
     tracked_photos = 0
+
+    (conn, cursor) = connect_to_monuments_database()
 
     for catSortKey, page_title in photos:
         try:
@@ -109,6 +112,7 @@ def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
 
         tracked_photos += 1
         updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
+    cursor.close()
     return (len(photos), tracked_photos)
 
 
@@ -210,11 +214,6 @@ def makeStatistics(totals):
 
 def main():
     countrycode = u''
-    conn = None
-    cursor = None
-    # Connect database, we need that
-    (conn, cursor) = connect_to_monuments_database()
-    (conn2, cursor2) = connect_to_commons_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
@@ -229,7 +228,7 @@ def main():
                 u'I have no config for countrycode "%s"' % (countrycode,))
             return False
         else:
-            totals = processSources(sources, conn, cursor, conn2, cursor2)
+            totals = processSources(sources)
 
     else:
         pywikibot.output(u'Working on all countrycodes')
@@ -242,7 +241,7 @@ def main():
             pywikibot.output(
                 u'Found %s countries with monument tracker templates to work on'
                 % (len(sources),))
-            totals = processSources(sources, conn, cursor, conn2, cursor2)
+            totals = processSources(sources)
 
             makeStatistics(totals)
 
