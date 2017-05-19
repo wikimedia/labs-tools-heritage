@@ -66,6 +66,9 @@ def processSources(sources, conn, cursor, conn2, cursor2):
 
 def processSource(countrycode, countryconfig, conn, cursor, conn2, cursor2):
     """Work on a single source (country)."""
+    pywikibot.output(
+        u'Processing country "%s"' % (countrycode)
+    )
 
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get(
