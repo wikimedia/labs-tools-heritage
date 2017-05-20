@@ -147,7 +147,7 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     """Return all monument photos in a given tracker category on Commons."""
     result = []
 
-    query = (u"SELECT cl_sortkey, page_title "
+    query = (u"SELECT cl_sortkey_prefix, page_title "
              u"FROM page "
              u"JOIN categorylinks ON page_id=cl_from "
              u"WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s")
