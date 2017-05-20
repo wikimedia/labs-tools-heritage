@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS `{table}`;
+CREATE TABLE IF NOT EXISTS `{table}` (
+  {rows}
+  PRIMARY KEY (`{primkey}`),
+  KEY `latitude` (`lat`),
+  KEY `longitude` (`lon`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
