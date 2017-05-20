@@ -1,4 +1,4 @@
-pywikibot
+pywikibot==3.0.20170403
 MySQL-python
 requests
 PyYAML
