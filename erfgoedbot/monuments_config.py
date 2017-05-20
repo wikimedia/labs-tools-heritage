@@ -9,7 +9,8 @@ import json
 
 
 def _get_config_dir():
-    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'monuments_config')
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'monuments_config')
 
 
 def _read_config_from_file(config_file):
@@ -30,6 +31,9 @@ def get_countries():
 
     config_dir = _get_config_dir()
     for filename in os.listdir(config_dir):
+        base, ext = os.path.splitext(filename)
+        if ext != '.json':
+            continue
         config_file = os.path.join(config_dir, filename)
         data = _read_country_config(config_file)
         key = (data['country'], data['lang'])

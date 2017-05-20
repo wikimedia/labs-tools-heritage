@@ -67,5 +67,73 @@
             "dest": "registrant_url",
             "source": "ref"
         }
-    ]
+    ],
+    "sql_lang": "Georgian",
+    "sql_country": "Georgia",
+    "sql_data": {
+        "country": {
+            "value": "ge",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ka",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ge",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

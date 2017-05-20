@@ -72,5 +72,81 @@
             "source": "EW",
             "check": "checkLon"
         }
-    ]
+    ],
+    "sql_lang": "German",
+    "sql_country": "Bergheim, NRW, Germany",
+    "sql_data": {
+        "country": {
+            "value": "de-nrw-bm",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "nummer",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "de",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "de-nw",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "Köln",
+            "type": "Text"
+        },
+        "adm3": {
+            "value": "Rhein-Erft-Kreis",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "Bergheim",
+            "type": "Text"
+        },
+        "name": {
+            "value": "bezeichnung",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "ortsteil",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `artikel`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
 }

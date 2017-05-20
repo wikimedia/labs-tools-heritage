@@ -69,5 +69,77 @@
             "dest": "registrant_url",
             "source": "designation"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "China",
+    "sql_data": {
+        "country": {
+            "value": "cn",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "designation",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "cn",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "location",
+            "type": "Field"
+        },
+        "name": {
+            "value": "site",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "province",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

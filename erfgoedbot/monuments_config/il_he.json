@@ -96,5 +96,77 @@
             "dest": "image",
             "source": "תמונה"
         }
-    ]
+    ],
+    "sql_lang": "Hebrew",
+    "sql_country": "Israel",
+    "sql_data": {
+        "country": {
+            "value": "il",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "he",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "il",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`district-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "NULL",
+            "type": "Raw"
+        }
+    }
 }

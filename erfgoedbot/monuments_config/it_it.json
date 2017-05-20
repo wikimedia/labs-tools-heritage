@@ -75,5 +75,77 @@
             "dest": "commonscat",
             "source": "comcat"
         }
-    ]
+    ],
+    "sql_lang": "Italian",
+    "sql_country": "Italy",
+    "sql_data": {
+        "country": {
+            "value": "it",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "it",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "it",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`regione-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "comune",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "indirizzo",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "comune",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "immagine",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "wikivoce",
+            "type": "Field"
+        }
+    }
 }

@@ -81,5 +81,73 @@
             "source": "назва",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Ukrainian",
+    "sql_country": "Ukraine",
+    "sql_data": {
+        "country": {
+            "value": "ua",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "uk",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ua",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso_oblast`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "rayon",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

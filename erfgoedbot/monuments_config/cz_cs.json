@@ -81,5 +81,81 @@
             "dest": "remark",
             "source": "Poznámka"
         }
-    ]
+    ],
+    "sql_lang": "Czech language",
+    "sql_country": "Czech Republic",
+    "sql_data": {
+        "country": {
+            "value": "cz",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "cs",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id_objektu",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "cz",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`kraj-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "LOWER(`okres-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "CONCAT('http://monumnet.npu.cz/pamfond/list.php?hledani=1&CiRejst=',`id_objektu`)",
+            "type": "Raw"
+        }
+    }
 }

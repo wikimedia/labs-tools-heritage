@@ -83,5 +83,81 @@
             "source": "Wikidata",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "German",
+    "sql_country": "Hessen, Germany",
+    "sql_data": {
+        "country": {
+            "value": "de-he",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "nummer",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "de",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "de-he",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "name": {
+            "value": "bezeichnung",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `artikel`, ' ', '_' )",
+            "type": "Raw"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

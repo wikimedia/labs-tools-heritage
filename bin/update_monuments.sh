@@ -14,6 +14,7 @@ cd /data/project/heritage/ || exit
 # Load any config changes into the source tables
 echo_time "Load changes to monuments_config..."
 /data/project/heritage/pywikibot/pwb.py  /data/project/heritage/erfgoedbot/monument_tables.py -log
+/data/project/heritage/pywikibot/pwb.py  /data/project/heritage/erfgoedbot/fill_table_monuments_all.py -log
 
 # Recreate the source tables
 echo_time "Recreating the source tables..."

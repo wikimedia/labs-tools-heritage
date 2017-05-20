@@ -86,5 +86,77 @@
             "dest": "description",
             "source": "description"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "United States: California",
+    "sql_data": {
+        "country": {
+            "value": "us-ca",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "refnum",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "us",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "us-ca",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "county",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "city",
+            "type": "Field"
+        },
+        "name": {
+            "value": "CONCAT('[[', `article`, '|', `name`, ']]')",
+            "type": "Raw"
+        },
+        "address": {
+            "value": "CONCAT(`address`, ' ', `city`)",
+            "type": "Raw"
+        },
+        "municipality": {
+            "value": "county",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `article`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
 }

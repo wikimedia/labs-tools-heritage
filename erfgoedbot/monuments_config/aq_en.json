@@ -92,5 +92,69 @@
             "source": "name",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Antarctica",
+    "sql_data": {
+        "country": {
+            "value": "aq",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "CONCAT(`type`, '-', `number`)",
+            "type": "Raw"
+        },
+        "adm0": {
+            "value": "aq",
+            "type": "Text"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "description",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "proponent",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

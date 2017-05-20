@@ -101,5 +101,77 @@
             "dest": "registrant_url",
             "source": ""
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Wallonia",
+    "sql_data": {
+        "country": {
+            "value": "be-wal",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "CONCAT(`niscode`, '-', `objcode`)",
+            "type": "Raw"
+        },
+        "adm0": {
+            "value": "be",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "be-wal",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "descr_en",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "section",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

@@ -89,5 +89,73 @@
             "source": "Longitude",
             "check": "checkLon"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "South Africa",
+    "sql_data": {
+        "country": {
+            "value": "za",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "sitereference",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "za",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`province_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "magisterial_district",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "town",
+            "type": "Field"
+        },
+        "name": {
+            "value": "site_name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "site_name",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "town",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        }
+    }
 }

@@ -79,5 +79,81 @@
             "source": "uid",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "United Kingdom: Northern Ireland",
+    "sql_data": {
+        "country": {
+            "value": "gb-nir",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "hb",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "gb",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "nir",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "LOWER(`subdivision_iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "authority",
+            "type": "Field"
+        },
+        "name": {
+            "value": "address",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "LOWER(`subdivision_iso`)",
+            "type": "Raw"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

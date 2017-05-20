@@ -71,5 +71,81 @@
             "dest": "commonscat",
             "source": "commonscat"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Philippines",
+    "sql_data": {
+        "country": {
+            "value": "ph",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "cp-wmph-id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ph",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "province",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "location",
+            "type": "Field"
+        },
+        "name": {
+            "value": "site_name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "location",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "NULL",
+            "type": "Raw"
+        },
+        "registrant_url": {
+            "value": "NULL",
+            "type": "Raw"
+        }
+    }
 }

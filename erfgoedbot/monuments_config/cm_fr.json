@@ -63,5 +63,69 @@
             "source": "nom",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "French",
+    "sql_country": "Cameroun",
+    "sql_data": {
+        "country": {
+            "value": "cm",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "cm",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region_iso`)",
+            "type": "Raw"
+        },
+        "adm4": {
+            "value": "ville",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nom",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "ville",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

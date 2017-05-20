@@ -4,6 +4,7 @@
 cd /data/project/heritage/erfgoedbot || exit
 # First create the sql statements
 python /data/project/heritage/erfgoedbot/monument_tables.py
+python /data/project/heritage/erfgoedbot/fill_table_monuments_all.py
 for i in /data/project/heritage/erfgoedbot/sql/create_table_monuments*
 do
     echo "$i"

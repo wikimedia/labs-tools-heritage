@@ -65,5 +65,73 @@
             "source": "EW",
             "check": "checkLon"
         }
-    ]
+    ],
+    "sql_lang": "German",
+    "sql_country": "Bavaria, Germany",
+    "sql_data": {
+        "country": {
+            "value": "de-by",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "nummer",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "de",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "de-by",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "name": {
+            "value": "bezeichnung",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `artikel`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
 }

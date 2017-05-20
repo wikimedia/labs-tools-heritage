@@ -109,5 +109,85 @@
             "source": "wd_item",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Dutch",
+    "sql_country": "Netherlands (provinciale monumenten)",
+    "sql_data": {
+        "country": {
+            "value": "nl-prov",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "objnr",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "plaats",
+            "type": "Field"
+        },
+        "name": {
+            "value": "object",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

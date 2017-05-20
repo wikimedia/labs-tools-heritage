@@ -108,5 +108,85 @@
             "source": "wikidata",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Catalan",
+    "sql_country": "Catalunya",
+    "sql_data": {
+        "country": {
+            "value": "es",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ca",
+            "type": "Text"
+        },
+        "id": {
+            "value": "bic",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "es",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`CCAA_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "LOWER(`provincia_iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "municipi",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nomcoor",
+            "type": "Field"
+        },
+        "address": {
+            "value": "lloc",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipi",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imatge",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

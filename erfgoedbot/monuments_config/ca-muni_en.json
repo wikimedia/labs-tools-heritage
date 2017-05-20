@@ -1,59 +1,59 @@
 {
-    "country": "gb-sct",
+    "country": "ca-muni",
     "lang": "en",
-    "description": "United Kingdom: Listed buildings in Scotland in English",
+    "description": "Historic Places of Canada in English",
     "project": "wikipedia",
     "namespaces": [
         0
     ],
-    "table": "monuments_gb-sct_(en)",
+    "table": "monuments_ca-muni_(en)",
     "truncate": false,
-    "primkey": "hb",
-    "headerTemplate": "HS Scotland header",
-    "rowTemplate": "HS listed building row",
-    "commonsTemplate": "Listed building Scotland",
-    "commonsTrackerCategory": "Listed buildings in Scotland with known IDs",
-    "commonsCategoryBase": "Listed buildings in Scotland",
-    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of listed buildings in Scotland",
-    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of listed buildings in Scotland without ID",
-    "registrantUrlBase": "http://hsewsf.sedsh.gov.uk/hslive/portal.hsstart?P_HBNUM=%s",
+    "primkey": "idm",
+    "headerTemplate": "HPC header",
+    "rowTemplate": "HPC row",
+    "commonsTemplate": "Historic Places in Canada",
+    "commonsTrackerCategory": "Heritage properties in Canada with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Canada",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of Historic Places in Canada",
+    "registrantUrlBase": "http://www.historicplaces.ca/en/rep-reg/place-lieu.aspx?id=%s",
     "fields": [
         {
-            "dest": "hb",
-            "source": "hb",
+            "dest": "idm",
+            "source": "idm",
             "type": "int(11)"
         },
         {
             "dest": "name",
-            "source": "name"
+            "source": "name",
+            "type": ""
         },
         {
-            "dest": "date_listed",
-            "source": "date_listed"
+            "dest": "address",
+            "source": "address"
         },
         {
-            "dest": "location",
-            "source": "location"
+            "dest": "region",
+            "source": "region"
         },
         {
-            "dest": "notes",
-            "source": "notes"
+            "dest": "provinceId",
+            "source": "provinceId"
         },
         {
-            "dest": "grid_ref",
-            "source": "grid_ref"
+            "dest": "coordname",
+            "source": "coordname"
         },
         {
-            "dest": "council_area",
-            "source": "council_area"
+            "dest": "municipality",
+            "source": "municipality"
         },
         {
-            "dest": "council_iso",
-            "source": "council_iso"
+            "dest": "prov_iso",
+            "source": "prov_iso"
         },
         {
-            "dest": "parbur",
-            "source": "parbur"
+            "dest": "pc",
+            "source": "pc"
         },
         {
             "dest": "lat",
@@ -66,10 +66,6 @@
             "check": "checkLon"
         },
         {
-            "dest": "lb_type",
-            "source": "lb_type"
-        },
-        {
             "dest": "image",
             "source": "image"
         },
@@ -78,21 +74,41 @@
             "source": "commonscat"
         },
         {
+            "dest": "idf",
+            "source": "idf",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idf2",
+            "source": "idf2",
+            "type": "int(11)"
+        },
+        {
+            "dest": "idp",
+            "source": "idp",
+            "type": "int(11)"
+        },
+        {
             "dest": "monument_article",
             "source": "name",
             "conv": "extractWikilink"
         },
         {
             "dest": "registrant_url",
-            "source": "hb",
+            "source": "idf",
             "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
         }
     ],
-    "sql_lang": "English",
-    "sql_country": "United Kingdom: Scotland",
+    "sql_lang": "English # Municipal",
+    "sql_country": "Canada",
     "sql_data": {
         "country": {
-            "value": "gb-sct",
+            "value": "ca",
             "type": "Text"
         },
         "lang": {
@@ -100,31 +116,31 @@
             "type": "Text"
         },
         "id": {
-            "value": "hb",
+            "value": "idm",
             "type": "Field"
         },
         "adm0": {
-            "value": "gb",
+            "value": "ca",
             "type": "Text"
         },
         "adm1": {
-            "value": "sct",
-            "type": "Text"
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
         },
         "adm2": {
-            "value": "LOWER(`council_iso`)",
-            "type": "Raw"
+            "value": "municipality",
+            "type": "Field"
         },
         "name": {
             "value": "name",
             "type": "Field"
         },
         "address": {
-            "value": "location",
+            "value": "address",
             "type": "Field"
         },
         "municipality": {
-            "value": "council_area",
+            "value": "municipality",
             "type": "Field"
         },
         "lat": {
@@ -158,6 +174,11 @@
         "registrant_url": {
             "value": "registrant_url",
             "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
         }
-    }
+    },
+    "sql_where": "(`idf` IS NULL OR `idf`='') AND (`idp` IS NULL OR `idp`='') AND NOT (`idm` IS NULL OR `idm`='')"
 }

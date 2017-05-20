@@ -86,5 +86,73 @@
             "source": "monumento",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "Spanish",
+    "sql_country": "Chile",
+    "sql_data": {
+        "country": {
+            "value": "cl",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "es",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "cl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`ISO`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "comuna",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "direccion",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "comuna",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imagen",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monumento_enlace",
+            "type": "Field"
+        }
+    }
 }

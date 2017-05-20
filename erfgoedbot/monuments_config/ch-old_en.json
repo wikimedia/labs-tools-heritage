@@ -6,7 +6,7 @@
     "namespaces": [
         0
     ],
-    "table": "monuments-old_ch_(en)",
+    "table": "monuments_ch-old_(en)",
     "truncate": false,
     "primkey": "kgs_nr",
     "headerTemplate": "SIoCPoNaRS header",
@@ -64,5 +64,73 @@
             "source": "name",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Switzerland",
+    "sql_data": {
+        "country": {
+            "value": "ch-old",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "kgs_nr",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ch",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region-iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

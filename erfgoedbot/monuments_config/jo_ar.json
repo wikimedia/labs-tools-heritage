@@ -65,5 +65,73 @@
             "dest": "registrant_url",
             "source": "id"
         }
-    ]
+    ],
+    "sql_lang": "Arabic",
+    "sql_country": "Jordan",
+    "sql_data": {
+        "country": {
+            "value": "jo",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "jo",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "position",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

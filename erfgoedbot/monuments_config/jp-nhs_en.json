@@ -87,5 +87,73 @@
             "source": "id",
             "conv": "generateRegistrantUrl"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "Japan",
+    "sql_data": {
+        "country": {
+            "value": "jp-nhs",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "jp",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prefecture_iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

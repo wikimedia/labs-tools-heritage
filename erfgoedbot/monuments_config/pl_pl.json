@@ -87,5 +87,85 @@
             "dest": "registrant_url",
             "source": "id"
         }
-    ]
+    ],
+    "sql_lang": "Polish",
+    "sql_country": "Poland",
+    "sql_data": {
+        "country": {
+            "value": "pl",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "pl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "pl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "powiat",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "gmina",
+            "type": "Field"
+        },
+        "adm4": {
+            "value": "miejscowosc",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nazwa",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "gmina",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "zdjecie",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

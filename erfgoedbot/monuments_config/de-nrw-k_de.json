@@ -65,5 +65,81 @@
             "source": "bezeichnung",
             "conv": "extractWikilink"
         }
-    ]
+    ],
+    "sql_lang": "German",
+    "sql_country": "Cologne, NRW, Germany",
+    "sql_data": {
+        "country": {
+            "value": "de-nrw-k",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "nummer_denkmalliste",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "de",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "de-nw",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "Köln",
+            "type": "Text"
+        },
+        "adm3": {
+            "value": "Köln",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "ortsteil",
+            "type": "Field"
+        },
+        "name": {
+            "value": "bezeichnung",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "ortsteil",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
 }

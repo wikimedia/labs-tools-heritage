@@ -33,20 +33,27 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
     def test_monuments_config_valid_country_entries(self):
         """Ensure all countries contain the required entries, only."""
         # TODO resolve tmp
-        required = [
+        required_base = [
             'project', 'lang', 'headerTemplate', 'rowTemplate', 'namespaces',
             'table', 'truncate', 'primkey', 'fields', 'country', 'description'
         ]
-        optional = [
+        required_sql = ['sql_lang', 'sql_country', 'sql_data']
+        optional_base = [
             'countryBbox', 'missingCommonscatPage', 'imagesWithoutIdPage',
             'registrantUrlBase', 'commonsCategoryBase', 'unusedImagesPage',
             'commonsTrackerCategory', 'commonsTemplate', 'autoGeocode']
-        tmp = ['footerTemplate', ]  # Not used but present in existing config
+        optional_sql = ['sql_where', ]
         for key, data in config.countries.iteritems():
             self.set_label(key)
+            if key[0].startswith('wlpa'):
+                required = required_base
+                optional = optional_base
+            else:
+                required = required_base + required_sql
+                optional = optional_base + optional_sql
             self.assertIsInstance(data, dict, msg=self.label)
             self.assert_all_in(required, data.keys(), msg=self.label)
-            self.assert_all_in(data.keys(), required + optional + tmp,
+            self.assert_all_in(data.keys(), required + optional,
                                msg=self.label)
 
     def test_monuments_config_valid_country_entry_types(self):
@@ -59,7 +66,11 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
             'namespaces': list,
             'fields': list,
             'primkey': (str, unicode, tuple),
-            'commonsTemplate': (str, unicode, bool)
+            'commonsTemplate': (str, unicode, bool),
+            'sql_lang': (str, unicode),
+            'sql_country': (str, unicode),
+            'sql_data': dict,
+            'sql_where': (str, unicode),
         }
         expected_default = (str, unicode)
         for key, data in config.countries.iteritems():

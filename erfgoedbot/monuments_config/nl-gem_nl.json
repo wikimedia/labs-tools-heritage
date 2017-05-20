@@ -92,5 +92,77 @@
             "source": "wd_item",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Dutch",
+    "sql_country": "Netherlands (gemeentelijke monumenten)",
+    "sql_data": {
+        "country": {
+            "value": "nl-gem",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "CONCAT(`gemcode`, '/', `objnr`)",
+            "type": "Raw"
+        },
+        "adm0": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov-iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "name": {
+            "value": "object",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "gemeente",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

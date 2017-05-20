@@ -76,5 +76,73 @@
             "dest": "commonscat",
             "source": "monumento_categoría"
         }
-    ]
+    ],
+    "sql_lang": "Spanish",
+    "sql_country": "Bolivia",
+    "sql_data": {
+        "country": {
+            "value": "bo",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "es",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "bo",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "direccion",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monumento_enlace",
+            "type": "Field"
+        }
+    }
 }

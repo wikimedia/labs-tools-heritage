@@ -85,5 +85,81 @@
             "dest": "registrant_url",
             "source": "hb"
         }
-    ]
+    ],
+    "sql_lang": "English",
+    "sql_country": "United Kingdom: Wales",
+    "sql_data": {
+        "country": {
+            "value": "gb-wls",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "hb",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "gb",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "wls",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "LOWER(`subdivision_iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "location",
+            "type": "Field"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "notes",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "LOWER(`subdivision_iso`)",
+            "type": "Raw"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        }
+    }
 }

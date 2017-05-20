@@ -70,5 +70,81 @@
             "source": "wd_item",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Dutch",
+    "sql_country": "Aruba",
+    "sql_data": {
+        "country": {
+            "value": "nl-aw",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "id": {
+            "value": "objectnr",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "nl-aw",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "plaats",
+            "type": "Field"
+        },
+        "name": {
+            "value": "omschrijving",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adres",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "plaats",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

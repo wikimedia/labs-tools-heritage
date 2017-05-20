@@ -81,5 +81,77 @@
             "source": "wikidata",
             "check": "checkWD"
         }
-    ]
+    ],
+    "sql_lang": "Catalan",
+    "sql_country": "France",
+    "sql_data": {
+        "country": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ca",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "fr",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "municipi",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nomcoor",
+            "type": "Field"
+        },
+        "address": {
+            "value": "lloc",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipi",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "imatge",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        },
+        "registrant_url": {
+            "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
+        }
+    }
 }

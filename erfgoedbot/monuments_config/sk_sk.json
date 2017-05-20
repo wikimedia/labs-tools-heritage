@@ -119,5 +119,81 @@
             "dest": "beschreibung-de",
             "source": "Beschreibung-de"
         }
-    ]
+    ],
+    "sql_lang": "Slovak",
+    "sql_country": "Slovakia",
+    "sql_data": {
+        "country": {
+            "value": "sk",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "sk",
+            "type": "Text"
+        },
+        "id": {
+            "value": "idobjektu",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "sk",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso-regionu`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "okres",
+            "type": "Field"
+        },
+        "adm3": {
+            "value": "obec",
+            "type": "Field"
+        },
+        "adm4": {
+            "value": "katastralne_uzemie",
+            "type": "Field"
+        },
+        "name": {
+            "value": "nazov-sk",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresa",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "obec",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "fotka",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `clanok`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
 }
