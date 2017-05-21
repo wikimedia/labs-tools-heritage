@@ -124,7 +124,7 @@ class FormatHtmllist extends FormatBase {
 		}
 
 		if ( isset( $row->source ) and $row->source ) {
-			$m = self::matchUrl( $row->source );
+			$m = matchUrl( $row->source );
 			if ( $m ) {
 				$encodedLink = '//' . urlencodeWikiprojectLink( $m, true );
 				$desc .= '<li>';
@@ -159,25 +159,6 @@ class FormatHtmllist extends FormatBase {
 			}
 		}
 		$this->outputEnd();
-	}
-
-	/**
-	 * Return a mathing wikiproject or wikidata url
-	 */
-	static function matchUrl( $url ) {
-		try {
-			$m = matchWikiprojectLink( $url );
-			return $m[2];
-		} catch ( Exception $e ) {
-			// Possibly a wikidata entity/wiki link
-			try {
-				$m = matchWikidataQid( $url );
-				return $m[2];
-			} catch ( Exception $e ) {
-				// Normal text
-				return null;
-			}
-		}
 	}
 
 }

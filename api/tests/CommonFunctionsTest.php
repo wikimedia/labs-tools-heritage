@@ -191,65 +191,69 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
-	public function test_matchWikidataQid_no_match()
+	public function test_matchWikidataLink_no_match()
 	{
 		$input = 'not-a-link';
 		$this->setExpectedException('Exception');  // present in phpUnit 4.8
 		// $this->expectException('Exception');  // present in phpUnit 5.2+
 		// $this->expectExceptionMessage('The provided url was not a wikidata link.');  // present in phpUnit 5.2+
-		matchWikidataQid( $input );
+		matchWikidataLink( $input );
 	}
 
-	public function test_matchWikidataQid_entity()
+	public function test_matchWikidataLink_entity()
 	{
 		$input = "https://www.wikidata.org/entity/Q5943";
 		$expected = Array(
 			"https://www.wikidata.org/entity/Q5943",
 			"https:",
 			"www.wikidata.org/entity/Q5943",
-			"entity",
+			"www",
+			"wikidata",
 			"Q5943"
 			);
-		$this->assertEquals($expected, matchWikidataQid($input));
+		$this->assertEquals($expected, matchWikidataLink($input));
 	}
 
-	public function test_matchWikidataQid_wikipage()
+	public function test_matchWikidataLink_wikipage()
 	{
 		$input = "https://www.wikidata.org/wiki/Q5943";
 		$expected = Array(
 			"https://www.wikidata.org/wiki/Q5943",
 			"https:",
 			"www.wikidata.org/wiki/Q5943",
-			"wiki",
+			"www",
+			"wikidata",
 			"Q5943"
 			);
-		$this->assertEquals($expected, matchWikidataQid($input));
+		$this->assertEquals($expected, matchWikidataLink($input));
 	}
 
-	public function test_matchWikidataQid_http()
+	public function test_matchWikidataLink_http()
 	{
 		$input = "http://www.wikidata.org/entity/Q5943";
 		$expected = Array(
 			"http://www.wikidata.org/entity/Q5943",
 			"http:",
 			"www.wikidata.org/entity/Q5943",
-			"entity",
+			"www",
+			"wikidata",
 			"Q5943"
 			);
-		$this->assertEquals($expected, matchWikidataQid($input));
+		$this->assertEquals($expected, matchWikidataLink($input));
 	}
 
-	public function test_matchWikidataQid_no_protocol()
+	public function test_matchWikidataLink_no_protocol()
 	{
 		$input = "//www.wikidata.org/entity/Q5943";
 		$expected = Array(
 			"//www.wikidata.org/entity/Q5943",
 			"",
 			"www.wikidata.org/entity/Q5943",
-			"entity",
+			"www",
+			"wikidata",
 			"Q5943"
 			);
-		$this->assertEquals($expected, matchWikidataQid($input));
+		$this->assertEquals($expected, matchWikidataLink($input));
 	}
 
 	public function test_makeWikidataUrl()

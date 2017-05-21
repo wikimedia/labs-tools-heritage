@@ -128,20 +128,13 @@ class FormatHtml extends FormatBase {
 	 * Make this a nice link if it is a url (source column)
 	 */
 	static function prettifyUrls( $text ) {
-		try {
-			$m = matchWikiprojectLink( $text );
+		$m = matchUrl( $text );
+		if ( $m ) {
 			$linkText = str_replace( '_', ' ', $m[5] );
 			$encodedLink = urlencodeWikiprojectLink( $m );
 			return makeHTMLlink( 'https://' . $encodedLink, $linkText );
-		} catch ( Exception $e ) {
-			// Possibly a wikidata entity/wiki link
-			try {
-				$m = matchWikidataQid( $text );
-				return makeHTMLlink( 'https://' . $m[2], $m[4] );
-			} catch ( Exception $e ) {
-				// Normal text
-				return htmlspecialchars( $text );
-			}
+		} else {
+			return htmlspecialchars( $text );
 		}
 	}
 

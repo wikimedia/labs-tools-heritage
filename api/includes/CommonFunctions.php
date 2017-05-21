@@ -45,8 +45,28 @@ function processWikitext($wikilang, $text, $makelinks, $wikiproject = "wikipedia
 }
 
 //Separates the parsing from the prettifying
+function matchWikidataLink($url) {
+	/* Determine if a string is a Wikidata page or entity link
+	 * If the pattern matches, returns an array with the matching parts
+	 * If the pattern doesn't match, returns NULL
+	 *
+	 * The format of the array is designed to be compatible with that for
+	 * matchWikiprojectLink().
+	 */
+	$var = NULL;
+	$pattern = '/(https?:)?\/\/((www)\.(wikidata)\.org\/(wiki|entity)\/(.*))/';
+	if ( !preg_match( $pattern, $url, $var )) {
+		throw new Exception('The provided url was not a wikidata link.');
+	}
+	else {
+		unset( $var[5] );
+		$var = array_values( $var );  // rebase array
+	}
+	return $var;
+}
+
 function matchWikiprojectLink($text) {
-	/* Determine if a string is a wikipedia link
+	/* Determine if a string is a Wikipedia link
 	 * If the pattern matches, returns an array with the matching parts
 	 * If the pattern doesn't match, returns NULL
 	 */
@@ -60,13 +80,31 @@ function matchWikiprojectLink($text) {
 	return $var;
 }
 
+/**
+ * Return a mathing wikiproject or wikidata url
+ */
+function matchUrl( $url ) {
+	try {
+		$m = matchWikiprojectLink( $url );
+	} catch ( Exception $e ) {
+		// Possibly a wikidata entity/wiki link
+		try {
+			$m = matchWikidataLink( $url );
+		} catch ( Exception $e ) {
+			// Normal text
+			$m = null;
+		}
+	}
+	return $m;
+}
+
 function urlencodeWikiprojectLink($var, $drop_oldid = false) {
 	/* Takes a matching group from matchWikiprojectLink
 	 * and returns an url with the pagename urlencoded.
 	 */
 	$site = $var[3] . '.' . $var[4] . '.org';
 	$title = urlencode( $var[5] );
-	if ( $drop_oldid ){
+	if ( $drop_oldid or !isset( $var[6] ) ){
 		return $site . '/w/index.php?title=' . $title;
 	}
 	return $site . '/w/index.php?title=' . $title . '&oldid=' . $var[6];
@@ -74,16 +112,6 @@ function urlencodeWikiprojectLink($var, $drop_oldid = false) {
 
 function replaceSpaces( $in_string ) {
 	return str_replace(' ', '_', $in_string);
-}
-
-function matchWikidataQid($url) {
-	/* Extract the Qid from a Wikidata page or entity link */
-	$var = NULL;
-	$pattern = '/(https?:)?\/\/(www\.wikidata\.org\/(wiki|entity)\/(.*))/';
-	if ( !preg_match( $pattern, $url, $var )) {
-		throw new Exception('The provided url was not a wikidata link.');
-	}
-	return $var;
 }
 
 function makeWikidataUrl($qid) {

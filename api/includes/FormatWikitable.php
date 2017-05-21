@@ -94,8 +94,8 @@ class FormatWikitable extends FormatBase {
 		} catch ( Exception $e ) {
 			// Possibly a wikidata entity/wiki link
 			try {
-				$m = matchWikidataQid( $text );
-				return '[[:d:' . $m[4] . '|' . $m[4] . ']]';
+				$m = matchWikidataLink( $text );
+				return '[[:d:' . $m[5] . '|' . $m[5] . ']]';
 			} catch ( Exception $e ) {
 				// Normal text
 				return htmlspecialchars( $text );
