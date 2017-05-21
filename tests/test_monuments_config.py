@@ -57,10 +57,11 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
                 required = required_all + required_base_sql
                 optional = optional_base
             else:
+                required = required_all + required_sql
                 if data.get('type') == 'sparql':
-                    required = required_all + required_base_sparql + required_sql
+                    required += required_base_sparql
                 else:
-                    required = required_all + required_base_sql + required_sql
+                    required += required_base_sql
                 optional = optional_base + optional_sql
             self.assertIsInstance(data, dict, msg=self.label)
             self.assert_all_in(required, data.keys(), msg=self.label)
@@ -194,3 +195,15 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
                 if data.get(template):
                     self.assertNotIn('_', data.get(template), msg=self.label)
                     self.assertNotIn(':', data.get(template), msg=self.label)
+
+    def test_monuments_config_valid_sparql(self):
+        """Ensure that the sparql query delivers ?item and ?id."""
+        # TODO: should ensure primkey entries are present in field
+        for key, data in config.countries.iteritems():
+            if data.get('type') != 'sparql':
+                continue
+
+            self.set_label(key)
+            required_selects = ['?item', '?id']
+            self.assert_all_in_string(
+                required_selects, data.get('sparql'), msg=self.label)

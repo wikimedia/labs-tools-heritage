@@ -11,10 +11,13 @@ python update_database.py
 python update_database.py -countrycode:XX -langcode:YY
 
 '''
+import os
 import warnings
 import datetime
+import urlparse
 
 import pywikibot
+import pywikibot.data.sparql
 from pywikibot import pagegenerators
 
 import monuments_config as mconfig
@@ -243,6 +246,55 @@ def processHeader(params, countryconfig):
     return contents
 
 
+def process_monument_wikidata(params, countryconfig, conn, cursor):
+    """Process a single instance of a wikidata sparql result."""
+    if params['itemLabel']:
+        params['name'] = params['itemLabel'].value
+
+    if params['image']:
+        params['image'] = urlparse.unquote(params['image'].value).split('/')[-1]
+
+    if params['adminLabel']:
+        params['admin'] = params['adminLabel'].value
+
+    params['source'] = params['item'].value
+    params['wd_item'] = params['item'].getID()
+
+    if params['coordinate']:
+        params['lat'], params['lon'] = params['coordinate'].value[len('Point('):-1].split(' ')
+
+    del params['coordinate']
+    del params['adminLabel']
+    del params['itemLabel']
+    del params['item']
+
+    kill_list = []
+    for key, value in params.items():
+        if not value:
+            kill_list.append(key)
+    for key in kill_list:
+        del params[key]
+
+    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
+
+    first_query = u''
+    second_query = u''
+    delimiter = u''
+    value_list = []
+    for key, value in params.items():
+        first_query += delimiter + u"""`%s`""" % (key,)
+        second_query += delimiter + u"""%s"""
+        value_list.append(value)
+        delimiter = u', '
+
+    query += first_query + u""") VALUES ("""
+
+    query += second_query + u""")"""
+    with warnings.catch_warnings(record=True) as w:
+        warnings.simplefilter("always")
+        cursor.execute(query, value_list)
+
+
 def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
                     headerDefaults, unknownFields):
     """Process a single instance of a monument row template."""
@@ -351,6 +403,14 @@ def processPage(page, source, countryconfig, conn, cursor, unknownFields=None):
 
 def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
     """Process all the monuments of one country."""
+    if countryconfig.get('type') == 'sparql':
+        process_country_wikidata(countryconfig, conn, cursor)
+    else:
+        process_country_list(countryconfig, conn, cursor, fullUpdate, daysBack)
+
+
+def process_country_list(countryconfig, conn, cursor, fullUpdate, daysBack):
+    """Process all the monuments of one country using row templates."""
     site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
     rowTemplate = pywikibot.Page(
         site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
@@ -392,6 +452,36 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
             'Could not update field statistics. Details below:\n{}'.format(e))
 
 
+def load_wikidata_template_sparql():
+    """Fetch the SPARQL template for a wikidata config."""
+    filename = 'wikidata_query.sparql'
+    with open(os.path.join(get_template_dir(), filename), 'r') as f:
+        sparql = f.read()
+    return sparql
+
+
+def get_template_dir():
+    """Fetch the SQL template for a wikidata config."""
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'template')
+
+
+def process_country_wikidata(countryconfig, conn, cursor):
+    """Process all the monuments of one country using sparql."""
+    sparql_select = countryconfig.get('sparql')
+    sparql_template = load_wikidata_template_sparql()
+
+    sparql_query = sparql_template % dict(
+        select_statement=sparql_select,
+        lang=countryconfig.get('lang')
+    )
+    # print sparql_query
+    sq = pywikibot.data.sparql.SparqlQuery()
+    query_result = sq.select(sparql_query, full_data=True)
+    for resultitem in query_result:
+        process_monument_wikidata(resultitem, countryconfig, conn, cursor)
+
+
 def main():
     """The main loop."""
     # First find out what to work on
@@ -426,14 +516,14 @@ def main():
                 u'I have no config for countrycode "%s" in language "%s"' % (
                     countrycode, lang))
             return False
+
         pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (
                 countrycode, lang))
-
         try:
-            processCountry(
-                mconfig.countries.get((countrycode, lang)), conn, cursor,
-                fullUpdate, daysBack)
+            countryconfig = mconfig.countries.get((countrycode, lang))
+            processCountry(countryconfig, conn, cursor,
+                           fullUpdate, daysBack)
         except Exception, e:
             pywikibot.error(
                 u"Unknown error occurred when processing country "

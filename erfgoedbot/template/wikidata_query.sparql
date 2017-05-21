@@ -1,0 +1,13 @@
+# MonumentsDB harvest
+SELECT DISTINCT ?item ?itemLabel ?id ?admin ?adminLabel ?image ?commonscat ?address ?coordinate WHERE {
+  # Make it properties and filter out end time
+
+  %(select_statement)s .
+
+  OPTIONAL { ?item wdt:P131 ?admin } .
+  OPTIONAL { ?item wdt:P18  ?image } .
+  OPTIONAL { ?item wdt:P373 ?commonscat } .
+  OPTIONAL { ?item wdt:P969 ?address } .
+  OPTIONAL { ?item wdt:P625 ?coordinate } .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "%(lang)s" }
+  }
