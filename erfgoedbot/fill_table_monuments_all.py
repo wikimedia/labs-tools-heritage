@@ -170,10 +170,11 @@ class MonumentDatasetSql(object):
         @param replacements: Dictionary with target variable as key and
             replacement SQL a value. e.g. {"adm0": "'ad'", "lat": "`lat`"}
         """
-        if 'country' not in replacements or 'lang' not in replacements:
-            raise ValueError("Both 'country' and 'lang' must be replaced")
-        self.dataset = replacements['country'].text
-        self.lang = replacements['lang'].text
+        required_fields = ('country', 'lang')
+        if not all(required in replacements for required in required_fields):
+            raise ValueError(
+                "All of the required fields '{}' must be replaced".format(
+                    "','".join(required_fields)))
 
         if 'lat' not in replacements:
             self.variables['lat_int'] = None
@@ -194,6 +195,79 @@ class MonumentDatasetSql(object):
                 pywikibot.warning(
                     "Unrecognized variable in {table}: {variable}".format(
                         table=self.table, variable=target))
+
+
+class MonumentWikidataDatasetSql(MonumentDatasetSql):
+
+    """A single dataset (country) in the fill_monuments_all generation."""
+
+    def __init__(self, country, language, table, replacements, where=None):
+        """
+        Initialize the dataset SQL object.
+
+        @param country: Full text name of country or dataset. E.g. 'Andorra'
+            or 'Sweden (Listed historical ships)'.
+        @param language: Full text name of the language. E.g. 'Swedish'.
+        @param table: Table name (need not be "{domain}_{country}_({lang})")
+        @param replacements: Dictionary with target variable as key and
+            replacement SQL a value. e.g. {"adm0": "'ad'", "lat": "`lat`"}
+        @param where: A WHERE SQL clause, without the "WHERE" (optional).
+        """
+        super(MonumentWikidataDatasetSql, self).__init__(
+            country, language, table, replacements, where)
+
+    def get_replaced(self):
+        """Return the list of replaced variables."""
+        # the following list is determined by the sql template
+        return ['country', 'lang', 'id', 'adm0', 'name', 'municipality',
+                'lat', 'lon', 'lat_int', 'lon_int', 'image', 'wd_item',
+                'commonscat', 'source', 'changed', 'monument_article',
+                'registrant_url']
+
+    def load_values(self, replacements):
+        """
+        Load the dataset specific replacements.
+
+        Does not accept variables other than those in self.variables.
+        Automatically handles lat_int and lon_int.
+
+        @param replacements: Dictionary with target variable as key and
+            replacement SQL a value. e.g. {"adm0": "'ad'", "lat": "`lat`"}
+        """
+        required_fields = ('dataset', 'lang', 'adm0')
+        if not all(required in replacements for required in required_fields):
+            raise ValueError(
+                "All of the required fields '{}' must be replaced".format(
+                    "','".join(required_fields)))
+
+        self.dataset = replacements['dataset'].format()
+        self.lang = replacements['lang'].format()
+        self.adm0 = replacements['adm0'].format()
+
+    def make_varible_sql(self):
+        """Make the main body of the sql file, i.e. the mapping."""
+        sql = MonumentWikidataDatasetSql.load_wikidata_template_sql()
+        return sql.format(
+            dataset=self.dataset,
+            lang=self.lang,
+            adm0=self.adm0
+        )
+
+    @staticmethod
+    def get_template_dir():
+        """Fetch the SQL template for a wikidata config."""
+        return os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), 'template')
+
+    @staticmethod
+    def load_wikidata_template_sql():
+        """Fetch the SQL template for a wikidata config."""
+        filename = 'fill_monument_all_wikidata.sql'
+        filepath = os.path.join(
+            MonumentWikidataDatasetSql.get_template_dir(), filename)
+        with open(filepath, 'r') as f:
+            sql = f.read()
+        return sql.strip()
 
 
 class VariableType(object):
@@ -247,8 +321,11 @@ def _read_config_from_file(config_file):
 def monuments_dataset_sql_from_json(data):
     """Construct MonumentDatasetSql from json data."""
     sql_data = process_json_data(data['sql_data'])
-    return MonumentDatasetSql(data['sql_country'], data['sql_lang'],
-                              data['table'], sql_data, data.get('sql_where'))
+    cls = MonumentDatasetSql
+    if data.get('type') == 'sparql':
+        cls = MonumentWikidataDatasetSql
+    return cls(data['sql_country'], data['sql_lang'],
+               data['table'], sql_data, data.get('sql_where'))
 
 
 def process_json_data(data):
