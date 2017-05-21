@@ -128,7 +128,7 @@ def process_wikidata_config(country_config):
 
 def load_wikidata_template_sql():
     """Fetch the SQL template for a wikidata config."""
-    filename = 'wikidata_table_template.sql'
+    filename = 'wikidata_table.sql.template'
     with open(os.path.join(get_template_dir(), filename), 'r') as f:
         sql = f.read()
     return sql
