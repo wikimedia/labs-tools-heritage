@@ -33,23 +33,34 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
     def test_monuments_config_valid_country_entries(self):
         """Ensure all countries contain the required entries, only."""
         # TODO resolve tmp
-        required_base = [
-            'project', 'lang', 'headerTemplate', 'rowTemplate', 'namespaces',
-            'table', 'truncate', 'primkey', 'fields', 'country', 'description'
+        required_all = [
+            'project', 'lang', 'table', 'country', 'description'
         ]
+        required_base_sql = [
+            'headerTemplate', 'rowTemplate', 'namespaces',
+            'truncate', 'primkey', 'fields'
+        ]
+        required_base_sparql = [
+            'sparql'
+        ]
+
         required_sql = ['sql_lang', 'sql_country', 'sql_data']
+
         optional_base = [
             'countryBbox', 'missingCommonscatPage', 'imagesWithoutIdPage',
             'registrantUrlBase', 'commonsCategoryBase', 'unusedImagesPage',
-            'commonsTrackerCategory', 'commonsTemplate', 'autoGeocode']
+            'commonsTrackerCategory', 'commonsTemplate', 'autoGeocode', 'type']
         optional_sql = ['sql_where', ]
         for key, data in config.countries.iteritems():
             self.set_label(key)
             if key[0].startswith('wlpa'):
-                required = required_base
+                required = required_all + required_base_sql
                 optional = optional_base
             else:
-                required = required_base + required_sql
+                if data.get('type') == 'sparql':
+                    required = required_all + required_base_sparql + required_sql
+                else:
+                    required = required_all + required_base_sql + required_sql
                 optional = optional_base + optional_sql
             self.assertIsInstance(data, dict, msg=self.label)
             self.assert_all_in(required, data.keys(), msg=self.label)
@@ -87,7 +98,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         """Ensure that namespaces is a list of ints."""
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for n in data['namespaces']:
+            for n in data.get('namespaces', []):
                 self.assertIsInstance(n, int, msg=self.label)
 
     def test_monuments_config_valid_primkey_values(self):
@@ -96,6 +107,9 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         for key, data in config.countries.iteritems():
             self.set_label(key)
 
+            if data.get('type') == 'sparql':
+                continue
+
             # some primkeys are tuples
             tuple_primkey = data['primkey']
             if not isinstance(data['primkey'], tuple):
@@ -103,7 +117,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
 
             # find all dest values
             found_dest = []
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 found_dest.append(field['dest'])
 
             self.assert_all_in(tuple_primkey, found_dest, msg=self.label)
@@ -114,7 +128,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         optional = ['type', 'check', 'conv', 'default', 'auto_increment']
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 self.assertIsInstance(field, dict, msg=self.label)
                 self.assert_all_in(required, field.keys(), msg=self.label)
                 self.assert_all_in(field.keys(), required + optional,
@@ -124,7 +138,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         """Ensure the country field dest entries are all ascii."""
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 self.assert_is_ascii(field.get('dest'), msg=self.label)
 
     def test_monuments_config_known_converters(self):
@@ -137,7 +151,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         ]
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 if field.get('conv'):
                     self.assertIn(field.get('conv'), recognized,
                                   msg=self.label)
@@ -150,7 +164,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         """
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 if field.get('conv') == 'generateRegistrantUrl':
                     registrantUrlBase = data.get('registrantUrlBase')
                     msg = "No valid registrantUrlBase for %s" % (self.label)
@@ -162,7 +176,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         recognized = ['checkLon', 'checkLat', 'checkWD', 'checkInt']
         for key, data in config.countries.iteritems():
             self.set_label(key)
-            for field in data['fields']:
+            for field in data.get('fields', []):
                 if field.get('check'):
                     self.assertIn(field.get('check'), recognized,
                                   msg=self.label)

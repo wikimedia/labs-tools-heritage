@@ -1,0 +1,31 @@
+{
+    "country": "nl-wd",
+    "lang": "nl",
+    "description": "Rijksmonumenten in the Netherlands in Dutch",
+    "type": "sparql",
+    "project": "wikipedia",
+    "table": "monuments_nl-wd_(nl)",
+    "commonsTemplate": "Rijksmonument",
+    "commonsTrackerCategory": "Rijksmonumenten with known IDs",
+    "commonsCategoryBase": "Rijksmonumenten",
+    "unusedImagesPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Ongebruikte foto's",
+    "imagesWithoutIdPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Foto's zonder id",
+    "missingCommonscatPage": "Wikipedia:Wikiproject/Erfgoed/Nederlandse Erfgoed Inventarisatie/Missende commonscat links",
+    "sparql" : "{ ?item wdt:P359 [] } UNION { ?item wdt:P1435 wd:Q916333 } UNION { ?item wdt:P1435 wd:Q13423591 } UNION { ?item wdt:P1435 wd:Q17698911 }",
+    "sql_lang": "Dutch",
+    "sql_country": "Netherlands",
+    "sql_data": {
+        "dataset": {
+            "value": "nl-wd",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "nl",
+            "type": "Text"
+        },
+        "adm0": {
+            "value": "nl",
+            "type": "Text"
+        }
+    }
+}

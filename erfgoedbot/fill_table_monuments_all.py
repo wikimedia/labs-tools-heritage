@@ -280,6 +280,8 @@ def get_all_dataset_sql(domain='monuments'):
         data = _read_config_from_file(config_file)
         if not data.get('table').startswith(domain):  # skip e.g. wlpa ones
             continue
+        if data.get('type') == 'sparql':  # Skip Sparql-based config for now
+            continue
         datasets.append(monuments_dataset_sql_from_json(data))
     return datasets
 

@@ -21,7 +21,7 @@ def _read_config_from_file(config_file):
 def _read_country_config(config_file):
     data = _read_config_from_file(config_file)
     # Trick to convert back into tuples
-    if type(data['primkey']) is list:
+    if type(data.get('primkey', None)) is list:
         data['primkey'] = tuple(data['primkey'])
     return data
 
