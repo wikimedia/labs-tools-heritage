@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS `{table}`;
 CREATE TABLE IF NOT EXISTS `{table}` (
   {rows}
+  `source` varchar(510) NOT NULL DEFAULT '',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`{primkey}`),
   KEY `latitude` (`lat`),
   KEY `longitude` (`lon`)
