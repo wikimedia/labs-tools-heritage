@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink
+// functions: processWikitext, getImageFromCommons, makeWikidataUrl, matchUrl, urlencodeWikiprojectLink
 require_once ( 'CommonFunctions.php' );
 
 class FormatHtml extends FormatBase {
@@ -29,13 +29,13 @@ class FormatHtml extends FormatBase {
 
 	function outputBegin( $selectedItems ) {
 		echo '<html>';
-$this->linebreak();
+		$this->linebreak();
 		echo '<head>';
-$this->linebreak();
+		$this->linebreak();
 		echo '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">';
-$this->linebreak();
+		$this->linebreak();
 		echo '<link media="all" type="text/css" href="jscss/style.css" rel="stylesheet">';
-$this->linebreak();
+		$this->linebreak();
 		echo '<script src="jscss/custom.js" type="text/javascript"></script>';
 		echo "</head>\n<body>\n<table class=\"sortable wlm-result\" id=\"sortable_table_id_0\">\n";
 
@@ -134,8 +134,14 @@ $this->linebreak();
 			$encodedLink = urlencodeWikiprojectLink( $m );
 			return makeHTMLlink( 'https://' . $encodedLink, $linkText );
 		} catch ( Exception $e ) {
-			// Normal text
-			return htmlspecialchars( $text );
+			// Possibly a wikidata entity/wiki link
+			try {
+				$m = matchWikidataQid( $text );
+				return makeHTMLlink( 'https://' . $m[2], $m[4] );
+			} catch ( Exception $e ) {
+				// Normal text
+				return htmlspecialchars( $text );
+			}
 		}
 	}
 

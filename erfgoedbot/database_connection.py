@@ -60,3 +60,9 @@ def connect_to_commons_database():
         use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
+
+
+def close_database_connection(conn, cursor):
+    """Close the cursor and commit the current transactions."""
+    conn.commit()
+    cursor.close()

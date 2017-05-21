@@ -5,12 +5,11 @@ Create the monuments tables SQL from monuments_config.json files
 
 Author: Platonides
 """
-
 import os
 import monuments_config as mconfig
 
 
-def processCountry(countrycode, lang, countryconfig):
+def processCountry(country_code, lang, country_config):
     """
     Process the country configs to create sql files.
 
@@ -18,46 +17,36 @@ def processCountry(countrycode, lang, countryconfig):
     @param lang: language
     @param countryconfig: country configuration
     """
-    # These are not listed in the monument config
-    extra_cols = "  `source` varchar(510) NOT NULL DEFAULT '',\n" \
-                 "  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,\n"  # noqa E501
+    # @todo: standardise these as 'monuments_{country}_({lang})'
+    table = country_config.get('table')
 
-    table = countryconfig.get('table')
-    sql_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sql")
-    f = open(os.path.join(sql_dir, "create_table_%s.sql" % table), "w")
-    f.write("DROP TABLE IF EXISTS `%s`;\n" % table)
-    f.write("CREATE TABLE IF NOT EXISTS `%s` (\n" % table)
-
-    source_primkey = countryconfig.get('primkey')
-    primkey = process_classic_config(f, countryconfig, source_primkey,
-                                     extra_cols)
-
-    if not primkey:
-        if not isinstance(source_primkey, (str, unicode)):
-            primkey = u"`,`".join(source_primkey)
+    try:
+        if country_config.get('type') == 'sparql':
+            sql = process_wikidata_config(country_config)
         else:
-            raise Exception(
-                "Primary key not found for countrycode: %s, lang: %s"
-                % (countrycode, lang))
+            sql = process_classic_config(country_config)
+    except Exception as e:
+        raise Exception(
+            '{exception} for countrycode: {country}, lang: {lang}'.format(
+                exception=e, country=country_code, lang=lang))
 
-    f.write('  PRIMARY KEY (`%s`),\n' % primkey.encode('utf8'))
-    f.write('  KEY `latitude` (`lat`),\n  KEY `longitude` (`lon`)\n')
-    f.write(') ENGINE=InnoDB DEFAULT CHARSET=utf8;\n')
+    f = open(os.path.join(
+        get_sql_dir(), 'create_table_{}.sql'.format(table)), 'w')
+    f.write(sql)
     f.close()
 
 
-def process_classic_config(f, country_config, source_primkey, extra_cols):
+def process_classic_config(country_config):
     """
     Process a country configuration for wikitext lists.
 
-    @param f: file-like object to write output to
     @param country_config: country configuration
-    @param source_primkey: the key to the value used as a primary key
-    @param extra_cols: sql for source and changed columns
-    @return primkey
+    @return sql
     """
     primkey = False
-    default_type = "varchar(255)"
+    default_type = 'varchar(255)'
+    source_primkey = country_config.get('primkey')
+    fields_sql = []
 
     for field in country_config.get('fields'):
         column = field.get('dest')
@@ -69,28 +58,92 @@ def process_classic_config(f, country_config, source_primkey, extra_cols):
             primkey = column
 
         if column in ['lon', 'lat']:
-            f.write(b"  `%s` double DEFAULT NULL,\n" % column.encode('utf8'))
+            fields_sql.append(
+                b'`{}` double DEFAULT NULL,'.format(column.encode('utf8')))
         else:
-            # why are we forcing extra_cols to be inserted early?
-            if column == 'monument_article':
-                f.write(extra_cols)
-                extra_cols = ''
             typ = field.get('type') or default_type
-            if typ.startswith("int("):
+            if typ.startswith('int('):
                 if field.get('auto_increment'):
-                    typ += " NOT NULL AUTO_INCREMENT"
+                    typ += ' NOT NULL AUTO_INCREMENT'
                 else:
-                    typ += " NOT NULL DEFAULT 0"
+                    typ += ' NOT NULL DEFAULT 0'
             elif typ.startswith("varchar("):
                 if field.get('default'):
-                    typ += " NOT NULL DEFAULT '%s'" % field.get('default')
+                    typ += " NOT NULL DEFAULT '{}'".format(
+                        field.get('default'))
                 else:
                     typ += " NOT NULL DEFAULT ''"
 
-            f.write(b"  `%s` %s,\n" % (column.encode('utf8'), typ))
+            fields_sql.append(b'`{}` {},'.format(column.encode('utf8'), typ))
 
-    f.write(extra_cols)
+    try:
+        primkey = validate_primkey(source_primkey, primkey)
+    except:
+        raise
+
+    sql = load_classic_template_sql().format(
+        table=country_config['table'],
+        rows=b'\n  '.join(fields_sql),
+        primkey=primkey.encode('utf8'))
+
+    return sql
+
+
+def validate_primkey(source_primkey, primkey):
+    """
+    Validate that the primkey was found or construct it from list.
+
+    @param source_primkey: the config data on the primkey
+    @param primkey: the primkey, if matched
+    @return primkey
+    @raises Exception
+    """
+    if not primkey:
+        if source_primkey and not isinstance(source_primkey, (str, unicode)):
+            primkey = u"`,`".join(source_primkey)
+        else:
+            raise Exception('Primary key not found')
     return primkey
+
+
+def load_classic_template_sql():
+    """Fetch the SQL template for a wikidata config."""
+    filename = 'classic_table.sql.template'
+    with open(os.path.join(get_template_dir(), filename), 'r') as f:
+        sql = f.read()
+    return sql
+
+
+def process_wikidata_config(country_config):
+    """
+    Process a country configuration for wikidata sparql queries.
+
+    @param country_config: country configuration
+    @return sql
+    """
+    sql = load_wikidata_template_sql().format(
+        table=country_config['table'])
+    return sql
+
+
+def load_wikidata_template_sql():
+    """Fetch the SQL template for a wikidata config."""
+    filename = 'wikidata_table.sql.template'
+    with open(os.path.join(get_template_dir(), filename), 'r') as f:
+        sql = f.read()
+    return sql
+
+
+def get_sql_dir():
+    """Fetch the SQL template for a wikidata config."""
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'sql')
+
+
+def get_template_dir():
+    """Fetch the SQL template for a wikidata config."""
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'template')
 
 
 def main():
