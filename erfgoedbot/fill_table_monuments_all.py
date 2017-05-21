@@ -267,7 +267,7 @@ class MonumentWikidataDatasetSql(MonumentDatasetSql):
             MonumentWikidataDatasetSql.get_template_dir(), filename)
         with open(filepath, 'r') as f:
             sql = f.read()
-        return sql.strip()
+        return sql.rstrip()
 
 
 class VariableType(object):
