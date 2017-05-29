@@ -32,7 +32,11 @@ import warnings
 import pywikibot
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database, connect_to_commons_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database,
+    connect_to_commons_database
+)
 
 
 class CannotNormalizeException(Exception):
@@ -112,7 +116,8 @@ def processSource(countrycode, countryconfig):
 
         tracked_photos += 1
         updateImage(countrycode, monumentId, name, image_has_geolocation, conn, cursor)
-    cursor.close()
+
+    close_database_connection(conn, cursor)
     return (len(photos), tracked_photos)
 
 

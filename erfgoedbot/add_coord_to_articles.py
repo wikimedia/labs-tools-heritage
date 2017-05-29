@@ -20,7 +20,11 @@ import re
 import pywikibot
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database, connect_to_commons_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database,
+    connect_to_commons_database
+)
 
 # coordinate templates for different language wikipedias
 wikiData = {
@@ -304,6 +308,8 @@ def main():
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, wikiData.get(lang), connMon, cursorMon)
+
+    close_database_connection(connMon, cursorMon)
 
 
 if __name__ == "__main__":

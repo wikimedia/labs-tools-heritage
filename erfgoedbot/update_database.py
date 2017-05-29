@@ -32,7 +32,10 @@ from checkers import (
     check_integer,
     check_lat_with_lon
 )
-from database_connection import connect_to_monuments_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 _logger = "update_database"
 
@@ -442,6 +445,8 @@ def main():
                     u"Unknown error occurred when processing country "
                     u"%s in lang %s\n%s" % (countrycode, lang, str(e)))
                 continue
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

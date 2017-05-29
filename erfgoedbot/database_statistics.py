@@ -7,7 +7,10 @@ FIXME: Too much code duplication. Should probably just have one list of the poss
 '''
 import pywikibot
 
-from database_connection import connect_to_monuments_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 
 def getCount(query, cursor):
@@ -321,6 +324,7 @@ def main():
                 country, language, conn, cursor)
 
     outputStatistics(statistics)
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

@@ -25,7 +25,10 @@ from pywikibot import pagegenerators
 from pywikibot import textlib
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 _logger = "categorize_images"
 
@@ -535,6 +538,8 @@ def main():
                 statistics.append(result)
 
         outputStatistics(statistics)
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

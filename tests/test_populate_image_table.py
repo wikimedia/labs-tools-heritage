@@ -70,9 +70,13 @@ class TestProcessSource(unittest.TestCase):
         mock_connect_to_monuments_database = patcher_3.start()
         mock_connect_to_monuments_database.return_value = (None, self.mock_cursor_monuments)
 
+        patcher_4 = mock.patch('erfgoedbot.populate_image_table.close_database_connection')
+        mock_close_database_connection = patcher_4.start()
+
         self.addCleanup(patcher.stop)
         self.addCleanup(patcher_2.stop)
         self.addCleanup(patcher_3.stop)
+        self.addCleanup(patcher_4.stop)
 
     @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)

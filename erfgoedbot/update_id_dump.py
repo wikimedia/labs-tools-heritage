@@ -19,7 +19,10 @@ import monuments_config as mconfig
 from converters import (
     extract_elements_from_template_param
 )
-from database_connection import connect_to_monuments_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 
 def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor):
@@ -147,6 +150,8 @@ def main():
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, conn, cursor)
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
