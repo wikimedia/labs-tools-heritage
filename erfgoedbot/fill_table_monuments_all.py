@@ -26,14 +26,14 @@ class MonumentsAllSql(object):
     def make_intro_sql(self):
         """Construct the opening SQL describing the main table."""
         filename = 'monuments_all_intro.sql'  # actually domain neutral
-        with open(os.path.join(self.sql_dir, filename), "r") as f:
+        with open(os.path.join(_get_template_dir(), filename), "r") as f:
             sql = f.read()
         return sql.format(domain=self.domain)
 
     def make_outro_sql(self):
         """Construct the ending SQL replacing the real table by the new one."""
         filename = 'monuments_all_outro.sql'  # actually domain neutral
-        with open(os.path.join(self.sql_dir, filename), "r") as f:
+        with open(os.path.join(_get_template_dir(), filename), "r") as f:
             sql = f.read()
         return sql.format(domain=self.domain)
 
@@ -254,17 +254,10 @@ class MonumentWikidataDatasetSql(MonumentDatasetSql):
         )
 
     @staticmethod
-    def get_template_dir():
-        """Fetch the SQL template for a wikidata config."""
-        return os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), 'template')
-
-    @staticmethod
     def load_wikidata_template_sql():
         """Fetch the SQL template for a wikidata config."""
         filename = 'fill_monument_all_wikidata.sql.template'
-        filepath = os.path.join(
-            MonumentWikidataDatasetSql.get_template_dir(), filename)
+        filepath = os.path.join(_get_template_dir(), filename)
         with open(filepath, 'r') as f:
             sql = f.read()
         return sql.rstrip()
@@ -310,6 +303,12 @@ def _get_config_dir():
     """Return directory containing config files."""
     return os.path.join(
         os.path.dirname(os.path.abspath(__file__)), 'monuments_config')
+
+
+def _get_template_dir():
+    """Return directory containing template files."""
+    return os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), 'template')
 
 
 def _read_config_from_file(config_file):
