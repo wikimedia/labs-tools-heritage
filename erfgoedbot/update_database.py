@@ -385,7 +385,11 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
                 page, page.permalink(), countryconfig,
                 conn, cursor, unknownFields=unknownFields)
 
-    unknownFieldsStatistics(countryconfig, unknownFields)
+    try:
+        unknownFieldsStatistics(countryconfig, unknownFields)
+    except pywikibot.exceptions.PageSaveRelatedError as e:
+        pywikibot.warning(
+            'Could not update field statistics. Details below:\n{}'.format(e))
 
 
 def main():
