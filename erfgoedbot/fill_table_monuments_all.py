@@ -219,10 +219,10 @@ class MonumentWikidataDatasetSql(MonumentDatasetSql):
     def get_replaced(self):
         """Return the list of replaced variables."""
         # the following list is determined by the sql template
-        return ['country', 'lang', 'id', 'adm0', 'name', 'municipality',
-                'lat', 'lon', 'lat_int', 'lon_int', 'image', 'wd_item',
-                'commonscat', 'source', 'changed', 'monument_article',
-                'registrant_url']
+        return ['country', 'lang', 'id', 'adm0', 'name', 'address',
+                'municipality', 'lat', 'lon', 'lat_int', 'lon_int', 'image',
+                'wd_item', 'commonscat', 'source', 'changed',
+                'monument_article', 'registrant_url']
 
     def load_values(self, replacements):
         """

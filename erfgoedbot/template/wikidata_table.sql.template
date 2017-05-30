@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `{table}` (
   `name` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(255) NOT NULL DEFAULT '',
   `commonscat` varchar(255) NOT NULL DEFAULT '',
+  `address` varchar(255) NOT NULL DEFAULT '',
   `lat` double DEFAULT NULL,
   `lon` double DEFAULT NULL,
   `image` varchar(255) NOT NULL DEFAULT '',
