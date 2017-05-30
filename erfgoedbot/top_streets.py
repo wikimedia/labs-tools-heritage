@@ -3,6 +3,7 @@
 '''
 Make a list of top streets for a municipality. Bot expects two things on the commandline:
 * -countrycode : The country code (as it is in the database)
+* -langcode : The language code (as it is in the database)
 * -municipality : The name of the municipality (as it is in the database)
 * -minimum : (optional) The minimum of hits before we show the item
 '''
@@ -93,13 +94,19 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-langcode':
+            lang = value
         elif option == '-municipality':
             municipality = value
         elif option == '-minimum':
             minimum = int(value)
+        else:
+            raise Exception(
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-municipality", "-minimum" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
-    if countrycode and municipality:
-        lang = pywikibot.getSite().language()
+    if countrycode and lang and municipality:
         addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
         printTopStreets(addresses, minimum)
     else:
