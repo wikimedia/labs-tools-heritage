@@ -8,7 +8,7 @@ Usage:
 python update_database.py
 
 # work on specific country-lang
-python update_database.py -countrycode:XX -lang:YY
+python update_database.py -countrycode:XX -langcode:YY
 
 '''
 import warnings
@@ -390,6 +390,7 @@ def main():
     # First find out what to work on
 
     countrycode = u''
+    lang = u''
     fullUpdate = True
     daysBack = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
@@ -400,17 +401,19 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-langcode':
+            lang = value
         elif option == '-daysback':
             daysBack = int(value)
-        elif option == u'-fullupdate':
+        elif option == u'-fullupdate':  # does nothing since already default
             fullUpdate = True
         else:
             raise Exception(
-                "Bad parameters. Expected -countrycode, -daysback, "
-                "-fullupdate or pywikibot args.")
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-daysback", "-fullupdate" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (
@@ -428,7 +431,9 @@ def main():
             pywikibot.error(
                 u"Unknown error occurred when processing country "
                 u"%s in lang %s\n%s" % (countrycode, lang, str(e)))
-
+    elif countrycode or lang:
+        raise Exception(u'The "countrycode" and "langcode" arguments must '
+                        u'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             pywikibot.log(

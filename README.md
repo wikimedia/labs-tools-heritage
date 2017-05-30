@@ -24,7 +24,7 @@ python fill_table_monuments_all.py
 docker-compose -f docker-compose-bot.yml up --build -d
 
 # Run the bot to harvest a country
-docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_database.py -countrycode:ge -lang:ka -log
+docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
 
 # Update the monuments_all table
 docker-compose -f docker-compose-bot.yml run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql
