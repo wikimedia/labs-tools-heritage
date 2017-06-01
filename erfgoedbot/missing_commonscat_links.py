@@ -8,7 +8,7 @@ Usage:
 # loop thtough all countries
 python missing_commonscat_links.py
 # work on specific country-lang
-python missing_commonscat_links.py -countrycode:XX -lang:YY
+python missing_commonscat_links.py -countrycode:XX -langcode:YY
 
 '''
 import re
@@ -200,6 +200,7 @@ def makeStatistics(mconfig, totals):
 
 def main():
     countrycode = u''
+    lang = u''
     conn = None
     cursor = None
     # Connect database, we need that
@@ -210,9 +211,14 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-langcode':
+            lang = value
+        else:
+            raise Exception(
+                u'Bad parameters. Expected "-countrycode", "-langcode" or '
+                u'pywikibot args. Found "{}"'.format(option))
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -221,6 +227,9 @@ def main():
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
+    elif countrycode or lang:
+        raise Exception(u'The "countrycode" and "langcode" arguments must '
+                        u'be used together.')
     else:
         totals = {}
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():

@@ -13,7 +13,7 @@ Usage:
 python categorize_images.py
 
 * Just process one source:
-python categorize_images.py -countrycode:ee -lang:et
+python categorize_images.py -countrycode:ee -langcode:et
 
 '''
 import json
@@ -497,8 +497,8 @@ def getCommonscatTemplates(lang=None, project=None):
 def main():
 
     countrycode = u''
-    overridecat = u''
     lang = u''
+    overridecat = u''
     conn = None
     cursor = None
     # Connect database, we need that
@@ -508,11 +508,16 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-langcode':
+            lang = value
         elif option == '-overridecat':
             overridecat = value
+        else:
+            raise Exception(
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-overridecat" or pywikibot args. Found "{}"'.format(option))
 
-    if countrycode:
-        lang = pywikibot.Site().language()
+    if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
@@ -525,6 +530,9 @@ def main():
         # print commonsCatTemplates
         processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
                        conn, cursor, overridecat=overridecat)
+    elif countrycode or lang:
+        raise Exception(u'The "countrycode" and "langcode" arguments must '
+                        u'be used together.')
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
