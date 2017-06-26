@@ -8,7 +8,8 @@
 			"Przemub",
 			"Sp5uhe",
 			"Woytecr",
-			"Chrumps"
+			"Chrumps",
+			"InternerowyGołąb"
 		]
 	},
 	"search-title": "Wyszukiwanie zabytków",
@@ -20,6 +21,7 @@
 	"search-table-tr-name": "Nazwa",
 	"search-table-tr-address": "Adres",
 	"search-table-tr-coordinates": "Współrzędne",
+	"search-table-button-search": "Szukaj",
 	"filter-all-countries": "Wszystkie kraje",
 	"filter-all-languages": "Wszystkie języki",
 	"db-field-country": "Państwo",
@@ -51,6 +53,7 @@
 	"db-field-st_total": "Liczba całkowita",
 	"toolbox-label-searchtipps": "użyj inteligentnego wyszukiwania %termin or termin% or %termin%",
 	"toolbox-meta-title": "Zestaw narzędzi Wiki Lubi Zabytki",
+	"toolbox-main-logo-alt": "Logo Wiki Lubi Zabytki",
 	"toolbox-main-title": "Zestaw narzędzi WKZ",
 	"toolbox-main-description": "Zestaw narzędzi powiązanych z $1",
 	"toolbox-wikilovesmonuments": "Wiki Lubi Zabytki",
@@ -58,5 +61,7 @@
 	"toolbox-nav-statistics": "Statystyki",
 	"toolbox-nav-search": "Szukaj",
 	"toolbox-title-searchmonuments": "Szukaj zabytków",
-	"location": "Lokalizacja"
+	"toolbox-title-statistics": "Statystyki zabytku",
+	"location": "Lokalizacja",
+	"source-monuments-list": "Lista zabytków w Wikipedii"
 }
