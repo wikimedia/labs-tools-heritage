@@ -20,6 +20,7 @@ import re
 import pywikibot
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -122,7 +123,7 @@ def processCountry(countrycode, lang, countryconfig, coordconfig,
             aMonument.article = redirTitle
         if (pageId):
             if not hasCoordinates(pageId, lang, cursorWiki):
-                addCoords(countrycode, lang, aMonument, coordconfig)
+                addCoords(countrycode, lang, aMonument, coordconfig, countryconfig)
 
 
 def getMonumentsWithCoordinates(countrycode, lang, cursor):
@@ -230,7 +231,7 @@ def getRedirPageNsTitle(pageId, cursor):
         return (pageNs, pageTitle)
 
 
-def addCoords(countrycode, lang, monument, coordconfig):
+def addCoords(countrycode, lang, monument, coordconfig, countryconfig):
     '''
     Add the coordinates to article.
     '''
@@ -269,11 +270,13 @@ def addCoords(countrycode, lang, monument, coordconfig):
         newtext = re.sub(catStart, replacementText, newtext, replCount, flags=re.IGNORECASE)
 
         if text != newtext:
-            wikilist = u''
-            matchWikipage = re.search("title=(.+?)&", monument.source)
-            if (matchWikipage and matchWikipage.group(1)):
-                wikilist = matchWikipage.group(1)
-            comment = u'Adding template %s based on [[%s]], # %s' % (coordTemplate, wikilist, monument.id)
+            try:
+                source_link = common.get_source_link(
+                    monument.source,
+                    countryconfig.get('type'))
+            except ValueError:
+                source_link = ''
+            comment = u'Adding template %s based on %s, # %s' % (coordTemplate, source_link, monument.id)
             pywikibot.showDiff(text, newtext)
             modPage = pywikibot.input(u'Modify page: %s ([y]/n) ?' % (monument.article))
             if (modPage.lower == 'y' or modPage == ''):
