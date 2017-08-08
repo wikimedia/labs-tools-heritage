@@ -379,7 +379,7 @@ def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
         if page.exists() and not page.isRedirectPage():
             # Do some checking
             unknownFields = processPage(
-                page, page.permalink(), countryconfig,
+                page, page.permalink(percent_encoded=False), countryconfig,
                 conn, cursor, unknownFields=unknownFields)
 
     unknownFieldsStatistics(countryconfig, unknownFields)

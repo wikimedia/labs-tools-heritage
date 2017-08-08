@@ -4,6 +4,8 @@ ini_set( 'display_errors', true );
 ini_set( 'html_errors', false );
 
 require_once dirname( __DIR__ ) . '/api/common.php';
+require_once ( '/api/includes/CommonFunctions.php' );
+
 
 $db = Database::getDb();
 print '<html>';
@@ -53,8 +55,11 @@ if ( isset( $_GET["country"] ) and isset( $_GET["lang"] ) ) {
 			<td></td>
 		</tr>';
 		foreach ( $dres as $drow ) {
+			$m = matchWikiprojectLink( $drow->source );
+			$linkText = str_replace( '_', ' ', $m[5] );
+			$encodedLink = urlencodeWikiprojectLink( $m );
 			print '<tr>
-				<td><a href="'. htmlspecialchars( $drow->source ) .'">' . htmlspecialchars( $drow->source ) . '</a></td>
+				<td><a href="'. htmlspecialchars( $encodedLink ) .'">' . htmlspecialchars( $linkText ) . '</a></td>
 			</tr>';
 		}
 	}

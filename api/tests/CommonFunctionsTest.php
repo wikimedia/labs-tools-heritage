@@ -123,6 +123,66 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($expected, matchWikiprojectLink($input));
 	}
 
+	public function test_matchWikiprojectLink_match_with_unicode()
+	{
+		$input = 'https://sv.wikipedia.org/w/index.php?title=ö&oldid=00000';
+		$expected = Array(
+			"https://sv.wikipedia.org/w/index.php?title=ö&oldid=00000",
+			"https:",
+			"sv.wikipedia.org/w/index.php?title=ö&oldid=00000",
+			"sv",
+			"wikipedia",
+			"ö",
+			"00000"
+			);
+		$this->assertEquals($expected, matchWikiprojectLink($input));
+	}
+
+	public function test_urlencodeWikiprojectLink_without_unicode()
+	{
+		$input = Array(
+			"https://fr.wikivoyage.org/w/index.php?title=Hello_World&oldid=00000",
+			"https:",
+			"fr.wikivoyage.org/w/index.php?title=Hello_World&oldid=00000",
+			"fr",
+			"wikivoyage",
+			"Hello_World",
+			"00000"
+			);
+		$expected = 'fr.wikivoyage.org/w/index.php?title=Hello_World&oldid=00000';
+		$this->assertEquals($expected, urlencodeWikiprojectLink($input));
+	}
+
+	public function test_urlencodeWikiprojectLink_with_unicode()
+	{
+		$input = Array(
+			"https://sv.wikipedia.org/w/index.php?title=ö&oldid=00000",
+			"https:",
+			"sv.wikipedia.org/w/index.php?title=ö&oldid=00000",
+			"sv",
+			"wikipedia",
+			"ö",
+			"00000"
+			);
+		$expected = 'sv.wikipedia.org/w/index.php?title=%C3%B6&oldid=00000';
+		$this->assertEquals($expected, urlencodeWikiprojectLink($input));
+	}
+
+	public function test_urlencodeWikiprojectLink_drop_oldid()
+	{
+		$input = Array(
+			"https://fr.wikivoyage.org/w/index.php?title=Hello_World&oldid=00000",
+			"https:",
+			"fr.wikivoyage.org/w/index.php?title=Hello_World&oldid=00000",
+			"fr",
+			"wikivoyage",
+			"Hello_World",
+			"00000"
+			);
+		$expected = 'fr.wikivoyage.org/w/index.php?title=Hello_World';
+		$this->assertEquals($expected, urlencodeWikiprojectLink($input, true));
+	}
+
 	public function test_replaceSpaces()
 	{
 		$this->assertEquals(
@@ -161,6 +221,19 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 			"",
 			makeWikidataWikilink("")
 		);
+	}
+
+	public function test_makeHTMLlink_with_one_argument_uses_the_url_as_text() {
+		$input = 'http://example.com';
+		$expected = '<a href="http://example.com">http://example.com</a>';
+		$this->assertEquals( $expected, makeHTMLlink( $input ) );
+	}
+
+	public function test_makeHTMLlink_two_arguments() {
+		$input1 = 'http://example.com';
+		$input2 = 'Example';
+		$expected = '<a href="http://example.com">Example</a>';
+		$this->assertEquals( $expected, makeHTMLlink( $input1, $input2 ) );
 	}
 }
 ?>
