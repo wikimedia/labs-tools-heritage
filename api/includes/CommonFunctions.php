@@ -53,7 +53,8 @@ function matchWikiprojectLink($text) {
 	$projects = array("wikipedia", "wikivoyage", "wikidata", "wikimedia");
 	$projectRegex = "(" . join("|", $projects) . ")";
 	$var = NULL;
-	if (!preg_match( '/(https?:)?\/\/(([a-z\-]+)\.' . $projectRegex . '\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/', $text, $var )) {
+	$pattern = '/(https?:)?\/\/(([a-z\-]+)\.' . $projectRegex . '\.org\/w\/index\.php\?title=(.*)&oldid=(.*))/';
+	if ( !preg_match( $pattern, $text, $var )) {
 		throw new Exception('No project link in text.');
 	}
 	return $var;
@@ -61,6 +62,16 @@ function matchWikiprojectLink($text) {
 
 function replaceSpaces( $in_string ) {
 	return str_replace(' ', '_', $in_string);
+}
+
+function matchWikidataQid($url) {
+	/* Extract the Qid from a Wikidata page or entity link */
+	$var = NULL;
+	$pattern = '/(https?:)?\/\/(www\.wikidata\.org\/(wiki|entity)\/(.*))/';
+	if ( !preg_match( $pattern, $url, $var )) {
+		throw new Exception('The provided url was not a wikidata link.');
+	}
+	return $var;
 }
 
 function makeWikidataUrl($qid) {

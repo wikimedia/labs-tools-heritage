@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: matchWikiprojectLink, makeWikidataWikilink
+// functions: matchWikiprojectLink, makeWikidataWikilink, matchWikidataQid
 require_once ( 'CommonFunctions.php' );
 
 class FormatWikitable extends FormatBase {
@@ -36,7 +36,7 @@ class FormatWikitable extends FormatBase {
 		$continue = substr( $continue, 1 );
 
 		echo '|}';
-$this->linebreak();
+		$this->linebreak();
 		$this->isTableOpen = false;
 
 		echo '<p style="text-align:right;">[https://tools.wmflabs.org/heritage' .
@@ -50,7 +50,7 @@ $this->linebreak();
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
 					echo '!' . $name;
-$this->linebreak();
+					$this->linebreak();
 				}
 			}
 			$this->isTableOpen = true;
@@ -71,7 +71,7 @@ $this->linebreak();
 				}
 
 				echo '|' . $cellData;
-$this->linebreak();
+				$this->linebreak();
 			}
 		}
 	}
@@ -91,8 +91,14 @@ $this->linebreak();
 			$linkText = urldecode( $encodedLinkText );
 			return '[//' . htmlspecialchars( $m[2] ) .' '. htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
 		} catch ( Exception $e ) {
-			// Normal text
-			return htmlspecialchars( $text );
+			// Possibly a wikidata entity/wiki link
+			try {
+				$m = matchWikidataQid( $text );
+				return '[[:d:' . $m[4] . '|' . $m[4] . ']]';
+			} catch ( Exception $e ) {
+				// Normal text
+				return htmlspecialchars( $text );
+			}
 		}
 	}
 
