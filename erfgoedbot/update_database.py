@@ -21,6 +21,7 @@ import pywikibot.data.sparql
 from pywikibot import pagegenerators
 
 import monuments_config as mconfig
+import common as common
 from converters import (
     extractWikilink,
     extract_elements_from_template_param,
@@ -257,6 +258,9 @@ def process_monument_wikidata(params, countryconfig, conn, cursor):
     if params['adminLabel']:
         params['admin'] = params['adminLabel'].value
 
+    if params['monument_article']:
+        params['monument_article'], _site = common.get_page_from_url(params['monument_article'].value)
+
     params['source'] = params['item'].value
     params['wd_item'] = params['item'].getID()
 
@@ -473,7 +477,8 @@ def process_country_wikidata(countryconfig, conn, cursor):
 
     sparql_query = sparql_template % dict(
         select_statement=sparql_select,
-        lang=countryconfig.get('lang')
+        lang=countryconfig.get('lang'),
+        project=countryconfig.get('project')
     )
     # print sparql_query
     sq = pywikibot.data.sparql.SparqlQuery()

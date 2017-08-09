@@ -1,9 +1,11 @@
 # MonumentsDB harvest
-SELECT DISTINCT ?item ?itemLabel ?id ?admin ?adminLabel ?image ?commonscat ?address ?coordinate WHERE {
+SELECT DISTINCT ?item ?itemLabel ?id ?monument_article ?admin ?adminLabel ?image ?commonscat ?address ?coordinate WHERE {
   # Make it properties and filter out end time
 
   %(select_statement)s .
 
+  OPTIONAL { ?monument_article schema:about ?item;
+                               schema:isPartOf <https://%(lang)s.%(project)s.org/>; } .
   OPTIONAL { ?item wdt:P131 ?admin } .
   OPTIONAL { ?item wdt:P18  ?image } .
   OPTIONAL { ?item wdt:P373 ?commonscat } .

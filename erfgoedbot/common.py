@@ -29,6 +29,19 @@ def get_source_link(source, harvest_type=None, label=None):
     return '[[{0}]]'.format(page_title)
 
 
+def get_page_from_url(url):
+    """
+    Retrieve the wikipage and site from a page or entity url.
+    """
+    supported_sites = ['wikipedia', 'wikivoyage', 'wikidata', 'wikimedia']
+    pattern = '\/\/(.+?)\.({0})\.org\/(wiki|entity)\/(.+?)$'.format(
+        '|'.join(supported_sites))
+    m = re.search(pattern, url)
+    site = (m.group(2), m.group(1))
+    page_name = m.group(4)
+    return (page_name, site)
+
+
 def get_source_page(source, harvest_type=None):
     """
     Retrieve the wikipage and site from the source field.
@@ -43,8 +56,11 @@ def get_source_page(source, harvest_type=None):
     site = None
     page_name = None
     if harvest_type == 'sparql':
-        site = ('wikidata', 'www')
-        page_name = source.split('/')[-1]
+        try:
+            return get_page_from_url(source)
+        except AttributeError:
+            raise ValueError(
+                u'Could not find source list ({0})'.format(source))
     else:
         supported_sites = ['wikipedia', 'wikivoyage', 'wikidata', 'wikimedia']
         pattern = '\/\/(.+?)\.({0})\.org\/w\/index\.php\?title=(.+?)&'.format(
