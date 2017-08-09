@@ -132,7 +132,7 @@ def normalize_identifier(data):
         # All uppercase, same happens in other list
         # monumentId = monumentId.upper()
         return monumentId
-    except (UnicodeDecodeError, TypeError) as e:
+    except (UnicodeDecodeError, TypeError, IndexError) as e:
         raise CannotNormalizeException(e)
 
 
