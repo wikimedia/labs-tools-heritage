@@ -29,6 +29,24 @@ class TestGetSourcePage(unittest.TestCase):
         self.assertEquals(result, ('Q123', ('wikidata', 'www')))
 
 
+class TestGetPageFromUrl(unittest.TestCase):
+
+    def test_get_page_from_url_entity(self):
+        source = 'http://www.wikidata.org/entity/Q123'
+        result = common.get_page_from_url(source)
+        self.assertEquals(result, ('Q123', ('wikidata', 'www')))
+
+    def test_get_page_from_url_page(self):
+        source = 'http://www.wikidata.org/wiki/Q123'
+        result = common.get_page_from_url(source)
+        self.assertEquals(result, ('Q123', ('wikidata', 'www')))
+
+    def test_get_page_from_url_wikipedia(self):
+        source = 'http://en.wikipedia.org/entity/foo'
+        result = common.get_page_from_url(source)
+        self.assertEquals(result, ('foo', ('wikipedia', 'en')))
+
+
 class TestGetSourceLink(unittest.TestCase):
 
     def setUp(self):
