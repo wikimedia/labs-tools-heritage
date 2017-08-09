@@ -72,7 +72,7 @@
         },
         {
             "dest": "monument_article",
-            "source": "denumire",
+            "source": "Denumire",
             "conv": "extractWikilink"
         }
     ],
