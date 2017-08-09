@@ -11,11 +11,10 @@ python unused_monument_images.py
 python unused_monument_images.py -countrycode:XX -langcode:YY
 
 '''
-import re
-
 import pywikibot
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -72,23 +71,22 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
                 monumentId = monumentId.upper()
 
             if monumentId in withoutPhoto:
-                m = re.search(
-                    '^[^\?]+\?title\=(.+?)&', withoutPhoto.get(monumentId))
                 try:
-                    wikiSourceList = m.group(1)
-                except AttributeError:
+                    source_link = common.get_source_link(
+                        withoutPhoto.get(monumentId),
+                        countryconfig.get('type'),
+                        monumentId)
+                except ValueError:
                     pywikibot.warning(
                         u'Could not find wikiSourceList for %s (%s)' % (
                             monumentId, withoutPhoto.get(monumentId)))
                     continue
                 imageName = photos.get(catSortKey)
                 # pywikibot.output(u'Key %s returned a result' % (monumentId,))
-                # pywikibot.output(wikiSourceList)
                 # pywikibot.output(imageName)
                 if totalImages <= maxImages:
-                    text += \
-                        u'File:%s|[[%s|%s]]\n' % (
-                            unicode(imageName, 'utf-8'), wikiSourceList, monumentId)
+                    text += u'File:{0}|{1}\n'.format(
+                        unicode(imageName, 'utf-8'), source_link)
                 totalImages += 1
         except ValueError:
             pywikibot.warning(u'Got value error for %s' % (monumentId,))
