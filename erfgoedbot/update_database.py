@@ -15,6 +15,9 @@ import os
 import warnings
 import datetime
 import urlparse
+import time
+
+from requests.exceptions import Timeout
 
 import pywikibot
 import pywikibot.data.sparql
@@ -482,7 +485,13 @@ def process_country_wikidata(countryconfig, conn, cursor):
     )
     # print sparql_query
     sq = pywikibot.data.sparql.SparqlQuery()
-    query_result = sq.select(sparql_query, full_data=True)
+    try:
+        query_result = sq.select(sparql_query, full_data=True)
+    except Timeout:
+        pywikibot.output('Sparql endpoint being slow, giving it a moment...')
+        time.sleep(10)
+        query_result = sq.select(sparql_query, full_data=True)
+
     for resultitem in query_result:
         process_monument_wikidata(resultitem, countryconfig, conn, cursor)
 
