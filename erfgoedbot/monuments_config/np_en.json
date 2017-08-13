@@ -4,7 +4,6 @@
     "description": "Monuments in Nepal in English",
     "project": "wikipedia",
     "namespaces": [
-        0,
         118
     ],
     "table": "monuments_np_(en)",
@@ -69,10 +68,6 @@
             "dest": "monument_article",
             "source": "description",
             "conv": "extractWikilink"
-        },
-        {
-            "dest": "registrant_url",
-            "source": "number"
         }
     ],
     "sql_lang": "English",
@@ -144,10 +139,6 @@
         },
         "monument_article": {
             "value": "monument_article",
-            "type": "Field"
-        },
-        "registrant_url": {
-            "value": "registrant_url",
             "type": "Field"
         }
     }
