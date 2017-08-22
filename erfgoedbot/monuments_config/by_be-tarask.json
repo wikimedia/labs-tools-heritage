@@ -4,6 +4,7 @@
     "description": "Belarus in Belarussian",
     "project": "wikipedia",
     "namespaces": [
+        0,
         4
     ],
     "table": "monuments_by_(be-tarask)",
@@ -26,14 +27,6 @@
         {
             "dest": "name",
             "source": "назва"
-        },
-        {
-            "dest": "oblast-iso",
-            "source": "vobłaść-iso"
-        },
-        {
-            "dest": "rajon",
-            "source": "rajon"
         },
         {
             "dest": "date",
@@ -78,6 +71,10 @@
             "source": "грамадзкі набытак"
         },
         {
+            "dest": "",
+            "source": "схаваць"
+        },
+        {
             "dest": "monument_article",
             "source": "name",
             "conv": "extractWikilink"
@@ -101,14 +98,6 @@
         "adm0": {
             "value": "by",
             "type": "Text"
-        },
-        "adm1": {
-            "value": "LOWER(`oblast-iso`)",
-            "type": "Raw"
-        },
-        "adm2": {
-            "value": "rajon",
-            "type": "Field"
         },
         "name": {
             "value": "name",
