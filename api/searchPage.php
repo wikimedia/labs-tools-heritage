@@ -82,7 +82,7 @@ class SearchPage {
 		$result[] = '<td><label>' . _i18n( 'search-table-tr-images' ) . '</label></td>';
 		$result[] = '<td><!-- Not search images --></td>';
 		$result[] = '<td>';
-		$result[] = '<input type="checkbox" name="srwithoutimages" id="srwithoutimages" value="1"><label for="srwithoutimages">' . _i18n( 'search-table-checkbox-only-images' ) . '</label>';
+		$result[] = '<input type="checkbox" name="srwithoutimage" id="srwithoutimage" value="1"><label for="srwithoutimage">' . _i18n( 'search-table-checkbox-only-images' ) . '</label>';
 	// $result = array_merge($result, $this->getImagesSelect());
 		$result[] = '</td>';
 		$result[] = '</tr>';
