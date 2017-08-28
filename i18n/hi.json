@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ansumang",
-			"Siddhartha Ghai"
+			"Siddhartha Ghai",
+			"Sachinkatiyar"
 		]
 	},
 	"search-title": "स्मारक खोज",
@@ -10,6 +11,18 @@
 	"search-table-th-field": "फ़ील्ड",
 	"search-table-th-filter": "फ़िल्टर",
 	"search-table-th-search": "खोजें",
+	"search-table-th-output": "आउटपुट",
+	"search-table-tr-countries": "देशों",
+	"search-table-tr-languages": "भाषाएँ",
+	"search-table-tr-name": "नाम",
+	"search-table-tr-address": "पता",
+	"search-table-tr-municipality": "नगर पालिका",
+	"search-table-tr-coordinates": "निर्देशांक",
+	"search-table-tr-images": "छवियाँ",
+	"search-table-tr-output-language": "आउटपुट भाषा",
+	"search-table-tr-output-format": "आउटपुट रूपरेखा",
+	"search-table-checkbox-only-images": "केवल स्मारकों छवियों के बिना",
+	"search-table-button-search": "खोजें",
 	"filter-all-countries": "सभी देश",
 	"filter-all-languages": "सभी भाषाएँ",
 	"db-field-country": "देश",
@@ -24,6 +37,10 @@
 	"db-field-changed": "परिवर्तित",
 	"db-field-source": "स्रोत",
 	"db-field-monument_article": "स्मारक पर लेख",
+	"db-field-registrant_url": "पंजीकरण URL",
+	"db-field-commonscat": "कामन्स श्रेणी",
+	"db-field-wd_item": "विकीडेटा वस्तु",
+	"db-field-project": "विकिमीडिया की परियोजनाएं",
 	"db-field-st_address": "पते",
 	"db-field-st_address_pct": "पते %",
 	"db-field-st_coordinates": "निर्देशांक",
