@@ -503,6 +503,7 @@ def main():
     countrycode = u''
     lang = u''
     fullUpdate = True
+    skip_wd = False
     daysBack = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
@@ -518,6 +519,8 @@ def main():
             daysBack = int(value)
         elif option == u'-fullupdate':  # does nothing since already default
             fullUpdate = True
+        elif option == u'-skip_wd':
+            skip_wd = True
         else:
             raise Exception(
                 u'Bad parameters. Expected "-countrycode", "-langcode", '
@@ -547,6 +550,9 @@ def main():
                         u'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            if (countryconfig.get('skip') or
+                    (skip_wd and (countryconfig.get('type') == 'sparql'))):
+                continue
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (
                     countrycode, lang))
