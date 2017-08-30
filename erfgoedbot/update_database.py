@@ -16,6 +16,7 @@ import datetime
 
 import pywikibot
 from pywikibot import pagegenerators
+from pywikibot.exceptions import OtherPageSaveError
 
 import monuments_config as mconfig
 from converters import (
@@ -149,7 +150,10 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
     text += u'|}\n'
     text += u'[[Category:Commons:Monuments database/Unknown fields]]'
     comment = u'Updating the list of unknown fields'
-    page.put(text, comment)
+    try:
+        page.put(text, comment)
+    except OtherPageSaveError:
+        pywikibot.warning("Could not save page %s (%s)" % (page, comment))
 
 
 def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
