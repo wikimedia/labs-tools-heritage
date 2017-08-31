@@ -28,7 +28,7 @@ done
 
 # Update all of the source tables
 echo_time "Full source database update..."
-$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate -log
+$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate -log -skip_wd
 
 # Update the all monuments table
 echo_time "Update monuments_all table..."
