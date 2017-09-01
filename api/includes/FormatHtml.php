@@ -88,6 +88,9 @@ class FormatHtml extends FormatBase {
 				} elseif ( $name == "wd_item" ) {
 					$link = makeWikidataUrl( $value );
 					$cellData = makeHTMLlink( $link, $value );
+				} elseif ( $name == "commonscat" ) {
+					$link = makeCommonsCatUrl( $value );
+					$cellData = makeHTMLlink( $link, $value );
 				} elseif ( in_array( $name, $hasWikitext ) ) {
 					$makeLinks = true;
 					// not all datasets are ResultWrapper

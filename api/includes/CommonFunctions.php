@@ -142,3 +142,21 @@ function makeHTMLlink( $url, $text=false ) {
 	}
 	return '<a href="' . htmlspecialchars( $url ) . '">' . htmlspecialchars( $text ) . '</a>';
 }
+
+function makeCommonsCatUrl($cat) {
+	/* Creates a URL to Commons from a category name */
+	if ( $cat ) {
+		return "https://commons.wikimedia.org/wiki/Category:$cat";
+	} else {
+		return '';
+	}
+}
+
+function makeCommonsCatWikilink($cat) {
+	/* Creates a wikilink to Commons from a category name */
+	if ( $cat ) {
+		return "[[c:Category:$cat]]";
+	} else {
+		return '';
+	}
+}

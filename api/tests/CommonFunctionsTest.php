@@ -300,5 +300,37 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		$expected = '<a href="http://example.com">Example</a>';
 		$this->assertEquals( $expected, makeHTMLlink( $input1, $input2 ) );
 	}
+
+	public function test_makeCommonsCatUrl()
+	{
+		$this->assertEquals(
+			"https://commons.wikimedia.org/wiki/Category:Foreground flowers",
+			makeCommonsCatUrl("Foreground flowers")
+		);
+	}
+
+	public function test_makeCommonsCatUrl_empty_returns_empty_string()
+	{
+		$this->assertEquals(
+			"",
+			makeCommonsCatUrl("")
+		);
+	}
+
+	public function test_makeCommonsCatWikilink()
+	{
+		$this->assertEquals(
+			"[[c:Category:Foreground flowers]]",
+			makeCommonsCatWikilink("Foreground flowers")
+		);
+	}
+
+	public function test_makeCommonsCatWikilink_empty_returns_empty_string()
+	{
+		$this->assertEquals(
+			"",
+			makeCommonsCatWikilink("")
+		);
+	}
 }
 ?>
