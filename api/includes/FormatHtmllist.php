@@ -111,6 +111,8 @@ class FormatHtmllist extends FormatBase {
 							$desc .= makeHTMLlink( $row->registrant_url, $value );
 						} elseif ( strcmp( $name, 'wd_item' ) == 0 ) {
 							$desc .= makeHTMLlink( makeWikidataUrl( $value ), $value );
+						} elseif ( strcmp( $name, 'commonscat' ) == 0 ) {
+							$desc .= makeHTMLlink( makeCommonsCatUrl( $value ), $value );
 						} else {
 							$desc .= htmlspecialchars( $value );
 						}

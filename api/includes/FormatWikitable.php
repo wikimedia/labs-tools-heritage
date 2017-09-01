@@ -66,6 +66,8 @@ class FormatWikitable extends FormatBase {
 					$cellData = self::prettifyUrls( $value );
 				} elseif ( $name == "wd_item" ) {
 					$cellData = makeWikidataWikilink( $value );
+				} elseif ( $name == "commonscat" ) {
+					$cellData = makeCommonsCatWikilink( $value );
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}
