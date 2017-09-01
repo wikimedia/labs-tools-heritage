@@ -4,7 +4,7 @@ error_reporting( E_ALL );
  * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work
  */
-// functions: matchWikiprojectLink, makeWikidataWikilink
+// functions: matchWikiprojectLink, makeWikidataWikilink, matchWikidataQid
 require_once ( 'CommonFunctions.php' );
 
 class FormatWikitable extends FormatBase {
@@ -92,8 +92,14 @@ class FormatWikitable extends FormatBase {
 			return '[//' . htmlspecialchars( $encodedLink ) . ' ' .
 				htmlspecialchars( $m[3] . ': ' . $linkText ) . ']';
 		} catch ( Exception $e ) {
-			// Normal text
-			return htmlspecialchars( $text );
+			// Possibly a wikidata entity/wiki link
+			try {
+				$m = matchWikidataQid( $text );
+				return '[[:d:' . $m[4] . '|' . $m[4] . ']]';
+			} catch ( Exception $e ) {
+				// Normal text
+				return htmlspecialchars( $text );
+			}
 		}
 	}
 

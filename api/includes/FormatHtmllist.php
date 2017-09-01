@@ -5,7 +5,7 @@ error_reporting( E_ALL );
  * This output is for users (and not automated tools) so internationalization will be used.
  *
  */
-// functions: processWikitext, matchWikiprojectLink, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink
+// functions: processWikitext, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink, matchUrl
 require_once ( 'CommonFunctions.php' );
 
 class FormatHtmllist extends FormatBase {
@@ -124,7 +124,7 @@ class FormatHtmllist extends FormatBase {
 		}
 
 		if ( isset( $row->source ) and $row->source ) {
-			$m = matchWikiprojectLink( $row->source );
+			$m = self::matchUrl( $row->source );
 			if ( $m ) {
 				$encodedLink = '//' . urlencodeWikiprojectLink( $m, true );
 				$desc .= '<li>';
@@ -159,6 +159,25 @@ class FormatHtmllist extends FormatBase {
 			}
 		}
 		$this->outputEnd();
+	}
+
+	/**
+	 * Return a mathing wikiproject or wikidata url
+	 */
+	static function matchUrl( $url ) {
+		try {
+			$m = matchWikiprojectLink( $url );
+			return $m[2];
+		} catch ( Exception $e ) {
+			// Possibly a wikidata entity/wiki link
+			try {
+				$m = matchWikidataQid( $url );
+				return $m[2];
+			} catch ( Exception $e ) {
+				// Normal text
+				return null;
+			}
+		}
 	}
 
 }

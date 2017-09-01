@@ -191,6 +191,67 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function test_matchWikidataQid_no_match()
+	{
+		$input = 'not-a-link';
+		$this->setExpectedException('Exception');  // present in phpUnit 4.8
+		// $this->expectException('Exception');  // present in phpUnit 5.2+
+		// $this->expectExceptionMessage('The provided url was not a wikidata link.');  // present in phpUnit 5.2+
+		matchWikidataQid( $input );
+	}
+
+	public function test_matchWikidataQid_entity()
+	{
+		$input = "https://www.wikidata.org/entity/Q5943";
+		$expected = Array(
+			"https://www.wikidata.org/entity/Q5943",
+			"https:",
+			"www.wikidata.org/entity/Q5943",
+			"entity",
+			"Q5943"
+			);
+		$this->assertEquals($expected, matchWikidataQid($input));
+	}
+
+	public function test_matchWikidataQid_wikipage()
+	{
+		$input = "https://www.wikidata.org/wiki/Q5943";
+		$expected = Array(
+			"https://www.wikidata.org/wiki/Q5943",
+			"https:",
+			"www.wikidata.org/wiki/Q5943",
+			"wiki",
+			"Q5943"
+			);
+		$this->assertEquals($expected, matchWikidataQid($input));
+	}
+
+	public function test_matchWikidataQid_http()
+	{
+		$input = "http://www.wikidata.org/entity/Q5943";
+		$expected = Array(
+			"http://www.wikidata.org/entity/Q5943",
+			"http:",
+			"www.wikidata.org/entity/Q5943",
+			"entity",
+			"Q5943"
+			);
+		$this->assertEquals($expected, matchWikidataQid($input));
+	}
+
+	public function test_matchWikidataQid_no_protocol()
+	{
+		$input = "//www.wikidata.org/entity/Q5943";
+		$expected = Array(
+			"//www.wikidata.org/entity/Q5943",
+			"",
+			"www.wikidata.org/entity/Q5943",
+			"entity",
+			"Q5943"
+			);
+		$this->assertEquals($expected, matchWikidataQid($input));
+	}
+
 	public function test_makeWikidataUrl()
 	{
 		$this->assertEquals(

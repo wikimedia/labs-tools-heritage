@@ -121,7 +121,7 @@ class ApiMonuments extends ApiBase {
 		$fulltextColumns = [ 'name' => 1 ];
 
 		if ( $this->getParam( 'format' ) == 'dynamickml' ) {
-			# don't search just pass along the search parameters to kml network link file
+			// don't search just pass along the search parameters to kml network link file
 			$DynKml = new DynamicKml;
 			$reqUrl = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 			$DynKml->output( $reqUrl );

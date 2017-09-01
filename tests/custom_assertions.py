@@ -21,6 +21,19 @@ class CustomAssertions:
             diff = set(first) - set(second)
             raise AssertionError(error_msg % ', '.join(diff))
 
+    def assert_all_in_string(self, first, text, msg=None):
+        """Test that all first are in text, else append failing to msg."""
+        error_msg = u'[%%s] not found in %s' % text
+        if msg:
+            if not self.longMessage:
+                # msg itself specifies where to append failing
+                error_msg = msg
+            else:
+                error_msg = u'%s: %s' % (msg, error_msg)
+        not_found = filter(lambda s: s not in text, first)
+        if not_found:
+            raise AssertionError(error_msg % ', '.join(not_found))
+
     def assert_is_ascii(self, text, msg=None):
         """Assert that a string is ascii."""
         error_msg = u'"%s" not ascii' % text

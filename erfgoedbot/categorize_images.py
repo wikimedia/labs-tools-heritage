@@ -18,14 +18,17 @@ python categorize_images.py -countrycode:ee -langcode:et
 '''
 import json
 import os
-import re
 
 import pywikibot
 from pywikibot import pagegenerators
 from pywikibot import textlib
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database
+import common as common
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 _logger = "categorize_images"
 
@@ -50,7 +53,9 @@ def _load_wikipedia_commonscat_templates():
     return json.load(open(json_file, 'r'))
 
 
-def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase, commonsCatTemplates, page, conn, cursor):
+def categorizeImage(
+        countrycode, lang, commonsTemplateName, commonsCategoryBase,
+        commonsCatTemplates, page, conn, cursor, harvest_type):
     pywikibot.log(u'Working on: %s' % page.title())
     site = pywikibot.Site(u'commons', u'commons')
     commonsTemplate = pywikibot.Page(site, 'Template:%s' % commonsTemplateName)
@@ -93,7 +98,7 @@ def categorizeImage(countrycode, lang, commonsTemplateName, commonsCategoryBase,
             u'Monument with id %s not in monuments database' % (monumentId, ))
         return False
 
-    (newcats, categorisation_method) = get_new_categories(monumentId, monData, lang, commonsCatTemplates)
+    (newcats, categorisation_method) = get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_type)
 
     # See if one of the three options worked
     if newcats:
@@ -121,7 +126,7 @@ def get_monument_id(page, commonsTemplate):
     return monumentId
 
 
-def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
+def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_type):
     (monumentName, monumentCommonscat,
      monumentArticleTitle, monumentSource, project) = monData
     commons_site = pywikibot.Site(u'commons', u'commons')
@@ -171,7 +176,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates):
                     monumentId, str(e)))
 
     # Option three is to see if the list contains Commonscat links (whole list)
-    if not newcats:
+    if not newcats and harvest_type != 'sparql':
         monumentList = getList(lang, project, monumentSource)
         # print monumentList
         if not monumentList:
@@ -256,16 +261,15 @@ def getMonData(countrycode, lang, monumentId, conn, cursor):
 
 
 def getList(lang, project, monumentSource):
-    '''
-    Get listpage
-    '''
+    """Get the listpage, if not harvested from a sparql query."""
     if monumentSource:
-        regex = u'^(https:)?//%s.%s.org/w/index.php\?title=(.+?)&' % (
-            lang, project)
-        match = re.search(regex, monumentSource)
-        if not match:
+        try:
+            page_title, found_site = common.get_source_page(monumentSource)
+        except ValueError:
             return False
-        page_title = match.group(2)
+        if (project, lang) != found_site:
+            return False
+
         site = pywikibot.Site(lang, project)
         return pywikibot.Page(site, page_title)
     else:
@@ -402,6 +406,7 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
     site = pywikibot.Site(u'commons', u'commons')
     generator = None
     commonsTemplate = countryconfig.get('commonsTemplate')
+    harvest_type = countryconfig.get('type')
 
     if overridecat:
         commonsCategoryBase = pywikibot.Category(site, "%s:%s" % (site.namespace(14), overridecat))
@@ -418,7 +423,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
         success = False
         if not totalImages >= 10000:
             success = categorizeImage(
-                countrycode, lang, commonsTemplate, commonsCategoryBase, commonsCatTemplates, page, conn, cursor)
+                countrycode, lang, commonsTemplate, commonsCategoryBase,
+                commonsCatTemplates, page, conn, cursor, harvest_type)
         if success:
             categorizedImages += 1
 
@@ -543,6 +549,8 @@ def main():
                 statistics.append(result)
 
         outputStatistics(statistics)
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

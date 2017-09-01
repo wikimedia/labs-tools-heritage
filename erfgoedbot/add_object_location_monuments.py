@@ -9,7 +9,11 @@ import pywikibot
 from pywikibot import pagegenerators
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database, connect_to_commons_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database,
+    connect_to_commons_database
+)
 
 
 def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
@@ -242,6 +246,8 @@ def main():
                     u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
                 locateCountry(
                     countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

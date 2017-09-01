@@ -11,7 +11,10 @@ from collections import Counter
 
 import pywikibot
 
-from database_connection import connect_to_monuments_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database
+)
 
 
 def getAddresses(countrycode, lang, municipality, conn, cursor):
@@ -111,6 +114,8 @@ def main():
         printTopStreets(addresses, minimum)
     else:
         print u'Usage'
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":

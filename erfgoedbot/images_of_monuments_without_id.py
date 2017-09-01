@@ -16,7 +16,11 @@ python images_of_monuments_without_id.py -countrycode:XX -langcode:YY
 import pywikibot
 
 import monuments_config as mconfig
-from database_connection import connect_to_monuments_database, connect_to_commons_database
+from database_connection import (
+    close_database_connection,
+    connect_to_monuments_database,
+    connect_to_commons_database
+)
 
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
@@ -222,6 +226,8 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+
+    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
