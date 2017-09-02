@@ -1,0 +1,143 @@
+{
+    "country": "pe",
+    "lang": "es",
+    "description": "Monuments in Peru in Spanish",
+    "project": "wikipedia",
+    "namespaces": [
+        104
+    ],
+    "table": "monuments_pe_(es)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "MonumentoPerú/encabezado",
+    "rowTemplate": "MonumentoPerú",
+    "commonsTemplate": "Monumento de Peru",
+    "commonsTrackerCategory": "Cultural heritage monuments in Peru with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Peru",
+    "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Perú sin usar",
+    "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Perú sin id",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id"
+        },
+        {
+            "dest": "monumento",
+            "source": "monumento"
+        },
+        {
+            "dest": "municipio",
+            "source": "municipio"
+        },
+        {
+            "dest": "localidad",
+            "source": "localidad"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "long",
+            "check": "checkLon"
+        },
+        {
+            "dest": "direccion",
+            "source": "dirección"
+        },
+        {
+            "dest": "monumento_enlace",
+            "source": "monumento_enlace"
+        },
+        {
+            "dest": "enlace",
+            "source": "enlace"
+        },
+        {
+            "dest": "monumento_desc",
+            "source": "monumento_desc"
+        },
+        {
+            "dest": "iso",
+            "source": "ISO"
+        },
+        {
+            "dest": "commonscat",
+            "source": "monumento_categoría"
+        },
+        {
+            "dest": "image",
+            "source": "imagen"
+        }
+    ],
+    "sql_lang": "Spanish",
+    "sql_country": "Peru",
+    "sql_data": {
+        "country": {
+            "value": "pe",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "es",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "pe",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`iso`)",
+            "type": "Raw"
+        },
+        "adm2": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "name": {
+            "value": "monumento",
+            "type": "Field"
+        },
+        "address": {
+            "value": "direccion",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipio",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monumento_enlace",
+            "type": "Field"
+        }
+    }
+}
