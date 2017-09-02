@@ -1,0 +1,30 @@
+{
+    "country": "au",
+    "lang": "en",
+    "description": "Commonwealth and National heritage sites in Australia in English",
+    "type": "sparql",
+    "project": "wikipedia",
+    "table": "monuments_au_(en)",
+    "commonsTemplate": "Cultural Heritage Australia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Australia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Australia",
+    "unusedImagesPage": "User:Gnangarra/Unusued_images_Australia",
+    "imagesWithoutIdPage": "User:Gnangarra/Images_without_ID_Australia",
+    "sparql": "{ ?item wdt:P3008 ?id . {?item wdt:P1435 wd:Q30108476 . } UNION { ?item wdt:P1435 wd:Q20747146 . } FILTER(xsd:integer(?id) > 105000 )}",
+    "sql_lang": "English  # Wikidata",
+    "sql_country": "Australia",
+    "sql_data": {
+        "dataset": {
+            "value": "au",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "adm0": {
+            "value": "au",
+            "type": "Text"
+        }
+    }
+}
