@@ -28,6 +28,10 @@
             "source": "name"
         },
         {
+            "dest": "type",
+            "source": "type"
+        },
+        {
             "dest": "region",
             "source": "region"
         },
@@ -40,8 +44,16 @@
             "source": "district"
         },
         {
+            "dest": "district_id",
+            "source": "districtid"
+        },
+        {
             "dest": "city",
             "source": "municipality"
+        },
+        {
+            "dest": "city_id",
+            "source": "munid"
         },
         {
             "dest": "address",
@@ -78,6 +90,26 @@
             "dest": "wd_item",
             "source": "wdid",
             "check": "checkWD"
+        },
+        {
+            "dest": "precise",
+            "source": "precise"
+        },
+        {
+            "dest": "link",
+            "source": "link"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "year",
+            "source": "year"
+        },
+        {
+            "dest": "complex",
+            "source": "complex"
         }
     ],
     "sql_lang": "Russian",
