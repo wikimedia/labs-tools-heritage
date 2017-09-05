@@ -62,10 +62,6 @@
             "conv": "extractWikilink"
         },
         {
-            "dest": "registrant_url",
-            "source": "objectnr"
-        },
-        {
             "dest": "wd_item",
             "source": "wd_item",
             "check": "checkWD"
@@ -136,10 +132,6 @@
         },
         "monument_article": {
             "value": "monument_article",
-            "type": "Field"
-        },
-        "registrant_url": {
-            "value": "registrant_url",
             "type": "Field"
         },
         "wd_item": {
