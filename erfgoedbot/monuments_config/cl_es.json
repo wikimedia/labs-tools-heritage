@@ -80,11 +80,6 @@
             "dest": "tipo",
             "source": "tipo",
             "type": "enum('Error', 'MH','ZT','SN')"
-        },
-        {
-            "dest": "monument_article",
-            "source": "monumento",
-            "conv": "extractWikilink"
         }
     ],
     "sql_lang": "Spanish",
