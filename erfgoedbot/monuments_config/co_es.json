@@ -58,8 +58,7 @@
         },
         {
             "dest": "monumento_enlace",
-            "source": "monumento_enlace",
-            "default": "monumento"
+            "source": "monumento_enlace"
         },
         {
             "dest": "enlace",
@@ -76,14 +75,6 @@
         {
             "dest": "imagen",
             "source": "imagen"
-        },
-        {
-            "dest": "commonscat",
-            "source": "commonscat"
-        },
-        {
-            "dest": "monument_article",
-            "source": "monumento_enlace"
         }
     ],
     "sql_lang": "Spanish",
@@ -138,7 +129,7 @@
             "type": "Field"
         },
         "commonscat": {
-            "value": "commonscat",
+            "value": "monumento_categoria",
             "type": "Field"
         },
         "source": {
@@ -150,7 +141,7 @@
             "type": "Field"
         },
         "monument_article": {
-            "value": "monument_article",
+            "value": "monumento_enlace",
             "type": "Field"
         }
     }
