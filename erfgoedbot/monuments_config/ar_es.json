@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Cultural heritage monuments in Argentina",
     "unusedImagesPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin usar",
     "imagesWithoutIdPage": "Wikiproyecto:Patrimonio histórico/Fotos de monumentos de Argentina sin id",
+    "registrantUrlBase": "http://www.monumentosysitios.gov.ar/ficha.php?idMonumento=%s",
     "fields": [
         {
             "dest": "id",
@@ -75,6 +76,11 @@
         {
             "dest": "imagen",
             "source": "imagen"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "id",
+            "conv": "generateRegistrantUrl"
         }
     ],
     "sql_lang": "Spanish",
@@ -149,8 +155,8 @@
             "type": "Field"
         },
         "registrant_url": {
-            "value": "CONCAT('http://www.monumentosysitios.gov.ar/ficha.php?idMonumento=', id)",
-            "type": "Raw"
+            "value": "registrant_url",
+            "type": "Field"
         }
     }
 }

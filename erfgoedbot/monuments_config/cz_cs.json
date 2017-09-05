@@ -17,6 +17,7 @@
     "unusedImagesPage": "Wikipedie:WikiProjekt Wiki Loves Monuments/Nevyužité obrázky",
     "imagesWithoutIdPage": "User:Multichill/Images of cultural heritage monuments in Czech Republic without id",
     "missingCommonscatPage": "Wikipedie:WikiProjekt Wiki Loves Monuments/Missing commons category links",
+    "registrantUrlBase": "http://monumnet.npu.cz/pamfond/list.php?hledani=1&CiRejst=%s",
     "fields": [
         {
             "dest": "id_objektu",
@@ -80,6 +81,11 @@
         {
             "dest": "remark",
             "source": "Poznámka"
+        },
+        {
+            "dest": "registrant_url",
+            "source": "Id_objektu",
+            "conv": "generateRegistrantUrl"
         }
     ],
     "sql_lang": "Czech language",
@@ -154,8 +160,8 @@
             "type": "Field"
         },
         "registrant_url": {
-            "value": "CONCAT('http://monumnet.npu.cz/pamfond/list.php?hledani=1&CiRejst=',`id_objektu`)",
-            "type": "Raw"
+            "value": "registrant_url",
+            "type": "Field"
         }
     }
 }

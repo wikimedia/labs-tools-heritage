@@ -15,7 +15,7 @@
     "commonsCategoryBase": "Cultural heritage monuments in Russia",
     "unusedImagesPage": "Культурное наследие России/Неиспользуемые изображения",
     "imagesWithoutIdPage": "Культурное наследие России/Изображения без ID",
-    "registrantUrlBase": "http://kulturnoe-nasledie.ru/monuments.php?id=%s",
+    "registrantUrlBase": "http://old.kulturnoe-nasledie.ru/monuments.php?id=%s",
     "fields": [
         {
             "dest": "id",
