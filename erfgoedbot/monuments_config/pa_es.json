@@ -32,6 +32,10 @@
             "source": "commonscat"
         },
         {
+            "dest": "monumento_categoria",
+            "source": "monumento_categoría"
+        },
+        {
             "dest": "nombre",
             "source": "nombre"
         },
