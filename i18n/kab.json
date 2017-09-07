@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Belkacem77"
+			"Belkacem77",
+			"Sayem AtVkm"
 		]
 	},
 	"search-table-th-field": "Urti",
@@ -13,6 +14,7 @@
 	"search-table-tr-name": "Isem",
 	"search-table-tr-address": "Tansa",
 	"search-table-tr-municipality": "Taɣiwant",
+	"search-table-tr-coordinates": "Imsidag",
 	"search-table-tr-images": "Tugniwin",
 	"search-table-tr-output-language": "Tutlayt n tuffɣa",
 	"search-table-tr-output-format": "Amasal n tuffɣa",
@@ -36,6 +38,8 @@
 	"db-field-project": "Asenfaṛ Wikimedia",
 	"db-field-st_address": "Tansiwin",
 	"db-field-st_address_pct": "Tansiwin %",
+	"db-field-st_coordinates": "Imsidag",
+	"db-field-st_coordinates_pct": "Imsidag %",
 	"db-field-st_image": "Tugna",
 	"db-field-st_image_pct": "tugna %",
 	"db-field-st_municipality": "Taɣiwant",
@@ -45,6 +49,7 @@
 	"db-field-st_total": "Amḍan amatu",
 	"toolbox-label-searchtipps": "Seqdec %term neɣ term% neɣ %term% i unadi aderɣal",
 	"toolbox-main-title": "Ifecka WLM",
+	"toolbox-main-description": "Tagrumma n ifecka imassaɣen ɣer $1",
 	"toolbox-nav-homepage": "Asebter agejdan",
 	"toolbox-nav-statistics": "Tidaddanin",
 	"toolbox-nav-search": "Nadi",
