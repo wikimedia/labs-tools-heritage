@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"George Animal",
-			"Bikarhêner"
+			"Bikarhêner",
+			"Cûndûllah el-Kurdî"
 		]
 	},
 	"search-table-th-filter": "Fîltre",
@@ -32,8 +33,11 @@
 	"db-field-st_image_pct": "Wêne %",
 	"db-field-st_name": "Nav",
 	"db-field-st_name_pct": "Nav %",
+	"toolbox-wikilovesmonuments": "Wîkî ji Bîrdariyan Hez Dike",
 	"toolbox-nav-homepage": "Malper",
 	"toolbox-nav-statistics": "Statîstîk",
 	"toolbox-nav-search": "Lê bigere",
+	"toolbox-title-searchmonuments": "Birdarî bigere",
+	"toolbox-title-statistics": "Amarên Bîrdariyê",
 	"location": "Cih"
 }
