@@ -1,0 +1,128 @@
+{
+    "country": "eg",
+    "lang": "ar",
+    "description": "Monuments in Egypt in Arabic",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_eg_(ar)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "رأس معلم مصر",
+    "rowTemplate": "صف معلم مصر",
+    "commonsTemplate": "Cultural Heritage Egypt",
+    "commonsTrackerCategory": "Cultural heritage monuments in Egypt with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Egypt",
+    "unusedImagesPage": "",
+    "registrantUrlBase": "",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "رقم"
+        },
+        {
+            "dest": "name",
+            "source": "اسم"
+        },
+        {
+            "dest": "description",
+            "source": "وصف"
+        },
+        {
+            "dest": "location",
+            "source": "موقع"
+        },
+        {
+            "dest": "municipality",
+            "source": "مدينة"
+        },
+        {
+            "dest": "permission",
+            "source": "يحتاج تصريح بالتصوير"
+        },
+        {
+            "dest": "lat",
+            "source": "دائرة عرض",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "خط طول",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "صورة"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "اسم",
+            "conv": "extractWikilink"
+        }
+    ],
+    "sql_lang": "Arabic",
+    "sql_country": "Egypt",
+    "sql_data": {
+        "country": {
+            "value": "eg",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "eg",
+            "type": "Text"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
+}
