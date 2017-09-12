@@ -1,0 +1,132 @@
+{
+    "country": "iq",
+    "lang": "ar",
+    "description": "Monuments in Iraq in Arabic",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_iq_(ar)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "رأس معلم العراق",
+    "rowTemplate": "صف معلم العراق",
+    "commonsTemplate": "Cultural heritage Iraq",
+    "commonsTrackerCategory": "Cultural heritage monuments in Iraq with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Iraq",
+    "unusedImagesPage": "",
+    "registrantUrlBase": "",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "رقم"
+        },
+        {
+            "dest": "name",
+            "source": "اسم"
+        },
+        {
+            "dest": "description",
+            "source": "وصف"
+        },
+        {
+            "dest": "location",
+            "source": "موقع"
+        },
+        {
+            "dest": "municipality",
+            "source": "مدينة"
+        },
+        {
+            "dest": "governorate",
+            "source": "محافظة"
+        },
+        {
+            "dest": "permission",
+            "source": "يحتاج تصريح بالتصوير"
+        },
+        {
+            "dest": "lat",
+            "source": "دائرة عرض",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "خط طول",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "صورة"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "اسم",
+            "conv": "extractWikilink"
+        }
+    ],
+    "sql_lang": "Arabic",
+    "sql_country": "Irak",
+    "sql_data": {
+        "country": {
+            "value": "iq",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "ar",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "iq",
+            "type": "Text"
+        },
+        "name": {
+            "value": "name",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "municipality",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
+}
