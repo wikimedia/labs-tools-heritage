@@ -282,12 +282,13 @@ def is_template_present_in_page(template, page):
 
 
 def get_categories_from_source_page(page, commonsCatTemplates):
-    '''
+    """
     Get Commons categories based on page.
+
     1. If page contains a Commonscat template, use that category
     2. Else, try getting it from Wikidata
     3. Else pull Commonscat links from upper categories
-    '''
+    """
     new_categories = set()
     categorisation_method = ''
     for commonsCatTemplateName in commonsCatTemplates:
@@ -298,7 +299,10 @@ def get_categories_from_source_page(page, commonsCatTemplates):
             categorisation_method = 'C1: CommonsCat on the monument list page'
     if not len(new_categories):
         try:
-            new_categories.add(get_Commons_category_via_Wikidata(page))
+            site = pywikibot.Site(u'commons', u'commons')
+            cat_title = get_Commons_category_via_Wikidata(page)
+            cat = pywikibot.Category(site, cat_title)
+            new_categories.add(cat)
             categorisation_method = 'C2: via Wikidata on the monument list page'
         except NoCommonsCatFromWikidataItemException:
             pass
@@ -328,9 +332,14 @@ def get_categories_from_upper_categories(page, commonsCatTemplates):
 
 
 def getCategoryFromCommonscat(page, commonsCatTemplates):
-    '''
-    Get a Commons category based on a page with a Commonscat template
-    '''
+    """
+    Get a Commons category based on a page.
+
+    1. Get category from commonscat template on page
+    2. Get category from commonscat property or Commons category sitelink on
+       the Wikidata object corresponding to the page
+    3. Get category with same name as page
+    """
     cat_title = None
     categorisation_method = '1'  # By 'default', we do not rely on Wikidata
     (template, params) = get_commonscat_template_in_page(page, commonsCatTemplates)
@@ -346,6 +355,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
             pass
 
     if not cat_title:
+        categorisation_method = '3'
         cat_title = page.title(withNamespace=False)
 
     site = pywikibot.Site(u'commons', u'commons')
