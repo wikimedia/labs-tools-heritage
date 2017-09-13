@@ -1,12 +1,12 @@
 <?php
 
-if ( php_sapi_name() != 'cli' ) {
+if ( PHP_SAPI != 'cli' ) {
 	die( 'This is a command-line script.' );
 }
 
 ini_set( 'user_agent', 'WLM stress test by MaxSem' );
 
-$countries = array(
+$countries = [
 	'ad',
 	'at',
 	'be-bru',
@@ -33,21 +33,21 @@ $countries = array(
 	'se',
 	'sk',
 	'us',
-);
+];
 
-$searchTerms = array(
+$searchTerms = [
 	'house',
 	'casa',
 	'city',
-);
+];
 
 $site = 'http://toolserver.org/~erfgoed/api/';
 $site = 'http://mobile-wlm.wmflabs.org/api/';
-//$site = 'http://localhost/wlm/api/';
+// $site = 'http://localhost/wlm/api/';
 $site .= 'api.php?action=search&format=json';
 
 echo "Started stress test, press Ctrl + Break to stop\n";
-$timings = array();
+$timings = [];
 $averagingFactor = 10;
 
 while ( true ) {

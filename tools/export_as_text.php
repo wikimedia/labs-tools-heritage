@@ -1,5 +1,5 @@
 <?php
-if ( php_sapi_name() != 'cli' ) {
+if ( PHP_SAPI != 'cli' ) {
 	die( 'This is a command-line script' );
 }
 
@@ -9,8 +9,8 @@ ini_set( 'display_errors', 1 );
 ini_set( 'memory_limit', '200M' );
 
 $t0 = microtime( true );
-require_once( dirname( dirname( __FILE__ ) ) . '/api/includes/Defaults.php' );
-require_once( dirname( dirname( dirname( __FILE__ ) ) ) . '/database.inc' );
+require_once ( dirname( __DIR__ ) . '/api/includes/Defaults.php' );
+require_once ( dirname( dirname( __DIR__ ) ) . '/database.inc' );
 
 // make the db connection, check for errors
 $db = new mysqli( $dbServer, $dbUser, $dbPassword, $dbDatabase );
@@ -30,7 +30,7 @@ $res = $db->query( $query );
 handleDbError( $query );
 while ( $row = $res->fetch_assoc() ) {
 	$columns = 0;
-	foreach( $row as $value ) {
+	foreach ( $row as $value ) {
 		if ( $columns++ ) {
 			echo "\t";
 		}
@@ -41,7 +41,6 @@ while ( $row = $res->fetch_assoc() ) {
 }
 
 mysqli_close( $db );
-
 
 /**
  * Helper function for handling MySQL errors

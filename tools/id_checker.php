@@ -6,7 +6,6 @@ ini_set( 'html_errors', false );
 require_once dirname( __DIR__ ) . '/api/common.php';
 require_once ( '/api/includes/CommonFunctions.php' );
 
-
 $db = Database::getDb();
 print '<html>';
 print '<head>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset>
-    <rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
 		<exclude name="Generic.Files.LineLength"/>
 		<exclude name="Generic.PHP.NoSilencedErrors.Discouraged"/>
@@ -11,14 +11,14 @@
 		<exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
 		<exclude name="PSR2.Classes.PropertyDeclaration.VarUsed"/>
 	</rule>
-    <file>.</file>
-    <arg name="extensions" value="php,php5,inc"/>
-    <arg name="encoding" value="utf8"/>
-    <exclude-pattern>node_modules</exclude-pattern>
-    <exclude-pattern>vendor</exclude-pattern>
-    <exclude-pattern>api/tripplanner</exclude-pattern>
-    <exclude-pattern>common</exclude-pattern>
-    <exclude-pattern>map</exclude-pattern>
-    <exclude-pattern>prox_search/cls</exclude-pattern>
-    <exclude-pattern>tools</exclude-pattern>
+	<file>.</file>
+	<arg name="extensions" value="php,php5,inc"/>
+	<arg name="encoding" value="utf8"/>
+	<exclude-pattern>node_modules</exclude-pattern>
+	<exclude-pattern>vendor</exclude-pattern>
+	<exclude-pattern>api/tripplanner</exclude-pattern>
+	<exclude-pattern>common</exclude-pattern>
+	<exclude-pattern>map</exclude-pattern>
+	<exclude-pattern>prox_search/cls</exclude-pattern>
+	<exclude-pattern>tools/browser</exclude-pattern>
 </ruleset>
