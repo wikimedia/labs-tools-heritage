@@ -4,9 +4,9 @@
  * Basic configuration for monuments
  */
 class CommonsDB {
-	
-	static $dbServer = 'commonswiki-p.rrdb.toolserver.org';
-	static $dbUser = 'erfgoed';
+
+	static $dbServer = 'commonswiki.labsdb';
+	static $dbUser = 's51138';
 	static $dbDatabase = 'commonswiki_p';
-	
+
 }
