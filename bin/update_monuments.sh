@@ -78,8 +78,4 @@ cd ..
 echo_time "Refill prox_search table..."
 php ./prox_search/fill_table_prox_search.php
 
-# Categorize some images
-echo_time "Categorize images..."
-$PYWIKIBOT_BIN $ERFGOED_PATH/categorize_images.py -log
-
 echo_time "Done with the update!"
