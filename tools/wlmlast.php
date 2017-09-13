@@ -8,20 +8,26 @@ header("Cache-Control: no-cache, must-revalidate");
 header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
 header('Content-type: text/javascript;; charset=utf-8');
 function getLatest($size, $number, $country){
-    $ts_pw = posix_getpwuid(posix_getuid());
-    $ts_mycnf = parse_ini_file($ts_pw['dir'] . "/.my.cnf");
-    $db = new mysqli('commonswiki-p.rrdb.toolserver.org',
-                     $ts_mycnf['user'],
-		  $ts_mycnf['password'],
-		    'commonswiki_p');
+
+    $config_override = 'database.inc';
+    if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_override}" ) ) {
+        require dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_override}";
+    } elseif ( file_exists( dirname( dirname( __FILE__ ) ) . "/{$config_override}" ) ) {
+        require dirname( dirname( __FILE__ ) ) . "/{$config_override}";
+    }
+
+    $db = new mysqli('commonswiki.labsdb',
+                     $dbUser,
+                     $dbPassword,
+                     'commonswiki_p');
     $db->set_charset('utf-8');
-    unset($ts_mycnf);
-    unset($ts_pw);
-    
+    unset($dbUser);
+    unset($dbPassword);
+
     if($country) {
-	$category = 'Images_from_Wiki_Loves_Monuments_2012_in_' . $db->real_escape_string($country);
+	$category = 'Images_from_Wiki_Loves_Monuments_2017_in_' . $db->real_escape_string($country);
     } else {
-	$category = 'Images_from_Wiki_Loves_Monuments_2012';
+	$category = 'Images_from_Wiki_Loves_Monuments_2017';
     }
 
     $result = $db->query("SELECT rc_title, img_width, img_user_text, img_timestamp
@@ -37,23 +43,23 @@ function getLatest($size, $number, $country){
     AND cl_to='" . $category . "'
     ORDER BY rc_timestamp DESC
     LIMIT " . $number);
-    
+
     $returnResult = array();
-    $firstrow = True; 
+    $firstrow = True;
 
     while ($row = $result->fetch_assoc()) {
 	$upload = array();
 	$upload['title'] = $row['rc_title'];
 	$upload['uploader'] = $row['img_user_text'];
 	$upload['timestamp'] = $row['img_timestamp'];
-	$upload['url'] = "http://commons.wikimedia.org/wiki/Image:" . $row['rc_title'];
+	$upload['url'] = "http://commons.wikimedia.org/wiki/File:" . $row['rc_title'];
 
 	$hash = md5($row['rc_title']);
 	$fullimg = "http://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
 	$thumbprefix = "http://upload.wikimedia.org/wikipedia/commons/thumb/"  . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
-    
+
 	if (!($size==-1) && $size < $row['img_width']) {
-	    $upload['image'] = $thumbprefix . "/" .  (int)$_GET["size"] . "px-" . $title;
+	    $upload['image'] = $thumbprefix . "/" .  (int)$_GET["size"] . "px-" . $upload['title'];
 	} else {
 	    $upload['image'] = $fullimg;
 	}

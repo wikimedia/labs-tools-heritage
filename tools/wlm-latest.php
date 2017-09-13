@@ -42,7 +42,7 @@ $margin = intval(10*$size/150); // allow scaled margin
     function jscallback(data) {
         for (var i = 0, l = data.length; i < l; i++) {
             var photo = data[i];
-            
+
             var li = document.createElement( 'li' );
             var a = document.createElement( 'a' );
             a.href = photo.url;
@@ -58,7 +58,7 @@ $margin = intval(10*$size/150); // allow scaled margin
     function loadPhotos() {
         var s = document.createElement('script');
         s.id = 'achterkamer';
-        s.src = 'http://toolserver.org/~erfgoed/tools/wlmlast.php?callback=jscallback';
+        s.src = 'https://tools.wmflabs.org/heritage/tools/wlmlast.php?callback=jscallback';
         s.src = s.src + '<?php if (isset($_GET['country'])) { echo '&country=' . htmlspecialchars(urlencode($_GET['country'])); } if (isset($_GET['number'])) { echo '&number=' . htmlspecialchars(urlencode($_GET['number'])); } echo '&size=' . htmlspecialchars(urlencode($size)); ?>';
         document.getElementsByTagName("head")[0].appendChild(s);
     }
