@@ -8,6 +8,7 @@ echo_time() {
 
 PYWIKIBOT_BIN=/data/project/heritage/pywikibot/pwb.py
 ERFGOED_PATH=/data/project/heritage/erfgoedbot
+DATABASE=s51138__heritage_p
 
 echo_time "Starting full monument update."
 
@@ -21,9 +22,8 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/fill_table_monuments_all.py -log
 
 # Recreate the source tables
 echo_time "Recreating the source tables..."
-for i in $ERFGOED_PATH/sql/create_table_monuments*
-do
-    mysql -h tools-db s51138__heritage_p < "$i"
+for i in $ERFGOED_PATH/sql/create_table_monuments*; do
+    mysql -h tools-db $DATABASE < "$i"
 done
 
 # Update all of the source tables
@@ -32,7 +32,7 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate -log -skip_wd
 
 # Update the all monuments table
 echo_time "Update monuments_all table..."
-mysql -h tools-db s51138__heritage_p < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
+mysql -h tools-db $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
 
 ## Update the image table. Is now another job
 # echo_time "Update image table..."
@@ -66,7 +66,7 @@ ln -f monuments_db.sql.gz monuments_db-old.sql.gz
 
 # Dump the database
 echo_time "Dump database..."
-mysqldump --host=tools-db --single-transaction s51138__heritage_p > monuments_db-new.sql
+mysqldump --host=tools-db --single-transaction $DATABASE > monuments_db-new.sql
 nice gzip monuments_db-new.sql
 
 # Atomically replace the provided file

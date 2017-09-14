@@ -17,11 +17,11 @@ EOT
 RESULT=$?
 
 if [ $RESULT -eq 0 ]; then
-  # sleep another second for so that we don't get a "the database system is start up" error
-  sleep 1
-  echoerr "wait-for-db: done"
+    # sleep another second for so that we don't get a "the database system is start up" error
+    sleep 1
+    echoerr "wait-for-db: done"
 else
-  echoerr "wait-for-db: timeout out after 10 seconds waiting for db:5432"
+    echoerr "wait-for-db: timeout out after 10 seconds waiting for db:5432"
 fi
 
 exec "$@"

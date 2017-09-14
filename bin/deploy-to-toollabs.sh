@@ -1,7 +1,7 @@
 #!/bin/bash
 user="";
 if [ -n "$1" ]; then
-  user="$1"@
+    user="$1"@
 fi
 ssh "$user"tools-login.wmflabs.org <<'ENDSSH'
 become heritage
