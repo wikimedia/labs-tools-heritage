@@ -32,6 +32,15 @@ from database_connection import (
 
 _logger = "categorize_images"
 
+SKIP_LIST = [
+    (u'cn', u'en'),
+    (u'ir', u'fa'),
+    (u'it', u'it'),
+    (u'jo', u'ar'),
+    (u'ge', u'ka'),
+    (u'np', u'en'),
+]
+
 
 class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
     message = u"No Monument Identifier could be found for %s"
@@ -549,6 +558,12 @@ def main():
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+
+            if (countrycode, lang) in SKIP_LIST:
+                pywikibot.log(
+                    u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
+                continue
+
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(
