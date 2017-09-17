@@ -403,17 +403,30 @@ def get_Commons_category_via_Wikidata(page):
         raise NoCommonsCatFromWikidataItemException(page)
 
 
-def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn,
-                   cursor, overridecat=None):
-    '''
-    Work on a single country.
-    '''
+def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
+                   conn, cursor, overridecat=None):
+    """Work on a single country."""
     if not countryconfig.get('commonsTemplate'):
         # No template found, just skip silently.
-        basecat = u''
+        basecat = None
         if countryconfig.get('commonsCategoryBase'):
             basecat = countryconfig.get('commonsCategoryBase')
-        return (countrycode, lang, basecat, 0, 0, 0)
+        return {
+            'code': countrycode,
+            'lang': lang,
+            'cat': basecat,
+            'cmt': 'skipped: no template'
+        }
+
+    if not countryconfig.get('commonsCategoryBase') and not overridecat:
+        # No template found, just skip silently.
+        commonsTemplate = countryconfig.get('commonsTemplate')
+        return {
+            'code': countrycode,
+            'lang': lang,
+            'template': commonsTemplate,
+            'cmt': 'skipped: no base category'
+        }
 
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
@@ -429,10 +442,9 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn,
     commonsTemplate = countryconfig.get('commonsTemplate')
     harvest_type = countryconfig.get('type')
 
-    if overridecat:
-        commonsCategoryBase = pywikibot.Category(site, "%s:%s" % (site.namespace(14), overridecat))
-    else:
-        commonsCategoryBase = pywikibot.Category(site, "%s:%s" % (site.namespace(14), countryconfig.get('commonsCategoryBase')))
+    category_name = overridecat or countryconfig.get('commonsCategoryBase')
+    commonsCategoryBase = pywikibot.Category(
+        site, "%s:%s" % (site.namespace(14), category_name))
 
     generator = pagegenerators.CategorizedPageGenerator(commonsCategoryBase)
 
@@ -449,37 +461,79 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn,
         if success:
             categorizedImages += 1
 
-    return (countrycode, lang, commonsCategoryBase.title(withNamespace=False), commonsTemplate, totalImages, categorizedImages)
+    return {
+        'code': countrycode,
+        'lang': lang,
+        'cat': commonsCategoryBase.title(withNamespace=False),
+        'template': commonsTemplate,
+        'total_images': totalImages,
+        'cat_images': categorizedImages
+    }
 
 
 def outputStatistics(statistics):
     """Output the results of the bot as a nice wikitable."""
-    output = u'{| class="wikitable sortable"\n'
-    output += \
-        u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! data-sort-type="number"|Total images !! data-sort-type="number"|Categorized images !! data-sort-type="number"|Images left !! data-sort-type="number"|Current image count\n'
+    output = (
+        u'{| class="wikitable sortable"\n'
+        u'! country '
+        u'!! [[:en:List of ISO 639-1 codes|lang]] '
+        u'!! Base category '
+        u'!! Template '
+        u'!! data-sort-type="number"|Total images '
+        u'!! data-sort-type="number"|Categorized images '
+        u'!! data-sort-type="number"|Images left '
+        u'!! data-sort-type="number"|Current image count'
+        u'\n')
+
+    output_row = (
+        u'|-\n'
+        u'|| {code} \n'
+        u'|| {lang} \n'
+        u'|| {cat} \n'
+        u'|| {template} \n'
+        u'|| {total_images} \n'
+        u'|| {cat_images} \n'
+        u'|| {leftover} \n'
+        u'|| {pages_in_cat} \n')
 
     totalImages = 0
     categorizedImages = 0
     leftoverImages = 0
 
     for row in statistics:
-        output += u'|-\n'
-        output += u'|| %s \n' % (row[0],)
-        output += u'|| %s \n' % (row[1],)
-        output += u'|| [[:Category:%s]] \n' % (row[2],)
-        output += u'|| {{tl|%s}} \n' % (row[3],)
 
-        totalImages += row[4]
-        output += u'|| %s \n' % (row[4],)
+        leftover = '---'
+        cat_link = '---'
+        pages_in_cat = '---'
+        template_link = '---'
+        total_images = row.get('total_images')
+        cat_images_or_cmt = row.get('cat_images')
 
-        categorizedImages += row[5]
-        output += u'|| %s \n' % (row[5],)
+        if row.get('cat_images') is not None:
+            totalImages += row['total_images']
+            categorizedImages += row['cat_images']
+            leftover = row['total_images'] - row['cat_images']
+            leftoverImages += leftover
+        else:
+            cat_images_or_cmt = row.get('cmt')
+            total_images = '---'
 
-        leftover = row[4] - row[5]
-        leftoverImages += leftover
+        if row.get('cat'):
+            cat_link = '[[:Category:{0}]]'.format(row['cat'])
+            pages_in_cat = '{{PAGESINCATEGORY:%s|files}}' % row['cat']
 
-        output += u'|| %s \n' % (leftover,)
-        output += u'|| {{PAGESINCATEGORY:%s|files}} \n' % (row[2],)
+        if row.get('template'):
+            template_link = '{{tl|%s}}' % row['template']
+
+        output += output_row.format(
+            code=row['code'],
+            lang=row['lang'],
+            cat=cat_link,
+            template=template_link,
+            total_images=total_images,
+            cat_images=cat_images_or_cmt,
+            leftover=leftover,
+            pages_in_cat=pages_in_cat)
 
     output += u'|- class="sortbottom"\n'
     output += u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (
@@ -515,6 +569,21 @@ def getCommonscatTemplates(lang=None, project=None):
     result.append(prim)
     result += backups
     return result
+
+
+def skip(country_code, lang, country_config):
+    """Return a outputStatistics compatible summary for a skipped country."""
+    site = pywikibot.Site(u'commons', u'commons')
+    commons_category_base = pywikibot.Category(site, "{ns}:{cat}".format(
+        ns=site.namespace(14), cat=country_config.get('commonsCategoryBase')))
+    commons_template = country_config.get('commonsTemplate')
+    return {
+        'code': country_code,
+        'lang': lang,
+        'cat': commons_category_base.title(withNamespace=False),
+        'template': commons_template,
+        'cmt': 'skipped: blacklisted'
+    }
 
 
 def main():
@@ -564,6 +633,7 @@ def main():
             if (countrycode, lang) in SKIP_LIST:
                 pywikibot.log(
                     u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
+                statistics.append(skip(countrycode, lang, countryconfig))
                 continue
 
             pywikibot.log(
