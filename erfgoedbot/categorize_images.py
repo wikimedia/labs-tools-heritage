@@ -113,7 +113,8 @@ def categorizeImage(
     if newcats:
         comment = u'Adding categories based on [[Template:%s]] with identifier %s (method %s)' % (
             commonsTemplateName, monumentId, categorisation_method)
-        replace_default_cat_with_new_categories_in_image(page, commonsCategoryBase, newcats, comment, verbose=True)
+        replace_default_cat_with_new_categories_in_image(
+            page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
         pywikibot.log(u'Categories not found for %s' % page.title())
 
@@ -217,7 +218,7 @@ def replace_default_cat_with_new_categories_in_image(
     if verbose:
         pywikibot.showDiff(old_text, final_text)
     try:
-        page.put(final_text, comment)
+        common.save_to_wiki_or_local(page, comment, final_text)
         return True
     except pywikibot.EditConflict:
         pywikibot.log(
@@ -402,7 +403,8 @@ def get_Commons_category_via_Wikidata(page):
         raise NoCommonsCatFromWikidataItemException(page)
 
 
-def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor, overridecat=None):
+def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn,
+                   cursor, overridecat=None):
     '''
     Work on a single country.
     '''
@@ -451,9 +453,7 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates, conn, 
 
 
 def outputStatistics(statistics):
-    '''
-    Output the results of the bot as a nice wikitable
-    '''
+    """Output the results of the bot as a nice wikitable."""
     output = u'{| class="wikitable sortable"\n'
     output += \
         u'! country !! [[:en:List of ISO 639-1 codes|lang]] !! Base category !! Template !! data-sort-type="number"|Total images !! data-sort-type="number"|Categorized images !! data-sort-type="number"|Images left !! data-sort-type="number"|Current image count\n'
@@ -489,10 +489,11 @@ def outputStatistics(statistics):
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Categorization/Statistics')
-
-    comment = u'Updating categorization statistics. Total: %s Categorized: %s Leftover: %s' % (
-        totalImages, categorizedImages, leftoverImages)
-    page.put(newtext=output, comment=comment)
+    summary = (
+        u'Updating categorization statistics. '
+        u'Total: {0} Categorized: {1} Leftover: {2}'.format(
+            totalImages, categorizedImages, leftoverImages))
+    common.save_to_wiki_or_local(page, summary, output)
 
 
 def getCommonscatTemplates(lang=None, project=None):
@@ -537,7 +538,8 @@ def main():
         else:
             raise Exception(
                 u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-overridecat" or pywikibot args. Found "{}"'.format(option))
+                u'"-overridecat" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
@@ -569,7 +571,8 @@ def main():
             commonsCatTemplates = getCommonscatTemplates(
                 lang, countryconfig.get('project'))
             result = processCountry(
-                countrycode, lang, countryconfig, commonsCatTemplates, conn, cursor)
+                countrycode, lang, countryconfig, commonsCatTemplates, conn,
+                cursor)
             if result:
                 statistics.append(result)
 

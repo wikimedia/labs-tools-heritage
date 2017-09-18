@@ -23,6 +23,9 @@ python erfgoedbot/fill_table_monuments_all.py
 # Build and start the Docker containers
 docker-compose -f docker-compose-bot.yml up --build -d
 
+# Ensure a directory for locally written pages
+mkdir -p docker_pages
+
 # Run the bot to harvest a country
 docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
 

@@ -32,6 +32,7 @@ import warnings
 import pywikibot
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -214,7 +215,7 @@ def makeStatistics(totals):
 
     comment = u'Updating indexed image statistics. Total indexed images: %s' % totalImages
     pywikibot.output(text)
-    page.put(newtext=text, comment=comment)
+    common.save_to_wiki_or_local(page, comment, text)
 
 
 def main():
@@ -224,6 +225,10 @@ def main():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        else:
+            raise Exception(
+                u'Bad parameters. Expected "-countrycode" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
     if countrycode:
         pywikibot.output(u'Working on countrycode "%s"' % (countrycode,))

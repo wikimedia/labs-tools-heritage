@@ -24,7 +24,8 @@ from database_connection import (
 _logger = "unused_images"
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
+                   cursor2):
     '''
     Work on a single country.
     '''
@@ -107,7 +108,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
     pywikibot.debug(text, _logger)
-    page.put(text, comment, minorEdit=False)
+    common.save_to_wiki_or_local(page, comment, text, minorEdit=False)
 
     return totalImages
 
@@ -190,7 +191,7 @@ def makeStatistics(mconfig, totals):
 
     comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
     pywikibot.debug(text, _logger)
-    page.put(newtext=text, comment=comment)
+    common.save_to_wiki_or_local(page, comment, text)
 
 
 def main():

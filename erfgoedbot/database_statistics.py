@@ -7,6 +7,7 @@ FIXME: Too much code duplication. Should probably just have one list of the poss
 '''
 import pywikibot
 
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database
@@ -203,11 +204,11 @@ def outputStatistics(statistics):
     output += u'|| %(source)s\n' % totals
 
     output += u'|}\n'
+
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(site, u'Commons:Monuments database/Statistics')
-
     comment = u'Updating monument database statistics'
-    page.put(newtext=output, comment=comment)
+    common.save_to_wiki_or_local(page, comment, output)
 
 
 def getStatistics(country, language, conn, cursor):
@@ -307,13 +308,16 @@ def getCountries(conn, cursor):
 
 
 def main():
-    '''
-    The main loop
-    '''
-
+    """The main loop."""
     conn = None
     cursor = None
     (conn, cursor) = connect_to_monuments_database()
+
+    for arg in pywikibot.handleArgs():
+        option, sep, value = arg.partition(':')
+        raise Exception(
+            u'Bad parameters. Expected pywikibot args. '
+            u'Found "{}"'.format(option))
 
     statistics = {}
 

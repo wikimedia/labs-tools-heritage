@@ -4,6 +4,7 @@
 """Checker methods"""
 
 import pywikibot
+import common as common
 
 _logger = "update_database"
 
@@ -20,8 +21,8 @@ def reportDataError(errorMsg, wikiPage, exceptWord, comment=''):
     except (pywikibot.NoPage, pywikibot.IsRedirectPage):
         content = u''
     if exceptWord and exceptWord not in content:
-        content += "\n\n" + errorMsg + " --~~~~" + "\n\n"
-        talkPage.put(content, comment)
+        content += u'\n\n{0} --~~~~\n\n'.format(errorMsg)
+        common.save_to_wiki_or_local(talkPage, comment, content)
         return True
 
     return False

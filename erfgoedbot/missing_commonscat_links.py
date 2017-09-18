@@ -16,6 +16,7 @@ import re
 import pywikibot
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -25,7 +26,8 @@ from database_connection import (
 _logger = "missing_commonscat"
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
+                   cursor2):
     '''
     Work on a single country.
     '''
@@ -107,7 +109,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
     site = pywikibot.Site(lang, u'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
     pywikibot.debug(text, _logger)
-    page.put(text, comment)
+    common.save_to_wiki_or_local(page, comment, text)
 
     return totalCategories
 
@@ -199,7 +201,7 @@ def makeStatistics(mconfig, totals):
 
     comment = u'Updating missing commonscat links statistics. Total missing links: %s' % totalCategories
     pywikibot.debug(text, _logger)
-    page.put(newtext=text, comment=comment)
+    common.save_to_wiki_or_local(page, comment, text)
 
 
 def main():
@@ -219,8 +221,8 @@ def main():
             lang = value
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" or '
-                u'pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode" '
+                u'or pywikibot args. Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):

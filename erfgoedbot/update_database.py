@@ -22,7 +22,6 @@ from requests.exceptions import Timeout
 import pywikibot
 import pywikibot.data.sparql
 from pywikibot import pagegenerators
-from pywikibot.exceptions import OtherPageSaveError
 
 import monuments_config as mconfig
 import common as common
@@ -148,8 +147,9 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
     """
     site = pywikibot.Site(u'commons', u'commons')
     page = pywikibot.Page(
-        site, u'Commons:Monuments database/Unknown fields/%s' % (
-            countryconfig.get('table'),))
+        site, u'Commons:Monuments database/Unknown fields/{0}'.format(
+            countryconfig.get('table')))
+    summary = u'Updating the list of unknown fields'
 
     text = u'{| class="wikitable sortable"\n'
     text += u'! Field !! Count\n'
@@ -159,11 +159,8 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
 
     text += u'|}\n'
     text += u'[[Category:Commons:Monuments database/Unknown fields]]'
-    comment = u'Updating the list of unknown fields'
-    try:
-        page.put(text, comment)
-    except OtherPageSaveError:
-        pywikibot.warning("Could not save page %s (%s)" % (page, comment))
+
+    common.save_to_wiki_or_local(page, summary, text)
 
 
 def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
@@ -528,7 +525,7 @@ def main():
         else:
             raise Exception(
                 u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-daysback", "-fullupdate" or pywikibot args. '
+                u'"-daysback", "-fullupdate", "-skip_wd" or pywikibot args. '
                 u'Found "{}"'.format(option))
 
     if countrycode and lang:
@@ -543,8 +540,7 @@ def main():
                 countrycode, lang))
         try:
             countryconfig = mconfig.countries.get((countrycode, lang))
-            processCountry(countryconfig, conn, cursor,
-                           fullUpdate, daysBack)
+            processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
         except Exception, e:
             pywikibot.error(
                 u"Unknown error occurred when processing country "
@@ -561,8 +557,8 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (
                     countrycode, lang))
             try:
-                processCountry(countryconfig, conn, cursor,
-                               fullUpdate, daysBack)
+                processCountry(countryconfig, conn, cursor, fullUpdate,
+                               daysBack)
             except Exception, e:
                 pywikibot.error(
                     u"Unknown error occurred when processing country "

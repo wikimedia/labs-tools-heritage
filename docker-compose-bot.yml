@@ -4,6 +4,8 @@ bot:
     service: bot
   links:
     - db
+  environment:
+    - HERITAGE_LOCAL_WRITE_PATH=docker_pages
   volumes:
     - "./conf/database_config.dev.yml:/code/erfgoedbot/database_config.yml"
 

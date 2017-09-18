@@ -2,6 +2,9 @@
 
 import unittest
 import mock
+import tempfile
+import os
+import pywikibot
 from erfgoedbot import common
 
 
@@ -73,3 +76,107 @@ class TestGetSourceLink(unittest.TestCase):
         self.mock_get_source.return_value = ('Q123', ('wikidata', 'www'))
         result = common.get_source_link('a link', 'sparql', 'bar')
         self.assertEquals(result, '[[:d:Q123|bar]]')
+
+
+class TestPageToFilename(unittest.TestCase):
+
+    def test_page_to_filename_commons(self):
+        site = pywikibot.Site('commons', 'commons')
+        page = pywikibot.Page(site, 'Foo')
+        self.assertEquals(
+            common.page_to_filename(page),
+            '[commons_commons][_]Foo.wiki'
+        )
+
+    def test_page_to_filename_wikipedia(self):
+        site = pywikibot.Site('en', 'wikipedia')
+        page = pywikibot.Page(site, 'Foo')
+        self.assertEquals(
+            common.page_to_filename(page),
+            '[wikipedia_en][_]Foo.wiki'
+        )
+
+    def test_page_to_filename_namespace(self):
+        site = pywikibot.Site('commons', 'commons')
+        page = pywikibot.Page(site, 'Template:Foo')
+        self.assertEquals(
+            common.page_to_filename(page),
+            '[commons_commons][Template]Foo.wiki'
+        )
+
+    def test_page_to_filename_subpage(self):
+        site = pywikibot.Site('commons', 'commons')
+        page = pywikibot.Page(site, 'Foo/Bar')
+        self.assertEquals(
+            common.page_to_filename(page),
+            '[commons_commons][_]Foo_Bar.wiki'
+        )
+
+    def test_page_to_filename_with_spaces(self):
+        site = pywikibot.Site('commons', 'commons')
+        page = pywikibot.Page(site, 'Foo bar')
+        self.assertEquals(
+            common.page_to_filename(page),
+            '[commons_commons][_]Foo_bar.wiki'
+        )
+
+
+class TestSaveToWikiOrLocal(unittest.TestCase):
+
+    def setUp(self):
+        site = pywikibot.Site('test', 'wikipedia')
+        self.page = pywikibot.Page(site, 'Foo')
+
+        patcher = mock.patch('erfgoedbot.common.page_to_filename')
+        self.mock_page_to_filename = patcher.start()
+        self.mock_page_to_filename.return_value = 'filename'
+        self.addCleanup(patcher.stop)
+
+        # Create a temporary file
+        self.test_outfile = tempfile.NamedTemporaryFile(delete=False)
+        patcher = mock.patch('erfgoedbot.common.os.path.join')
+        self.mock_join = patcher.start()
+        self.mock_join.return_value = self.test_outfile.name
+        self.addCleanup(patcher.stop)
+
+        # Ensure tests don't write
+        patcher = mock.patch('erfgoedbot.common.pywikibot.Page.put')
+        self.mock_page_put = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        # Mock environment variable
+        patcher = mock.patch('erfgoedbot.common.os.environ.get')
+        self.mock_environ_get = patcher.start()
+        self.mock_environ_get.return_value = None
+        self.addCleanup(patcher.stop)
+
+    def tearDown(self):
+        # Closes and removes the file
+        os.remove(self.test_outfile.name)
+
+    def test_save_to_wiki_or_local_write_to_wiki(self):
+        summary = 'a summary'
+        content = 'The content'
+        common.save_to_wiki_or_local(self.page, summary, content)
+        self.mock_environ_get.assert_called_once_with(
+            'HERITAGE_LOCAL_WRITE_PATH')
+        self.mock_page_put.assert_called_once_with(
+            newtext=content, summary=summary, minorEdit=True)
+        self.mock_page_to_filename.assert_not_called()
+        self.mock_join.assert_not_called()
+        self.assertEquals(self.test_outfile.read(), '')
+
+    def test_save_to_wiki_or_local_write_locally(self):
+        summary = 'a summary'
+        content = u'The content'
+        self.mock_environ_get.return_value = 'something'
+        common.save_to_wiki_or_local(self.page, summary, content)
+        self.mock_environ_get.assert_called_once_with(
+            'HERITAGE_LOCAL_WRITE_PATH')
+        self.mock_page_put.assert_not_called()
+        self.mock_page_to_filename.assert_called_once_with(self.page)
+        self.mock_join.assert_called_once_with('something', 'filename')
+        self.assertEquals(
+            self.test_outfile.read(),
+            '#summary: a summary\n---------------\nThe content'
+        )

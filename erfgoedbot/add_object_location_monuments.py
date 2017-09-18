@@ -6,9 +6,9 @@ Bot to add {{Object location dec}} to monuments. Location is based on informatio
 
 '''
 import pywikibot
-from pywikibot import pagegenerators
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -16,7 +16,8 @@ from database_connection import (
 )
 
 
-def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
+                  cursor2):
     '''
     Locate images in a single country.
     '''
@@ -91,7 +92,10 @@ def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor
     # not already a template on the page.
     templates = page.templates()
 
-    if u'Location' in page.templates() or u'Location dec' in page.templates() or u'Object location' in page.templates() or u'Object location dec' in page.templates():
+    if (u'Location' in templates or
+            u'Location dec' in templates or
+            u'Object location' in templates or
+            u'Object location dec' in templates):
         pywikibot.output(
             u'Location template already found at: %s' % page.title())
         return False
@@ -106,8 +110,6 @@ def getCoordinates(monumentId, countrycode, lang, conn, cursor):
     '''
     Get coordinates from the erfgoed database
     '''
-    result = None
-
     query = u"""SELECT lat, lon, source FROM monuments_all
 WHERE id=%s
 AND country=%s
@@ -139,7 +141,7 @@ def addLocation(page, locationTemplate):
     newtext = putAfterTemplate(
         oldtext, u'Information', locationTemplate, loose=True)
     pywikibot.showDiff(oldtext, newtext)
-    page.put(newtext, comment)
+    common.save_to_wiki_or_local(page, comment, newtext)
 
 
 def putAfterTemplate(oldtext, template, toadd, loose=True):
@@ -191,7 +193,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
             newtext = oldtext
             cats = pywikibot.getCategoryLinks(newtext)
             ll = pywikibot.getLanguageLinks(newtext)
-            nextext = pywikibot.removeLanguageLinks(newtext)
+            newtext = pywikibot.removeLanguageLinks(newtext)
             newtext = pywikibot.removeCategoryLinks(newtext)
             newtext += u'\n' + toadd
             newtext = pywikibot.replaceCategoryLinks(newtext, cats)
@@ -208,9 +210,6 @@ def main():
     (conn, cursor) = connect_to_monuments_database()
     (conn2, cursor2) = connect_to_commons_database()
 
-    generator = None
-    genFactory = pagegenerators.GeneratorFactory()
-
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
@@ -219,8 +218,8 @@ def main():
             lang = value
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" or '
-                u'pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode" '
+                u'or pywikibot args. Found "{}"'.format(option))
 
     pywikibot.setSite(pywikibot.getSite(u'commons', u'commons'))
 
@@ -245,7 +244,8 @@ def main():
                 pywikibot.output(
                     u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
                 locateCountry(
-                    countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+                    countrycode, lang, countryconfig, conn, cursor, conn2,
+                    cursor2)
 
     close_database_connection(conn, cursor)
 

@@ -16,6 +16,7 @@ python images_of_monuments_without_id.py -countrycode:XX -langcode:YY
 import pywikibot
 
 import monuments_config as mconfig
+import common as common
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database,
@@ -23,7 +24,8 @@ from database_connection import (
 )
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor2):
+def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
+                   cursor2):
     '''
     Work on a single country.
     '''
@@ -92,7 +94,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         site = pywikibot.getSite(lang, project)
         page = pywikibot.Page(site, imagesWithoutIdPage)
         pywikibot.output(text)
-        page.put(text, comment, minorEdit=False)
+        common.save_to_wiki_or_local(
+            page, comment, text, minorEdit=False)
 
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
@@ -184,7 +187,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     comment = u'Adding template %s based on usage in list' % (commonsTemplate,)
 
     pywikibot.showDiff(text, newtext)
-    page.put(newtext, comment)
+    common.save_to_wiki_or_local(page, comment, newtext)
     return True
 
 
@@ -205,8 +208,8 @@ def main():
             lang = value
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" or '
-                u'pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode" '
+                u'or pywikibot args. Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
