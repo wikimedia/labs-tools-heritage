@@ -2,9 +2,11 @@
 # -*- coding: utf-8  -*-
 """Support library of commonly shared functions."""
 from __future__ import unicode_literals
-from builtins import open
+
 import os
 import re
+from builtins import open
+
 import pywikibot
 from pywikibot.exceptions import OtherPageSaveError, PageSaveRelatedError
 

@@ -3,6 +3,7 @@
 """Unit tests for update_database."""
 
 import unittest
+
 import mock
 
 from erfgoedbot import monument_tables

@@ -1,11 +1,12 @@
 # -*- coding: utf-8  -*-
 """Validation for fill_table_monuments_all.sql with monuments_config.py."""
 
-import unittest
 import re
+import unittest
+
 from custom_assertions import CustomAssertions
-from erfgoedbot import monuments_config as config
 from erfgoedbot import fill_table_monuments_all as fill_table
+from erfgoedbot import monuments_config as config
 
 
 def isolate_dataset_entries(text):

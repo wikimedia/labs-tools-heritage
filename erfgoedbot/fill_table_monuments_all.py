@@ -2,9 +2,11 @@
 # -*- coding: utf-8  -*-
 """Create the fill_table_monuments_all SQL."""
 from __future__ import unicode_literals
-import os
+
 import json
+import os
 from collections import OrderedDict
+
 import pywikibot
 
 

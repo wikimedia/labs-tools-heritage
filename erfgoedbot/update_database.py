@@ -11,11 +11,11 @@ python update_database.py
 python update_database.py -countrycode:XX -langcode:YY
 
 '''
-import os
-import warnings
 import datetime
-import urlparse
+import os
 import time
+import urlparse
+import warnings
 from collections import Counter
 
 from requests.exceptions import Timeout
@@ -24,21 +24,21 @@ import pywikibot
 import pywikibot.data.sparql
 from pywikibot import pagegenerators
 
-import monuments_config as mconfig
 import common as common
-from converters import (
-    extractWikilink,
-    extract_elements_from_template_param,
-    remove_commons_category_prefix,
-    CH1903Converter,
-    int_to_european_digits
-)
+import monuments_config as mconfig
 from checkers import (
-    checkLat,
-    checkLon,
-    check_wikidata,
     check_integer,
-    check_lat_with_lon
+    check_lat_with_lon,
+    check_wikidata,
+    checkLat,
+    checkLon
+)
+from converters import (
+    CH1903Converter,
+    extract_elements_from_template_param,
+    extractWikilink,
+    int_to_european_digits,
+    remove_commons_category_prefix
 )
 from database_connection import (
     close_database_connection,

@@ -2,9 +2,11 @@
 
 import os
 import unittest
+
 import mock
-from erfgoedbot import database_connection
 from MySQLdb.connections import Connection
+
+from erfgoedbot import database_connection
 
 
 class TestGetDatabaseConfigFile(unittest.TestCase):

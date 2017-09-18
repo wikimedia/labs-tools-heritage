@@ -6,6 +6,7 @@ Create the monuments tables SQL from monuments_config.json files
 Author: Platonides
 """
 import os
+
 import monuments_config as mconfig
 
 

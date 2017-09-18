@@ -3,8 +3,9 @@
 
 """Unit tests for populate_image_table."""
 
-import mock
 import unittest
+
+import mock
 
 from erfgoedbot import populate_image_table
 

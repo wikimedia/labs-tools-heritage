@@ -3,7 +3,9 @@
 # from pywikibot.site import APISite
 # from pywikibot.exceptions import NoPage
 import unittest
+
 import mock
+
 from erfgoedbot import database_statistics
 
 

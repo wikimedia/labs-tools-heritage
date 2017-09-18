@@ -2,14 +2,15 @@
 """Unit tests for converters."""
 
 import unittest
+
 from erfgoedbot.converters import (
-    ucfirst,
-    extractWikilink,
+    CH1903Converter,
     extract_elements_from_template_param,
+    extractWikilink,
+    int_to_european_digits,
     remove_commons_category_prefix,
     sanitize_wikitext_string,
-    CH1903Converter,
-    int_to_european_digits
+    ucfirst
 )
 
 

@@ -4,8 +4,8 @@
 Configuration for the monuments bot.
 
 '''
-import os
 import json
+import os
 
 
 def _get_config_dir():

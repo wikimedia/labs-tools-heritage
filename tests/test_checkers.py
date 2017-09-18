@@ -4,8 +4,9 @@
 Those that aren't checked through test_update_database
 """
 
-import mock
 import unittest
+
+import mock
 
 from erfgoedbot import checkers
 

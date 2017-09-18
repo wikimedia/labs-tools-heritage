@@ -16,9 +16,7 @@ import pywikibot
 from pywikibot import pagegenerators
 
 import monuments_config as mconfig
-from converters import (
-    extract_elements_from_template_param
-)
+from converters import extract_elements_from_template_param
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database

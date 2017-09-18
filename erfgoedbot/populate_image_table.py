@@ -31,12 +31,12 @@ import warnings
 
 import pywikibot
 
-import monuments_config as mconfig
 import common as common
+import monuments_config as mconfig
 from database_connection import (
     close_database_connection,
-    connect_to_monuments_database,
-    connect_to_commons_database
+    connect_to_commons_database,
+    connect_to_monuments_database
 )
 
 

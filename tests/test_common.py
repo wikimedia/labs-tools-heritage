@@ -1,10 +1,13 @@
 """Unit tests for common."""
 
-import unittest
-import mock
-import tempfile
 import os
+import tempfile
+import unittest
+
+import mock
+
 import pywikibot
+
 from erfgoedbot import common
 
 

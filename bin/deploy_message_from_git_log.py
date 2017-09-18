@@ -4,7 +4,6 @@ import argparse
 import re
 import subprocess
 
-
 GIT_COMMIT_FIELDS = ['id', 'message']
 GIT_LOG_FORMAT_FIELDS = ['%h', '%b']
 GIT_LOG_FORMAT = '%x1f'.join(GIT_LOG_FORMAT_FIELDS) + '%x1e'

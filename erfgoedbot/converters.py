@@ -4,6 +4,7 @@
 """Conversion methods"""
 
 import re
+
 from checkers import is_int
 
 

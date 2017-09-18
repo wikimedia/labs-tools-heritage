@@ -1,9 +1,11 @@
 """Unit tests for update_database."""
 
-import mock
 import unittest
-import pywikibot
 from collections import Counter
+
+import mock
+
+import pywikibot
 
 from erfgoedbot import update_database
 

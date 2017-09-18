@@ -4,6 +4,7 @@
 """Checker methods"""
 
 import pywikibot
+
 import common as common
 
 _logger = "update_database"
