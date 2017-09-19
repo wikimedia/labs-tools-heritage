@@ -1,5 +1,6 @@
 -r requirements.txt
 
+bashate==0.5.1
 mock
 nose
 nose-cov
