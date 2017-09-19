@@ -1,16 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-'''
-
-Make a gallery of unused photos so people can add them to monument lists
+"""
+Make a gallery of unused photos so people can add them to monument lists.
 
 Usage:
-# loop thtough all countries
+# loop through all countries
 python unused_monument_images.py
 # work on specific country-lang
 python unused_monument_images.py -countrycode:XX -langcode:YY
-
-'''
+"""
 import pywikibot
 
 import common as common
@@ -24,14 +22,81 @@ from database_connection import (
 _logger = "unused_images"
 
 
+def get_id_from_sort_key(sort_key, without_photo):
+    """Attempt to get a monument if from the category sort key of an image."""
+    monumentId = unicode(sort_key, 'utf-8')
+    # Just want the first line
+    mLines = monumentId.splitlines()
+    monumentId = mLines[0]
+    # Remove leading and trailing spaces
+    monumentId = monumentId.strip()
+
+    # No try some variants until we have a hit
+    if monumentId in without_photo:
+        return monumentId
+
+    # Only remove leading zero's if we don't have a hit.
+    monumentId = monumentId.lstrip(u'0')
+    if monumentId in without_photo:
+        return monumentId
+    # Only remove leading underscores if we don't have a hit.
+    monumentId = monumentId.lstrip(u'_')
+    if monumentId in without_photo:
+        return monumentId
+    # Only all uppercase if we don't have a hit.
+    monumentId = monumentId.upper()
+    if monumentId in without_photo:
+        return monumentId
+
+    # Return None if no match has been found
+    return None
+
+
+def group_unused_images_by_source(photos, withoutPhoto, countryconfig):
+    """Identify all unused images and group them by source page and id."""
+    unused_images = {}
+
+    for catSortKey in sorted(photos.keys()):
+        try:
+            monumentId = get_id_from_sort_key(catSortKey, withoutPhoto)
+        except ValueError:
+            pywikibot.warning(u'Got value error for {0}'.format(monumentId))
+            continue
+
+        if monumentId in withoutPhoto:
+            try:
+                source_link = common.get_source_link(
+                    withoutPhoto.get(monumentId),
+                    countryconfig.get('type'))
+                if source_link not in unused_images:
+                    unused_images[source_link] = {}
+            except ValueError:
+                pywikibot.warning(
+                    u'Could not find source page for {0} ({1})'.format(
+                        monumentId, withoutPhoto.get(monumentId)))
+                continue
+            imageName = photos.get(catSortKey)
+
+            if monumentId not in unused_images[source_link]:
+                unused_images[source_link][monumentId] = []
+
+            unused_images[source_link][monumentId].append(imageName)
+
+    return unused_images
+
+
+# @TODO: Sparql entries could be displayed differently since each id has a different source
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
                    cursor2):
-    '''
-    Work on a single country.
-    '''
+    """Work on a single country."""
     if not countryconfig.get('unusedImagesPage'):
         # unusedImagesPage not set, just skip silently.
-        return False
+        return {
+            'code': countrycode,
+            'lang': lang,
+            'config': countryconfig,
+            'cmt': 'skipped: no unusedImagesPage'
+        }
 
     unusedImagesPage = countryconfig.get('unusedImagesPage')
     project = countryconfig.get('project', u'wikipedia')
@@ -41,94 +106,102 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     withoutPhoto = getMonumentsWithoutPhoto(countrycode, lang, conn, cursor)
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
-    pywikibot.log(u'withoutPhoto %s elements' % (len(withoutPhoto),))
-    pywikibot.log(u'photos %s elements' % (len(photos),))
+    pywikibot.log(u'withoutPhoto {0} elements'.format(len(withoutPhoto)))
+    pywikibot.log(u'photos {0} elements'.format(len(photos)))
 
-    # People can add a /header template for with more info
-    text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
-    text += u'<gallery>\n'
-    totalImages = 0
-    maxImages = 1000
-
-    for catSortKey in sorted(photos.keys()):
-        try:
-            monumentId = unicode(catSortKey, 'utf-8')
-            # Just want the first line
-            mLines = monumentId.splitlines()
-            monumentId = mLines[0]
-            # Remove leading and trailing spaces
-            monumentId = monumentId.strip()
-
-            # No try some variants until we have a hit
-
-            # Only remove leading zero's if we don't have a hit.
-            if monumentId not in withoutPhoto:
-                monumentId = monumentId.lstrip(u'0')
-            # Only remove leading underscores if we don't have a hit.
-            if monumentId not in withoutPhoto:
-                monumentId = monumentId.lstrip(u'_')
-            # Only all uppercase if we don't have a hit.
-            if monumentId not in withoutPhoto:
-                monumentId = monumentId.upper()
-
-            if monumentId in withoutPhoto:
-                try:
-                    source_link = common.get_source_link(
-                        withoutPhoto.get(monumentId),
-                        countryconfig.get('type'),
-                        monumentId)
-                except ValueError:
-                    pywikibot.warning(
-                        u'Could not find wikiSourceList for %s (%s)' % (
-                            monumentId, withoutPhoto.get(monumentId)))
-                    continue
-                imageName = photos.get(catSortKey)
-                # pywikibot.output(u'Key %s returned a result' % (monumentId,))
-                # pywikibot.output(imageName)
-                if totalImages <= maxImages:
-                    text += u'File:{0}|{1}\n'.format(
-                        unicode(imageName, 'utf-8'), source_link)
-                totalImages += 1
-        except ValueError:
-            pywikibot.warning(u'Got value error for %s' % (monumentId,))
-
-    text += u'</gallery>'
-
-    if totalImages >= maxImages:
-        text += \
-            u'<!-- Maximum number of images reached: %s, total of unused images: %s -->\n' % (
-                maxImages, totalImages)
-        comment = u'Images to be used in monument lists: %s (gallery maximum reached), total of unused images: %s' % (
-            maxImages, totalImages)
-    else:
-        comment = u'Images to be used in monument lists: %s' % totalImages
-
-    # text += getInterwikisUnusedImages(countrycode, lang)
+    unused_images = group_unused_images_by_source(
+        photos, withoutPhoto, countryconfig)
 
     site = pywikibot.Site(lang, project)
     page = pywikibot.Page(site, unusedImagesPage)
+    totals = output_country_report(unused_images, page)
+
+    return {
+        'code': countrycode,
+        'lang': lang,
+        'report_page': page,
+        'config': countryconfig,
+        'total_images': totals['images'],
+        'total_pages': totals['pages'],
+        'total_ids': totals['ids']
+    }
+
+
+# @TODO: T176560 different format for sparql?
+def output_country_report(unused_images, report_page, max_images=1000):
+    """
+    Format and output the unused images data for a a single country.
+
+    @param unused_images: the output of group_unused_images
+    @param report_page: pywikibot.Page to which the report should be written
+    @param max_images: the max number of images to report to a page. Defaults
+        to 1000. Note that actual number of images may be slightly higher in
+        order to ensure all candidates for a given monument id are presented.
+    """
+    # People can add a /header template for with more info
+    text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+    total_pages = 0
+    total_ids = 0
+    totalImages = 0
+
+    if not unused_images:
+        text += u'\nThere are no unused images left. Great work!\n'
+    else:
+        for source_page, value in unused_images.iteritems():
+            total_pages += 1
+            if totalImages < max_images:
+                text += u'=== {0} ===\n'.format(source_page)
+                text += u'<gallery>\n'
+                for monument_id, candidates in value.iteritems():
+                    total_ids += 1
+                    if totalImages < max_images:
+                        for candidate in candidates:
+                            text += u'File:{0}|{1}\n'.format(
+                                unicode(candidate, 'utf-8'), monument_id)
+                    totalImages += len(candidates)
+                text += u'</gallery>\n'
+            else:
+                for monument_id, candidates in value.iteritems():
+                    total_ids += 1
+                    totalImages += len(candidates)
+
+    if totalImages >= max_images:
+        text += (
+            u'<!-- Maximum number of images reached: {0}, '
+            u'total of unused images: {1} -->\n'.format(
+                max_images, totalImages))
+        comment = (
+            u'Images to be used in monument lists: '
+            u'{0} (gallery maximum reached), '
+            u'total of unused images: {1}'.format(
+                max_images, totalImages))
+    else:
+        comment = u'Images to be used in monument lists: {0}'.format(
+            totalImages)
+
     pywikibot.debug(text, _logger)
-    common.save_to_wiki_or_local(page, comment, text, minorEdit=False)
+    common.save_to_wiki_or_local(report_page, comment, text, minorEdit=False)
 
-    return totalImages
-
-
-def getInterwikisUnusedImages(countrycode, lang):
-    result = u''
-    for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
-        if countrycode == countrycode2 and lang != lang2:
-            if countryconfig.get('unusedImagesPage'):
-                result += \
-                    u'[[%s:%s]]\n' % (
-                        lang2, countryconfig.get('unusedImagesPage'))
-
-    return result
+    return {
+        'images': totalImages,
+        'pages': total_pages,
+        'ids': total_ids
+    }
 
 
 def getMonumentsWithoutPhoto(countrycode, lang, conn, cursor):
+    """
+    Get all unillustrated monuments.
+
+    @return dict of unillustrated monuments with id as key and source (list)
+        as value.
+    """
     result = {}
 
-    query = u"""SELECT id, source FROM monuments_all WHERE image='' AND country=%s AND lang=%s"""
+    query = (
+        u"""SELECT id, source """
+        u"""FROM monuments_all """
+        u"""WHERE image='' AND country=%s AND lang=%s""")
 
     cursor.execute(query, (countrycode, lang))
 
@@ -145,9 +218,19 @@ def getMonumentsWithoutPhoto(countrycode, lang, conn, cursor):
 
 
 def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
+    """
+    Get all monument images.
+
+    @return dict of monument images with category_sort_key as key and filename
+        as value. category_sort_key contains the monument id.
+    """
     result = {}
 
-    query = u"""SELECT page_title, cl_sortkey FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s"""
+    query = (
+        u"""SELECT page_title, cl_sortkey """
+        u"""FROM page """
+        u"""JOIN categorylinks ON page_id=cl_from """
+        u"""WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s""")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
@@ -162,36 +245,92 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     return result
 
 
-def makeStatistics(mconfig, totals):
-    text = u'{| class="wikitable sortable"\n'
-    text += \
-        u'! country !! lang !! data-sort-type="number"|total !! page !! row template !! Commons template\n'
+def makeStatistics(statistics):
+    """
+    Output the overall results of the bot as a nice wikitable.
 
-    totalImages = 0
-    for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
-        if countryconfig.get('skip'):
-            continue
-        if countryconfig.get('unusedImagesPage') and countryconfig.get('commonsTemplate'):
-            text += u'|-\n'
-            text += u'| %s ' % countrycode
-            text += u'|| %s ' % lang
-            text += u'|| %s ' % totals.get((countrycode, lang))
-            totalImages += totals.get((countrycode, lang))
-            text += u'|| [[:%s:%s|%s]] ' % (lang, countryconfig.get(
-                'unusedImagesPage'), countryconfig.get('unusedImagesPage'))
-            text += u'|| [[:%s:Template:%s|%s]] ' % (
-                lang, countryconfig.get('rowTemplate'), countryconfig.get('rowTemplate'))
-            text += \
-                u'|| {{tl|%s}}\n' % countryconfig.get('commonsTemplate')
-    text += u'|- class="sortbottom"\n'
-    text += u'| || || %s \n' % totalImages
-    text += u'|}\n'
-
+    Does not make use of total_pages which is reported by processCountry as
+    this is equivalent to total_ids for sparql sources and hard to explain
+    otherwise.
+    """
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Unused images/Statistics')
 
-    comment = u'Updating unused image statistics. Total unused images: %s' % totalImages
+    text = (
+        u'{| class="wikitable sortable"\n'
+        u'! country '
+        u'!! lang '
+        u'!! data-sort-type="number"|Total unused image candidates '
+        u'!! data-sort-type="number"|Total monuments with unused images '
+        u'!! Report page '
+        u'!! Row template '
+        u'!! Commons template '
+        u'\n')
+
+    text_row = (
+        u'|-\n'
+        u'|| {code} \n'
+        u'|| {lang} \n'
+        u'|| {total_images} \n'
+        u'|| {total_ids} \n'
+        u'|| {report_page} \n'
+        u'|| {row_template} \n'
+        u'|| {commons_template} \n')
+
+    total_images_sum = 0
+    total_ids_sum = 0
+    for row in statistics:
+        countryconfig = row.get('config')
+        total_images_or_cmt = row.get('total_images')
+        total_ids = row.get('total_ids')
+        row_template = u'---'
+        commons_template = u'---'
+        report_page = u'---'
+
+        if row.get('total_images') is not None:
+            total_images_sum += row.get('total_images')
+            total_ids_sum += row.get('total_ids')
+        else:
+            total_images_or_cmt = row.get('cmt')
+            total_ids = u'---'
+
+        if countryconfig.get('type') != 'sparql':
+            row_site = pywikibot.Site(
+                row.get('lang'),
+                countryconfig.get('project', u'wikipedia'))
+            row_template_page = pywikibot.Page(
+                row_site,
+                'Template:{0}'.format(countryconfig.get('rowTemplate')))
+            row_template = row_template_page.title(
+                asLink=True, withNamespace=False, insite=site)
+
+        if countryconfig.get('commonsTemplate'):
+            commons_template = '{{tl|%s}}' % (
+                countryconfig.get('commonsTemplate'), )
+
+        if row.get('report_page'):
+            report_page = row.get('report_page').title(
+                asLink=True, withNamespace=False, insite=site)
+
+        text += text_row.format(
+            code=row.get('code'),
+            lang=row.get('lang'),
+            total_images=total_images_or_cmt,
+            total_ids=total_ids,
+            report_page=report_page,
+            row_template=row_template,
+            commons_template=commons_template)
+
+    text += (
+        u'|- class="sortbottom"\n'
+        u'|| || || {total_images} || {total_ids} || || || \n'
+        u'|}}\n'.format(total_images=total_images_sum, total_ids=total_ids_sum))
+
+    comment = (
+        u'Updating unused image statistics. Total of {total_images} '
+        u'unused images for {total_ids} different monuments.'.format(
+            total_images=total_images_sum, total_ids=total_ids_sum))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 
@@ -223,26 +362,31 @@ def main():
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+                u'I have no config for countrycode "{code}" in '
+                u'language "{lang}"'.format(code=countrycode, lang=lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            u'Working on countrycode "{code}" in language "{lang}"'.format(
+                code=countrycode, lang=lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
     else:
-        totals = {}
+        statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             if (countryconfig.get('skip') or
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
                 continue
             pywikibot.log(
-                u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            totals[(countrycode, lang)] = processCountry(
-                countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
-        makeStatistics(mconfig, totals)
+                u'Working on countrycode "{code}" in language "{lang}"'.format(
+                    code=countrycode, lang=lang))
+            statistics.append(
+                processCountry(
+                    countrycode, lang, countryconfig, conn, cursor, conn2,
+                    cursor2))
+        makeStatistics(statistics)
 
     close_database_connection(conn, cursor)
 
