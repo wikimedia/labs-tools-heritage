@@ -3,6 +3,7 @@
 import mock
 import unittest
 import pywikibot
+from collections import Counter
 
 from erfgoedbot import update_database
 
@@ -49,13 +50,21 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
         self.assertEqual(unknown_fields, {})
 
     def test_processMonument_with_one_unknown_param_correctly_returns_unknown_fields(self):
-        params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
+        params = [
+            u'id=1234',
+            u'name=A Monument Name',
+            u'some_unknown_field=An unknown field value'
+        ]
         unknown_fields = {}
+        expected_unknown = Counter({self.mock_page: 1})
         with self.assertRaises(update_database.NoPrimkeyException):
             update_database.processMonument(
                 params, self.source, self.country_config, None, None,
                 self.mock_page, self.header_defaults, unknown_fields)
-        self.assertEqual(unknown_fields, {u'some_unknown_field': 1})
+        self.assertEqual(
+            unknown_fields,
+            {u'some_unknown_field': expected_unknown}
+        )
 
 
 class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
@@ -73,7 +82,11 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
         self.assertEqual(unknown_fields, {})
 
     def test_processMonument_calls_updateMonument_and_returns_unknown_fields(self):
-        params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
+        params = [
+            u'id=1234',
+            u'name=A Monument Name',
+            u'some_unknown_field=An unknown field value'
+        ]
         header_defaults = {}
         unknown_fields = {}
 
@@ -83,6 +96,7 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
             u'name': u'A Monument Name',
             'source': 'DummySource'
         }
+        expected_unknown = Counter({self.mock_page: 1})
 
         with mock.patch('erfgoedbot.update_database.updateMonument', autospec=True) as mock_updateMonument:
             update_database.processMonument(
@@ -92,7 +106,10 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
             mock_updateMonument.assert_called_once_with(
                 expected_contents, 'DummySource', self.country_config, None,
                 self.mock_cursor, self.mock_page)
-        self.assertEqual(unknown_fields, {u'some_unknown_field': 1})
+        self.assertEqual(
+            unknown_fields,
+            {u'some_unknown_field': expected_unknown}
+        )
 
 
 class TestUpdateMonument(TestUpdateDatabaseBase):
@@ -337,3 +354,47 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         with self.assertRaises(pywikibot.Error) as cm:
             update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: connectDatabase')
+
+
+class TestFormatSourceField(unittest.TestCase):
+
+    def setUp(self):
+        self.commons = pywikibot.Site('commons', 'commons')
+        site = pywikibot.Site('test', 'wikipedia')
+        self.page_1 = pywikibot.Page(site, 'Foo1')
+        self.page_2 = pywikibot.Page(site, 'Foo2')
+        self.page_3 = pywikibot.Page(site, 'Foo3')
+
+    def test_format_source_field_single(self):
+        sources = Counter({self.page_1: 5})
+        expected = u'[[wikipedia:test:Foo1|Foo1]]'
+        self.assertEquals(
+            update_database.format_source_field(sources, self.commons),
+            expected
+        )
+
+    def test_format_source_field_max(self):
+        sources = Counter({self.page_1: 1, self.page_2: 3, self.page_3: 2})
+        expected = (
+            u'\n* [[wikipedia:test:Foo2|Foo2]] (3)'
+            u'\n* [[wikipedia:test:Foo3|Foo3]] (2)'
+            u'\n* [[wikipedia:test:Foo1|Foo1]] (1)'
+        )
+        self.assertEquals(
+            update_database.format_source_field(
+                sources, self.commons, sample_size=3),
+            expected
+        )
+
+    def test_format_source_field_remaining(self):
+        sources = Counter({self.page_1: 1, self.page_2: 3, self.page_3: 2})
+        expected = (
+            u'\n* [[wikipedia:test:Foo2|Foo2]] (3)'
+            u'\n* [[wikipedia:test:Foo3|Foo3]] (2)'
+            u"\n* ''and 1 more page(s)''"
+        )
+        self.assertEquals(
+            update_database.format_source_field(
+                sources, self.commons, sample_size=2),
+            expected
+        )

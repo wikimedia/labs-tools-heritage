@@ -16,6 +16,7 @@ import warnings
 import datetime
 import urlparse
 import time
+from collections import Counter
 
 from requests.exceptions import Timeout
 
@@ -141,9 +142,10 @@ def convertField(field, contents, countryconfig):
 
 def unknownFieldsStatistics(countryconfig, unknownFields):
     """
-    Produce some unknown field statistics to debug.
+    Outputs a list of any unknown fields as a wikitext table.
 
-    This is still very raw data. Should be formatted and more information.
+    The table contains the name and frequency of the field and a sample of
+    source pages where this field was encountered.
     """
     site = pywikibot.Site(u'commons', u'commons')
     page = pywikibot.Page(
@@ -152,15 +154,44 @@ def unknownFieldsStatistics(countryconfig, unknownFields):
     summary = u'Updating the list of unknown fields'
 
     text = u'{| class="wikitable sortable"\n'
-    text += u'! Field !! Count\n'
-    for key, value in unknownFields.items():
+    text += u'! Field !! Count !! Sources\n'
+    for key, counter in unknownFields.items():
         text += u'|-\n'
-        text += u'| %s || %s\n' % (key, value)
+        text += u'| {0} || {1} || {2}\n'.format(
+            key, sum(counter.values()), format_source_field(counter, site))
 
     text += u'|}\n'
     text += u'[[Category:Commons:Monuments database/Unknown fields]]'
 
     common.save_to_wiki_or_local(page, summary, text)
+
+
+def format_source_field(sources, site, sample_size=4):
+    """
+    Format a list of source pages to fit in the statistics field.
+
+    @param sources: set of pywikibot.Page objects
+    @param site: the site to which the output should be written (commons)
+    @param sample_size: the number of source pages to output
+    """
+    source_text = ''
+    if len(sources) == 1:
+        source_page = sources.keys()[0]
+        source_text = source_page.title(
+            asLink=True, withNamespace=False, insite=site)
+    else:
+        source_slice = sources.most_common(sample_size)
+        remaining = len(sources) - len(source_slice)
+        for (source_page, source_count) in source_slice:
+            source_text += u'\n* {0} ({1})'.format(
+                source_page.title(
+                    asLink=True, withNamespace=False, insite=site),
+                source_count
+            )
+        if remaining:
+            source_text += u"\n* ''and {0} more page(s)''".format(remaining)
+
+    return source_text
 
 
 def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
@@ -338,8 +369,8 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
                         title, field, value),
                     _logger)
                 if field not in unknownFields:
-                    unknownFields[field] = 0
-                unknownFields[field] += 1
+                    unknownFields[field] = Counter()
+                unknownFields[field][sourcePage] += 1
                 # time.sleep(5)
 
     # If we truncate we don't have to check for primkey (it's a made up one)
