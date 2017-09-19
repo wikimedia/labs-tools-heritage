@@ -49,7 +49,9 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
         optional_base = [
             'countryBbox', 'missingCommonscatPage', 'imagesWithoutIdPage',
             'registrantUrlBase', 'commonsCategoryBase', 'unusedImagesPage',
-            'commonsTrackerCategory', 'commonsTemplate', 'autoGeocode', 'type']
+            'commonsTrackerCategory', 'commonsTemplate', 'autoGeocode', 'type',
+            'skip'
+        ]
         optional_sql = ['sql_where', ]
         for key, data in config.countries.iteritems():
             self.set_label(key)
@@ -83,6 +85,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
             'sql_country': (str, unicode),
             'sql_data': dict,
             'sql_where': (str, unicode),
+            'skip': bool
         }
         expected_default = (str, unicode)
         for key, data in config.countries.iteritems():

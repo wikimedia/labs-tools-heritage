@@ -194,6 +194,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
 def main():
     countrycode = u''
     lang = u''
+    skip_wd = False
     conn = None
     cursor = None
     # Connect database, we need that
@@ -206,10 +207,13 @@ def main():
             countrycode = value
         elif option == '-langcode':
             lang = value
+        elif option == '-skip_wd':
+            skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" '
-                u'or pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-skip_wd" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
@@ -225,6 +229,9 @@ def main():
                         u'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            if (countryconfig.get('skip') or
+                    (skip_wd and (countryconfig.get('type') == 'sparql'))):
+                continue
             pywikibot.output(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(

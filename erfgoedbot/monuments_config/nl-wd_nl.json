@@ -3,6 +3,7 @@
     "lang": "nl",
     "description": "Rijksmonumenten in the Netherlands in Dutch",
     "type": "sparql",
+    "skip": true,
     "project": "wikipedia",
     "table": "monuments_nl-wd_(nl)",
     "commonsTemplate": "Rijksmonument",

@@ -125,6 +125,7 @@ def main():
 
     countrycode = u''
     lang = u''
+    skip_wd = False
     conn = None
     cursor = None
     (conn, cursor) = connect_to_monuments_database()
@@ -135,10 +136,12 @@ def main():
             countrycode = value
         elif option == '-langcode':
             lang = value
+        elif option == u'-skip_wd':
+            skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" or '
-                u'pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-skip_wd" or pywikibot args. Found "{}"'.format(option))
 
     query = u"""TRUNCATE table `id_dump`"""
     cursor.execute(query)
@@ -157,6 +160,9 @@ def main():
                         u'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            if (countryconfig.get('skip') or
+                    (skip_wd and (countryconfig.get('type') == 'sparql'))):
+                continue
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(countrycode, lang, countryconfig, conn, cursor)

@@ -44,10 +44,13 @@ class CannotNormalizeException(Exception):
     pass
 
 
-def getSources(countrycode=u''):
+def getSources(countrycode=u'', skip_wd=False):
     """Get a dictionary of sources to go harvest."""
     sources = {}
     for (icountrycode, lang), countryconfig in mconfig.get_countries().iteritems():
+        if (countryconfig.get('skip') or
+                (skip_wd and (countryconfig.get('type') == 'sparql'))):
+            continue
         if not countrycode or (countrycode and countrycode == icountrycode):
             if icountrycode not in sources:
                 if countryconfig.get('commonsTemplate') and countryconfig.get('commonsTrackerCategory'):
@@ -220,15 +223,18 @@ def makeStatistics(totals):
 
 def main():
     countrycode = u''
+    skip_wd = False
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
+        elif option == '-skip_wd':
+            skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-skip_wd" or '
+                u'pywikibot args. Found "{}"'.format(option))
 
     if countrycode:
         pywikibot.output(u'Working on countrycode "%s"' % (countrycode,))
@@ -242,7 +248,7 @@ def main():
 
     else:
         pywikibot.output(u'Working on all countrycodes')
-        sources = getSources()
+        sources = getSources(skip_wd=skip_wd)
         if not sources:
             pywikibot.output(
                 u'No sources found, something went completely wrong')

@@ -205,6 +205,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
 def main():
     countrycode = u''
     lang = u''
+    skip_wd = False
 
     # Connect database, we need that
     (conn, cursor) = connect_to_monuments_database()
@@ -216,10 +217,13 @@ def main():
             countrycode = value
         elif option == '-langcode':
             lang = value
+        elif option == '-skip_wd':
+            skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode" '
-                u'or pywikibot args. Found "{}"'.format(option))
+                u'Bad parameters. Expected "-countrycode", "-langcode", '
+                u'"-skip_wd" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
     pywikibot.setSite(pywikibot.getSite(u'commons', u'commons'))
 
@@ -237,6 +241,9 @@ def main():
                         u'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+            if (countryconfig.get('skip') or
+                    (skip_wd and (countryconfig.get('type') == 'sparql'))):
+                continue
             if not countryconfig.get('autoGeocode'):
                 pywikibot.output(
                     u'"%s" in language "%s" is not supported in auto geocode mode (yet).' % (countrycode, lang))
