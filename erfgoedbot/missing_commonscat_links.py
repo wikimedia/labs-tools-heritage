@@ -33,6 +33,10 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2, cursor
         # missingCommonscatPage not set, just skip silently.
         return False
 
+    if countryconfig.get('type') == 'sparql':
+        # This script does not (yet) work for SPARQL sources, skip silently
+        return False
+
     commonscatField = lookupSourceField(u'commonscat', countryconfig)
     if not commonscatField:
         # Field is missing. Something is seriously wrong, but we just skip it
