@@ -25,9 +25,9 @@ function getLatest( $size, $number, $country ) {
 	unset( $dbPassword );
 
 	if ( $country ) {
-	$category = 'Images_from_Wiki_Loves_Monuments_2017_in_' . $db->real_escape_string( $country );
+	$category = 'Images_from_Wiki_Loves_Monuments_' . $year . '_in_' . $db->real_escape_string( $country );
 	} else {
-	$category = 'Images_from_Wiki_Loves_Monuments_2017';
+	$category = 'Images_from_Wiki_Loves_Monuments_' . $year;
 	}
 
 	$result = $db->query( "SELECT rc_title, img_width, img_user_text, img_timestamp
@@ -52,11 +52,11 @@ function getLatest( $size, $number, $country ) {
 	$upload['title'] = $row['rc_title'];
 	$upload['uploader'] = $row['img_user_text'];
 	$upload['timestamp'] = $row['img_timestamp'];
-	$upload['url'] = "http://commons.wikimedia.org/wiki/File:" . $row['rc_title'];
+	$upload['url'] = "https://commons.wikimedia.org/wiki/File:" . $row['rc_title'];
 
 	$hash = md5( $row['rc_title'] );
-	$fullimg = "http://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
-	$thumbprefix = "http://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+	$fullimg = "https://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+	$thumbprefix = "https://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
 
 	if ( !( $size==-1 ) && $size < $row['img_width'] ) {
 		$upload['image'] = $thumbprefix . "/" . (int)$_GET["size"] . "px-" . $upload['title'];
@@ -77,14 +77,18 @@ $max_number=20;
 if ( isset( $_GET["number"] ) ) {
 	$number =(int)$_GET["number"];
 	if ( $number > $max_number ) {
-	$number = $max_number;
+		$number = $max_number;
 	}
 }
 $country = '';
 if ( isset( $_GET["country"] ) ) {
 	$country = $_GET["country"];
 }
+$year = date( "Y" );
+if ( isset( $_GET["year"] ) ) {
+	$year = (int)$_GET["year"];
+}
 
-$jsonData = getLatest( $size, $number, $country );
+$jsonData = getLatest( $size, $number, $country, $year );
 echo $_GET['callback'] . '(' . $jsonData . ');';
 

@@ -59,13 +59,14 @@ $margin = intval( 10*$size/150 ); // allow scaled margin
 		var s = document.createElement('script');
 		s.id = 'achterkamer';
 		s.src = 'https://tools.wmflabs.org/heritage/tools/wlmlast.php?callback=jscallback';
-		s.src = s.src + '<?php if ( isset( $_GET['country'] ) ) { echo '&country=' . htmlspecialchars( urlencode( $_GET['country'] ) );
-
-} if ( isset( $_GET['number'] ) ) { echo '&number=' . htmlspecialchars( urlencode( $_GET['number'] ) );
-
-} echo '&size=' . htmlspecialchars( urlencode( $size ) ); ?>';
-		document.getElementsByTagName("head")[0].appendChild(s);
-	}
+		s.src = s.src + '<?php
+		if ( isset( $_GET['year'] ) ) {
+			echo '&year=' . htmlspecialchars( urlencode( $_GET['year'] ) );
+		} if ( isset( $_GET['country'] ) ) {
+			echo '&country=' . htmlspecialchars( urlencode( $_GET['country'] ) );
+		} if ( isset( $_GET['number'] ) ) {
+			echo '&number=' . htmlspecialchars( urlencode( $_GET['number'] ) );
+		} echo '&size=' . htmlspecialchars( urlencode( $size ) ); ?>';
 	if (photosDiv) {
 		photos = document.createElement('ul');
 		photosDiv.appendChild(photos);
