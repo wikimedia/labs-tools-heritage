@@ -21,16 +21,16 @@ python erfgoedbot/monument_tables.py
 python erfgoedbot/fill_table_monuments_all.py
 
 # Build and start the Docker containers
-docker-compose -f docker-compose-bot.yml up --build -d
+docker-compose up --build -d
 
 # Ensure a directory for locally written pages
 mkdir -p docker_pages
 
 # Run the bot to harvest a country
-docker-compose -f docker-compose-bot.yml run --rm bot python erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
+docker-compose run --rm bot python erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
 
 # Update the monuments_all table
-docker-compose -f docker-compose-bot.yml run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql
+docker-compose run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql
 ```
 
 The web interface will be accessible on http://localhost:8000/
@@ -45,7 +45,7 @@ To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests and [do
 
 ```
 ./bin/download_monuments_database_dump.sh
-docker-compose up -d
+docker-compose -f docker-compose-dump.yml up -d
 ```
 
 The web interface will be accessible on http://localhost:8000/
