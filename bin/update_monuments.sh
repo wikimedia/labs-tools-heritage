@@ -2,18 +2,13 @@
 #
 # Script to make a full update of the monuments databse and run a bunch of tasks
 
-echo_time() {
-    echo "$(date +%F_%T) $*"
-}
-
-PYWIKIBOT_BIN=/data/project/heritage/pywikibot/pwb.py
-ERFGOED_PATH=/data/project/heritage/erfgoedbot
-DATABASE=s51138__heritage_p
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $CURRENT_DIR/defaults.sh
 
 echo_time "Starting full monument update."
 
 # Make sure we are in our homedir
-cd /data/project/heritage/ || exit
+cd $HOME_DIR || exit
 
 # Load any config changes into the source tables
 echo_time "Load changes to monuments_config..."
@@ -23,7 +18,7 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/fill_table_monuments_all.py -log
 # Recreate the source tables
 echo_time "Recreating the source tables..."
 for i in $ERFGOED_PATH/sql/create_table_monuments*; do
-    mysql -h tools-db $DATABASE < "$i"
+    $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
 done
 
 # Update all of the source tables
@@ -32,7 +27,7 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate -log -skip_wd
 
 # Update the all monuments table
 echo_time "Update monuments_all table..."
-mysql -h tools-db $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
+$MYSQL_BIN -h $DB_SERVER $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
 
 ## Update the image table. Is now another job
 # echo_time "Update image table..."
@@ -40,7 +35,7 @@ mysql -h tools-db $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
 
 # Update admin structure tree
 echo_time "Update admin structure tree..."
-php ./erfgoedbot/populate_adm_tree.php
+$PHP_BIN $ERFGOED_PATH/populate_adm_tree.php
 
 # Make statistics
 echo_time "Make statistics..."
@@ -48,7 +43,7 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/database_statistics.py -log
 
 # Make more detailed statistics
 echo_time "Make more detailed statistics..."
-php ./public_html/maintenance/_buildStats.php
+$PHP_BIN ./public_html/maintenance/_buildStats.php
 
 # Update the list of unused monuments
 echo_time "Update unused images list..."
@@ -66,7 +61,7 @@ ln -f monuments_db.sql.gz monuments_db-old.sql.gz
 
 # Dump the database
 echo_time "Dump database..."
-mysqldump --host=tools-db --single-transaction $DATABASE > monuments_db-new.sql
+mysqldump --host=$DB_SERVER --single-transaction $DATABASE > monuments_db-new.sql
 nice gzip monuments_db-new.sql
 
 # Atomically replace the provided file
@@ -76,6 +71,6 @@ cd ..
 
 # Refill prox_search table. Which will be used by layar server.
 echo_time "Refill prox_search table..."
-php ./prox_search/fill_table_prox_search.php
+$PHP_BIN ./prox_search/fill_table_prox_search.php
 
 echo_time "Done with the update!"

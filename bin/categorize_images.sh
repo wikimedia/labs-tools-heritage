@@ -2,15 +2,11 @@
 #
 # Script to categorize images
 
-echo_time() {
-    echo "$(date +%F_%T) $*"
-}
-
-PYWIKIBOT_BIN=/data/project/heritage/pywikibot/pwb.py
-ERFGOED_PATH=/data/project/heritage/erfgoedbot
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $CURRENT_DIR/defaults.sh
 
 # Make sure we are in our homedir
-cd /data/project/heritage/ || exit
+cd $HOME_DIR || exit
 
 # Categorize some images
 echo_time "Categorize images..."
