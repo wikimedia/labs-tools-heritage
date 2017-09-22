@@ -6,12 +6,13 @@ echo_time() {
 : ${HOME_DIR:=/data/project/heritage}
 : ${SOURCE_PATH:=$HOME_DIR/heritage}
 : ${ERFGOED_PATH:=$SOURCE_PATH/erfgoedbot}
+: ${VIRTUAL_ENV_PATH:=$HOME_DIR/.venv}
 
 # Database config
 : ${DATABASE:=s51138__heritage_p}
 : ${DB_SERVER:=tools-db}
 
 # Executables
-: ${PYWIKIBOT_BIN:=$HOME_DIR/pywikibot/pwb.py}
+: ${PYWIKIBOT_BIN:=python}
 : ${PHP_BIN:=php}
 : ${MYSQL_BIN:=mysql}

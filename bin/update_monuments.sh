@@ -10,6 +10,9 @@ echo_time "Starting full monument update."
 # Make sure we are in our homedir
 cd $HOME_DIR || exit
 
+# Use a virtual environment with our requirements
+source $VIRTUAL_ENV_PATH/bin/activate
+
 # Load any config changes into the source tables
 echo_time "Load changes to monuments_config..."
 $PYWIKIBOT_BIN $ERFGOED_PATH/monument_tables.py -log
