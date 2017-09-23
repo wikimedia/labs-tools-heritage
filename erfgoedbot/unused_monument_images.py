@@ -169,6 +169,8 @@ def makeStatistics(mconfig, totals):
 
     totalImages = 0
     for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
+        if countryconfig.get('skip'):
+            continue
         if countryconfig.get('unusedImagesPage') and countryconfig.get('commonsTemplate'):
             text += u'|-\n'
             text += u'| %s ' % countrycode

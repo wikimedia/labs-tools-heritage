@@ -179,6 +179,8 @@ def makeStatistics(mconfig, totals):
 
     totalCategories = 0
     for ((countrycode, lang), countryconfig) in sorted(mconfig.countries.items()):
+        if countryconfig.get('skip'):
+            continue
         if countryconfig.get('missingCommonscatPage') and countryconfig.get('commonsTemplate'):
             text += u'|-\n'
             text += u'| %s ' % countrycode
