@@ -1,0 +1,141 @@
+{
+    "country": "ug",
+    "lang": "en",
+    "description": "Monuments in Uganda in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ug_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "National Cultural Site of Uganda header",
+    "rowTemplate": "National Cultural Site of Uganda row",
+    "commonsTemplate": "National Cultural Site Uganda",
+    "commonsTrackerCategory": "National Cultural Sites in Uganda with known IDs",
+    "commonsCategoryBase": "National Cultural Sites in Uganda",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of National Cultural Sites in Uganda",
+    "imagesWithoutIdPage": "Wikipedia:WikiProject Historic sites/Images of National Cultural Sites in Uganda without an ID",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "varchar(11)"
+        },
+        {
+            "dest": "region_iso",
+            "source": "region_iso"
+        },
+        {
+            "dest": "site",
+            "source": "site"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "original_function",
+            "source": "original_function"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "site",
+            "conv": "extractWikilink"
+        }
+    ],
+    "sql_lang": "English",
+    "sql_country": "Uganda",
+    "sql_data": {
+        "country": {
+            "value": "ug",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ug",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`region_iso`)",
+            "type": "Raw"
+        },
+        "adm3": {
+            "value": "district",
+            "type": "Field"
+        },
+        "name": {
+            "value": "site",
+            "type": "Field"
+        },
+        "address": {
+            "value": "location",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "district",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
+}
