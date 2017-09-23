@@ -484,11 +484,7 @@ def process_country_list(countryconfig, conn, cursor, fullUpdate, daysBack):
                 page, page.permalink(percent_encoded=False), countryconfig,
                 conn, cursor, unknownFields=unknownFields)
 
-    try:
-        unknownFieldsStatistics(countryconfig, unknownFields)
-    except pywikibot.exceptions.PageSaveRelatedError as e:
-        pywikibot.warning(
-            'Could not update field statistics. Details below:\n{}'.format(e))
+    unknownFieldsStatistics(countryconfig, unknownFields)
 
 
 def load_wikidata_template_sparql():

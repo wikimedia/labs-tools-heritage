@@ -6,7 +6,7 @@ from builtins import open
 import os
 import re
 import pywikibot
-from pywikibot.exceptions import OtherPageSaveError
+from pywikibot.exceptions import OtherPageSaveError, PageSaveRelatedError
 
 
 def get_source_link(source, harvest_type=None, label=None):
@@ -102,7 +102,7 @@ def save_to_wiki_or_local(page, summary, content, minorEdit=True):
     if not local_path:
         try:
             page.put(newtext=content, summary=summary, minorEdit=minorEdit)
-        except OtherPageSaveError:
+        except (OtherPageSaveError, PageSaveRelatedError):
             pywikibot.warning(
                 'Could not save page {0} ({1})'.format(page, summary))
     else:
