@@ -482,6 +482,12 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_report_page = mock.create_autospec(
             unused_monument_images.pywikibot.Page,
         )
+        self.prefix = (
+            u'{{#ifexist:{{FULLPAGENAME}}/header'
+            u'|{{/header}}'
+            u'|For information on how to use this report and how to localise '
+            u'these instructions visit '
+            u'[[:c:Commons:Monuments database/Unused images]]. }}\n')
 
         self.unused_images = OrderedDict()
         self.unused_images['source_link_1'] = OrderedDict()
@@ -500,8 +506,7 @@ class TestOutputCountryReport(TestCreateReportBase):
 
     def test_output_country_report_complete(self):
         expected_cmt = u'Images to be used in monument lists: 5'
-        expected_output = (
-            u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+        expected_output = self.prefix + (
             u'=== source_link_1 ===\n'
             u'<gallery>\n'
             u'File:filename1_11.jpg|id_11\n'
@@ -535,8 +540,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         expected_cmt = (
             u'Images to be used in monument lists: 2 (gallery maximum '
             u'reached), total of unused images: 5')
-        expected_output = (
-            u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+        expected_output = self.prefix + (
             u'=== source_link_1 ===\n'
             u'<gallery>\n'
             u'File:filename1_11.jpg|id_11\n'
@@ -566,8 +570,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         expected_cmt = (
             u'Images to be used in monument lists: 3 (gallery maximum '
             u'reached), total of unused images: 5')
-        expected_output = (
-            u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+        expected_output = self.prefix + (
             u'=== source_link_1 ===\n'
             u'<gallery>\n'
             u'File:filename1_11.jpg|id_11\n'
@@ -598,8 +601,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.unused_images = {}
 
         expected_cmt = u'Images to be used in monument lists: 0'
-        expected_output = (
-            u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+        expected_output = self.prefix + (
             u'\nThere are no unused images left. Great work!\n')
         expected_totals = {
             'images': 0,

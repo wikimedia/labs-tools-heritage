@@ -139,7 +139,12 @@ def output_country_report(unused_images, report_page, max_images=1000):
         order to ensure all candidates for a given monument id are presented.
     """
     # People can add a /header template for with more info
-    text = u'{{#ifexist:{{FULLPAGENAME}}/header | {{/header}} }}\n'
+    text = (
+        u'{{#ifexist:{{FULLPAGENAME}}/header'
+        u'|{{/header}}'
+        u'|For information on how to use this report and how to localise '
+        u'these instructions visit '
+        u'[[:c:Commons:Monuments database/Unused images]]. }}\n')
     total_pages = 0
     total_ids = 0
     totalImages = 0
