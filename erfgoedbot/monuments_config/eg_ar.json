@@ -14,7 +14,8 @@
     "commonsTemplate": "Cultural Heritage Egypt",
     "commonsTrackerCategory": "Cultural heritage monuments in Egypt with known IDs",
     "commonsCategoryBase": "Cultural heritage monuments in Egypt",
-    "unusedImagesPage": "",
+    "unusedImagesPage": "مستخدم:Bachounda/Unusued_images_Egypt",
+    "imagesWithoutIdPage": "مستخدم:Bachounda/Images_without_ID_Egypt",
     "registrantUrlBase": "",
     "fields": [
         {
@@ -36,6 +37,10 @@
         {
             "dest": "municipality",
             "source": "مدينة"
+        },
+        {
+            "dest": "governorate",
+            "source": "محافظة"
         },
         {
             "dest": "permission",
