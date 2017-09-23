@@ -1,0 +1,152 @@
+{
+    "country": "hr",
+    "lang": "hr",
+    "description": "Monuments in Croatia in Croatian",
+    "project": "wikipedia",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_hr_(hr)",
+    "truncate": false,
+    "primkey": "kod",
+    "headerTemplate": "Spomenik zaglavlje",
+    "rowTemplate": "Spomenik red",
+    "commonsTemplate": "",
+    "commonsTrackerCategory": "",
+    "commonsCategoryBase": "Cultural heritage monuments in Croatia",
+    "unusedImagesPage": "Suradnik:Effeietsanders/Unused_images",
+    "imagesWithoutIdPage": "Suradnik:Effeietsanders/Images_without_id",
+    "registrantUrlBase": "",
+    "fields": [
+        {
+            "dest": "kod",
+            "source": "kod"
+        },
+        {
+            "dest": "zupanija",
+            "source": "zupanija"
+        },
+        {
+            "dest": "naziv",
+            "source": "naziv"
+        },
+        {
+            "dest": "opis",
+            "source": "opis"
+        },
+        {
+            "dest": "type",
+            "source": "vrsta kulturnog dobra"
+        },
+        {
+            "dest": "pravni_status",
+            "source": "pravni status"
+        },
+        {
+            "dest": "klasifikacija",
+            "source": "klasifikacija"
+        },
+        {
+            "dest": "sagradjeno",
+            "source": "sagradjeno"
+        },
+        {
+            "dest": "unesco",
+            "source": "UNESCO"
+        },
+        {
+            "dest": "adresa",
+            "source": "adresa"
+        },
+        {
+            "dest": "mjesto",
+            "source": "mjesto"
+        },
+        {
+            "dest": "grad",
+            "source": "grad"
+        },
+        {
+            "dest": "arhitekt",
+            "source": "arhitekt"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "slika",
+            "source": "slika"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ],
+    "sql_lang": "Croatian",
+    "sql_country": "Croatia",
+    "sql_data": {
+        "country": {
+            "value": "hr",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "hr",
+            "type": "Text"
+        },
+        "id": {
+            "value": "kod",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "hr",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "zupanija",
+            "type": "Field"
+        },
+        "name": {
+            "value": "naziv",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresa",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "mjesto",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "slika",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        }
+    }
+}
