@@ -75,10 +75,6 @@
             "dest": "monument_article",
             "source": "monument",
             "conv": "extractWikilink"
-        },
-        {
-            "dest": "registrant_url",
-            "source": "id"
         }
     ],
     "sql_lang": "French",
@@ -146,10 +142,6 @@
         },
         "monument_article": {
             "value": "monument_article",
-            "type": "Field"
-        },
-        "registrant_url": {
-            "value": "registrant_url",
             "type": "Field"
         }
     }
