@@ -54,14 +54,8 @@
             "source": "address"
         },
         {
-            "dest": "lat",
-            "source": "lat",
-            "check": "checkLat"
-        },
-        {
-            "dest": "lon",
-            "source": "lon",
-            "check": "checkLon"
+            "dest": "coord_template",
+            "source": "coord"
         },
         {
             "dest": "image",
@@ -113,14 +107,6 @@
         },
         "municipality": {
             "value": "location",
-            "type": "Field"
-        },
-        "lat": {
-            "value": "lat",
-            "type": "Field"
-        },
-        "lon": {
-            "value": "lon",
             "type": "Field"
         },
         "image": {
