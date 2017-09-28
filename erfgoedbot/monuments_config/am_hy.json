@@ -62,6 +62,10 @@
             "check": "checkLon"
         },
         {
+            "dest": "height",
+            "source": "բարձրություն"
+        },
+        {
             "dest": "gov_doc_id",
             "source": "հղում"
         },
