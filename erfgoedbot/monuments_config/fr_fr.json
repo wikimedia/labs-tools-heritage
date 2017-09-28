@@ -80,6 +80,10 @@
             "type": "varchar(11)"
         },
         {
+            "dest": "base",
+            "source": "base"
+        },
+        {
             "dest": "protection",
             "source": "protection"
         },
