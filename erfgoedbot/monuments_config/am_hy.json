@@ -83,7 +83,7 @@
         },
         {
             "dest": "registrant_url",
-            "source": "gov_doc_id",
+            "source": "հղում",
             "conv": "generateRegistrantUrl"
         }
     ],
