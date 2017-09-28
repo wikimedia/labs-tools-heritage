@@ -26,6 +26,22 @@
             "source": "Nr"
         },
         {
+            "dest": "category",
+            "source": "Kategoria"
+        },
+        {
+            "dest": "field",
+            "source": "Fusha"
+        },
+        {
+            "dest": "type",
+            "source": "Tipologjia"
+        },
+        {
+            "dest": "county",
+            "source": "Qarku"
+        },
+        {
             "dest": "place",
             "source": "Lokacioni"
         },
@@ -51,10 +67,6 @@
             "dest": "monument_article",
             "source": "Emërtimi",
             "conv": "extractWikilink"
-        },
-        {
-            "dest": "registrant_url",
-            "source": ""
         }
     ],
     "sql_lang": "Albanian",
