@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Cultural heritage monuments in Thailand",
     "unusedImagesPage": "วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่ได้ใช้",
     "imagesWithoutIdPage": "วิกิพีเดีย:Wiki Loves Monuments/ภาพโบราณสถานในประเทศไทยที่ไม่มีรหัส",
+    "registrantUrlBase": "http://www.gis.finearts.go.th/fad50/fad/display_data.aspx?id=%s",
     "fields": [
         {
             "dest": "register",
@@ -82,12 +83,13 @@
         },
         {
             "dest": "monument_article",
-            "source": "name",
+            "source": "ชื่อ",
             "conv": "extractWikilink"
         },
         {
             "dest": "registrant_url",
-            "source": "register"
+            "source": "ทะเบียน",
+            "conv": "generateRegistrantUrl"
         }
     ],
     "sql_lang": "Thai",
