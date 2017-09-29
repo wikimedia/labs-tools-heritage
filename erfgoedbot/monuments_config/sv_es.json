@@ -79,10 +79,6 @@
         {
             "dest": "commonscat",
             "source": "monumento_categoría"
-        },
-        {
-            "dest": "registrant_url",
-            "source": "id"
         }
     ],
     "sql_lang": "Spanish",
@@ -150,10 +146,6 @@
         },
         "monument_article": {
             "value": "monumento_enlace",
-            "type": "Field"
-        },
-        "registrant_url": {
-            "value": "registrant_url",
             "type": "Field"
         }
     }
