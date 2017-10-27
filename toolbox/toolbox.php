@@ -50,7 +50,7 @@ class ToolboxPage {
 		$result[] = '  <meta http-equiv="content-type" content="text/html; charset=utf-8">';
 		$result[] = '  <link rel="stylesheet" type="text/css" href="css/default_css.css" />';
 		$result[] = '  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon"/>';
-		$result[] = '  <script src="js/jquery.js" type="text/javascript" /></script>';
+		$result[] = '  <script src="//tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" /></script>';
 		$result[] = '</head>';
 		return $result;
 	}

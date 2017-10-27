@@ -36,7 +36,25 @@ class FormatHtml extends FormatBase {
 		$this->linebreak();
 		echo '<link media="all" type="text/css" href="jscss/style.css" rel="stylesheet">';
 		$this->linebreak();
-		echo '<script src="jscss/custom.js" type="text/javascript"></script>';
+		echo '<link type="text/css" href="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery.tablesorter/2.29.0/css/theme.default.min.css" rel="stylesheet">';
+		$this->linebreak();
+		echo '<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery/1.2.6/jquery.min.js" type="text/javascript"></script>';
+		$this->linebreak();
+		echo '<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery.tablesorter/2.29.0/js/jquery.tablesorter.min.js" type="text/javascript"></script>';
+		$this->linebreak();
+		echo '<script src="https://tools-static.wmflabs.org/cdnjs/ajax/libs/jquery.tablesorter/2.29.0/js/jquery.tablesorter.widgets.min.js" type="text/javascript"></script>';
+		$this->linebreak();
+		echo "<script>
+				$(function(){
+				$('table').tablesorter({
+					widgets        : ['zebra', 'columns'],
+					usNumberFormat : false,
+					sortReset      : true,
+					sortRestart    : true
+				});
+			});
+			</script>";
+		$this->linebreak();
 		echo "</head>\n<body>\n<table class=\"sortable wlm-result\" id=\"sortable_table_id_0\">\n";
 
 		$this->isFirstRow = true;
@@ -58,16 +76,15 @@ class FormatHtml extends FormatBase {
 
 	function outputRow( $row, $selectedItems ) {
 		if ( !$this->isTableOpen ) {
-			echo '<tr id="header">';
+			echo '<thead><tr id="header">';
 
 			foreach ( $row as $name => $value ) {
 				if ( in_array( $name, $selectedItems ) ) {
-					// $label = $name.'<a href="#" class="sortheader" onclick="ts_resortTable(this);return false;"><span class="sortarrow" sortdir="down"><img src="http://commons.wikimedia.org/skins-1.17/common/images/sort_none.gif" alt="↑"></span></a>';
 					echo '<th class="sortheader">' . _i18n( 'db-field-' . $name ) . '</th>';
 					$this->linebreak();
 				}
 			}
-			echo '</tr>';
+			echo '</tr></thead>';
 			$this->isTableOpen = true;
 		}
 
