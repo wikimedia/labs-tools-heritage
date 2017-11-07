@@ -17,7 +17,7 @@ import os
 import time
 import urlparse
 import warnings
-from collections import Counter
+from collections import Counter, OrderedDict
 
 from requests.exceptions import ConnectionError, Timeout
 
@@ -147,24 +147,53 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
 
     The table contains the name and frequency of the field and a sample of
     source pages where this field was encountered.
+
+    @param countryconfig: the configurations for the dataset being processed.
+    @param unknown_fields: dict of discovered fields with each value being a
+        Counter for how frequently the field is encountered per page.
+    @return: dict summarising the usages
     """
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
         site, 'Commons:Monuments database/Unknown fields/{0}'.format(
             countryconfig.get('table')))
-    summary = 'Updating the list of unknown fields'
+    summary = 'Updating the list of unknown fields with {0} entries'
 
-    text = '{| class="wikitable sortable"\n'
-    text += '! Field !! Count !! Sources\n'
-    for key, counter in unknown_fields.items():
-        text += '|-\n'
-        text += '| {0} || {1} || {2}\n'.format(
-            key, sum(counter.values()), format_source_field(counter, site))
+    # People can add a /header template with more info
+    text = common.instruction_header(
+        ':c:Commons:Monuments_database/Unknown fields')
 
-    text += '|}\n'
+    total_usages = 0
+    pages_with_fields = set()
+
+    if not unknown_fields:
+        text += '\nThere are no unknown fields left. Great work!\n'
+    else:
+        column_names = ('Field', 'Count', 'Sources')
+        numeric_columns = ('Count', )
+        columns = OrderedDict(
+            [(col, col in numeric_columns) for col in column_names])
+        text += common.table_header_row(columns)
+        for key, counter in unknown_fields.iteritems():
+            total_usages += sum(counter.values())
+            pages_with_fields.update(counter.keys())
+            text += '|-\n'
+            text += '| {0} || {1} || {2}\n'.format(
+                key, sum(counter.values()), format_source_field(counter, site))
+        text += '|}\n'
+
     text += '[[Category:Commons:Monuments database/Unknown fields]]'
 
-    common.save_to_wiki_or_local(page, summary, text)
+    common.save_to_wiki_or_local(
+        page, summary.format(len(unknown_fields)), text)
+
+    return {
+        'report_page': page,
+        'config': countryconfig,
+        'total_fields': len(unknown_fields),
+        'total_pages': len(pages_with_fields),
+        'total_usages': total_usages
+    }
 
 
 def format_source_field(sources, site, sample_size=4):
@@ -432,8 +461,8 @@ def process_country(countryconfig, conn, cursor, full_update, days_back):
     if countryconfig.get('type') == 'sparql':
         process_country_wikidata(countryconfig, conn, cursor)
     else:
-        process_country_list(countryconfig, conn, cursor,
-                             full_update, days_back)
+        return process_country_list(
+            countryconfig, conn, cursor, full_update, days_back)
 
 
 def process_country_list(countryconfig, conn, cursor, full_update, days_back):
@@ -474,7 +503,7 @@ def process_country_list(countryconfig, conn, cursor, full_update, days_back):
                 page, page.permalink(percent_encoded=False), countryconfig,
                 conn, cursor, unknown_fields=unknown_fields)
 
-    unknown_fields_statistics(countryconfig, unknown_fields)
+    return unknown_fields_statistics(countryconfig, unknown_fields)
 
 
 def load_wikidata_template_sparql():
@@ -537,6 +566,88 @@ def process_country_wikidata(countryconfig, conn, cursor):
         min(len(query_result), i + batch_size)))
 
 
+def make_statistics(statistics):
+    """Output the overall results for unknown fields as a nice wikitable."""
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
+        site, 'Commons:Monuments database/Unknown fields/Statistics')
+
+    column_names = ('country', 'lang', 'Total fields', 'Total usage of fields',
+                    'Total pages containing fields', 'Report page',
+                    'Row template', 'Header template')
+    columns = OrderedDict(
+        [(col, col.startswith('Total ')) for col in column_names])
+    text = common.table_header_row(columns)
+
+    text_row = (
+        '|-\n'
+        '| {code} \n'
+        '| {lang} \n'
+        '| {total_fields} \n'
+        '| {total_usages} \n'
+        '| {total_pages} \n'
+        '| {report_page} \n'
+        '| {row_template} \n'
+        '| {header_template} \n')
+
+    total_fields_sum = 0
+    total_usages_sum = 0
+    total_pages_sum = 0
+    for row in statistics:
+        if not row:
+            # sparql harvests don't generate statistics
+            continue
+        countryconfig = row.get('config')
+        total_fields = row.get('total_fields')
+        total_usages = row.get('total_usages')
+        total_pages = row.get('total_pages')
+
+        total_fields_sum += total_fields
+        total_usages_sum += total_usages
+        total_pages_sum += total_pages
+
+        list_site = pywikibot.Site(
+            countryconfig.get('lang'),
+            countryconfig.get('project', 'wikipedia'))
+        row_template_page = pywikibot.Page(
+            list_site,
+            'Template:{0}'.format(countryconfig.get('rowTemplate')))
+        header_template_page = pywikibot.Page(
+            list_site,
+            'Template:{0}'.format(countryconfig.get('headerTemplate')))
+
+        row_template = row_template_page.title(
+            asLink=True, withNamespace=False, insite=site)
+        header_template = header_template_page.title(
+            asLink=True, withNamespace=False, insite=site)
+        report_page = row.get('report_page').title(
+            asLink=True, withNamespace=False, insite=site)
+
+        text += text_row.format(
+            code=countryconfig.get('country'),
+            lang=countryconfig.get('lang'),
+            total_fields=total_fields,
+            total_usages=total_usages,
+            total_pages=total_pages,
+            report_page=report_page,
+            row_template=row_template,
+            header_template=header_template)
+
+    text += common.table_bottom_row(8, {
+        2: total_fields_sum,
+        3: total_usages_sum,
+        4: total_pages_sum})
+
+    comment = (
+        'Updating unknown fields statistics. Total of {total_fields} '
+        'unknown fields used {total_usages} times on {total_pages} different '
+        'pages.'.format(total_fields=total_fields_sum,
+                        total_usages=total_usages_sum,
+                        total_pages=total_pages_sum))
+    pywikibot.debug(text, _logger)
+    common.save_to_wiki_or_local(page, comment, text)
+
+
 def main():
     """The main loop."""
     # First find out what to work on
@@ -591,6 +702,7 @@ def main():
         raise Exception('The "countrycode" and "langcode" arguments must '
                         'be used together.')
     else:
+        statistics = []
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             if (countryconfig.get('skip') or
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
@@ -599,13 +711,15 @@ def main():
                 'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
             try:
-                process_country(countryconfig, conn, cursor, full_update,
-                                days_back)
+                statistics.append(
+                    process_country(countryconfig, conn, cursor, full_update,
+                                    days_back))
             except Exception, e:
                 pywikibot.error(
                     'Unknown error occurred when processing country '
                     '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 continue
+        make_statistics(statistics)
 
     close_database_connection(conn, cursor)
 

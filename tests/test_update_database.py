@@ -1,13 +1,30 @@
+#!/usr/bin/python
+# -*- coding: utf-8  -*-
 """Unit tests for update_database."""
 
 import unittest
-from collections import Counter
+from collections import Counter, OrderedDict
 
 import mock
 
 import pywikibot
 
 from erfgoedbot import update_database
+
+
+class TestCreateReportBase(unittest.TestCase):
+
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.save_to_wiki_or_local')
+        self.mock_save_to_wiki_or_local = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        # silence logger
+        patcher = mock.patch(
+            'erfgoedbot.update_database.pywikibot.debug')
+        self.mock_debug = patcher.start()
+        self.addCleanup(patcher.stop)
 
 
 class TestUpdateDatabaseBase(unittest.TestCase):
@@ -338,8 +355,12 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
-            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: unknown')
+            update_database.update_monument(
+                self.contents, self.source, self.country_config, None,
+                self.mock_cursor, self.mock_page)
+            self.assertEqual(
+                cm.exception,
+                'Un-defined check in config for dummy_table: unknown')
 
     def test_trigger_problematic_check(self):
         # It is a known bug that any function can be triggered using a check
@@ -354,8 +375,12 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
-            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: connectDatabase')
+            update_database.update_monument(
+                self.contents, self.source, self.country_config, None,
+                self.mock_cursor, self.mock_page)
+            self.assertEqual(
+                cm.exception,
+                'Un-defined check in config for dummy_table: connectDatabase')
 
 
 class TestFormatSourceField(unittest.TestCase):
@@ -400,3 +425,410 @@ class TestFormatSourceField(unittest.TestCase):
                 sources, self.commons, sample_size=2),
             expected
         )
+
+
+class TestMakeStatistics(TestCreateReportBase):
+
+    """Test the make_statistics method."""
+
+    def setUp(self):
+        super(TestMakeStatistics, self).setUp()
+
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.prefix
+        self.addCleanup(patcher.stop)
+
+        self.postfix = 'postfix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.table_bottom_row')
+        self.mock_table_bottom_row = patcher.start()
+        self.mock_table_bottom_row.return_value = self.postfix
+        self.addCleanup(patcher.stop)
+
+        self.comment = (
+            u'Updating unknown fields statistics. Total of {total_fields} '
+            u'unknown fields used {total_usages} times on {total_pages} '
+            u'different pages.')
+        commons = pywikibot.Site('commons', 'commons')
+        self.page = pywikibot.Page(
+            commons, u'Commons:Monuments database/Unknown fields/Statistics')
+
+    def test_make_statistics_single_basic(self):
+        test_wiki = pywikibot.Site('test', 'wikipedia')
+        report_page = pywikibot.Page(test_wiki, 'Foobar')
+        statistics = [{
+            'config': {
+                'lang': 'en',
+                'country': 'foo',
+                'rowTemplate': 'row template',
+                'headerTemplate': 'head template'},
+            'report_page': report_page,
+            'total_fields': 123,
+            'total_usages': 456,
+            'total_pages': 789
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 123 \n'
+            u'| 456 \n'
+            u'| 789 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| [[wikipedia:en:Template:Head template|Head template]] \n')
+        expected_total_fields = 123
+        expected_total_usages = 456
+        expected_total_pages = 789
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            total_fields=expected_total_fields,
+            total_usages=expected_total_usages,
+            total_pages=expected_total_pages)
+
+        update_database.make_statistics(statistics)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                total_fields=expected_total_fields,
+                total_usages=expected_total_usages,
+                total_pages=expected_total_pages),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(8, {
+            2: expected_total_fields,
+            3: expected_total_usages,
+            4: expected_total_pages})
+
+    def test_make_statistics_single_empty(self):
+        statistics = [None, ]
+
+        expected_rows = ''
+        expected_total_fields = 0
+        expected_total_usages = 0
+        expected_total_pages = 0
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            total_fields=expected_total_fields,
+            total_usages=expected_total_usages,
+            total_pages=expected_total_pages)
+
+        update_database.make_statistics(statistics)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                total_fields=expected_total_fields,
+                total_usages=expected_total_usages,
+                total_pages=expected_total_pages),
+            expected_text
+        )
+
+    def test_make_statistics_multiple_basic(self):
+        test_wiki = pywikibot.Site('test', 'wikipedia')
+        report_page_1 = pywikibot.Page(test_wiki, 'Foobar')
+        report_page_2 = pywikibot.Page(test_wiki, 'Barfoo')
+        statistics = [
+            {
+                'config': {
+                    'lang': 'en',
+                    'country': 'foo',
+                    'rowTemplate': 'row template',
+                    'headerTemplate': 'head template'},
+                'report_page': report_page_1,
+                'total_fields': 123,
+                'total_usages': 456,
+                'total_pages': 789
+            },
+            {
+                'config': {
+                    'lang': 'fr',
+                    'country': 'bar',
+                    'rowTemplate': 'row2 template',
+                    'headerTemplate': 'head2 template'},
+                'report_page': report_page_2,
+                'total_fields': 321,
+                'total_usages': 654,
+                'total_pages': 987
+            }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 123 \n'
+            u'| 456 \n'
+            u'| 789 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| [[wikipedia:en:Template:Head template|Head template]] \n'
+            u'|-\n'
+            u'| bar \n'
+            u'| fr \n'
+            u'| 321 \n'
+            u'| 654 \n'
+            u'| 987 \n'
+            u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
+            u'| [[wikipedia:fr:Modèle:Row2 template|Row2 template]] \n'
+            u'| [[wikipedia:fr:Modèle:Head2 template|Head2 template]] \n')
+        expected_total_fields = 444
+        expected_total_usages = 1110
+        expected_total_pages = 1776
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            total_fields=expected_total_fields,
+            total_usages=expected_total_usages,
+            total_pages=expected_total_pages)
+
+        update_database.make_statistics(statistics)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                total_fields=expected_total_fields,
+                total_usages=expected_total_usages,
+                total_pages=expected_total_pages),
+            expected_text
+        )
+
+    def test_make_statistics_multiple_mixed(self):
+        test_wiki = pywikibot.Site('test', 'wikipedia')
+        report_page = pywikibot.Page(test_wiki, 'Foobar')
+        statistics = [
+            None,
+            {
+                'config': {
+                    'lang': 'en',
+                    'country': 'foo',
+                    'rowTemplate': 'row template',
+                    'headerTemplate': 'head template'},
+                'report_page': report_page,
+                'total_fields': 123,
+                'total_usages': 456,
+                'total_pages': 789
+            },
+            None]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 123 \n'
+            u'| 456 \n'
+            u'| 789 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| [[wikipedia:en:Template:Head template|Head template]] \n')
+        expected_total_fields = 123
+        expected_total_usages = 456
+        expected_total_pages = 789
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            total_fields=expected_total_fields,
+            total_usages=expected_total_usages,
+            total_pages=expected_total_pages)
+
+        update_database.make_statistics(statistics)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                total_fields=expected_total_fields,
+                total_usages=expected_total_usages,
+                total_pages=expected_total_pages),
+            expected_text
+        )
+
+
+class TestUnknownFieldsStatistics(TestCreateReportBase):
+
+    """Test the unknown_fields_statistics method."""
+
+    def setUp(self):
+        super(TestUnknownFieldsStatistics, self).setUp()
+        self.mock_report_page = mock.create_autospec(
+            update_database.pywikibot.Page,
+        )
+        patcher = mock.patch(
+            'erfgoedbot.update_database.pywikibot.Page')
+        self.mock_pwb_page = patcher.start()
+        self.mock_pwb_page.return_value = self.mock_report_page
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.update_database.format_source_field')
+        self.mock_format_source_field = patcher.start()
+        self.mock_format_source_field.return_value = 'formatted_entry'
+        self.addCleanup(patcher.stop)
+
+        self.instruction_prefix = 'instruction_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.instruction_header')
+        self.mock_instruction_header = patcher.start()
+        self.mock_instruction_header.return_value = self.instruction_prefix
+        self.addCleanup(patcher.stop)
+
+        self.table_prefix = 'table_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.table_prefix
+        self.addCleanup(patcher.stop)
+
+        self.postfix = (
+            u'[[Category:Commons:Monuments database/Unknown fields]]')
+
+        self.comment = u'Updating the list of unknown fields with {0} entries'
+        self.countryconfig = {
+            'table': 'table_name',
+            'foo': 'bar'
+        }
+        self.commons = pywikibot.Site('commons', 'commons')
+
+        self.unknown_fields = OrderedDict()
+        self.counter_1 = Counter({'page_11': 1, 'page_12': 5})
+        self.unknown_fields['unknown_field_1'] = self.counter_1
+        self.counter_2 = Counter({'page_21': 3})
+        self.unknown_fields['unknown_field_2'] = self.counter_2
+
+    def test_unknown_fields_statistics_complete(self):
+        expected_cmt = self.comment.format(2)
+        expected_output = self.instruction_prefix + self.table_prefix + (
+            u'|-\n'
+            u'| unknown_field_1 || 6 || formatted_entry\n'
+            u'|-\n'
+            u'| unknown_field_2 || 3 || formatted_entry\n'
+            u'|}\n') + self.postfix
+        expected_return = {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_fields': 2,
+            'total_pages': 3,
+            'total_usages': 9
+        }
+
+        result = update_database.unknown_fields_statistics(
+            self.countryconfig, self.unknown_fields)
+        self.assertEqual(result, expected_return)
+        self.mock_pwb_page.assert_called_once_with(
+            self.commons,
+            u'Commons:Monuments database/Unknown fields/table_name'
+        )
+        self.mock_format_source_field.assert_has_calls([
+            mock.call(self.counter_1, self.commons),
+            mock.call(self.counter_2, self.commons)],
+        )
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+        self.mock_instruction_header.assert_called_once()
+
+    def test_unknown_fields_statistics_no_unknown(self):
+        expected_cmt = self.comment.format(0)
+        expected_output = (
+            self.instruction_prefix +
+            u'\nThere are no unknown fields left. Great work!\n' +
+            self.postfix)
+        expected_return = {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_fields': 0,
+            'total_pages': 0,
+            'total_usages': 0
+        }
+
+        result = update_database.unknown_fields_statistics(
+            self.countryconfig, {})
+        self.assertEqual(result, expected_return)
+        self.mock_pwb_page.assert_called_once_with(
+            self.commons,
+            u'Commons:Monuments database/Unknown fields/table_name'
+        )
+        self.mock_format_source_field.assert_not_called()
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+
+    def test_unknown_fields_statistics_combine_pages(self):
+        new_counter = Counter({'page_11': 3, 'page_21': 3, 'page_22': 3})
+        self.unknown_fields['unknown_field_2'] = new_counter
+        expected_cmt = self.comment.format(2)
+        expected_output = self.instruction_prefix + self.table_prefix + (
+            u'|-\n'
+            u'| unknown_field_1 || 6 || formatted_entry\n'
+            u'|-\n'
+            u'| unknown_field_2 || 9 || formatted_entry\n'
+            u'|}\n') + self.postfix
+        expected_return = {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_fields': 2,
+            'total_pages': 4,
+            'total_usages': 15
+        }
+
+        result = update_database.unknown_fields_statistics(
+            self.countryconfig, self.unknown_fields)
+        self.assertEqual(result, expected_return)
+        self.mock_pwb_page.assert_called_once_with(
+            self.commons,
+            u'Commons:Monuments database/Unknown fields/table_name'
+        )
+        self.mock_format_source_field.assert_has_calls([
+            mock.call(self.counter_1, self.commons),
+            mock.call(new_counter, self.commons)],
+        )
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+
+
+class TestProcessCountry(unittest.TestCase):
+
+    """Test the process_country method."""
+
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.update_database.process_country_wikidata')
+        self.mock_process_country_wikidata = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.update_database.process_country_list')
+        self.mock_process_country_list = patcher.start()
+        self.mock_process_country_list.return_value = 'unknown_field_stats'
+        self.addCleanup(patcher.stop)
+
+    def test_process_country_sparql(self):
+        config = {'type': 'sparql'}
+
+        result = update_database.process_country(
+            config, 'conn', 'cursor', 'full_update', 'days_back')
+        self.assertEqual(result, None)
+        self.mock_process_country_wikidata.assert_called_once_with(
+            config, 'conn', 'cursor')
+        self.mock_process_country_list.assert_not_called()
+
+    def test_process_country_list(self):
+        config = {'type': 'list'}
+
+        result = update_database.process_country(
+            config, 'conn', 'cursor', 'full_update', 'days_back')
+        self.assertEqual(result, 'unknown_field_stats')
+        self.mock_process_country_wikidata.assert_not_called()
+        self.mock_process_country_list.assert_called_once_with(
+            config, 'conn', 'cursor', 'full_update', 'days_back')
+
+    def test_process_country_default_to_list(self):
+        config = {}
+
+        result = update_database.process_country(
+            config, 'conn', 'cursor', 'full_update', 'days_back')
+        self.assertEqual(result, 'unknown_field_stats')
+        self.mock_process_country_wikidata.assert_not_called()
+        self.mock_process_country_list.assert_called_once_with(
+            config, 'conn', 'cursor', 'full_update', 'days_back')
