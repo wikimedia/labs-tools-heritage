@@ -306,12 +306,12 @@ def makeStatistics(statistics):
                 countryconfig.get('project', u'wikipedia'))
             row_template_page = pywikibot.Page(
                 row_site,
-                'Template:{0}'.format(countryconfig.get('rowTemplate')))
+                u'Template:{0}'.format(countryconfig.get('rowTemplate')))
             row_template = row_template_page.title(
                 asLink=True, withNamespace=False, insite=site)
 
         if countryconfig.get('commonsTemplate'):
-            commons_template = '{{tl|%s}}' % (
+            commons_template = u'{{tl|%s}}' % (
                 countryconfig.get('commonsTemplate'), )
 
         if row.get('report_page'):
