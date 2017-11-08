@@ -5,6 +5,9 @@
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $CURRENT_DIR/defaults.sh
 
+# Use a virtual environment with our requirements
+source $VIRTUAL_ENV_PATH/bin/activate
+
 # Make sure we are in our homedir
 cd $HOME_DIR || exit
 
