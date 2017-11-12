@@ -1,5 +1,5 @@
 future
 pywikibot==3.0.20170403
-MySQL-python
+PyMySQL==0.7.11
 requests
 PyYAML

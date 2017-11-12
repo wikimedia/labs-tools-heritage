@@ -2,7 +2,7 @@
 
 import os
 
-import MySQLdb
+import pymysql
 import yaml
 
 from pywikibot import config as pywikibot_config
@@ -43,7 +43,7 @@ def connect_to_monuments_database():
     db_config = get_monuments_database_config()
     username = db_config.get('username', pywikibot_config.db_username)
     password = db_config.get('password', pywikibot_config.db_password)
-    conn = MySQLdb.connect(
+    conn = pymysql.connect(
         host=db_config['server'], db=db_config['db_name'],
         user=username, passwd=password,
         use_unicode=True, charset='utf8')
@@ -55,7 +55,7 @@ def connect_to_monuments_database():
 def connect_to_commons_database():
     """Connect to the commons mysql database."""
     db_config = get_commons_database_config()
-    conn = MySQLdb.connect(
+    conn = pymysql.connect(
         host=db_config['server'], db=db_config['db_name'],
         user=pywikibot_config.db_username, passwd=pywikibot_config.db_password,
         use_unicode=True, charset='latin1')

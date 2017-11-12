@@ -4,7 +4,7 @@ import os
 import unittest
 
 import mock
-from MySQLdb.connections import Connection
+from pymysql.connections import Connection
 
 from erfgoedbot import database_connection
 
@@ -50,7 +50,7 @@ class TestConnectToMonumentsDatabase(unittest.TestCase):
         self.mock_database_config = patcher.start()
         self.addCleanup(patcher.stop)
         self.mock_connection = mock.Mock(spec=Connection)
-        patcher = mock.patch('erfgoedbot.database_connection.MySQLdb.connect')
+        patcher = mock.patch('erfgoedbot.database_connection.pymysql.connect')
         self.mock_connect = patcher.start()
         self.mock_connect.return_value = self.mock_connection
         self.addCleanup(patcher.stop)
@@ -97,7 +97,7 @@ class TestConnectToCommonsDatabase(unittest.TestCase):
         }
         self.addCleanup(patcher.stop)
         self.mock_connection = mock.Mock(spec=Connection)
-        patcher = mock.patch('erfgoedbot.database_connection.MySQLdb.connect')
+        patcher = mock.patch('erfgoedbot.database_connection.pymysql.connect')
         self.mock_connect = patcher.start()
         self.mock_connect.return_value = self.mock_connection
         self.addCleanup(patcher.stop)
