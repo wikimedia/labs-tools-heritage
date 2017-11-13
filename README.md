@@ -31,6 +31,9 @@ docker-compose run --rm bot python erfgoedbot/update_database.py -countrycode:ge
 
 # Update the monuments_all table
 docker-compose run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql
+
+# Update the statistics table
+docker-compose run --rm web php ../maintenance/_buildStats.php
 ```
 
 The web interface will be accessible on http://localhost:8000/

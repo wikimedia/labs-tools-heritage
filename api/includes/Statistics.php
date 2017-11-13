@@ -14,6 +14,7 @@ class Statistics extends StatisticsBase {
 	var $report = [];
 	var $axis = [];
 	static $fieldPrefix = 'st_';
+	static $maxMuniLength = 100;  # length of muni db field
 
 	var $lastDay = '';
 	static $aItems = [
@@ -51,10 +52,9 @@ class Statistics extends StatisticsBase {
 
 		// determine proper axis - TODO recover groupby='country'
 		$gc = 'item';
-		$gi = 'idx';
 
 		// determine SQL filters
-		$fields = [ 'day', 'item', 'idx', 'value' ];
+		$fields = [ 'country', 'muni', 'lang', 'project', 'day', 'item', 'value' ];
 		$where = [];
 
 		$items_in = '"'. Statistics::$fieldPrefix . implode( '","'.Statistics::$fieldPrefix, $items ) . '"';
@@ -63,7 +63,7 @@ class Statistics extends StatisticsBase {
 
 		$filters_in = [];
 		for ( $i=0; $i<count( $filters ); $i++ ) {
-			$filters_in[] = 'idx LIKE "'.$filters[$i].':%"';
+			$filters_in[] = 'country LIKE "'.$filters[$i].'%"';
 		}
 		$where[] = implode( ' OR ', $filters_in );
 
@@ -75,15 +75,18 @@ class Statistics extends StatisticsBase {
 		$group = [];
 		$idxs = [];
 		while ( $row = $oRes->fetchAssoc() ) {
-			// var_dump($row);
+			# var_dump($row);
+			$idx = Statistics::packIdxFromLabel( $row );
+			# var_dump($idx);
+			$idxString = Statistics::makeIdxString( $idx );
 			$group[$row[$gc]] = 1;
-			$idxs[$row[$gi]] = 1;
-			list( $country,$municipality,$lang,$project ) = Statistics::invertIdx( $row[$gi] );
-			$this->report[$row[$gi]]['country'] = $country;
-			$this->report[$row[$gi]]['municipality'] = $municipality;
-			$this->report[$row[$gi]]['lang'] = $lang;
-			$this->report[$row[$gi]]['project'] = $project;
-			$this->report[$row[$gi]][$row[$gc]] = $row['value'];
+			$idxs[$idxString] = 1;
+			list( $country,$municipality,$lang,$project ) = $idx;
+			$this->report[$idxString]['country'] = $country;
+			$this->report[$idxString]['municipality'] = $municipality;
+			$this->report[$idxString]['lang'] = $lang;
+			$this->report[$idxString]['project'] = $project;
+			$this->report[$idxString][$row[$gc]] = $row['value'];
 		}
 		// var_dump($this->report);
 		$this->axis['columns'] = array_keys( $group );
@@ -95,18 +98,47 @@ class Statistics extends StatisticsBase {
 		return $this->report;
 	}
 
-	/** Helper to make idx identifier
+	/**
+	 * Pack idx identifier as an array given a labeled row
 	 */
-	static function makeIdx( $row ) {
-		// Need to replace any naturally occuring ':' in row[1]
-		$muni = str_replace( ':', '&#58;', $row[1] );
-		return $row[0] . ':' . $muni . ':' . $row[2] . ':' . $row[3];
+	static function packIdxFromLabel( $row ) {
+		$country = $row['country'];
+		$municipality = $row['muni'];
+		$lang = $row['lang'];
+		$project = $row['project'];
+		return [ $country, $municipality, $lang, $project ];
 	}
 
-	/** Helper to invert idx identifier
+	/**
+	 * Pack idx identifier as an array given an indexed row
 	 */
-	static function invertIdx( $idx ) {
-		list( $country, $municipality, $lang, $project ) = explode( ':', $idx, 4 );
+	static function packIdxFromIndex( $row, $db ) {
+		$country = $db->sanitize( $row[0] );
+		$muni = $row[1];
+		if ( strlen( $muni ) >= Statistics::$maxMuniLength ) {
+			$muni = substr( $muni, 0, Statistics::$maxMuniLength - 1 ) . '…';
+		}
+		$municipality = $db->sanitize( $muni );
+		$lang = $db->sanitize( $row[2] );
+		$project = $db->sanitize( $row[3] );
+		return [ $country, $municipality, $lang, $project ];
+	}
+
+	/**
+	 * Helper to convert idx identifier to string
+	 */
+	static function makeIdxString( $idx ) {
+		// Need to replace any naturally occuring ':' in row[1]
+		list( $country, $muni, $lang, $project ) = $idx;
+		$muni = str_replace( ':', '&#58;', $muni );
+		return $country . ':' . $muni . ':' . $lang . ':' . $project;
+	}
+
+	/**
+	 * Helper to invert idx identifier string to array
+	 */
+	static function invertIdxString( $idxString ) {
+		list( $country, $municipality, $lang, $project ) = explode( ':', $idxString, 4 );
 		$municipality = str_replace( '&#58;', ':', $municipality );
 		return [ $country, $municipality, $lang, $project ];
 	}

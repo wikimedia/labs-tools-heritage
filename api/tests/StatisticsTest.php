@@ -6,39 +6,39 @@ require ( __DIR__.'/../includes/Statistics.php' );
 class StatisticsTest extends PHPUnit_Framework_TestCase
 {
 
-	public function test_makeIdx() {
+	public function test_makeIdxString() {
 
-		$row = [ 'country','municipality','lang','project' ];
+		$idx = [ 'country','municipality','lang','project' ];
 		$this->assertEquals(
 			"country:municipality:lang:project",
-			Statistics::makeIdx( $row )
+			Statistics::makeIdxString( $idx )
 		);
 	}
 
-	public function test_makeIdx_colon() {
+	public function test_makeIdxString_colon() {
 
-		$row = [ 'country','[[se:municipality]]','lang','project' ];
+		$idx = [ 'country','[[se:municipality]]','lang','project' ];
 		$this->assertEquals(
 			"country:[[se&#58;municipality]]:lang:project",
-			Statistics::makeIdx( $row )
+			Statistics::makeIdxString( $idx )
 		);
 	}
 
-	public function test_invertIdx() {
+	public function test_invertIdxString() {
 
 		$idx = "country:municipality:lang:project";
 		$this->assertEquals(
 			[ 'country','municipality','lang','project' ],
-			Statistics::invertIdx( $idx )
+			Statistics::invertIdxString( $idx )
 		);
 	}
 
-	public function test_invertIdx_colon() {
+	public function test_invertIdxString_colon() {
 
 		$idx = "country:[[se&#58;municipality]]:lang:project";
 		$this->assertEquals(
 			[ 'country','[[se:municipality]]','lang','project' ],
-			Statistics::invertIdx( $idx )
+			Statistics::invertIdxString( $idx )
 		);
 	}
 

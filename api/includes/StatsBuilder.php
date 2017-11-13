@@ -16,15 +16,18 @@ require_once ( 'CommonFunctions.php' );
 *  CREATE TABLE `statistics` (
   `day` date NOT NULL,
   `item` varchar(50) NOT NULL,
-  `idx` varchar(100) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  `muni` varchar(100) NOT NULL,
+  `lang` varchar(100) NOT NULL,
+  `project` varchar(100) NOT NULL,
   `value` varchar(16) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`day`,`item`,`idx`)
+  PRIMARY KEY (`day`,`item`, `country`, `muni`, `lang`, `project`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE monuments_all ADD INDEX idx_ctry_municp(country,municipality);
 
-ALTER TABLE statistics ADD INDEX idx_day_idx(day,idx);
+ALTER TABLE statistics ADD INDEX idx_day_idx(day,country,muni,lang,project);
 
 */
 
@@ -49,14 +52,16 @@ class StatsBuilder extends Statistics {
 		ini_set( 'memory_limit', '512M' );
 	}
 
-	function storeValue( $item,$index,$value ) {
+	function storeValue( $item, $index, $value ) {
 		// $this->debug($item."[$index] = ".$value);
 
 		// NOTE http://dev.mysql.com/doc/refman/5.5/en/insert-delayed.html
 		//   INSERT DELAYED should be used only for INSERT statements that specify value lists.
 		//   The server ignores DELAYED for INSERT ... SELECT or INSERT ... ON DUPLICATE KEY UPDATE statements.
 		// Anyway, from the benchmarks, there was no actual gain.
-		$sql = 'INSERT INTO '.Statistics::$dbTable.' VALUES("'.$this->getLatestDay().'","'.$item.'","'.$index.'","'.$value.'") ON DUPLICATE KEY UPDATE value = "'.$value.'"';
+		$sql = 'INSERT INTO ' . Statistics::$dbTable .
+			   ' VALUES("' . $this->getLatestDay() . '","' . $item . '","' . implode( '","', $index ) . '","' . $value . '")'.
+			   ' ON DUPLICATE KEY UPDATE value = "' . $value . '"';
 		// $this->debug("  + SQL: $sql");
 		return $this->db->query( $sql );
 	}
@@ -84,8 +89,8 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ( $row = $wres->fetchRow() ) {
-			$idx = $this->db->sanitize( Statistics::makeIdx( $row ) );
-			$count = $row[4];  // update if makeIdx changes
+			$idx = Statistics::packIdxFromIndex( $row, $this->db );
+			$count = $row[4];  // update if packageIdx changes
 			$this->setReportItem( Statistics::$fieldPrefix.'total', $idx, $count );
 		}
 		return true;
@@ -131,10 +136,10 @@ class StatsBuilder extends Statistics {
 		}
 
 		while ( $row = $oRes->fetchRow() ) {
-			$idx = $this->db->sanitize( Statistics::makeIdx( $row ) );
-			$count = $row[4];  // update if makeIdx changes
+			$idx = Statistics::packIdxFromIndex( $row, $this->db );
+			$count = $row[4];  // update if packIdxFromIndex changes
 			$this->setReportItem( $report_as, $idx, $count );
-			$value_pct = sprintf( "%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][$idx] );
+			$value_pct = sprintf( "%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][Statistics::makeIdxString( $idx )] );
 			$this->setReportItem( $report_as.'_pct', $idx, $value_pct );
 		}
 		return true;
@@ -147,7 +152,7 @@ class StatsBuilder extends Statistics {
 		// $this->debug('REPORT['.$item.']['.$idx.'] = '.$value);
 		// we will need the totals in RAM anyway
 		if ( ( $item === Statistics::$fieldPrefix.'total' ) or StatsBuilder::$bBuildInRAM ) {
-			$this->report[$item][$idx] = $value;
+			$this->report[$item][Statistics::makeIdxString( $idx )] = $value;
 		}
 
 		if ( !StatsBuilder::$bBuildInRAM ) {
@@ -184,8 +189,8 @@ class StatsBuilder extends Statistics {
 		if ( StatsBuilder::$bBuildInRAM ) {
 			foreach ( $this->report as $item => $table ) {
 				$this->debug( ' + Storing report for item: '.$item );
-				foreach ( $table as $idx => $val ) {
-					if ( !$this->storeValue( $item, $idx, $val ) ) {
+				foreach ( $table as $idxString => $val ) {
+					if ( !$this->storeValue( $item, Statistics::invertIdxString( $idxString ), $val ) ) {
 						return false;
 					}
 				}
@@ -196,4 +201,3 @@ class StatsBuilder extends Statistics {
 	}
 
 }
-
