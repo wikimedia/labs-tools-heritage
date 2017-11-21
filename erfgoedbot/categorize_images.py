@@ -531,7 +531,7 @@ def outputStatistics(statistics):
             total_images = '---'
 
         if row.get('cat'):
-            cat_link = '[[:Category:{0}]]'.format(row['cat'])
+            cat_link = u'[[:Category:{0}]]'.format(row['cat'])
             pages_in_cat = '{{PAGESINCATEGORY:%s|files}}' % row['cat']
 
         if row.get('template'):
@@ -586,7 +586,7 @@ def getCommonscatTemplates(lang=None, project=None):
 def skip(country_code, lang, country_config):
     """Return a outputStatistics compatible summary for a skipped country."""
     site = pywikibot.Site(u'commons', u'commons')
-    commons_category_base = pywikibot.Category(site, "{ns}:{cat}".format(
+    commons_category_base = pywikibot.Category(site, u'{ns}:{cat}'.format(
         ns=site.namespace(14), cat=country_config.get('commonsCategoryBase')))
     commons_template = country_config.get('commonsTemplate')
     return {

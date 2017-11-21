@@ -28,11 +28,11 @@ def processCountry(country_code, lang, country_config):
             sql = process_classic_config(country_config)
     except Exception as e:
         raise Exception(
-            '{exception} for countrycode: {country}, lang: {lang}'.format(
+            u'{exception} for countrycode: {country}, lang: {lang}'.format(
                 exception=e, country=country_code, lang=lang))
 
     f = open(os.path.join(
-        get_sql_dir(), 'create_table_{}.sql'.format(table)), 'w')
+        get_sql_dir(), u'create_table_{}.sql'.format(table)), 'w')
     f.write(sql)
     f.close()
 
@@ -70,7 +70,7 @@ def process_classic_config(country_config):
                     typ += ' NOT NULL DEFAULT 0'
             elif typ.startswith("varchar("):
                 if field.get('default'):
-                    typ += " NOT NULL DEFAULT '{}'".format(
+                    typ += u" NOT NULL DEFAULT '{}'".format(
                         field.get('default'))
                 else:
                     typ += " NOT NULL DEFAULT ''"
