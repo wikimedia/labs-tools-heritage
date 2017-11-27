@@ -1,12 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"عثمان خان شاہ"
+			"عثمان خان شاہ",
+			"BukhariSaeed",
+			"Zainab Meher"
 		]
 	},
+	"search-title": "مقبرہ تلاش کریں",
 	"search-table-th-field": "شعبہ",
 	"search-table-th-filter": "فلٹر کریں",
 	"search-table-th-search": "تلاش",
+	"search-table-tr-countries": "ممالک",
+	"search-table-tr-languages": "زبانیں",
+	"search-table-tr-name": "نام",
+	"search-table-tr-address": "پتہ",
+	"search-table-tr-municipality": "بلدیہ",
+	"search-table-tr-coordinates": "متناسقات",
+	"search-table-tr-images": "تصاویر",
+	"search-table-tr-output-language": "زبان کا ماحصل",
+	"search-table-button-search": "تلاش کریں",
 	"filter-all-countries": "تمام ممالک",
 	"filter-all-languages": "تمام زبانیں",
 	"db-field-country": "ملک",
@@ -14,6 +26,7 @@
 	"db-field-id": "شناخت دار",
 	"db-field-name": "نام",
 	"db-field-address": "پتہ",
+	"db-field-municipality": "بلدیہ",
 	"db-field-lat": "عرض البلد",
 	"db-field-lon": "طول البلد",
 	"db-field-image": "تصویر",

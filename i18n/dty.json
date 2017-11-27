@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nirajan pant"
+		]
+	},
+	"search-table-th-search": "खोजऽ",
+	"search-table-th-output": "आउटपुट",
+	"search-table-tr-countries": "देशअन",
+	"search-table-tr-languages": "भाषाअन",
+	"search-table-tr-name": "नाउँ",
+	"search-table-tr-address": "ठेगान",
+	"search-table-tr-municipality": "नगरपालिका",
+	"search-table-tr-coordinates": "निर्देशांकअन",
+	"search-table-tr-images": "तस्वीरअन",
+	"search-table-tr-output-language": "आउटपुट भाषा",
+	"search-table-tr-output-format": "आउटपुट ढाँचा",
+	"filter-all-countries": "सप्पै देशअन",
+	"filter-all-languages": "जम्माइ भाषाअन",
+	"db-field-country": "देश",
+	"db-field-lang": "भाषा",
+	"db-field-id": "जनक",
+	"db-field-name": "नाउँ",
+	"db-field-address": "ठेगान",
+	"db-field-municipality": "नगरपालिका",
+	"db-field-lat": "अक्षांश",
+	"db-field-lon": "देशान्तर",
+	"db-field-image": "तस्वीर",
+	"db-field-changed": "परिवर्तित",
+	"db-field-source": "स्रोत",
+	"db-field-monument_article": "स्मारक पन्ना",
+	"db-field-st_address": "ठेगानअन"
+}
