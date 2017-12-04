@@ -5,7 +5,8 @@
 			"Fitoschido",
 			"Invadinado",
 			"Macofe",
-			"Vivaelcelta"
+			"Vivaelcelta",
+			"KATRINE1992"
 		]
 	},
 	"search-title": "Búsqueda de monumentos",
@@ -65,5 +66,6 @@
 	"toolbox-nav-search": "Buscar",
 	"toolbox-title-searchmonuments": "Buscar monumentos",
 	"toolbox-title-statistics": "Estadística de monumentos",
-	"location": "Ubicación"
+	"location": "Ubicación",
+	"source-monuments-list": "Lista fuente de monumentos en un proyecto de Wikipedia"
 }
