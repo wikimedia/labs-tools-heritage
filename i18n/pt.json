@@ -5,7 +5,8 @@
 			"Hamilton Abreu",
 			"Sarilho1",
 			"Vitorvicentevalente",
-			"Macofe"
+			"Macofe",
+			"MokaAkashiyaPT"
 		]
 	},
 	"search-title": "Pesquisa de monumentos",
@@ -53,6 +54,8 @@
 	"db-field-st_name": "Nomes",
 	"db-field-st_name_pct": "Nomes %",
 	"db-field-st_total": "Número total",
+	"toolbox-main-logo-alt": "Logótipo do Wiki Loves Monuments",
+	"toolbox-main-title": "Caixa de ferramentas do WLM",
 	"toolbox-main-description": "Um conjunto de ferramentas relacionadas com $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Página principal",
