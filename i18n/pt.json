@@ -42,6 +42,7 @@
 	"db-field-source": "Fonte",
 	"db-field-monument_article": "Artigo do monumento",
 	"db-field-registrant_url": "URL de registo",
+	"db-field-commonscat": "Categoria do Commons",
 	"db-field-wd_item": "Item Wikidata",
 	"db-field-project": "Projeto Wikimedia",
 	"db-field-st_address": "Endereços",
@@ -55,6 +56,8 @@
 	"db-field-st_name": "Nomes",
 	"db-field-st_name_pct": "Nomes %",
 	"db-field-st_total": "Número total",
+	"toolbox-label-searchtipps": "utilize %term ou term% ou %term% para procurar por aproximação",
+	"toolbox-meta-title": "Caixa de ferramentas do Wiki Loves Monuments",
 	"toolbox-main-logo-alt": "Logótipo do Wiki Loves Monuments",
 	"toolbox-main-title": "Caixa de ferramentas do WLM",
 	"toolbox-main-description": "Um conjunto de ferramentas relacionadas com $1",
@@ -63,5 +66,6 @@
 	"toolbox-nav-statistics": "Estatísticas",
 	"toolbox-nav-search": "Pesquisar",
 	"toolbox-title-searchmonuments": "Procurar monumentos",
+	"toolbox-title-statistics": "Estatísticas do monumento",
 	"location": "Localização"
 }
