@@ -4,6 +4,7 @@
 			"Saraiki"
 		]
 	},
+	"search-table-th-field": " فیلڈ",
 	"search-table-th-filter": "نتارا",
 	"search-table-th-search": "ڳولو",
 	"search-table-th-output": "آؤٹ پٹ",
@@ -21,6 +22,7 @@
 	"filter-all-languages": "ساریاں زباناں",
 	"db-field-country": "کاؤنٹی",
 	"db-field-lang": "زبان",
+	"db-field-id": "شناخت دار",
 	"db-field-name": "ناں",
 	"db-field-address": "پتہ",
 	"db-field-municipality": "میونسپلٹی",
@@ -40,6 +42,7 @@
 	"db-field-st_name": "ناں",
 	"db-field-st_name_pct": "ناں %",
 	"db-field-st_total": "کل نمبر",
+	"toolbox-nav-homepage": "مرکزی ورقہ",
 	"toolbox-nav-statistics": "شماريات",
 	"toolbox-nav-search": "ڳولو",
 	"location": "محل وقوع"
