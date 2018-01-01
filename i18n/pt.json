@@ -67,5 +67,6 @@
 	"toolbox-nav-search": "Pesquisar",
 	"toolbox-title-searchmonuments": "Procurar monumentos",
 	"toolbox-title-statistics": "Estatísticas do monumento",
-	"location": "Localização"
+	"location": "Localização",
+	"source-monuments-list": "Lista de monumentos de origem num projeto Wikimedia"
 }
