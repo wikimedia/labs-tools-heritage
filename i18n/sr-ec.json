@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Rancher",
-			"Сербијана"
+			"Сербијана",
+			"Acamicamacaraca"
 		]
 	},
 	"search-title": "Претрага споменика",
@@ -10,6 +11,17 @@
 	"search-table-th-field": "Поље",
 	"search-table-th-filter": "Филтер",
 	"search-table-th-search": "Претрага",
+	"search-table-th-output": "Излаз",
+	"search-table-tr-countries": "Земље",
+	"search-table-tr-languages": "Језици",
+	"search-table-tr-name": "Назив",
+	"search-table-tr-address": "Адреса",
+	"search-table-tr-municipality": "Општина",
+	"search-table-tr-coordinates": "Координате",
+	"search-table-tr-images": "Слике",
+	"search-table-tr-output-language": "Изворни језик",
+	"search-table-tr-output-format": "Излазни формат",
+	"search-table-button-search": "Претрага",
 	"filter-all-countries": "Све земље",
 	"filter-all-languages": "Сви језици",
 	"db-field-country": "Земља",
@@ -25,6 +37,8 @@
 	"db-field-source": "Извор",
 	"db-field-monument_article": "Чланак о споменику",
 	"db-field-registrant_url": "URL у регистру",
+	"db-field-wd_item": "Ставка на Википодацима",
+	"db-field-project": "Викимедијин пројекат",
 	"db-field-st_address": "Адресе",
 	"db-field-st_address_pct": "Адресе %",
 	"db-field-st_coordinates": "Координате",
@@ -38,6 +52,7 @@
 	"db-field-st_total": "Укупно",
 	"toolbox-label-searchtipps": "користите %term, term% или %term% за нејасну претрагу",
 	"toolbox-meta-title": "Оквир са алаткама „Вики воли споменике“",
+	"toolbox-main-logo-alt": "„Вики воли споменике“ лого",
 	"toolbox-main-title": "Оквир са алаткама WLM",
 	"toolbox-main-description": "Скуп алатки повезаних са $1",
 	"toolbox-wikilovesmonuments": "Вики воли споменике",
@@ -45,5 +60,6 @@
 	"toolbox-nav-statistics": "Статистика",
 	"toolbox-nav-search": "Претражи",
 	"toolbox-title-searchmonuments": "Претрага споменика",
-	"location": "Место"
+	"location": "Место",
+	"source-monuments-list": "Изворни списак споменика на Википедији"
 }
