@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Andibing"
+		]
+	},
+	"search-title": "Monuments search",
+	"search-monuments-database": "Search the monuments database",
+	"search-table-th-field": "Field",
+	"search-table-th-filter": "Filter",
+	"search-table-th-search": "Search",
+	"filter-all-countries": "All countries",
+	"filter-all-languages": "All languages",
+	"db-field-country": "Country",
+	"db-field-lang": "Language",
+	"db-field-id": "Identifier",
+	"db-field-name": "Name",
+	"db-field-address": "Address",
+	"db-field-municipality": "Municipality",
+	"db-field-lat": "Latitude",
+	"db-field-lon": "Longitude"
+}

@@ -5,6 +5,20 @@
 		]
 	},
 	"search-table-th-search": "Търсене",
+	"search-table-tr-countries": "Държави",
+	"search-table-tr-languages": "Езици",
+	"search-table-tr-name": "Име",
+	"search-table-tr-address": "Адрес",
+	"search-table-tr-municipality": "Община",
+	"search-table-tr-coordinates": "Координати",
+	"search-table-tr-images": "Изображения",
+	"search-table-button-search": "Търсене",
+	"filter-all-countries": "Всички държави",
+	"filter-all-languages": "Всички езици",
+	"db-field-country": "Държава",
 	"db-field-lang": "Език",
+	"db-field-id": "Идентификатор",
+	"db-field-name": "Име",
+	"db-field-address": "Адрес",
 	"toolbox-nav-search": "Търсене"
 }

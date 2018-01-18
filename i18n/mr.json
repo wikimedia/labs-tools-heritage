@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"V.narsikar"
+		]
+	},
+	"search-table-th-output": "बाह्यदान",
+	"search-table-tr-countries": "देश",
+	"search-table-tr-languages": "भाषा",
+	"search-table-tr-name": "नाव",
+	"search-table-tr-address": "पत्ता",
+	"search-table-tr-municipality": "नगरपालिका",
+	"search-table-tr-coordinates": "अक्षांश-रेखांश",
+	"search-table-tr-images": "चित्रे",
+	"search-table-tr-output-language": "बाह्यदान भाषा",
+	"search-table-tr-output-format": "बाह्यदान प्रारुपण",
+	"search-table-button-search": "शोधा",
+	"db-field-project": "विकिमिडिया प्रकल्प",
+	"toolbox-main-logo-alt": "विकि स्मारकांवर प्रेम करते याचे प्रतीकचिन्ह",
+	"toolbox-main-description": "$1शी संबंधीत साधनांचा संच",
+	"toolbox-title-statistics": "स्मारक संख्यिकी"
+}

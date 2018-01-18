@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Baba Tabita"
+		]
+	},
+	"search-table-th-search": "Saakɨra",
+	"search-table-tr-countries": "ɨsɨ",
+	"search-table-tr-languages": "Ndʉʉsɨka",
+	"search-table-tr-name": "Irina",
+	"filter-all-countries": "ɨsɨ joosi",
+	"filter-all-languages": "Ndʉʉsɨka joosi",
+	"db-field-country": "ɨsɨ",
+	"db-field-lang": "Ndʉʉsɨka",
+	"db-field-name": "Irina",
+	"db-field-source": "Nchoongo",
+	"db-field-st_name_pct": "Marina %",
+	"toolbox-nav-homepage": "Ʉkuráasa wa kaáyii",
+	"toolbox-nav-statistics": "Takwíimu",
+	"toolbox-nav-search": "Saakɨra",
+	"location": "Haantʉ"
+}

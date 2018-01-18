@@ -5,7 +5,8 @@
 			"Giro720",
 			"Gusta",
 			"Luckas",
-			"Peter Fernando"
+			"Peter Fernando",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"search-title": "Busca de monumentos",
@@ -18,10 +19,13 @@
 	"search-table-tr-languages": "Idiomas",
 	"search-table-tr-name": "Nome",
 	"search-table-tr-address": "Endereço",
+	"search-table-tr-municipality": "Município",
 	"search-table-tr-coordinates": "Coordenadas",
 	"search-table-tr-images": "Imagens",
 	"search-table-tr-output-language": "Idioma de saída",
 	"search-table-tr-output-format": "Formato de saída",
+	"search-table-checkbox-only-images": "Apenas monumentos sem imagens",
+	"search-table-button-search": "Pesquisar",
 	"filter-all-countries": "Todos os países",
 	"filter-all-languages": "Todos os idiomas",
 	"db-field-country": "País",
@@ -37,6 +41,8 @@
 	"db-field-source": "Fonte",
 	"db-field-monument_article": "Artigo do monumento",
 	"db-field-registrant_url": "URL do titular",
+	"db-field-commonscat": "Categoria do Commons",
+	"db-field-wd_item": "Item do Wikidata",
 	"db-field-project": "Projeto Wikimedia",
 	"db-field-st_address": "Endereços",
 	"db-field-st_address_pct": "Endereços %",
@@ -51,12 +57,15 @@
 	"db-field-st_total": "Número total",
 	"toolbox-label-searchtipps": "use %term ou term% ou %term% para buscar por aproximação",
 	"toolbox-meta-title": "Caixa de ferramentas do Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Logótipo do Wiki Loves Monuments",
 	"toolbox-main-title": "Caixa de ferramentas do WLM",
-	"toolbox-main-description": "Um conjunto de ferramentas relacionadas com",
+	"toolbox-main-description": "Um conjunto de ferramentas relacionadas com $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Página principal",
 	"toolbox-nav-statistics": "Estatísticas",
 	"toolbox-nav-search": "Pesquisar",
 	"toolbox-title-searchmonuments": "Buscar monumentos",
-	"location": "Localização"
+	"toolbox-title-statistics": "Estatísticas do monumento",
+	"location": "Localização",
+	"source-monuments-list": "Lista de monumentos de origem num projeto Wikimedia"
 }

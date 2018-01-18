@@ -1,16 +1,26 @@
 {
 	"@metadata": {
 		"authors": [
-			"Taresi"
+			"Taresi",
+			"Akapochtli",
+			"Ricardo gs",
+			"Teòtlalili"
 		]
 	},
 	"search-table-th-field": "Mīlli",
 	"search-table-th-filter": "Tlatzetzelōni",
+	"search-table-tr-countries": "Tlācatiyān",
+	"search-table-tr-languages": "Tlahtōlli",
+	"search-table-tr-name": "Tōcāitl",
+	"filter-all-countries": "Mochīntīn tlācatiyān",
+	"filter-all-languages": "Mochīntīn tlahtōlli",
+	"db-field-country": "Tlācatiyān",
 	"db-field-lang": "Tlahtōlli",
 	"db-field-name": "Tōcāitl",
 	"db-field-source": "Mēyalli",
+	"db-field-commonscat": "Commons tlatlaìxmatkàyòtlàlilòtl",
 	"db-field-st_name": "Tōcāitl",
 	"db-field-st_name_pct": "Tōcāitl %",
 	"toolbox-nav-homepage": "Chāntlaīxtli",
-	"toolbox-nav-search": "Titlaīxtēmōz"
+	"toolbox-nav-search": "Tlatemoliztli"
 }
