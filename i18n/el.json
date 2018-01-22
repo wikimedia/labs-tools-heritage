@@ -4,7 +4,8 @@
 			"Evropi",
 			"Geraki",
 			"Glavkos",
-			"Ανώνυμος Βικιπαιδιστής"
+			"Ανώνυμος Βικιπαιδιστής",
+			"Nikosgranturismogt"
 		]
 	},
 	"search-title": "Αναζήτηση μνημείων",
@@ -12,6 +13,15 @@
 	"search-table-th-field": "Πεδίο",
 	"search-table-th-filter": "Φίλτρο",
 	"search-table-th-search": "Αναζήτηση",
+	"search-table-th-output": "Έξοδος",
+	"search-table-tr-countries": "Χώρες",
+	"search-table-tr-languages": "Γλώσσες",
+	"search-table-tr-name": "Όνομα",
+	"search-table-tr-address": "Διεύθυνση",
+	"search-table-tr-municipality": "Δήμος",
+	"search-table-tr-coordinates": "Συντεταγμένες",
+	"search-table-tr-images": "Εικόνες",
+	"search-table-button-search": "Αναζήτηση",
 	"filter-all-countries": "Όλες οι χώρες",
 	"filter-all-languages": "Όλες οι γλώσσες",
 	"db-field-country": "Χώρα",
