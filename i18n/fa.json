@@ -41,6 +41,8 @@
 	"db-field-source": "منبع",
 	"db-field-monument_article": "صفحه آثار تاریخی",
 	"db-field-registrant_url": "آدرس ثبت نام",
+	"db-field-wd_item": "آیتم ویکی‌داده",
+	"db-field-project": "پروژهٔ ویکی‌مدیا",
 	"db-field-st_address": "نشانی",
 	"db-field-st_address_pct": "نشانی‌های %",
 	"db-field-st_coordinates": "مختصات:",
@@ -54,12 +56,15 @@
 	"db-field-st_total": "تعداد کل",
 	"toolbox-label-searchtipps": "استفاده %term یا term% یا %term% برای جستجوی فوزی",
 	"toolbox-meta-title": "ویکی‌هدیهٔ جعبه ابزار آثار تاریخی",
+	"toolbox-main-logo-alt": "ویکی‌ نماد آثار تاریخی را دوست دارد",
 	"toolbox-main-title": "جعبه ابزار WLM",
-	"toolbox-main-description": "مجموعه‌ای از ابزارهای مربوط به",
+	"toolbox-main-description": "مجموعه‌ای از ابزارهای مربوط به $1",
 	"toolbox-wikilovesmonuments": "ویکی‌هدیه آثار تاریخی",
 	"toolbox-nav-homepage": "صفحهٔ خانگی",
 	"toolbox-nav-statistics": "آمار",
 	"toolbox-nav-search": "جستجو",
 	"toolbox-title-searchmonuments": "جستجوی یادبودها",
-	"location": "مکان"
+	"toolbox-title-statistics": "آمار آثار تاریخی",
+	"location": "مکان",
+	"source-monuments-list": "فهرست مرجع آثار تاریخی در پروژهٔ ویکی‌مدیا"
 }
