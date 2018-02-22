@@ -6,7 +6,8 @@
 			"Meno25",
 			"OsamaK",
 			"أحمد",
-			"ديفيد"
+			"ديفيد",
+			"Mr. Ibrahem"
 		]
 	},
 	"search-title": "بحث الآثار",
@@ -34,7 +35,7 @@
 	"db-field-monument_article": "مقالة آثار",
 	"db-field-registrant_url": "مسارُ السِّجِلِّ",
 	"db-field-commonscat": "تصنيف كومنز",
-	"db-field-wd_item": "بند ويكي بيانات",
+	"db-field-wd_item": "عنصر ويكي بيانات",
 	"db-field-project": "مشاريع ويكيميديا",
 	"db-field-st_address": "عناوين",
 	"db-field-st_address_pct": "عناوين%",
