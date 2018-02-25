@@ -30,7 +30,7 @@ def update_with_task_name(log_entry):
 
 def search_for_tasks(message):
     """Return all task IDs mentioned in the message."""
-    return re.findall(r'(T\d+)', message)
+    return re.findall(r'\nBug: (T\d+)', message)
 
 
 def format_entry(log_entry):
