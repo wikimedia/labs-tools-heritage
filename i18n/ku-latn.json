@@ -3,7 +3,8 @@
 		"authors": [
 			"George Animal",
 			"Bikarhêner",
-			"Cûndûllah el-Kurdî"
+			"Cûndûllah el-Kurdî",
+			"Ghybu"
 		]
 	},
 	"search-table-th-filter": "Parzûn",
@@ -22,6 +23,8 @@
 	"db-field-lang": "Ziman",
 	"db-field-name": "Nav",
 	"db-field-address": "Navnîşan",
+	"db-field-lat": "Hêlîpan",
+	"db-field-lon": "Hêlîlar",
 	"db-field-image": "Wêne",
 	"db-field-changed": "Hate guhertin",
 	"db-field-source": "Çavkanî",
