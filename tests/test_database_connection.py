@@ -111,3 +111,19 @@ class TestConnectToCommonsDatabase(unittest.TestCase):
         )
         self.mock_connection.ping.assert_not_called()
         self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))
+
+    def test_connect_to_commons_database_with_overriden_credentials(self):
+        self.mock_database_config.return_value = {
+            'server': 'fake_server',
+            'db_name': 'fake_db_name',
+            'username': 'fake_username',
+            'password': 'fake_password',
+        }
+        result = database_connection.connect_to_commons_database()
+        self.mock_connect.assert_called_once_with(
+            db='fake_db_name', host='fake_server',
+            user=u'fake_username', passwd=u'fake_password',
+            charset='latin1', use_unicode=True
+        )
+        self.mock_connection.ping.assert_not_called()
+        self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))

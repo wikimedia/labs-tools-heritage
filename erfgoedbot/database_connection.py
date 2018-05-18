@@ -55,9 +55,11 @@ def connect_to_monuments_database():
 def connect_to_commons_database():
     """Connect to the commons mysql database."""
     db_config = get_commons_database_config()
+    username = db_config.get('username', pywikibot_config.db_username)
+    password = db_config.get('password', pywikibot_config.db_password)
     conn = pymysql.connect(
         host=db_config['server'], db=db_config['db_name'],
-        user=pywikibot_config.db_username, passwd=pywikibot_config.db_password,
+        user=username, passwd=password,
         use_unicode=True, charset='latin1')
     cursor = conn.cursor()
     return (conn, cursor)
