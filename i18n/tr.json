@@ -8,7 +8,8 @@
 			"Uğurkent",
 			"Sayginer",
 			"Alpkant",
-			"Vito Genovese"
+			"Vito Genovese",
+			"Hedda"
 		]
 	},
 	"search-title": "Anıt arama",
@@ -25,6 +26,8 @@
 	"search-table-tr-coordinates": "Koordinatlar",
 	"search-table-tr-images": "Resimler",
 	"search-table-tr-output-language": "Çıktı dili",
+	"search-table-tr-output-format": "Çıktı formatı",
+	"search-table-checkbox-only-images": "Sadece resimleri olmayan anıtlar",
 	"search-table-button-search": "Ara",
 	"filter-all-countries": "Bütün ülkeler",
 	"filter-all-languages": "Bütün diller",
@@ -37,6 +40,7 @@
 	"db-field-lat": "Enlem",
 	"db-field-lon": "Boylam",
 	"db-field-image": "Resim",
+	"db-field-changed": "Değiştirildi",
 	"db-field-source": "Kaynak",
 	"db-field-monument_article": "Anıt sayfası",
 	"db-field-registrant_url": "Tescil Linki",
