@@ -2,10 +2,19 @@
 	"@metadata": {
 		"authors": [
 			"Besnik b",
-			"FatosMorina"
+			"FatosMorina",
+			"Liridonshala"
 		]
 	},
 	"search-table-th-search": "Kërko",
+	"search-table-tr-name": "Emri",
+	"search-table-tr-municipality": "Komuna",
+	"search-table-tr-coordinates": "Koordinatat",
+	"search-table-tr-images": "Fotografitë",
+	"search-table-tr-output-language": "Gjuha dalese",
+	"search-table-tr-output-format": "Forma dalese",
+	"search-table-checkbox-only-images": "Vetem monumentet pa fotografi",
+	"search-table-button-search": "Kërko",
 	"filter-all-countries": "Të gjitha shtetet",
 	"filter-all-languages": "Të gjitha gjuhët",
 	"db-field-country": "Shteti",
@@ -13,12 +22,17 @@
 	"db-field-id": "Identifikuesi",
 	"db-field-name": "Emri",
 	"db-field-address": "Adresa",
+	"db-field-municipality": "Komuna",
 	"db-field-lat": "Gjerësia gjeografike",
 	"db-field-lon": "Gjatësia gjeografike",
 	"db-field-image": "Imazhi",
 	"db-field-changed": "Ndryshuar",
 	"db-field-source": "Burimi",
+	"db-field-monument_article": "Faqe monument",
 	"db-field-registrant_url": "URL-ja e regjistruesit",
+	"db-field-commonscat": "Kategoria e perbashket",
+	"db-field-wd_item": "Arikulli wikidata",
+	"db-field-project": "Projekti Wikimedia",
 	"db-field-st_address": "Adresat",
 	"db-field-st_address_pct": "Adresat %",
 	"db-field-st_coordinates": "Koordinatat",
@@ -30,10 +44,13 @@
 	"db-field-st_name": "Emrat",
 	"db-field-st_name_pct": "Emrat %",
 	"db-field-st_total": "Numri gjithsej",
-	"toolbox-main-description": "Një varg i veglat të lidhura me",
+	"toolbox-label-searchtipps": "perdor %term ose term% ose %term% per kerkim te mjegullt",
+	"toolbox-main-logo-alt": "Logo e Wiki i do monumentet",
+	"toolbox-main-description": "Kompleti i veglat të lidhura me $1",
 	"toolbox-nav-homepage": "Faqja ballinore",
 	"toolbox-nav-statistics": "Statistika",
 	"toolbox-nav-search": "Kërkimi",
 	"toolbox-title-searchmonuments": "Monumentet e kërkimit",
+	"toolbox-title-statistics": "Statistikat e monumentit",
 	"location": "Vendndodhja"
 }
