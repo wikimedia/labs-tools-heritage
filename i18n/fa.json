@@ -7,7 +7,8 @@
 			"Mjbmr",
 			"Reza1615",
 			"ZxxZxxZ",
-			"Alifakoor"
+			"Alifakoor",
+			"Dejavu"
 		]
 	},
 	"search-title": "جستجو در آثار تاریخی",
@@ -19,6 +20,7 @@
 	"search-table-tr-countries": "کشورها",
 	"search-table-tr-languages": "زبان",
 	"search-table-tr-name": "نام",
+	"search-table-tr-address": "نشانی",
 	"search-table-tr-municipality": "شهرداری",
 	"search-table-tr-coordinates": "مختصات",
 	"search-table-tr-images": "تصویر",
