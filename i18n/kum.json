@@ -1,0 +1,29 @@
+{
+	"@metadata": {
+		"authors": [
+			"ArslanX"
+		]
+	},
+	"search-table-th-filter": "Сюзгюч",
+	"search-table-th-search": "Излев",
+	"search-table-th-output": "Гьасил",
+	"search-table-tr-countries": "Уьлкелер",
+	"search-table-tr-languages": "Тиллер",
+	"search-table-tr-name": "Ат",
+	"search-table-tr-address": "Ерлешим:",
+	"search-table-tr-images": "Сурат",
+	"search-table-button-search": "Излев",
+	"filter-all-countries": "Тюм уьлкелер",
+	"filter-all-languages": "Тюм тиллер",
+	"db-field-country": "Уьлке",
+	"db-field-lang": "Тил",
+	"db-field-name": "Ат",
+	"db-field-address": "Ерлешим",
+	"db-field-image": "Сурат",
+	"db-field-changed": "Алышынгъан",
+	"db-field-source": "Эник",
+	"db-field-st_image": "Сурат",
+	"db-field-st_name": "Атлар",
+	"toolbox-nav-statistics": "Истатистик",
+	"toolbox-nav-search": "Излев"
+}
