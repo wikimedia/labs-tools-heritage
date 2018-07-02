@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"P. S. F. Freitas"
+		]
+	},
+	"search-table-tr-countries": "Tetãnguéra",
+	"search-table-tr-languages": "Ñe'ẽnguéra",
+	"search-table-tr-name": "Téra",
+	"search-table-tr-address": "Ñeimeha",
+	"search-table-tr-municipality": "Táva",
+	"search-table-tr-coordinates": "Ñemohenda yvy apekuépe",
+	"search-table-tr-images": "Ta'anganguéra",
+	"search-table-tr-output-language": "Ñe'ẽ osẽháicha",
+	"search-table-button-search": "Jeheka",
+	"filter-all-countries": "Opa tetãnguéra",
+	"filter-all-languages": "Opa ñe'ẽ",
+	"db-field-country": "Tetã",
+	"db-field-lang": "Ñe'ẽ",
+	"db-field-name": "Téra",
+	"db-field-image": "Ta'anga",
+	"db-field-changed": "Moambuepyre",
+	"db-field-source": "Ypy",
+	"db-field-st_image": "Ta'anga"
+}
