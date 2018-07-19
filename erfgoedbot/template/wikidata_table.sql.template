@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `{table}`;
 CREATE TABLE IF NOT EXISTS `{table}` (
-  `id` int(11) NOT NULL DEFAULT  0,
+  `id` varchar(25) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL DEFAULT '',
   `admin` varchar(255) NOT NULL DEFAULT '',
   `commonscat` varchar(255) NOT NULL DEFAULT '',

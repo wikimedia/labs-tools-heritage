@@ -18,7 +18,7 @@ import urlparse
 import warnings
 from collections import Counter
 
-from requests.exceptions import Timeout
+from requests.exceptions import ConnectionError, Timeout
 
 import pywikibot
 import pywikibot.data.sparql
@@ -282,56 +282,45 @@ def processHeader(params, countryconfig):
     return contents
 
 
-def process_monument_wikidata(params, countryconfig, conn, cursor):
+def monument_wikidata_generator(query_result, params):
+    """Generator of monument database data from sparql query results."""
+    for result_item in query_result:
+        yield process_monument_wikidata(result_item, params)
+
+
+def process_monument_wikidata(result, param_order):
     """Process a single instance of a wikidata sparql result."""
-    if params['itemLabel']:
-        params['name'] = params['itemLabel'].value
+    # convert pywikibot.data.sparql.Literal to string
+    literals = ('itemLabel', 'id', 'commonscat', 'address')
+    for key in literals:
+        if result[key]:
+            result[key] = result[key].value
 
-    if params['image']:
-        params['image'] = urlparse.unquote(params['image'].value).split('/')[-1]
+    if result['image']:
+        result['image'] = urlparse.unquote(
+            result['image'].value).split('/')[-1]
 
-    if params['adminLabel']:
-        params['admin'] = params['adminLabel'].value
+    if result['adminLabel']:
+        result['admin'] = result['adminLabel'].value
 
-    if params['monument_article']:
-        params['monument_article'], _site = common.get_page_from_url(params['monument_article'].value)
+    if result['monument_article']:
+        result['monument_article'], _site = common.get_page_from_url(
+            result['monument_article'].value)
 
-    params['source'] = params['item'].value
-    params['wd_item'] = params['item'].getID()
+    result['source'] = result['item'].value
+    result['wd_item'] = result['item'].getID()
 
-    if params['coordinate']:
-        params['lat'], params['lon'] = params['coordinate'].value[len('Point('):-1].split(' ')
+    if result['coordinate']:
+        result['lat'], result['lon'] = result['coordinate'].value[
+            len('Point('):-1].split(' ')
 
-    del params['coordinate']
-    del params['adminLabel']
-    del params['itemLabel']
-    del params['item']
+    # remove params that may not be NULL
+    non_null_params = set(param_order) - set(('lat', 'lon'))
+    for key in non_null_params:
+        if key in result and not result[key]:
+            del result[key]
 
-    kill_list = []
-    for key, value in params.items():
-        if not value:
-            kill_list.append(key)
-    for key in kill_list:
-        del params[key]
-
-    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
-
-    first_query = u''
-    second_query = u''
-    delimiter = u''
-    value_list = []
-    for key, value in params.items():
-        first_query += delimiter + u"""`%s`""" % (key,)
-        second_query += delimiter + u"""%s"""
-        value_list.append(value)
-        delimiter = u', '
-
-    query += first_query + u""") VALUES ("""
-
-    query += second_query + u""")"""
-    with warnings.catch_warnings(record=True) as w:
-        warnings.simplefilter("always")
-        cursor.execute(query, value_list)
+    return tuple([result.get(key, '') for key in param_order])
 
 
 def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
@@ -511,17 +500,40 @@ def process_country_wikidata(countryconfig, conn, cursor):
         lang=countryconfig.get('lang'),
         project=countryconfig.get('project')
     )
-    # print sparql_query
+
     sq = pywikibot.data.sparql.SparqlQuery()
     try:
         query_result = sq.select(sparql_query, full_data=True)
-    except Timeout:
+    except (Timeout, ConnectionError):
+        # timeout on https may end up being interpreted as a ConnectionError
         pywikibot.output('Sparql endpoint being slow, giving it a moment...')
         time.sleep(10)
         query_result = sq.select(sparql_query, full_data=True)
 
-    for resultitem in query_result:
-        process_monument_wikidata(resultitem, countryconfig, conn, cursor)
+    pywikibot.output('Sparql query successful with {0} results'.format(
+        len(query_result)))
+
+    # todo: check and log duplicate ids manually
+    params = ['monument_article', 'name', 'source', 'admin', 'image', 'lon',
+              'wd_item', 'lat', 'address', 'commonscat', 'id']
+
+    query = u"REPLACE INTO `{0}` (`{1}`) VALUES ({2})".format(
+        countryconfig.get('table'),
+        u"`, `".join(params),
+        ("%s, " * len(params)).rstrip(", "))
+
+    batch_size = 100
+    for result_chunk in [query_result[i:i + batch_size]
+                         for i in xrange(0, len(query_result), batch_size)]:
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            cursor.executemany(
+                query,
+                monument_wikidata_generator(result_chunk, params))
+        conn.commit()
+
+    pywikibot.output('Finished processing {0} results'.format(
+        min(len(query_result), i + batch_size)))
 
 
 def main():

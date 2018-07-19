@@ -1,6 +1,6 @@
     {dataset} AS `country`,
     {lang} AS `lang`,
-    `id` AS `id`,    
+    `id` AS `id`,
     {adm0} AS `adm0`,
     `name` AS `name`,
     `address` AS `address`,
