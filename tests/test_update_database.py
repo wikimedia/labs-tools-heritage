@@ -42,16 +42,16 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
         self.country_config['primkey'] = None
         self.header_defaults = {}
 
-    def test_processMonument_with_empty_params_returns_empty_unknown_fields(self):
+    def test_process_monument_with_empty_params_returns_empty_unknown_fields(self):
         params = {}
         unknown_fields = {}
         with self.assertRaises(update_database.NoPrimkeyException):
-            update_database.processMonument(
+            update_database.process_monument(
                 params, self.source, self.country_config, None, None,
                 self.mock_page, self.header_defaults, unknown_fields)
         self.assertEqual(unknown_fields, {})
 
-    def test_processMonument_with_one_unknown_param_correctly_returns_unknown_fields(self):
+    def test_process_monument_with_one_unknown_param_correctly_returns_unknown_fields(self):
         params = [
             u'id=1234',
             u'name=A Monument Name',
@@ -60,7 +60,7 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
         unknown_fields = {}
         expected_unknown = Counter({self.mock_page: 1})
         with self.assertRaises(update_database.NoPrimkeyException):
-            update_database.processMonument(
+            update_database.process_monument(
                 params, self.source, self.country_config, None, None,
                 self.mock_page, self.header_defaults, unknown_fields)
         self.assertEqual(
@@ -71,19 +71,19 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
 
 class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
 
-    def test_processMonument_with_empty_primkey_value(self):
+    def test_process_monument_with_empty_primkey_value(self):
         params = [u'id=', u'name=A Monument Name']
         header_defaults = {}
         unknown_fields = {}
 
         with self.assertRaises(update_database.NoPrimkeyException):
-            update_database.processMonument(
+            update_database.process_monument(
                 params, self.source, self.country_config, None,
                 self.mock_cursor, self.mock_page, header_defaults,
                 unknown_fields)
         self.assertEqual(unknown_fields, {})
 
-    def test_processMonument_calls_updateMonument_and_returns_unknown_fields(self):
+    def test_process_monument_calls_update_monument_and_returns_unknown_fields(self):
         params = [
             u'id=1234',
             u'name=A Monument Name',
@@ -100,12 +100,12 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
         }
         expected_unknown = Counter({self.mock_page: 1})
 
-        with mock.patch('erfgoedbot.update_database.updateMonument', autospec=True) as mock_updateMonument:
-            update_database.processMonument(
+        with mock.patch('erfgoedbot.update_database.update_monument', autospec=True) as mock_update_monument:
+            update_database.process_monument(
                 params, self.source, self.country_config, None,
                 self.mock_cursor, self.mock_page, header_defaults,
                 unknown_fields)
-            mock_updateMonument.assert_called_once_with(
+            mock_update_monument.assert_called_once_with(
                 expected_contents, 'DummySource', self.country_config, None,
                 self.mock_cursor, self.mock_page)
         self.assertEqual(
@@ -116,7 +116,7 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
 
 class TestUpdateMonument(TestUpdateDatabaseBase):
 
-    def test_updateMonument_executes_database_replace(self):
+    def test_update_monument_executes_database_replace(self):
         source = 'DummySource'
         contents = {
             'title': 'MockPageTitle',
@@ -124,8 +124,8 @@ class TestUpdateMonument(TestUpdateDatabaseBase):
             u'name': u'A Monument Name',
             'source': source
         }
-        update_database.updateMonument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
-        expected_query = u'REPLACE INTO `dummy_table`(`source`, `id`, `name`) VALUES (%s, %s, %s)'
+        update_database.update_monument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
+        expected_query = u'REPLACE INTO `dummy_table` (`source`, `id`, `name`) VALUES (%s, %s, %s)'
         expected_query_params = ['DummySource', u'1234', u'A Monument Name']
         self.mock_cursor.execute.assert_called_once_with(expected_query, expected_query_params)
 
@@ -134,7 +134,7 @@ class TestProcessHeader(TestUpdateDatabaseBase):
 
     def test_process_header_parses_correct_fields_and_skips_unknowns(self):
         params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
-        result = update_database.processHeader(params, self.country_config)
+        result = update_database.process_header(params, self.country_config)
         expected_contents = {
             u'id': u'1234',
             u'name': u'A Monument Name',
@@ -153,12 +153,12 @@ class TestLookupSourceField(TestUpdateDatabaseBase):
             }
         )
 
-    def test_lookupSourceField_on_unknown_field_return_none(self):
-        result = update_database.lookupSourceField("unknown", self.country_config)
+    def test_lookup_source_field_on_unknown_field_return_none(self):
+        result = update_database.lookup_source_field("unknown", self.country_config)
         self.assertEqual(result, None)
 
-    def test_lookupSourceField_on_known_field_return_source(self):
-        result = update_database.lookupSourceField(u'dest-name', self.country_config)
+    def test_lookup_source_field_on_known_field_return_source(self):
+        result = update_database.lookup_source_field(u'dest-name', self.country_config)
         self.assertEqual(result, 'source-name')
 
 
@@ -175,25 +175,25 @@ class TestProcessPage(TestUpdateDatabaseBase):
             (self.mock_template, ['a', 'b'])
         ]
 
-    def test_processPage_calls_processHeader(self):
+    def test_process_page_calls_process_header(self):
         self.country_config['headerTemplate'] = 'MockTemplate'
-        with mock.patch('erfgoedbot.update_database.processHeader', autospec=True) as mock_processHeader:
-            update_database.processPage(self.mock_page, self.source, self.country_config, None, None)
-            mock_processHeader.assert_called_once_with(['a', 'b'], self.country_config)
+        with mock.patch('erfgoedbot.update_database.process_header', autospec=True) as mock_process_header:
+            update_database.process_page(self.mock_page, self.source, self.country_config, None, None)
+            mock_process_header.assert_called_once_with(['a', 'b'], self.country_config)
 
-    def test_processPage_calls_processMonument(self):
+    def test_process_page_calls_process_monument(self):
         self.country_config['rowTemplate'] = 'MockTemplate'
-        with mock.patch('erfgoedbot.update_database.processMonument', autospec=True) as mock_processMonument:
-            update_database.processPage(self.mock_page, self.source, self.country_config, None, None)
-            mock_processMonument.assert_called_once_with(
+        with mock.patch('erfgoedbot.update_database.process_monument', autospec=True) as mock_process_monument:
+            update_database.process_page(self.mock_page, self.source, self.country_config, None, None)
+            mock_process_monument.assert_called_once_with(
                 ['a', 'b'],
                 self.source,
                 self.country_config,
-                None, None, self.mock_page, {}, unknownFields={}
+                None, None, self.mock_page, {}, unknown_fields={}
             )
 
 #    # awaiting solution to T147752
-#    def test_processPage_warning_on_NoPrimkeyException(self):
+#    def test_process_page_warning_on_NoPrimkeyException(self):
 #        self.country_config['rowTemplate'] = 'MockTemplate'
 #        ## two templates to ensure count works
 #        self.mock_page.templatesWithParams.return_value = [
@@ -205,9 +205,9 @@ class TestProcessPage(TestUpdateDatabaseBase):
 #        mock_warning = warning_patcher.start()
 #        self.addCleanup(warning_patcher.stop)
 #
-#        with mock.patch('erfgoedbot.update_database.processMonument', autospec=True,
+#        with mock.patch('erfgoedbot.update_database.process_monument', autospec=True,
 #                        side_effect=update_database.NoPrimkeyException):
-#            update_database.processPage(
+#            update_database.process_page(
 #                self.mock_page, self.source, self.country_config, None, None)
 #            mock_warning.assert_called_once_with(
 #                u"2 primkey(s) missing on MockPageTitle (dummy_table)")
@@ -218,10 +218,10 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
     def setUp(self):
         super(TestCountryBboxRequireLatLon, self).setUp()
         self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
-        self.monumentKey = 'some-key'
+        self.monument_key = 'some-key'
         self.contents = {
             'title': 'MockPageTitle',
-            u'id': self.monumentKey,
+            u'id': self.monument_key,
             u'name': u'A Monument Name',
             'source': self.source
         }
@@ -229,8 +229,8 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
     def test_countryBbox_calls_check(self):
         expected_fieldnames = [u'source', u'id', u'name']
         with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monumentKey, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monument_key, self.mock_page)
 
     def test_countryBbox_calls_check_with_lon(self):
         self.country_config['fields'].append(
@@ -242,13 +242,13 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
         self.contents['lon'] = '123'
         expected_fieldnames = [u'source', u'id', u'name', 'lon']
         with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monumentKey, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monument_key, self.mock_page)
 
 
 class TestTriggerConversion(TestUpdateDatabaseBase):
 
-    def test_call_convertField(self):
+    def test_call_convert_field(self):
         new_field = {
             'source': u'source-name',
             'dest': u'dest-name',
@@ -264,19 +264,19 @@ class TestTriggerConversion(TestUpdateDatabaseBase):
             'source': source
         }
 
-        with mock.patch('erfgoedbot.update_database.convertField', autospec=True) as mock_convertField:
-            update_database.updateMonument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_convertField.assert_called_once_with(new_field, contents, self.country_config)
+        with mock.patch('erfgoedbot.update_database.convert_field', autospec=True) as mock_convert_field:
+            update_database.update_monument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_convert_field.assert_called_once_with(new_field, contents, self.country_config)
 
 
 class TestTriggerChecks(TestUpdateDatabaseBase):
 
     def setUp(self):
         super(TestTriggerChecks, self).setUp()
-        self.monumentKey = 'some-key'
+        self.monument_key = 'some-key'
         self.contents = {
             'title': 'MockPageTitle',
-            u'id': self.monumentKey,
+            u'id': self.monument_key,
             u'name': u'A Monument Name',
             'source': self.source
         }
@@ -293,8 +293,8 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'lat'] = lat
 
         with mock.patch('erfgoedbot.update_database.checkLat', autospec=True) as mock_checkLat:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_checkLat.assert_called_once_with(lat, self.monumentKey, self.country_config, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_checkLat.assert_called_once_with(lat, self.monument_key, self.country_config, self.mock_page)
 
     def test_trigger_checkLon(self):
         self.country_config['fields'].append(
@@ -308,8 +308,8 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'lon'] = lon
 
         with mock.patch('erfgoedbot.update_database.checkLon', autospec=True) as mock_checkLon:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_checkLon.assert_called_once_with(lon, self.monumentKey, self.country_config, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_checkLon.assert_called_once_with(lon, self.monument_key, self.country_config, self.mock_page)
 
     def test_trigger_checkWD(self):
         self.country_config['fields'].append(
@@ -323,8 +323,8 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'wd_item'] = wd_item
 
         with mock.patch('erfgoedbot.update_database.check_wikidata', autospec=True) as mock_check_wikidata:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
-            mock_check_wikidata.assert_called_once_with(wd_item, self.monumentKey, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            mock_check_wikidata.assert_called_once_with(wd_item, self.monument_key, self.mock_page)
 
     def test_trigger_unknown_check(self):
         self.country_config['fields'].append(
@@ -338,7 +338,7 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: unknown')
 
     def test_trigger_problematic_check(self):
@@ -354,7 +354,7 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.contents[u'source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
-            update_database.updateMonument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
+            update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             self.assertEqual(cm.exception, 'Un-defined check in config for dummy_table: connectDatabase')
 
 

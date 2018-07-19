@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-'''
-Update the monuments database either from a text file or from some wiki page(s)
+"""
+Update the monuments database from a text file, some wiki page(s) or sparql.
 
 Usage:
 # loop through all countries
@@ -9,8 +9,9 @@ python update_database.py
 
 # work on specific country-lang
 python update_database.py -countrycode:XX -langcode:YY
+"""
+from __future__ import unicode_literals
 
-'''
 import datetime
 import os
 import time
@@ -45,29 +46,29 @@ from database_connection import (
     connect_to_monuments_database
 )
 
-_logger = "update_database"
+_logger = 'update_database'
 
 
 class NoPrimkeyException(Exception):
     pass
 
 
-def run_check(check, fieldValue, monumentKey, countryconfig, sourcePage):
+def run_check(check, field_value, monument_key, countryconfig, source_page):
     """Run a named check."""
     if check == 'checkLat':
-        return checkLat(fieldValue, monumentKey, countryconfig, sourcePage)
+        return checkLat(field_value, monument_key, countryconfig, source_page)
     elif check == 'checkLon':
-        return checkLon(fieldValue, monumentKey, countryconfig, sourcePage)
+        return checkLon(field_value, monument_key, countryconfig, source_page)
     elif check == 'checkWD':
-        return check_wikidata(fieldValue, monumentKey, sourcePage)
+        return check_wikidata(field_value, monument_key, source_page)
     elif check == 'checkInt':
-        return check_integer(fieldValue, monumentKey, sourcePage)
+        return check_integer(field_value, monument_key, source_page)
     else:
-        raise pywikibot.Error('Un-defined check in config for %s: %s'
-                              % (countryconfig.get('table'), check))
+        raise pywikibot.Error('Un-defined check in config for {0}: {1}'.format(
+            countryconfig.get('table'), check))
 
 
-def convertField(field, contents, countryconfig):
+def convert_field(field, contents, countryconfig):
     """Convert a field."""
     if field.get('conv') == 'extractWikilink':
         return extractWikilink(contents.get(field.get('source')))
@@ -95,73 +96,73 @@ def convertField(field, contents, countryconfig):
         if not idurl.startswith('wiki'):
             return countryconfig.get('registrantUrlBase') % idurl
         else:
-            return u''
+            return ''
     elif field.get('conv') == 'es-ct-fop':
         pano = contents.get(field.get('source'))
-        if pano == u'dp':
-            return u'pd'
-        elif pano == u'sí':
-            return u'FoP'
-        elif pano == u'no':
-            return u'noFoP'
+        if pano == 'dp':
+            return 'pd'
+        elif pano == 'sí':
+            return 'FoP'
+        elif pano == 'no':
+            return 'noFoP'
         else:
-            return u''
+            return ''
     elif field.get('conv') == 'generateRegistrantUrl-wlpa-es-ct' and \
             countryconfig.get('registrantUrlBase'):
-        idurlP = contents.get(field.get('source')).split('/')
-        if len(idurlP) == 2 and idurlP[0] == u'bcn':
-            return countryconfig.get('registrantUrlBase') % (idurlP[1],)
+        idurl_p = contents.get(field.get('source')).split('/')
+        if len(idurl_p) == 2 and idurl_p[0] == 'bcn':
+            return countryconfig.get('registrantUrlBase') % (idurl_p[1],)
         else:
             return contents.get(field.get('source'))
     elif field.get('conv') == 'il-fop':
         fop = contents.get(field.get('source'))
-        if fop == u'PD':
-            return u'pd'
-        elif fop == u'YES':
-            return u'FoP'
-        elif fop == u'NO':
-            return u'noFoP'
+        if fop == 'PD':
+            return 'pd'
+        elif fop == 'YES':
+            return 'FoP'
+        elif fop == 'NO':
+            return 'noFoP'
         else:
-            return u''
+            return ''
     elif field.get('conv') == 'fi-fop':
         dyear = contents.get(field.get('source'))
         cyear = datetime.datetime.now().year
         try:
             dyear = int(dyear)
             if (dyear + 70) < cyear:
-                return u'pd'
+                return 'pd'
             else:
-                return u'noFoP'
+                return 'noFoP'
         except ValueError:
-            return u'noFoP'
+            return 'noFoP'
     else:
         raise pywikibot.Error(
-            'Un-defined converter in config for %s: %s' % (
+            'Un-defined converter in config for {1}: {2}'.format(
                 countryconfig.get('table'), field.get('conv')))
 
 
-def unknownFieldsStatistics(countryconfig, unknownFields):
+def unknown_fields_statistics(countryconfig, unknown_fields):
     """
     Outputs a list of any unknown fields as a wikitext table.
 
     The table contains the name and frequency of the field and a sample of
     source pages where this field was encountered.
     """
-    site = pywikibot.Site(u'commons', u'commons')
+    site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
-        site, u'Commons:Monuments database/Unknown fields/{0}'.format(
+        site, 'Commons:Monuments database/Unknown fields/{0}'.format(
             countryconfig.get('table')))
-    summary = u'Updating the list of unknown fields'
+    summary = 'Updating the list of unknown fields'
 
-    text = u'{| class="wikitable sortable"\n'
-    text += u'! Field !! Count !! Sources\n'
-    for key, counter in unknownFields.items():
-        text += u'|-\n'
-        text += u'| {0} || {1} || {2}\n'.format(
+    text = '{| class="wikitable sortable"\n'
+    text += '! Field !! Count !! Sources\n'
+    for key, counter in unknown_fields.items():
+        text += '|-\n'
+        text += '| {0} || {1} || {2}\n'.format(
             key, sum(counter.values()), format_source_field(counter, site))
 
-    text += u'|}\n'
-    text += u'[[Category:Commons:Monuments database/Unknown fields]]'
+    text += '|}\n'
+    text += '[[Category:Commons:Monuments database/Unknown fields]]'
 
     common.save_to_wiki_or_local(page, summary, text)
 
@@ -183,92 +184,82 @@ def format_source_field(sources, site, sample_size=4):
         source_slice = sources.most_common(sample_size)
         remaining = len(sources) - len(source_slice)
         for (source_page, source_count) in source_slice:
-            source_text += u'\n* {0} ({1})'.format(
+            source_text += '\n* {0} ({1})'.format(
                 source_page.title(
                     asLink=True, withNamespace=False, insite=site),
                 source_count
             )
         if remaining:
-            source_text += u"\n* ''and {0} more page(s)''".format(remaining)
+            source_text += "\n* ''and {0} more page(s)''".format(remaining)
 
     return source_text
 
 
-def updateMonument(contents, source, countryconfig, conn, cursor, sourcePage):
+def update_monument(contents, source, countryconfig, conn, cursor,
+                    source_page):
     """Update a single monument in the source database."""
     fieldnames = []
     fieldvalues = []
 
     # Source is the first field
-    fieldnames.append(u'source')
+    fieldnames.append('source')
     fieldvalues.append(source)
 
-    monumentKey = u''
+    monument_key = ''
     if contents.get(countryconfig.get('primkey')):
-        monumentKey = contents.get(countryconfig.get('primkey'))
+        monument_key = contents.get(countryconfig.get('primkey'))
 
     for field in countryconfig.get('fields'):
         if field.get('dest') and len(contents.get(field.get('source'))):
             fieldnames.append(field.get('dest'))
 
             # Do some conversions here
-            fieldValue = u''  # Should this be None?
+            field_value = ''  # Should this be None?
             if field.get('conv'):
-                fieldValue = convertField(field, contents, countryconfig)
+                field_value = convert_field(field, contents, countryconfig)
             else:
-                fieldValue = contents.get(field.get('source'))
+                field_value = contents.get(field.get('source'))
 
             if field.get('check'):
                 # check data
-                if not run_check(field.get('check'), fieldValue, monumentKey,
-                                 countryconfig, sourcePage):
-                    fieldValue = u''  # throw away input if check fails
-            fieldvalues.append(fieldValue)
+                if not run_check(field.get('check'), field_value, monument_key,
+                                 countryconfig, source_page):
+                    field_value = ''  # throw away input if check fails
+            fieldvalues.append(field_value)
 
     if countryconfig.get('countryBbox'):
-        check_lat_with_lon(fieldnames, monumentKey, sourcePage)
+        check_lat_with_lon(fieldnames, monument_key, source_page)
 
-    query = u"""REPLACE INTO `%s`(""" % (countryconfig.get('table'),)
-
-    delimiter = u''
-    for fieldname in fieldnames:
-        query += delimiter + u"""`%s`""" % (fieldname,)
-        delimiter = u', '
-
-    query += u""") VALUES ("""
-
-    delimiter = u''
-    for fieldvalue in fieldvalues:
-        query += delimiter + u"""%s"""
-        delimiter = u', '
-
-    query += u""")"""
+    query = "REPLACE INTO `{0}` (`{1}`) VALUES ({2})".format(
+        countryconfig.get('table'),
+        '`, `'.join(fieldnames),
+        ('%s, ' * len(fieldnames)).rstrip(', '))
 
     # print query % tuple(fieldvalues)
     with warnings.catch_warnings(record=True) as w:
-        warnings.simplefilter("always")
+        warnings.simplefilter('always')
         cursor.execute(query, fieldvalues)
 
         # FIXME : Disable for now because print throws UnicodeEncodeErrors
         # if len(w) == 1:
-        #  print w[-1].message, " when running ", query % tuple(fieldvalues)
+        #  print w[-1].message, ' when running ', query % tuple(fieldvalues)
 
     # print contents
-    # print u'updating!'
+    # print 'updating!'
     # time.sleep(5)
 
 
-def processHeader(params, countryconfig):
+def process_header(params, countryconfig):
     """
     Get the defaults for the row templates.
 
     Return all fields that seem to be valid. Ignore other fields.
     """
     contents = {}
-    validFields = []
+    valid_fields = []
 
     for field in countryconfig.get('fields'):
-        validFields.append(field.get(u'source'))
+        valid_fields.append(field.get('source'))
 
     for param in params:
         (field, value) = extract_elements_from_template_param(param)
@@ -276,7 +267,7 @@ def processHeader(params, countryconfig):
         # Check first that field is not empty
         if field.strip():
             # Is it in the fields list?
-            if field in validFields:
+            if field in valid_fields:
                 contents[field] = value
 
     return contents
@@ -323,21 +314,21 @@ def process_monument_wikidata(result, param_order):
     return tuple([result.get(key, '') for key in param_order])
 
 
-def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
-                    headerDefaults, unknownFields):
+def process_monument(params, source, countryconfig, conn, cursor, source_page,
+                     header_defaults, unknown_fields):
     """Process a single instance of a monument row template."""
-    title = sourcePage.title(True)
+    title = source_page.title(True)
 
     # Get all the fields
     contents = {}
     # Add the source of information (permalink)
     contents['source'] = source
     for field in countryconfig.get('fields'):
-        if field.get(u'source') in headerDefaults:
-            contents[field.get(u'source')] = headerDefaults.get(
-                field.get(u'source'))
+        if field.get('source') in header_defaults:
+            contents[field.get('source')] = header_defaults.get(
+                field.get('source'))
         else:
-            contents[field.get(u'source')] = u''
+            contents[field.get('source')] = ''
 
     contents['title'] = title
 
@@ -354,126 +345,136 @@ def processMonument(params, source, countryconfig, conn, cursor, sourcePage,
             else:
                 # FIXME: Include more information where it went wrong
                 pywikibot.debug(
-                    u'Found unknown field on page %s : (%s: %s)' % (
+                    'Found unknown field on page {0} : ({1}: {2})'.format(
                         title, field, value),
                     _logger)
-                if field not in unknownFields:
-                    unknownFields[field] = Counter()
-                unknownFields[field][sourcePage] += 1
+                if field not in unknown_fields:
+                    unknown_fields[field] = Counter()
+                unknown_fields[field][source_page] += 1
                 # time.sleep(5)
 
     # If we truncate we don't have to check for primkey (it's a made up one)
     if countryconfig.get('truncate'):
-        updateMonument(
-            contents, source, countryconfig, conn, cursor, sourcePage)
+        update_monument(
+            contents, source, countryconfig, conn, cursor, source_page)
     # Check if the primkey is a tuple and if all parts are present
     elif isinstance(countryconfig.get('primkey'), tuple):
-        allKeys = True
+        all_keys = True
         for partkey in countryconfig.get('primkey'):
-            if not contents.get(lookupSourceField(partkey, countryconfig)):
-                allKeys = False
-        if allKeys:
-            updateMonument(
-                contents, source, countryconfig, conn, cursor, sourcePage)
+            if not contents.get(lookup_source_field(partkey, countryconfig)):
+                all_keys = False
+        if all_keys:
+            update_monument(
+                contents, source, countryconfig, conn, cursor, source_page)
     # Check if the primkey is filled. This only works for a single primkey,
     # not a tuple
-    elif contents.get(lookupSourceField(countryconfig.get('primkey'), countryconfig)):
-        updateMonument(
-            contents, source, countryconfig, conn, cursor, sourcePage)
+    elif contents.get(lookup_source_field(countryconfig.get('primkey'),
+                                          countryconfig)):
+        update_monument(
+            contents, source, countryconfig, conn, cursor, source_page)
     else:
         raise NoPrimkeyException
 
 
-def lookupSourceField(destination, countryconfig):
+def lookup_source_field(destination, countryconfig):
     """Lookup the source field of a destination."""
     for field in countryconfig.get('fields'):
         if field.get('dest') == destination:
             return field.get('source')
 
 
-def processPage(page, source, countryconfig, conn, cursor, unknownFields=None):
+def process_page(page, source, countryconfig, conn, cursor,
+                 unknown_fields=None):
     """
-    Process a text containing one or multiple instances of the monument row template.
+    Process text containing one or more instances of the monument row template.
+
+    Also makes a record of any unexpected fields.
     """
-    if not unknownFields:
-        unknownFields = {}
+    if not unknown_fields:
+        unknown_fields = {}
 
     templates = page.templatesWithParams()
-    headerDefaults = {}
+    header_defaults = {}
     primkey_exceptions = 0
 
     for (template, params) in templates:
         template_name = template.title(withNamespace=False)
         if template_name == countryconfig.get('headerTemplate'):
-            headerDefaults = processHeader(params, countryconfig)
+            header_defaults = process_header(params, countryconfig)
         if template_name == countryconfig.get('rowTemplate'):
             # print template
             # print params
             try:
-                processMonument(
+                process_monument(
                     params, source, countryconfig, conn, cursor, page,
-                    headerDefaults, unknownFields)
+                    header_defaults, unknown_fields)
             except NoPrimkeyException:
                 primkey_exceptions += 1
             # time.sleep(5)
-        elif template_name == u'Commonscat' and len(params) >= 1:
-            query = u"""REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"""
+        elif template_name == 'Commonscat' and len(params) >= 1:
+            query = (
+                """REPLACE INTO commonscat (site, title, commonscat) """
+                """VALUES (%s, %s, %s)""")
             cursor.execute(
-                query, (countryconfig.get('lang'), page.title(True), params[0]))
+                query,
+                (countryconfig.get('lang'), page.title(True), params[0]))
 
     # output missing primkey warning
     if primkey_exceptions > 0:
-        pywikibot.warning(u"%d primkey(s) missing on %s (%s)" % (
+        pywikibot.warning('{0:d} primkey(s) missing on {1} ({2})'.format(
             primkey_exceptions, page.title(True), countryconfig.get('table')))
 
-    return unknownFields
+    return unknown_fields
 
 
-def processCountry(countryconfig, conn, cursor, fullUpdate, daysBack):
+def process_country(countryconfig, conn, cursor, full_update, days_back):
     """Process all the monuments of one country."""
     if countryconfig.get('type') == 'sparql':
         process_country_wikidata(countryconfig, conn, cursor)
     else:
-        process_country_list(countryconfig, conn, cursor, fullUpdate, daysBack)
+        process_country_list(countryconfig, conn, cursor,
+                             full_update, days_back)
 
 
-def process_country_list(countryconfig, conn, cursor, fullUpdate, daysBack):
+def process_country_list(countryconfig, conn, cursor, full_update, days_back):
     """Process all the monuments of one country using row templates."""
-    site = pywikibot.Site(countryconfig.get('lang'), countryconfig.get('project'))
-    rowTemplate = pywikibot.Page(
-        site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
+    site = pywikibot.Site(countryconfig.get('lang'),
+                          countryconfig.get('project'))
+    row_template = pywikibot.Page(
+        site, '{0}:{1}'.format(site.namespace(10),
+                               countryconfig.get('rowTemplate')))
 
-    transGen = pagegenerators.ReferringPageGenerator(
-        rowTemplate, onlyTemplateInclusion=True)
-    filteredGen = pagegenerators.NamespaceFilterPageGenerator(
-        transGen, countryconfig.get('namespaces'), site=site)
+    trans_gen = pagegenerators.ReferringPageGenerator(
+        row_template, onlyTemplateInclusion=True)
+    filtered_gen = pagegenerators.NamespaceFilterPageGenerator(
+        trans_gen, countryconfig.get('namespaces'), site=site)
 
-    if countryconfig.get('truncate') or fullUpdate:
+    if countryconfig.get('truncate') or full_update:
         # Some countries are always truncated, otherwise only do it when
         # requested.
-        query = u"""TRUNCATE table `%s`""" % (countryconfig.get('table'),)
+        query = """TRUNCATE table `{0}`""".format(countryconfig.get('table'))
         cursor.execute(query)
-        generator = pagegenerators.PreloadingGenerator(filteredGen)
+        generator = pagegenerators.PreloadingGenerator(filtered_gen)
         # FIXME : Truncate the table
     else:
         # Preloading first because the whole page needs to be fetched to get
         # the time
-        pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
+        pregenerator = pagegenerators.PreloadingGenerator(filtered_gen)
         begintime = datetime.datetime.utcnow() + \
-            datetime.timedelta(days=0 - daysBack)
+            datetime.timedelta(days=0 - days_back)
         generator = pagegenerators.EdittimeFilterPageGenerator(
             pregenerator, begintime=begintime)
 
-    unknownFields = {}
+    unknown_fields = {}
 
     for page in generator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking
-            unknownFields = processPage(
+            unknown_fields = process_page(
                 page, page.permalink(percent_encoded=False), countryconfig,
-                conn, cursor, unknownFields=unknownFields)
+                conn, cursor, unknown_fields=unknown_fields)
 
-    unknownFieldsStatistics(countryconfig, unknownFields)
+    unknown_fields_statistics(countryconfig, unknown_fields)
 
 
 def load_wikidata_template_sparql():
@@ -517,16 +518,16 @@ def process_country_wikidata(countryconfig, conn, cursor):
     params = ['monument_article', 'name', 'source', 'admin', 'image', 'lon',
               'wd_item', 'lat', 'address', 'commonscat', 'id']
 
-    query = u"REPLACE INTO `{0}` (`{1}`) VALUES ({2})".format(
+    query = "REPLACE INTO `{0}` (`{1}`) VALUES ({2})".format(
         countryconfig.get('table'),
-        u"`, `".join(params),
-        ("%s, " * len(params)).rstrip(", "))
+        '`, `'.join(params),
+        ('%s, ' * len(params)).rstrip(', '))
 
     batch_size = 100
     for result_chunk in [query_result[i:i + batch_size]
                          for i in xrange(0, len(query_result), batch_size)]:
         with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
+            warnings.simplefilter('always')
             cursor.executemany(
                 query,
                 monument_wikidata_generator(result_chunk, params))
@@ -540,11 +541,11 @@ def main():
     """The main loop."""
     # First find out what to work on
 
-    countrycode = u''
-    lang = u''
-    fullUpdate = True
+    countrycode = ''
+    lang = ''
+    full_update = True
     skip_wd = False
-    daysBack = 2  # Default 2 days. Runs every night so can miss one night.
+    days_back = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
     (conn, cursor) = connect_to_monuments_database()
@@ -556,52 +557,54 @@ def main():
         elif option == '-langcode':
             lang = value
         elif option == '-daysback':
-            daysBack = int(value)
-        elif option == u'-fullupdate':  # does nothing since already default
-            fullUpdate = True
-        elif option == u'-skip_wd':
+            days_back = int(value)
+        elif option == '-fullupdate':  # does nothing since already default
+            full_update = True
+        elif option == '-skip_wd':
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-daysback", "-fullupdate", "-skip_wd" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-daysback", "-fullupdate", "-skip_wd" or pywikibot args. '
+                'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "%s" in language "%s"' % (
+                'I have no config for countrycode "{0}" '
+                'in language "{1}"'.format(
                     countrycode, lang))
             return False
 
         pywikibot.log(
-            u'Working on countrycode "%s" in language "%s"' % (
+            'Working on countrycode "{0}" in language "{1}"'.format(
                 countrycode, lang))
         try:
             countryconfig = mconfig.countries.get((countrycode, lang))
-            processCountry(countryconfig, conn, cursor, fullUpdate, daysBack)
+            process_country(countryconfig, conn, cursor, full_update,
+                            days_back)
         except Exception, e:
             pywikibot.error(
-                u"Unknown error occurred when processing country "
-                u"%s in lang %s\n%s" % (countrycode, lang, str(e)))
+                'Unknown error occurred when processing country '
+                '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
             if (countryconfig.get('skip') or
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
                 continue
             pywikibot.log(
-                u'Working on countrycode "%s" in language "%s"' % (
+                'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
             try:
-                processCountry(countryconfig, conn, cursor, fullUpdate,
-                               daysBack)
+                process_country(countryconfig, conn, cursor, full_update,
+                                days_back)
             except Exception, e:
                 pywikibot.error(
-                    u"Unknown error occurred when processing country "
-                    u"%s in lang %s\n%s" % (countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 continue
 
     close_database_connection(conn, cursor)
