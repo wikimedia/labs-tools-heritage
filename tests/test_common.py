@@ -183,3 +183,65 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
             self.test_outfile.read(),
             '#summary: a summary\n---------------\nThe content'
         )
+
+
+class TestGetIdFromSortKey(unittest.TestCase):
+
+    """Test the get_id_from_sort_key method."""
+
+    def setUp(self):
+        self.known_ids = ['123', '1230', '01230_', 'F00BAR']
+
+    def test_get_id_from_sort_key_exact(self):
+        sort_key = '123'
+        expected = '123'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_exact_with_dict(self):
+        known_ids = {
+            '123': 'source_url',
+            '1230': 'source_url',
+            '01230_': 'source_url',
+            'F00BAR': 'source_url'
+        }
+        sort_key = '123'
+        expected = '123'
+        result = common.get_id_from_sort_key(sort_key, known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_multi_line(self):
+        sort_key = '123\nfoo'
+        expected = '123'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_trim(self):
+        sort_key = ' \t123\t '
+        expected = '123'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_padded(self):
+        sort_key = '000001230'
+        expected = '1230'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_underscored(self):
+        sort_key = '_01230_'
+        expected = '01230_'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_upper(self):
+        sort_key = 'F00bar'
+        expected = 'F00BAR'
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+    def test_get_id_from_sort_key_no_match(self):
+        sort_key = ' 000_foo \nbar'
+        expected = None
+        result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)

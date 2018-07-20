@@ -22,43 +22,13 @@ from database_connection import (
 _logger = "unused_images"
 
 
-def get_id_from_sort_key(sort_key, without_photo):
-    """Attempt to get a monument if from the category sort key of an image."""
-    monumentId = unicode(sort_key, 'utf-8')
-    # Just want the first line
-    mLines = monumentId.splitlines()
-    monumentId = mLines[0]
-    # Remove leading and trailing spaces
-    monumentId = monumentId.strip()
-
-    # No try some variants until we have a hit
-    if monumentId in without_photo:
-        return monumentId
-
-    # Only remove leading zero's if we don't have a hit.
-    monumentId = monumentId.lstrip(u'0')
-    if monumentId in without_photo:
-        return monumentId
-    # Only remove leading underscores if we don't have a hit.
-    monumentId = monumentId.lstrip(u'_')
-    if monumentId in without_photo:
-        return monumentId
-    # Only all uppercase if we don't have a hit.
-    monumentId = monumentId.upper()
-    if monumentId in without_photo:
-        return monumentId
-
-    # Return None if no match has been found
-    return None
-
-
 def group_unused_images_by_source(photos, withoutPhoto, countryconfig):
     """Identify all unused images and group them by source page and id."""
     unused_images = {}
 
     for catSortKey in sorted(photos.keys()):
         try:
-            monumentId = get_id_from_sort_key(catSortKey, withoutPhoto)
+            monumentId = common.get_id_from_sort_key(catSortKey, withoutPhoto)
         except ValueError:
             pywikibot.warning(u'Got value error for {0}'.format(monumentId))
             continue

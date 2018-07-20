@@ -49,7 +49,7 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             return args[0].partition('-')[0]
 
         patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.get_id_from_sort_key')
+            'erfgoedbot.common.get_id_from_sort_key')
         self.mock_get_id_from_sort_key = patcher.start()
         self.mock_get_id_from_sort_key.side_effect = return_input
         self.addCleanup(patcher.stop)
@@ -134,68 +134,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             mock.call('source_url_1', None),
             mock.call('source_url_1', None)]
         )
-
-
-class TestGetIdFromSortKey(unittest.TestCase):
-
-    """Test the get_id_from_sort_key method."""
-
-    def setUp(self):
-        self.without_photo = {
-            '123': 'source_url',
-            '1230': 'source_url',
-            '01230_': 'source_url',
-            'F00BAR': 'source_url'
-        }
-
-    def test_get_id_from_sort_key_exact(self):
-        sort_key = '123'
-        expected = '123'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_multi_line(self):
-        sort_key = '123\nfoo'
-        expected = '123'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_trim(self):
-        sort_key = ' \t123\t '
-        expected = '123'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_padded(self):
-        sort_key = '000001230'
-        expected = '1230'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_underscored(self):
-        sort_key = '_01230_'
-        expected = '01230_'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_upper(self):
-        sort_key = 'F00bar'
-        expected = 'F00BAR'
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
-
-    def test_get_id_from_sort_key_no_match(self):
-        sort_key = ' 000_foo \nbar'
-        expected = None
-        result = unused_monument_images.get_id_from_sort_key(
-            sort_key, self.without_photo)
-        self.assertEquals(result, expected)
 
 
 class TestMakeStatistics(TestCreateReportBase):

@@ -129,3 +129,40 @@ def page_to_filename(page):
     filename = '[{site}][{ns}]{page}.wiki'.format(
         site=site_str, ns=namespace_str, page=pagename_str)
     return filename.replace(' ', '_').replace(':', '_')
+
+
+def get_id_from_sort_key(sort_key, known_ids):
+    """
+    Attempt to get a monument id from a category sort key.
+
+    Candidate ids are compared to a list of known ids.
+
+    @param known_ids: a list of known ids, or a dict where the keys are known
+        ids.
+    @return: unicode|None
+    """
+    monument_id = unicode(sort_key, 'utf-8')
+    # Just want the first line
+    monument_id = monument_id.splitlines()[0]
+    # Remove leading and trailing spaces
+    monument_id = monument_id.strip()
+
+    # No try some variants until we have a hit
+    if monument_id in known_ids:
+        return monument_id
+
+    # Only remove leading zero's if we don't have a hit.
+    monument_id = monument_id.lstrip(u'0')
+    if monument_id in known_ids:
+        return monument_id
+    # Only remove leading underscores if we don't have a hit.
+    monument_id = monument_id.lstrip(u'_')
+    if monument_id in known_ids:
+        return monument_id
+    # Only all uppercase if we don't have a hit.
+    monument_id = monument_id.upper()
+    if monument_id in known_ids:
+        return monument_id
+
+    # Return None if no match has been found
+    return None
