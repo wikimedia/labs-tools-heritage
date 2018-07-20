@@ -1,8 +1,8 @@
 """Unit tests for common."""
-
 import os
 import tempfile
 import unittest
+from collections import OrderedDict
 
 import mock
 
@@ -244,4 +244,57 @@ class TestGetIdFromSortKey(unittest.TestCase):
         sort_key = ' 000_foo \nbar'
         expected = None
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
+        self.assertEquals(result, expected)
+
+
+class TestTableHeaderRow(unittest.TestCase):
+
+    """Test the table_header_row method."""
+
+    def test_table_header_row_wo_numeric(self):
+        columns = OrderedDict([('a', False), ('b', False), ('c', False)])
+        expected = (
+            u'{| class="wikitable sortable"\n'
+            u'! a\n'
+            u'! b\n'
+            u'! c\n')
+        result = common.table_header_row(columns)
+        self.assertEquals(result, expected)
+
+    def test_table_header_row_w_numeric(self):
+        columns = OrderedDict([('a', False), ('b', True), ('c', False)])
+        expected = (
+            u'{| class="wikitable sortable"\n'
+            u'! a\n'
+            u'! data-sort-type="number"| b\n'
+            u'! c\n')
+        result = common.table_header_row(columns)
+        self.assertEquals(result, expected)
+
+
+class TestTableBottomRow(unittest.TestCase):
+
+    """Test the table_bottom_row method."""
+
+    def test_table_bottom_row_no_value(self):
+        expected = (
+            u'|- class="sortbottom"\n'
+            u'|style="background-color: #ccc;"|\n'
+            u'|style="background-color: #ccc;"|\n'
+            u'|}\n')
+        result = common.table_bottom_row(2)
+        self.assertEquals(result, expected)
+
+    def test_table_bottom_row_basic(self):
+        values = {2: 123}
+        expected = (
+            u'|- class="sortbottom"\n'
+            u'|style="background-color: #ccc;"|\n'
+            u'|style="background-color: #ccc;"|\n'
+            u"| '''123'''\n"
+            u'|style="background-color: #ccc;"|\n'
+            u'|style="background-color: #ccc;"|\n'
+            u'|style="background-color: #ccc;"|\n'
+            u'|}\n')
+        result = common.table_bottom_row(6, values)
         self.assertEquals(result, expected)

@@ -9,6 +9,8 @@ python unused_monument_images.py
 # work on specific country-lang
 python unused_monument_images.py -countrycode:XX -langcode:YY
 """
+from collections import OrderedDict
+
 import pywikibot
 
 import common as common
@@ -30,7 +32,7 @@ def group_unused_images_by_source(photos, withoutPhoto, countryconfig):
         try:
             monumentId = common.get_id_from_sort_key(catSortKey, withoutPhoto)
         except ValueError:
-            pywikibot.warning(u'Got value error for {0}'.format(monumentId))
+            pywikibot.warning(u'Got value error for {0}'.format(catSortKey))
             continue
 
         if monumentId in withoutPhoto:
@@ -109,12 +111,8 @@ def output_country_report(unused_images, report_page, max_images=1000):
         order to ensure all candidates for a given monument id are presented.
     """
     # People can add a /header template for with more info
-    text = (
-        u'{{#ifexist:{{FULLPAGENAME}}/header'
-        u'|{{/header}}'
-        u'|For information on how to use this report and how to localise '
-        u'these instructions visit '
-        u'[[:c:Commons:Monuments database/Unused images]]. }}\n')
+    text = common.instruction_header(
+        ':c:Commons:Monuments database/Unused images')
     total_pages = 0
     total_ids = 0
     totalImages = 0
@@ -232,26 +230,22 @@ def makeStatistics(statistics):
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Unused images/Statistics')
 
-    text = (
-        u'{| class="wikitable sortable"\n'
-        u'! country '
-        u'!! lang '
-        u'!! data-sort-type="number"|Total unused image candidates '
-        u'!! data-sort-type="number"|Total monuments with unused images '
-        u'!! Report page '
-        u'!! Row template '
-        u'!! Commons template '
-        u'\n')
+    column_names = ('country', 'lang', 'Total unused image candidates',
+                    'Total monuments with unused images', 'Report page',
+                    'Row template', 'Commons template')
+    columns = OrderedDict(
+        [(col, col.startswith('Total ')) for col in column_names])
+    text = common.table_header_row(columns)
 
     text_row = (
         u'|-\n'
-        u'|| {code} \n'
-        u'|| {lang} \n'
-        u'|| {total_images} \n'
-        u'|| {total_ids} \n'
-        u'|| {report_page} \n'
-        u'|| {row_template} \n'
-        u'|| {commons_template} \n')
+        u'| {code} \n'
+        u'| {lang} \n'
+        u'| {total_images} \n'
+        u'| {total_ids} \n'
+        u'| {report_page} \n'
+        u'| {row_template} \n'
+        u'| {commons_template} \n')
 
     total_images_sum = 0
     total_ids_sum = 0
@@ -297,10 +291,9 @@ def makeStatistics(statistics):
             row_template=row_template,
             commons_template=commons_template)
 
-    text += (
-        u'|- class="sortbottom"\n'
-        u'|| || || {total_images} || {total_ids} || || || \n'
-        u'|}}\n'.format(total_images=total_images_sum, total_ids=total_ids_sum))
+    text += common.table_bottom_row(7, {
+        2: total_images_sum,
+        3: total_ids_sum})
 
     comment = (
         u'Updating unused image statistics. Total of {total_images} '

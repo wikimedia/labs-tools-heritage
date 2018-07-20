@@ -166,3 +166,57 @@ def get_id_from_sort_key(sort_key, known_ids):
 
     # Return None if no match has been found
     return None
+
+
+def instruction_header(central_page, subpage='header'):
+    """
+    A wikitext header embedding a local subpage or linking to central one.
+
+    @param central_page: the page name, including interwiki prefix
+    @param subpage: the name of the subpage to embed, if it exists. Defaults
+        to 'header'.
+    """
+    # percentage formatting to avoid having to escape all curly brackets
+    data = {'central_page': central_page, 'subpage': subpage}
+    return (
+        u'{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
+        u'|{{/%(subpage)s}}'
+        u'|For information on how to use this report and how to localise '
+        u'these instructions visit '
+        u'[[%(central_page)s]]. }}\n' % data)
+
+
+def table_header_row(columns):
+    """
+    A wikitext table header row.
+
+    @param columns: OrderedDict of the desired columns in the format
+        OrderedDict({name: is_numeric}). Where is_numeric indicates that the
+        column shuld be sorted as numbers.
+    """
+    text = u'{| class="wikitable sortable"\n'
+    for name, is_numeric in columns.iteritems():
+        if is_numeric:
+            text += u'! data-sort-type="number"| {0}\n'.format(name)
+        else:
+            text += u'! {0}\n'.format(name)
+    return text
+
+
+def table_bottom_row(num_columns, values=None):
+    """
+    A wikitext table bottom row, where empty values are grey and others bold.
+
+    @param num_columns: the number of columns
+    @param values: a dict with column numbers and their values. Numbering of
+        columns starting from 0.
+    """
+    values = values or {}
+    text = u'|- class="sortbottom"\n'
+    for i in range(num_columns):
+        if i in values.keys():
+            text += u"| '''{}'''\n".format(values[i])
+        else:
+            text += u'|style="background-color: #ccc;"|\n'
+    text += u'|}\n'
+    return text

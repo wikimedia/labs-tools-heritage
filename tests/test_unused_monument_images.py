@@ -142,20 +142,21 @@ class TestMakeStatistics(TestCreateReportBase):
 
     def setUp(self):
         super(TestMakeStatistics, self).setUp()
-        self.prefix = (
-            u'{| class="wikitable sortable"\n'
-            u'! country '
-            u'!! lang '
-            u'!! data-sort-type="number"|Total unused image candidates '
-            u'!! data-sort-type="number"|Total monuments with unused images '
-            u'!! Report page '
-            u'!! Row template '
-            u'!! Commons template '
-            u'\n')
-        self.postfix = (
-            u'|- class="sortbottom"\n'
-            u'|| || || {total_images} || {total_ids} || || || \n'
-            u'|}}\n')
+
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.prefix
+        self.addCleanup(patcher.stop)
+
+        self.postfix = 'postfix'
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.table_bottom_row')
+        self.mock_table_bottom_row = patcher.start()
+        self.mock_table_bottom_row.return_value = self.postfix
+        self.addCleanup(patcher.stop)
+
         self.comment = (
             u'Updating unused image statistics. Total of {total_images} '
             u'unused images for {total_ids} different monuments.')
@@ -179,18 +180,16 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| 321 \n'
-            u'|| 123 \n'
-            u'|| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'|| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'|| {{tl|commons template}} \n')
+            u'| foo \n'
+            u'| en \n'
+            u'| 321 \n'
+            u'| 123 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| {{tl|commons template}} \n')
         expected_total_images = 321
         expected_total_ids = 123
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -200,6 +199,9 @@ class TestMakeStatistics(TestCreateReportBase):
                 total_ids=expected_total_ids),
             expected_text
         )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(
+            7, {2: expected_total_images, 3: expected_total_ids})
 
     def test_make_statistics_single_basic(self):
         statistics = [{
@@ -212,18 +214,16 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| 321 \n'
-            u'|| 123 \n'
-            u'|| --- \n'
-            u'|| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'|| --- \n')
+            u'| foo \n'
+            u'| en \n'
+            u'| 321 \n'
+            u'| 123 \n'
+            u'| --- \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| --- \n')
         expected_total_images = 321
         expected_total_ids = 123
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -245,18 +245,16 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| 321 \n'
-            u'|| 123 \n'
-            u'|| --- \n'
-            u'|| --- \n'
-            u'|| --- \n')
+            u'| foo \n'
+            u'| en \n'
+            u'| 321 \n'
+            u'| 123 \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| --- \n')
         expected_total_images = 321
         expected_total_ids = 123
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -277,18 +275,16 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| skipped: no unusedImagesPage \n'
-            u'|| --- \n'
-            u'|| --- \n'
-            u'|| [[wikipedia:en:Template:A template|A template]] \n'
-            u'|| --- \n')
+            u'| foo \n'
+            u'| en \n'
+            u'| skipped: no unusedImagesPage \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| [[wikipedia:en:Template:A template|A template]] \n'
+            u'| --- \n')
         expected_total_images = 0
         expected_total_ids = 0
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -326,26 +322,24 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| 3 \n'
-            u'|| 2 \n'
-            u'|| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'|| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'|| {{tl|commons template}} \n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 3 \n'
+            u'| 2 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| {{tl|commons template}} \n'
             u'|-\n'
-            u'|| bar \n'
-            u'|| fr \n'
-            u'|| 7 \n'
-            u'|| 3 \n'
-            u'|| [[wikipedia:test:Barfoo|Barfoo]] \n'
-            u'|| [[wikipedia:fr:Modèle:A template|A template]] \n'
-            u'|| --- \n')
+            u'| bar \n'
+            u'| fr \n'
+            u'| 7 \n'
+            u'| 3 \n'
+            u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
+            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| --- \n')
         expected_total_images = 10
         expected_total_ids = 5
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -380,26 +374,24 @@ class TestMakeStatistics(TestCreateReportBase):
 
         expected_rows = (
             u'|-\n'
-            u'|| foo \n'
-            u'|| en \n'
-            u'|| 3 \n'
-            u'|| 2 \n'
-            u'|| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'|| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'|| {{tl|commons template}} \n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 3 \n'
+            u'| 2 \n'
+            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| {{tl|commons template}} \n'
             u'|-\n'
-            u'|| bar \n'
-            u'|| fr \n'
-            u'|| skipped: no unusedImagesPage \n'
-            u'|| --- \n'
-            u'|| --- \n'
-            u'|| [[wikipedia:fr:Modèle:A template|A template]] \n'
-            u'|| --- \n')
+            u'| bar \n'
+            u'| fr \n'
+            u'| skipped: no unusedImagesPage \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| --- \n')
         expected_total_images = 3
         expected_total_ids = 2
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_images=expected_total_images,
-            total_ids=expected_total_ids)
+        expected_text = self.prefix + expected_rows + self.postfix
 
         unused_monument_images.makeStatistics(statistics)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
@@ -420,12 +412,13 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_report_page = mock.create_autospec(
             unused_monument_images.pywikibot.Page,
         )
-        self.prefix = (
-            u'{{#ifexist:{{FULLPAGENAME}}/header'
-            u'|{{/header}}'
-            u'|For information on how to use this report and how to localise '
-            u'these instructions visit '
-            u'[[:c:Commons:Monuments database/Unused images]]. }}\n')
+
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.instruction_header')
+        self.mock_instruction_header = patcher.start()
+        self.mock_instruction_header.return_value = self.prefix
+        self.addCleanup(patcher.stop)
 
         self.unused_images = OrderedDict()
         self.unused_images['source_link_1'] = OrderedDict()
@@ -471,6 +464,7 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_output,
             minorEdit=False
         )
+        self.mock_instruction_header.assert_called_once()
 
     def test_output_country_report_max_images(self):
         max_images = 2
