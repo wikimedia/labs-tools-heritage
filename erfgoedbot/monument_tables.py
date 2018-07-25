@@ -10,7 +10,7 @@ import os
 import monuments_config as mconfig
 
 
-def processCountry(country_code, lang, country_config):
+def process_country(country_code, lang, country_config):
     """
     Process the country configs to create sql files.
 
@@ -45,6 +45,7 @@ def process_classic_config(country_config):
     @return sql
     """
     primkey = False
+    has_lat_lon = False
     default_type = 'varchar(255)'
     source_primkey = country_config.get('primkey')
     fields_sql = []
@@ -59,6 +60,7 @@ def process_classic_config(country_config):
             primkey = column
 
         if column in ['lon', 'lat']:
+            has_lat_lon = True
             fields_sql.append(
                 b'`{}` double DEFAULT NULL,'.format(column.encode('utf8')))
         else:
@@ -79,13 +81,21 @@ def process_classic_config(country_config):
 
     try:
         primkey = validate_primkey(source_primkey, primkey)
-    except:
+    except Exception:
         raise
+
+    extra_keys = ''
+    if has_lat_lon:
+        extra_keys = (
+            ",\n"
+            "KEY `latitude` (`lat`),\n"
+            "KEY `longitude` (`lon`)")
 
     sql = load_classic_template_sql().format(
         table=country_config['table'],
         rows=b'\n  '.join(fields_sql),
-        primkey=primkey.encode('utf8'))
+        primkey=primkey.encode('utf8'),
+        extra_keys=extra_keys)
 
     return sql
 
@@ -149,7 +159,7 @@ def get_template_dir():
 
 def main():
     for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-        processCountry(countrycode, lang, countryconfig)
+        process_country(countrycode, lang, countryconfig)
 
 
 if __name__ == "__main__":

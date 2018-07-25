@@ -146,6 +146,17 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
             for field in data.get('fields', []):
                 self.assert_is_ascii(field.get('dest'), msg=self.label)
 
+    def test_monuments_config_country_field_lat_and_lon(self):
+        """Ensure the country field dest entries contain lat-lon pair."""
+        # if one is present both should be present
+        for key, data in config.countries.iteritems():
+            self.set_label(key)
+            dests = [field.get('dest') for field in data.get('fields', [])]
+            if 'lat' in dests:
+                self.assertIn('lon', dests, msg=self.label)
+            if 'lon' in dests:
+                self.assertIn('lat', dests, msg=self.label)
+
     def test_monuments_config_known_converters(self):
         """Ensure the only known converters are used in field entries."""
         recognized = [

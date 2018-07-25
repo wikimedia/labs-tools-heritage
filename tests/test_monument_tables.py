@@ -17,7 +17,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         patcher = mock.patch(
             'erfgoedbot.monument_tables.load_classic_template_sql')
         self.load_sql = patcher.start()
-        self.load_sql.return_value = '{table}|{primkey}|  {rows}'
+        self.load_sql.return_value = '{table}|{primkey}|  {rows}|{extra_keys}'
         self.addCleanup(patcher.stop)
         patcher = mock.patch(
             'erfgoedbot.monument_tables.validate_primkey')
@@ -32,7 +32,7 @@ class TestProcessClassicConfig(unittest.TestCase):
 
     def test_process_classic_config_no_fields(self):
         self.fields = []
-        expected_output = ("the_table|primkey|  ")
+        expected_output = ("the_table|primkey|  |")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -40,7 +40,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -48,7 +48,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": u"s_val_öé"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -59,14 +59,14 @@ class TestProcessClassicConfig(unittest.TestCase):
             {"dest": "d_val_2", "source": "s_val_2"})
         expected_output = ("the_table|primkey|"
                            "  `d_val` varchar(255) NOT NULL DEFAULT '',\n"
-                           "  `d_val_2` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val_2` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
     def test_process_classic_config_nodest_field(self):
         self.country_config["fields"].append(
             {"dest": "", "source": "s_val"})
-        expected_output = ("the_table|primkey|  ")
+        expected_output = ("the_table|primkey|  |")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -74,7 +74,9 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "lat", "source": "lat"})
         expected_output = ("the_table|primkey|"
-                           "  `lat` double DEFAULT NULL,")
+                           "  `lat` double DEFAULT NULL,|,\n"
+                           "KEY `latitude` (`lat`),\n"
+                           "KEY `longitude` (`lon`)")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -82,7 +84,9 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "lon", "source": "lon"})
         expected_output = ("the_table|primkey|"
-                           "  `lon` double DEFAULT NULL,")
+                           "  `lon` double DEFAULT NULL,|,\n"
+                           "KEY `latitude` (`lat`),\n"
+                           "KEY `longitude` (`lon`)")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -92,7 +96,7 @@ class TestProcessClassicConfig(unittest.TestCase):
             {"dest": "d_val", "source": "s_val",
              "conv": "generateRegistrantUrl"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -101,7 +105,9 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "lon", "source": "lon", "check": "checkLat"})
         expected_output = ("the_table|primkey|"
-                           "  `lon` double DEFAULT NULL,")
+                           "  `lon` double DEFAULT NULL,|,\n"
+                           "KEY `latitude` (`lat`),\n"
+                           "KEY `longitude` (`lon`)")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -110,7 +116,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "type": ""})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -118,7 +124,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "default": "0"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(255) NOT NULL DEFAULT '0',")
+                           "  `d_val` varchar(255) NOT NULL DEFAULT '0',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -126,7 +132,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "type": "varchar(14)"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` varchar(14) NOT NULL DEFAULT '',")
+                           "  `d_val` varchar(14) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -134,7 +140,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "type": "int(11)"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` int(11) NOT NULL DEFAULT 0,")
+                           "  `d_val` int(11) NOT NULL DEFAULT 0,|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -143,7 +149,7 @@ class TestProcessClassicConfig(unittest.TestCase):
             {"dest": "d_val", "source": "s_val", "type": "int(11)",
              "auto_increment": True})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` int(11) NOT NULL AUTO_INCREMENT,")
+                           "  `d_val` int(11) NOT NULL AUTO_INCREMENT,|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -152,7 +158,7 @@ class TestProcessClassicConfig(unittest.TestCase):
             {"dest": "d_val", "source": "s_val", "type": "int(11)",
              "auto_increment": False})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` int(11) NOT NULL DEFAULT 0,")
+                           "  `d_val` int(11) NOT NULL DEFAULT 0,|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -161,7 +167,7 @@ class TestProcessClassicConfig(unittest.TestCase):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "type": "enum('BC','BIC')"})
         expected_output = ("the_table|primkey|"
-                           "  `d_val` enum('BC','BIC'),")
+                           "  `d_val` enum('BC','BIC'),|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
@@ -175,6 +181,6 @@ class TestProcessClassicConfig(unittest.TestCase):
         expected_output = ("the_table|primkey|"
                            "  `d_val` varchar(255) NOT NULL DEFAULT '',\n"
                            "  `d_val_2` varchar(255) NOT NULL DEFAULT '',\n"
-                           "  `d_val_3` varchar(255) NOT NULL DEFAULT '',")
+                           "  `d_val_3` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
