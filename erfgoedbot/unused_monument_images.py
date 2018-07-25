@@ -130,7 +130,7 @@ def output_country_report(unused_images, report_page, max_images=1000):
                     if totalImages < max_images:
                         for candidate in candidates:
                             text += u'File:{0}|{1}\n'.format(
-                                unicode(candidate, 'utf-8'), monument_id)
+                                candidate, monument_id)
                     totalImages += len(candidates)
                 text += u'</gallery>\n'
             else:
@@ -197,25 +197,15 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
     @return dict of monument images with category_sort_key as key and filename
         as value. category_sort_key contains the monument id.
     """
-    result = {}
-
     query = (
-        u"""SELECT page_title, cl_sortkey """
-        u"""FROM page """
-        u"""JOIN categorylinks ON page_id=cl_from """
-        u"""WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s""")
+        u"SELECT page_title, cl_sortkey_prefix "
+        u"FROM page "
+        u"JOIN categorylinks ON page_id=cl_from "
+        u"WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
-    while True:
-        try:
-            row = cursor.fetchone()
-            (image, id) = row
-            result[id] = image
-        except TypeError:
-            break
-
-    return result
+    return common.process_sort_key_query_result(cursor)
 
 
 def makeStatistics(statistics):

@@ -131,23 +131,55 @@ def page_to_filename(page):
     return filename.replace(' ', '_').replace(':', '_')
 
 
+def process_sort_key_query_result(cursor):
+    """Invert and convert cursor of a query requesting title and sort key.
+
+    This assumes a request to the categorylinks table where only two values are
+    selected for and where cl_sortkey or cl_sortkey_prefix is the second one.
+
+    As cl_sortkey and cl_sortkey_prefix may contain partial characters, any
+    characters which cannot be decoded must be replaced.
+
+    @param cursor: the pymysql.connect.cursor for the executed query
+    @return: dict
+    """
+    result = {}
+    while True:
+        try:
+            row = cursor.fetchone()
+            (page_title, sort_key) = row
+            sort_key = unicode(sort_key, 'utf-8', errors='replace')
+            page_title = unicode(page_title, 'utf-8')
+            result[sort_key] = page_title
+        except TypeError:
+            break
+
+    return result
+
+
 def get_id_from_sort_key(sort_key, known_ids):
     """
     Attempt to get a monument id from a category sort key.
 
     Candidate ids are compared to a list of known ids.
 
+    @param sort_key: a category sort key or sort key prefix
     @param known_ids: a list of known ids, or a dict where the keys are known
         ids.
     @return: unicode|None
     """
-    monument_id = unicode(sort_key, 'utf-8')
+    if sort_key == '':
+        return None
+
+    # ensure there are no remaining encoding issues
+    if not isinstance(sort_key, unicode):
+        sort_key = unicode(sort_key, 'utf-8', errors='replace')
     # Just want the first line
-    monument_id = monument_id.splitlines()[0]
+    monument_id = sort_key.splitlines()[0]
     # Remove leading and trailing spaces
     monument_id = monument_id.strip()
 
-    # No try some variants until we have a hit
+    # Now try some variants until we have a hit
     if monument_id in known_ids:
         return monument_id
 

@@ -180,10 +180,9 @@ def group_missing_commonscat_by_source(commonscats, withoutCommonscat,
                     u'Could not find source page for {0} ({1})'.format(
                         monumentId, withoutCommonscat.get(monumentId)))
                 continue
-            categoryName = commonscats.get(catSortKey)
-            u_name = unicode(categoryName, 'utf-8')
 
-            missing_commonscat[source_link].append((u_name, monumentId))
+            missing_commonscat[source_link].append(
+                (commonscats.get(catSortKey), monumentId))
 
     return missing_commonscat
 
@@ -244,25 +243,15 @@ def getMonumentCommonscats(commonsTrackerCategory, conn, cursor):
     @return dict of commons categories with category_sort_key as key and
         category name as value. category_sort_key contains the monument id.
     """
-    result = {}
-
     query = (
-        u"SELECT page_title, cl_sortkey "
+        u"SELECT page_title, cl_sortkey_prefix "
         u"FROM page "
         u"JOIN categorylinks ON page_id=cl_from "
         u"WHERE page_namespace=14 AND page_is_redirect=0 AND cl_to=%s")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
-    while True:
-        try:
-            row = cursor.fetchone()
-            (category, id) = row
-            result[id] = category
-        except TypeError:
-            break
-
-    return result
+    return common.process_sort_key_query_result(cursor)
 
 
 def makeStatistics(statistics):

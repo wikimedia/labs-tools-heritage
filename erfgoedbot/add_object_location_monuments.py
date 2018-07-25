@@ -35,7 +35,7 @@ def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
     site = pywikibot.getSite(u'commons', u'commons')
     query = (
-        u"SELECT page_title, cl_sortkey "
+        u"SELECT page_title, cl_sortkey_prefix "
         u"FROM page "
         u"JOIN templatelinks ON page_id=tl_from "
         u"JOIN categorylinks ON page_id=cl_from "
@@ -64,10 +64,10 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
         except TypeError:
             # Nothing left
             break
-        if pageName:
+        if pageName and sortkey:
             page = pywikibot.Page(site, 'File:' + unicode(pageName, 'utf-8'))
             try:
-                monumentId = unicode(sortkey, 'utf-8')
+                monumentId = unicode(sortkey, 'utf-8', errors='replace')
                 # Just want the first line
                 mLines = monumentId.splitlines()
                 monumentId = mLines[0]
