@@ -103,7 +103,10 @@ def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     Get a dictionary of images which are in the monuments database for a certain country/language combination.
     '''
     result = {}
-    query = u"""SELECT image, id FROM monuments_all WHERE NOT image='' AND country=%s AND lang=%s"""
+    query = (
+        u"SELECT image, id "
+        u"FROM monuments_all "
+        u"WHERE NOT image='' AND country=%s AND lang=%s")
     cursor.execute(query, (countrycode, lang))
 
     while True:
@@ -131,9 +134,21 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
 
     result = []
-    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS(SELECT * FROM templatelinks WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s') ORDER BY page_title ASC"""
+    query = (
+        u"SELECT DISTINCT(page_title) "
+        u"FROM page "
+        u"JOIN categorylinks ON page_id=cl_from "
+        u"WHERE page_namespace=6 AND page_is_redirect=0 "
+        u"AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS({sub}) "
+        u"ORDER BY page_title ASC"
+    )
+    subquery = (
+        u"SELECT * "
+        u"FROM templatelinks "
+        u"WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s'")
     cursor.execute(
-        query % (commonsCategoryBase, commonsCategoryBase, commonsTemplate))
+        query.format(sub=subquery) % (
+            commonsCategoryBase, commonsCategoryBase, commonsTemplate))
 
     while True:
         try:
@@ -155,7 +170,12 @@ def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
         'commonsTrackerCategory'). replace(u' ', u'_')
 
     result = []
-    query = u"""SELECT DISTINCT(page_title) FROM page JOIN categorylinks ON page_id=cl_from WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s ORDER BY page_title ASC"""
+    query = (
+        u"SELECT DISTINCT(page_title) "
+        u"FROM page "
+        u"JOIN categorylinks ON page_id=cl_from "
+        u"WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s "
+        u"ORDER BY page_title ASC")
     cursor.execute(query, (commonsTrackerCategory,))
 
     while True:

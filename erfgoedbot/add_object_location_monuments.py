@@ -34,22 +34,29 @@ def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
 
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
     site = pywikibot.getSite(u'commons', u'commons')
-    query = u"""SELECT  page_title, cl_sortkey FROM page
-JOIN templatelinks ON page_id=tl_from
-JOIN categorylinks ON page_id=cl_from
-WHERE page_namespace=6 AND page_is_redirect=0
-AND tl_namespace=10 AND tl_title=%s
-AND cl_to=%s
-AND NOT EXISTS(
-SELECT * FROM categorylinks AS loccat
-WHERE page_id=loccat.cl_from
-AND loccat.cl_to='Media_with_locations') LIMIT 10000"""
+    query = (
+        u"SELECT page_title, cl_sortkey "
+        u"FROM page "
+        u"JOIN templatelinks ON page_id=tl_from "
+        u"JOIN categorylinks ON page_id=cl_from "
+        u"WHERE page_namespace=6 AND page_is_redirect=0 "
+        u"AND tl_namespace=10 AND tl_title=%s "
+        u"AND cl_to=%s AND NOT EXISTS({sub}) "
+        u"LIMIT 10000")
+    subquery = (
+        u"SELECT * "
+        u"FROM categorylinks AS loccat "
+        u"WHERE page_id=loccat.cl_from "
+        u"AND loccat.cl_to='Media_with_locations'"
+    )
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get(
         'commonsTrackerCategory').replace(u' ', u'_')
 
     cursor2.execute(
-        query, (commonsTemplate.encode('utf-8'), commonsTrackerCategory.encode('utf-8')))
+        query.format(sub=subquery), (
+            commonsTemplate.encode('utf-8'),
+            commonsTrackerCategory.encode('utf-8')))
 
     while True:
         try:
@@ -110,14 +117,16 @@ def getCoordinates(monumentId, countrycode, lang, conn, cursor):
     '''
     Get coordinates from the erfgoed database
     '''
-    query = u"""SELECT lat, lon, source FROM monuments_all
-WHERE id=%s
-AND country=%s
-AND lang=%s
-AND NOT lat=0 AND NOT lon=0
-AND NOT lat='' AND NOT lon=''
-AND NOT lat IS NULL AND NOT lon IS NULL
-LIMIT 1"""
+    query = (
+        u"SELECT lat, lon, source "
+        u"FROM monuments_all "
+        u"WHERE id=%s "
+        u"AND country=%s "
+        u"AND lang=%s "
+        u"AND NOT lat=0 AND NOT lon=0 "
+        u"AND NOT lat='' AND NOT lon='' "
+        u"AND NOT lat IS NULL AND NOT lon IS NULL "
+        u"LIMIT 1")
 
     cursor.execute(query, (monumentId, countrycode, lang,))
 

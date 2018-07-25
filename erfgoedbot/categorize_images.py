@@ -267,10 +267,11 @@ def filter_out_categories_to_add(new_categories, unwanted_categories):
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
     """Get monument name and source from db."""
-    query = u"SELECT `name`, `commonscat`, `monument_article`, `source`, `project` " \
-            u"FROM monuments_all " \
-            u"WHERE (country=%s AND lang=%s AND id=%s) " \
-            u"LIMIT 1"
+    query = (
+        u"SELECT `name`, `commonscat`, `monument_article`, `source`, `project` "
+        u"FROM monuments_all "
+        u"WHERE (country=%s AND lang=%s AND id=%s) "
+        u"LIMIT 1")
 
     cursor.execute(query, (countrycode, lang, monumentId))
 

@@ -131,8 +131,10 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
     Get monuments with coordinates from monuments database for a certain country/language combination.
     '''
     result = []
-    query = """SELECT id, name, lat, lon, source FROM monuments_all
-                   WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s"""
+    query = (
+        u"SELECT id, name, lat, lon, source "
+        u"FROM monuments_all "
+        u"WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s")
     cursor.execute(query, (countrycode, lang))
 
     # result = cursor.fetchall ()
@@ -159,9 +161,11 @@ def hasCoordinates(pageId, lang, cursor):
         coordTable = 'u_dispenser_p.coord_' + lang + 'wiki'
 
         # check if primary coordinate i.e. article coordinate exists for pageId
-        query = """SELECT gc_from FROM %s
-                      WHERE (gc_from = %s AND gc_primary = 1)
-                      LIMIT 1"""
+        query = (
+            u"SELECT gc_from "
+            u"FROM %s "
+            u"WHERE (gc_from = %s AND gc_primary = 1) "
+            u"LIMIT 1")
         # FIXME escape & sanitize coordTable and pageId
         cursor.execute(query % (coordTable, int(pageId)))
 
@@ -187,8 +191,10 @@ def getPageId(pageName, conn, cursor,
     redirTitle = u''
 
     # FIXME page_titles like 'Château_de_Bercy' won't work, but titles like 'Käru' do ??
-    query = """SELECT page_id, page_is_redirect FROM page
-                   WHERE page_namespace = %s AND page_title = %s"""
+    query = (
+        u"SELECT page_id, page_is_redirect "
+        u"FROM page "
+        u"WHERE page_namespace = %s AND page_title = %s")
     cursor.execute(query, (pageNamespace, pageName))
     if DEBUG:
         print cursor._executed
@@ -220,8 +226,10 @@ def getRedirPageNsTitle(pageId, cursor):
         pageNs = ''
         pageTitle = u''
 
-        query = """SELECT rd_namespace, rd_title FROM redirect
-                WHERE rd_from = %s"""
+        query = (
+            u"SELECT rd_namespace, rd_title "
+            u"FROM redirect "
+            u"WHERE rd_from = %s")
         cursor.execute(query, (pageId,))
 
         if (cursor.rowcount > 0):

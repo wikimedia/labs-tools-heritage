@@ -237,12 +237,19 @@ def getStatistics(country, language, conn, cursor):
     for (label, database_field) in fields:
         queries[label] = build_query(database_field)
 
-    queries[
-        'all'] = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s'"""
-    queries[
-        'adm0iso'] = u"""SELECT adm0 FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) LIMIT 1"""
-    queries[
-        'source'] = u"""SELECT COUNT(DISTINCT(source)) FROM monuments_all WHERE country='%s' AND lang='%s'"""
+    queries['all'] = (
+        u"SELECT COUNT(*) "
+        u"FROM monuments_all "
+        u"WHERE country='%s' AND lang='%s'")
+    queries['adm0iso'] = (
+        u"SELECT adm0 "
+        u"FROM monuments_all "
+        u"WHERE country='%s' AND lang='%s' AND NOT (adm0='' OR adm0 IS NULL) "
+        u"LIMIT 1")
+    queries['source'] = (
+        u"SELECT COUNT(DISTINCT(source)) "
+        u"FROM monuments_all "
+        u"WHERE country='%s' AND lang='%s'")
 
     result['country'] = country
     result['lang'] = language
@@ -257,7 +264,10 @@ def getStatistics(country, language, conn, cursor):
 
 
 def build_query(field_name):
-    base_query = u"""SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND """
+    base_query = (
+        u"SELECT COUNT(*) "
+        u"FROM monuments_all "
+        u"WHERE country='%s' AND lang='%s' AND ")
     query = u"""NOT ({0}='' OR {0} IS NULL)"""
     if isinstance(field_name, tuple):
         return base_query + ' AND '.join([query.format(x) for x in field_name])
@@ -274,7 +284,10 @@ def getLanguages(country, conn, cursor):
     Get the languages for a certain country code.
     '''
     result = []
-    query = u"""SELECT DISTINCT(lang) FROM monuments_all WHERE country='%s'"""
+    query = (
+        u"SELECT DISTINCT(lang) "
+        u"FROM monuments_all "
+        u"WHERE country='%s'")
 
     # print query % (country,)
     cursor.execute(query % (country,))
@@ -294,7 +307,9 @@ def getCountries(conn, cursor):
     Get the list of country codes.
     '''
     result = []
-    query = u"""SELECT DISTINCT(country) FROM monuments_all"""
+    query = (
+        u"SELECT DISTINCT(country) "
+        u"FROM monuments_all")
     cursor.execute(query)
 
     while True:

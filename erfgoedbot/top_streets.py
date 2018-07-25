@@ -22,7 +22,11 @@ def getAddresses(countrycode, lang, municipality, conn, cursor):
     Get a list of addresses of a municipality in a country in a certain language
     '''
     result = []
-    query = u"""SELECT address FROM monuments_all WHERE country=%s AND lang=%s AND municipality=%s ORDER BY address ASC"""
+    query = (
+        u"SELECT address "
+        u"FROM monuments_all "
+        u"WHERE country=%s AND lang=%s AND municipality=%s "
+        u"ORDER BY address ASC")
     cursor.execute(query, (countrycode, lang, municipality))
 
     while True:
