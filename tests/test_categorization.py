@@ -294,21 +294,19 @@ class TestOutputStatistics(TestCreateReportBase):
     def setUp(self):
         super(TestOutputStatistics, self).setUp()
 
-        self.prefix = (
-            u'{| class="wikitable sortable"\n'
-            u'! country '
-            u'! [[:en:List of ISO 639-1 codes|lang]] '
-            u'! Base category '
-            u'! Template '
-            u'! data-sort-type="number"|Total images '
-            u'! data-sort-type="number"|Categorized images '
-            u'! data-sort-type="number"|Images left '
-            u'! data-sort-type="number"|Current image count'
-            u'\n')
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.prefix
+        self.addCleanup(patcher.stop)
 
-        self.postfix = (
-            u'|- class="sortbottom"\n'
-            u'|\n|\n|\n|\n| {0} \n| {1} \n| {2} | \n|}}\n')
+        self.postfix = 'postfix'
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.common.table_bottom_row')
+        self.mock_table_bottom_row = patcher.start()
+        self.mock_table_bottom_row.return_value = self.postfix
+        self.addCleanup(patcher.stop)
 
         self.comment = (
             u'Updating categorization statistics. '
@@ -322,10 +320,7 @@ class TestOutputStatistics(TestCreateReportBase):
                         expected_categorized_images_sum,
                         expected_leftover_images_sum):
         """The full battery of asserts to do for each test."""
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            expected_total_images_sum,
-            expected_categorized_images_sum,
-            expected_leftover_images_sum)
+        expected_text = self.prefix + expected_rows + self.postfix
         self.mock_save_to_wiki_or_local.assert_called_once_with(
             self.page,
             self.comment.format(
@@ -334,6 +329,12 @@ class TestOutputStatistics(TestCreateReportBase):
                 expected_leftover_images_sum),
             expected_text
         )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(
+            8, {
+                4: expected_total_images_sum,
+                5: expected_categorized_images_sum,
+                6: expected_leftover_images_sum})
 
     def test_output_statistics_single_complete(self):
         statistics = [{

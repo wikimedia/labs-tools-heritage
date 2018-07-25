@@ -18,6 +18,7 @@ python categorize_images.py -countrycode:ee -langcode:et
 '''
 import json
 import os
+from collections import OrderedDict
 
 import yaml
 
@@ -486,17 +487,18 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
 
 def outputStatistics(statistics):
     """Output the results of the bot as a nice wikitable."""
-    output = (
-        u'{| class="wikitable sortable"\n'
-        u'! country '
-        u'! [[:en:List of ISO 639-1 codes|lang]] '
-        u'! Base category '
-        u'! Template '
-        u'! data-sort-type="number"|Total images '
-        u'! data-sort-type="number"|Categorized images '
-        u'! data-sort-type="number"|Images left '
-        u'! data-sort-type="number"|Current image count'
-        u'\n')
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
+        site, u'Commons:Monuments database/Categorization/Statistics')
+
+    column_names = ('country', '[[:en:List of ISO 639-1 codes|lang]]',
+                    'Base category', 'Template', 'Total images',
+                    'Categorized images', 'Images left', 'Current image count')
+    numeric_columns = ('Total images', 'Categorized images', 'Images left',
+                       'Current image count')
+    columns = OrderedDict(
+        [(col, col in numeric_columns) for col in column_names])
+    output = common.table_header_row(columns)
 
     output_row = (
         u'|-\n'
@@ -509,24 +511,24 @@ def outputStatistics(statistics):
         u'| {leftover} \n'
         u'| {pages_in_cat} \n')
 
-    totalImages = 0
-    categorizedImages = 0
-    leftoverImages = 0
+    total_images_sum = 0
+    categorized_images_sum = 0
+    leftover_images_sum = 0
 
     for row in statistics:
 
-        leftover = '---'
-        cat_link = '---'
-        pages_in_cat = '---'
-        template_link = '---'
+        leftover = None
+        cat_link = None
+        pages_in_cat = None
+        template_link = None
         total_images = row.get('total_images')
         cat_images_or_cmt = row.get('cat_images')
 
         if row.get('cat_images') is not None:
-            totalImages += row['total_images']
-            categorizedImages += row['cat_images']
+            total_images_sum += row['total_images']
+            categorized_images_sum += row['cat_images']
             leftover = row['total_images'] - row['cat_images']
-            leftoverImages += leftover
+            leftover_images_sum += leftover
         else:
             cat_images_or_cmt = row.get('cmt')
             total_images = '---'
@@ -541,25 +543,22 @@ def outputStatistics(statistics):
         output += output_row.format(
             code=row['code'],
             lang=row['lang'],
-            cat=cat_link,
-            template=template_link,
+            cat=cat_link or '---',
+            template=template_link or '---',
             total_images=total_images,
             cat_images=cat_images_or_cmt,
-            leftover=leftover,
-            pages_in_cat=pages_in_cat)
+            leftover=leftover if leftover is not None else '---',  # 0 is valid
+            pages_in_cat=pages_in_cat or '---')
 
-    output += u'|- class="sortbottom"\n'
-    output += u'|\n|\n|\n|\n| %s \n| %s \n| %s | \n' % (
-        totalImages, categorizedImages, leftoverImages)
-    output += u'|}\n'
+    output += common.table_bottom_row(8, {
+        4: total_images_sum,
+        5: categorized_images_sum,
+        6: leftover_images_sum})
 
-    site = pywikibot.Site('commons', 'commons')
-    page = pywikibot.Page(
-        site, u'Commons:Monuments database/Categorization/Statistics')
     summary = (
         u'Updating categorization statistics. '
         u'Total: {0} Categorized: {1} Leftover: {2}'.format(
-            totalImages, categorizedImages, leftoverImages))
+            total_images_sum, categorized_images_sum, leftover_images_sum))
     common.save_to_wiki_or_local(page, summary, output)
 
 
