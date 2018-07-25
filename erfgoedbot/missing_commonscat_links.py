@@ -174,7 +174,7 @@ def group_missing_commonscat_by_source(commonscats, withoutCommonscat,
                     withoutCommonscat.get(monumentId),
                     countryconfig.get('type'))
                 if source_link not in missing_commonscat:
-                    missing_commonscat[source_link] = {}
+                    missing_commonscat[source_link] = []
             except ValueError:
                 pywikibot.warning(
                     u'Could not find source page for {0} ({1})'.format(
