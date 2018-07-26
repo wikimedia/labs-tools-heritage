@@ -16,7 +16,7 @@ if ( PHP_SAPI != 'cli' ) {
 error_reporting( E_ALL | E_STRICT );
 ini_set( 'display_errors', 1 );
 
-ini_set( 'memory_limit', '200M' );
+ini_set( 'memory_limit', '800M' );
 
 // set to true for verbose output
 define( 'VERBOSE', false );
@@ -40,6 +40,7 @@ handleDbError( $query );
 echo "Rebuilding table...\n";
 // build a data structure of unique admin values and their parents. store them as keys for easy retrieval.
 $admin_levels = [];
+echo "Querying data...\n";
 $monuments_query = "SELECT `lang`, `adm0`, `adm1`, `adm2`, `adm3`, `adm4` FROM `monuments_all`";
 if ( $result = $db->query( $monuments_query ) ) {
 	while ( $row = $result->fetch_object() ) {
@@ -82,6 +83,7 @@ if ( $result = $db->query( $monuments_query ) ) {
 }
 
 // loop through each admin level, and store it in the db with appropriate parents
+echo "Inserting data...\n";
 $counter = 0;
 $db->query( 'BEGIN' );
 foreach ( $admin_levels as $lang => $levels ) {
