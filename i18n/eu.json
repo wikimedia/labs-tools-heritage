@@ -3,7 +3,8 @@
 		"authors": [
 			"An13sa",
 			"Subi",
-			"Sator"
+			"Sator",
+			"Amaia"
 		]
 	},
 	"search-title": "Monumentuen bilaketa",
@@ -11,17 +12,33 @@
 	"search-table-th-field": "Eremua",
 	"search-table-th-filter": "Iragazkia",
 	"search-table-th-search": "Bilatu",
+	"search-table-th-output": "Irteera",
+	"search-table-tr-countries": "Herrialdeak",
+	"search-table-tr-languages": "Hizkuntzak",
+	"search-table-tr-name": "Izena",
+	"search-table-tr-address": "Helbidea",
+	"search-table-tr-municipality": "Udalerria",
+	"search-table-tr-coordinates": "Koordenatuak",
+	"search-table-tr-images": "Irudiak",
+	"search-table-tr-output-format": "Irteera formatua",
+	"search-table-checkbox-only-images": "Monumentuak bakarrik irudirik gabe",
+	"search-table-button-search": "Bilatu",
 	"filter-all-countries": "Herrialde guztiak",
 	"filter-all-languages": "Hizkuntza guztiak",
 	"db-field-country": "Herrialdea",
 	"db-field-lang": "Hizkuntza",
+	"db-field-id": "Identifikatzailea",
 	"db-field-name": "Izena",
 	"db-field-address": "Helbidea",
 	"db-field-municipality": "Udalerria",
 	"db-field-lat": "Latitudea",
 	"db-field-lon": "Longitudea",
 	"db-field-image": "Irudia",
+	"db-field-changed": "Aldatua",
 	"db-field-source": "Iturria",
+	"db-field-monument_article": "Monumentuaren orria",
+	"db-field-commonscat": "Commons kategoria",
+	"db-field-project": "Wikimediaren proiektua",
 	"db-field-st_address": "Helbideak",
 	"db-field-st_address_pct": "Helbideak %",
 	"db-field-st_coordinates": "Koordenatuak",
@@ -36,5 +53,8 @@
 	"toolbox-nav-homepage": "Hasiera orria",
 	"toolbox-nav-statistics": "Estatistikak",
 	"toolbox-nav-search": "Bilatu",
-	"location": "Kokapena"
+	"toolbox-title-searchmonuments": "Monumentuak bilatu",
+	"toolbox-title-statistics": "Monumentuen estatistikak",
+	"location": "Kokapena",
+	"source-monuments-list": "Wikimedia proiektu bateko monumentu zerrenda originala"
 }
