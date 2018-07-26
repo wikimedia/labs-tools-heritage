@@ -453,3 +453,49 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_cmt,
             expected_output
         )
+
+
+class TestGroupMissingCommonscatBySource(unittest.TestCase):
+
+    """Test the group_missing_commonscat_by_source method."""
+
+    def setUp(self):
+        super(TestGroupMissingCommonscatBySource, self).setUp()
+        patcher = mock.patch('erfgoedbot.missing_commonscat_links.mconfig')
+        self.mock_mconfig = patcher.start()
+        self.mock_mconfig.countries = {
+            ('se', 'sv'): {'missingCommonscatPage': 'foobar'}
+        }
+        self.addCleanup(patcher.stop)
+
+    def test_group_missing_commonscat_by_source_empty(self):
+        result = missing_commonscat_links.group_missing_commonscat_by_source(
+            {}, {}, self.mock_mconfig)
+        self.assertEqual(result, {})
+
+    def test_group_missing_commonscat_by_source(self):
+        # group_missing_commonscat_by_source(commonscats, withoutCommonscat,
+        #                                countryconfig)
+        commons_cats = {
+            'ID_1': 'Some Monument',
+            'ID_2': 'Some Other Monument',
+            'ID_3': 'Yet Another Monument',
+        }
+        without_commonscat = {
+            'ID_1': '//de.wikipedia.org/w/index.php?title=Dummy_page_A&oldid=12345',
+            'ID_2': '//de.wikipedia.org/w/index.php?title=Dummy_page_A&oldid=12345',
+            'ID_3': '//de.wikipedia.org/w/index.php?title=Dummy_page_B&oldid=12345',
+        }
+        expected = {
+            u'[[Dummy_page_A]]': [
+                (u'Some Monument', u'ID_1'),
+                (u'Some Other Monument', u'ID_2'),
+            ],
+            u'[[Dummy_page_B]]': [
+                (u'Yet Another Monument', u'ID_3'),
+            ]
+        }
+
+        result = missing_commonscat_links.group_missing_commonscat_by_source(
+            commons_cats, without_commonscat, self.mock_mconfig)
+        self.assertEqual(result, expected)
