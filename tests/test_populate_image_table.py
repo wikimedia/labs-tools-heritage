@@ -93,12 +93,14 @@ class TestProcessSource(unittest.TestCase):
             mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_monuments)])
         self.assertEquals(result, (2, 2))
 
+    @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.normalize_identifier', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
-    def test_processSource_with_one_okay_picture_out_of_two(self, mock_updateImage, mock_normalize_identifier):
+    def test_processSource_with_one_okay_picture_out_of_two(self, mock_updateImage, mock_normalize_identifier, mock_has_geolocation):
         """Trying to normalize the identifier of the first image throws a CannotNormalizeException,
         and the second succeeds. The processing does carry over to the second image.
         """
+        mock_has_geolocation.return_value = False
         self.mock_get_monuments.return_value = (
             (' 00000044\nEXAMPLE - 01.JPG', 'Example_-_01.jpg'),
             (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
