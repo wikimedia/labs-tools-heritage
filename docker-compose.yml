@@ -4,8 +4,11 @@ bot:
     service: bot
   links:
     - db
+    - db_commons
   environment:
     - HERITAGE_LOCAL_WRITE_PATH=docker_pages
+    - DB_USERNAME=$TOOLFORGE_DB_USERNAME
+    - DB_PASSWORD=$TOOLFORGE_DB_PASSWORD
   volumes:
     - "./conf/database_config.dev.yml:/code/erfgoedbot/database_config.yml"
 
@@ -22,3 +25,12 @@ web:
     - db
   volumes:
     - .:/var/www/
+
+db_commons:
+  image: jeanfred/wiki-replicas-proxy
+  volumes:
+    - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+  environment:
+    SSH_USER: $SSH_USER
+    WIKI_DB: commonswiki
+    SSH_AUTH_SOCK:

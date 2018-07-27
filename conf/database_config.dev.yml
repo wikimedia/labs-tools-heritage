@@ -6,5 +6,5 @@ monuments_db:
   password: password
 
 commons_db:
-  server: commonswiki.analytics.db.svc.eqiad.wmflabs
+  server: db_commons
   db_name: commonswiki_p
