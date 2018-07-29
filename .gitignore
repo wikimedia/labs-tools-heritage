@@ -3,6 +3,7 @@
 # erfgoedbot created files
 erfgoedbot/sql/create_table_monuments*
 erfgoedbot/sql/create_table_wlpa*
+erfgoedbot/sql/fill_table_monuments_all.sql
 
 # pywikibot created files
 logs
@@ -20,6 +21,7 @@ htmlcov
 composer.lock
 erfgoedbot/database_config.yml
 conf/monuments_db.sql.gz
+docker_pages
 
 # IDE files
 *.iml
