@@ -6,7 +6,24 @@ import unittest
 
 import mock
 
+import pywikibot
+
 from erfgoedbot import categorize_images
+
+
+class TestCreateReportBase(unittest.TestCase):
+
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.common.save_to_wiki_or_local')
+        self.mock_save_to_wiki_or_local = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        # silence logger
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.debug')
+        self.mock_debug = patcher.start()
+        self.addCleanup(patcher.stop)
 
 
 class TestLoadWikipediaCommonscatTemplates(unittest.TestCase):
@@ -268,3 +285,258 @@ class TestGetCategoriesFromUpperCategories(unittest.TestCase):
         self.mock_page.categories.return_value = []
         result = categorize_images.get_categories_from_upper_categories(self.mock_page, None)
         self.assertEquals(result, set())
+
+
+class TestOutputStatistics(TestCreateReportBase):
+
+    """Test the outputStatistics method."""
+
+    def setUp(self):
+        super(TestOutputStatistics, self).setUp()
+
+        self.prefix = (
+            u'{| class="wikitable sortable"\n'
+            u'! country '
+            u'! [[:en:List of ISO 639-1 codes|lang]] '
+            u'! Base category '
+            u'! Template '
+            u'! data-sort-type="number"|Total images '
+            u'! data-sort-type="number"|Categorized images '
+            u'! data-sort-type="number"|Images left '
+            u'! data-sort-type="number"|Current image count'
+            u'\n')
+
+        self.postfix = (
+            u'|- class="sortbottom"\n'
+            u'|\n|\n|\n|\n| {0} \n| {1} \n| {2} | \n|}}\n')
+
+        self.comment = (
+            u'Updating categorization statistics. '
+            u'Total: {0} Categorized: {1} Leftover: {2}')
+        commons = pywikibot.Site('commons', 'commons')
+        self.page = pywikibot.Page(
+            commons, u'Commons:Monuments database/Categorization/Statistics')
+
+    def bundled_asserts(self, expected_rows,
+                        expected_total_images_sum,
+                        expected_categorized_images_sum,
+                        expected_leftover_images_sum):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                expected_total_images_sum,
+                expected_categorized_images_sum,
+                expected_leftover_images_sum),
+            expected_text
+        )
+
+    def test_output_statistics_single_complete(self):
+        statistics = [{
+            'code': 'foo',
+            'lang': 'en',
+            'cat': 'A category',
+            'template': 'A template',
+            'total_images': 321,
+            'cat_images': 123
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| [[:Category:A category]] \n'
+            u'| {{tl|A template}} \n'
+            u'| 321 \n'
+            u'| 123 \n'
+            u'| 198 \n'
+            u'| {{PAGESINCATEGORY:A category|files}} \n')
+        expected_total_images_sum = 321
+        expected_categorized_images_sum = 123
+        expected_leftover_images_sum = 198
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+
+    def test_output_statistics_basic(self):
+        statistics = [{
+            'code': 'foo',
+            'lang': 'en',
+            'total_images': 321,
+            'cat_images': 123
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| 321 \n'
+            u'| 123 \n'
+            u'| 198 \n'
+            u'| --- \n')
+        expected_total_images_sum = 321
+        expected_categorized_images_sum = 123
+        expected_leftover_images_sum = 198
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+
+    def test_output_statistics_basic_skipped(self):
+        statistics = [{
+            'code': 'foo',
+            'lang': 'en',
+            'cmt': 'skipped: some reason'
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| skipped: some reason \n'
+            u'| --- \n'
+            u'| --- \n')
+        expected_total_images_sum = 0
+        expected_categorized_images_sum = 0
+        expected_leftover_images_sum = 0
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+
+    def test_output_statistics_basic_no_leftover(self):
+        statistics = [{
+            'code': 'foo',
+            'lang': 'en',
+            'total_images': 321,
+            'cat_images': 321
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| 321 \n'
+            u'| 321 \n'
+            u'| 0 \n'
+            u'| --- \n')
+        expected_total_images_sum = 321
+        expected_categorized_images_sum = 321
+        expected_leftover_images_sum = 0
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+
+    def test_output_statistics_multiple_complete(self):
+        statistics = [
+            {
+                'code': 'foo',
+                'lang': 'en',
+                'total_images': 3,
+                'cat_images': 2
+            },
+            {
+                'code': 'bar',
+                'lang': 'fr',
+                'total_images': 7,
+                'cat_images': 3
+            }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| 3 \n'
+            u'| 2 \n'
+            u'| 1 \n'
+            u'| --- \n'
+            u'|-\n'
+            u'| bar \n'
+            u'| fr \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| 7 \n'
+            u'| 3 \n'
+            u'| 4 \n'
+            u'| --- \n')
+        expected_total_images_sum = 10
+        expected_categorized_images_sum = 5
+        expected_leftover_images_sum = 5
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)
+
+    def test_output_statistics_multiple_mixed(self):
+        statistics = [
+            {
+                'code': 'foo',
+                'lang': 'en',
+                'total_images': 3,
+                'cat_images': 2
+            },
+            {
+                'code': 'bar',
+                'lang': 'fr',
+                'cmt': 'oh no!'
+            }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| 3 \n'
+            u'| 2 \n'
+            u'| 1 \n'
+            u'| --- \n'
+            u'|-\n'
+            u'| bar \n'
+            u'| fr \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| oh no! \n'
+            u'| --- \n'
+            u'| --- \n')
+        expected_total_images_sum = 3
+        expected_categorized_images_sum = 2
+        expected_leftover_images_sum = 1
+
+        categorize_images.outputStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_categorized_images_sum,
+            expected_leftover_images_sum)

@@ -489,25 +489,25 @@ def outputStatistics(statistics):
     output = (
         u'{| class="wikitable sortable"\n'
         u'! country '
-        u'!! [[:en:List of ISO 639-1 codes|lang]] '
-        u'!! Base category '
-        u'!! Template '
-        u'!! data-sort-type="number"|Total images '
-        u'!! data-sort-type="number"|Categorized images '
-        u'!! data-sort-type="number"|Images left '
-        u'!! data-sort-type="number"|Current image count'
+        u'! [[:en:List of ISO 639-1 codes|lang]] '
+        u'! Base category '
+        u'! Template '
+        u'! data-sort-type="number"|Total images '
+        u'! data-sort-type="number"|Categorized images '
+        u'! data-sort-type="number"|Images left '
+        u'! data-sort-type="number"|Current image count'
         u'\n')
 
     output_row = (
         u'|-\n'
-        u'|| {code} \n'
-        u'|| {lang} \n'
-        u'|| {cat} \n'
-        u'|| {template} \n'
-        u'|| {total_images} \n'
-        u'|| {cat_images} \n'
-        u'|| {leftover} \n'
-        u'|| {pages_in_cat} \n')
+        u'| {code} \n'
+        u'| {lang} \n'
+        u'| {cat} \n'
+        u'| {template} \n'
+        u'| {total_images} \n'
+        u'| {cat_images} \n'
+        u'| {leftover} \n'
+        u'| {pages_in_cat} \n')
 
     totalImages = 0
     categorizedImages = 0
@@ -549,7 +549,7 @@ def outputStatistics(statistics):
             pages_in_cat=pages_in_cat)
 
     output += u'|- class="sortbottom"\n'
-    output += u'||\n||\n||\n||\n|| %s \n|| %s \n|| %s || \n' % (
+    output += u'|\n|\n|\n|\n| %s \n| %s \n| %s | \n' % (
         totalImages, categorizedImages, leftoverImages)
     output += u'|}\n'
 
