@@ -456,6 +456,30 @@ class TestMakeStatistics(TestCreateReportBase):
         self.page = pywikibot.Page(
             commons, u'Commons:Monuments database/Unknown fields/Statistics')
 
+    def bundled_asserts(self, expected_rows,
+                        expected_total_fields,
+                        expected_total_usages,
+                        expected_total_pages):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix.format(
+            total_fields=expected_total_fields,
+            total_usages=expected_total_usages,
+            total_pages=expected_total_pages)
+
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(
+                total_fields=expected_total_fields,
+                total_usages=expected_total_usages,
+                total_pages=expected_total_pages),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(8, {
+            2: expected_total_fields,
+            3: expected_total_usages,
+            4: expected_total_pages})
+
     def test_make_statistics_single_basic(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
         report_page = pywikibot.Page(test_wiki, 'Foobar')
@@ -484,25 +508,12 @@ class TestMakeStatistics(TestCreateReportBase):
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_fields=expected_total_fields,
-            total_usages=expected_total_usages,
-            total_pages=expected_total_pages)
 
         update_database.make_statistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(
-                total_fields=expected_total_fields,
-                total_usages=expected_total_usages,
-                total_pages=expected_total_pages),
-            expected_text
-        )
-        self.mock_table_header_row.assert_called_once()
-        self.mock_table_bottom_row.assert_called_once_with(8, {
-            2: expected_total_fields,
-            3: expected_total_usages,
-            4: expected_total_pages})
+        self.bundled_asserts(expected_rows,
+                             expected_total_fields,
+                             expected_total_usages,
+                             expected_total_pages)
 
     def test_make_statistics_single_empty(self):
         statistics = [None, ]
@@ -511,20 +522,12 @@ class TestMakeStatistics(TestCreateReportBase):
         expected_total_fields = 0
         expected_total_usages = 0
         expected_total_pages = 0
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_fields=expected_total_fields,
-            total_usages=expected_total_usages,
-            total_pages=expected_total_pages)
 
         update_database.make_statistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(
-                total_fields=expected_total_fields,
-                total_usages=expected_total_usages,
-                total_pages=expected_total_pages),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows,
+                             expected_total_fields,
+                             expected_total_usages,
+                             expected_total_pages)
 
     def test_make_statistics_multiple_basic(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
@@ -576,20 +579,12 @@ class TestMakeStatistics(TestCreateReportBase):
         expected_total_fields = 444
         expected_total_usages = 1110
         expected_total_pages = 1776
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_fields=expected_total_fields,
-            total_usages=expected_total_usages,
-            total_pages=expected_total_pages)
 
         update_database.make_statistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(
-                total_fields=expected_total_fields,
-                total_usages=expected_total_usages,
-                total_pages=expected_total_pages),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows,
+                             expected_total_fields,
+                             expected_total_usages,
+                             expected_total_pages)
 
     def test_make_statistics_multiple_mixed(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
@@ -622,20 +617,12 @@ class TestMakeStatistics(TestCreateReportBase):
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
-        expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_fields=expected_total_fields,
-            total_usages=expected_total_usages,
-            total_pages=expected_total_pages)
 
         update_database.make_statistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(
-                total_fields=expected_total_fields,
-                total_usages=expected_total_usages,
-                total_pages=expected_total_pages),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows,
+                             expected_total_fields,
+                             expected_total_usages,
+                             expected_total_pages)
 
 
 class TestUnknownFieldsStatistics(TestCreateReportBase):
@@ -689,14 +676,33 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         self.counter_2 = Counter({'page_21': 3})
         self.unknown_fields['unknown_field_2'] = self.counter_2
 
+    def bundled_asserts(self, result,
+                        expected_table,
+                        expected_return,
+                        expected_cmt):
+        """The full battery of asserts to do for each test."""
+        expected_output = (self.instruction_prefix + expected_table +
+                           self.postfix)
+        self.assertEqual(result, expected_return)
+        self.mock_pwb_page.assert_called_once_with(
+            self.commons,
+            u'Commons:Monuments database/Unknown fields/table_name'
+        )
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+        self.mock_instruction_header.assert_called_once()
+
     def test_unknown_fields_statistics_complete(self):
         expected_cmt = self.comment.format(2)
-        expected_output = self.instruction_prefix + self.table_prefix + (
+        expected_table = self.table_prefix + (
             u'|-\n'
             u'| unknown_field_1 || 6 || formatted_entry\n'
             u'|-\n'
             u'| unknown_field_2 || 3 || formatted_entry\n'
-            u'|}\n') + self.postfix
+            u'|}\n')
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
@@ -707,28 +713,16 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
 
         result = update_database.unknown_fields_statistics(
             self.countryconfig, self.unknown_fields)
-        self.assertEqual(result, expected_return)
-        self.mock_pwb_page.assert_called_once_with(
-            self.commons,
-            u'Commons:Monuments database/Unknown fields/table_name'
-        )
         self.mock_format_source_field.assert_has_calls([
             mock.call(self.counter_1, self.commons),
             mock.call(self.counter_2, self.commons)],
         )
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
-            expected_cmt,
-            expected_output
-        )
-        self.mock_instruction_header.assert_called_once()
+        self.bundled_asserts(result, expected_table, expected_return,
+                             expected_cmt)
 
     def test_unknown_fields_statistics_no_unknown(self):
         expected_cmt = self.comment.format(0)
-        expected_output = (
-            self.instruction_prefix +
-            u'\nThere are no unknown fields left. Great work!\n' +
-            self.postfix)
+        expected_table = u'\nThere are no unknown fields left. Great work!\n'
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
@@ -739,28 +733,20 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
 
         result = update_database.unknown_fields_statistics(
             self.countryconfig, {})
-        self.assertEqual(result, expected_return)
-        self.mock_pwb_page.assert_called_once_with(
-            self.commons,
-            u'Commons:Monuments database/Unknown fields/table_name'
-        )
         self.mock_format_source_field.assert_not_called()
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
-            expected_cmt,
-            expected_output
-        )
+        self.bundled_asserts(result, expected_table, expected_return,
+                             expected_cmt)
 
     def test_unknown_fields_statistics_combine_pages(self):
         new_counter = Counter({'page_11': 3, 'page_21': 3, 'page_22': 3})
         self.unknown_fields['unknown_field_2'] = new_counter
         expected_cmt = self.comment.format(2)
-        expected_output = self.instruction_prefix + self.table_prefix + (
+        expected_table = self.table_prefix + (
             u'|-\n'
             u'| unknown_field_1 || 6 || formatted_entry\n'
             u'|-\n'
             u'| unknown_field_2 || 9 || formatted_entry\n'
-            u'|}\n') + self.postfix
+            u'|}\n')
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
@@ -771,20 +757,12 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
 
         result = update_database.unknown_fields_statistics(
             self.countryconfig, self.unknown_fields)
-        self.assertEqual(result, expected_return)
-        self.mock_pwb_page.assert_called_once_with(
-            self.commons,
-            u'Commons:Monuments database/Unknown fields/table_name'
-        )
         self.mock_format_source_field.assert_has_calls([
             mock.call(self.counter_1, self.commons),
             mock.call(new_counter, self.commons)],
         )
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
-            expected_cmt,
-            expected_output
-        )
+        self.bundled_asserts(result, expected_table, expected_return,
+                             expected_cmt)
 
 
 class TestProcessCountry(unittest.TestCase):

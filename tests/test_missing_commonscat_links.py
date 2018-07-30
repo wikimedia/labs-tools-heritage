@@ -93,6 +93,19 @@ class TestMakeStatistics(TestCreateReportBase):
             commons,
             u'Commons:Monuments database/Missing commonscat links/Statistics')
 
+    def bundled_asserts(self, expected_rows, expected_total_cats):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix
+
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(total_cats=expected_total_cats),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(
+            6, {2: expected_total_cats})
+
     def test_make_statistics_single_complete(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
         report_page = pywikibot.Page(test_wiki, 'Foobar')
@@ -115,17 +128,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| [[wikipedia:en:Template:Row template|Row template]] \n'
             u'| {{tl|commons template}} \n')
         expected_total_cats = 123
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
-        self.mock_table_header_row.assert_called_once()
-        self.mock_table_bottom_row.assert_called_once_with(
-            6, {2: expected_total_cats})
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_single_basic(self):
         statistics = [{
@@ -144,14 +149,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| [[wikipedia:en:Template:Row template|Row template]] \n'
             u'| --- \n')
         expected_total_cats = 123
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_single_sparql_basic(self):
         statistics = [{
@@ -170,14 +170,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| --- \n'
             u'| --- \n')
         expected_total_cats = 0
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_basic_skipped(self):
         statistics = [{
@@ -196,14 +191,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| [[wikipedia:en:Template:A template|A template]] \n'
             u'| --- \n')
         expected_total_cats = 0
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_multiple_complete(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
@@ -244,14 +234,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
             u'| --- \n')
         expected_total_cats = 5
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_multiple_mixed(self):
         test_wiki = pywikibot.Site('test', 'wikipedia')
@@ -290,14 +275,9 @@ class TestMakeStatistics(TestCreateReportBase):
             u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
             u'| --- \n')
         expected_total_cats = 2
-        expected_text = self.prefix + expected_rows + self.postfix
 
         missing_commonscat_links.makeStatistics(statistics)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
-            self.comment.format(total_cats=expected_total_cats),
-            expected_text
-        )
+        self.bundled_asserts(expected_rows, expected_total_cats)
 
 
 class TestOutputCountryReport(TestCreateReportBase):
@@ -328,9 +308,24 @@ class TestOutputCountryReport(TestCreateReportBase):
             ('Cat_21', 'id_3')
         ]
 
+    def bundled_asserts(self, result,
+                        expected_cmt,
+                        expected_totals,
+                        expected_output):
+        """The full battery of asserts to do for each test."""
+        expected_output = self.prefix + expected_output
+
+        self.assertEqual(result, expected_totals)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+        self.mock_instruction_header.assert_called_once()
+
     def test_output_country_report_complete(self):
         expected_cmt = u'Commonscat links to be made in monument lists: 3'
-        expected_output = self.prefix + (
+        expected_output = (
             u'=== source_link_1 ===\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
@@ -344,13 +339,11 @@ class TestOutputCountryReport(TestCreateReportBase):
 
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page)
-        self.assertEqual(result, expected_totals)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
+        self.bundled_asserts(
+            result,
             expected_cmt,
-            expected_output
-        )
-        self.mock_instruction_header.assert_called_once()
+            expected_totals,
+            expected_output)
 
     def test_output_country_report_max_cats(self):
         max_cats = 2
@@ -358,7 +351,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         expected_cmt = (
             u'Commonscat links to be made in monument lists: 2 (list maximum '
             u'reached), total of missing commonscat links: 3')
-        expected_output = self.prefix + (
+        expected_output = (
             u'=== source_link_1 ===\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
@@ -372,12 +365,11 @@ class TestOutputCountryReport(TestCreateReportBase):
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page,
             max_cats=max_cats)
-        self.assertEqual(result, expected_totals)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
+        self.bundled_asserts(
+            result,
             expected_cmt,
-            expected_output
-        )
+            expected_totals,
+            expected_output)
 
     def test_output_country_report_max_images_all_candidates(self):
         max_cats = 1
@@ -385,7 +377,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         expected_cmt = (
             u'Commonscat links to be made in monument lists: 1 (list maximum '
             u'reached), total of missing commonscat links: 3')
-        expected_output = self.prefix + (
+        expected_output = (
             u'=== source_link_1 ===\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
@@ -399,18 +391,17 @@ class TestOutputCountryReport(TestCreateReportBase):
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page,
             max_cats=max_cats)
-        self.assertEqual(result, expected_totals)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
+        self.bundled_asserts(
+            result,
             expected_cmt,
-            expected_output
-        )
+            expected_totals,
+            expected_output)
 
     def test_output_country_report_no_images(self):
         self.missing_cats = {}
 
         expected_cmt = u'Commonscat links to be made in monument lists: 0'
-        expected_output = self.prefix + (
+        expected_output = (
             u'\nThere are no missing commonscat left. Great work!\n')
         expected_totals = {
             'cats': 0,
@@ -419,12 +410,11 @@ class TestOutputCountryReport(TestCreateReportBase):
 
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page)
-        self.assertEqual(result, expected_totals)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
+        self.bundled_asserts(
+            result,
             expected_cmt,
-            expected_output
-        )
+            expected_totals,
+            expected_output)
 
     def test_output_country_report_with_iw_links(self):
         max_cats = 2
@@ -432,7 +422,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         expected_cmt = (
             u'Commonscat links to be made in monument lists: 2 (list maximum '
             u'reached), total of missing commonscat links: 3')
-        expected_output = self.prefix + (
+        expected_output = (
             u'=== source_link_1 ===\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
             u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
@@ -447,12 +437,11 @@ class TestOutputCountryReport(TestCreateReportBase):
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page,
             max_cats=max_cats, iw_links='iw_links text')
-        self.assertEqual(result, expected_totals)
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_report_page,
+        self.bundled_asserts(
+            result,
             expected_cmt,
-            expected_output
-        )
+            expected_totals,
+            expected_output)
 
 
 class TestGroupMissingCommonscatBySource(unittest.TestCase):
