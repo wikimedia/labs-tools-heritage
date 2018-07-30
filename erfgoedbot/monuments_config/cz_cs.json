@@ -79,6 +79,18 @@
             "source": "Památkou_od"
         },
         {
+            "dest": "monument_until",
+            "source": "Památkou_do"
+        },
+        {
+            "dest": "coord_source",
+            "source": "Zdroj souřadnic"
+        },
+        {
+            "dest": "coord_source_date",
+            "source": "Zdroj souřadnic datum přístupu"
+        },
+        {
             "dest": "remark",
             "source": "Poznámka"
         },
@@ -86,6 +98,11 @@
             "dest": "registrant_url",
             "source": "Id_objektu",
             "conv": "generateRegistrantUrl"
+        },
+        {
+            "dest": "wd_item",
+            "source": "Wikidata",
+            "check": "checkWD"
         }
     ],
     "sql_lang": "Czech language",
@@ -161,6 +178,10 @@
         },
         "registrant_url": {
             "value": "registrant_url",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
             "type": "Field"
         }
     }
