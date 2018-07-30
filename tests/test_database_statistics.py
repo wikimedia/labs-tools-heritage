@@ -1,12 +1,26 @@
 """Unit tests for database_statistics."""
-
-# from pywikibot.site import APISite
-# from pywikibot.exceptions import NoPage
 import unittest
 
 import mock
 
+import pywikibot
+
 from erfgoedbot import database_statistics
+
+
+class TestCreateReportBase(unittest.TestCase):
+
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.database_statistics.common.save_to_wiki_or_local')
+        self.mock_save_to_wiki_or_local = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        # silence logger
+        patcher = mock.patch(
+            'erfgoedbot.database_statistics.pywikibot.debug')
+        self.mock_debug = patcher.start()
+        self.addCleanup(patcher.stop)
 
 
 class TestBuildQuery(unittest.TestCase):
@@ -77,3 +91,307 @@ class TestGetStatistics(unittest.TestCase):
             self.assertEqual(result['all'], 1)
             self.assertEqual(result['name'], 1)
             self.assertEqual(result['namePercentage'], 100)
+
+
+class TestOutputStatistics(TestCreateReportBase):
+
+    """Test the outputStatistics method."""
+
+    def setUp(self):
+        super(TestOutputStatistics, self).setUp()
+
+        self.prefix = (
+            u'{| class="wikitable sortable"\n'
+            u'! country '
+            u'!! [[:en:List of ISO 639-1 codes|lang]] '
+            u'!! data-sort-type="number"|total '
+            u'!! data-sort-type="number"|name '
+            u'!! data-sort-type="number"|address '
+            u'!! data-sort-type="number"|municipality '
+            u'!!data-sort-type="number"| coordinates '
+            u'!! data-sort-type="number"|image '
+            u'!! data-sort-type="number"|commonscat '
+            u'!! data-sort-type="number"|article '
+            u'!! data-sort-type="number"|wikidata '
+            u'!! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] '
+            u'!! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] '
+            u'!! data-sort-type="number"|adm2 '
+            u'!! data-sort-type="number"|adm3 '
+            u'!!data-sort-type="number"| adm4 '
+            u'!! data-sort-type="number"|source pages\n')
+
+        self.postfix = u'|}\n'
+
+        self.comment = u'Updating monument database statistics'
+        commons = pywikibot.Site('commons', 'commons')
+        self.page = pywikibot.Page(
+            commons, u'Commons:Monuments database/Statistics')
+
+    def bundled_asserts(self, expected_rows,
+                        expected_summation_row):
+        """The full battery of asserts to do for each test."""
+        expected_text = (self.prefix + expected_rows +
+                         expected_summation_row + self.postfix)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment,
+            expected_text
+        )
+
+    def test_output_statistics_single_complete(self):
+        statistics = {'foo_country': {'bar_lang': {
+            'country': 'foo',
+            'lang': 'bar',
+            'all': 100,
+            'name': 1,
+            'address': 2,
+            'municipality': 3,
+            'coordinates': 4,
+            'image': 5,
+            'commonscat': 6,
+            'article': 7,
+            'wikidata': 8,
+            'adm0': 9,
+            'adm1': 11,
+            'adm2': 12,
+            'adm3': 13,
+            'adm4': 14,
+            'adm0iso': 'foobar',
+            'source': 15,
+            'namePercentage': 1.0,
+            'addressPercentage': 2.0,
+            'municipalityPercentage': 3.0,
+            'coordinatesPercentage': 4.0,
+            'imagePercentage': 5.0,
+            'commonscatPercentage': 6.0,
+            'articlePercentage': 7.0,
+            'wikidataPercentage': 8.0,
+            'adm0Percentage': 9.0,
+            'adm1Percentage': 11.0,
+            'adm2Percentage': 12.0,
+            'adm3Percentage': 13.0,
+            'adm4Percentage': 14.0
+        }}}
+
+        expected_rows = (
+            u'|-\n'
+            u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=foo&format=html&limit=0 foo] '
+            u'|| bar || 100 '
+            u'|| 1 <small>(1.0%)</small>'
+            u'|| 2 <small>(2.0%)</small>'
+            u'|| 3 <small>(3.0%)</small>'
+            u'|| 4 <small>(4.0%)</small>'
+            u'|| 5 <small>(5.0%)</small>'
+            u'|| 6 <small>(6.0%)</small>'
+            u'|| 7 <small>(7.0%)</small>'
+            u'|| 8 <small>(8.0%)</small>'
+            u'|| 9 <small>(9.0%)</small>'
+            u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=foobar 11] <small>(11.0%)</small>'
+            u'|| 12 <small>(12.0%)</small>'
+            u'|| 13 <small>(13.0%)</small>'
+            u'|| 14 <small>(14.0%)</small>'
+            u'|| 15\n'
+        )
+        expected_summation_row = (
+            u'|- class="sortbottom"\n'
+            u'| '
+            u'|| || 100'
+            u'|| 1 <small>(1.0%)</small>'
+            u'|| 2 <small>(2.0%)</small>'
+            u'|| 3 <small>(3.0%)</small>'
+            u'|| 4 <small>(4.0%)</small>'
+            u'|| 5 <small>(5.0%)</small>'
+            u'|| 6 <small>(6.0%)</small>'
+            u'|| 7 <small>(7.0%)</small>'
+            u'|| 8 <small>(8.0%)</small>'
+            u'|| 9 <small>(9.0%)</small>'
+            u'|| 11 <small>(11.0%)</small>'
+            u'|| 12 <small>(12.0%)</small>'
+            u'|| 13 <small>(13.0%)</small>'
+            u'|| 14 <small>(14.0%)</small>'
+            u'|| 15\n'
+        )
+
+        database_statistics.outputStatistics(statistics)
+        self.bundled_asserts(expected_rows, expected_summation_row)
+
+    def test_output_statistics_multiple_complete(self):
+        statistics = {}
+        statistics['foo_country'] = {}
+        statistics['foo_country']['bar_lang'] = {
+            'country': 'foo',
+            'lang': 'bar',
+            'all': 100,
+            'name': 1,
+            'address': 2,
+            'municipality': 3,
+            'coordinates': 4,
+            'image': 5,
+            'commonscat': 6,
+            'article': 7,
+            'wikidata': 8,
+            'adm0': 9,
+            'adm1': 11,
+            'adm2': 12,
+            'adm3': 13,
+            'adm4': 14,
+            'adm0iso': 'foobar',
+            'source': 15,
+            'namePercentage': 1.0,
+            'addressPercentage': 2.0,
+            'municipalityPercentage': 3.0,
+            'coordinatesPercentage': 4.0,
+            'imagePercentage': 5.0,
+            'commonscatPercentage': 6.0,
+            'articlePercentage': 7.0,
+            'wikidataPercentage': 8.0,
+            'adm0Percentage': 9.0,
+            'adm1Percentage': 11.0,
+            'adm2Percentage': 12.0,
+            'adm3Percentage': 13.0,
+            'adm4Percentage': 14.0
+        }
+        statistics['foo_country']['zen_lang'] = {
+            'country': 'foo',
+            'lang': 'zen',
+            'all': 10,
+            'name': 10,
+            'address': 10,
+            'municipality': 10,
+            'coordinates': 10,
+            'image': 10,
+            'commonscat': 10,
+            'article': 10,
+            'wikidata': 10,
+            'adm0': 10,
+            'adm1': 10,
+            'adm2': 10,
+            'adm3': 10,
+            'adm4': 10,
+            'adm0iso': 'foozen',
+            'source': 10,
+            'namePercentage': 100.0,
+            'addressPercentage': 100.0,
+            'municipalityPercentage': 100.0,
+            'coordinatesPercentage': 100.0,
+            'imagePercentage': 100.0,
+            'commonscatPercentage': 100.0,
+            'articlePercentage': 100.0,
+            'wikidataPercentage': 100.0,
+            'adm0Percentage': 100.0,
+            'adm1Percentage': 100.0,
+            'adm2Percentage': 100.0,
+            'adm3Percentage': 100.0,
+            'adm4Percentage': 100.0
+        }
+        statistics['goo_country'] = {
+            'zen_lang': {
+                'country': 'goo',
+                'lang': 'zen',
+                'all': 10,
+                'name': 10,
+                'address': 10,
+                'municipality': 10,
+                'coordinates': 10,
+                'image': 10,
+                'commonscat': 10,
+                'article': 10,
+                'wikidata': 10,
+                'adm0': 10,
+                'adm1': 10,
+                'adm2': 10,
+                'adm3': 10,
+                'adm4': 10,
+                'adm0iso': 'goozen',
+                'source': 10,
+                'namePercentage': 100.0,
+                'addressPercentage': 100.0,
+                'municipalityPercentage': 100.0,
+                'coordinatesPercentage': 100.0,
+                'imagePercentage': 100.0,
+                'commonscatPercentage': 100.0,
+                'articlePercentage': 100.0,
+                'wikidataPercentage': 100.0,
+                'adm0Percentage': 100.0,
+                'adm1Percentage': 100.0,
+                'adm2Percentage': 100.0,
+                'adm3Percentage': 100.0,
+                'adm4Percentage': 100.0
+            }
+        }
+
+        expected_rows = (
+            u'|-\n'
+            u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=foo&format=html&limit=0 foo] '
+            u'|| bar || 100 '
+            u'|| 1 <small>(1.0%)</small>'
+            u'|| 2 <small>(2.0%)</small>'
+            u'|| 3 <small>(3.0%)</small>'
+            u'|| 4 <small>(4.0%)</small>'
+            u'|| 5 <small>(5.0%)</small>'
+            u'|| 6 <small>(6.0%)</small>'
+            u'|| 7 <small>(7.0%)</small>'
+            u'|| 8 <small>(8.0%)</small>'
+            u'|| 9 <small>(9.0%)</small>'
+            u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=foobar 11] <small>(11.0%)</small>'
+            u'|| 12 <small>(12.0%)</small>'
+            u'|| 13 <small>(13.0%)</small>'
+            u'|| 14 <small>(14.0%)</small>'
+            u'|| 15\n'
+            u'|-\n'
+            u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=foo&format=html&limit=0 foo] '
+            u'|| zen || 10 '
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=foozen 10] <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10\n'
+            u'|-\n'
+            u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=goo&format=html&limit=0 goo] '
+            u'|| zen || 10 '
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=goozen 10] <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10 <small>(100.0%)</small>'
+            u'|| 10\n'
+        )
+        expected_summation_row = (
+            u'|- class="sortbottom"\n'
+            u'| '
+            u'|| || 120'
+            u'|| 21 <small>(17.5%)</small>'
+            u'|| 22 <small>(18.33%)</small>'
+            u'|| 23 <small>(19.17%)</small>'
+            u'|| 24 <small>(20.0%)</small>'
+            u'|| 25 <small>(20.83%)</small>'
+            u'|| 26 <small>(21.67%)</small>'
+            u'|| 27 <small>(22.5%)</small>'
+            u'|| 28 <small>(23.33%)</small>'
+            u'|| 29 <small>(24.17%)</small>'
+            u'|| 31 <small>(25.83%)</small>'
+            u'|| 32 <small>(26.67%)</small>'
+            u'|| 33 <small>(27.5%)</small>'
+            u'|| 34 <small>(28.33%)</small>'
+            u'|| 35\n'
+        )
+
+        database_statistics.outputStatistics(statistics)
+        self.bundled_asserts(expected_rows, expected_summation_row)
