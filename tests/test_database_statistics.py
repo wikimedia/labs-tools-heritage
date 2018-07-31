@@ -90,7 +90,6 @@ class TestGetStatistics(unittest.TestCase):
             self.assertEqual(result['lang'], 'ka')
             self.assertEqual(result['all'], 1)
             self.assertEqual(result['name'], 1)
-            self.assertEqual(result['namePercentage'], 100)
 
 
 class TestOutputStatistics(TestCreateReportBase):
@@ -102,23 +101,23 @@ class TestOutputStatistics(TestCreateReportBase):
 
         self.prefix = (
             u'{| class="wikitable sortable"\n'
-            u'! country '
-            u'!! [[:en:List of ISO 639-1 codes|lang]] '
-            u'!! data-sort-type="number"|total '
-            u'!! data-sort-type="number"|name '
-            u'!! data-sort-type="number"|address '
-            u'!! data-sort-type="number"|municipality '
-            u'!!data-sort-type="number"| coordinates '
-            u'!! data-sort-type="number"|image '
-            u'!! data-sort-type="number"|commonscat '
-            u'!! data-sort-type="number"|article '
-            u'!! data-sort-type="number"|wikidata '
-            u'!! data-sort-type="number"|[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]] '
-            u'!! data-sort-type="number"|[[:en:ISO 3166-2#Current codes|adm1]] '
-            u'!! data-sort-type="number"|adm2 '
-            u'!! data-sort-type="number"|adm3 '
-            u'!!data-sort-type="number"| adm4 '
-            u'!! data-sort-type="number"|source pages\n')
+            u'! country\n'
+            u'! [[:en:List of ISO 639-1 codes|lang]]\n'
+            u'! data-sort-type="number"| total\n'
+            u'! data-sort-type="number"| name\n'
+            u'! data-sort-type="number"| address\n'
+            u'! data-sort-type="number"| municipality\n'
+            u'! data-sort-type="number"| coordinates\n'
+            u'! data-sort-type="number"| image\n'
+            u'! data-sort-type="number"| commonscat\n'
+            u'! data-sort-type="number"| article\n'
+            u'! data-sort-type="number"| wikidata\n'
+            u'! data-sort-type="number"| [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]]\n'
+            u'! data-sort-type="number"| [[:en:ISO 3166-2#Current codes|adm1]]\n'
+            u'! data-sort-type="number"| adm2\n'
+            u'! data-sort-type="number"| adm3\n'
+            u'! data-sort-type="number"| adm4\n'
+            u'! data-sort-type="number"| source pages\n')
 
         self.postfix = u'|}\n'
 
@@ -157,20 +156,7 @@ class TestOutputStatistics(TestCreateReportBase):
             'adm3': 13,
             'adm4': 14,
             'adm0iso': 'foobar',
-            'source': 15,
-            'namePercentage': 1.0,
-            'addressPercentage': 2.0,
-            'municipalityPercentage': 3.0,
-            'coordinatesPercentage': 4.0,
-            'imagePercentage': 5.0,
-            'commonscatPercentage': 6.0,
-            'articlePercentage': 7.0,
-            'wikidataPercentage': 8.0,
-            'adm0Percentage': 9.0,
-            'adm1Percentage': 11.0,
-            'adm2Percentage': 12.0,
-            'adm3Percentage': 13.0,
-            'adm4Percentage': 14.0
+            'source': 15
         }}}
 
         expected_rows = (
@@ -236,20 +222,7 @@ class TestOutputStatistics(TestCreateReportBase):
             'adm3': 13,
             'adm4': 14,
             'adm0iso': 'foobar',
-            'source': 15,
-            'namePercentage': 1.0,
-            'addressPercentage': 2.0,
-            'municipalityPercentage': 3.0,
-            'coordinatesPercentage': 4.0,
-            'imagePercentage': 5.0,
-            'commonscatPercentage': 6.0,
-            'articlePercentage': 7.0,
-            'wikidataPercentage': 8.0,
-            'adm0Percentage': 9.0,
-            'adm1Percentage': 11.0,
-            'adm2Percentage': 12.0,
-            'adm3Percentage': 13.0,
-            'adm4Percentage': 14.0
+            'source': 15
         }
         statistics['foo_country']['zen_lang'] = {
             'country': 'foo',
@@ -269,20 +242,7 @@ class TestOutputStatistics(TestCreateReportBase):
             'adm3': 10,
             'adm4': 10,
             'adm0iso': 'foozen',
-            'source': 10,
-            'namePercentage': 100.0,
-            'addressPercentage': 100.0,
-            'municipalityPercentage': 100.0,
-            'coordinatesPercentage': 100.0,
-            'imagePercentage': 100.0,
-            'commonscatPercentage': 100.0,
-            'articlePercentage': 100.0,
-            'wikidataPercentage': 100.0,
-            'adm0Percentage': 100.0,
-            'adm1Percentage': 100.0,
-            'adm2Percentage': 100.0,
-            'adm3Percentage': 100.0,
-            'adm4Percentage': 100.0
+            'source': 10
         }
         statistics['goo_country'] = {
             'zen_lang': {
@@ -303,20 +263,7 @@ class TestOutputStatistics(TestCreateReportBase):
                 'adm3': 10,
                 'adm4': 10,
                 'adm0iso': 'goozen',
-                'source': 10,
-                'namePercentage': 100.0,
-                'addressPercentage': 100.0,
-                'municipalityPercentage': 100.0,
-                'coordinatesPercentage': 100.0,
-                'imagePercentage': 100.0,
-                'commonscatPercentage': 100.0,
-                'articlePercentage': 100.0,
-                'wikidataPercentage': 100.0,
-                'adm0Percentage': 100.0,
-                'adm1Percentage': 100.0,
-                'adm2Percentage': 100.0,
-                'adm3Percentage': 100.0,
-                'adm4Percentage': 100.0
+                'source': 10
             }
         }
 
