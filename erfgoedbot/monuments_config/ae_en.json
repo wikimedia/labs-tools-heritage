@@ -1,0 +1,132 @@
+{
+    "country": "ae",
+    "lang": "en",
+    "description": "Monuments in the United Arab Emirates in English",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_ae_(en)",
+    "truncate": false,
+    "primkey": "number",
+    "headerTemplate": "UAEmonument header",
+    "rowTemplate": "UAEmonument row",
+    "commonsTemplate": "Monument United Arab Emirates",
+    "commonsTrackerCategory": "Cultural heritage monuments in the United Arab Emirates with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in the United Arab Emirates",
+    "unusedImagesPage": "Wikipedia:WikiProject Historic sites/Unused images of UAE monument",
+    "fields": [
+        {
+            "dest": "number",
+            "source": "number",
+            "type": "varchar(10)"
+        },
+        {
+            "dest": "prov_iso",
+            "source": "prov_iso"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "type",
+            "source": "type"
+        },
+        {
+            "dest": "address",
+            "source": "address"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        },
+        {
+            "dest": "monument_article",
+            "source": "description",
+            "conv": "extractWikilink"
+        }
+    ],
+    "sql_lang": "English",
+    "sql_country": "United Arab Emirates",
+    "sql_data": {
+        "country": {
+            "value": "ae",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "id": {
+            "value": "number",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "ae",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`prov_iso`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "description",
+            "type": "Field"
+        },
+        "address": {
+            "value": "address",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "district",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "monument_article",
+            "type": "Field"
+        }
+    }
+}
