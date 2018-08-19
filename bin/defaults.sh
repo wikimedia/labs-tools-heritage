@@ -7,7 +7,7 @@ echo_time() {
 : ${SOURCE_PATH:=$HOME_DIR/heritage}
 : ${ERFGOED_PATH:=$SOURCE_PATH/erfgoedbot}
 : ${VIRTUAL_ENV_PATH:=$HOME_DIR/.venv}
-: ${LOGS_PATH:=$SOURCE_PATH/logs}
+: ${LOGS_PATH:=$HOME_DIR/logs}
 
 # Database config
 : ${DATABASE:=s51138__heritage_p}
