@@ -80,6 +80,6 @@ cd ..
 
 # Refill prox_search table. Which will be used by layar server.
 echo_time "Refill prox_search table..."
-$PHP_BIN ./prox_search/fill_table_prox_search.php
+$PHP_BIN $SOURCE_PATH/prox_search/fill_table_prox_search.php
 
 echo_time "Done with the update!"
