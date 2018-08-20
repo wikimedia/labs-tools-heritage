@@ -6,6 +6,7 @@ echo_time() {
 : ${HOME_DIR:=/data/project/heritage}
 : ${SOURCE_PATH:=$HOME_DIR/heritage}
 : ${ERFGOED_PATH:=$SOURCE_PATH/erfgoedbot}
+: ${PUBLIC_HTML_PATH:=$HOME_DIR/public_html/}
 : ${VIRTUAL_ENV_PATH:=$HOME_DIR/.venv}
 : ${LOGS_PATH:=$HOME_DIR/logs}
 

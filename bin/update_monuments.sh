@@ -63,7 +63,7 @@ echo_time "Make a list of missing commonscat links..."
 $PYWIKIBOT_BIN $ERFGOED_PATH/missing_commonscat_links.py -log
 
 # Dump database to a file so people can play around with it
-cd ./public_html || exit
+cd $PUBLIC_HTML_PATH || exit
 
 # Keep the last dump around just in case
 ln -f monuments_db.sql.gz monuments_db-old.sql.gz
