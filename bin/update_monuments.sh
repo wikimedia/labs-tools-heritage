@@ -52,7 +52,7 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/database_statistics.py -log
 
 # Make more detailed statistics
 echo_time "Make more detailed statistics..."
-$PHP_BIN ./public_html/maintenance/_buildStats.php
+$PHP_BIN $SOURCE_PATH/maintenance/_buildStats.php
 
 # Update the list of unused monuments
 echo_time "Update unused images list..."
