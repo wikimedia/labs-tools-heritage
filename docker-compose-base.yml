@@ -33,3 +33,4 @@ bot:
     - .:/code
   environment:
     PYWIKIBOT2_NO_USER_CONFIG: 2
+  entrypoint: ["./conf/wait-for-db.sh"]
