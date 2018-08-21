@@ -16,12 +16,15 @@ To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
 To spin-up a development environement simulating harvesting:
 
 ```
-# Create database tables
-python erfgoedbot/monument_tables.py
-python erfgoedbot/fill_table_monuments_all.py
+# Build Docker images
+docker-compose build
 
-# Build and start the Docker containers
-docker-compose up --build -d
+# Create database tables
+docker-compose run --rm --no-deps --entrypoint python bot erfgoedbot/monument_tables.py
+docker-compose run --rm --no-deps --entrypoint python bot erfgoedbot/fill_table_monuments_all.py
+
+# Start the Docker containers
+docker-compose up -d
 
 # Ensure a directory for locally written pages
 mkdir -p docker_pages
