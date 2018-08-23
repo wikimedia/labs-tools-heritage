@@ -35,6 +35,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
             'config': countryconfig,
             'cmt': 'skipped: no missingCommonscatPage'
         }
+    if not countryconfig.get('commonsTrackerCategory'):
+        # commonsTrackerCategory not set, just skip silently.
+        return {
+            'code': countrycode,
+            'lang': lang,
+            'config': countryconfig,
+            'cmt': 'skipped: no commonsTrackerCategory'
+        }
 
     if countryconfig.get('type') == 'sparql':
         # This script does not (yet) work for SPARQL sources, skip silently

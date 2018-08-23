@@ -69,6 +69,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
             'config': countryconfig,
             'cmt': 'skipped: no unusedImagesPage'
         }
+    if not countryconfig.get('commonsTrackerCategory'):
+        # commonsTrackerCategory not set, just skip silently.
+        return {
+            'code': countrycode,
+            'lang': lang,
+            'config': countryconfig,
+            'cmt': 'skipped: no commonsTrackerCategory'
+        }
 
     unusedImagesPage = countryconfig.get('unusedImagesPage')
     project = countryconfig.get('project', u'wikipedia')

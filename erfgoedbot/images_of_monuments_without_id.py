@@ -29,8 +29,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     '''
     Work on a single country.
     '''
-    if not countryconfig.get('commonsTemplate'):
-        # No template found, just skip silently.
+    if (not countryconfig.get('commonsTemplate') or
+            not countryconfig.get('commonsTrackerCategory')):
+        # No template or tracker category found, just skip silently.
         return False
 
     commonsTemplate = countryconfig.get('commonsTemplate')
