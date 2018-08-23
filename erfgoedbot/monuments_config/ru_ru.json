@@ -110,6 +110,50 @@
         {
             "dest": "complex",
             "source": "complex"
+        },
+        {
+            "dest": "style",
+            "source": "style"
+        },
+        {
+            "dest": "document",
+            "source": "document"
+        },
+        {
+            "dest": "author",
+            "source": "author"
+        },
+        {
+            "dest": "dismissed",
+            "source": "dismissed"
+        },
+        {
+            "dest": "linkextra",
+            "source": "linkextra"
+        },
+        {
+            "dest": "knid-new",
+            "source": "knid-new"
+        },
+        {
+            "dest": "block",
+            "source": "block"
+        },
+        {
+            "dest": "protection",
+            "source": "protection"
+        },
+        {
+            "dest": "status",
+            "source": "status"
+        },
+        {
+            "dest": "uid",
+            "source": "uid"
+        },
+        {
+            "dest": "document2",
+            "source": "document2"
         }
     ],
     "sql_lang": "Russian",
