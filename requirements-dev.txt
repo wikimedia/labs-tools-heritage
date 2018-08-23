@@ -1,0 +1,16 @@
+-i https://pypi.org/simple
+babel==2.6.0
+bashate==0.5.1
+cov-core==1.15.0; python_version >= '2.6'
+coverage==4.5.1
+funcsigs==1.0.2; python_version < '3.3'
+isort==4.2.15
+mock==2.0.0
+nose-cov==1.6
+nose==1.3.7
+pathspec==0.5.7
+pbr==4.2.0
+pytz==2018.5
+pyyaml==3.13
+six==1.11.0
+yamllint==1.11.1

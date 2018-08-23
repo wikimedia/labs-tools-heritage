@@ -1,5 +1,11 @@
-future
+-i https://pypi.org/simple
+certifi==2018.8.24
+chardet==3.0.4
+future==0.16.0
+idna==2.7
+ipaddr==2.2.0
+pymysql==0.7.11
 pywikibot==3.0.20170403
-PyMySQL==0.7.11
-requests
-PyYAML
+pyyaml==3.13
+requests==2.19.1
+urllib3==1.23; python_version >= '2.6'

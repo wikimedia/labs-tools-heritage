@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+bashate = "==0.5.1"
+isort = "==4.2.15"
+mock = "*"
+nose = "*"
+nose-cov = "*"
+coverage = "*"
+yamllint = "*"
+
+[packages]
+future = "*"
+pywikibot = "==3.0.20170403"
+requests = "*"
+PyMySQL = "==0.7.11"
+PyYAML = "*"
+
+[requires]
+python_version = "2.7"

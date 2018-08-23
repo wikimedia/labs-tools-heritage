@@ -1,9 +1,0 @@
--r requirements.txt
-
-bashate==0.5.1
-isort==4.2.15
-mock
-nose
-nose-cov
-coverage
-yamllint
