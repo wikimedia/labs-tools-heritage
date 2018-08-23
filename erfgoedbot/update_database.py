@@ -208,14 +208,14 @@ def format_source_field(sources, site, sample_size=4):
     if len(sources) == 1:
         source_page = sources.keys()[0]
         source_text = source_page.title(
-            asLink=True, withNamespace=False, insite=site)
+            as_link=True, with_ns=False, insite=site)
     else:
         source_slice = sources.most_common(sample_size)
         remaining = len(sources) - len(source_slice)
         for (source_page, source_count) in source_slice:
             source_text += '\n* {0} ({1})'.format(
                 source_page.title(
-                    asLink=True, withNamespace=False, insite=site),
+                    as_link=True, with_ns=False, insite=site),
                 source_count
             )
         if remaining:
@@ -427,7 +427,7 @@ def process_page(page, source, countryconfig, conn, cursor,
     primkey_exceptions = 0
 
     for (template, params) in templates:
-        template_name = template.title(withNamespace=False)
+        template_name = template.title(with_ns=False)
         if template_name == countryconfig.get('headerTemplate'):
             header_defaults = process_header(params, countryconfig)
         if template_name == countryconfig.get('rowTemplate'):
@@ -617,11 +617,11 @@ def make_statistics(statistics):
             'Template:{0}'.format(countryconfig.get('headerTemplate')))
 
         row_template = row_template_page.title(
-            asLink=True, withNamespace=False, insite=site)
+            as_link=True, with_ns=False, insite=site)
         header_template = header_template_page.title(
-            asLink=True, withNamespace=False, insite=site)
+            as_link=True, with_ns=False, insite=site)
         report_page = row.get('report_page').title(
-            asLink=True, withNamespace=False, insite=site)
+            as_link=True, with_ns=False, insite=site)
 
         text += text_row.format(
             code=countryconfig.get('country'),

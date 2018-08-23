@@ -388,7 +388,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
 
     if not cat_title:
         categorisation_method = '3'
-        cat_title = page.title(withNamespace=False)
+        cat_title = page.title(with_ns=False)
 
     site = pywikibot.Site(u'commons', u'commons')
     cat = pywikibot.Category(site, cat_title)
@@ -397,7 +397,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
 
 def get_commonscat_template_in_page(page, commonsCatTemplates):
     for (template, params) in page.templatesWithParams():
-        if template.title(withNamespace=False) in commonsCatTemplates:
+        if template.title(with_ns=False) in commonsCatTemplates:
             return (template, params)
 
 
@@ -486,7 +486,7 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
     return {
         'code': countrycode,
         'lang': lang,
-        'cat': commonsCategoryBase.title(withNamespace=False),
+        'cat': commonsCategoryBase.title(with_ns=False),
         'template': commonsTemplate,
         'total_images': totalImages,
         'cat_images': categorizedImages
@@ -600,7 +600,7 @@ def skip(country_code, lang, country_config):
     return {
         'code': country_code,
         'lang': lang,
-        'cat': commons_category_base.title(withNamespace=False),
+        'cat': commons_category_base.title(with_ns=False),
         'template': commons_template,
         'cmt': 'skipped: blacklisted'
     }

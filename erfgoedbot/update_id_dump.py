@@ -86,7 +86,7 @@ def processPage(countrycode, lang, source, countryconfig, conn, cursor, page=Non
     templates = page.templatesWithParams()
 
     for (template, params) in templates:
-        template_name = template.title(withNamespace=False)
+        template_name = template.title(with_ns=False)
         if template_name == countryconfig.get('rowTemplate'):
             processMonument(
                 countrycode, lang, params, source, countryconfig, conn, cursor)

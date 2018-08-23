@@ -125,7 +125,7 @@ def page_to_filename(page):
     """
     site_str = str(page.site)
     namespace_str = page.namespace().custom_prefix().rstrip(':') or '_'
-    pagename_str = page.title(as_filename=True, withNamespace=False)
+    pagename_str = page.title(as_filename=True, with_ns=False)
     filename = '[{site}][{ns}]{page}.wiki'.format(
         site=site_str, ns=namespace_str, page=pagename_str)
     return filename.replace(' ', '_').replace(':', '_')
