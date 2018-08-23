@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Listed buildings in Sweden",
     "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av byggnadsminnen i Sverige",
     "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av byggnadsminnen i Sverige utan ID",
+    "missingCommonscatPage": "Wikipedia:Projekt kulturarv/Saknade länkar för commonscat - byggnadsminnen",
     "registrantUrlBase": "http://www.bebyggelseregistret.raa.se/bbr2/anlaggning/visaHistorik.raa?page=historik&visaHistorik=true&anlaggningId=%s",
     "fields": [
         {

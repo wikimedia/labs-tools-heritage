@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Archaeological monuments in Sweden",
     "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av fornlämningar i Sverige",
     "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av fornlämningar i Sverige utan ID",
+    "missingCommonscatPage": "Wikipedia:Projekt kulturarv/Saknade länkar för commonscat - fornlämningar",
     "registrantUrlBase": "http://kulturarvsdata.se/raa/fmi/html/%s",
     "fields": [
         {

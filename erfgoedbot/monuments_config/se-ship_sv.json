@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Listed historical ships in Sweden",
     "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av kulturmärkta fartyg i Sverige",
     "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av kulturmärkta fartyg i Sverige utan ID",
+    "missingCommonscatPage": "Wikipedia:Projekt kulturarv/Saknade länkar för commonscat - kulturmärkta fartyg",
     "registrantUrlBase": "http://www.sjohistoriska.se/sv/Kusten-runt/Fartyg--batar/K-markning-av-fartyg/K-markta-fartyg/%s",
     "fields": [
         {

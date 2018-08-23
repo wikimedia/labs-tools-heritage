@@ -16,6 +16,7 @@
     "commonsCategoryBase": "Working Life Museums in Sweden",
     "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av arbetslivsmuseum i Sverige",
     "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av arbetslivsmuseum i Sverige utan ID",
+    "missingCommonscatPage": "Wikipedia:Projekt kulturarv/Saknade länkar för commonscat - arbetslivsmuseum",
     "fields": [
         {
             "dest": "id",
