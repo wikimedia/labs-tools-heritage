@@ -1,13 +1,29 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-
 """Unit tests for populate_image_table."""
-
 import unittest
+from collections import OrderedDict
 
 import mock
 
+import pywikibot
+
 from erfgoedbot import populate_image_table
+
+
+class TestCreateReportBase(unittest.TestCase):
+
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.common.save_to_wiki_or_local')
+        self.mock_save_to_wiki_or_local = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        # silence logger
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.debug')
+        self.mock_debug = patcher.start()
+        self.addCleanup(patcher.stop)
 
 
 class TestGetSources(unittest.TestCase):
@@ -171,3 +187,113 @@ class TestNormalizeIdentifier(unittest.TestCase):
     def test_normalize_identifier_does_not_convert_to_uppercase(self):
         result = populate_image_table.normalize_identifier("ab123")
         self.assertEquals(result, u'ab123')
+
+
+class TestMakeStatistics(TestCreateReportBase):
+
+    """Test the makeStatistics method."""
+
+    def setUp(self):
+        super(TestMakeStatistics, self).setUp()
+
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.populate_image_table.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.prefix
+        self.addCleanup(patcher.stop)
+
+        self.postfix = 'postfix'
+        patcher = mock.patch(
+            'erfgoedbot.populate_image_table.common.table_bottom_row')
+        self.mock_table_bottom_row = patcher.start()
+        self.mock_table_bottom_row.return_value = self.postfix
+        self.addCleanup(patcher.stop)
+
+        self.comment = (
+            u'Updating indexed image statistics. '
+            u'Total indexed images: {0}')
+        commons = pywikibot.Site('commons', 'commons')
+        self.page = pywikibot.Page(
+            commons, u'Commons:Monuments database/Indexed images/Statistics')
+
+    def bundled_asserts(self, expected_rows,
+                        expected_total_images_sum,
+                        expected_tracked_images_sum):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.page,
+            self.comment.format(expected_tracked_images_sum),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(
+            5, {
+                1: expected_total_images_sum,
+                3: expected_tracked_images_sum})
+
+    def test_output_statistics_single(self):
+        statistics = {
+            'foo': {
+                'commonsTemplate': 'foo_temp',
+                'commonsTrackerCategory': 'foo_cat',
+                'totalImages': 10,
+                'tracked_images': 5
+            }
+        }
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| 10 \n'
+            u'| 5 \n'
+            u'| {{tl|foo_temp}} \n'
+            u'| [[:Category:foo_cat|foo_cat]] \n')
+        expected_total_images_sum = 10
+        expected_tracked_images_sum = 5
+
+        populate_image_table.makeStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_tracked_images_sum)
+
+    def test_output_statistics_multiple(self):
+        # provide in oposite order to ensure sorting kicks in
+        statistics = OrderedDict([
+            ('foo', {
+                'commonsTemplate': 'foo_temp',
+                'commonsTrackerCategory': 'foo_cat',
+                'totalImages': 10,
+                'tracked_images': 5
+            }),
+            ('bar', {
+                'commonsTemplate': 'bar_temp',
+                'commonsTrackerCategory': 'bar_cat',
+                'totalImages': 100,
+                'tracked_images': 50
+            })
+        ])
+
+        expected_rows = (
+            u'|-\n'
+            u'| bar \n'
+            u'| 100 \n'
+            u'| 50 \n'
+            u'| {{tl|bar_temp}} \n'
+            u'| [[:Category:bar_cat|bar_cat]] \n'
+            u'|-\n'
+            u'| foo \n'
+            u'| 10 \n'
+            u'| 5 \n'
+            u'| {{tl|foo_temp}} \n'
+            u'| [[:Category:foo_cat|foo_cat]] \n')
+        expected_total_images_sum = 110
+        expected_tracked_images_sum = 55
+
+        populate_image_table.makeStatistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_images_sum,
+            expected_tracked_images_sum)
