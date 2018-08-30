@@ -224,16 +224,17 @@ def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
         u"FROM page "
         u"JOIN categorylinks ON page_id=cl_from "
         u"WHERE page_namespace=6 AND page_is_redirect=0 "
-        u"AND (cl_to='%s' OR cl_to LIKE '%s\_in\_%%') AND NOT EXISTS({sub}) "
+        u"AND (cl_to=%s OR cl_to LIKE %s) AND NOT EXISTS({sub}) "
         u"ORDER BY page_title ASC"
     )
     subquery = (
         u"SELECT * "
         u"FROM templatelinks "
-        u"WHERE page_id=tl_from AND tl_namespace=10 AND tl_title='%s'")
+        u"WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s")
     cursor.execute(
-        query.format(sub=subquery) % (
-            commonsCategoryBase, commonsCategoryBase, commonsTemplate))
+        query.format(sub=subquery), (
+            commonsCategoryBase, u'{}_in_%'.format(commonsCategoryBase),
+            commonsTemplate))
 
     while True:
         try:

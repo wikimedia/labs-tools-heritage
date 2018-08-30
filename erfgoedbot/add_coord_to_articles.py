@@ -167,10 +167,10 @@ def hasCoordinates(pageId, lang, cursor):
         query = (
             u"SELECT gc_from "
             u"FROM %s "
-            u"WHERE (gc_from = %s AND gc_primary = 1) "
+            u"WHERE (gc_from = %d AND gc_primary = 1) "
             u"LIMIT 1")
         # FIXME escape & sanitize coordTable and pageId
-        cursor.execute(query % (coordTable, int(pageId)))
+        cursor.execute(query, (coordTable, int(pageId)))
 
         if (cursor.rowcount > 0):
             return True

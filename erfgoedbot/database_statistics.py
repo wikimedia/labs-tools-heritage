@@ -208,10 +208,10 @@ def getLanguages(country, conn, cursor):
     query = (
         u"SELECT DISTINCT(lang) "
         u"FROM monuments_all "
-        u"WHERE country='%s'")
+        u"WHERE country=%s")
 
     # print query % (country,)
-    cursor.execute(query % (country,))
+    cursor.execute(query, (country,))
 
     while True:
         try:

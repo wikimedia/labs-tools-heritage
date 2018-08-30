@@ -56,7 +56,8 @@ class TestGetMethods(unittest.TestCase):
     def test_getLanguages(self):
         database_statistics.getLanguages("at", None, self.mock_cursor)
         self.mock_cursor.execute.assert_called_once_with(
-            u"SELECT DISTINCT(lang) FROM monuments_all WHERE country='at'"
+            u'SELECT DISTINCT(lang) FROM monuments_all WHERE country=%s',
+            ('at', )
         )
 
 
