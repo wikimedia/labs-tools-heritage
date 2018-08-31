@@ -16,7 +16,7 @@ if ( PHP_SAPI != 'cli' ) {
 error_reporting( E_ALL | E_STRICT );
 ini_set( 'display_errors', 1 );
 
-ini_set( 'memory_limit', '800M' );
+ini_set( 'memory_limit', '1200M' );
 
 // set to true for verbose output
 define( 'VERBOSE', false );
