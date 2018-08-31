@@ -35,12 +35,20 @@ from database_connection import (
 _logger = "categorize_images"
 
 SKIP_LIST = [
+    (u'au', u'en'),  # Australia in English
     (u'cn', u'en'),
+    (u'gb-sct', u'en'),  # Scotland in English
+    (u'dz', u'ar'),  # Algeria in Arabic
     (u'ir', u'fa'),
     (u'it', u'it'),
     (u'jo', u'ar'),
     (u'ge', u'ka'),
+    (u'gh', u'en'),  # Ghana in English
+    (u'mt', u'de'),  # Malta in German
     (u'np', u'en'),
+    (u'pe', u'es'),  # Peru in Spanish
+    (u'sv', u'es'),  # El Salvador in Spanish
+    (u've', u'es'),  # Venezuela in Spanish
 ]
 
 
