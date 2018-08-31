@@ -99,25 +99,12 @@ class TestOutputStatistics(TestCreateReportBase):
     def setUp(self):
         super(TestOutputStatistics, self).setUp()
 
-        self.prefix = (
-            u'{| class="wikitable sortable"\n'
-            u'! country\n'
-            u'! [[:en:List of ISO 639-1 codes|lang]]\n'
-            u'! data-sort-type="number"| total\n'
-            u'! data-sort-type="number"| name\n'
-            u'! data-sort-type="number"| address\n'
-            u'! data-sort-type="number"| municipality\n'
-            u'! data-sort-type="number"| coordinates\n'
-            u'! data-sort-type="number"| image\n'
-            u'! data-sort-type="number"| commonscat\n'
-            u'! data-sort-type="number"| article\n'
-            u'! data-sort-type="number"| wikidata\n'
-            u'! data-sort-type="number"| [[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]]\n'
-            u'! data-sort-type="number"| [[:en:ISO 3166-2#Current codes|adm1]]\n'
-            u'! data-sort-type="number"| adm2\n'
-            u'! data-sort-type="number"| adm3\n'
-            u'! data-sort-type="number"| adm4\n'
-            u'! data-sort-type="number"| source pages\n')
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.prefix
+        self.addCleanup(patcher.stop)
 
         self.postfix = u'|}\n'
 
