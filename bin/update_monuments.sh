@@ -42,10 +42,6 @@ jsub -l release=trusty -mem 1000m -once -j y -o $LOGS_PATH/categorize_images.log
 # echo_time "Update image table..."
 # PYWIKIBOT_BIN $ERFGOED_PATH/populate_image_table.py
 
-# Update admin structure tree
-echo_time "Update admin structure tree..."
-$PHP_BIN $ERFGOED_PATH/populate_adm_tree.php
-
 # Make statistics
 echo_time "Make statistics..."
 $PYWIKIBOT_BIN $ERFGOED_PATH/database_statistics.py -log
@@ -81,5 +77,9 @@ cd ..
 # Refill prox_search table. Which will be used by layar server.
 echo_time "Refill prox_search table..."
 $PHP_BIN $SOURCE_PATH/prox_search/fill_table_prox_search.php
+
+# Update admin structure tree
+echo_time "Update admin structure tree..."
+$PHP_BIN $ERFGOED_PATH/populate_adm_tree.php
 
 echo_time "Done with the update!"
