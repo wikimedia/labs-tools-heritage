@@ -23,6 +23,16 @@ class TestCreateReportBase(unittest.TestCase):
             self.mock_debug = patcher.start()
             self.addCleanup(patcher.stop)
 
+            patcher = mock.patch(
+                '{}.pywikibot.Site'.format(self.class_name), autospec=True)
+            self.mock_site = patcher.start()
+            self.addCleanup(patcher.stop)
+
+            patcher = mock.patch(
+                '{}.pywikibot.Page'.format(self.class_name), autospec=True)
+            self.mock_page = patcher.start()
+            self.addCleanup(patcher.stop)
+
 
 class TestCreateReportTableBase(TestCreateReportBase):
 

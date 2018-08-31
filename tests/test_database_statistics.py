@@ -3,8 +3,6 @@ import unittest
 
 import mock
 
-import pywikibot
-
 from erfgoedbot import database_statistics
 from report_base_test import TestCreateReportBase
 
@@ -96,17 +94,18 @@ class TestOutputStatistics(TestCreateReportBase):
         self.postfix = u'|}\n'
 
         self.comment = u'Updating monument database statistics'
-        commons = pywikibot.Site('commons', 'commons')
-        self.page = pywikibot.Page(
-            commons, u'Commons:Monuments database/Statistics')
+        self.pagename = u'Commons:Monuments database/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_summation_row):
         """The full battery of asserts to do for each test."""
         expected_text = (self.prefix + expected_rows +
                          expected_summation_row + self.postfix)
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
+            self.mock_page.return_value,
             self.comment,
             expected_text
         )

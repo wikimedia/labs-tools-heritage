@@ -9,8 +9,6 @@ from collections import OrderedDict
 
 import mock
 
-import pywikibot
-
 from erfgoedbot import unused_monument_images
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
@@ -136,12 +134,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.mock_get_template_link.return_value = '<row_template_link>'
         self.addCleanup(patcher.stop)
 
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = mock.MagicMock()
+        self.mock_report_page.title.return_value = '<report_page>'
+
         self.comment = (
             u'Updating unused image statistics. Total of {total_images} '
             u'unused images for {total_ids} different monuments.')
-        self.commons = pywikibot.Site('commons', 'commons')
-        self.page = pywikibot.Page(
-            self.commons, u'Commons:Monuments database/Unused images/Statistics')
+        self.pagename = u'Commons:Monuments database/Unused images/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images,
@@ -149,8 +149,11 @@ class TestMakeStatistics(TestCreateReportTableBase):
         """The full battery of asserts to do for each test."""
         expected_text = self.prefix + expected_rows + self.postfix
 
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
+            self.mock_page.return_value,
             self.comment.format(
                 total_images=expected_total_images,
                 total_ids=expected_total_ids),
@@ -161,15 +164,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
             7, {2: expected_total_images, 3: expected_total_ids})
 
     def test_make_statistics_single_complete(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page = pywikibot.Page(test_wiki, 'Foobar')
         statistics = [{
             'code': 'foo',
             'lang': 'en',
             'config': {
                 'rowTemplate': 'row template',
                 'commonsTemplate': 'commons template'},
-            'report_page': report_page,
+            'report_page': self.mock_report_page,
             'total_images': 321,
             'total_ids': 123
         }]
@@ -180,7 +181,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 321 \n'
             u'| 123 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page> \n'
             u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n')
         expected_total_images = 321
@@ -280,9 +281,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
             expected_total_ids)
 
     def test_make_statistics_multiple_complete(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page_1 = pywikibot.Page(test_wiki, 'Foobar')
-        report_page_2 = pywikibot.Page(test_wiki, 'Barfoo')
+        report_page_1 = mock.MagicMock()
+        report_page_1.title.return_value = '<report_page:Foobar>'
+        report_page_2 = mock.MagicMock()
+        report_page_2.title.return_value = '<report_page:Barfoo>'
         statistics = [
             {
                 'code': 'foo',
@@ -313,7 +315,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 3 \n'
             u'| 2 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page:Foobar> \n'
             u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
@@ -321,7 +323,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| fr \n'
             u'| 7 \n'
             u'| 3 \n'
-            u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
+            u'| <report_page:Barfoo> \n'
             u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_images = 10
@@ -338,8 +340,6 @@ class TestMakeStatistics(TestCreateReportTableBase):
             expected_total_ids)
 
     def test_make_statistics_multiple_mixed(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page = pywikibot.Page(test_wiki, 'Foobar')
         statistics = [
             {
                 'code': 'foo',
@@ -347,7 +347,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
                 'config': {
                     'rowTemplate': 'row template',
                     'commonsTemplate': 'commons template'},
-                'report_page': report_page,
+                'report_page': self.mock_report_page,
                 'total_images': 3,
                 'total_ids': 2
             },
@@ -365,7 +365,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 3 \n'
             u'| 2 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page> \n'
             u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
@@ -397,9 +397,7 @@ class TestOutputCountryReport(TestCreateReportBase):
     def setUp(self):
         self.class_name = 'erfgoedbot.unused_monument_images'
         super(TestOutputCountryReport, self).setUp()
-        self.mock_report_page = mock.create_autospec(
-            unused_monument_images.pywikibot.Page,
-        )
+        self.mock_report_page = self.mock_page.return_value
 
         self.prefix = 'prefix'
         patcher = mock.patch(

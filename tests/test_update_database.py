@@ -427,13 +427,15 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.mock_get_template_link.return_value = '<template_link>'
         self.addCleanup(patcher.stop)
 
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = mock.MagicMock()
+        self.mock_report_page.title.return_value = '<report_page>'
+
         self.comment = (
             u'Updating unknown fields statistics. Total of {total_fields} '
             u'unknown fields used {total_usages} times on {total_pages} '
             u'different pages.')
-        self.commons = pywikibot.Site('commons', 'commons')
-        self.page = pywikibot.Page(
-            self.commons, u'Commons:Monuments database/Unknown fields/Statistics')
+        self.pagename = u'Commons:Monuments database/Unknown fields/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_fields,
@@ -445,8 +447,11 @@ class TestMakeStatistics(TestCreateReportTableBase):
             total_usages=expected_total_usages,
             total_pages=expected_total_pages)
 
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
+            self.mock_page.return_value,
             self.comment.format(
                 total_fields=expected_total_fields,
                 total_usages=expected_total_usages,
@@ -460,15 +465,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
             4: expected_total_pages})
 
     def test_make_statistics_single_basic(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page = pywikibot.Page(test_wiki, 'Foobar')
         statistics = [{
             'config': {
                 'lang': 'en',
                 'country': 'foo',
                 'rowTemplate': 'row template',
                 'headerTemplate': 'head template'},
-            'report_page': report_page,
+            'report_page': self.mock_report_page,
             'total_fields': 123,
             'total_usages': 456,
             'total_pages': 789
@@ -481,7 +484,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 123 \n'
             u'| 456 \n'
             u'| 789 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page> \n'
             u'| <template_link> \n'
             u'| <template_link> \n')
         expected_total_fields = 123
@@ -513,9 +516,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
                              expected_total_pages)
 
     def test_make_statistics_multiple_basic(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page_1 = pywikibot.Page(test_wiki, 'Foobar')
-        report_page_2 = pywikibot.Page(test_wiki, 'Barfoo')
+        report_page_1 = mock.MagicMock()
+        report_page_1.title.return_value = '<report_page:Foobar>'
+        report_page_2 = mock.MagicMock()
+        report_page_2.title.return_value = '<report_page:Barfoo>'
         statistics = [
             {
                 'config': {
@@ -548,7 +552,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 123 \n'
             u'| 456 \n'
             u'| 789 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page:Foobar> \n'
             u'| <template_link> \n'
             u'| <template_link> \n'
             u'|-\n'
@@ -557,7 +561,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 321 \n'
             u'| 654 \n'
             u'| 987 \n'
-            u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
+            u'| <report_page:Barfoo> \n'
             u'| <template_link> \n'
             u'| <template_link> \n')
         expected_total_fields = 444
@@ -577,8 +581,6 @@ class TestMakeStatistics(TestCreateReportTableBase):
                              expected_total_pages)
 
     def test_make_statistics_multiple_mixed(self):
-        test_wiki = pywikibot.Site('test', 'wikipedia')
-        report_page = pywikibot.Page(test_wiki, 'Foobar')
         statistics = [
             None,
             {
@@ -587,7 +589,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
                     'country': 'foo',
                     'rowTemplate': 'row template',
                     'headerTemplate': 'head template'},
-                'report_page': report_page,
+                'report_page': self.mock_report_page,
                 'total_fields': 123,
                 'total_usages': 456,
                 'total_pages': 789
@@ -601,7 +603,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 123 \n'
             u'| 456 \n'
             u'| 789 \n'
-            u'| [[wikipedia:test:Foobar|Foobar]] \n'
+            u'| <report_page> \n'
             u'| <template_link> \n'
             u'| <template_link> \n')
         expected_total_fields = 123
@@ -626,14 +628,6 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
     def setUp(self):
         self.class_name = 'erfgoedbot.update_database'
         super(TestUnknownFieldsStatistics, self).setUp()
-        self.mock_report_page = mock.create_autospec(
-            update_database.pywikibot.Page,
-        )
-        patcher = mock.patch(
-            'erfgoedbot.update_database.pywikibot.Page')
-        self.mock_pwb_page = patcher.start()
-        self.mock_pwb_page.return_value = self.mock_report_page
-        self.addCleanup(patcher.stop)
 
         patcher = mock.patch(
             'erfgoedbot.update_database.format_source_field')
@@ -670,7 +664,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
             'table': 'table_name',
             'foo': 'bar'
         }
-        self.commons = pywikibot.Site('commons', 'commons')
+        self.pagename = u'Commons:Monuments database/Unknown fields/table_name'
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = self.mock_page.return_value
 
         self.unknown_fields = OrderedDict()
         self.counter_1 = Counter({'page_11': 1, 'page_12': 5})
@@ -686,10 +682,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_output = (self.instruction_prefix + expected_table +
                            self.postfix)
         self.assertEqual(result, expected_return)
-        self.mock_pwb_page.assert_called_once_with(
-            self.commons,
-            u'Commons:Monuments database/Unknown fields/table_name'
-        )
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
             self.mock_report_page,
             expected_cmt,

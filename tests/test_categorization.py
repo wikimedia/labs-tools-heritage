@@ -6,8 +6,6 @@ import unittest
 
 import mock
 
-import pywikibot
-
 from erfgoedbot import categorize_images
 from report_base_test import TestCreateReportTableBase
 
@@ -452,9 +450,7 @@ class TestOutputStatistics(TestCreateReportTableBase):
         self.comment = (
             u'Updating categorization statistics. '
             u'Total: {0} Categorized: {1} Leftover: {2}')
-        commons = pywikibot.Site('commons', 'commons')
-        self.page = pywikibot.Page(
-            commons, u'Commons:Monuments database/Categorization/Statistics')
+        self.pagename = u'Commons:Monuments database/Categorization/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images_sum,
@@ -462,8 +458,11 @@ class TestOutputStatistics(TestCreateReportTableBase):
                         expected_leftover_images_sum):
         """The full battery of asserts to do for each test."""
         expected_text = self.prefix + expected_rows + self.postfix
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
         self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.page,
+            self.mock_page.return_value,
             self.comment.format(
                 expected_total_images_sum,
                 expected_categorized_images_sum,
