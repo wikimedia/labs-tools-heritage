@@ -410,6 +410,11 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_instruction_header.return_value = self.prefix
         self.addCleanup(patcher.stop)
 
+        patcher = mock.patch(
+            'erfgoedbot.missing_commonscat_links.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.addCleanup(patcher.stop)
+
         self.unused_images = OrderedDict()
         self.unused_images['source_link_1'] = OrderedDict()
         self.unused_images['source_link_1']['id_11'] = [
@@ -532,7 +537,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.unused_images = {}
 
         expected_cmt = u'Images to be used in monument lists: 0'
-        expected_output = u'\nThere are no unused images left. Great work!\n'
+        expected_output = self.mock_done_message.return_value
         expected_totals = {
             'images': 0,
             'pages': 0,
@@ -541,6 +546,7 @@ class TestOutputCountryReport(TestCreateReportBase):
 
         result = unused_monument_images.output_country_report(
             self.unused_images, self.mock_report_page, max_images=max_images)
+        self.mock_done_message.assert_called_once()
         self.bundled_asserts(
             result,
             expected_cmt,

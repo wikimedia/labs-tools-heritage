@@ -160,14 +160,14 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
     summary = 'Updating the list of unknown fields with {0} entries'
 
     # People can add a /header template with more info
-    text = common.instruction_header(
-        ':c:Commons:Monuments_database/Unknown fields')
+    central_page = ':c:Commons:Monuments_database/Unknown fields'
+    text = common.instruction_header(central_page)
 
     total_usages = 0
     pages_with_fields = set()
 
     if not unknown_fields:
-        text += '\nThere are no unknown fields left. Great work!\n'
+        text += common.done_message(central_page, 'unknown fields')
     else:
         column_names = ('Field', 'Count', 'Sources')
         numeric_columns = ('Count', )

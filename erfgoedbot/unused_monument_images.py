@@ -119,14 +119,14 @@ def output_country_report(unused_images, report_page, max_images=1000):
         order to ensure all candidates for a given monument id are presented.
     """
     # People can add a /header template for with more info
-    text = common.instruction_header(
-        ':c:Commons:Monuments database/Unused images')
+    central_page = ':c:Commons:Monuments database/Unused images'
+    text = common.instruction_header(central_page)
     total_pages = 0
     total_ids = 0
     totalImages = 0
 
     if not unused_images:
-        text += u'\nThere are no unused images left. Great work!\n'
+        text += common.done_message(central_page, 'unused images')
     else:
         for source_page, value in unused_images.iteritems():
             total_pages += 1

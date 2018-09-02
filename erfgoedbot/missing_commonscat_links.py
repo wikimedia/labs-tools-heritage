@@ -111,13 +111,13 @@ def output_country_report(missing_commonscat, commonscat_field, report_page,
         order to ensure all entries in a given list are presented.
     """
     # People can add a /header template for with more info
-    text = common.instruction_header(
-        ':c:Commons:Monuments_database/Missing_commonscat_links')
+    central_page = ':c:Commons:Monuments_database/Missing_commonscat_links'
+    text = common.instruction_header(central_page)
     total_pages = 0
     totalCategories = 0
 
     if not missing_commonscat:
-        text += u'\nThere are no missing commonscat left. Great work!\n'
+        text += common.done_message(central_page, 'missing commonscat')
     else:
         for source_page, cats in missing_commonscat.iteritems():
             total_pages += 1

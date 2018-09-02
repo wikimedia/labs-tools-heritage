@@ -653,6 +653,13 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         self.mock_instruction_header.return_value = self.instruction_prefix
         self.addCleanup(patcher.stop)
 
+        self.done_message = 'done_message'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.mock_done_message.return_value = self.done_message
+        self.addCleanup(patcher.stop)
+
         self.table_prefix = 'table_prefix'
         patcher = mock.patch(
             'erfgoedbot.update_database.common.table_header_row')
@@ -722,7 +729,7 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
 
     def test_unknown_fields_statistics_no_unknown(self):
         expected_cmt = self.comment.format(0)
-        expected_table = u'\nThere are no unknown fields left. Great work!\n'
+        expected_table = self.done_message
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
@@ -734,6 +741,7 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         result = update_database.unknown_fields_statistics(
             self.countryconfig, {})
         self.mock_format_source_field.assert_not_called()
+        self.mock_done_message.assert_called_once()
         self.bundled_asserts(result, expected_table, expected_return,
                              expected_cmt)
 

@@ -228,6 +228,33 @@ def instruction_header(central_page, subpage='header'):
         u'[[%(central_page)s]]. }}\n' % data)
 
 
+def done_message(central_page, type, subpage='done',
+                 anchor=u'#How_can_I_localise_the_instructions?'):
+    """
+    A wikitext message describing that no outstanding tasks are left.
+
+    The message transcludes a local subpage if one exists or displays a default
+    text with a link to information on how to translate it.
+
+    @param central_page: the page name, including interwiki prefix and anchor
+    @param type: the type of results the page would have displayed
+    @param subpage: the name of the subpage to embed, if it exists. Defaults
+        to 'done'.
+    @param anchor: a particular anchor on the central page to point the link
+        to, including hash symbol. Defaults to
+        '#How_can_I_localise_the_instructions?'.
+    """
+    # percentage formatting to avoid having to escape all curly brackets
+    data = {'central_page': central_page, 'type': type, 'subpage': subpage,
+            'anchor': anchor}
+    return (
+        u'\n{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
+        u'|{{/%(subpage)s}}'
+        u'|There are no %(type)s left. Great work! '
+        u'<small>([[%(central_page)s%(anchor)s|{{int:translate}}]])</small>.'
+        u'}}\n' % data)
+
+
 def table_header_row(columns):
     """
     A wikitext table header row.

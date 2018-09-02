@@ -297,6 +297,11 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_instruction_header.return_value = self.prefix
         self.addCleanup(patcher.stop)
 
+        patcher = mock.patch(
+            'erfgoedbot.missing_commonscat_links.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.addCleanup(patcher.stop)
+
         self.field_name = 'cf'
 
         self.missing_cats = OrderedDict()
@@ -401,8 +406,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.missing_cats = {}
 
         expected_cmt = u'Commonscat links to be made in monument lists: 0'
-        expected_output = (
-            u'\nThere are no missing commonscat left. Great work!\n')
+        expected_output = self.mock_done_message.return_value
         expected_totals = {
             'cats': 0,
             'pages': 0
@@ -410,6 +414,7 @@ class TestOutputCountryReport(TestCreateReportBase):
 
         result = missing_commonscat_links.output_country_report(
             self.missing_cats, self.field_name, self.mock_report_page)
+        self.mock_done_message.assert_called_once()
         self.bundled_asserts(
             result,
             expected_cmt,
