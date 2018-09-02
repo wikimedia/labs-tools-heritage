@@ -9,7 +9,7 @@
     "table": "monuments_gb-sct_(en)",
     "truncate": false,
     "primkey": "hb",
-    "headerTemplate": "HS Scotland header",
+    "headerTemplate": "HS listed building header",
     "rowTemplate": "HS listed building row",
     "commonsTemplate": "Listed building Scotland",
     "commonsTrackerCategory": "Listed buildings in Scotland with known IDs",
