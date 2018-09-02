@@ -270,7 +270,7 @@ def makeStatistics(statistics):
                 row_site,
                 u'Template:{0}'.format(countryconfig.get('rowTemplate')))
             row_template = row_template_page.title(
-                asLink=True, with_ns=False, insite=site)
+                as_link=True, with_ns=False, insite=site)
 
         if countryconfig.get('commonsTemplate'):
             commons_template = u'{{tl|%s}}' % (
@@ -278,7 +278,7 @@ def makeStatistics(statistics):
 
         if row.get('report_page'):
             report_page = row.get('report_page').title(
-                asLink=True, with_ns=False, insite=site)
+                as_link=True, with_ns=False, insite=site)
 
         text += text_row.format(
             code=row.get('code'),
