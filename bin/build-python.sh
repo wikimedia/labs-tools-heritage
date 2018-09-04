@@ -11,5 +11,8 @@ fi
 
 source $VIRTUAL_ENV_PATH/bin/activate
 
+echo "Upgrade pip to latest..."
+pip install --upgrade pip
+
 echo "Installing Python requirements..."
 pip install -r $SOURCE_PATH/requirements.txt
