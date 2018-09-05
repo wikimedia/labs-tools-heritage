@@ -62,7 +62,7 @@ def process_classic_config(country_config):
         if column in ['lon', 'lat']:
             has_lat_lon = True
             fields_sql.append(
-                b'`{}` double DEFAULT NULL,'.format(column.encode('utf8')))
+                u'`{}` double DEFAULT NULL,'.format(column.encode('utf8')))
         else:
             typ = field.get('type') or default_type
             if typ.startswith('int('):
@@ -77,7 +77,7 @@ def process_classic_config(country_config):
                 else:
                     typ += " NOT NULL DEFAULT ''"
 
-            fields_sql.append(b'`{}` {},'.format(column.encode('utf8'), typ))
+            fields_sql.append(u'`{}` {},'.format(column.encode('utf8'), typ))
 
     try:
         primkey = validate_primkey(source_primkey, primkey)
