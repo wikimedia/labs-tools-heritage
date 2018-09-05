@@ -11,6 +11,7 @@ nose = "*"
 nose-cov = "*"
 coverage = "*"
 yamllint = "*"
+commit-message-validator = "*"
 
 [packages]
 future = "*"

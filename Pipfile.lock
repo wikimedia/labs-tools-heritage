@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c291edc56485a3753835257ae06c64247fab44d0c29b3345d69c1458abe8efe8"
+            "sha256": "6d6a89dcaff593bbd0c2f5cdd72ed4fac95c033d57b656d2be677139af839428"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -222,6 +222,14 @@
             ],
             "index": "pypi",
             "version": "==0.5.1"
+        },
+        "commit-message-validator": {
+            "hashes": [
+                "sha256:21d12507a1ff323ad47a4810aa34b4b04ee1d351d3980e44946ee621b6fd1974",
+                "sha256:b4248d77cd4fb0dabdbfb217d1f12ac2ac96502f3c9ef95d69822a6647b0071d"
+            ],
+            "index": "pypi",
+            "version": "==0.6.0"
         },
         "cov-core": {
             "hashes": [

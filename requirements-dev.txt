@@ -1,6 +1,7 @@
 -i https://pypi.org/simple
 babel==2.6.0
 bashate==0.5.1
+commit-message-validator==0.6.0
 cov-core==1.15.0; python_version >= '2.6'
 coverage==4.5.1
 funcsigs==1.0.2; python_version < '3.3'
