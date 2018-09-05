@@ -92,7 +92,7 @@ def outputStatistics(statistics):
             data = statistics[country][language]
             for col in numeric:
                 # construct percentages and add to totals
-                data['{}_p'.format(col)] = compute_percentage(
+                data[u'{}_p'.format(col)] = compute_percentage(
                     data[col], data['all'])
                 totals[col] += data[col]
 
@@ -100,7 +100,7 @@ def outputStatistics(statistics):
 
     # construct total percentages
     for col in numeric:
-        totals['{}_p'.format(col)] = compute_percentage(
+        totals[u'{}_p'.format(col)] = compute_percentage(
             totals[col], totals['all'])
 
     output += summation_row.format(**totals)
