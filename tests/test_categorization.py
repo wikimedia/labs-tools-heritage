@@ -287,6 +287,174 @@ class TestGetCategoriesFromUpperCategories(unittest.TestCase):
         self.assertEquals(result, set())
 
 
+class TestCategorizeImage(unittest.TestCase):
+
+    """ Test the categorizeImage method."""
+
+    def setUp(self):
+        self.base_category = u'Base category'
+        self.template_name = 'Historical monument'
+        self.monument_data = (
+            'Some Monument', 'Some commonscat', 'Some Article', 'Some list', 'Some Wikiproject'
+        )
+        self.countrycode = 'ge'
+        self.lang = 'ka'
+        self.harvest_type = "sparql"
+        self.commonscat_templates = ['Foo', 'Bar']
+
+        self.mock_template_random = mock.create_autospec(
+            categorize_images.pywikibot.Page,
+        )
+        self.mock_template_random.title.return_value = "MockTemplate"
+
+        self.mock_base_template = mock.create_autospec(categorize_images.pywikibot.Page)
+        self.mock_base_template.title.return_value = self.template_name
+
+        self.mock_page = mock.create_autospec(categorize_images.pywikibot.Page)
+        self.mock_page.title.return_value = u'Some page'
+        self.mock_page.templates.return_value = [
+            self.mock_template_random, self.mock_base_template
+        ]
+        self.mock_page.categories.return_value = [u'A', u'B', self.base_category]
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images._get_commons_template')
+        self.mock_get_commons_template = patcher.start()
+        self.mock_get_commons_template.return_value = self.mock_base_template
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.get_monument_id')
+        self.mock_get_monument_id = patcher.start()
+        self.mock_get_monument_id.return_value = u'123'
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.getMonData')
+        self.mock_getMonData = patcher.start()
+        self.mock_getMonData.return_value = self.monument_data
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.get_new_categories')
+        self.mock_get_new_categories = patcher.start()
+        self.mock_get_new_categories.return_value = ([u'New category'], 'method Z')
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.replace_default_cat_with_new_categories_in_image')
+        self.mock_replace_default_cat_with_new_categories_in_image = patcher.start()
+        self.mock_replace_default_cat_with_new_categories_in_image.return_value = True
+        self.addCleanup(patcher.stop)
+
+        # silence logger
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.log')
+        self.mock_log = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.warning')
+        self.mock_warning = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def test_categorizeImage_no_base_category(self):
+        self.mock_page.categories.return_value = [u'A', u'B']
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_not_called()
+        self.mock_getMonData.assert_not_called()
+        self.mock_get_new_categories.assert_not_called()
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.assertFalse(result)
+
+    def test_categorizeImage_placeholder_image(self):
+        placeholder_category = u'Wikipedia image placeholders for cultural heritage monuments'
+        self.mock_page.categories.return_value = [u'A', u'B', self.base_category, placeholder_category]
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_not_called()
+        self.mock_getMonData.assert_not_called()
+        self.mock_get_new_categories.assert_not_called()
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.assertFalse(result)
+
+    def test_categorizeImage_template_not_found(self):
+        self.mock_page.templates.return_value = [self.mock_template_random]
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_not_called()
+        self.mock_getMonData.assert_not_called()
+        self.mock_get_new_categories.assert_not_called()
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.assertFalse(result)
+
+    def test_categorizeImage_no_monument_identifier(self):
+        self.mock_get_monument_id.side_effect = categorize_images.NoMonumentIdentifierFoundException(self.mock_page)
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
+        self.mock_getMonData.assert_not_called()
+        self.mock_get_new_categories.assert_not_called()
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.mock_warning.assert_called_once_with("Didn't find a valid monument identifier at: Some page")
+        self.assertFalse(result)
+
+    def test_categorizeImage_no_monument_data(self):
+        self.mock_getMonData.return_value = None
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
+        calls = [
+            mock.call('ge', 'ka', u'123', None, None),
+            mock.call('ge', 'ka', 123, None, None)
+        ]
+        self.mock_getMonData.assert_has_calls(calls)
+        self.mock_get_new_categories.assert_not_called()
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.assertFalse(result)
+
+    def test_categorizeImage_no_new_categories(self):
+        self.mock_get_new_categories.return_value = ([], '')
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
+        self.mock_getMonData.assert_called_once_with('ge', 'ka', u'123', None, None),
+        self.mock_get_new_categories.assert_called_once_with(
+            u'123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
+        )
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
+        self.assertIsNone(result)
+
+    def test_categorizeImage_replace_categories(self):
+        result = categorize_images.categorizeImage(
+            self.countrycode, self.lang, self.template_name, self.base_category,
+            self.commonscat_templates, self.mock_page, None, None, self.harvest_type
+        )
+        self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
+        self.mock_getMonData.assert_called_once_with('ge', 'ka', u'123', None, None),
+        self.mock_get_new_categories.assert_called_once_with(
+            u'123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
+        )
+        comment = u'Adding categories based on [[Template:Historical monument]] with identifier 123 (method method Z)'
+        self.mock_replace_default_cat_with_new_categories_in_image.assert_called_once_with(
+            self.mock_page, self.base_category, [u'New category'], comment, verbose=True
+        )
+        self.assertIsNone(result)
+
+
 class TestOutputStatistics(TestCreateReportBase):
 
     """Test the outputStatistics method."""
