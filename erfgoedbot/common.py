@@ -138,7 +138,7 @@ def page_to_filename(page):
     pagename_str = page.title(as_filename=True, with_ns=False)
     filename = '[{site}][{ns}]{page}.wiki'.format(
         site=site_str, ns=namespace_str, page=pagename_str)
-    return filename.replace(' ', '_').replace(':', '_')
+    return filename.replace(' ', '_').replace(':', '_').encode('utf-8')
 
 
 def process_sort_key_query_result(cursor):
