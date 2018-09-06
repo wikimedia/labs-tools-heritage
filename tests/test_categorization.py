@@ -452,7 +452,7 @@ class TestCategorizeImage(unittest.TestCase):
         self.mock_replace_default_cat_with_new_categories_in_image.assert_called_once_with(
             self.mock_page, self.base_category, [u'New category'], comment, verbose=True
         )
-        self.assertIsNone(result)
+        self.assertTrue(result)
 
 
 class TestOutputStatistics(TestCreateReportBase):

@@ -135,7 +135,7 @@ def categorizeImage(
     if newcats:
         comment = u'Adding categories based on [[Template:%s]] with identifier %s (method %s)' % (
             commonsTemplateName, monumentId, categorisation_method)
-        replace_default_cat_with_new_categories_in_image(
+        return replace_default_cat_with_new_categories_in_image(
             page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
         pywikibot.log(u'Categories not found for %s' % page.title())
