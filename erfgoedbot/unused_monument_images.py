@@ -263,14 +263,11 @@ def makeStatistics(statistics):
             total_ids = u'---'
 
         if countryconfig.get('type') != 'sparql':
-            row_site = pywikibot.Site(
+            row_template = common.get_template_link(
                 row.get('lang'),
-                countryconfig.get('project', u'wikipedia'))
-            row_template_page = pywikibot.Page(
-                row_site,
-                u'Template:{0}'.format(countryconfig.get('rowTemplate')))
-            row_template = row_template_page.title(
-                as_link=True, with_ns=False, insite=site)
+                countryconfig.get('project', u'wikipedia'),
+                countryconfig.get('rowTemplate'),
+                site)
 
         if countryconfig.get('commonsTemplate'):
             commons_template = u'{{tl|%s}}' % (

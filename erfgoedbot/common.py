@@ -114,6 +114,16 @@ def save_to_wiki_or_local(page, summary, content, minorEdit=True):
             f.write(unicode(content))
 
 
+def get_template_link(lang, project, template_name, source_site):
+    """Return the template link, as it would appear on the source site."""
+    template_site = pywikibot.Site(lang, project)
+    template_page = pywikibot.Page(
+        template_site,
+        u'Template:{0}'.format(template_name))
+    return template_page.title(
+        as_link=True, with_ns=False, insite=source_site)
+
+
 def page_to_filename(page):
     """
     Create a standardised filename for a page.

@@ -606,20 +606,16 @@ def make_statistics(statistics):
         total_usages_sum += total_usages
         total_pages_sum += total_pages
 
-        list_site = pywikibot.Site(
+        row_template = common.get_template_link(
             countryconfig.get('lang'),
-            countryconfig.get('project', 'wikipedia'))
-        row_template_page = pywikibot.Page(
-            list_site,
-            'Template:{0}'.format(countryconfig.get('rowTemplate')))
-        header_template_page = pywikibot.Page(
-            list_site,
-            'Template:{0}'.format(countryconfig.get('headerTemplate')))
-
-        row_template = row_template_page.title(
-            as_link=True, with_ns=False, insite=site)
-        header_template = header_template_page.title(
-            as_link=True, with_ns=False, insite=site)
+            countryconfig.get('project', u'wikipedia'),
+            countryconfig.get('rowTemplate'),
+            site)
+        header_template = common.get_template_link(
+            countryconfig.get('lang'),
+            countryconfig.get('project', u'wikipedia'),
+            countryconfig.get('headerTemplate'),
+            site)
         report_page = row.get('report_page').title(
             as_link=True, with_ns=False, insite=site)
 
