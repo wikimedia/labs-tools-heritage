@@ -80,12 +80,16 @@ def _load_ignored_categories():
     return [pywikibot.Category(commons_site, cat) for cat in raw_list]
 
 
+def _get_commons_template(template_name):
+    site = pywikibot.Site(u'commons', u'commons')
+    return pywikibot.Page(site, 'Template:%s' % template_name)
+
+
 def categorizeImage(
         countrycode, lang, commonsTemplateName, commonsCategoryBase,
         commonsCatTemplates, page, conn, cursor, harvest_type):
     pywikibot.log(u'Working on: %s' % page.title())
-    site = pywikibot.Site(u'commons', u'commons')
-    commonsTemplate = pywikibot.Page(site, 'Template:%s' % commonsTemplateName)
+    commonsTemplate = _get_commons_template(commonsTemplateName)
     currentcats = list(page.categories())
     if commonsCategoryBase not in currentcats:
         pywikibot.log(u'%s category not found at: %s. Someone probably already categorized it.' % (
