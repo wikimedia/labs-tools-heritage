@@ -9,21 +9,7 @@ import mock
 import pywikibot
 
 from erfgoedbot import missing_commonscat_links
-
-
-class TestCreateReportBase(unittest.TestCase):
-
-    def setUp(self):
-        patcher = mock.patch(
-            'erfgoedbot.missing_commonscat_links.common.save_to_wiki_or_local')
-        self.mock_save_to_wiki_or_local = patcher.start()
-        self.addCleanup(patcher.stop)
-
-        # silence logger
-        patcher = mock.patch(
-            'erfgoedbot.missing_commonscat_links.pywikibot.debug')
-        self.mock_debug = patcher.start()
-        self.addCleanup(patcher.stop)
+from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
 
 class TestGetInterwikisMissingCommonscatPage(unittest.TestCase):
@@ -64,26 +50,13 @@ class TestGetInterwikisMissingCommonscatPage(unittest.TestCase):
         self.assertEquals(result, expected)
 
 
-class TestMakeStatistics(TestCreateReportBase):
+class TestMakeStatistics(TestCreateReportTableBase):
 
     """Test the makeStatistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.missing_commonscat_links'
         super(TestMakeStatistics, self).setUp()
-
-        self.prefix = 'prefix'
-        patcher = mock.patch(
-            'erfgoedbot.missing_commonscat_links.common.table_header_row')
-        self.mock_table_header_row = patcher.start()
-        self.mock_table_header_row.return_value = self.prefix
-        self.addCleanup(patcher.stop)
-
-        self.postfix = 'postfix'
-        patcher = mock.patch(
-            'erfgoedbot.missing_commonscat_links.common.table_bottom_row')
-        self.mock_table_bottom_row = patcher.start()
-        self.mock_table_bottom_row.return_value = self.postfix
-        self.addCleanup(patcher.stop)
 
         self.comment = (
             u'Updating missing commonscat links statistics. '
@@ -285,6 +258,7 @@ class TestOutputCountryReport(TestCreateReportBase):
     """Test the output_country_report method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.missing_commonscat_links'
         super(TestOutputCountryReport, self).setUp()
         self.mock_report_page = mock.create_autospec(
             missing_commonscat_links.pywikibot.Page,

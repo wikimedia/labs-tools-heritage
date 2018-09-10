@@ -10,21 +10,7 @@ import mock
 import pywikibot
 
 from erfgoedbot import update_database
-
-
-class TestCreateReportBase(unittest.TestCase):
-
-    def setUp(self):
-        patcher = mock.patch(
-            'erfgoedbot.update_database.common.save_to_wiki_or_local')
-        self.mock_save_to_wiki_or_local = patcher.start()
-        self.addCleanup(patcher.stop)
-
-        # silence logger
-        patcher = mock.patch(
-            'erfgoedbot.update_database.pywikibot.debug')
-        self.mock_debug = patcher.start()
-        self.addCleanup(patcher.stop)
+from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
 
 class TestUpdateDatabaseBase(unittest.TestCase):
@@ -427,26 +413,13 @@ class TestFormatSourceField(unittest.TestCase):
         )
 
 
-class TestMakeStatistics(TestCreateReportBase):
+class TestMakeStatistics(TestCreateReportTableBase):
 
     """Test the make_statistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.update_database'
         super(TestMakeStatistics, self).setUp()
-
-        self.prefix = 'prefix'
-        patcher = mock.patch(
-            'erfgoedbot.update_database.common.table_header_row')
-        self.mock_table_header_row = patcher.start()
-        self.mock_table_header_row.return_value = self.prefix
-        self.addCleanup(patcher.stop)
-
-        self.postfix = 'postfix'
-        patcher = mock.patch(
-            'erfgoedbot.update_database.common.table_bottom_row')
-        self.mock_table_bottom_row = patcher.start()
-        self.mock_table_bottom_row.return_value = self.postfix
-        self.addCleanup(patcher.stop)
 
         self.comment = (
             u'Updating unknown fields statistics. Total of {total_fields} '
@@ -630,6 +603,7 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
     """Test the unknown_fields_statistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.update_database'
         super(TestUnknownFieldsStatistics, self).setUp()
         self.mock_report_page = mock.create_autospec(
             update_database.pywikibot.Page,

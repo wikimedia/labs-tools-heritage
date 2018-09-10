@@ -12,21 +12,7 @@ import mock
 import pywikibot
 
 from erfgoedbot import unused_monument_images
-
-
-class TestCreateReportBase(unittest.TestCase):
-
-    def setUp(self):
-        patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.common.save_to_wiki_or_local')
-        self.mock_save_to_wiki_or_local = patcher.start()
-        self.addCleanup(patcher.stop)
-
-        # silence logger
-        patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.pywikibot.debug')
-        self.mock_debug = patcher.start()
-        self.addCleanup(patcher.stop)
+from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
 
 class TestGroupUnusedImagesBySource(unittest.TestCase):
@@ -136,26 +122,13 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         )
 
 
-class TestMakeStatistics(TestCreateReportBase):
+class TestMakeStatistics(TestCreateReportTableBase):
 
     """Test the makeStatistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.unused_monument_images'
         super(TestMakeStatistics, self).setUp()
-
-        self.prefix = 'prefix'
-        patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.common.table_header_row')
-        self.mock_table_header_row = patcher.start()
-        self.mock_table_header_row.return_value = self.prefix
-        self.addCleanup(patcher.stop)
-
-        self.postfix = 'postfix'
-        patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.common.table_bottom_row')
-        self.mock_table_bottom_row = patcher.start()
-        self.mock_table_bottom_row.return_value = self.postfix
-        self.addCleanup(patcher.stop)
 
         self.comment = (
             u'Updating unused image statistics. Total of {total_images} '
@@ -398,6 +371,7 @@ class TestOutputCountryReport(TestCreateReportBase):
     """Test the output_country_report method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.unused_monument_images'
         super(TestOutputCountryReport, self).setUp()
         self.mock_report_page = mock.create_autospec(
             unused_monument_images.pywikibot.Page,

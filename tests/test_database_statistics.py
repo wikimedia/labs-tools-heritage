@@ -6,21 +6,7 @@ import mock
 import pywikibot
 
 from erfgoedbot import database_statistics
-
-
-class TestCreateReportBase(unittest.TestCase):
-
-    def setUp(self):
-        patcher = mock.patch(
-            'erfgoedbot.database_statistics.common.save_to_wiki_or_local')
-        self.mock_save_to_wiki_or_local = patcher.start()
-        self.addCleanup(patcher.stop)
-
-        # silence logger
-        patcher = mock.patch(
-            'erfgoedbot.database_statistics.pywikibot.debug')
-        self.mock_debug = patcher.start()
-        self.addCleanup(patcher.stop)
+from report_base_test import TestCreateReportBase
 
 
 class TestBuildQuery(unittest.TestCase):
@@ -97,6 +83,7 @@ class TestOutputStatistics(TestCreateReportBase):
     """Test the outputStatistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.database_statistics'
         super(TestOutputStatistics, self).setUp()
 
         self.prefix = 'prefix'

@@ -9,21 +9,7 @@ import mock
 import pywikibot
 
 from erfgoedbot import categorize_images
-
-
-class TestCreateReportBase(unittest.TestCase):
-
-    def setUp(self):
-        patcher = mock.patch(
-            'erfgoedbot.categorize_images.common.save_to_wiki_or_local')
-        self.mock_save_to_wiki_or_local = patcher.start()
-        self.addCleanup(patcher.stop)
-
-        # silence logger
-        patcher = mock.patch(
-            'erfgoedbot.categorize_images.pywikibot.debug')
-        self.mock_debug = patcher.start()
-        self.addCleanup(patcher.stop)
+from report_base_test import TestCreateReportTableBase
 
 
 class TestLoadWikipediaCommonscatTemplates(unittest.TestCase):
@@ -455,26 +441,13 @@ class TestCategorizeImage(unittest.TestCase):
         self.assertTrue(result)
 
 
-class TestOutputStatistics(TestCreateReportBase):
+class TestOutputStatistics(TestCreateReportTableBase):
 
     """Test the outputStatistics method."""
 
     def setUp(self):
+        self.class_name = 'erfgoedbot.categorize_images'
         super(TestOutputStatistics, self).setUp()
-
-        self.prefix = 'prefix'
-        patcher = mock.patch(
-            'erfgoedbot.categorize_images.common.table_header_row')
-        self.mock_table_header_row = patcher.start()
-        self.mock_table_header_row.return_value = self.prefix
-        self.addCleanup(patcher.stop)
-
-        self.postfix = 'postfix'
-        patcher = mock.patch(
-            'erfgoedbot.categorize_images.common.table_bottom_row')
-        self.mock_table_bottom_row = patcher.start()
-        self.mock_table_bottom_row.return_value = self.postfix
-        self.addCleanup(patcher.stop)
 
         self.comment = (
             u'Updating categorization statistics. '
