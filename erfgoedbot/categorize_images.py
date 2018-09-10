@@ -31,6 +31,7 @@ from database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = "categorize_images"
 
@@ -505,25 +506,19 @@ def outputStatistics(statistics):
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Categorization/Statistics')
 
-    column_names = ('country', '[[:en:List of ISO 639-1 codes|lang]]',
-                    'Base category', 'Template', 'Total images',
-                    'Categorized images', 'Images left', 'Current image count')
-    numeric_columns = ('Total images', 'Categorized images', 'Images left',
-                       'Current image count')
-    columns = OrderedDict(
-        [(col, col in numeric_columns) for col in column_names])
-    output = common.table_header_row(columns)
-
-    output_row = (
-        u'|-\n'
-        u'| {code} \n'
-        u'| {lang} \n'
-        u'| {cat} \n'
-        u'| {template} \n'
-        u'| {total_images} \n'
-        u'| {cat_images} \n'
-        u'| {leftover} \n'
-        u'| {pages_in_cat} \n')
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', '[[:en:List of ISO 639-1 codes|lang]]'),
+        ('cat', 'Base category'),
+        ('template', 'Template'),
+        ('total_images', 'Total images'),
+        ('cat_images', 'Categorized images'),
+        ('leftover', 'Images left'),
+        ('pages_in_cat', 'Current image count')
+    ])
+    numeric_columns = ('total_images', 'cat_images', 'leftover',
+                       'pages_in_cat')
+    table = StatisticsTable(title_column, numeric_columns)
 
     total_images_sum = 0
     categorized_images_sum = 0
@@ -539,13 +534,10 @@ def outputStatistics(statistics):
         cat_images_or_cmt = row.get('cat_images')
 
         if row.get('cat_images') is not None:
-            total_images_sum += row['total_images']
-            categorized_images_sum += row['cat_images']
             leftover = row['total_images'] - row['cat_images']
-            leftover_images_sum += leftover
         else:
             cat_images_or_cmt = row.get('cmt')
-            total_images = '---'
+            total_images = None
 
         if row.get('cat'):
             cat_link = u'[[:Category:{0}]]'.format(row['cat'])
@@ -554,25 +546,25 @@ def outputStatistics(statistics):
         if row.get('template'):
             template_link = '{{tl|%s}}' % row['template']
 
-        output += output_row.format(
-            code=row['code'],
-            lang=row['lang'],
-            cat=cat_link or '---',
-            template=template_link or '---',
-            total_images=total_images,
-            cat_images=cat_images_or_cmt,
-            leftover=leftover if leftover is not None else '---',  # 0 is valid
-            pages_in_cat=pages_in_cat or '---')
+        table.add_row({
+            'code': row['code'],
+            'lang': row['lang'],
+            'cat': cat_link,
+            'template': template_link,
+            'total_images': total_images,
+            'cat_images': cat_images_or_cmt,
+            'leftover': leftover,
+            'pages_in_cat': pages_in_cat
+        })
 
-    output += common.table_bottom_row(8, {
-        4: total_images_sum,
-        5: categorized_images_sum,
-        6: leftover_images_sum})
+    # we want pages_in_cat numerically sorted but not summed
+    table.totals['pages_in_cat'] = None
+    output = table.to_wikitext()
 
     summary = (
         u'Updating categorization statistics. '
-        u'Total: {0} Categorized: {1} Leftover: {2}'.format(
-            total_images_sum, categorized_images_sum, leftover_images_sum))
+        u'Total: {total_images} Categorized: {cat_images} '
+        'Leftover: {leftover}'.format(**table.get_sum()))
     common.save_to_wiki_or_local(page, summary, output)
 
 

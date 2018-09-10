@@ -20,6 +20,7 @@ from database_connection import (
     connect_to_commons_database,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = "unused_images"
 
@@ -228,39 +229,28 @@ def makeStatistics(statistics):
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Unused images/Statistics')
 
-    column_names = ('country', 'lang', 'Total unused image candidates',
-                    'Total monuments with unused images', 'Report page',
-                    'Row template', 'Commons template')
-    columns = OrderedDict(
-        [(col, col.startswith('Total ')) for col in column_names])
-    text = common.table_header_row(columns)
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', None),
+        ('total_images', 'Total unused image candidates'),
+        ('total_ids', 'Total monuments with unused images'),
+        ('Report page', None),
+        ('Row template', None),
+        ('Commons template', None)
+    ])
+    table = StatisticsTable(title_column, ('total_images', 'total_ids'))
 
-    text_row = (
-        u'|-\n'
-        u'| {code} \n'
-        u'| {lang} \n'
-        u'| {total_images} \n'
-        u'| {total_ids} \n'
-        u'| {report_page} \n'
-        u'| {row_template} \n'
-        u'| {commons_template} \n')
-
-    total_images_sum = 0
-    total_ids_sum = 0
     for row in statistics:
         countryconfig = row.get('config')
         total_images_or_cmt = row.get('total_images')
         total_ids = row.get('total_ids')
-        row_template = u'---'
-        commons_template = u'---'
-        report_page = u'---'
+        row_template = None
+        commons_template = None
+        report_page = None
 
-        if row.get('total_images') is not None:
-            total_images_sum += row.get('total_images')
-            total_ids_sum += row.get('total_ids')
-        else:
+        if row.get('total_images') is None:
             total_images_or_cmt = row.get('cmt')
-            total_ids = u'---'
+            total_ids = None
 
         if countryconfig.get('type') != 'sparql':
             row_template = common.get_template_link(
@@ -277,23 +267,21 @@ def makeStatistics(statistics):
             report_page = row.get('report_page').title(
                 as_link=True, with_ns=False, insite=site)
 
-        text += text_row.format(
-            code=row.get('code'),
-            lang=row.get('lang'),
-            total_images=total_images_or_cmt,
-            total_ids=total_ids,
-            report_page=report_page,
-            row_template=row_template,
-            commons_template=commons_template)
+        table.add_row({
+            'code': row.get('code'),
+            'lang': row.get('lang'),
+            'total_images': total_images_or_cmt,
+            'total_ids': total_ids,
+            'Report page': report_page,
+            'Row template': row_template,
+            'Commons template': commons_template})
 
-    text += common.table_bottom_row(7, {
-        2: total_images_sum,
-        3: total_ids_sum})
+    text = table.to_wikitext()
 
     comment = (
         u'Updating unused image statistics. Total of {total_images} '
         u'unused images for {total_ids} different monuments.'.format(
-            total_images=total_images_sum, total_ids=total_ids_sum))
+            **table.get_sum()))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 

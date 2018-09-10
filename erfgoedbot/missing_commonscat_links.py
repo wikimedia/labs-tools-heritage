@@ -20,6 +20,7 @@ from database_connection import (
     connect_to_commons_database,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = "missing_commonscat"
 
@@ -269,33 +270,24 @@ def makeStatistics(statistics):
         site,
         u'Commons:Monuments database/Missing commonscat links/Statistics')
 
-    column_names = ('country', 'lang', 'total', 'page', 'row template',
-                    'Commons template')
-    numeric_columns = ('total', )
-    columns = OrderedDict(
-        [(col, col in numeric_columns) for col in column_names])
-    text = common.table_header_row(columns)
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', None),
+        ('total', None),
+        ('report_page', 'page'),
+        ('row template', None),
+        ('Commons template', None)
+    ])
+    table = StatisticsTable(title_column, ('total', ))
 
-    text_row = (
-        u'|-\n'
-        u'| {code} \n'
-        u'| {lang} \n'
-        u'| {total_cats} \n'
-        u'| {report_page} \n'
-        u'| {row_template} \n'
-        u'| {commons_template} \n')
-
-    total_cats_sum = 0
     for row in statistics:
         countryconfig = row.get('config')
         total_cats_or_cmt = row.get('total_cats')
-        row_template = u'---'
-        commons_template = u'---'
-        report_page = u'---'
+        row_template = None
+        commons_template = None
+        report_page = None
 
-        if row.get('total_cats') is not None:
-            total_cats_sum += row.get('total_cats')
-        else:
+        if row.get('total_cats') is None:
             total_cats_or_cmt = row.get('cmt')
 
         if countryconfig.get('type') != 'sparql':
@@ -313,19 +305,20 @@ def makeStatistics(statistics):
             report_page = row.get('report_page').title(
                 as_link=True, with_ns=False, insite=site)
 
-        text += text_row.format(
-            code=row.get('code'),
-            lang=row.get('lang'),
-            total_cats=total_cats_or_cmt,
-            report_page=report_page,
-            row_template=row_template,
-            commons_template=commons_template)
+        table.add_row({
+            'code': row.get('code'),
+            'lang': row.get('lang'),
+            'total': total_cats_or_cmt,
+            'report_page': report_page,
+            'row template': row_template,
+            'Commons template': commons_template})
 
-    text += common.table_bottom_row(6, {2: total_cats_sum})
+    text = table.to_wikitext()
 
     comment = (
         u'Updating missing commonscat links statistics. '
-        u'Total missing links: {total_cats}'.format(total_cats=total_cats_sum))
+        u'Total missing links: {total_cats}'.format(
+            total_cats=table.get_sum('total')))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 

@@ -45,6 +45,7 @@ from database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = 'update_database'
 
@@ -169,18 +170,17 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
     if not unknown_fields:
         text += common.done_message(central_page, 'unknown fields')
     else:
-        column_names = ('Field', 'Count', 'Sources')
-        numeric_columns = ('Count', )
-        columns = OrderedDict(
-            [(col, col in numeric_columns) for col in column_names])
-        text += common.table_header_row(columns)
+        title_column = ['Field', 'Count', 'Sources']
+        table = StatisticsTable(title_column, ['Count'])
         for key, counter in unknown_fields.iteritems():
-            total_usages += sum(counter.values())
             pages_with_fields.update(counter.keys())
-            text += '|-\n'
-            text += '| {0} || {1} || {2} \n'.format(
-                key, sum(counter.values()), format_source_field(counter, site))
-        text += '|}\n'
+            table.add_row({
+                'Field': key,
+                'Count': sum(counter.values()),
+                'Sources': format_source_field(counter, site)
+            })
+        total_usages = table.get_sum('Count')
+        text += table.to_wikitext(add_summation=False, inline=True)
 
     text += '[[Category:Commons:Monuments database/Unknown fields]]'
 
@@ -572,39 +572,24 @@ def make_statistics(statistics):
     page = pywikibot.Page(
         site, 'Commons:Monuments database/Unknown fields/Statistics')
 
-    column_names = ('country', 'lang', 'Total fields', 'Total usage of fields',
-                    'Total pages containing fields', 'Report page',
-                    'Row template', 'Header template')
-    columns = OrderedDict(
-        [(col, col.startswith('Total ')) for col in column_names])
-    text = common.table_header_row(columns)
-
-    text_row = (
-        '|-\n'
-        '| {code} \n'
-        '| {lang} \n'
-        '| {total_fields} \n'
-        '| {total_usages} \n'
-        '| {total_pages} \n'
-        '| {report_page} \n'
-        '| {row_template} \n'
-        '| {header_template} \n')
-
-    total_fields_sum = 0
-    total_usages_sum = 0
-    total_pages_sum = 0
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', None),
+        ('total_fields', 'Total fields'),
+        ('total_usages', 'Total usage of fields'),
+        ('total_pages', 'Total pages containing fields'),
+        ('report_page', 'Report page'),
+        ('row_template', 'Row template'),
+        ('header_template', 'Header template')
+    ])
+    table = StatisticsTable(
+        title_column,
+        list(filter(lambda col: col.startswith('total'), title_column)))
     for row in statistics:
         if not row:
             # sparql harvests don't generate statistics
             continue
         countryconfig = row.get('config')
-        total_fields = row.get('total_fields')
-        total_usages = row.get('total_usages')
-        total_pages = row.get('total_pages')
-
-        total_fields_sum += total_fields
-        total_usages_sum += total_usages
-        total_pages_sum += total_pages
 
         row_template = common.get_template_link(
             countryconfig.get('lang'),
@@ -619,27 +604,23 @@ def make_statistics(statistics):
         report_page = row.get('report_page').title(
             as_link=True, with_ns=False, insite=site)
 
-        text += text_row.format(
-            code=countryconfig.get('country'),
-            lang=countryconfig.get('lang'),
-            total_fields=total_fields,
-            total_usages=total_usages,
-            total_pages=total_pages,
-            report_page=report_page,
-            row_template=row_template,
-            header_template=header_template)
+        table.add_row({
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
+            'total_fields': row.get('total_fields'),
+            'total_usages': row.get('total_usages'),
+            'total_pages': row.get('total_pages'),
+            'report_page': report_page,
+            'row_template': row_template,
+            'header_template': header_template
+        })
 
-    text += common.table_bottom_row(8, {
-        2: total_fields_sum,
-        3: total_usages_sum,
-        4: total_pages_sum})
+    text = table.to_wikitext()
 
     comment = (
         'Updating unknown fields statistics. Total of {total_fields} '
         'unknown fields used {total_usages} times on {total_pages} different '
-        'pages.'.format(total_fields=total_fields_sum,
-                        total_usages=total_usages_sum,
-                        total_pages=total_pages_sum))
+        'pages.'.format(**table.get_sum()))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 

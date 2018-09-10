@@ -28,7 +28,6 @@ python populate_image_table.py
 python populate_image_table.py -countrycode:xx
 """
 import warnings
-from collections import OrderedDict
 
 import pywikibot
 
@@ -39,6 +38,7 @@ from database_connection import (
     connect_to_commons_database,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 
 class CannotNormalizeException(Exception):
@@ -193,44 +193,31 @@ def updateImage(countrycode, monumentId, name, has_geolocation, conn, cursor):
 
 def makeStatistics(totals):
     """Make statistics on the number of indexed images and put on Commons."""
-    column_names = ('country', 'total', 'tracked', 'tracker template',
-                    'tracker category')
-    numeric_columns = ('total', 'tracked')
-    columns = OrderedDict(
-        [(col, col in numeric_columns) for col in column_names])
-    text = common.table_header_row(columns)
-
-    total_images_sum = 0
-    tracked_images_sum = 0
-
-    for (countrycode, countryresults) in sorted(totals.iteritems()):
-        text += (
-            u'|-\n'
-            u'| {country} \n'
-            u'| {images} \n'
-            u'| {tracked} \n'
-            u'| {template} \n'
-            u'| [[:Category:{cat}|{cat}]] \n'
-        ).format(
-            country=countrycode,
-            images=countryresults.get('totalImages'),
-            tracked=countryresults.get('tracked_images'),
-            template='{{tl|%s}}' % countryresults.get('commonsTemplate'),
-            cat=countryresults.get('commonsTrackerCategory')
-        )
-        total_images_sum += countryresults.get('totalImages')
-        tracked_images_sum += countryresults.get('tracked_images')
-
-    text += common.table_bottom_row(
-        5, {1: total_images_sum, 2: tracked_images_sum})
-
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
         site, u'Commons:Monuments database/Indexed images/Statistics')
 
+    title_column = [
+        'country', ('images', 'total'), 'tracked',
+        ('template', 'tracker template'), ('cat', 'tracker category')
+    ]
+    table = StatisticsTable(title_column, ('images', 'tracked'))
+
+    for (countrycode, countryresults) in sorted(totals.iteritems()):
+        table.add_row({
+            'country': countrycode,
+            'images': countryresults.get('totalImages'),
+            'tracked': countryresults.get('tracked_images'),
+            'template': u'{{tl|%s}}' % countryresults.get('commonsTemplate'),
+            'cat': u'[[:Category:{cat}|{cat}]]'.format(
+                cat=countryresults.get('commonsTrackerCategory'))
+        })
+
+    text = table.to_wikitext()
+
     comment = (
         u'Updating indexed image statistics. '
-        u'Total indexed images: {}'.format(tracked_images_sum))
+        u'Total indexed images: {}'.format(table.get_sum('tracked')))
     pywikibot.output(text)
     common.save_to_wiki_or_local(page, comment, text)
 

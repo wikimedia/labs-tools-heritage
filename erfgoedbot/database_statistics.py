@@ -15,6 +15,7 @@ from database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = "database_statistics"
 
@@ -31,43 +32,38 @@ def getCount(query, cursor):
 
 def outputStatistics(statistics):
     """Output the statistics in wikitext on Commons."""
-    column_names = (
-        'country', '[[:en:List of ISO 639-1 codes|lang]]', 'total', 'name',
-        'address', 'municipality', 'coordinates', 'image', 'commonscat',
-        'article', 'wikidata',
-        '[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]]',
-        '[[:en:ISO 3166-2#Current codes|adm1]]', 'adm2', 'adm3', 'adm4',
-        'source pages')
-    numeric = ('all', 'name', 'address', 'municipality', 'coordinates',
-               'image', 'commonscat', 'article', 'wikidata', 'adm0', 'adm1',
-               'adm2', 'adm3', 'adm4', 'source')
-    numeric_headers = list(numeric) + ['total']  # all remains but is ignored
+    title_column = OrderedDict([
+        ('country', None),
+        ('lang', '[[:en:List of ISO 639-1 codes|lang]]'),
+        ('all', 'total'),
+        ('name', None),
+        ('address', None),
+        ('municipality', None),
+        ('coordinates', None),
+        ('image', None),
+        ('commonscat', None),
+        ('article', None),
+        ('wikidata', None),
+        ('adm0', '[[:en:ISO 3166-1 alpha-2#Officially assigned code elements|adm0]]'),
+        ('adm1', '[[:en:ISO 3166-2#Current codes|adm1]]'),
+        ('adm2', None),
+        ('adm3', None),
+        ('adm4', None),
+        ('source', 'source pages')
+    ])
+    numeric = [x for x in title_column.keys() if x not in ('country', 'lang')]
 
-    columns = OrderedDict(
-        [(col, any(num in col.split('|')[-1] for num in numeric_headers))
-         for col in column_names])
-    output = common.table_header_row(columns)
+    table = StatisticsTable(title_column, numeric)
     totals = dict.fromkeys(numeric, 0)
-
-    text_row = (
-        u'|-\n'
-        u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry={country}&format=html&limit=0 {country}] '
-        u'|| {lang} || {all} '
-        u'|| {name} <small>({name_p}%)</small> '
-        u'|| {address} <small>({address_p}%)</small> '
-        u'|| {municipality} <small>({municipality_p}%)</small> '
-        u'|| {coordinates} <small>({coordinates_p}%)</small> '
-        u'|| {image} <small>({image_p}%)</small> '
-        u'|| {commonscat} <small>({commonscat_p}%)</small> '
-        u'|| {article} <small>({article_p}%)</small> '
-        u'|| {wikidata} <small>({wikidata_p}%)</small> '
-        u'|| {adm0} <small>({adm0_p}%)</small> '
-        u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree={adm0iso} {adm1}] <small>({adm1_p}%)</small> '
-        u'|| {adm2} <small>({adm2_p}%)</small> '
-        u'|| {adm3} <small>({adm3_p}%)</small> '
-        u'|| {adm4} <small>({adm4_p}%)</small> '
-        u'|| {source} \n'
+    country_format = (
+        '[//tools.wmflabs.org/heritage/api/api.php?'
+        'action=statistics&stcountry={country}&format=html&limit=0 {country}]')
+    adm1_format = (
+        '[//tools.wmflabs.org/heritage/api/api.php?'
+        'action=adminlevels&format=json&admtree={adm0iso} {adm1}] '
+        '<small>({adm1_p}%)</small>'
     )
+
     summation_row = (  # @todo: make use of common.table_bottom_row()
         u'|- class="sortbottom"\n'
         u'| || || {all} '
@@ -84,27 +80,36 @@ def outputStatistics(statistics):
         u'|| {adm2} <small>({adm2_p}%)</small> '
         u'|| {adm3} <small>({adm3_p}%)</small> '
         u'|| {adm4} <small>({adm4_p}%)</small> '
-        u'|| {source} \n'
+        u'|| {source} '
     )
 
     for country in sorted(statistics.keys()):
         for language in sorted(statistics.get(country).keys()):
             data = statistics[country][language]
-            for col in numeric:
-                # construct percentages and add to totals
-                data[u'{}_p'.format(col)] = compute_percentage(
-                    data[col], data['all'])
-                totals[col] += data[col]
-
-            output += text_row.format(**data)
+            display_data = {
+                'country': country_format.format(**data),
+                'lang': data.get('lang'),
+                'all': data.get('all'),
+                'source': data.get('source'),
+                'adm1': adm1_format.format(
+                    adm1_p=compute_percentage(
+                        data.get('adm1'), data.get('all')),
+                    **data)
+            }
+            for key in title_column.keys():
+                if key not in display_data:
+                    display_data[key] = format_percentage(
+                        data.get(key), data.get('all'))
+            table.add_row(display_data, data)
 
     # construct total percentages
+    totals = table.get_sum()
     for col in numeric:
         totals[u'{}_p'.format(col)] = compute_percentage(
             totals[col], totals['all'])
 
-    output += summation_row.format(**totals)
-    output += u'|}\n'
+    table.add_wikitext_row(summation_row.format(**totals))
+    output = table.to_wikitext(add_summation=False, inline=True)
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(site, u'Commons:Monuments database/Statistics')
@@ -176,6 +181,11 @@ def build_query(field_name):
 
 def compute_percentage(value, total):
     return round(1.0 * value / max(total, 1) * 100, 2)
+
+
+def format_percentage(value, total):
+    percentage = compute_percentage(value, total)
+    return u'{0} <small>({1}%)</small>'.format(value, percentage)
 
 
 def getLanguages(country, conn, cursor):
