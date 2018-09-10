@@ -231,7 +231,7 @@ class TestMakeStatistics(TestCreateReportBase):
         self.mock_table_bottom_row.assert_called_once_with(
             5, {
                 1: expected_total_images_sum,
-                3: expected_tracked_images_sum})
+                2: expected_tracked_images_sum})
 
     def test_output_statistics_single(self):
         statistics = {

@@ -222,7 +222,7 @@ def makeStatistics(totals):
         tracked_images_sum += countryresults.get('tracked_images')
 
     text += common.table_bottom_row(
-        5, {1: total_images_sum, 3: tracked_images_sum})
+        5, {1: total_images_sum, 2: tracked_images_sum})
 
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
