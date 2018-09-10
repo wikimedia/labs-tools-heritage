@@ -58,12 +58,18 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.class_name = 'erfgoedbot.missing_commonscat_links'
         super(TestMakeStatistics, self).setUp()
 
+        patcher = mock.patch(
+            'erfgoedbot.missing_commonscat_links.common.get_template_link')
+        self.mock_get_template_link = patcher.start()
+        self.mock_get_template_link.return_value = '<row_template_link>'
+        self.addCleanup(patcher.stop)
+
         self.comment = (
             u'Updating missing commonscat links statistics. '
             u'Total missing links: {total_cats}')
-        commons = pywikibot.Site('commons', 'commons')
+        self.commons = pywikibot.Site('commons', 'commons')
         self.page = pywikibot.Page(
-            commons,
+            self.commons,
             u'Commons:Monuments database/Missing commonscat links/Statistics')
 
     def bundled_asserts(self, expected_rows, expected_total_cats):
@@ -98,11 +104,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 123 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n')
         expected_total_cats = 123
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'row template', self.commons)
         self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_single_basic(self):
@@ -119,11 +127,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 123 \n'
             u'| --- \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_cats = 123
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'row template', self.commons)
         self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_single_sparql_basic(self):
@@ -145,6 +155,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
         expected_total_cats = 0
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_not_called()
         self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_basic_skipped(self):
@@ -161,11 +172,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| skipped: no missingCommonscatPage \n'
             u'| --- \n'
-            u'| [[wikipedia:en:Template:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_cats = 0
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'a template', self.commons)
         self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_multiple_complete(self):
@@ -178,14 +191,17 @@ class TestMakeStatistics(TestCreateReportTableBase):
                 'lang': 'en',
                 'config': {
                     'rowTemplate': 'row template',
-                    'commonsTemplate': 'commons template'},
+                    'commonsTemplate': 'commons template',
+                    'project': 'wikipedia'},
                 'report_page': report_page_1,
                 'total_cats': 2
             },
             {
                 'code': 'bar',
                 'lang': 'fr',
-                'config': {'rowTemplate': 'a template'},
+                'config': {
+                    'rowTemplate': 'a template',
+                    'project': 'wikisource'},
                 'report_page': report_page_2,
                 'total_cats': 3
             }
@@ -197,18 +213,22 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 2 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
             u'| bar \n'
             u'| fr \n'
             u'| 3 \n'
             u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
-            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_cats = 5
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('fr', 'wikisource', 'a template', self.commons),
+        ])
         self.bundled_asserts(expected_rows, expected_total_cats)
 
     def test_make_statistics_multiple_mixed(self):
@@ -238,18 +258,22 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| en \n'
             u'| 2 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
             u'| bar \n'
             u'| fr \n'
             u'| skipped: no missingCommonscatPage \n'
             u'| --- \n'
-            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_cats = 2
 
         missing_commonscat_links.makeStatistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('fr', 'wikipedia', 'a template', self.commons),
+        ])
         self.bundled_asserts(expected_rows, expected_total_cats)
 
 

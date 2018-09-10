@@ -421,13 +421,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.class_name = 'erfgoedbot.update_database'
         super(TestMakeStatistics, self).setUp()
 
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.get_template_link')
+        self.mock_get_template_link = patcher.start()
+        self.mock_get_template_link.return_value = '<template_link>'
+        self.addCleanup(patcher.stop)
+
         self.comment = (
             u'Updating unknown fields statistics. Total of {total_fields} '
             u'unknown fields used {total_usages} times on {total_pages} '
             u'different pages.')
-        commons = pywikibot.Site('commons', 'commons')
+        self.commons = pywikibot.Site('commons', 'commons')
         self.page = pywikibot.Page(
-            commons, u'Commons:Monuments database/Unknown fields/Statistics')
+            self.commons, u'Commons:Monuments database/Unknown fields/Statistics')
 
     def bundled_asserts(self, expected_rows,
                         expected_total_fields,
@@ -476,13 +482,17 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 456 \n'
             u'| 789 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'| [[wikipedia:en:Template:Head template|Head template]] \n')
+            u'| <template_link> \n'
+            u'| <template_link> \n')
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
 
         update_database.make_statistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('en', 'wikipedia', 'head template', self.commons),
+        ])
         self.bundled_asserts(expected_rows,
                              expected_total_fields,
                              expected_total_usages,
@@ -523,7 +533,8 @@ class TestMakeStatistics(TestCreateReportTableBase):
                     'lang': 'fr',
                     'country': 'bar',
                     'rowTemplate': 'row2 template',
-                    'headerTemplate': 'head2 template'},
+                    'headerTemplate': 'head2 template',
+                    'project': 'wikisource'},
                 'report_page': report_page_2,
                 'total_fields': 321,
                 'total_usages': 654,
@@ -538,8 +549,8 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 456 \n'
             u'| 789 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'| [[wikipedia:en:Template:Head template|Head template]] \n'
+            u'| <template_link> \n'
+            u'| <template_link> \n'
             u'|-\n'
             u'| bar \n'
             u'| fr \n'
@@ -547,13 +558,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 654 \n'
             u'| 987 \n'
             u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
-            u'| [[wikipedia:fr:Modèle:Row2 template|Row2 template]] \n'
-            u'| [[wikipedia:fr:Modèle:Head2 template|Head2 template]] \n')
+            u'| <template_link> \n'
+            u'| <template_link> \n')
         expected_total_fields = 444
         expected_total_usages = 1110
         expected_total_pages = 1776
 
         update_database.make_statistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('en', 'wikipedia', 'head template', self.commons),
+            mock.call('fr', 'wikisource', 'row2 template', self.commons),
+            mock.call('fr', 'wikisource', 'head2 template', self.commons),
+        ])
         self.bundled_asserts(expected_rows,
                              expected_total_fields,
                              expected_total_usages,
@@ -585,13 +602,17 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 456 \n'
             u'| 789 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
-            u'| [[wikipedia:en:Template:Head template|Head template]] \n')
+            u'| <template_link> \n'
+            u'| <template_link> \n')
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
 
         update_database.make_statistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('en', 'wikipedia', 'head template', self.commons),
+        ])
         self.bundled_asserts(expected_rows,
                              expected_total_fields,
                              expected_total_usages,

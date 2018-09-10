@@ -130,12 +130,18 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.class_name = 'erfgoedbot.unused_monument_images'
         super(TestMakeStatistics, self).setUp()
 
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.get_template_link')
+        self.mock_get_template_link = patcher.start()
+        self.mock_get_template_link.return_value = '<row_template_link>'
+        self.addCleanup(patcher.stop)
+
         self.comment = (
             u'Updating unused image statistics. Total of {total_images} '
             u'unused images for {total_ids} different monuments.')
-        commons = pywikibot.Site('commons', 'commons')
+        self.commons = pywikibot.Site('commons', 'commons')
         self.page = pywikibot.Page(
-            commons, u'Commons:Monuments database/Unused images/Statistics')
+            self.commons, u'Commons:Monuments database/Unused images/Statistics')
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images,
@@ -175,12 +181,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 321 \n'
             u'| 123 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n')
         expected_total_images = 321
         expected_total_ids = 123
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'row template', self.commons)
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
@@ -202,12 +210,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 321 \n'
             u'| 123 \n'
             u'| --- \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_images = 321
         expected_total_ids = 123
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'row template', self.commons)
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
@@ -235,6 +245,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
         expected_total_ids = 123
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_not_called()
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
@@ -255,12 +266,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| skipped: no unusedImagesPage \n'
             u'| --- \n'
             u'| --- \n'
-            u'| [[wikipedia:en:Template:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_images = 0
         expected_total_ids = 0
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'a template', self.commons)
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
@@ -276,7 +289,8 @@ class TestMakeStatistics(TestCreateReportTableBase):
                 'lang': 'en',
                 'config': {
                     'rowTemplate': 'row template',
-                    'commonsTemplate': 'commons template'},
+                    'commonsTemplate': 'commons template',
+                    'project': 'wikipedia'},
                 'report_page': report_page_1,
                 'total_images': 3,
                 'total_ids': 2
@@ -284,7 +298,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
             {
                 'code': 'bar',
                 'lang': 'fr',
-                'config': {'rowTemplate': 'a template'},
+                'config': {
+                    'rowTemplate': 'a template',
+                    'project': 'wikisource'},
                 'report_page': report_page_2,
                 'total_images': 7,
                 'total_ids': 3
@@ -298,7 +314,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 3 \n'
             u'| 2 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
             u'| bar \n'
@@ -306,12 +322,16 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 7 \n'
             u'| 3 \n'
             u'| [[wikipedia:test:Barfoo|Barfoo]] \n'
-            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_images = 10
         expected_total_ids = 5
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('fr', 'wikisource', 'a template', self.commons),
+        ])
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
@@ -346,7 +366,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| 3 \n'
             u'| 2 \n'
             u'| [[wikipedia:test:Foobar|Foobar]] \n'
-            u'| [[wikipedia:en:Template:Row template|Row template]] \n'
+            u'| <row_template_link> \n'
             u'| {{tl|commons template}} \n'
             u'|-\n'
             u'| bar \n'
@@ -354,12 +374,16 @@ class TestMakeStatistics(TestCreateReportTableBase):
             u'| skipped: no unusedImagesPage \n'
             u'| --- \n'
             u'| --- \n'
-            u'| [[wikipedia:fr:Modèle:A template|A template]] \n'
+            u'| <row_template_link> \n'
             u'| --- \n')
         expected_total_images = 3
         expected_total_ids = 2
 
         unused_monument_images.makeStatistics(statistics)
+        self.mock_get_template_link.assert_has_calls([
+            mock.call('en', 'wikipedia', 'row template', self.commons),
+            mock.call('fr', 'wikipedia', 'a template', self.commons),
+        ])
         self.bundled_asserts(
             expected_rows,
             expected_total_images,
