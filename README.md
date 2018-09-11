@@ -11,6 +11,8 @@ By default, the bot connects to the monuments database using the credentials
 `pywikibot_config.db_username` and `pywikibot_config.db_password`.
 You can override them via the `database_config.yml` file.
 
+### Development
+
 To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
 
 To spin-up a development environement simulating harvesting:
@@ -41,6 +43,15 @@ docker-compose run --rm web php ../maintenance/_buildStats.php
 
 The web interface will be accessible on http://localhost:8000/
 
+### Toolforge
+
+This tool is meant to run on [Toolforge](https://wikitech.wikimedia.org/wiki/Toolforge).
+
+Dependencies are installed in a Python virtual environment (via `bin/build-python.sh`). In order to run Python scripts, you may want to use the Shell scripts in the `bin` directory:
+```
+./bin/run_erfgoedbot_script.sh erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
+
+```
 
 Monuments Database and API
 --------------------------
