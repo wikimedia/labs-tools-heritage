@@ -696,9 +696,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_cmt = self.comment.format(2)
         expected_table = self.table_prefix + (
             u'|-\n'
-            u'| unknown_field_1 || 6 || formatted_entry\n'
+            u'| unknown_field_1 || 6 || formatted_entry \n'
             u'|-\n'
-            u'| unknown_field_2 || 3 || formatted_entry\n'
+            u'| unknown_field_2 || 3 || formatted_entry \n'
             u'|}\n')
         expected_return = {
             'report_page': self.mock_report_page,
@@ -741,9 +741,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_cmt = self.comment.format(2)
         expected_table = self.table_prefix + (
             u'|-\n'
-            u'| unknown_field_1 || 6 || formatted_entry\n'
+            u'| unknown_field_1 || 6 || formatted_entry \n'
             u'|-\n'
-            u'| unknown_field_2 || 9 || formatted_entry\n'
+            u'| unknown_field_2 || 9 || formatted_entry \n'
             u'|}\n')
         expected_return = {
             'report_page': self.mock_report_page,

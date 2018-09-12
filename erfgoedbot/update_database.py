@@ -178,7 +178,7 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
             total_usages += sum(counter.values())
             pages_with_fields.update(counter.keys())
             text += '|-\n'
-            text += '| {0} || {1} || {2}\n'.format(
+            text += '| {0} || {1} || {2} \n'.format(
                 key, sum(counter.values()), format_source_field(counter, site))
         text += '|}\n'
 
