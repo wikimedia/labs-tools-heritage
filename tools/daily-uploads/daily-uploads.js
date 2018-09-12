@@ -23,9 +23,10 @@
 window.dailyUploads = function () {
 
 	function viewModel() {
-		var self = this;
+		var self = this,
+			today = new Date().toISOString().slice( 0, 10 );
 
-		self.day = ko.observable( '2016-05-02' );
+		self.day = ko.observable( today );
 		self.category = ko.observable( 'Images from Wiki Loves Earth 2016 in France' );
 		self.images = ko.observableArray();
 
