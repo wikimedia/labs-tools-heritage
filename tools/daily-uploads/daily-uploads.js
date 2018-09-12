@@ -24,10 +24,13 @@ window.dailyUploads = function () {
 
 	function viewModel() {
 		var self = this,
-			today = new Date().toISOString().slice( 0, 10 );
+			urlParams = new URLSearchParams( window.location.search ),
+			today = new Date().toISOString().slice( 0, 10 ),
+			day = urlParams.get( 'date' ) || today,
+			category = urlParams.get( 'category' ) || 'Images from Wiki Loves Monuments 2018';
 
-		self.day = ko.observable( today );
-		self.category = ko.observable( 'Images from Wiki Loves Earth 2016 in France' );
+		self.day = ko.observable( day );
+		self.category = ko.observable( category );
 		self.images = ko.observableArray();
 
 		self.updateImages = function () {
