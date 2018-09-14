@@ -1,18 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
-'''
+"""
+Process monument images on Commons without tracker templates.
 
-Add monument-ID-templates to images on Commons -- based on the image usage in
-  the lists -- and make a galleries of monuments without an id at Commons
+Adds monument-ID-templates to images on Commons -- based on the image usage in
+the lists or category membership -- and make a galleries of images without
+an id.
 
 Usage:
 # loop thtough all countries
 python images_of_monuments_without_id.py
 # work on specific country-lang
 python images_of_monuments_without_id.py -countrycode:XX -langcode:YY
-
-
-'''
+"""
 import pywikibot
 
 import common as common
@@ -28,9 +28,9 @@ _logger = "images_without_id"
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
                    cursor2):
-    '''
-    Work on a single country.
-    '''
+    """
+    Work on a single dataset.
+    """
     if (not countryconfig.get('commonsTemplate') or
             not countryconfig.get('commonsTrackerCategory')):
         # No template or tracker category found, just skip silently.
@@ -71,7 +71,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
                             image, commonsTemplate, withPhoto.get(image))
             # An image is in the category and is not in the list of used images
             else:
-                text += u'File:%s\n' % (image,)
+                text += u'File:{0}\n'.format(image)
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
@@ -102,9 +102,11 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
 
 
 def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
-    '''
-    Get a dictionary of images which are in the monuments database for a certain country/language combination.
-    '''
+    """
+    Get all images in the monuments database for a dataset.
+
+    @return dict
+    """
     result = {}
     query = (
         u"SELECT image, id "
@@ -128,9 +130,11 @@ def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
 
 
 def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
-    '''
-    Get a list of images which are in the relevant monuments category tree, but don't contain the identification template.
-    '''
+    """
+    Get all images in the relevant category tree without a tracker template.
+
+    @return list
+    """
 
     commonsCategoryBase = countryconfig.get(
         'commonsCategoryBase'). replace(u' ', u'_')
@@ -165,9 +169,7 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
 
 
 def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
-    '''
-    Get all images of monuments which already contain the identification template.
-    '''
+    """Get all images which contain the tracker template."""
 
     commonsTrackerCategory = countryconfig.get(
         'commonsTrackerCategory'). replace(u' ', u'_')
@@ -193,9 +195,7 @@ def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
 
 
 def addCommonsTemplate(image, commonsTemplate, identifier):
-    '''
-    Add the commonsTemplate with identifier to the image.
-    '''
+    """Add the commonsTemplate with identifier to the image."""
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.ImagePage(site, image)
     if not page.exists() or page.isRedirectPage() or page.isEmpty():
@@ -207,7 +207,8 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     text = page.get()
     newtext = u'{{%s|%s}}\n' % (commonsTemplate, identifier) + text
 
-    comment = u'Adding template %s based on usage in list' % (commonsTemplate,)
+    comment = u'Adding template {0} based on usage in list'.format(
+        commonsTemplate)
 
     pywikibot.showDiff(text, newtext)
     common.save_to_wiki_or_local(page, comment, newtext)
@@ -241,10 +242,12 @@ def main():
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+                u'I have no config for countrycode "{0}" '
+                u'in language "{1}"'.format(countrycode, lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            u'Working on countrycode "{0}" in language "{1}"'.format(
+                countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
     elif countrycode or lang:
@@ -256,7 +259,8 @@ def main():
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
                 continue
             pywikibot.log(
-                u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+                u'Working on countrycode "{0}" in language "{1}"'.format(
+                    countrycode, lang))
             processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
 
