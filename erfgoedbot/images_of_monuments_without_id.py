@@ -3,12 +3,18 @@
 """
 Process monument images on Commons without tracker templates.
 
-Adds monument-ID-templates to images on Commons -- based on the image usage in
-the lists or category membership -- and make a galleries of images without
-an id.
+Makes a gallery of images without an id, and the suitable id template to add to
+the image page, based on the image usage in the lists or category membership.
+
+If triggered with the '-add_templates parameter', attempts to add the id
+template to the image page on Commons.
+
+Assumes that all id templates are of the form {{template_name|id}}, for
+templates where this does not hold added templates, and suggestions on gallery
+pages will be incorrect/misleading.
 
 Usage:
-# loop thtough all countries
+# loop through all countries
 python images_of_monuments_without_id.py
 # work on specific country-lang
 python images_of_monuments_without_id.py -countrycode:XX -langcode:YY
@@ -26,13 +32,16 @@ from database_connection import (
 _logger = "images_without_id"
 
 
-def processCountry(countryconfig, conn, cursor, conn2, cursor2):
+def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
     """
     Work on a single dataset.
     """
     if (not countryconfig.get('commonsTemplate') or
             not countryconfig.get('commonsTrackerCategory')):
         # No template or tracker category found, just skip silently.
+        return False
+    if (not add_template and not countryconfig.get('imagesWithoutIdPage')):
+        # no actions possible
         return False
 
     commonsTemplate = countryconfig.get('commonsTemplate')
@@ -54,14 +63,15 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     # FIXME: Make an actual function of this instead of a static list.
     ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
 
-    # FIXME: Do something with a header template.
+    # FIXME: Add a call to common.instruction_header()
     text = u'<gallery>\n'
 
+    # FIXME implement max_images per output_country_report
     for image in withoutTemplate:
         if image not in ignoreList:
             # An image is in the category and is in the list of used images
             if withPhoto.get(image):
-                added = addCommonsTemplate(
+                added = add_template and addCommonsTemplate(
                     image, commonsTemplate, withPhoto.get(image))
                 if not added:
                     text += \
@@ -78,7 +88,7 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
         if image not in ignoreList and \
                 image not in withTemplate and \
                 image not in withoutTemplate:
-            added = addCommonsTemplate(
+            added = add_template and addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
             if not added:
                 text += \
@@ -95,6 +105,7 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
         site = pywikibot.Site(countryconfig.get('lang'), project)
         page = pywikibot.Page(site, imagesWithoutIdPage)
         pywikibot.debug(text, _logger)
+        # FIXME prevent output of empty gallery
         common.save_to_wiki_or_local(
             page, comment, text, minorEdit=False)
 
@@ -133,7 +144,7 @@ def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
 
     @return list
     """
-
+    # FIXME add possibility of only running this on the base category only
     commonsCategoryBase = countryconfig.get(
         'commonsCategoryBase').replace(u' ', u'_')
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
@@ -193,7 +204,11 @@ def getMonumentsWithTemplate(countryconfig, conn, cursor):
 
 
 def addCommonsTemplate(image, commonsTemplate, identifier):
-    """Add the commonsTemplate with identifier to the image."""
+    """
+    Add the commonsTemplate with identifier to the image.
+
+    Assumes that the template only takes one unnamed parameter, the id.
+    """
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.ImagePage(site, image)
     if not page.exists() or page.isRedirectPage() or page.isEmpty():
@@ -217,12 +232,14 @@ def main():
     countrycode = u''
     lang = u''
     skip_wd = False
+    add_template = False
     conn = None
     cursor = None
     # Connect database, we need that
     (conn, cursor) = connect_to_monuments_database()
     (conn2, cursor2) = connect_to_commons_database()
 
+    # FIXME add option to only run based on list usage, not category membership
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
@@ -231,10 +248,12 @@ def main():
             lang = value
         elif option == '-skip_wd':
             skip_wd = True
+        elif option == '-add_template':
+            add_template = True
         else:
             raise Exception(
                 u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd" or pywikibot args. '
+                u'"-skip_wd", "-add_template" or pywikibot args. '
                 u'Found "{}"'.format(option))
 
     if countrycode and lang:
@@ -247,7 +266,7 @@ def main():
             u'Working on countrycode "{0}" in language "{1}"'.format(
                 countrycode, lang))
         processCountry(mconfig.countries.get((countrycode, lang)),
-                       conn, cursor, conn2, cursor2)
+                       add_template, conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -259,7 +278,8 @@ def main():
             pywikibot.log(
                 u'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
-            processCountry(countryconfig, conn, cursor, conn2, cursor2)
+            processCountry(
+                countryconfig, add_template, conn, cursor, conn2, cursor2)
 
     close_database_connection(conn, cursor)
 

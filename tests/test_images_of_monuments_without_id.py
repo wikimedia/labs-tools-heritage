@@ -24,6 +24,7 @@ class TestProcessCountry(TestCreateReportBase):
             'imagesWithoutIdPage': 'A report page',
             'project': 'wikisource'
         }
+        self.add_template = True
         self.comment = u'Images without an id'
 
         patcher = mock.patch(
@@ -81,13 +82,23 @@ class TestProcessCountry(TestCreateReportBase):
     def test_processCountry_skip_on_no_commons_template(self):
         self.countryconfig.pop('commonsTemplate')
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
         self.bundled_asserts_skipped(result)
 
     def test_processCountry_skip_on_no_commons_tracker_category(self):
         self.countryconfig.pop('commonsTrackerCategory')
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
+        self.bundled_asserts_skipped(result)
+
+    def test_processCountry_skip_on_no_allowed_output(self):
+        self.countryconfig.pop('imagesWithoutIdPage')
+        self.add_template = False
+        result = images_of_monuments_without_id.processCountry(
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
         self.bundled_asserts_skipped(result)
 
     def test_processCountry_output_empty(self):
@@ -96,7 +107,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_not_called()
@@ -109,7 +121,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_not_called()
@@ -122,7 +135,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_called_once_with(
@@ -140,7 +154,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_called_once_with(
@@ -155,7 +170,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_called_once_with(
@@ -168,7 +184,8 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.assertIsNone(result)
         self.mock_add_commons_template.assert_called_once_with(
@@ -188,7 +205,8 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_not_called()
@@ -204,12 +222,33 @@ class TestProcessCountry(TestCreateReportBase):
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
-            self.countryconfig, 'conn', 'cursor', 'conn2', 'cursor2')
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
 
         self.bundled_asserts_outputted(result, expected_text)
         self.mock_add_commons_template.assert_has_calls([
             mock.call('Bar.jpg', 'A template', 456),
             mock.call('Foobar.jpg', 'A template', 123)])
+
+    def test_processCountry_output_do_not_add_template(self):
+        self.add_template = False
+        self.mock_get_monuments_with_photo.return_value = {
+            'Foobar.jpg': 123,
+            'Bar.jpg': 456}
+        self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
+        self.mock_add_commons_template.return_value = True
+        expected_text = (
+            u'<gallery>\n'
+            u'File:Bar.jpg|<nowiki>{{A template|456}}</nowiki>\n'
+            u'File:Foobar.jpg|<nowiki>{{A template|123}}</nowiki>\n'
+            u'</gallery>'
+        )
+
+        result = images_of_monuments_without_id.processCountry(
+            self.countryconfig, self.add_template,
+            'conn', 'cursor', 'conn2', 'cursor2')
+        self.bundled_asserts_outputted(result, expected_text)
+        self.mock_add_commons_template.assert_not_called()
 
 
 class TestAddCommonsTemplate(unittest.TestCase):
