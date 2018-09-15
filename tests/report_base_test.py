@@ -10,9 +10,10 @@ import mock
 class TestCreateReportBase(unittest.TestCase):
 
         def setUp(self):
+            # autospec does not support assert_not_called
+            # https://github.com/testing-cabal/mock/issues/398
             patcher = mock.patch(
-                '{}.common.save_to_wiki_or_local'.format(self.class_name),
-                autospec=True)
+                '{}.common.save_to_wiki_or_local'.format(self.class_name))
             self.mock_save_to_wiki_or_local = patcher.start()
             self.addCleanup(patcher.stop)
 
@@ -24,7 +25,7 @@ class TestCreateReportBase(unittest.TestCase):
             self.addCleanup(patcher.stop)
 
             patcher = mock.patch(
-                '{}.pywikibot.Site'.format(self.class_name), autospec=True)
+                '{}.pywikibot.Site'.format(self.class_name))
             self.mock_site = patcher.start()
             self.addCleanup(patcher.stop)
 

@@ -23,6 +23,8 @@ from database_connection import (
     connect_to_monuments_database
 )
 
+_logger = "images_without_id"
+
 
 def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
                    cursor2):
@@ -92,9 +94,9 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     if imagesWithoutIdPage:
         comment = u'Images without an id'
 
-        site = pywikibot.getSite(lang, project)
+        site = pywikibot.Site(lang, project)
         page = pywikibot.Page(site, imagesWithoutIdPage)
-        pywikibot.output(text)
+        pywikibot.debug(text, _logger)
         common.save_to_wiki_or_local(
             page, comment, text, minorEdit=False)
 
@@ -194,7 +196,7 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     '''
     Add the commonsTemplate with identifier to the image.
     '''
-    site = pywikibot.getSite('commons', 'commons')
+    site = pywikibot.Site('commons', 'commons')
     page = pywikibot.ImagePage(site, image)
     if not page.exists() or page.isRedirectPage() or page.isEmpty():
         return False
@@ -238,10 +240,10 @@ def main():
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(
+            pywikibot.warning(
                 u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(
+        pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(countrycode, lang, mconfig.countries.get(
             (countrycode, lang)), conn, cursor, conn2, cursor2)
@@ -253,7 +255,7 @@ def main():
             if (countryconfig.get('skip') or
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
                 continue
-            pywikibot.output(
+            pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             processCountry(
                 countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
