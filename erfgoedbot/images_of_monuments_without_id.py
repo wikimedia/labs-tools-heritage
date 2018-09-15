@@ -26,8 +26,7 @@ from database_connection import (
 _logger = "images_without_id"
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
-                   cursor2):
+def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     """
     Work on a single dataset.
     """
@@ -42,15 +41,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(
-        countrycode, lang, countryconfig, conn, cursor)
+        countryconfig.get('country'), countryconfig.get('lang'), conn, cursor)
 
     # All items on Commons with the id template
-    withTemplate = getMonumentsWithTemplate(
-        countrycode, lang, countryconfig, conn2, cursor2)
+    withTemplate = getMonumentsWithTemplate(countryconfig, conn2, cursor2)
 
     # All items on Commons in the monument tree without the id template
     withoutTemplate = getMonumentsWithoutTemplate(
-        countrycode, lang, countryconfig, conn2, cursor2)
+        countryconfig, conn2, cursor2)
 
     # Get the image ignore list
     # FIXME: Make an actual function of this instead of a static list.
@@ -94,14 +92,14 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     if imagesWithoutIdPage:
         comment = u'Images without an id'
 
-        site = pywikibot.Site(lang, project)
+        site = pywikibot.Site(countryconfig.get('lang'), project)
         page = pywikibot.Page(site, imagesWithoutIdPage)
         pywikibot.debug(text, _logger)
         common.save_to_wiki_or_local(
             page, comment, text, minorEdit=False)
 
 
-def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
+def getMonumentsWithPhoto(countrycode, lang, conn, cursor):
     """
     Get all images in the monuments database for a dataset.
 
@@ -129,7 +127,7 @@ def getMonumentsWithPhoto(countrycode, lang, countryconfig, conn, cursor):
     return result
 
 
-def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
+def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
     """
     Get all images in the relevant category tree without a tracker template.
 
@@ -137,7 +135,7 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     """
 
     commonsCategoryBase = countryconfig.get(
-        'commonsCategoryBase'). replace(u' ', u'_')
+        'commonsCategoryBase').replace(u' ', u'_')
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
 
     result = []
@@ -168,11 +166,11 @@ def getMonumentsWithoutTemplate(countrycode, lang, countryconfig, conn, cursor):
     return result
 
 
-def getMonumentsWithTemplate(countrycode, lang, countryconfig, conn, cursor):
+def getMonumentsWithTemplate(countryconfig, conn, cursor):
     """Get all images which contain the tracker template."""
 
     commonsTrackerCategory = countryconfig.get(
-        'commonsTrackerCategory'). replace(u' ', u'_')
+        'commonsTrackerCategory').replace(u' ', u'_')
 
     result = []
     query = (
@@ -248,8 +246,8 @@ def main():
         pywikibot.log(
             u'Working on countrycode "{0}" in language "{1}"'.format(
                 countrycode, lang))
-        processCountry(countrycode, lang, mconfig.countries.get(
-            (countrycode, lang)), conn, cursor, conn2, cursor2)
+        processCountry(mconfig.countries.get((countrycode, lang)),
+                       conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -261,8 +259,7 @@ def main():
             pywikibot.log(
                 u'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
-            processCountry(
-                countrycode, lang, countryconfig, conn, cursor, conn2, cursor2)
+            processCountry(countryconfig, conn, cursor, conn2, cursor2)
 
     close_database_connection(conn, cursor)
 

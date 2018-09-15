@@ -24,22 +24,21 @@ from database_connection import (
 _logger = "missing_commonscat"
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
-                   cursor2):
+def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     """Work on a single country."""
     if not countryconfig.get('missingCommonscatPage'):
         # missingCommonscatPage not set, just skip silently.
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no missingCommonscatPage'
         }
     if not countryconfig.get('commonsTrackerCategory'):
         # commonsTrackerCategory not set, just skip silently.
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no commonsTrackerCategory'
         }
@@ -47,8 +46,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     if countryconfig.get('type') == 'sparql':
         # This script does not (yet) work for SPARQL sources, skip silently
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: cannot handle sparql'
         }
@@ -58,8 +57,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
         # Field is missing. Something is seriously wrong, but we just skip it
         # silently
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no template field matched to commonscat!!'
         }
@@ -69,7 +68,7 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
         'commonsTrackerCategory'). replace(u' ', u'_')
 
     withoutCommonscat = getMonumentsWithoutCommonscat(
-        countrycode, lang, conn, cursor)
+        countryconfig.get('country'), countryconfig.get('lang'), conn, cursor)
     commonscats = getMonumentCommonscats(
         commonsTrackerCategory, conn2, cursor2)
 
@@ -81,15 +80,16 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     missing_commonscat = group_missing_commonscat_by_source(
         commonscats, withoutCommonscat, countryconfig)
 
-    site = pywikibot.Site(lang, u'wikipedia')
+    site = pywikibot.Site(countryconfig.get('lang'), u'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
-    iw_links = getInterwikisMissingCommonscatPage(countrycode, lang)
+    iw_links = getInterwikisMissingCommonscatPage(
+        countryconfig.get('country'), countryconfig.get('lang'))
     totals = output_country_report(
         missing_commonscat, commonscatField, page, iw_links)
 
     return {
-        'code': countrycode,
-        'lang': lang,
+        'code': countryconfig.get('country'),
+        'lang': countryconfig.get('lang'),
         'report_page': page,
         'config': countryconfig,
         'total_cats': totals['cats'],
@@ -363,8 +363,8 @@ def main():
         pywikibot.log(
             u'Working on countrycode "{code}" in language "{lang}"'.format(
                 code=countrycode, lang=lang))
-        processCountry(countrycode, lang, mconfig.countries.get(
-            (countrycode, lang)), conn, cursor, conn2, cursor2)
+        processCountry(mconfig.countries.get((countrycode, lang)),
+                       conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -379,8 +379,7 @@ def main():
                     code=countrycode, lang=lang))
             statistics.append(
                 processCountry(
-                    countrycode, lang, countryconfig, conn, cursor, conn2,
-                    cursor2))
+                    countryconfig, conn, cursor, conn2, cursor2))
         makeStatistics(statistics)
 
     close_database_connection(conn, cursor)

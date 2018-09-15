@@ -70,19 +70,22 @@ class Monument:
 # functions
 
 
-def processCountry(countrycode, lang, countryconfig, coordconfig,
-                   connMon, cursorMon):
+def processCountry(countryconfig, coordconfig, connMon, cursorMon):
     '''
     Work on a single country.
     '''
     if (not coordconfig or not coordconfig.get('coordTemplate')):
         # No template found, just skip.
-        pywikibot.output(u'Language: %s has no coordTemplate set!' % lang)
+        pywikibot.output(
+            u'Language: {0} has no coordTemplate set!'.format(
+                countryconfig.get('lang')))
         return False
 
-    (connWiki, cursorWiki) = connect_to_commons_database(lang)
+    (connWiki, cursorWiki) = connect_to_commons_database(
+        countryconfig.get('lang'))
 
-    withCoordinates = getMonumentsWithCoordinates(countrycode, lang, cursorMon)
+    withCoordinates = getMonumentsWithCoordinates(
+        countryconfig.get('country'), countryconfig.get('lang'), cursorMon)
 
     articleNames = []
     duplicateArticles = []
@@ -122,8 +125,8 @@ def processCountry(countrycode, lang, countryconfig, coordconfig,
         if (retStatus == 'FOLLOWED_REDIR' and redirNs == WP_ARTICLE_NS):
             aMonument.article = redirTitle
         if (pageId):
-            if not hasCoordinates(pageId, lang, cursorWiki):
-                addCoords(countrycode, lang, aMonument, coordconfig, countryconfig)
+            if not hasCoordinates(pageId, countryconfig.get('lang'), cursorWiki):
+                addCoords(countryconfig, aMonument, coordconfig)
 
 
 def getMonumentsWithCoordinates(countrycode, lang, cursor):
@@ -239,11 +242,12 @@ def getRedirPageNsTitle(pageId, cursor):
         return (pageNs, pageTitle)
 
 
-def addCoords(countrycode, lang, monument, coordconfig, countryconfig):
+def addCoords(countryconfig, monument, coordconfig):
     '''
     Add the coordinates to article.
     '''
-
+    countrycode = countryconfig.get('country')
+    lang = countryconfig.get('lang')
     if (countrycode and lang):
         coordTemplate = coordconfig.get('coordTemplate')
         coordTemplateSyntax = coordconfig.get('coordTemplateSyntax')
@@ -323,7 +327,8 @@ def main():
             pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        processCountry(countrycode, lang, mconfig.countries.get((countrycode, lang)), wikiData.get(lang), connMon, cursorMon)
+        processCountry(mconfig.countries.get((countrycode, lang)),
+                       wikiData.get(lang), connMon, cursorMon)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -333,7 +338,8 @@ def main():
                     (skip_wd and (countryconfig.get('type') == 'sparql'))):
                 continue
             pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            processCountry(countrycode, lang, countryconfig, wikiData.get(lang), connMon, cursorMon)
+            processCountry(
+                countryconfig, wikiData.get(lang), connMon, cursorMon)
 
     close_database_connection(connMon, cursorMon)
 

@@ -16,8 +16,7 @@ from database_connection import (
 )
 
 
-def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
-                  cursor2):
+def locateCountry(countryconfig, conn, cursor, conn2, cursor2):
     '''
     Locate images in a single country.
     '''
@@ -27,7 +26,7 @@ def locateCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
 
     for (page, monumentId) in getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
         locationTemplate = locateImage(
-            page, monumentId, countrycode, lang, countryconfig, conn, cursor)
+            page, monumentId, countryconfig, conn, cursor)
         if locationTemplate:
             addLocation(page, locationTemplate)
 
@@ -83,11 +82,13 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
                 pywikibot.output(u'Got value error for %s' % (monumentId,))
 
 
-def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor):
+def locateImage(page, monumentId, countryconfig, conn, cursor):
     pywikibot.output(u'Working on: %s with id %s' % (page.title(), monumentId))
 
     # First check if the identifier returns something useful
-    coordinates = getCoordinates(monumentId, countrycode, lang, conn, cursor)
+    coordinates = getCoordinates(
+        monumentId, countryconfig.get('country'), countryconfig.get('lang'),
+        conn, cursor)
     if not coordinates:
         pywikibot.output(
             u'File contains an unknown identifier: %s' % monumentId)
@@ -108,7 +109,7 @@ def locateImage(page, monumentId, countrycode, lang, countryconfig, conn, cursor
         return False
 
     locationTemplate = u'{{Object location dec|%s|%s|region:%s_type:landmark_scale:1500}}<!-- Location from %s -->' % (
-        lat, lon, countrycode.upper(), source)
+        lat, lon, countryconfig.get('country').upper(), source)
 
     return locationTemplate
 
@@ -243,8 +244,8 @@ def main():
             return False
         pywikibot.output(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-        locateCountry(countrycode, lang, mconfig.countries.get(
-            (countrycode, lang)), conn, cursor, conn2, cursor2)
+        locateCountry(mconfig.countries.get((countrycode, lang)),
+                      conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -259,9 +260,7 @@ def main():
             else:
                 pywikibot.output(
                     u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-                locateCountry(
-                    countrycode, lang, countryconfig, conn, cursor, conn2,
-                    cursor2)
+                locateCountry(countryconfig, conn, cursor, conn2, cursor2)
 
     close_database_connection(conn, cursor)
 

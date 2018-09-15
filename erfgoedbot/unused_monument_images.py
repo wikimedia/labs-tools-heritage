@@ -58,22 +58,21 @@ def group_unused_images_by_source(photos, withoutPhoto, countryconfig):
 
 
 # @TODO: Sparql entries could be displayed differently since each id has a different source
-def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
-                   cursor2):
+def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     """Work on a single country."""
     if not countryconfig.get('unusedImagesPage'):
         # unusedImagesPage not set, just skip silently.
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no unusedImagesPage'
         }
     if not countryconfig.get('commonsTrackerCategory'):
         # commonsTrackerCategory not set, just skip silently.
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no commonsTrackerCategory'
         }
@@ -83,7 +82,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     commonsTrackerCategory = countryconfig.get(
         'commonsTrackerCategory').replace(u' ', u'_')
 
-    withoutPhoto = getMonumentsWithoutPhoto(countrycode, lang, conn, cursor)
+    withoutPhoto = getMonumentsWithoutPhoto(
+        countryconfig.get('country'), countryconfig.get('lang'), conn, cursor)
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
 
     pywikibot.log(u'withoutPhoto {0} elements'.format(len(withoutPhoto)))
@@ -92,13 +92,13 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor, conn2,
     unused_images = group_unused_images_by_source(
         photos, withoutPhoto, countryconfig)
 
-    site = pywikibot.Site(lang, project)
+    site = pywikibot.Site(countryconfig.get('lang'), project)
     page = pywikibot.Page(site, unusedImagesPage)
     totals = output_country_report(unused_images, page)
 
     return {
-        'code': countrycode,
-        'lang': lang,
+        'code': countryconfig.get('country'),
+        'lang': countryconfig.get('lang'),
         'report_page': page,
         'config': countryconfig,
         'total_images': totals['images'],
@@ -331,8 +331,8 @@ def main():
         pywikibot.log(
             u'Working on countrycode "{code}" in language "{lang}"'.format(
                 code=countrycode, lang=lang))
-        processCountry(countrycode, lang, mconfig.countries.get(
-            (countrycode, lang)), conn, cursor, conn2, cursor2)
+        processCountry(mconfig.countries.get((countrycode, lang)),
+                       conn, cursor, conn2, cursor2)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -347,8 +347,7 @@ def main():
                     code=countrycode, lang=lang))
             statistics.append(
                 processCountry(
-                    countrycode, lang, countryconfig, conn, cursor, conn2,
-                    cursor2))
+                    countryconfig, conn, cursor, conn2, cursor2))
         makeStatistics(statistics)
 
     close_database_connection(conn, cursor)

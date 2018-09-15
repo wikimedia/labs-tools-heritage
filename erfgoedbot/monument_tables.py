@@ -10,12 +10,10 @@ import os
 import monuments_config as mconfig
 
 
-def process_country(country_code, lang, country_config):
+def process_country(country_config):
     """
     Process the country configs to create sql files.
 
-    @param countrycode: country code or dataset name
-    @param lang: language
     @param countryconfig: country configuration
     """
     # @todo: standardise these as 'monuments_{country}_({lang})'
@@ -29,7 +27,8 @@ def process_country(country_code, lang, country_config):
     except Exception as e:
         raise Exception(
             u'{exception} for countrycode: {country}, lang: {lang}'.format(
-                exception=e, country=country_code, lang=lang))
+                exception=e, country=country_config.get('country'),
+                lang=country_config.get('lang')))
 
     f = open(os.path.join(
         get_sql_dir(), u'create_table_{}.sql'.format(table)), 'w')
@@ -159,7 +158,7 @@ def get_template_dir():
 
 def main():
     for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-        process_country(countrycode, lang, countryconfig)
+        process_country(countryconfig)
 
 
 if __name__ == "__main__":

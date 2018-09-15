@@ -429,8 +429,8 @@ def get_Commons_category_via_Wikidata(page):
         raise NoCommonsCatFromWikidataItemException(page)
 
 
-def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
-                   conn, cursor, overridecat=None):
+def processCountry(countryconfig, commonsCatTemplates, conn, cursor,
+                   overridecat=None):
     """Work on a single country."""
     if not countryconfig.get('commonsTemplate'):
         # No template found, just skip silently.
@@ -438,8 +438,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
         if countryconfig.get('commonsCategoryBase'):
             basecat = countryconfig.get('commonsCategoryBase')
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'cat': basecat,
             'cmt': 'skipped: no template'
         }
@@ -448,8 +448,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
         # No template found, just skip silently.
         commonsTemplate = countryconfig.get('commonsTemplate')
         return {
-            'code': countrycode,
-            'lang': lang,
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'template': commonsTemplate,
             'cmt': 'skipped: no base category'
         }
@@ -457,7 +457,8 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
         pywikibot.warning(
-            u'Language: %s has no commonsCatTemplates set!' % lang)
+            u'Language: {0} has no commonsCatTemplates set!'.format(
+                countryconfig.get('lang')))
         return False
 
     totalImages = 0
@@ -482,14 +483,15 @@ def processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
         success = False
         if not totalImages >= 10000:
             success = categorizeImage(
-                countrycode, lang, commonsTemplate, commonsCategoryBase,
-                commonsCatTemplates, page, conn, cursor, harvest_type)
+                countryconfig.get('country'), countryconfig.get('lang'),
+                commonsTemplate, commonsCategoryBase, commonsCatTemplates,
+                page, conn, cursor, harvest_type)
         if success:
             categorizedImages += 1
 
     return {
-        'code': countrycode,
-        'lang': lang,
+        'code': countryconfig.get('country'),
+        'lang': countryconfig.get('lang'),
         'cat': commonsCategoryBase.title(with_ns=False),
         'template': commonsTemplate,
         'total_images': totalImages,
@@ -595,17 +597,16 @@ def getCommonscatTemplates(lang=None, project=None):
     return result
 
 
-def skip(country_code, lang, country_config):
+def skip(country_config):
     """Return a outputStatistics compatible summary for a skipped country."""
     site = pywikibot.Site(u'commons', u'commons')
     commons_category_base = pywikibot.Category(site, u'{ns}:{cat}'.format(
         ns=site.namespace(14), cat=country_config.get('commonsCategoryBase')))
-    commons_template = country_config.get('commonsTemplate')
     return {
-        'code': country_code,
-        'lang': lang,
+        'code': country_config.get('country'),
+        'lang': country_config.get('lang'),
         'cat': commons_category_base.title(with_ns=False),
-        'template': commons_template,
+        'template': country_config.get('commonsTemplate'),
         'cmt': 'skipped: blacklisted'
     }
 
@@ -648,8 +649,8 @@ def main():
         commonsCatTemplates = getCommonscatTemplates(
             lang, countryconfig.get('project'))
         # print commonsCatTemplates
-        processCountry(countrycode, lang, countryconfig, commonsCatTemplates,
-                       conn, cursor, overridecat=overridecat)
+        processCountry(countryconfig, commonsCatTemplates, conn, cursor,
+                       overridecat=overridecat)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -663,7 +664,7 @@ def main():
             if (countrycode, lang) in SKIP_LIST:
                 pywikibot.log(
                     u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
-                statistics.append(skip(countrycode, lang, countryconfig))
+                statistics.append(skip(countryconfig))
                 continue
 
             pywikibot.log(
@@ -671,8 +672,7 @@ def main():
             commonsCatTemplates = getCommonscatTemplates(
                 lang, countryconfig.get('project'))
             result = processCountry(
-                countrycode, lang, countryconfig, commonsCatTemplates, conn,
-                cursor)
+                countryconfig, commonsCatTemplates, conn, cursor)
             if result:
                 statistics.append(result)
 

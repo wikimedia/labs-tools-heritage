@@ -23,7 +23,7 @@ from database_connection import (
 )
 
 
-def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor):
+def updateMonument(countryconfig, identifier, source, conn, cursor):
     '''
     FIXME :  cursor.execute(query, (tuple)) om het escape probleem te fixen
     '''
@@ -35,9 +35,9 @@ def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, c
     fieldnames.append('id')
     fieldvalues.append(identifier)
     fieldnames.append('country')
-    fieldvalues.append(countrycode)
+    fieldvalues.append(countryconfig.get('country'))
     fieldnames.append('lang')
-    fieldvalues.append(lang)
+    fieldvalues.append(countryconfig.get('lang'))
 
     query = u"""INSERT INTO `id_dump`("""
 
@@ -63,7 +63,7 @@ def updateMonument(countrycode, lang, identifier, source, countryconfig, conn, c
     cursor.execute(query, fieldvalues)
 
 
-def processMonument(countrycode, lang, params, source, countryconfig, conn, cursor):
+def processMonument(countryconfig, params, source, conn, cursor):
     '''
     Process a single instance of a monument row template
     '''
@@ -76,10 +76,10 @@ def processMonument(countrycode, lang, params, source, countryconfig, conn, curs
         if (field == countryconfig.get('primkey')):
             identifier = value
 
-    updateMonument(countrycode, lang, identifier, source, countryconfig, conn, cursor)
+    updateMonument(countryconfig, identifier, source, conn, cursor)
 
 
-def processPage(countrycode, lang, source, countryconfig, conn, cursor, page=None):
+def processPage(countryconfig, source, conn, cursor, page=None):
     '''
     Process a page containing one or multiple instances of the monument row template
     '''
@@ -88,11 +88,10 @@ def processPage(countrycode, lang, source, countryconfig, conn, cursor, page=Non
     for (template, params) in templates:
         template_name = template.title(with_ns=False)
         if template_name == countryconfig.get('rowTemplate'):
-            processMonument(
-                countrycode, lang, params, source, countryconfig, conn, cursor)
+            processMonument(countryconfig, params, source, conn, cursor)
 
 
-def processCountry(countrycode, lang, countryconfig, conn, cursor):
+def processCountry(countryconfig, conn, cursor):
     '''
     Process all the monuments of one country
     '''
@@ -110,9 +109,8 @@ def processCountry(countrycode, lang, countryconfig, conn, cursor):
     for page in pregenerator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking
-            processPage(countrycode, lang,
-                        page.permalink(percent_encoded=False),
-                        countryconfig, conn, cursor, page=page)
+            processPage(countryconfig, page.permalink(percent_encoded=False),
+                        conn, cursor, page=page)
 
 
 def main():
@@ -152,7 +150,7 @@ def main():
         pywikibot.log(
             u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(
-            countrycode, lang, mconfig.countries.get((countrycode, lang)), conn, cursor)
+            mconfig.countries.get((countrycode, lang)), conn, cursor)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -163,7 +161,7 @@ def main():
                 continue
             pywikibot.log(
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            processCountry(countrycode, lang, countryconfig, conn, cursor)
+            processCountry(countryconfig, conn, cursor)
 
     close_database_connection(conn, cursor)
 
