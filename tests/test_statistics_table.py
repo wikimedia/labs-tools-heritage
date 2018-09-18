@@ -290,7 +290,17 @@ class TestStatisticsTableGetSummationRow(unittest.TestCase):
         self.mock_table_bottom_row.assert_called_once_with(2, {1: 10})
         self.assertEqual(result, 'bottom_row')
 
-    # something with inline
+    def test_statistics_table_get_summation_row_skip_none(self):
+        self.st.totals['b'] = None
+        result = self.st.get_summation_row()
+        self.mock_table_bottom_row.assert_called_once_with(2, {})
+        self.assertEqual(result, 'bottom_row')
+
+    def test_statistics_table_get_summation_row_skip_allow_zero(self):
+        self.st.totals['b'] = 0
+        result = self.st.get_summation_row()
+        self.mock_table_bottom_row.assert_called_once_with(2, {1: 0})
+        self.assertEqual(result, 'bottom_row')
 
 
 class TestStatisticsTableGetSum(unittest.TestCase):

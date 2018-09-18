@@ -70,7 +70,7 @@ class StatisticsTable(object):
         The provided text must include the initial "|-". The wikitext is not
         validated. No entry will be added to the sum.
 
-        param wikitext: the wikitext for a single row.
+        @param wikitext: the wikitext for a single row.
         """
         if not isinstance(wikitext, (str, unicode)):
             raise ValueError('wikitext must be a (unicode) string')
@@ -86,10 +86,16 @@ class StatisticsTable(object):
         return common.table_header_row(titles)
 
     def get_summation_row(self):
-        """Get a row summing all numeric columns, as wikitext."""
+        """
+        Get a row summing all numeric columns, as wikitext.
+
+        Numeric columns where the total is None are skipped allowing for a
+        way of having a column numerically sorted but excluded from the
+        summation row.
+        """
         summed_columns = {}
         for num, col in enumerate(self.columns.keys()):
-            if col in self.totals:
+            if self.totals.get(col) is not None:
                 summed_columns[num] = self.totals.get(col)
         return common.table_bottom_row(len(self.columns), summed_columns)
 
