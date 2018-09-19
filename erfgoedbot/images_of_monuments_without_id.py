@@ -74,12 +74,11 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
                 added = add_template and addCommonsTemplate(
                     image, commonsTemplate, withPhoto.get(image))
                 if not added:
-                    text += \
-                        u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (
-                            image, commonsTemplate, withPhoto.get(image))
+                    text += format_gallery_row(
+                        image, withPhoto.get(image), commonsTemplate)
             # An image is in the category and is not in the list of used images
             else:
-                text += u'File:{0}\n'.format(image)
+                text += format_gallery_row(image)
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
@@ -91,9 +90,8 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
             added = add_template and addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
             if not added:
-                text += \
-                    u'File:%s|<nowiki>{{%s|%s}}</nowiki>\n' % (
-                        image, commonsTemplate, withPhoto.get(image))
+                text += format_gallery_row(
+                    image, withPhoto.get(image), commonsTemplate)
 
     text += u'</gallery>'
 
@@ -108,6 +106,21 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
         # FIXME prevent output of empty gallery
         common.save_to_wiki_or_local(
             page, comment, text, minorEdit=False)
+
+
+def format_gallery_row(image, id=None, template=None):
+    """
+    Output a wikitext formated row for a gallery.
+
+    Outputs either just the filename or a caption consisting of an id or
+    template wrapped id depending on how many args are provided.
+    """
+    text = u'File:%(image)s'
+    if id and template:
+        text += u'|<nowiki>{{%(template)s|%(id)s}}</nowiki>'
+    elif id:
+        text += u'|%(id)s'
+    return text % {'image': image, 'id': id, 'template': template} + '\n'
 
 
 def getMonumentsWithPhoto(countrycode, lang, conn, cursor):

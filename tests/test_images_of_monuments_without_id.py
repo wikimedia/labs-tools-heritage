@@ -251,6 +251,36 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_add_commons_template.assert_not_called()
 
 
+class TestFormatGalleryRow(unittest.TestCase):
+
+    """Test the format_gallery_row method."""
+
+    def test_format_gallery_row_image(self):
+        image = 'Foo.jpg'
+        self.assertEqual(
+            u'File:Foo.jpg\n',
+            images_of_monuments_without_id.format_gallery_row(image)
+        )
+
+    def test_format_gallery_row_id(self):
+        image = 'Foo.jpg'
+        id = 123
+        self.assertEqual(
+            u'File:Foo.jpg|123\n',
+            images_of_monuments_without_id.format_gallery_row(image, id)
+        )
+
+    def test_format_gallery_row_template(self):
+        image = 'Foo.jpg'
+        id = 123
+        template = 'Bar'
+        self.assertEqual(
+            u'File:Foo.jpg|<nowiki>{{Bar|123}}</nowiki>\n',
+            images_of_monuments_without_id.format_gallery_row(
+                image, id, template)
+        )
+
+
 class TestAddCommonsTemplate(unittest.TestCase):
 
     """Test the addCommonsTemplate method."""
