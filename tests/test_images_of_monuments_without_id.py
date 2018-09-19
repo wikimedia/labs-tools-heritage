@@ -377,6 +377,18 @@ class TestOutputCountryReport(TestCreateReportBase):
             ('foobar.jpg', )
         ]
 
+        self.prefix = 'prefix'
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.instruction_header')
+        self.mock_instruction_header = patcher.start()
+        self.mock_instruction_header.return_value = self.prefix
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.missing_commonscat_links.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.addCleanup(patcher.stop)
+
         # autospec does not support assert_not_called
         patcher = mock.patch(
             'erfgoedbot.images_of_monuments_without_id.format_gallery_row')
@@ -386,6 +398,7 @@ class TestOutputCountryReport(TestCreateReportBase):
 
     def bundled_asserts(self, expected_cmt, expected_output):
         """The full battery of asserts to do for each test."""
+        expected_output = self.prefix + expected_output
 
         self.mock_save_to_wiki_or_local.assert_called_once_with(
             self.mock_report_page,
@@ -393,23 +406,22 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_output,
             minorEdit=False
         )
+        self.mock_instruction_header.assert_called_once()
 
     def test_output_country_report_empty(self):
-        expected_cmt = u'Images without an id'
-        expected_output = (
-            u'<gallery>\n'
-            u'\n'
-            u'</gallery>')
+        expected_cmt = u'Images without an id: 0'
+        expected_output = self.mock_done_message.return_value
 
         images_of_monuments_without_id.output_country_report(
             [], self.mock_report_page)
+        self.mock_done_message.assert_called_once()
         self.bundled_asserts(
             expected_cmt,
             expected_output)
         self.mock_format_gallery_row.assert_not_called()
 
     def test_output_country_report_complete(self):
-        expected_cmt = u'Images without an id'
+        expected_cmt = u'Images without an id: 3'
         expected_output = (
             u'<gallery>\n'
             u'<formatted row>\n'
@@ -427,3 +439,4 @@ class TestOutputCountryReport(TestCreateReportBase):
             mock.call('bar.jpg', 123),
             mock.call('foobar.jpg', )
         ])
+        self.mock_done_message.assert_not_called()

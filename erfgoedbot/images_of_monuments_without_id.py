@@ -99,6 +99,7 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
         report_page = pywikibot.Page(site, imagesWithoutIdPage)
 
         output_country_report(gallery_rows, report_page)
+    # FIXME return stats
 
 
 def output_country_report(rows, report_page):
@@ -108,9 +109,15 @@ def output_country_report(rows, report_page):
     @param rows: list of (image, id, template) or (image, ) tuples.
     @param report_page: pywikibot.Page where report will be outputted.
     """
-    gallery_rows = [format_gallery_row(*row) for row in rows]
-    text = u'<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
-    comment = u'Images without an id'
+    # FIXME create this page. Different name?
+    central_page = ':c:Commons:Monuments database/Images without id'
+    text = common.instruction_header(central_page)
+    if rows:
+        gallery_rows = [format_gallery_row(*row) for row in rows]
+        text += u'<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
+    else:
+        text += common.done_message(central_page, 'images without id')
+    comment = u'Images without an id: {0}'.format(len(rows))
 
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(
