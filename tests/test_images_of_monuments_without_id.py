@@ -104,6 +104,7 @@ class TestProcessCountry(TestCreateReportBase):
     def test_processCountry_output_empty(self):
         expected_text = (
             u'<gallery>\n'
+            u'\n'
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
@@ -202,6 +203,7 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
         expected_text = (
             u'<gallery>\n'
+            u'\n'
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
@@ -219,6 +221,7 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_add_commons_template.return_value = True
         expected_text = (
             u'<gallery>\n'
+            u'\n'
             u'</gallery>'
         )
         result = images_of_monuments_without_id.processCountry(
@@ -258,7 +261,7 @@ class TestFormatGalleryRow(unittest.TestCase):
     def test_format_gallery_row_image(self):
         image = 'Foo.jpg'
         self.assertEqual(
-            u'File:Foo.jpg\n',
+            u'File:Foo.jpg',
             images_of_monuments_without_id.format_gallery_row(image)
         )
 
@@ -266,7 +269,7 @@ class TestFormatGalleryRow(unittest.TestCase):
         image = 'Foo.jpg'
         id = 123
         self.assertEqual(
-            u'File:Foo.jpg|123\n',
+            u'File:Foo.jpg|123',
             images_of_monuments_without_id.format_gallery_row(image, id)
         )
 
@@ -275,7 +278,7 @@ class TestFormatGalleryRow(unittest.TestCase):
         id = 123
         template = 'Bar'
         self.assertEqual(
-            u'File:Foo.jpg|<nowiki>{{Bar|123}}</nowiki>\n',
+            u'File:Foo.jpg|<nowiki>{{Bar|123}}</nowiki>',
             images_of_monuments_without_id.format_gallery_row(
                 image, id, template)
         )
@@ -376,3 +379,70 @@ class TestAddCommonsTemplate(unittest.TestCase):
             self.image, template, self.identifier)
 
         self.bundled_asserts_skipped(result)
+
+
+class TestOutputCountryReport(TestCreateReportBase):
+
+    """Test the output_country_report method."""
+
+    def setUp(self):
+        self.class_name = 'erfgoedbot.images_of_monuments_without_id'
+        super(TestOutputCountryReport, self).setUp()
+        self.mock_report_page = self.mock_page.return_value
+
+        self.rows = [
+            ('foo.jpg', 123, 'Bar'),
+            ('bar.jpg', 123),
+            ('foobar.jpg', )
+        ]
+
+        # autospec does not support assert_not_called
+        patcher = mock.patch(
+            'erfgoedbot.images_of_monuments_without_id.format_gallery_row')
+        self.mock_format_gallery_row = patcher.start()
+        self.mock_format_gallery_row.return_value = '<formatted row>'
+        self.addCleanup(patcher.stop)
+
+    def bundled_asserts(self, expected_cmt, expected_output):
+        """The full battery of asserts to do for each test."""
+
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output,
+            minorEdit=False
+        )
+
+    def test_output_country_report_empty(self):
+        expected_cmt = u'Images without an id'
+        expected_output = (
+            u'<gallery>\n'
+            u'\n'
+            u'</gallery>')
+
+        images_of_monuments_without_id.output_country_report(
+            [], self.mock_report_page)
+        self.bundled_asserts(
+            expected_cmt,
+            expected_output)
+        self.mock_format_gallery_row.assert_not_called()
+
+    def test_output_country_report_complete(self):
+        expected_cmt = u'Images without an id'
+        expected_output = (
+            u'<gallery>\n'
+            u'<formatted row>\n'
+            u'<formatted row>\n'
+            u'<formatted row>\n'
+            u'</gallery>')
+
+        images_of_monuments_without_id.output_country_report(
+            self.rows, self.mock_report_page)
+        self.bundled_asserts(
+            expected_cmt,
+            expected_output)
+        self.mock_format_gallery_row.assert_has_calls([
+            mock.call('foo.jpg', 123, 'Bar'),
+            mock.call('bar.jpg', 123),
+            mock.call('foobar.jpg', )
+        ])

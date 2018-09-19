@@ -63,8 +63,7 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
     # FIXME: Make an actual function of this instead of a static list.
     ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
 
-    # FIXME: Add a call to common.instruction_header()
-    text = u'<gallery>\n'
+    gallery_rows = []
 
     # FIXME implement max_images per output_country_report
     for image in withoutTemplate:
@@ -74,11 +73,11 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
                 added = add_template and addCommonsTemplate(
                     image, commonsTemplate, withPhoto.get(image))
                 if not added:
-                    text += format_gallery_row(
-                        image, withPhoto.get(image), commonsTemplate)
+                    gallery_rows.append(
+                        (image, withPhoto.get(image), commonsTemplate))
             # An image is in the category and is not in the list of used images
             else:
-                text += format_gallery_row(image)
+                gallery_rows.append((image, ))
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
@@ -90,22 +89,32 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
             added = add_template and addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
             if not added:
-                text += format_gallery_row(
-                    image, withPhoto.get(image), commonsTemplate)
-
-    text += u'</gallery>'
+                gallery_rows.append(
+                    (image, withPhoto.get(image), commonsTemplate))
 
     # imagesWithoutIdPage isn't set for every source, just skip it if it's not
     # set
     if imagesWithoutIdPage:
-        comment = u'Images without an id'
-
         site = pywikibot.Site(countryconfig.get('lang'), project)
-        page = pywikibot.Page(site, imagesWithoutIdPage)
-        pywikibot.debug(text, _logger)
-        # FIXME prevent output of empty gallery
-        common.save_to_wiki_or_local(
-            page, comment, text, minorEdit=False)
+        report_page = pywikibot.Page(site, imagesWithoutIdPage)
+
+        output_country_report(gallery_rows, report_page)
+
+
+def output_country_report(rows, report_page):
+    """
+    Output a gallery of images without id.
+
+    @param rows: list of (image, id, template) or (image, ) tuples.
+    @param report_page: pywikibot.Page where report will be outputted.
+    """
+    gallery_rows = [format_gallery_row(*row) for row in rows]
+    text = u'<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
+    comment = u'Images without an id'
+
+    pywikibot.debug(text, _logger)
+    common.save_to_wiki_or_local(
+        report_page, comment, text, minorEdit=False)
 
 
 def format_gallery_row(image, id=None, template=None):
@@ -120,7 +129,7 @@ def format_gallery_row(image, id=None, template=None):
         text += u'|<nowiki>{{%(template)s|%(id)s}}</nowiki>'
     elif id:
         text += u'|%(id)s'
-    return text % {'image': image, 'id': id, 'template': template} + '\n'
+    return text % {'image': image, 'id': id, 'template': template}
 
 
 def getMonumentsWithPhoto(countrycode, lang, conn, cursor):
