@@ -11,6 +11,7 @@ from collections import OrderedDict
 import pywikibot
 
 import common as common
+import monuments_config as mconfig
 from database_connection import (
     close_database_connection,
     connect_to_monuments_database
@@ -83,9 +84,20 @@ def outputStatistics(statistics):
         u'|| {source} '
     )
 
+    empty_row = (
+        u'|-\n'
+        u'|| {country} || {lang}'
+        u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/{country}_{lang}.json ({country}, {lang})] is configured, but no monuments are in the database.\n'
+    )
+
     for country in sorted(statistics.keys()):
         for language in sorted(statistics.get(country).keys()):
             data = statistics[country][language]
+
+            if not data:
+                table.add_wikitext_row(empty_row.format(country=country, lang=language))
+                continue
+
             display_data = {
                 'country': country_format.format(**data),
                 'lang': data.get('lang'),
@@ -245,8 +257,13 @@ def main():
 
     statistics = {}
 
+    for (countrycode, lang) in mconfig.countries.keys():
+        if countrycode not in statistics:
+            statistics[countrycode] = {}
+        if lang not in statistics[countrycode]:
+            statistics[countrycode][lang] = {}
+
     for country in getCountries(conn, cursor):
-        statistics[country] = {}
         for language in getLanguages(country, conn, cursor):
             statistics[country][language] = getStatistics(
                 country, language, conn, cursor)

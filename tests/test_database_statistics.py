@@ -315,3 +315,153 @@ class TestOutputStatistics(TestCreateReportBase):
 
         database_statistics.outputStatistics(statistics)
         self.bundled_asserts(expected_rows, expected_summation_row)
+
+    def test_output_statistics_single_empty(self):
+        statistics = {'foo_country': {'bar_lang': {}}}
+
+        expected_rows = (
+            u'|-\n'
+            u'|| foo_country || bar_lang'
+            u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/foo_country_bar_lang.json (foo_country, bar_lang)] is configured, but no monuments are in the database.\n'
+        )
+        expected_summation_row = (
+            u'|- class="sortbottom"\n'
+            u'| '
+            u'|| || 0 '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 \n'
+        )
+
+        database_statistics.outputStatistics(statistics)
+        self.bundled_asserts(expected_rows, expected_summation_row)
+
+    def test_output_statistics_multiple_empty(self):
+        statistics = {
+            'foo_country': {
+                'bar_lang': {},
+                'zen_lang': {}
+            },
+            'goo_country': {
+                'zen_lang': {}
+            }
+        }
+
+        expected_rows = (
+            u'|-\n'
+            u'|| foo_country || bar_lang'
+            u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/foo_country_bar_lang.json (foo_country, bar_lang)] is configured, but no monuments are in the database.\n'
+            u'|-\n'
+            u'|| foo_country || zen_lang'
+            u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/foo_country_zen_lang.json (foo_country, zen_lang)] is configured, but no monuments are in the database.\n'
+            u'|-\n'
+            u'|| goo_country || zen_lang'
+            u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/goo_country_zen_lang.json (goo_country, zen_lang)] is configured, but no monuments are in the database.\n'
+        )
+        expected_summation_row = (
+            u'|- class="sortbottom"\n'
+            u'| '
+            u'|| || 0 '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 <small>(0.0%)</small> '
+            u'|| 0 \n'
+        )
+
+        database_statistics.outputStatistics(statistics)
+        self.bundled_asserts(expected_rows, expected_summation_row)
+
+    def test_output_statistics_mixed(self):
+        statistics = {
+            'foo_country': {
+                'bar_lang': {
+                    'country': 'foo',
+                    'lang': 'bar',
+                    'all': 100,
+                    'name': 1,
+                    'address': 2,
+                    'municipality': 3,
+                    'coordinates': 4,
+                    'image': 5,
+                    'commonscat': 6,
+                    'article': 7,
+                    'wikidata': 8,
+                    'adm0': 9,
+                    'adm1': 11,
+                    'adm2': 12,
+                    'adm3': 13,
+                    'adm4': 14,
+                    'adm0iso': 'foobar',
+                    'source': 15
+                }
+            },
+            'goo_country': {
+                'zen_lang': {}
+            }
+        }
+
+        expected_rows = (
+            u'|-\n'
+            u'| [//tools.wmflabs.org/heritage/api/api.php?action=statistics&stcountry=foo&format=html&limit=0 foo] '
+            u'|| bar || 100 '
+            u'|| 1 <small>(1.0%)</small> '
+            u'|| 2 <small>(2.0%)</small> '
+            u'|| 3 <small>(3.0%)</small> '
+            u'|| 4 <small>(4.0%)</small> '
+            u'|| 5 <small>(5.0%)</small> '
+            u'|| 6 <small>(6.0%)</small> '
+            u'|| 7 <small>(7.0%)</small> '
+            u'|| 8 <small>(8.0%)</small> '
+            u'|| 9 <small>(9.0%)</small> '
+            u'|| [//tools.wmflabs.org/heritage/api/api.php?action=adminlevels&format=json&admtree=foobar 11] <small>(11.0%)</small> '
+            u'|| 12 <small>(12.0%)</small> '
+            u'|| 13 <small>(13.0%)</small> '
+            u'|| 14 <small>(14.0%)</small> '
+            u'|| 15 \n'
+            u'|-\n'
+            u'|| goo_country || zen_lang'
+            u'|| colspan="15" | Datasource [//tools.wmflabs.org/heritage/monuments_config/goo_country_zen_lang.json (goo_country, zen_lang)] is configured, but no monuments are in the database.\n'
+        )
+        expected_summation_row = (
+            u'|- class="sortbottom"\n'
+            u'| '
+            u'|| || 100 '
+            u'|| 1 <small>(1.0%)</small> '
+            u'|| 2 <small>(2.0%)</small> '
+            u'|| 3 <small>(3.0%)</small> '
+            u'|| 4 <small>(4.0%)</small> '
+            u'|| 5 <small>(5.0%)</small> '
+            u'|| 6 <small>(6.0%)</small> '
+            u'|| 7 <small>(7.0%)</small> '
+            u'|| 8 <small>(8.0%)</small> '
+            u'|| 9 <small>(9.0%)</small> '
+            u'|| 11 <small>(11.0%)</small> '
+            u'|| 12 <small>(12.0%)</small> '
+            u'|| 13 <small>(13.0%)</small> '
+            u'|| 14 <small>(14.0%)</small> '
+            u'|| 15 \n'
+        )
+
+        database_statistics.outputStatistics(statistics)
+        self.bundled_asserts(expected_rows, expected_summation_row)
