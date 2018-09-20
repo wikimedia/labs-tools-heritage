@@ -45,14 +45,18 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_without_template.return_value = []
         self.addCleanup(patcher.stop)
 
-        # autospec does not support assert_not_called
         patcher = mock.patch(
             'erfgoedbot.images_of_monuments_without_id.addCommonsTemplate')
         self.mock_add_commons_template = patcher.start()
         self.mock_add_commons_template.return_value = False
         self.addCleanup(patcher.stop)
 
-    def bundled_asserts_outputted(self, result, expected_text):
+        patcher = mock.patch(
+            'erfgoedbot.images_of_monuments_without_id.output_country_report')
+        self.mock_output_country_report = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def bundled_asserts_outputted(self, result, expected_rows):
         self.assertIsNone(result)
         self.mock_get_monuments_with_photo.assert_called_once_with(
             'foo', 'bar', 'conn', 'cursor')
@@ -65,9 +69,8 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_site.assert_called_once_with('bar', 'wikisource')
         self.mock_page.assert_called_once_with(
             self.mock_site.return_value, 'A report page')
-        self.mock_save_to_wiki_or_local.assert_called_once_with(
-            self.mock_page.return_value, self.comment, expected_text,
-            minorEdit=False)
+        self.mock_output_country_report.assert_called_once_with(
+            expected_rows, self.mock_page.return_value)
 
     def bundled_asserts_skipped(self, result):
         self.assertFalse(result)
@@ -77,7 +80,7 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_site.assert_not_called()
         self.mock_page.assert_not_called()
         self.mock_add_commons_template.assert_not_called()
-        self.mock_save_to_wiki_or_local.assert_not_called()
+        self.mock_output_country_report.assert_not_called()
 
     def test_processCountry_skip_on_no_commons_template(self):
         self.countryconfig.pop('commonsTemplate')
@@ -102,44 +105,36 @@ class TestProcessCountry(TestCreateReportBase):
         self.bundled_asserts_skipped(result)
 
     def test_processCountry_output_empty(self):
-        expected_text = (
-            u'<gallery>\n'
-            u'\n'
-            u'</gallery>'
-        )
+        expected_rows = []
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_without_template(self):
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
-        expected_text = (
-            u'<gallery>\n'
-            u'File:Bar.jpg\n'
-            u'</gallery>'
-        )
+        expected_rows = [
+            ('Bar.jpg', )
+        ]
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_with_photo(self):
         self.mock_get_monuments_with_photo.return_value = {'Foobar.jpg': 123}
-        expected_text = (
-            u'<gallery>\n'
-            u'File:Foobar.jpg|<nowiki>{{A template|123}}</nowiki>\n'
-            u'</gallery>'
-        )
+        expected_rows = [
+            ('Foobar.jpg', 123, 'A template')
+        ]
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
 
@@ -148,33 +143,29 @@ class TestProcessCountry(TestCreateReportBase):
             'Foobar.jpg': 123}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
-        expected_text = (
-            u'<gallery>\n'
-            u'File:Bar.jpg\n'
-            u'File:Foobar.jpg|<nowiki>{{A template|123}}</nowiki>\n'
-            u'</gallery>'
-        )
+        expected_rows = [
+            ('Bar.jpg', ),
+            ('Foobar.jpg', 123, 'A template')
+        ]
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
 
     def test_processCountry_output_no_duplication(self):
         self.mock_get_monuments_with_photo.return_value = {'Bar.jpg': 456}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
-        expected_text = (
-            u'<gallery>\n'
-            u'File:Bar.jpg|<nowiki>{{A template|456}}</nowiki>\n'
-            u'</gallery>'
-        )
+        expected_rows = [
+            ('Bar.jpg', 456, 'A template')
+        ]
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_called_once_with(
             'Bar.jpg', 'A template', 456)
 
@@ -196,21 +187,17 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_without_template.assert_called_once()
         self.mock_site.assert_not_called()
         self.mock_page.assert_not_called()
-        self.mock_save_to_wiki_or_local.assert_not_called()
+        self.mock_output_country_report.assert_not_called()
 
     def test_processCountry_output_with_template(self):
         self.mock_get_monuments_with_photo.return_value = {'Foo.jpg': 789}
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
-        expected_text = (
-            u'<gallery>\n'
-            u'\n'
-            u'</gallery>'
-        )
+        expected_rows = []
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_template_added(self):
@@ -219,16 +206,12 @@ class TestProcessCountry(TestCreateReportBase):
             'Bar.jpg': 456}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_add_commons_template.return_value = True
-        expected_text = (
-            u'<gallery>\n'
-            u'\n'
-            u'</gallery>'
-        )
+        expected_rows = []
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_has_calls([
             mock.call('Bar.jpg', 'A template', 456),
             mock.call('Foobar.jpg', 'A template', 123)])
@@ -240,17 +223,15 @@ class TestProcessCountry(TestCreateReportBase):
             'Bar.jpg': 456}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_add_commons_template.return_value = True
-        expected_text = (
-            u'<gallery>\n'
-            u'File:Bar.jpg|<nowiki>{{A template|456}}</nowiki>\n'
-            u'File:Foobar.jpg|<nowiki>{{A template|123}}</nowiki>\n'
-            u'</gallery>'
-        )
+        expected_rows = [
+            ('Bar.jpg', 456, 'A template'),
+            ('Foobar.jpg', 123, 'A template')
+        ]
 
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
-        self.bundled_asserts_outputted(result, expected_text)
+        self.bundled_asserts_outputted(result, expected_rows)
         self.mock_add_commons_template.assert_not_called()
 
 
