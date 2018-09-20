@@ -440,3 +440,28 @@ class TestOutputCountryReport(TestCreateReportBase):
             mock.call('foobar.jpg', )
         ])
         self.mock_done_message.assert_not_called()
+
+    def test_output_country_report_max_images(self):
+        max_images = 2
+
+        expected_cmt = (
+            u'Images without an id: 2 (gallery maximum reached), '
+            u'total of images without id: 3')
+        expected_output = (
+            u'<gallery>\n'
+            u'<formatted row>\n'
+            u'<formatted row>\n'
+            u'</gallery>\n'
+            u'<!-- Maximum number of images reached: 2, '
+            u'total of images without id: 3 -->')
+
+        images_of_monuments_without_id.output_country_report(
+            self.rows, self.mock_report_page, max_images=max_images)
+        self.bundled_asserts(
+            expected_cmt,
+            expected_output)
+        self.mock_format_gallery_row.assert_has_calls([
+            mock.call('foo.jpg', 123, 'Bar'),
+            mock.call('bar.jpg', 123)
+        ])
+        self.mock_done_message.assert_not_called()

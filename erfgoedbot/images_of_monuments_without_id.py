@@ -102,22 +102,36 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
     # FIXME return stats
 
 
-def output_country_report(rows, report_page):
+def output_country_report(rows, report_page, max_images=1000):
     """
     Output a gallery of images without id.
 
     @param rows: list of (image, id, template) or (image, ) tuples.
     @param report_page: pywikibot.Page where report will be outputted.
+    @param max_images: the max number of images to report to a page. Defaults
+        to 1000.
     """
     # FIXME create this page. Different name?
     central_page = ':c:Commons:Monuments database/Images without id'
     text = common.instruction_header(central_page)
+
     if rows:
-        gallery_rows = [format_gallery_row(*row) for row in rows]
+        gallery_rows = [format_gallery_row(*row) for row in rows[:max_images]]
         text += u'<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
     else:
         text += common.done_message(central_page, 'images without id')
-    comment = u'Images without an id: {0}'.format(len(rows))
+
+    if len(rows) > max_images:
+        text += (
+            u'\n<!-- Maximum number of images reached: {0}, '
+            u'total of images without id: {1} -->'.format(
+                max_images, len(rows)))
+        comment = (
+            u'Images without an id: {0} (gallery maximum reached), '
+            u'total of images without id: {1}'.format(
+                max_images, len(rows)))
+    else:
+        comment = u'Images without an id: {0}'.format(len(rows))
 
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(
