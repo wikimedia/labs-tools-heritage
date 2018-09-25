@@ -7,9 +7,9 @@ from custom_assertions import CustomAssertions
 from erfgoedbot import monuments_config as config
 
 
-class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
+class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
 
-    """Test that monuments_config is valid."""
+    """Test that all monuments_configs/*.json are valid."""
 
     def setUp(self):
         self.longMessage = True
@@ -172,7 +172,7 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
                     self.assertIn(field.get('conv'), recognized,
                                   msg=self.label)
 
-    def test_monuments_config_generateRegistrantUrl_converter(self):
+    def test_monuments_config_registrant_url_base_converter(self):
         """Ensure correct usage of generateRegistrantUrl converter.
 
         Ensure that a config with a generateRegistrantUrl
@@ -182,10 +182,10 @@ class TestMonumentsConfigValidation(unittest.TestCase, CustomAssertions):
             self.set_label(key)
             for field in data.get('fields', []):
                 if field.get('conv') == 'generateRegistrantUrl':
-                    registrantUrlBase = data.get('registrantUrlBase')
+                    registrant_url_base = data.get('registrantUrlBase')
                     msg = "No valid registrantUrlBase for %s" % (self.label)
-                    self.assertTrue(registrantUrlBase, msg=msg)
-                    self.assertIn('%s', registrantUrlBase, msg=msg)
+                    self.assertTrue(registrant_url_base, msg=msg)
+                    self.assertIn('%s', registrant_url_base, msg=msg)
 
     def test_monuments_config_known_checkers(self):
         """Ensure the only known checkers are used in field entries."""
