@@ -247,17 +247,24 @@ def main():
     """The main loop."""
     conn = None
     cursor = None
+    skip_wd = False
     (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
-        raise Exception(
-            u'Bad parameters. Expected pywikibot args. '
-            u'Found "{}"'.format(option))
+        if option == '-skip_wd':
+            skip_wd = True
+        else:
+            raise Exception(
+                u'Bad parameters. Expected "-skip_wd" or pywikibot args. '
+                u'Found "{}"'.format(option))
 
     statistics = {}
 
-    for (countrycode, lang) in mconfig.countries.keys():
+    for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+        if (countryconfig.get('skip') or
+                (skip_wd and (countryconfig.get('type') == 'sparql'))):
+            continue
         if countrycode not in statistics:
             statistics[countrycode] = {}
         if lang not in statistics[countrycode]:

@@ -44,7 +44,7 @@ jsub -l release=trusty -mem 1000m -once -j y -o $LOGS_PATH/categorize_images.log
 
 # Make statistics
 echo_time "Make statistics..."
-$PYWIKIBOT_BIN $ERFGOED_PATH/database_statistics.py -log
+$PYWIKIBOT_BIN $ERFGOED_PATH/database_statistics.py -log -skip_wd
 
 # Make more detailed statistics
 echo_time "Make more detailed statistics..."
