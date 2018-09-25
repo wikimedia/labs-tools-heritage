@@ -41,4 +41,23 @@ def get_countries():
     return countries
 
 
+def filtered_countries(respect_skip=True, skip_wd=False, skip_wlpa=False):
+    """
+    A filtered country config iterator.
+
+    @param respect_skip: filter out any dataset with "skip=True"
+    @param skip_wd: filter out any dataset with "type='sparql'"
+    @param skip_wlpa: filter out any dataset in the wlpa_all table
+    """
+    for key, countryconfig in get_countries().iteritems():
+        if respect_skip and countryconfig.get('skip'):
+            continue
+        elif skip_wd and (countryconfig.get('type') == 'sparql'):
+            continue
+        elif skip_wlpa and countryconfig.get('table', '').startswith('wlpa_'):
+            continue
+        else:
+            yield key, countryconfig
+
+
 countries = get_countries()
