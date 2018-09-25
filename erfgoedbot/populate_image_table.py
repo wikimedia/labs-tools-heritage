@@ -40,6 +40,8 @@ from database_connection import (
 )
 from statistics_table import StatisticsTable
 
+_logger = "populate_image_table"
+
 
 class CannotNormalizeException(Exception):
     pass
@@ -74,9 +76,7 @@ def processSources(sources):
 
 def processSource(countrycode, countryconfig):
     """Work on a single source (country)."""
-    pywikibot.output(
-        u'Processing country "%s"' % (countrycode)
-    )
+    pywikibot.log(u'Processing country "{0}"'.format(countrycode))
 
     commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
     commonsTrackerCategory = countryconfig.get(
@@ -86,7 +86,7 @@ def processSource(countrycode, countryconfig):
     photos = getMonumentPhotos(commonsTrackerCategory, conn2, cursor2)
     cursor2.close()
 
-    pywikibot.output(
+    pywikibot.log(
         u'For country "%s" I found %s photos tagged with "{{%s}}" in '
         u'[[Category:%s]]' % (countrycode, len(photos), commonsTemplate,
                               commonsTrackerCategory))
@@ -99,22 +99,25 @@ def processSource(countrycode, countryconfig):
         try:
             monumentId = normalize_identifier(catSortKey)
         except CannotNormalizeException:
-            pywikibot.output(
-                u'Could not normalize monument identifier %s (%s)' % (catSortKey, page_title))
+            pywikibot.log(
+                u'Could not normalize monument identifier {0} ({1})'.format(
+                    catSortKey, page_title))
             # We could not normalize the monument identifier: not adding to the table
             continue
 
         try:
             name = unicode(page_title, 'utf-8')
         except UnicodeDecodeError:
-            pywikibot.output(
-                u'Got unicode decode error with name %s (%s)' % (name, monumentId))
+            pywikibot.warning(
+                u'Got unicode decode error with name {0} ({1})'.format(
+                    name, monumentId))
             # This results in not tracking this file. That may not be the desired behaviour.
             continue
         # UnicodeDecodeError is a subclass of ValueError and should catch most
         except ValueError:
-            pywikibot.output(
-                u'Got value error with name %s (%s)' % (name, monumentId))
+            pywikibot.warning(
+                u'Got value error with name {0} ({1})'.format(
+                    name, monumentId))
             continue
 
         image_has_geolocation = has_geolocation(name)
@@ -218,7 +221,7 @@ def makeStatistics(totals):
     comment = (
         u'Updating indexed image statistics. '
         u'Total indexed images: {}'.format(table.get_sum('tracked')))
-    pywikibot.output(text)
+    pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 
 
@@ -238,26 +241,25 @@ def main():
                 u'pywikibot args. Found "{}"'.format(option))
 
     if countrycode:
-        pywikibot.output(u'Working on countrycode "%s"' % (countrycode,))
         sources = getSources(countrycode=countrycode)
         if not sources:
-            pywikibot.output(
-                u'I have no config for countrycode "%s"' % (countrycode,))
+            pywikibot.warning(
+                u'I have no config for countrycode "{0}"'.format(countrycode))
             return False
         else:
             totals = processSources(sources)
 
     else:
-        pywikibot.output(u'Working on all countrycodes')
+        pywikibot.log(u'Working on all countrycodes')
         sources = getSources(skip_wd=skip_wd)
         if not sources:
-            pywikibot.output(
+            pywikibot.warning(
                 u'No sources found, something went completely wrong')
             return False
         else:
-            pywikibot.output(
-                u'Found %s countries with monument tracker templates to work on'
-                % (len(sources),))
+            pywikibot.log(
+                u'Found {0} countries with monument tracker templates to work '
+                u'on'.format(len(sources)))
             totals = processSources(sources)
 
             makeStatistics(totals)
