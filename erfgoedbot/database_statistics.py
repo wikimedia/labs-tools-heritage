@@ -261,10 +261,8 @@ def main():
 
     statistics = {}
 
-    for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-        if (countryconfig.get('skip') or
-                (skip_wd and (countryconfig.get('type') == 'sparql'))):
-            continue
+    for (countrycode, lang), countryconfig in mconfig.filtered_countries(
+            skip_wd=skip_wd):
         if countrycode not in statistics:
             statistics[countrycode] = {}
         if lang not in statistics[countrycode]:

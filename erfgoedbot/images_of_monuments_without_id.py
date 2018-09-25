@@ -293,10 +293,8 @@ def main():
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
     else:
-        for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
-            if (countryconfig.get('skip') or
-                    (skip_wd and (countryconfig.get('type') == 'sparql'))):
-                continue
+        for (countrycode, lang), countryconfig in mconfig.filtered_countries(
+                skip_wd=skip_wd):
             pywikibot.log(
                 u'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))

@@ -50,10 +50,8 @@ class CannotNormalizeException(Exception):
 def getSources(countrycode=u'', skip_wd=False):
     """Get a dictionary of sources to go harvest."""
     sources = {}
-    for (icountrycode, lang), countryconfig in mconfig.get_countries().iteritems():
-        if (countryconfig.get('skip') or
-                (skip_wd and (countryconfig.get('type') == 'sparql'))):
-            continue
+    for (icountrycode, lang), countryconfig in mconfig.filtered_countries(
+            skip_wd=skip_wd):
         if not countrycode or (countrycode and countrycode == icountrycode):
             if icountrycode not in sources:
                 if countryconfig.get('commonsTemplate') and countryconfig.get('commonsTrackerCategory'):
