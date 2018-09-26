@@ -262,7 +262,7 @@ def main():
     statistics = {}
 
     for (countrycode, lang), countryconfig in mconfig.filtered_countries(
-            skip_wd=skip_wd):
+            skip_wd=skip_wd, skip_wlpa=True):
         if countrycode not in statistics:
             statistics[countrycode] = {}
         if lang not in statistics[countrycode]:
