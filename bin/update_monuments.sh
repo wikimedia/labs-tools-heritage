@@ -58,6 +58,10 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/unused_monument_images.py -log
 echo_time "Make a list of missing commonscat links..."
 $PYWIKIBOT_BIN $ERFGOED_PATH/missing_commonscat_links.py -log
 
+# Make a list of images without id
+echo_time "Make a list of images without id..."
+$PYWIKIBOT_BIN $ERFGOED_PATH/images_of_monuments_without_id.py -log
+
 # Dump database to a file so people can play around with it
 cd $PUBLIC_HTML_PATH || exit
 
