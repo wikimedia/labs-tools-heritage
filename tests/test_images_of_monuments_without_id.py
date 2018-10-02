@@ -6,7 +6,7 @@ import unittest
 import mock
 
 from erfgoedbot import images_of_monuments_without_id
-from report_base_test import TestCreateReportBase
+from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
 
 class TestProcessCountry(TestCreateReportBase):
@@ -56,8 +56,13 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_output_country_report = patcher.start()
         self.addCleanup(patcher.stop)
 
-    def bundled_asserts_outputted(self, result, expected_rows):
-        self.assertIsNone(result)
+    def bundled_asserts_outputted(self, result, expected_rows, expected_total):
+        expected = {
+            'report_page': self.mock_page.return_value,
+            'config': self.countryconfig,
+            'totals': expected_total
+        }
+        self.assertEquals(result, expected)
         self.mock_get_monuments_with_photo.assert_called_once_with(
             'foo', 'bar', 'conn', 'cursor')
         self.mock_get_monuments_with_template.assert_called_once_with(
@@ -72,8 +77,12 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_output_country_report.assert_called_once_with(
             expected_rows, self.mock_page.return_value)
 
-    def bundled_asserts_skipped(self, result):
-        self.assertFalse(result)
+    def bundled_asserts_skipped(self, result, expected_cmt):
+        expected = {
+            'config': self.countryconfig,
+            'cmt': expected_cmt
+        }
+        self.assertEquals(result, expected)
         self.mock_get_monuments_with_photo.assert_not_called()
         self.mock_get_monuments_with_template.assert_not_called()
         self.mock_get_monuments_without_template.assert_not_called()
@@ -84,33 +93,41 @@ class TestProcessCountry(TestCreateReportBase):
 
     def test_processCountry_skip_on_no_commons_template(self):
         self.countryconfig.pop('commonsTemplate')
+        expected_cmt = 'skipped: no commonsTemplate or commonsTrackerCategory'
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
-        self.bundled_asserts_skipped(result)
+        self.bundled_asserts_skipped(result, expected_cmt)
 
     def test_processCountry_skip_on_no_commons_tracker_category(self):
         self.countryconfig.pop('commonsTrackerCategory')
+        expected_cmt = 'skipped: no commonsTemplate or commonsTrackerCategory'
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
-        self.bundled_asserts_skipped(result)
+        self.bundled_asserts_skipped(result, expected_cmt)
 
     def test_processCountry_skip_on_no_allowed_output(self):
         self.countryconfig.pop('imagesWithoutIdPage')
         self.add_template = False
+        expected_cmt = 'skipped: no imagesWithoutIdPage or template addition'
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
-        self.bundled_asserts_skipped(result)
+        self.bundled_asserts_skipped(result, expected_cmt)
 
     def test_processCountry_output_empty(self):
         expected_rows = []
+        expected_total = {
+            'added': 0,
+            'with_id': 0,
+            'without_id': 0
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_without_template(self):
@@ -118,11 +135,16 @@ class TestProcessCountry(TestCreateReportBase):
         expected_rows = [
             ('Bar.jpg', )
         ]
+        expected_total = {
+            'added': 0,
+            'with_id': 0,
+            'without_id': 1
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_with_photo(self):
@@ -130,15 +152,21 @@ class TestProcessCountry(TestCreateReportBase):
         expected_rows = [
             ('Foobar.jpg', 123, 'A template')
         ]
+        expected_total = {
+            'added': 0,
+            'with_id': 1,
+            'without_id': 0
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
 
-    def test_processCountry_output_with_photo_without_template_no_overlap(self):
+    def test_processCountry_output_with_photo_without_template_no_overlap(
+            self):
         self.mock_get_monuments_with_photo.return_value = {
             'Foobar.jpg': 123}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
@@ -147,11 +175,16 @@ class TestProcessCountry(TestCreateReportBase):
             ('Bar.jpg', ),
             ('Foobar.jpg', 123, 'A template')
         ]
+        expected_total = {
+            'added': 0,
+            'with_id': 1,
+            'without_id': 1
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
 
@@ -161,11 +194,16 @@ class TestProcessCountry(TestCreateReportBase):
         expected_rows = [
             ('Bar.jpg', 456, 'A template')
         ]
+        expected_total = {
+            'added': 0,
+            'with_id': 1,
+            'without_id': 0
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_called_once_with(
             'Bar.jpg', 'A template', 456)
 
@@ -175,11 +213,20 @@ class TestProcessCountry(TestCreateReportBase):
             'Foobar.jpg': 123}
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
+        expected = expected = {
+            'report_page': None,
+            'config': self.countryconfig,
+            'totals': {
+                'added': 0,
+                'with_id': 1,
+                'without_id': 1
+            }
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.assertIsNone(result)
+        self.assertEquals(result, expected)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
         self.mock_get_monuments_with_photo.assert_called_once()
@@ -193,11 +240,16 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_with_photo.return_value = {'Foo.jpg': 789}
         self.mock_get_monuments_with_template.return_value = ['Foo.jpg']
         expected_rows = []
+        expected_total = {
+            'added': 0,
+            'with_id': 0,
+            'without_id': 0
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_not_called()
 
     def test_processCountry_output_template_added(self):
@@ -207,11 +259,16 @@ class TestProcessCountry(TestCreateReportBase):
         self.mock_get_monuments_without_template.return_value = ['Bar.jpg']
         self.mock_add_commons_template.return_value = True
         expected_rows = []
+        expected_total = {
+            'added': 2,
+            'with_id': 0,
+            'without_id': 0
+        }
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_has_calls([
             mock.call('Bar.jpg', 'A template', 456),
             mock.call('Foobar.jpg', 'A template', 123)])
@@ -227,11 +284,16 @@ class TestProcessCountry(TestCreateReportBase):
             ('Bar.jpg', 456, 'A template'),
             ('Foobar.jpg', 123, 'A template')
         ]
+        expected_total = {
+            'added': 0,
+            'with_id': 2,
+            'without_id': 0
+        }
 
         result = images_of_monuments_without_id.processCountry(
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
-        self.bundled_asserts_outputted(result, expected_rows)
+        self.bundled_asserts_outputted(result, expected_rows, expected_total)
         self.mock_add_commons_template.assert_not_called()
 
 
@@ -465,3 +527,276 @@ class TestOutputCountryReport(TestCreateReportBase):
             mock.call('bar.jpg', 123)
         ])
         self.mock_done_message.assert_not_called()
+
+
+class TestMakeStatistics(TestCreateReportTableBase):
+
+    """Test the make_statistics method."""
+
+    def setUp(self):
+        self.class_name = 'erfgoedbot.images_of_monuments_without_id'
+        super(TestMakeStatistics, self).setUp()
+
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = mock.MagicMock()
+        self.mock_report_page.title.return_value = '<report_page>'
+
+        self.config = {
+            'country': 'foo',
+            'lang': 'en',
+            'commonsTemplate': 'commons template'
+        }
+
+        self.comment = (
+            u'Updating images without id statistics. Total of {total_with_id} '
+            u'images with suggested ids and {total_without_id} without.')
+        self.pagename = (u'Commons:Monuments database/'
+                         u'Images without id/Statistics')
+
+    def bundled_asserts(self, expected_rows,
+                        expected_total_with_id,
+                        expected_total_without_id):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix
+
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_page.return_value,
+            self.comment.format(
+                total_with_id=expected_total_with_id,
+                total_without_id=expected_total_without_id),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(
+            6, {2: expected_total_with_id, 3: expected_total_without_id})
+
+    def test_make_statistics_single_complete(self):
+        totals = {
+            'added': 123,
+            'with_id': 456,
+            'without_id': 789
+        }
+        statistics = [{
+            'config': self.config,
+            'report_page': self.mock_report_page,
+            'totals': totals
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 456 \n'
+            u'| 789 \n'
+            u'| <report_page> \n'
+            u'| {{tl|commons template}} \n')
+        expected_total_with_id = 456
+        expected_total_without_id = 789
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_single_sparql_basic(self):
+        totals = {
+            'added': 123,
+            'with_id': 456,
+            'without_id': 789
+        }
+        self.config['type'] = 'sparql'
+        statistics = [{
+            'config': self.config,
+            'report_page': self.mock_report_page,
+            'totals': totals
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 456 \n'
+            u'| 789 \n'
+            u'| <report_page> \n'
+            u'| {{tl|commons template}} \n')
+        expected_total_with_id = 456
+        expected_total_without_id = 789
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_basic_skipped(self):
+        statistics = [{
+            'config': self.config,
+            'report_page': self.mock_report_page,
+            'cmt': 'skipped: due to foo'
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| skipped: due to foo \n'
+            u'| --- \n'
+            u'| <report_page> \n'
+            u'| {{tl|commons template}} \n')
+        expected_total_with_id = 0
+        expected_total_without_id = 0
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_skipped_no_report_or_template(self):
+        self.config.pop('commonsTemplate')
+        statistics = [{
+            'config': self.config,
+            'cmt': 'skipped: due to foo'
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| skipped: due to foo \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| --- \n')
+        expected_total_with_id = 0
+        expected_total_without_id = 0
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_skipped_none_report(self):
+        statistics = [{
+            'config': self.config,
+            'report_page': None,
+            'cmt': 'skipped: due to foo'
+        }]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| skipped: due to foo \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| {{tl|commons template}} \n')
+        expected_total_with_id = 0
+        expected_total_without_id = 0
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_multiple_complete(self):
+        report_page_1 = mock.MagicMock()
+        report_page_1.title.return_value = '<report_page:Foobar>'
+        report_page_2 = mock.MagicMock()
+        report_page_2.title.return_value = '<report_page:Barfoo>'
+        config_2 = {
+            'country': 'bar',
+            'lang': 'fr',
+            'commonsTemplate': 'another template'
+        }
+        statistics = [
+            {
+                'config': self.config,
+                'report_page': report_page_1,
+                'totals': {
+                    'added': 1,
+                    'with_id': 2,
+                    'without_id': 3}
+            },
+            {
+                'config': config_2,
+                'report_page': report_page_2,
+                'totals': {
+                    'added': 4,
+                    'with_id': 5,
+                    'without_id': 6}
+            }
+        ]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 2 \n'
+            u'| 3 \n'
+            u'| <report_page:Foobar> \n'
+            u'| {{tl|commons template}} \n'
+            u'|-\n'
+            u'| bar \n'
+            u'| fr \n'
+            u'| 5 \n'
+            u'| 6 \n'
+            u'| <report_page:Barfoo> \n'
+            u'| {{tl|another template}} \n')
+        expected_total_with_id = 7
+        expected_total_without_id = 9
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)
+
+    def test_make_statistics_multiple_mixed(self):
+        config_2 = {
+            'country': 'bar',
+            'lang': 'fr',
+        }
+        statistics = [
+            {
+                'config': self.config,
+                'report_page': self.mock_report_page,
+                'totals': {
+                    'added': 1,
+                    'with_id': 2,
+                    'without_id': 3}
+            },
+            {
+                'config': config_2,
+                'cmt': 'skipped: due to foo'
+            }
+        ]
+
+        expected_rows = (
+            u'|-\n'
+            u'| foo \n'
+            u'| en \n'
+            u'| 2 \n'
+            u'| 3 \n'
+            u'| <report_page> \n'
+            u'| {{tl|commons template}} \n'
+            u'|-\n'
+            u'| bar \n'
+            u'| fr \n'
+            u'| skipped: due to foo \n'
+            u'| --- \n'
+            u'| --- \n'
+            u'| --- \n')
+        expected_total_with_id = 2
+        expected_total_without_id = 3
+
+        images_of_monuments_without_id.make_statistics(statistics)
+        self.bundled_asserts(
+            expected_rows,
+            expected_total_with_id,
+            expected_total_without_id)

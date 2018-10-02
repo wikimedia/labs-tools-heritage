@@ -19,6 +19,8 @@ python images_of_monuments_without_id.py
 # work on specific country-lang
 python images_of_monuments_without_id.py -countrycode:XX -langcode:YY
 """
+from collections import OrderedDict
+
 import pywikibot
 
 import common as common
@@ -28,6 +30,7 @@ from database_connection import (
     connect_to_commons_database,
     connect_to_monuments_database
 )
+from statistics_table import StatisticsTable
 
 _logger = "images_without_id"
 
@@ -39,10 +42,16 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
     if (not countryconfig.get('commonsTemplate') or
             not countryconfig.get('commonsTrackerCategory')):
         # No template or tracker category found, just skip silently.
-        return False
+        return {
+            'config': countryconfig,
+            'cmt': 'skipped: no commonsTemplate or commonsTrackerCategory'
+        }
     if (not add_template and not countryconfig.get('imagesWithoutIdPage')):
         # no actions possible
-        return False
+        return {
+            'config': countryconfig,
+            'cmt': 'skipped: no imagesWithoutIdPage or template addition'
+        }
 
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
@@ -64,6 +73,11 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
     ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
 
     gallery_rows = []
+    totals = {
+        'added': 0,
+        'with_id': 0,
+        'without_id': 0
+    }
 
     # FIXME implement max_images per output_country_report
     for image in withoutTemplate:
@@ -72,34 +86,46 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
             if withPhoto.get(image):
                 added = add_template and addCommonsTemplate(
                     image, commonsTemplate, withPhoto.get(image))
-                if not added:
+                if added:
+                    totals['added'] += 1
+                else:
                     gallery_rows.append(
                         (image, withPhoto.get(image), commonsTemplate))
+                    totals['with_id'] += 1
             # An image is in the category and is not in the list of used images
             else:
                 gallery_rows.append((image, ))
+                totals['without_id'] += 1
 
     # An image is in the list of used images, but not in the category
     for image in withPhoto:
         # Skip images which already have the templates and the ones in without
         # templates to prevent duplicates
-        if image not in ignoreList and \
-                image not in withTemplate and \
-                image not in withoutTemplate:
+        if (image not in ignoreList and
+                image not in withTemplate and
+                image not in withoutTemplate):
             added = add_template and addCommonsTemplate(
                 image, commonsTemplate, withPhoto.get(image))
-            if not added:
+            if added:
+                totals['added'] += 1
+            else:
                 gallery_rows.append(
                     (image, withPhoto.get(image), commonsTemplate))
+                totals['with_id'] += 1
 
-    # imagesWithoutIdPage isn't set for every source, just skip it if it's not
-    # set
+    # imagesWithoutIdPage isn't set for every source, skip it if it's not set
+    report_page = None
     if imagesWithoutIdPage:
         site = pywikibot.Site(countryconfig.get('lang'), project)
         report_page = pywikibot.Page(site, imagesWithoutIdPage)
 
         output_country_report(gallery_rows, report_page)
-    # FIXME return stats
+
+    return {
+        'report_page': report_page,
+        'config': countryconfig,
+        'totals': totals
+    }
 
 
 def output_country_report(rows, report_page, max_images=1000):
@@ -271,6 +297,66 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     return True
 
 
+def make_statistics(statistics):
+    """
+    Output the overall results of the bot as a nice wikitable.
+
+    @param statistics: list of per dataset statistic dicts where the allowed
+        keys are: config, totals, report page and cmt.
+    """
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
+        site, u'Commons:Monuments database/Images without id/Statistics')
+
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', '[[:en:List of ISO 639-1 codes|lang]]'),
+        ('total_with_id', 'Total monuments with suggested id'),
+        ('total_without_id', 'Total monuments without suggested id'),
+        # ('total_added', 'Total templates automatically added'),
+        ('Report page', None),
+        ('Commons template', None)
+    ])
+    numeric = [key for key in title_column.keys() if key.startswith('total_')]
+    table = StatisticsTable(title_column, numeric)
+
+    for row in statistics:
+        country_config = row.get('config')
+        totals = row.get('totals', {})
+        total_with_id_or_cmt = row.get('cmt')
+        commons_template = None
+        report_page = None
+
+        if totals:
+            total_with_id_or_cmt = totals.get('with_id')
+
+        if country_config.get('commonsTemplate'):
+            commons_template = u'{{tl|%s}}' % (
+                country_config.get('commonsTemplate'), )
+
+        if row.get('report_page'):
+            report_page = row.get('report_page').title(
+                as_link=True, with_ns=False, insite=site)
+
+        table.add_row({
+            'code': country_config.get('country'),
+            'lang': country_config.get('lang'),
+            'total_with_id': total_with_id_or_cmt,
+            'total_without_id': totals.get('without_id'),
+            # 'total_added': totals.get('added'),
+            'Report page': report_page,
+            'Commons template': commons_template})
+
+    text = table.to_wikitext()
+
+    comment = (
+        u'Updating images without id statistics. Total of {total_with_id} '
+        u'images with suggested ids and {total_without_id} without.'.format(
+            **table.get_sum()))
+    pywikibot.debug(text, _logger)
+    common.save_to_wiki_or_local(page, comment, text)
+
+
 def main():
     countrycode = u''
     lang = u''
@@ -314,13 +400,16 @@ def main():
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
     else:
+        statistics = []
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             pywikibot.log(
                 u'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
-            processCountry(
-                countryconfig, add_template, conn, cursor, conn2, cursor2)
+            statistics.append(
+                processCountry(
+                    countryconfig, add_template, conn, cursor, conn2, cursor2))
+        make_statistics(statistics)
 
     close_database_connection(conn, cursor)
 
