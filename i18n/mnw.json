@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aue Nai"
+		]
+	},
+	"search-table-tr-images": "သၞိၚ်ရုပ်",
+	"search-table-button-search": "ဂၠာဲ",
+	"db-field-country": "ဍုင်",
+	"db-field-lang": "အရေဝ်ဘာသာ",
+	"db-field-name": "ယၟု",
+	"db-field-address": "ဌာန်ဒတန်",
+	"db-field-image": "သၞိၚ်ရုပ်",
+	"db-field-changed": "ပြံင်လှာဲ",
+	"db-field-source": " တမ်ရိုဟ်",
+	"db-field-st_address": " ဌာန်ဒတန်",
+	"db-field-st_image": " သၞိၚ်ရုပ်",
+	"db-field-st_name": "ယၟု",
+	"toolbox-nav-homepage": "မုက်လိက်တမ်",
+	"toolbox-nav-statistics": "စရင်အင်",
+	"toolbox-nav-search": "ဂၠာဲ",
+	"location": "ဒၞာဲဌာန်ဒတန်"
+}
