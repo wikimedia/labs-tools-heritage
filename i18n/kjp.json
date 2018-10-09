@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Rul1902"
+		]
+	},
+	"search-table-tr-languages": "ဆ်ုခၠါင်ဘာႋသာ့",
+	"search-table-tr-name": "မၠိင်",
+	"search-table-tr-coordinates": "ကိုဝ်အဝ်ႋတ်ုနိတ်လ်ုဖး",
+	"search-table-tr-images": "လါၯင်လ်ုဖး",
+	"search-table-button-search": "အင်းၰူ့",
+	"filter-all-languages": "ဆ်ုခၠါင်ဘာႋသာ့လုက်ဆိင့်",
+	"db-field-country": "ထီ့ခါန်ႋ",
+	"db-field-lang": "ဆ်ုခၠါင်ဘာႋသာ့",
+	"db-field-name": "မၠိင်",
+	"db-field-lat": "လာႋတီကြုဂ်",
+	"db-field-lon": "လေဝ်ႋတီကြုဂ်",
+	"db-field-image": "လာၯင်",
+	"db-field-changed": "အင်းလယ်",
+	"db-field-source": "အ်ုထိုဝ်",
+	"db-field-st_image": "လာၯင်",
+	"db-field-st_name": "မၠိင်လ်ုဖး",
+	"toolbox-nav-statistics": "စ်ုရင့်ကါင်ကါ",
+	"toolbox-nav-search": "အင်းၰူ့",
+	"location": "လင်ႋကၠယ်"
+}
