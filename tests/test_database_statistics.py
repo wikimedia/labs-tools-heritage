@@ -7,15 +7,15 @@ from erfgoedbot import database_statistics
 from report_base_test import TestCreateReportBase
 
 
-class TestBuildQuery(unittest.TestCase):
+class TestBuildSummaryQuery(unittest.TestCase):
 
-    def test_build_query_simple_field(self):
-        result = database_statistics.build_query('foo')
+    def test_build_summary_query_simple_field(self):
+        result = database_statistics.build_summary_query('foo')
         expected = u"SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (foo='' OR foo IS NULL)"
         self.assertEqual(result, expected)
 
-    def test_build_query_complex_field(self):
-        result = database_statistics.build_query(('foo', 'bar'))
+    def test_build_summary_query_complex_field(self):
+        result = database_statistics.build_summary_query(('foo', 'bar'))
         expected = u"SELECT COUNT(*) FROM monuments_all WHERE country='%s' AND lang='%s' AND NOT (foo='' OR foo IS NULL) AND NOT (bar='' OR bar IS NULL)"
         self.assertEqual(result, expected)
 
@@ -61,15 +61,15 @@ class TestGetMethods(unittest.TestCase):
         )
 
 
-class TestGetStatistics(unittest.TestCase):
+class TestGetSummaryStatistics(unittest.TestCase):
 
     def setUp(self):
         self.mock_cursor = mock.Mock()
 
-    def test_getStatistics(self):
+    def test_get_summary_statistics(self):
         with mock.patch('erfgoedbot.database_statistics.getCount', autospec=True) as mock_getCount:
             mock_getCount.return_value = 1
-            result = database_statistics.getStatistics('ge', 'ka', None, self.mock_cursor)
+            result = database_statistics.get_summary_statistics('ge', 'ka', None, self.mock_cursor)
             self.assertEqual(mock_getCount.call_count, 16)
             self.assertEqual(result['country'], 'ge')
             self.assertEqual(result['lang'], 'ka')

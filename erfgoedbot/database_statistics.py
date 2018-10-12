@@ -130,7 +130,7 @@ def outputStatistics(statistics):
     common.save_to_wiki_or_local(page, comment, output)
 
 
-def getStatistics(country, language, conn, cursor):
+def get_summary_statistics(country, language, conn, cursor):
     '''
     Do a bunch of queries to gather the statistics.
     '''
@@ -154,7 +154,7 @@ def getStatistics(country, language, conn, cursor):
     ]
 
     for (label, database_field) in fields:
-        queries[label] = build_query(database_field)
+        queries[label] = build_summary_query(database_field)
 
     queries['all'] = (
         u"SELECT COUNT(*) "
@@ -179,7 +179,7 @@ def getStatistics(country, language, conn, cursor):
     return result
 
 
-def build_query(field_name):
+def build_summary_query(field_name):
     base_query = (
         u"SELECT COUNT(*) "
         u"FROM monuments_all "
@@ -270,7 +270,7 @@ def main():
 
     for country in getCountries(conn, cursor):
         for language in getLanguages(country, conn, cursor):
-            statistics[country][language] = getStatistics(
+            statistics[country][language] = get_summary_statistics(
                 country, language, conn, cursor)
 
     outputStatistics(statistics)
