@@ -4,7 +4,8 @@
 			"Rancher",
 			"Сербијана",
 			"Acamicamacaraca",
-			"BadDog"
+			"BadDog",
+			"Милан Јелисавчић"
 		]
 	},
 	"search-title": "Претрага споменика",
@@ -54,16 +55,16 @@
 	"db-field-st_name_pct": "Имена %",
 	"db-field-st_total": "Укупан број",
 	"toolbox-label-searchtipps": "користите %term, term% или %term% за нејасну претрагу",
-	"toolbox-meta-title": "Оквир са алаткама такмичења „Вики воли споменике”",
-	"toolbox-main-logo-alt": "Логотип такмичења „Вики воли споменике”",
+	"toolbox-meta-title": "Оквир са алаткама „Вики воли споменике”",
+	"toolbox-main-logo-alt": "Логотип „Вики воли споменике”",
 	"toolbox-main-title": "Оквир са алаткама ВВС-а",
-	"toolbox-main-description": "Скуп алатки сродних са $1",
+	"toolbox-main-description": "Скуп алатки везаних за $1",
 	"toolbox-wikilovesmonuments": "Вики воли споменике",
 	"toolbox-nav-homepage": "Почетна страна",
-	"toolbox-nav-statistics": "Статистике",
+	"toolbox-nav-statistics": "Статистика",
 	"toolbox-nav-search": "Претражи",
 	"toolbox-title-searchmonuments": "Претрага споменика",
 	"toolbox-title-statistics": "Статистика споменика",
 	"location": "Локација",
-	"source-monuments-list": "Изворна листа споменика на пројекту Викимедије"
+	"source-monuments-list": "Изворни списак споменика на пројекту Викимедије"
 }
