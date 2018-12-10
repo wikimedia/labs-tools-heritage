@@ -4,7 +4,8 @@
 			"E THP",
 			"Koroğlu",
 			"Mousa",
-			"Ilğım"
+			"Ilğım",
+			"Alp Er Tunqa"
 		]
 	},
 	"search-title": "عابیده‌لر آختارماغی",
@@ -12,12 +13,17 @@
 	"search-table-th-field": "ساحه",
 	"search-table-th-filter": "سۆزگَج",
 	"search-table-th-search": "آختار",
+	"search-table-th-output": "چیخیش",
 	"search-table-tr-countries": "اؤلکه‌لر",
 	"search-table-tr-languages": "دیل‌لر",
 	"search-table-tr-name": "آد",
 	"search-table-tr-address": "آدرس",
 	"search-table-tr-municipality": "بلدیه",
+	"search-table-tr-coordinates": "موختصات",
 	"search-table-tr-images": "شکیل",
+	"search-table-tr-output-language": "چیخیش دیلی",
+	"search-table-tr-output-format": "چیخیش فوْرمتی",
+	"search-table-checkbox-only-images": "تکجه عکسسیز تاریخی اثرلر",
 	"search-table-button-search": "آختار",
 	"filter-all-countries": "بوتون اؤلکه‌لر",
 	"filter-all-languages": "بوتون دیل‌لر",
@@ -34,6 +40,9 @@
 	"db-field-source": "قایناق",
 	"db-field-monument_article": "عابیده مقاله‌سی",
 	"db-field-registrant_url": "اینترنت آدرسی یازدیران",
+	"db-field-commonscat": "اوْرتاق بؤلمه",
+	"db-field-wd_item": "ویکی٬دئیتا آیتمی",
+	"db-field-project": "ویکی‌مدیا پروژه‌سی",
 	"db-field-st_address": "آدرسلر",
 	"db-field-st_address_pct": "آدرسلر %",
 	"db-field-st_coordinates": "موختصات",
@@ -54,5 +63,6 @@
 	"toolbox-nav-statistics": "آمار",
 	"toolbox-nav-search": "آختار",
 	"toolbox-title-searchmonuments": "عابیده‌لری آختار",
+	"toolbox-title-statistics": "تاریخی اثرلر آمارلاری",
 	"location": "یئر"
 }

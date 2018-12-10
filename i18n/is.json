@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Snævar"
+			"Snævar",
+			"Sveinn í Felli"
 		]
 	},
 	"search-title": "Leita að minnismerkjum",
@@ -55,6 +56,7 @@
 	"toolbox-main-logo-alt": "einkennismerki Wiki Loves Monuments",
 	"toolbox-main-title": "WLM verkfærakassi",
 	"toolbox-main-description": "Verkfæri sem tengjast $1",
+	"toolbox-wikilovesmonuments": "Wiki dýrkar minnismerki",
 	"toolbox-nav-homepage": "Heimasíða",
 	"toolbox-nav-statistics": "Tölfræði",
 	"toolbox-nav-search": "Leit",
