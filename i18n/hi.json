@@ -3,7 +3,8 @@
 		"authors": [
 			"Ansumang",
 			"Siddhartha Ghai",
-			"Sachinkatiyar"
+			"Sachinkatiyar",
+			"Gopalindians"
 		]
 	},
 	"search-title": "स्मारक खोज",
@@ -53,11 +54,15 @@
 	"db-field-st_name_pct": "नाम %",
 	"db-field-st_total": "कुल संख्या",
 	"toolbox-meta-title": "विकि लव्स मौन्युमेंट्स टूलबॉक्स",
+	"toolbox-main-logo-alt": "विकी स्मारकों से प्रेम करता है का चित्र",
 	"toolbox-main-title": "WLM टूलबॉक्स",
+	"toolbox-main-description": "$1 से संबंधित उपकरणों का एक सेट",
 	"toolbox-wikilovesmonuments": "विकि लव्स मौन्युमेंट्स",
 	"toolbox-nav-homepage": "मुखपृष्ठ",
 	"toolbox-nav-statistics": "आँकड़े",
 	"toolbox-nav-search": "खोज",
 	"toolbox-title-searchmonuments": "स्मारक खोज",
-	"location": "स्थान"
+	"toolbox-title-statistics": "स्मारक संख्यिकी",
+	"location": "स्थान",
+	"source-monuments-list": "विकिमीडिया प्रोजेक्ट पर स्रोत स्मारकों की सूची"
 }
