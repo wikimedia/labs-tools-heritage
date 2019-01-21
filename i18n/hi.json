@@ -4,7 +4,8 @@
 			"Ansumang",
 			"Siddhartha Ghai",
 			"Sachinkatiyar",
-			"Gopalindians"
+			"Gopalindians",
+			"Shypoetess"
 		]
 	},
 	"search-title": "स्मारक खोज",
@@ -53,6 +54,7 @@
 	"db-field-st_name": "नाम",
 	"db-field-st_name_pct": "नाम %",
 	"db-field-st_total": "कुल संख्या",
+	"toolbox-label-searchtipps": "फ़ज़ी सर्च के लिए %term या term% या %term% का उपयोग करें",
 	"toolbox-meta-title": "विकि लव्स मौन्युमेंट्स टूलबॉक्स",
 	"toolbox-main-logo-alt": "विकी स्मारकों से प्रेम करता है का चित्र",
 	"toolbox-main-title": "WLM टूलबॉक्स",
