@@ -9,7 +9,7 @@
 	"search-title": "Ziyar vinayış",
 	"search-monuments-database": "Database da ziyaran dı cı geyrayış",
 	"search-table-th-field": "Ca",
-	"search-table-th-filter": "Avrêc",
+	"search-table-th-filter": "Parzûn",
 	"search-table-th-search": "Cı geyre",
 	"search-table-th-output": "Veciyayış",
 	"search-table-tr-countries": "Dewleti",
@@ -52,10 +52,17 @@
 	"db-field-st_name": "Namey",
 	"db-field-st_name_pct": "Nameyê %",
 	"db-field-st_total": "Nımrey pêro",
+	"toolbox-label-searchtipps": "Seba cıgeyrayışo raştamaye rê %term , term% ya zi %term%  bıgurene",
 	"toolbox-meta-title": "Hacetdora Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Wiki logoyê abideyê xo sineno",
 	"toolbox-main-title": "Hacetdora WLM",
+	"toolbox-main-description": "Heqa $1 de tayê haceti",
+	"toolbox-wikilovesmonuments": "Wiki Abideyan sineno",
 	"toolbox-nav-homepage": "Pelaseri",
 	"toolbox-nav-statistics": "İstatistiki",
 	"toolbox-nav-search": "Cı geyre",
-	"location": "Lokasyon"
+	"toolbox-title-searchmonuments": "Abideyan cı geyre",
+	"toolbox-title-statistics": "İstatistikê abideyan",
+	"location": "Lokasyon",
+	"source-monuments-list": "Yew proceyê Wikimedya de çımeyê lista abideyan"
 }
