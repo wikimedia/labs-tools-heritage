@@ -3,7 +3,8 @@
 		"authors": [
 			"Schu",
 			"Shirayuki",
-			"Otokoume"
+			"Otokoume",
+			"Omotecho"
 		]
 	},
 	"search-title": "モニュメント検索",
@@ -11,6 +12,7 @@
 	"search-table-th-field": "フィールド",
 	"search-table-th-filter": "絞り込む",
 	"search-table-th-search": "検索",
+	"search-table-th-output": "出力",
 	"search-table-tr-countries": "国",
 	"search-table-tr-languages": "言語",
 	"search-table-tr-name": "名前",
@@ -18,7 +20,9 @@
 	"search-table-tr-municipality": "市町村",
 	"search-table-tr-coordinates": "緯度経度",
 	"search-table-tr-images": "画像",
+	"search-table-tr-output-language": "出力言語",
 	"search-table-tr-output-format": "出力形式",
+	"search-table-checkbox-only-images": "画像のないモニュメントに限定",
 	"search-table-button-search": "検索",
 	"filter-all-countries": "すべての国",
 	"filter-all-languages": "すべての言語",
@@ -35,6 +39,7 @@
 	"db-field-source": "ソース",
 	"db-field-monument_article": "モニュメント ページ",
 	"db-field-registrant_url": "登録 URL",
+	"db-field-commonscat": "コモンズのカテゴリ",
 	"db-field-wd_item": "ウィキデータ項目",
 	"db-field-project": "ウィキメディア・プロジェクト",
 	"db-field-st_address": "アドレス",
@@ -50,12 +55,15 @@
 	"db-field-st_total": "総数",
 	"toolbox-label-searchtipps": "あいまい検索には %単語、単語%、%term% のいずれかを使用",
 	"toolbox-meta-title": "ウィキラブモニュメントのツールボックス",
+	"toolbox-main-logo-alt": "ウィキラブモニュメントの商標",
 	"toolbox-main-title": "WLM ツールボックス",
-	"toolbox-main-description": "以下に関連するツールの集合:",
+	"toolbox-main-description": "$1に関連するツールの集合:",
 	"toolbox-wikilovesmonuments": "ウィキラブモニュメント",
 	"toolbox-nav-homepage": "ホームページ",
 	"toolbox-nav-statistics": "統計",
 	"toolbox-nav-search": "検索",
 	"toolbox-title-searchmonuments": "モニュメントを検索",
-	"location": "場所"
+	"toolbox-title-statistics": "モニュメント統計",
+	"location": "場所",
+	"source-monuments-list": "ウィキメディアプロジェクト上の情報源のモニュメント一覧"
 }
