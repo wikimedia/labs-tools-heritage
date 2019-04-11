@@ -8,7 +8,8 @@
 			"Reza1615",
 			"ZxxZxxZ",
 			"Alifakoor",
-			"Dejavu"
+			"Dejavu",
+			"Meysamzare23"
 		]
 	},
 	"search-title": "جستجو در آثار تاریخی",
@@ -43,6 +44,7 @@
 	"db-field-source": "منبع",
 	"db-field-monument_article": "صفحه آثار تاریخی",
 	"db-field-registrant_url": "آدرس ثبت نام",
+	"db-field-commonscat": "دسته بندی مشترک",
 	"db-field-wd_item": "آیتم ویکی‌داده",
 	"db-field-project": "پروژهٔ ویکی‌مدیا",
 	"db-field-st_address": "نشانی",
