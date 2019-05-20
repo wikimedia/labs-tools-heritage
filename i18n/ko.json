@@ -3,7 +3,8 @@
 		"authors": [
 			"아라",
 			"Hwangjy9",
-			"Ykhwong"
+			"Ykhwong",
+			"Maoue"
 		]
 	},
 	"search-title": "기념물 검색",
@@ -16,10 +17,12 @@
 	"search-table-tr-languages": "언어",
 	"search-table-tr-name": "이름",
 	"search-table-tr-address": "주소",
+	"search-table-tr-municipality": "시정촌",
 	"search-table-tr-coordinates": "좌표",
 	"search-table-tr-images": "그림",
 	"search-table-tr-output-language": "출력 언어",
 	"search-table-tr-output-format": "출력 형식",
+	"search-table-checkbox-only-images": "이미지 없이 오직 기념물",
 	"search-table-button-search": "검색",
 	"filter-all-countries": "모든 국가",
 	"filter-all-languages": "모든 언어",
