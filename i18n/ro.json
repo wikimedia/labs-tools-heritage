@@ -3,7 +3,8 @@
 		"authors": [
 			"Firilacroco",
 			"Minisarm",
-			"Stelistcristi"
+			"Stelistcristi",
+			"Strainu"
 		]
 	},
 	"search-title": "Căutare monumente",
@@ -11,6 +12,18 @@
 	"search-table-th-field": "Câmp",
 	"search-table-th-filter": "Filtru",
 	"search-table-th-search": "Caută",
+	"search-table-th-output": "Ieșire",
+	"search-table-tr-countries": "Țări",
+	"search-table-tr-languages": "Limbi",
+	"search-table-tr-name": "Nume",
+	"search-table-tr-address": "Adresă",
+	"search-table-tr-municipality": "Localitate",
+	"search-table-tr-coordinates": "Coordonate",
+	"search-table-tr-images": "Imagini",
+	"search-table-tr-output-language": "Limba rezultatului",
+	"search-table-tr-output-format": "Formatul rezultatului",
+	"search-table-checkbox-only-images": "Doar monumente cu imagimi",
+	"search-table-button-search": "Căutare",
 	"filter-all-countries": "Toate țările",
 	"filter-all-languages": "Toate limbile",
 	"db-field-country": "Țară",
@@ -26,6 +39,9 @@
 	"db-field-source": "Sursă",
 	"db-field-monument_article": "Articolul monumentului",
 	"db-field-registrant_url": "URL la baza de date",
+	"db-field-commonscat": "Categorie la Commons",
+	"db-field-wd_item": "Element Wikidata",
+	"db-field-project": "Proiect Wikimedia",
 	"db-field-st_address": "Adrese",
 	"db-field-st_address_pct": "Adrese %",
 	"db-field-st_coordinates": "Coordonate",
@@ -39,12 +55,15 @@
 	"db-field-st_total": "Numărul total",
 	"toolbox-label-searchtipps": "utilizați %term sau term% sau %term% pentru căutare fuzzy",
 	"toolbox-meta-title": "Cutia cu unelte Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Logo Wiki Loves Monuments",
 	"toolbox-main-title": "Cutia cu unelte WLM",
-	"toolbox-main-description": "Un set de instrumente legate de",
+	"toolbox-main-description": "Un set de instrumente legate de $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Pagina principală",
 	"toolbox-nav-statistics": "Statistici",
 	"toolbox-nav-search": "Căutare",
 	"toolbox-title-searchmonuments": "Căutare monumente",
-	"location": "Loc"
+	"toolbox-title-statistics": "Statistici despre monumente",
+	"location": "Loc",
+	"source-monuments-list": "Lista sursă cu monumente de pe un proiect\nWikimedia"
 }
