@@ -8,7 +8,8 @@
 			"Multichill",
 			"Shirayuki",
 			"Siebrand",
-			"Nike"
+			"Nike",
+			"Silraks"
 		]
 	},
 	"title": "{{Notranslate}}\n\nThe title of the tool.",
@@ -28,7 +29,7 @@
 	"search-table-tr-output-language": "Search label for selecting output language.",
 	"search-table-tr-output-format": "Search label for selecting output format.",
 	"search-table-checkbox-only-images": "Checkbox to search only monuments with images.",
-	"search-table-button-search": "Execute button in seach interface\n{{Identical|Search}}",
+	"search-table-button-search": "Execute button in search interface\n{{Identical|Search}}",
 	"filter-all-countries": "Entry for the countries filter selecting all countries.",
 	"filter-all-languages": "Entry for the language filter selecting all languages.\n{{Identical|All languages}}",
 	"db-field-country": "Translation of the field \"country\" in the monuments database.\n{{Identical|Country}}",
