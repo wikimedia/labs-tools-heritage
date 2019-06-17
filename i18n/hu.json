@@ -3,7 +3,8 @@
 		"authors": [
 			"Dani",
 			"Dj",
-			"Samat"
+			"Samat",
+			"Bencemac"
 		]
 	},
 	"search-title": "Műemlékek keresés",
@@ -11,6 +12,8 @@
 	"search-table-th-field": "Mező",
 	"search-table-th-filter": "Szűrő",
 	"search-table-th-search": "Keresés",
+	"search-table-th-output": "Kimenet",
+	"search-table-tr-countries": "Országok",
 	"search-table-tr-languages": "Nyelvek",
 	"search-table-tr-name": "Név",
 	"search-table-tr-address": "Cím",
@@ -52,11 +55,13 @@
 	"db-field-st_total": "Teljes szám",
 	"toolbox-label-searchtipps": "használd a %kifejezés, kifejezés% vagy a %kifejezés% formákat a kereséshez",
 	"toolbox-meta-title": "A Wiki Loves Monuments eszközcsomagja",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments logó",
 	"toolbox-main-title": "WLM-eszközök",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Honlap",
 	"toolbox-nav-statistics": "Statisztika",
 	"toolbox-nav-search": "Keresés",
 	"toolbox-title-searchmonuments": "Műemlékek keresése",
+	"toolbox-title-statistics": "Műemlékstatisztikák",
 	"location": "Helyszín"
 }
