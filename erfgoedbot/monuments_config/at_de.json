@@ -107,6 +107,10 @@
             "dest": "lon",
             "source": "Längengrad",
             "check": "checkLon"
+        },
+        {
+            "dest": "wd_item",
+            "source": "WD-Item"
         }
     ],
     "sql_lang": "German",
@@ -183,6 +187,10 @@
         "monument_article": {
             "value": "REPLACE( `artikel`, ' ', '_' )",
             "type": "Raw"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
         }
     }
 }
