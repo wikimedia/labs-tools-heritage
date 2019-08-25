@@ -16,10 +16,9 @@ commit-message-validator = "*"
 [packages]
 future = "*"
 pywikibot = "*"
-requests = {version = "*", extras = ["security"]}
+requests = "*"
 PyMySQL = "==0.7.11"
 PyYAML = "*"
-cryptography = "==2.2.2"
 
 [requires]
 python_version = "2.7"
