@@ -75,7 +75,7 @@ if ( !function_exists( '_i18n' ) and !function_exists( '_html' ) ) {
 $dbStatus = Database::define($dbServer, $dbDatabase, $dbUser,
 	isset( $toolserver_password )? $toolserver_password : $dbPassword );
 if (!$dbStatus) {
-	die( "Coudn't connect to db! ". mysql_error() );
+	die( "Coudn't connect to db! ". mysqli_error( $dbStatus ) );
 }
 
 header ('Content-type: text/html; charset=utf-8');

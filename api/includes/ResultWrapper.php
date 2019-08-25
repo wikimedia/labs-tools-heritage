@@ -118,7 +118,7 @@ class ResultWrapper implements Iterator {
 	}
 
 	function valid() {
-		return $this->current() !== false;
+		return $this->current() !== null;
 	}
 
 	function isError() {

@@ -127,15 +127,15 @@ class Database {
 			Debug::log( $sql );
 			$time = microtime( true );
 		}
-		$res = mysql_query( $sql, $this->db );
+		$res = mysqli_query( $this->db, $sql );
 		if ( !$res ) {
-			if ( mysql_errno() == 1146 ) { // someone's swapping tables? retry
+			if ( mysqli_errno( $this->db ) == 1146 ) { // someone's swapping tables? retry
 				Debug::log( 'Encountered error 1146, waiting 500ms' );
 				usleep( 500 * 1000 ); // wait half a second
-				$res = mysql_query( $sql, $this->db );
+				$res = mysqli_query( $this->db, $sql );
 			}
 			if ( !$res ) {
-				throw new DBException( mysql_error(), mysql_errno(), $sql );
+				throw new DBException( mysqli_error( $this->db ), mysqli_errno( $this->db ), $sql );
 			}
 		}
 		if ( $time ) {
@@ -147,13 +147,13 @@ class Database {
 
 	static function define( $server, $database, $username, $password ) {
 		self::$singleton = new Database();
-		self::$singleton->db = @mysql_connect( $server, $username, $password );
+		self::$singleton->db = @mysqli_connect( $server, $username, $password );
 		if ( !self::$singleton->db ) {
 			return false;
 		}
 
 		self::$singleton->query( 'SET NAMES utf8' );
-		return mysql_select_db( $database, self::$singleton->db );
+		return mysqli_select_db( self::$singleton->db, $database );
 	}
 
 	function quote( $str ) {
@@ -165,21 +165,21 @@ class Database {
 	}
 
 	function numRows( $wrapper ) {
-		return mysql_num_rows( $wrapper->result );
+		return mysqli_num_rows( $wrapper->result );
 	}
 
 	function fetchObject( $wrapper ) {
-		@$obj = mysql_fetch_object( $wrapper->result );
+		@$obj = mysqli_fetch_object( $wrapper->result );
 		return $obj;
 	}
 
 	function fetchRow( $wrapper ) {
-		@$obj = mysql_fetch_row( $wrapper->result );
+		@$obj = mysqli_fetch_row( $wrapper->result );
 		return $obj;
 	}
 
 	function fetchAssoc( $wrapper ) {
-		@$obj = mysql_fetch_assoc( $wrapper->result );
+		@$obj = mysqli_fetch_assoc( $wrapper->result );
 		return $obj;
 	}
 
@@ -188,10 +188,10 @@ class Database {
 	}
 
 	function dataSeek( $wrapper, $rowNumber ) {
-		return mysql_data_seek( $wrapper->result, $rowNumber );
+		return mysqli_data_seek( $wrapper->result, $rowNumber );
 	}
 
 	function sanitize( $sSQL ) {
-		return mysql_real_escape_string( $sSQL, $this->db );
+		return mysqli_real_escape_string( $this->db, $sSQL );
 	}
 }

@@ -19,7 +19,7 @@ GROUP BY `country`, `id`";
 $result = $db->query( $query );
 if ( !$result )
 {
-	die( 'Invalid query: ' . mysql_error() );
+	die( 'Invalid query: ' . mysqli_error( $db ) );
 }
 $result = new ResultWrapper( $db, $result );
 
@@ -46,7 +46,7 @@ foreach ( $result as $row ) {
 									] );
 
 		if ( !$r_result ) {
-			die( 'Invalid query: ' . mysql_error() );
+			die( 'Invalid query: ' . mysqli_error( $db ) );
 		}
 	} else {
 		echo ( 'Location data out of range: ' );

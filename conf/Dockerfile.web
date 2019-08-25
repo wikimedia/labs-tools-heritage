@@ -1,3 +1,3 @@
-FROM php:5.6-apache
-RUN docker-php-ext-install mysql mysqli pdo pdo_mysql
+FROM php:7.2-apache
+RUN docker-php-ext-install mysqli
 COPY conf/database.inc.dev /var/database.inc

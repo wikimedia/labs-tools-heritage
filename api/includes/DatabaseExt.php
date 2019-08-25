@@ -29,31 +29,31 @@ class DatabaseExt {
 		if ( isset( self::$singleton->db[$slot] ) ) {
 			self::$_cur_slot = $slot;
 		}
-		DatabaseExt::debug( ' + Switched to server: '.mysql_get_host_info( self::$singleton->db[self::$_cur_slot] ) );
+		DatabaseExt::debug( ' + Switched to server: '.mysqli_get_host_info( self::$singleton->db[self::$_cur_slot] ) );
 			return self::$singleton->db[self::$_cur_slot];
 	}
 
 	/* Mysql specific */
 	function query( $sql ) {
-		return mysql_query( $sql, self::$singleton->db[self::$_cur_slot] );
+		return mysqli_query( self::$singleton->db[self::$_cur_slot], $sql );
 	}
 
 	static function initialize( $server, $database, $username, $password, $characterset = 'utf8' ) {
 		if ( is_null( self::$singleton ) ) {
 			self::$singleton = new DatabaseExt();
 		}
-		self::$singleton->db[self::$_last_slot] = @mysql_connect( $server, $username, $password );
+		self::$singleton->db[self::$_last_slot] = @mysqli_connect( $server, $username, $password );
 		if ( !isset( self::$singleton->db[self::$_last_slot] ) ) {
 			return false;
 		}
 		self::setCurSlot( self::$_last_slot );
 		self::$_last_slot++;
 		self::$singleton->query( 'SET NAMES '.$characterset );
-		return mysql_select_db( $database, self::$singleton->db[self::$_cur_slot] );
+		return mysqli_select_db( self::$singleton->db[self::$_cur_slot], $database );
 	}
 
 	function getDBError() {
-		return mysql_error( self::$singleton->db[self::$_cur_slot] );
+		return mysqli_error( self::$singleton->db[self::$_cur_slot] );
 	}
 
 	function quote( $str ) {
@@ -65,21 +65,21 @@ class DatabaseExt {
 	}
 
 	function numRows( $wrapper ) {
-		return mysql_num_rows( $wrapper->result );
+		return mysqli_num_rows( $wrapper->result );
 	}
 
 	function fetchObject( $wrapper ) {
-		@$obj = mysql_fetch_object( $wrapper->result );
+		@$obj = mysqli_fetch_object( $wrapper->result );
 		return $obj;
 	}
 
 	function fetchRow( $wrapper ) {
-		@$obj = mysql_fetch_row( $wrapper->result );
+		@$obj = mysqli_fetch_row( $wrapper->result );
 		return $obj;
 	}
 
 	function fetchAssoc( $wrapper ) {
-		@$obj = mysql_fetch_assoc( $wrapper->result );
+		@$obj = mysqli_fetch_assoc( $wrapper->result );
 		return $obj;
 	}
 
@@ -88,14 +88,14 @@ class DatabaseExt {
 	}
 
 	function dataSeek( $wrapper, $rowNumber ) {
-		return mysql_data_seek( $wrapper->result, $rowNumber );
+		return mysqli_data_seek( $wrapper->result, $rowNumber );
 	}
 
 	function sanitize( $sSQL ) {
-		return mysql_real_escape_string( $sSQL, self::$singleton->db[self::$_cur_slot] );
+		return mysqli_real_escape_string( self::$singleton->db[self::$_cur_slot], $sSQL );
 	}
 
 	function getAffectedRows() {
-		return mysql_affected_rows( self::$singleton->db[self::$_cur_slot] );
+		return mysqli_affected_rows( self::$singleton->db[self::$_cur_slot] );
 	}
 }
