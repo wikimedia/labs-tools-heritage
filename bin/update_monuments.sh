@@ -19,10 +19,16 @@ $PYWIKIBOT_BIN $ERFGOED_PATH/monument_tables.py -log
 $PYWIKIBOT_BIN $ERFGOED_PATH/fill_table_monuments_all.py -log
 
 # Recreate the source tables
-echo_time "Recreating the source tables..."
-for i in $ERFGOED_PATH/sql/create_table_monuments*; do
-    $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
-done
+count=$(ls -1 $ERFGOED_PATH/sql/create_table_monuments* | wc -l)
+
+if [ "$RECREATE_TABLES" = true ] ; then
+    echo_time "Recreating the $count source tables..."
+    for i in $ERFGOED_PATH/sql/create_table_monuments*; do
+        $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
+    done
+else
+    echo_time "Skipping recreation of $count source tables."
+fi
 
 # Update all of the source tables
 echo_time "Full source database update..."

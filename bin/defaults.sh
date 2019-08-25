@@ -22,3 +22,6 @@ echo_time() {
 
 # Arguments
 : ${UPDATE_MONUMENTS_ARGS:=-fullupdate -log -skip_wd}
+
+# Conditionals
+: ${RECREATE_TABLES:=true}
