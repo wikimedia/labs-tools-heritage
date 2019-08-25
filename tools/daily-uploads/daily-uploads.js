@@ -22,9 +22,10 @@
 
 window.dailyUploads = function () {
 
-	function viewModel() {
+	var urlParams = new URLSearchParams( window.location.search );
+
+	function viewModel( urlParams ) {
 		var self = this,
-			urlParams = new URLSearchParams( window.location.search ),
 			today = new Date().toISOString().slice( 0, 10 ),
 			day = urlParams.get( 'date' ) || today,
 			category = urlParams.get( 'category' ) || 'Images from Wiki Loves Monuments 2018';
@@ -95,5 +96,10 @@ window.dailyUploads = function () {
 		};
 	}
 
-	ko.applyBindings( viewModel );
+	ko.applyBindings( viewModel( urlParams ) );
+
+	if ( urlParams.get( 'load' ) === 'true' ) {
+		self.updateImages();
+	}
+
 };
