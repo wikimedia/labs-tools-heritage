@@ -18,3 +18,7 @@ echo_time() {
 : ${PYWIKIBOT_BIN:=python}
 : ${PHP_BIN:=php}
 : ${MYSQL_BIN:=mysql}
+: ${MYSQLDUMP_BIN:=mysqldump}
+
+# Arguments
+: ${UPDATE_MONUMENTS_ARGS:=-fullupdate -log -skip_wd}

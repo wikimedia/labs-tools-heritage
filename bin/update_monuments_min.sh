@@ -9,7 +9,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $VIRTUAL_ENV_PATH/bin/activate
 
 # First have the erfgoed bot update everything in it's config
-$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate
+$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py $UPDATE_MONUMENTS_ARGS
 
 # Update the all monuments table
 $MYSQL_BIN -h $DB_SERVER $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql

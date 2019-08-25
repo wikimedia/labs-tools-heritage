@@ -26,7 +26,7 @@ done
 
 # Update all of the source tables
 echo_time "Full source database update..."
-$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py -fullupdate -log -skip_wd
+$PYWIKIBOT_BIN $ERFGOED_PATH/update_database.py $UPDATE_MONUMENTS_ARGS
 
 # stop categorization job as next stage locks the database
 jstop categorize_images
@@ -70,7 +70,7 @@ ln -f monuments_db.sql.gz monuments_db-old.sql.gz
 
 # Dump the database
 echo_time "Dump database..."
-mysqldump --host=$DB_SERVER --single-transaction $DATABASE > monuments_db-new.sql
+$MYSQLDUMP_BIN --host=$DB_SERVER --single-transaction $DATABASE > monuments_db-new.sql
 nice gzip monuments_db-new.sql
 
 # Atomically replace the provided file
