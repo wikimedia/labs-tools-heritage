@@ -1,0 +1,115 @@
+{
+    "country": "my",
+    "lang": "commons",
+    "description": "Monuments in Malaysia in English",
+    "project": "commons",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_my_(en)",
+    "truncate": false,
+    "primkey": "id",
+    "headerTemplate": "Wiki Loves Monuments in Malaysia/Monuments/table",
+    "rowTemplate": "Wiki Loves Monuments in Malaysia/Monuments/row",
+    "commonsTemplate": "Cultural Heritage Malaysia",
+    "commonsTrackerCategory": "Cultural heritage monuments in Malaysia with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Malaysia",
+    "unusedImagesPage": "Commons:Wiki Loves Monuments in Malaysia/Unused images of Malaysian monuments",
+    "fields": [
+        {
+            "dest": "id",
+            "source": "id",
+            "type": "varchar(10)"
+        },
+        {
+            "dest": "ISO",
+            "source": "ISO"
+        },
+        {
+            "dest": "description",
+            "source": "description"
+        },
+        {
+            "dest": "location",
+            "source": "location"
+        },
+        {
+            "dest": "lat",
+            "source": "lat",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "lon",
+            "check": "checkLon"
+        },
+        {
+            "dest": "image",
+            "source": "image"
+        },
+        {
+            "dest": "commonscat",
+            "source": "commonscat"
+        }
+    ],
+    "sql_lang": "English",
+    "sql_country": "Malaysia",
+    "sql_data": {
+        "country": {
+            "value": "my",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "project": {
+            "value": "commons",
+            "type": "Text"
+        },
+        "id": {
+            "value": "id",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "my",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "LOWER(`ISO`)",
+            "type": "Raw"
+        },
+        "name": {
+            "value": "description",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "location",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "image",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        }
+    }
+}
