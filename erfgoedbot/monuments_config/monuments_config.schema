@@ -1,0 +1,193 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "monuments_config",
+    "type": "object",
+    "properties": {
+        "country": {
+            "type": "string",
+            "minLength": 2
+        },
+        "lang": {
+            "type": "string",
+            "minLength": 2
+        },
+        "description": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string",
+            "const": "sparql"
+        },
+        "skip": {
+            "type": "boolean"
+        },
+        "project": {
+            "type": "string",
+            "enum": [
+                "wikipedia",
+                "wikivoyage",
+                "commons"
+            ]
+        },
+        "table": {
+            "type": "string"
+        },
+        "truncate": {
+            "type": "boolean"
+        },
+        "primkey": {
+            "anyOf": [
+                {
+                    "type": "array",
+                    "minItems": 2,
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "string"
+                }
+            ]
+        },
+        "headerTemplate": {
+            "type": "string"
+        },
+        "rowTemplate": {
+            "type": "string"
+        },
+        "commonsTemplate": {
+            "type": "string"
+        },
+        "commonsTrackerCategory": {
+            "type": "string"
+        },
+        "commonsCategoryBase": {
+            "type": "string"
+        },
+        "unusedImagesPage": {
+            "type": "string"
+        },
+        "imagesWithoutIdPage": {
+            "type": "string"
+        },
+        "missingCommonscatPage": {
+            "type": "string"
+        },
+        "registrantUrlBase": {
+            "type": "string"
+        },
+        "namespaces": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true
+        },
+        "fields": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "dest": {
+                        "type": "string"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "check": {
+                        "type": "string",
+                        "pattern": "^check"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "conv": {
+                        "type": "string"
+                    },
+                    "default": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "number"
+                            }
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "source",
+                    "dest"
+                ]
+            },
+            "uniqueItems": true
+        },
+        "sql_lang": {
+            "type": "string"
+        },
+        "sql_country": {
+            "type": "string"
+        },
+        "sql_data": {
+            "type": "object",
+            "patternProperties": {
+                "": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type": "string"
+                        },
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "Text",
+                                "Field",
+                                "Raw"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "value",
+                        "type"
+                    ],
+                    "additionalProperties": false
+                }
+            }
+        },
+        "sql_where": {
+            "type": "string"
+        },
+        "sparql": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "project",
+        "lang",
+        "table",
+        "country",
+        "description"
+    ],
+    "oneOf": [
+        {"required": [ "fields"]},
+        {"required": [ "sparql"]}
+    ],
+    "dependencies": {
+        "sql_where": [
+            "sql_lang",
+            "sql_country",
+            "sql_data"
+        ],
+        "fields": [
+            "headerTemplate",
+            "rowTemplate",
+            "namespaces",
+            "truncate",
+            "primkey"
+        ],
+        "sql_data": [
+            "sql_lang",
+            "sql_country"
+        ]
+    }
+}
