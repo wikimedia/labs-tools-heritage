@@ -20,8 +20,7 @@ echo_time() {
 : ${MYSQL_BIN:=mysql}
 : ${MYSQLDUMP_BIN:=mysqldump}
 
-# Arguments
-: ${UPDATE_MONUMENTS_ARGS:=-fullupdate -log -skip_wd}
+: ${UPDATE_MONUMENTS_ARGS:=-fullupdate -log}
 : ${CATEGORIZATION_JOB_NAME:=categorize_images}
 
 # Conditionals
