@@ -8,6 +8,7 @@ mock = "*"
 nose = "*"
 nose-cov = "*"
 coverage = "*"
+freezegun = "*"
 
 [packages]
 future = "*"

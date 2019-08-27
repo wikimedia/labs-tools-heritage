@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d13ea6e48f86b391b492c28e7d86be5b9e4961eb3f2125de37be5f26ecf102ac"
+            "sha256": "e5866942fd2b17c22ecd20552335b7db03134ab173b424d29c96e91297f96489"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -150,6 +150,14 @@
             "index": "pypi",
             "version": "==4.5.1"
         },
+        "freezegun": {
+            "hashes": [
+                "sha256:2a4d9c8cd3c04a201e20c313caf8b6338f1cfa4cda43f46a94cc4a9fd13ea5e7",
+                "sha256:edfdf5bc6040969e6ed2e36eafe277963bdc8b7c01daeda96c5c8594576c9390"
+            ],
+            "index": "pypi",
+            "version": "==0.3.12"
+        },
         "funcsigs": {
             "hashes": [
                 "sha256:330cc27ccbf7f1e992e69fef78261dc7c6569012cf397db8d3de0234e6c937ca",
@@ -181,6 +189,13 @@
             ],
             "index": "pypi",
             "version": "==1.6"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb",
+                "sha256:c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"
+            ],
+            "version": "==2.8.0"
         },
         "six": {
             "hashes": [
