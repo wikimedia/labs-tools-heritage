@@ -64,16 +64,12 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     if not countryconfig.get('unusedImagesPage'):
         # unusedImagesPage not set, just skip silently.
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no unusedImagesPage'
         }
     if not countryconfig.get('commonsTrackerCategory'):
         # commonsTrackerCategory not set, just skip silently.
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no commonsTrackerCategory'
         }
@@ -98,8 +94,6 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     totals = output_country_report(unused_images, page)
 
     return {
-        'code': countryconfig.get('country'),
-        'lang': countryconfig.get('lang'),
         'report_page': page,
         'config': countryconfig,
         'total_images': totals['images'],
@@ -254,7 +248,7 @@ def makeStatistics(statistics):
 
         if countryconfig.get('type') != 'sparql':
             row_template = common.get_template_link(
-                row.get('lang'),
+                countryconfig.get('lang'),
                 countryconfig.get('project', u'wikipedia'),
                 countryconfig.get('rowTemplate'),
                 site)
@@ -268,8 +262,8 @@ def makeStatistics(statistics):
                 as_link=True, with_ns=False, insite=site)
 
         table.add_row({
-            'code': row.get('code'),
-            'lang': row.get('lang'),
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'total_images': total_images_or_cmt,
             'total_ids': total_ids,
             'Report page': report_page,
@@ -339,8 +333,6 @@ def main():
                     u'Unknown error occurred when processing country '
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append({
-                    'code': countryconfig.get('country'),
-                    'lang': countryconfig.get('lang'),
                     'config': countryconfig,
                     'cmt': 'failed: unexpected error during processing'
                 })

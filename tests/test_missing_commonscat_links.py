@@ -89,9 +89,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
     def test_make_statistics_single_complete(self):
         statistics = [{
-            'code': 'foo',
-            'lang': 'en',
             'config': {
+                'country': 'foo',
+                'lang': 'en',
                 'rowTemplate': 'row template',
                 'commonsTemplate': 'commons template'},
             'report_page': self.mock_report_page,
@@ -115,9 +115,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
     def test_make_statistics_single_basic(self):
         statistics = [{
-            'code': 'foo',
-            'lang': 'en',
-            'config': {'rowTemplate': 'row template'},
+            'config': {
+                'country': 'foo',
+                'lang': 'en',
+                'rowTemplate': 'row template'},
             'total_cats': 123
         }]
 
@@ -138,9 +139,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
     def test_make_statistics_single_sparql_basic(self):
         statistics = [{
-            'code': 'foo',
-            'lang': 'en',
-            'config': {'type': 'sparql'},
+            'config': {
+                'country': 'foo',
+                'lang': 'en',
+                'type': 'sparql'},
             'cmt': 'skipped: cannot handle sparql'
         }]
 
@@ -160,9 +162,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
     def test_make_statistics_basic_skipped(self):
         statistics = [{
-            'code': 'foo',
-            'lang': 'en',
-            'config': {'rowTemplate': 'a template'},
+            'config': {
+                'country': 'foo',
+                'lang': 'en',
+                'rowTemplate': 'a template'},
             'cmt': 'skipped: no missingCommonscatPage'
         }]
 
@@ -188,9 +191,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
         report_page_2.title.return_value = '<report_page:Barfoo>'
         statistics = [
             {
-                'code': 'foo',
-                'lang': 'en',
                 'config': {
+                    'country': 'foo',
+                    'lang': 'en',
                     'rowTemplate': 'row template',
                     'commonsTemplate': 'commons template',
                     'project': 'wikipedia'},
@@ -198,9 +201,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
                 'total_cats': 2
             },
             {
-                'code': 'bar',
-                'lang': 'fr',
                 'config': {
+                    'country': 'bar',
+                    'lang': 'fr',
                     'rowTemplate': 'a template',
                     'project': 'wikisource'},
                 'report_page': report_page_2,
@@ -235,18 +238,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
     def test_make_statistics_multiple_mixed(self):
         statistics = [
             {
-                'code': 'foo',
-                'lang': 'en',
                 'config': {
+                    'country': 'foo',
+                    'lang': 'en',
                     'rowTemplate': 'row template',
                     'commonsTemplate': 'commons template'},
                 'report_page': self.mock_report_page,
                 'total_cats': 2
             },
             {
-                'code': 'bar',
-                'lang': 'fr',
-                'config': {'rowTemplate': 'a template'},
+                'config': {
+                    'country': 'bar',
+                    'lang': 'fr',
+                    'rowTemplate': 'a template'},
                 'cmt': 'skipped: no missingCommonscatPage'
             }
         ]

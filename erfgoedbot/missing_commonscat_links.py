@@ -30,16 +30,12 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     if not countryconfig.get('missingCommonscatPage'):
         # missingCommonscatPage not set, just skip silently.
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no missingCommonscatPage'
         }
     if not countryconfig.get('commonsTrackerCategory'):
         # commonsTrackerCategory not set, just skip silently.
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no commonsTrackerCategory'
         }
@@ -47,8 +43,6 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     if countryconfig.get('type') == 'sparql':
         # This script does not (yet) work for SPARQL sources, skip silently
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: cannot handle sparql'
         }
@@ -58,8 +52,6 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
         # Field is missing. Something is seriously wrong, but we just skip it
         # silently
         return {
-            'code': countryconfig.get('country'),
-            'lang': countryconfig.get('lang'),
             'config': countryconfig,
             'cmt': 'skipped: no template field matched to commonscat!!'
         }
@@ -89,8 +81,6 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
         missing_commonscat, commonscatField, page, iw_links)
 
     return {
-        'code': countryconfig.get('country'),
-        'lang': countryconfig.get('lang'),
         'report_page': page,
         'config': countryconfig,
         'total_cats': totals['cats'],
@@ -292,7 +282,7 @@ def makeStatistics(statistics):
 
         if countryconfig.get('type') != 'sparql':
             row_template = common.get_template_link(
-                row.get('lang'),
+                countryconfig.get('lang'),
                 countryconfig.get('project', u'wikipedia'),
                 countryconfig.get('rowTemplate'),
                 site)
@@ -306,8 +296,8 @@ def makeStatistics(statistics):
                 as_link=True, with_ns=False, insite=site)
 
         table.add_row({
-            'code': row.get('code'),
-            'lang': row.get('lang'),
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
             'total': total_cats_or_cmt,
             'report_page': report_page,
             'row template': row_template,
@@ -376,8 +366,6 @@ def main():
                     u'Unknown error occurred when processing country '
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append({
-                    'code': countryconfig.get('country'),
-                    'lang': countryconfig.get('lang'),
                     'config': countryconfig,
                     'cmt': 'failed: unexpected error during processing'
                 })
