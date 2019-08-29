@@ -123,6 +123,7 @@ def main():
 
 
 if __name__ == "__main__":
+    pywikibot.log(u'Start of %s' % __file__)
     try:
         main()
     finally:

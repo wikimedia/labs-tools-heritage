@@ -700,4 +700,5 @@ def main():
 
 
 if __name__ == "__main__":
+    pywikibot.log('Start of %s' % __file__)
     main()
