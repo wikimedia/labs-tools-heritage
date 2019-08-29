@@ -661,8 +661,14 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(
                 lang, countryconfig.get('project'))
-            result = processCountry(
-                countryconfig, commonsCatTemplates, conn, cursor)
+            try:
+                result = processCountry(
+                    countryconfig, commonsCatTemplates, conn, cursor)
+            except Exception, e:
+                pywikibot.error(
+                    u'Unknown error occurred when processing country '
+                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                continue
             if result:
                 statistics.append(result)
 

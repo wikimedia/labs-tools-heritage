@@ -258,7 +258,13 @@ def main():
             else:
                 pywikibot.output(
                     u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-                locateCountry(countryconfig, conn, cursor, conn2, cursor2)
+                try:
+                    locateCountry(countryconfig, conn, cursor, conn2, cursor2)
+                except Exception, e:
+                    pywikibot.error(
+                        u'Unknown error occurred when processing country '
+                        u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    continue
 
     close_database_connection(conn, cursor)
 

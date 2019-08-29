@@ -331,9 +331,14 @@ def main():
             pywikibot.log(
                 u'Working on countrycode "{code}" in language "{lang}"'.format(
                     code=countrycode, lang=lang))
-            statistics.append(
-                processCountry(
+            try:
+                statistics.append(processCountry(
                     countryconfig, conn, cursor, conn2, cursor2))
+            except Exception, e:
+                pywikibot.error(
+                    u'Unknown error occurred when processing country '
+                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                continue
         makeStatistics(statistics)
 
     close_database_connection(conn, cursor)

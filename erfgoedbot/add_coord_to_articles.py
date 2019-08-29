@@ -336,8 +336,14 @@ def main():
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
-            processCountry(
-                countryconfig, wikiData.get(lang), connMon, cursorMon)
+            try:
+                processCountry(
+                    countryconfig, wikiData.get(lang), connMon, cursorMon)
+            except Exception, e:
+                pywikibot.error(
+                    u'Unknown error occurred when processing country '
+                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                continue
 
     close_database_connection(connMon, cursorMon)
 
