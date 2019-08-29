@@ -22,6 +22,7 @@ echo_time() {
 
 # Arguments
 : ${UPDATE_MONUMENTS_ARGS:=-fullupdate -log -skip_wd}
+: ${CATEGORIZATION_JOB_NAME:=categorize_images}
 
 # Conditionals
 : ${RECREATE_TABLES:=true}
