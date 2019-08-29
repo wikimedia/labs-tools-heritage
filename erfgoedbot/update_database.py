@@ -671,7 +671,7 @@ def main():
             countryconfig = mconfig.countries.get((countrycode, lang))
             process_country(countryconfig, conn, cursor, full_update,
                             days_back)
-        except Exception, e:
+        except Exception as e:
             pywikibot.error(
                 'Unknown error occurred when processing country '
                 '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
@@ -689,7 +689,7 @@ def main():
                 statistics.append(
                     process_country(countryconfig, conn, cursor, full_update,
                                     days_back))
-            except Exception, e:
+            except Exception as e:
                 pywikibot.error(
                     'Unknown error occurred when processing country '
                     '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))

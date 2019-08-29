@@ -410,10 +410,14 @@ def main():
             try:
                 statistics.append(processCountry(
                     countryconfig, add_template, conn, cursor, conn2, cursor2))
-            except Exception, e:
+            except Exception as e:
                 pywikibot.error(
                     u'Unknown error occurred when processing country '
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                statistics.append({
+                    'config': countryconfig,
+                    'cmt': 'failed: unexpected error during processing'
+                })
                 continue
         make_statistics(statistics)
 

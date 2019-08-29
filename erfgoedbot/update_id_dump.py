@@ -161,7 +161,7 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             try:
                 processCountry(countryconfig, conn, cursor)
-            except Exception, e:
+            except Exception as e:
                 pywikibot.error(
                     u'Unknown error occurred when processing country '
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
