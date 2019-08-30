@@ -37,28 +37,19 @@ def group_unused_images_by_source(photos, withoutPhoto, countryconfig):
             continue
 
         if monumentId in withoutPhoto:
-            try:
-                source_link = common.get_source_link(
-                    withoutPhoto.get(monumentId),
-                    countryconfig.get('type'))
-                if source_link not in unused_images:
-                    unused_images[source_link] = {}
-            except ValueError:
-                pywikibot.warning(
-                    u'Could not find source page for {0} ({1})'.format(
-                        monumentId, withoutPhoto.get(monumentId)))
-                continue
+            source = withoutPhoto.get(monumentId)
+            if source not in unused_images:
+                unused_images[source] = {}
             imageName = photos.get(catSortKey)
 
-            if monumentId not in unused_images[source_link]:
-                unused_images[source_link][monumentId] = []
+            if monumentId not in unused_images[source]:
+                unused_images[source][monumentId] = []
 
-            unused_images[source_link][monumentId].append(imageName)
+            unused_images[source][monumentId].append(imageName)
 
     return unused_images
 
 
-# @TODO: Sparql entries could be displayed differently since each id has a different source
 def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     """Work on a single country."""
     if not countryconfig.get('unusedImagesPage'):
@@ -91,7 +82,8 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
 
     site = pywikibot.Site(countryconfig.get('lang'), project)
     page = pywikibot.Page(site, unusedImagesPage)
-    totals = output_country_report(unused_images, page)
+    totals = output_country_report(
+        unused_images, page, countryconfig.get('type') == 'sparql')
 
     return {
         'report_page': page,
@@ -102,13 +94,14 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     }
 
 
-# @TODO: T176560 different format for sparql?
-def output_country_report(unused_images, report_page, max_images=1000):
+def output_country_report(unused_images, report_page, is_sparql=False,
+                          max_images=1000):
     """
     Format and output the unused images data for a a single country.
 
     @param unused_images: the output of group_unused_images
     @param report_page: pywikibot.Page to which the report should be written
+    @param is_sparql: If this is a sparql dataset. Defaults to False.
     @param max_images: the max number of images to report to a page. Defaults
         to 1000. Note that actual number of images may be slightly higher in
         order to ensure all candidates for a given monument id are presented.
@@ -119,6 +112,7 @@ def output_country_report(unused_images, report_page, max_images=1000):
     total_pages = 0
     total_ids = 0
     totalImages = 0
+    page_link = None
 
     if not unused_images:
         text += common.done_message(central_page, 'unused images')
@@ -126,14 +120,32 @@ def output_country_report(unused_images, report_page, max_images=1000):
         for source_page, value in unused_images.iteritems():
             total_pages += 1
             if totalImages < max_images:
-                text += u'=== {0} ===\n'.format(source_page)
+                try:
+                    if is_sparql:
+                        page_link = common.get_source_link(
+                            source_page, 'sparql',
+                            # only one monument_id per sparql source_page
+                            label=value.keys()[0])
+                    else:
+                        page_link = common.get_source_link(source_page)
+                        text += u'=== {0} ===\n'.format(page_link)
+                except ValueError:  # could not parse source
+                    pywikibot.warning(
+                        u'Could not find source page for {0} ({1})'.format(
+                            value.keys()[0]), source_page)
+                    continue
+
                 text += u'<gallery>\n'
                 for monument_id, candidates in value.iteritems():
                     total_ids += 1
                     if totalImages < max_images:
                         for candidate in candidates:
-                            text += u'File:{0}|{1}\n'.format(
-                                candidate, monument_id)
+                            if is_sparql:
+                                text += u'File:{0}|{1}\n'.format(
+                                    candidate, page_link)
+                            else:
+                                text += u'File:{0}|{1}\n'.format(
+                                    candidate, monument_id)
                     totalImages += len(candidates)
                 text += u'</gallery>\n'
             else:

@@ -38,12 +38,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         self.mock_get_id_from_sort_key.side_effect = return_input
         self.addCleanup(patcher.stop)
 
-        patcher = mock.patch(
-            'erfgoedbot.unused_monument_images.common.get_source_link')
-        self.mock_get_source_link = patcher.start()
-        self.mock_get_source_link.side_effect = return_input
-        self.addCleanup(patcher.stop)
-
     def test_group_unused_images_by_source_basic(self):
         expected = {'source_url_1': {'123': ['filename.jpg']}}
         result = unused_monument_images.group_unused_images_by_source(
@@ -55,7 +49,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             mock.call('456-filename3', self.without_photo)],
             any_order=True
         )
-        self.mock_get_source_link.assert_called_once_with('source_url_1', None)
 
     def test_group_unused_images_by_source_sparql(self):
         self.countryconfig = {'type': 'sparql'}
@@ -70,8 +63,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             mock.call('456-filename3', self.without_photo)],
             any_order=True
         )
-        self.mock_get_source_link.assert_called_once_with(
-            'source_url_1', 'sparql')
 
     def test_group_unused_images_by_source_group_ids(self):
         self.photos['123-filename2'] = 'filename2.jpg'
@@ -91,10 +82,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             mock.call('456-filename3', self.without_photo)],
             any_order=True
         )
-        self.mock_get_source_link.assert_has_calls([
-            mock.call('source_url_1', None),
-            mock.call('source_url_1', None)]
-        )
 
     def test_group_unused_images_by_source_group_sources(self):
         self.without_photo['456'] = 'source_url_1'
@@ -113,10 +100,6 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
             mock.call('123-filename', self.without_photo),
             mock.call('456-filename3', self.without_photo)],
             any_order=True
-        )
-        self.mock_get_source_link.assert_has_calls([
-            mock.call('source_url_1', None),
-            mock.call('source_url_1', None)]
         )
 
 
@@ -415,18 +398,28 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_done_message = patcher.start()
         self.addCleanup(patcher.stop)
 
+        def return_input(*args, **kargs):
+            # return the part before "-" of the first arg
+            return args[0].replace('url', 'link')
+
+        patcher = mock.patch(
+            'erfgoedbot.unused_monument_images.common.get_source_link')
+        self.mock_get_source_link = patcher.start()
+        self.mock_get_source_link.side_effect = return_input
+        self.addCleanup(patcher.stop)
+
         self.unused_images = OrderedDict()
-        self.unused_images['source_link_1'] = OrderedDict()
-        self.unused_images['source_link_1']['id_11'] = [
+        self.unused_images['source_url_1'] = OrderedDict()
+        self.unused_images['source_url_1']['id_11'] = [
             'filename1_11.jpg',
             'filename1_12.jpg'
         ]
-        self.unused_images['source_link_1']['id_12'] = [
+        self.unused_images['source_url_1']['id_12'] = [
             'filename1_21.jpg',
             'filename1_22.jpg'
         ]
-        self.unused_images['source_link_2'] = OrderedDict()
-        self.unused_images['source_link_2']['id_21'] = [
+        self.unused_images['source_url_2'] = OrderedDict()
+        self.unused_images['source_url_2']['id_21'] = [
             'filename2.jpg'
         ]
 
@@ -473,6 +466,9 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_cmt,
             expected_totals,
             expected_output)
+        self.mock_get_source_link.assert_has_calls([
+            mock.call('source_url_1'),
+            mock.call('source_url_2')])
 
     def test_output_country_report_max_images(self):
         max_images = 2
@@ -501,6 +497,7 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_cmt,
             expected_totals,
             expected_output)
+        self.mock_get_source_link.assert_called_once_with('source_url_1')
 
     def test_output_country_report_max_images_all_candidates(self):
         max_images = 3
@@ -531,6 +528,7 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_cmt,
             expected_totals,
             expected_output)
+        self.mock_get_source_link.assert_called_once_with('source_url_1')
 
     def test_output_country_report_no_images(self):
         max_images = 3
@@ -552,3 +550,32 @@ class TestOutputCountryReport(TestCreateReportBase):
             expected_cmt,
             expected_totals,
             expected_output)
+        self.mock_get_source_link.assert_not_called()
+
+    def test_output_country_report_sparql(self):
+        del self.unused_images['source_url_1']['id_12']  # only one id per item
+        expected_cmt = u'Images to be used in monument lists: 3'
+        expected_output = (
+            u'<gallery>\n'
+            u'File:filename1_11.jpg|source_link_1\n'
+            u'File:filename1_12.jpg|source_link_1\n'
+            u'</gallery>\n'
+            u'<gallery>\n'
+            u'File:filename2.jpg|source_link_2\n'
+            u'</gallery>\n')
+        expected_totals = {
+            'images': 3,
+            'pages': 2,
+            'ids': 2
+        }
+
+        result = unused_monument_images.output_country_report(
+            self.unused_images, self.mock_report_page, is_sparql=True)
+        self.bundled_asserts(
+            result,
+            expected_cmt,
+            expected_totals,
+            expected_output)
+        self.mock_get_source_link.assert_has_calls([
+            mock.call('source_url_1', 'sparql', label='id_11'),
+            mock.call('source_url_2', 'sparql', label='id_21')])
