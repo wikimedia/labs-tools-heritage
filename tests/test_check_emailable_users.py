@@ -49,3 +49,12 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
         self.assertEquals(result, ['A', 'B'])
+
+    @freeze_time("2018-09-14 03:21:34")
+    def test_get_usernames_with_no_result(self):
+        self.mock_cursor_commons.fetchall.return_value = []
+        result = check_emailable_users.get_usernames_from_database(None, self.mock_cursor_commons, "Some_category")
+        expected_query_params = ('Some_category', '20180914012134', '20180914032134')
+        self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
+        self.mock_cursor_commons.fetchall.assert_called_once_with()
+        self.assertEquals(result, [])
