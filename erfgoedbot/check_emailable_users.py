@@ -16,7 +16,7 @@ from database_connection import (
 )
 
 
-def get_users(conn, cursor, category, delta_minutes=120):
+def get_usernames_from_database(conn, cursor, category, delta_minutes=120):
     """
     Retrieve the uploaders of images in the given category in the given timeframe.
     (Only registered users, since that’s a requirement to upload to  Wikimedia Commons)
@@ -46,7 +46,16 @@ def get_users(conn, cursor, category, delta_minutes=120):
     cursor.execute(query, (category, begin_time, end_time))
 
     result = cursor.fetchall()
-    return result
+    return [username[0] for username in result]
+
+
+def get_non_emailable_users(usernames):
+    """
+    Return all non-emailable users among the given usernames.
+    """
+    pywikibot_site = pywikibot.Site(u'commons', u'commons')
+    users = [pywikibot.User(pywikibot_site, username.decode('utf-8')) for username in usernames]
+    return [user for user in users if not user.isEmailable()]
 
 
 def notify_user(user):
@@ -64,27 +73,27 @@ def notify_user(user):
         pywikibot.output(u'Talk page blocked, skip.')
 
 
-def check_users(conn, cursor, category, delta_minutes, notify=False):
+def notify_users(users):
     """
-    Check the uploaders in the given category, and potentially notify them.
+    Notify the given users.
     """
-    usernames = get_users(conn, cursor, category, delta_minutes)
-    pywikibot_site = pywikibot.Site(u'commons', u'commons')
-    pywikibot.output(u"There were {} uploaders in the last {} minutes...".format(len(usernames), delta_minutes))
-    try:
-        users = [pywikibot.User(pywikibot_site, username[0].decode('utf-8')) for username in usernames]
-        non_emailable_users = [user for user in users if not user.isEmailable()]
-        pywikibot.output(u"...and {} non-emailable users".format(len(non_emailable_users)))
+    for user in users:
+        try:
+            notify_user(user)
+        except Exception as e:
+            pywikibot.error(u"Error when notifying user {}, skipping".format(user))
+            continue
 
-        if notify:
-            for user in non_emailable_users:
-                try:
-                    notify_user(user)
-                except Exception as e:
-                    pywikibot.error(u"Error when notifying user, skipping")
-                    continue
-    except Exception as e:
-        pass
+
+def process(category, delta_minutes, notify=False):
+    (conn, cursor) = connect_to_commons_database()
+    usernames = get_usernames_from_database(conn, cursor, category, delta_minutes)
+    close_database_connection(conn, cursor)
+    pywikibot.output(u"There were {} uploaders in the last {} minutes...".format(len(usernames), delta_minutes))
+    users = get_non_emailable_users(usernames)
+    pywikibot.output(u"...and {} non-emailable users".format(len(users)))
+    if notify:
+        notify_users(users)
 
 
 def main():
@@ -104,9 +113,7 @@ def main():
                 u'Bad parameters. Expected "-category", "-delta" or '
                 u'pywikibot args. Found "{}"'.format(arg))
     if category and delta_minutes:
-        (conn, cursor) = connect_to_commons_database()
-        check_users(conn, cursor, category, delta_minutes, notify=True)
-        close_database_connection(conn, cursor)
+        process(category, delta_minutes)
     else:
         pywikibot.error("Not enough arguments")
 

@@ -9,10 +9,11 @@ from freezegun import freeze_time
 from erfgoedbot import check_emailable_users
 
 
-class TestGetUsers(unittest.TestCase):
+class TestGetUsernamesFromDatabase(unittest.TestCase):
 
     def setUp(self):
         self.mock_cursor_commons = mock.Mock()
+        self.mock_cursor_commons.fetchall.return_value = [('A',), ('B',)]
         patcher = mock.patch('erfgoedbot.check_emailable_users.connect_to_commons_database')
         mock_connect_to_commons_database = patcher.start()
         mock_connect_to_commons_database.return_value = (None, self.mock_cursor_commons)
@@ -34,15 +35,17 @@ class TestGetUsers(unittest.TestCase):
         )
 
     @freeze_time("2018-09-14 03:21:34")
-    def test_get_users(self):
-        result = check_emailable_users.get_users(None, self.mock_cursor_commons, "Some_category")
+    def test_get_usernames_with_default_delta(self):
+        result = check_emailable_users.get_usernames_from_database(None, self.mock_cursor_commons, "Some_category")
         expected_query_params = ('Some_category', '20180914012134', '20180914032134')
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
+        self.assertEquals(result, ['A', 'B'])
 
     @freeze_time("2018-09-14 03:21:34")
-    def test_get_users_with_custom_delta(self):
-        result = check_emailable_users.get_users(None, self.mock_cursor_commons, "Some_category", delta_minutes=60)
+    def test_get_usernames_with_custom_delta(self):
+        result = check_emailable_users.get_usernames_from_database(None, self.mock_cursor_commons, "Some_category", delta_minutes=60)
         expected_query_params = ('Some_category', '20180914022134', '20180914032134')
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
+        self.assertEquals(result, ['A', 'B'])
