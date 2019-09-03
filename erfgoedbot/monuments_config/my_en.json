@@ -50,6 +50,10 @@
         {
             "dest": "commonscat",
             "source": "commonscat"
+        },
+        {
+            "dest": "type",
+            "source": "type"
         }
     ],
     "sql_lang": "English",
