@@ -1,0 +1,30 @@
+{
+    "country": "pt-wd",
+    "lang": "pt",
+    "description": "Cultural heritage sites in Portugal in Portuguese",
+    "type": "sparql",
+    "project": "wikipedia",
+    "table": "monuments_pt-wd_(pt)",
+    "commonsTemplate": "MonumentIDPortugal",
+    "commonsTrackerCategory": "Cultural heritage monuments in Portugal with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Portugal",
+    "unusedImagesPage": "User:ErfgoedBot/Fotos de património em Portugal não usadas",
+    "imagesWithoutIdPage": "User:ErfgoedBot/Fotos de património em Portugal sem identificação",
+    "sparql": "?item wdt:P2186 ?idwlm; wdt:P17 wd:Q45. BIND(STRAFTER(STR(?item), STR(wd:)) AS ?id)",
+    "sql_lang": "Portuguese # Wikidata",
+    "sql_country": "Portugal",
+    "sql_data": {
+        "dataset": {
+            "value": "pt",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "pt",
+            "type": "Text"
+        },
+        "adm0": {
+            "value": "pt",
+            "type": "Text"
+        }
+    }
+}
