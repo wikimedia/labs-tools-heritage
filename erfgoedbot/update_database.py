@@ -311,7 +311,7 @@ def monument_wikidata_generator(query_result, params):
 def process_monument_wikidata(result, param_order):
     """Process a single instance of a wikidata sparql result."""
     # convert pywikibot.data.sparql.Literal to string
-    literals = ('itemLabel', 'id', 'commonscat', 'address')
+    literals = ('id', 'commonscat', 'address')
     for key in literals:
         if result[key]:
             result[key] = result[key].value
@@ -319,6 +319,9 @@ def process_monument_wikidata(result, param_order):
     if result['image']:
         result['image'] = urlparse.unquote(
             result['image'].value).split('/')[-1]
+
+    if result['itemLabel']:
+        result['name'] = result['itemLabel'].value
 
     if result['adminLabel']:
         result['admin'] = result['adminLabel'].value
