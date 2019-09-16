@@ -9,7 +9,8 @@
 			"ZxxZxxZ",
 			"Alifakoor",
 			"Dejavu",
-			"Meysamzare23"
+			"Meysamzare23",
+			"Ahmad252"
 		]
 	},
 	"search-title": "جستجو در آثار تاریخی",
@@ -30,7 +31,7 @@
 	"search-table-checkbox-only-images": "تنها یادمان‌های بدون تصویر",
 	"search-table-button-search": "جستجو",
 	"filter-all-countries": "تمام کشورها",
-	"filter-all-languages": "همۀ زبان‌ها",
+	"filter-all-languages": "همهٔ زبان‌ها",
 	"db-field-country": "کشور",
 	"db-field-lang": "زبان",
 	"db-field-id": "شناسه",
