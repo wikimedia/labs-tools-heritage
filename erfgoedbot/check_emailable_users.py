@@ -62,13 +62,14 @@ def notify_user(user):
     talk_page = user.getUserTalkPage()
     try:
         text = "{{subst:WLM-enable-email}}"
-        comment = u"Notifying WLM participant of missing e-mail address."
+        summary = u"Notifying WLM participant of missing e-mail address."
         history_users = [edit[u'user'] for edit in talk_page.getLatestEditors(limit=10)]
         if user.site.username() in history_users:
             pywikibot.output("Already notified the user")
             return
         pywikibot.output(u"Notifying user {}...".format(user))
-        talk_page.put(text, summary=comment, minor=False)
+        talk_page.text += text
+        talk_page.save(summary=summary, minor=False)
     except pywikibot.LockedPage:
         pywikibot.output(u'Talk page blocked, skip.')
 
