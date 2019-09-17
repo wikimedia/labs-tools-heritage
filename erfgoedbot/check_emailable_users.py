@@ -101,6 +101,7 @@ def main():
     cursor = None
     delta_minutes = None
     category = None
+    notify = False
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
@@ -108,12 +109,14 @@ def main():
             delta_minutes = int(value)
         elif option == '-category':
             category = value
+        elif option == '-notify':
+            notify = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-category", "-delta" or '
+                u'Bad parameters. Expected "-category", "-delta", "-notify" or '
                 u'pywikibot args. Found "{}"'.format(arg))
     if category and delta_minutes:
-        process(category, delta_minutes)
+        process(category, delta_minutes, notify=notify)
     else:
         pywikibot.error("Not enough arguments")
 
