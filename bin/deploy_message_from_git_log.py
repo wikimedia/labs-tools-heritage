@@ -1,6 +1,5 @@
-"""Parse Git logs of the latest deploy and prepare a SAL message for IRC."""
+"""Parse Git logs of the latest deploy and prepare a SAL message."""
 
-import argparse
 import re
 import subprocess
 
@@ -42,19 +41,16 @@ def format_entry(log_entry):
         return log_entry['id']
 
 
-def format_update_for_irc(project, structured_log):
-    """Return a post-deploy message for IRC from the structured log."""
+def format_update_for_dologmsg(structured_log):
+    """Return a post-deploy message for dologmsg from the structured log."""
     commits = ', '.join([format_entry(x) for x in structured_log])
-    return '!log %s Deploy latest from Git master: %s' % (project, commits)
+    return 'Deploy {}'.format(commits)
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("project")
-    args = parser.parse_args()
     log = get_git_log()
     augmented_log = [update_with_task_name(x) for x in log]
-    print(format_update_for_irc(args.project, augmented_log))
+    print(format_update_for_dologmsg(augmented_log))
 
 
 if __name__ == '__main__':
