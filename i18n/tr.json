@@ -9,11 +9,12 @@
 			"Sayginer",
 			"Alpkant",
 			"Vito Genovese",
-			"Hedda"
+			"Hedda",
+			"Grkn gll"
 		]
 	},
 	"search-title": "Anıt arama",
-	"search-monuments-database": "Anıtlar veritabanında arama",
+	"search-monuments-database": "Anıtlar veritabanında ara",
 	"search-table-th-field": "Alan",
 	"search-table-th-filter": "Süzgeç",
 	"search-table-th-search": "Ara",
@@ -66,9 +67,9 @@
 	"toolbox-wikilovesmonuments": "Viki Anıtları Seviyor",
 	"toolbox-nav-homepage": "Anasayfa",
 	"toolbox-nav-statistics": "İstatistikler",
-	"toolbox-nav-search": "Arama",
-	"toolbox-title-searchmonuments": "Anıt arama",
+	"toolbox-nav-search": "Ara",
+	"toolbox-title-searchmonuments": "Anıt ara",
 	"toolbox-title-statistics": "Anıt İstatistikleri",
 	"location": "Konum",
-	"source-monuments-list": "Bir Wikimedia projesindeki kaynak anıtlar listesi"
+	"source-monuments-list": "Wikimedia projesindeki kaynak anıtlar listesi"
 }
