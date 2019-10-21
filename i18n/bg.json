@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"DCLXVI"
+			"DCLXVI",
+			"StanProg"
 		]
 	},
 	"search-table-th-search": "Търсене",
@@ -20,5 +21,8 @@
 	"db-field-id": "Идентификатор",
 	"db-field-name": "Име",
 	"db-field-address": "Адрес",
+	"db-field-image": "Изображение",
+	"db-field-st_image": "Изображение",
+	"db-field-st_image_pct": "Изображение %",
 	"toolbox-nav-search": "Търсене"
 }
