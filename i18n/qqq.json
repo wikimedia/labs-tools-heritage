@@ -9,7 +9,8 @@
 			"Shirayuki",
 			"Siebrand",
 			"Nike",
-			"Silraks"
+			"Silraks",
+			"Verdy p"
 		]
 	},
 	"title": "{{Notranslate}}\n\nThe title of the tool.",
@@ -59,7 +60,7 @@
 	"db-field-st_name": "{{Identical|Name}}",
 	"db-field-st_name_pct": "{{Identical|Name}}",
 	"db-field-st_total": "{{Identical|Total number}}",
-	"toolbox-label-searchtipps": "Instruction for how to perform a fuzzy search.",
+	"toolbox-label-searchtipps": "Instruction for how to perform a fuzzy search. Means that terms entered in the search form may be prefixed and/or suffixed by a '%' wildcard characters to allow arbitrary prefixes and/or suffixes.\n\nThere's no placeholder variable, but please use a single word to translate \"term\" and don't change the '%' character attached before and/or after the translation of \"term\". you may need to use quotation marks around \"%term\", \"term%\" and \"%term%\" to make the sentence more obvious to interpret for reader.",
 	"toolbox-meta-title": "Title used in the metadata header of the page.",
 	"toolbox-main-logo-alt": "Alt text for Wiki Loves Monuments logo.",
 	"toolbox-main-title": "Page header used in the top of every page of the toolbox.",
