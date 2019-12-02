@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Les Meloures"
 		]
 	},
 	"search-title": "Monumenter sichen",
@@ -51,10 +52,10 @@
 	"db-field-st_name_pct": "Nimm %",
 	"db-field-st_total": "Gesamtzuel",
 	"toolbox-label-searchtipps": "benotzt %term or term% oder %term% fir méi Resultater ze fannen",
-	"toolbox-meta-title": "\"Wiki Loves Monuments\"-Geschirkëscht",
+	"toolbox-meta-title": "\"Wiki Loves Monuments\"-Geschierkëscht",
 	"toolbox-main-logo-alt": "Logo vu Wiki Loves Monuments",
-	"toolbox-main-title": "WLM Geschirkëscht",
-	"toolbox-main-description": "'Geschirkëscht' fir $1",
+	"toolbox-main-title": "WLM Geschierkëscht",
+	"toolbox-main-description": "'Geschierkëscht' fir $1",
 	"toolbox-wikilovesmonuments": "\"Wiki Loves Monuments\"",
 	"toolbox-nav-homepage": "Haaptsäit",
 	"toolbox-nav-statistics": "Statistiken",
