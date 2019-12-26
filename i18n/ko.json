@@ -4,7 +4,8 @@
 			"아라",
 			"Hwangjy9",
 			"Ykhwong",
-			"Maoue"
+			"Maoue",
+			"Revi"
 		]
 	},
 	"search-title": "기념물 검색",
@@ -64,5 +65,6 @@
 	"toolbox-nav-search": "검색",
 	"toolbox-title-searchmonuments": "기념물 검색",
 	"toolbox-title-statistics": "기념물 통계",
-	"location": "위치"
+	"location": "위치",
+	"source-monuments-list": "위키미디어 프로젝트의 문화유산 정보 출처"
 }
