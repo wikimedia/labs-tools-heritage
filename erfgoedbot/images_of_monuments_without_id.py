@@ -23,14 +23,14 @@ from collections import OrderedDict
 
 import pywikibot
 
-import common as common
-import monuments_config as mconfig
-from database_connection import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_commons_database,
     connect_to_monuments_database
 )
-from statistics_table import StatisticsTable
+from erfgoedbot.statistics_table import StatisticsTable
 
 _logger = "images_without_id"
 
@@ -55,7 +55,7 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
 
     commonsTemplate = countryconfig.get('commonsTemplate')
     imagesWithoutIdPage = countryconfig.get('imagesWithoutIdPage')
-    project = countryconfig.get('project') or u'wikipedia'
+    project = countryconfig.get('project') or 'wikipedia'
 
     # All items in the list with a photo
     withPhoto = getMonumentsWithPhoto(
@@ -70,7 +70,7 @@ def processCountry(countryconfig, add_template, conn, cursor, conn2, cursor2):
 
     # Get the image ignore list
     # FIXME: Make an actual function of this instead of a static list.
-    ignoreList = [u'Monumentenschildje.jpg', u'Rijksmonument-Schildje-NL.jpg']
+    ignoreList = ['Monumentenschildje.jpg', 'Rijksmonument-Schildje-NL.jpg']
 
     gallery_rows = []
     totals = {
@@ -143,21 +143,21 @@ def output_country_report(rows, report_page, max_images=1000):
 
     if rows:
         gallery_rows = [format_gallery_row(*row) for row in rows[:max_images]]
-        text += u'<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
+        text += '<gallery>\n{}\n</gallery>'.format('\n'.join(gallery_rows))
     else:
         text += common.done_message(central_page, 'images without id')
 
     if len(rows) > max_images:
         text += (
-            u'\n<!-- Maximum number of images reached: {0}, '
-            u'total of images without id: {1} -->'.format(
+            '\n<!-- Maximum number of images reached: {0}, '
+            'total of images without id: {1} -->'.format(
                 max_images, len(rows)))
         comment = (
-            u'Images without an id: {0} (gallery maximum reached), '
-            u'total of images without id: {1}'.format(
+            'Images without an id: {0} (gallery maximum reached), '
+            'total of images without id: {1}'.format(
                 max_images, len(rows)))
     else:
-        comment = u'Images without an id: {0}'.format(len(rows))
+        comment = 'Images without an id: {0}'.format(len(rows))
 
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(
@@ -171,11 +171,11 @@ def format_gallery_row(image, id=None, template=None):
     Outputs either just the filename or a caption consisting of an id or
     template wrapped id depending on how many args are provided.
     """
-    text = u'File:%(image)s'
+    text = 'File:%(image)s'
     if id and template:
-        text += u'|<nowiki>{{%(template)s|%(id)s}}</nowiki>'
+        text += '|<nowiki>{{%(template)s|%(id)s}}</nowiki>'
     elif id:
-        text += u'|%(id)s'
+        text += '|%(id)s'
     return text % {'image': image, 'id': id, 'template': template}
 
 
@@ -187,9 +187,9 @@ def getMonumentsWithPhoto(countrycode, lang, conn, cursor):
     """
     result = {}
     query = (
-        u"SELECT image, id "
-        u"FROM monuments_all "
-        u"WHERE NOT image='' AND country=%s AND lang=%s")
+        "SELECT image, id "
+        "FROM monuments_all "
+        "WHERE NOT image='' AND country=%s AND lang=%s")
     cursor.execute(query, (countrycode, lang))
 
     while True:
@@ -197,7 +197,7 @@ def getMonumentsWithPhoto(countrycode, lang, conn, cursor):
             row = cursor.fetchone()
             (image, id) = row
             # Spaces are lowercase in the other database
-            image = image.replace(u' ', u'_')
+            image = image.replace(' ', '_')
             # First char always needs to be uppercase
             image = image[0].upper() + image[1:]
             result[image] = id
@@ -215,25 +215,25 @@ def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
     """
     # FIXME add possibility of only running this on the base category only
     commonsCategoryBase = countryconfig.get(
-        'commonsCategoryBase').replace(u' ', u'_')
-    commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
+        'commonsCategoryBase').replace(' ', '_')
+    commonsTemplate = countryconfig.get('commonsTemplate').replace(' ', '_')
 
     result = []
     query = (
-        u"SELECT DISTINCT(page_title) "
-        u"FROM page "
-        u"JOIN categorylinks ON page_id=cl_from "
-        u"WHERE page_namespace=6 AND page_is_redirect=0 "
-        u"AND (cl_to=%s OR cl_to LIKE %s) AND NOT EXISTS({sub}) "
-        u"ORDER BY page_title ASC"
+        "SELECT DISTINCT(page_title) "
+        "FROM page "
+        "JOIN categorylinks ON page_id=cl_from "
+        "WHERE page_namespace=6 AND page_is_redirect=0 "
+        "AND (cl_to=%s OR cl_to LIKE %s) AND NOT EXISTS({sub}) "
+        "ORDER BY page_title ASC"
     )
     subquery = (
-        u"SELECT * "
-        u"FROM templatelinks "
-        u"WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s")
+        "SELECT * "
+        "FROM templatelinks "
+        "WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s")
     cursor.execute(
         query.format(sub=subquery), (
-            commonsCategoryBase, u'{}_in_%'.format(commonsCategoryBase),
+            commonsCategoryBase, '{}_in_%'.format(commonsCategoryBase),
             commonsTemplate))
 
     while True:
@@ -251,15 +251,15 @@ def getMonumentsWithTemplate(countryconfig, conn, cursor):
     """Get all images which contain the tracker template."""
 
     commonsTrackerCategory = countryconfig.get(
-        'commonsTrackerCategory').replace(u' ', u'_')
+        'commonsTrackerCategory').replace(' ', '_')
 
     result = []
     query = (
-        u"SELECT DISTINCT(page_title) "
-        u"FROM page "
-        u"JOIN categorylinks ON page_id=cl_from "
-        u"WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s "
-        u"ORDER BY page_title ASC")
+        "SELECT DISTINCT(page_title) "
+        "FROM page "
+        "JOIN categorylinks ON page_id=cl_from "
+        "WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s "
+        "ORDER BY page_title ASC")
     cursor.execute(query, (commonsTrackerCategory,))
 
     while True:
@@ -288,9 +288,9 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
         return False
 
     text = page.get()
-    newtext = u'{{%s|%s}}\n' % (commonsTemplate, identifier) + text
+    newtext = '{{%s|%s}}\n' % (commonsTemplate, identifier) + text
 
-    comment = u'Adding template {0} based on usage in list'.format(
+    comment = 'Adding template {0} based on usage in list'.format(
         commonsTemplate)
 
     pywikibot.showDiff(text, newtext)
@@ -307,7 +307,7 @@ def make_statistics(statistics):
     """
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
-        site, u'Commons:Monuments database/Images without id/Statistics')
+        site, 'Commons:Monuments database/Images without id/Statistics')
 
     title_column = OrderedDict([
         ('code', 'country'),
@@ -318,7 +318,7 @@ def make_statistics(statistics):
         ('Report page', None),
         ('Commons template', None)
     ])
-    numeric = [key for key in title_column.keys() if key.startswith('total_')]
+    numeric = [key for key in list(title_column.keys()) if key.startswith('total_')]
     table = StatisticsTable(title_column, numeric)
 
     for row in statistics:
@@ -332,7 +332,7 @@ def make_statistics(statistics):
             total_with_id_or_cmt = totals.get('with_id')
 
         if country_config.get('commonsTemplate'):
-            commons_template = u'{{tl|%s}}' % (
+            commons_template = '{{tl|%s}}' % (
                 country_config.get('commonsTemplate'), )
 
         if row.get('report_page'):
@@ -351,16 +351,16 @@ def make_statistics(statistics):
     text = table.to_wikitext()
 
     comment = (
-        u'Updating images without id statistics. Total of {total_with_id} '
-        u'images with suggested ids and {total_without_id} without.'.format(
+        'Updating images without id statistics. Total of {total_with_id} '
+        'images with suggested ids and {total_without_id} without.'.format(
             **table.get_sum()))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 
 
 def main():
-    countrycode = u''
-    lang = u''
+    countrycode = ''
+    lang = ''
     skip_wd = False
     add_template = False
     conn = None
@@ -379,18 +379,18 @@ def main():
             add_template = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd", "-add_template" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-skip_wd", "-add_template" or pywikibot args. '
+                'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "{0}" '
-                u'in language "{1}"'.format(countrycode, lang))
+                'I have no config for countrycode "{0}" '
+                'in language "{1}"'.format(countrycode, lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "{0}" in language "{1}"'.format(
+            'Working on countrycode "{0}" in language "{1}"'.format(
                 countrycode, lang))
         (conn, cursor) = connect_to_monuments_database()
         (conn2, cursor2) = connect_to_commons_database()
@@ -398,14 +398,14 @@ def main():
                        add_template, conn, cursor, conn2, cursor2)
         close_database_connection(conn, cursor)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             pywikibot.log(
-                u'Working on countrycode "{0}" in language "{1}"'.format(
+                'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
             (conn, cursor) = connect_to_monuments_database()
             (conn2, cursor2) = connect_to_commons_database()
@@ -414,8 +414,8 @@ def main():
                     countryconfig, add_template, conn, cursor, conn2, cursor2))
             except Exception as e:
                 pywikibot.error(
-                    u'Unknown error occurred when processing country '
-                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append({
                     'config': countryconfig,
                     'cmt': 'failed: unexpected error during processing'
@@ -427,7 +427,7 @@ def main():
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     try:
         main()
     finally:

@@ -17,7 +17,7 @@ def get_git_log():
     (log, _) = process.communicate()
     log = log.strip('\n\x1e').split("\x1e")
     log = [row.strip().split("\x1f") for row in log]
-    log = [dict(zip(GIT_COMMIT_FIELDS, row)) for row in log]
+    log = [dict(list(zip(GIT_COMMIT_FIELDS, row))) for row in log]
     return log
 
 
@@ -54,7 +54,7 @@ def main():
     args = parser.parse_args()
     log = get_git_log()
     augmented_log = [update_with_task_name(x) for x in log]
-    print format_update_for_irc(args.project, augmented_log)
+    print(format_update_for_irc(args.project, augmented_log))
 
 
 if __name__ == '__main__':

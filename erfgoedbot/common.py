@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
 """Support library of commonly shared functions."""
-from __future__ import unicode_literals
+
 
 import os
 import re
@@ -108,10 +108,12 @@ def save_to_wiki_or_local(page, summary, content, minorEdit=True):
             pywikibot.warning(
                 'Could not save page {0} ({1})'.format(page, summary))
     else:
-        filename = os.path.join(local_path, page_to_filename(page))
+        filename = os.path.join(
+            bytes(local_path, encoding='utf-8'),
+            page_to_filename(page))
         with open(filename, 'w', encoding='utf-8') as f:
             f.write('#summary: {0}\n---------------\n'.format(summary))
-            f.write(unicode(content))
+            f.write(content)
 
 
 def get_template_link(lang, project, template_name, source_site):
@@ -119,7 +121,7 @@ def get_template_link(lang, project, template_name, source_site):
     template_site = pywikibot.Site(lang, project)
     template_page = pywikibot.Page(
         template_site,
-        u'Template:{0}'.format(template_name))
+        'Template:{0}'.format(template_name))
     return template_page.title(
         as_link=True, with_ns=False, insite=source_site)
 
@@ -133,11 +135,10 @@ def page_to_filename(page):
 
     @param page: the pywikibot.Page for which to generate a filename.
     """
-    site_str = str(page.site)
     namespace_str = page.namespace().custom_prefix().rstrip(':') or '_'
     pagename_str = page.title(as_filename=True, with_ns=False)
     filename = '[{site}][{ns}]{page}.wiki'.format(
-        site=site_str, ns=namespace_str, page=pagename_str)
+        site=page.site, ns=namespace_str, page=pagename_str)
     return filename.replace(' ', '_').replace(':', '_').encode('utf-8')
 
 
@@ -158,8 +159,10 @@ def process_sort_key_query_result(cursor):
         try:
             row = cursor.fetchone()
             (page_title, sort_key) = row
-            sort_key = unicode(sort_key, 'utf-8', errors='replace')
-            page_title = unicode(page_title, 'utf-8')
+            if not isinstance(sort_key, str):
+                sort_key = str(sort_key, encoding='utf-8', errors='replace')
+            if not isinstance(page_title, str):
+                page_title = str(page_title, encoding='utf-8')
             result[sort_key] = page_title
         except TypeError:
             break
@@ -182,8 +185,8 @@ def get_id_from_sort_key(sort_key, known_ids):
         return None
 
     # ensure there are no remaining encoding issues
-    if not isinstance(sort_key, unicode):
-        sort_key = unicode(sort_key, 'utf-8', errors='replace')
+    if not isinstance(sort_key, str):
+        sort_key = str(sort_key, encoding='utf-8', errors='replace')
     # Just want the first line
     monument_id = sort_key.splitlines()[0]
     # Remove leading and trailing spaces
@@ -194,11 +197,11 @@ def get_id_from_sort_key(sort_key, known_ids):
         return monument_id
 
     # Only remove leading zero's if we don't have a hit.
-    monument_id = monument_id.lstrip(u'0')
+    monument_id = monument_id.lstrip('0')
     if monument_id in known_ids:
         return monument_id
     # Only remove leading underscores if we don't have a hit.
-    monument_id = monument_id.lstrip(u'_')
+    monument_id = monument_id.lstrip('_')
     if monument_id in known_ids:
         return monument_id
     # Only all uppercase if we don't have a hit.
@@ -221,15 +224,15 @@ def instruction_header(central_page, subpage='header'):
     # percentage formatting to avoid having to escape all curly brackets
     data = {'central_page': central_page, 'subpage': subpage}
     return (
-        u'{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
-        u'|{{/%(subpage)s}}'
-        u'|For information on how to use this report and how to localise '
-        u'these instructions visit '
-        u'[[%(central_page)s]]. }}\n' % data)
+        '{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
+        '|{{/%(subpage)s}}'
+        '|For information on how to use this report and how to localise '
+        'these instructions visit '
+        '[[%(central_page)s]]. }}\n' % data)
 
 
 def done_message(central_page, type, subpage='done',
-                 anchor=u'#How_can_I_localise_the_instructions?'):
+                 anchor='#How_can_I_localise_the_instructions?'):
     """
     A wikitext message describing that no outstanding tasks are left.
 
@@ -248,11 +251,11 @@ def done_message(central_page, type, subpage='done',
     data = {'central_page': central_page, 'type': type, 'subpage': subpage,
             'anchor': anchor}
     return (
-        u'\n{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
-        u'|{{/%(subpage)s}}'
-        u'|There are no %(type)s left. Great work! '
-        u'<small>([[%(central_page)s%(anchor)s|{{int:translate}}]])</small>.'
-        u'}}\n' % data)
+        '\n{{#ifexist:{{FULLPAGENAME}}/%(subpage)s'
+        '|{{/%(subpage)s}}'
+        '|There are no %(type)s left. Great work! '
+        '<small>([[%(central_page)s%(anchor)s|{{int:translate}}]])</small>.'
+        '}}\n' % data)
 
 
 def table_header_row(columns):
@@ -263,12 +266,12 @@ def table_header_row(columns):
         OrderedDict({name: is_numeric}). Where is_numeric indicates that the
         column shuld be sorted as numbers.
     """
-    text = u'{| class="wikitable sortable"\n'
-    for name, is_numeric in columns.iteritems():
+    text = '{| class="wikitable sortable"\n'
+    for name, is_numeric in columns.items():
         if is_numeric:
-            text += u'! data-sort-type="number"| {0}\n'.format(name)
+            text += '! data-sort-type="number"| {0}\n'.format(name)
         else:
-            text += u'! {0}\n'.format(name)
+            text += '! {0}\n'.format(name)
     return text
 
 
@@ -281,11 +284,11 @@ def table_bottom_row(num_columns, values=None):
         columns starting from 0.
     """
     values = values or {}
-    text = u'|- class="sortbottom"\n'
+    text = '|- class="sortbottom"\n'
     for i in range(num_columns):
-        if i in values.keys():
-            text += u"| '''{}'''\n".format(values[i])
+        if i in list(values.keys()):
+            text += "| '''{}'''\n".format(values[i])
         else:
-            text += u'|style="background-color: #ccc;"|\n'
-    text += u'|}\n'
+            text += '|style="background-color: #ccc;"|\n'
+    text += '|}\n'
     return text

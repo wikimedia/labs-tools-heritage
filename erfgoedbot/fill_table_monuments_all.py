@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
 """Create the fill_table_monuments_all SQL."""
-from __future__ import unicode_literals
+
 
 import json
 import os
@@ -49,8 +49,8 @@ class MonumentsAllSql(object):
     def write_sql(self):
         """Output the SQL to the correct file."""
         filename = "fill_table_{domain}_all.sql".format(domain=self.domain)
-        with open(os.path.join(self.sql_dir, filename), "w") as f:
-            f.write(self.get_sql().encode('utf-8'))
+        with open(os.path.join(self.sql_dir, filename), "w", encoding='utf-8') as f:
+            f.write(self.get_sql())
 
 
 class MonumentDatasetSql(object):
@@ -118,7 +118,7 @@ class MonumentDatasetSql(object):
     def get_replaced(self):
         """Return the list of replaced variables."""
         replaced = []
-        for variable, value in self.variables.iteritems():
+        for variable, value in self.variables.items():
             if value is not None:
                 replaced.append(variable)
         return replaced
@@ -156,7 +156,7 @@ class MonumentDatasetSql(object):
     def make_varible_sql(self):
         """Construct the SQL for mapping country tables variables."""
         sql_lines = []
-        for variable, value in self.variables.iteritems():
+        for variable, value in self.variables.items():
             if value is not None:
                 sql_lines.append("    {val} AS `{var}`".format(
                     val=value, var=variable))
@@ -315,7 +315,7 @@ def _get_template_dir():
 
 def _read_config_from_file(config_file):
     """Load config file as json."""
-    with open(config_file, 'r') as fp:
+    with open(config_file, 'r', encoding='utf-8') as fp:
         return json.load(fp)
 
 
@@ -336,7 +336,7 @@ def process_json_data(data):
         'Field': Field,
         'Raw': Raw
     }
-    for k, v in data.iteritems():
+    for k, v in data.items():
         try:
             func = mapping.get(v['type'])
             data[k] = func(v['value'])

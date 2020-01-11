@@ -5,10 +5,10 @@
 # from pywikibot.site import APISite
 # from pywikibot.exceptions import NoPage
 import unittest
+import unittest.mock as mock
 from collections import OrderedDict
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import unused_monument_images
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
@@ -43,7 +43,7 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         result = unused_monument_images.group_unused_images_by_source(
             self.photos, self.without_photo, self.countryconfig)
 
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_id_from_sort_key.assert_has_calls([
             mock.call('123-filename', self.without_photo),
             mock.call('456-filename3', self.without_photo)],
@@ -57,7 +57,7 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         result = unused_monument_images.group_unused_images_by_source(
             self.photos, self.without_photo, self.countryconfig)
 
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_id_from_sort_key.assert_has_calls([
             mock.call('123-filename', self.without_photo),
             mock.call('456-filename3', self.without_photo)],
@@ -75,7 +75,7 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         result = unused_monument_images.group_unused_images_by_source(
             self.photos, self.without_photo, self.countryconfig)
 
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_id_from_sort_key.assert_has_calls([
             mock.call('123-filename', self.without_photo),
             mock.call('123-filename2', self.without_photo),
@@ -95,7 +95,7 @@ class TestGroupUnusedImagesBySource(unittest.TestCase):
         result = unused_monument_images.group_unused_images_by_source(
             self.photos, self.without_photo, self.countryconfig)
 
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_id_from_sort_key.assert_has_calls([
             mock.call('123-filename', self.without_photo),
             mock.call('456-filename3', self.without_photo)],
@@ -122,9 +122,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.mock_report_page.title.return_value = '<report_page>'
 
         self.comment = (
-            u'Updating unused image statistics. Total of {total_images} '
-            u'unused images for {total_ids} different monuments.')
-        self.pagename = u'Commons:Monuments database/Unused images/Statistics'
+            'Updating unused image statistics. Total of {total_images} '
+            'unused images for {total_ids} different monuments.')
+        self.pagename = 'Commons:Monuments database/Unused images/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images,
@@ -159,14 +159,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 321 \n'
-            u'| 123 \n'
-            u'| <report_page> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 321 \n'
+            '| 123 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_images = 321
         expected_total_ids = 123
 
@@ -189,14 +189,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 321 \n'
-            u'| 123 \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 321 \n'
+            '| 123 \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_images = 321
         expected_total_ids = 123
 
@@ -219,14 +219,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 321 \n'
-            u'| 123 \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 321 \n'
+            '| 123 \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_images = 321
         expected_total_ids = 123
 
@@ -247,14 +247,14 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: no unusedImagesPage \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: no unusedImagesPage \n'
+            '| --- \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_images = 0
         expected_total_ids = 0
 
@@ -296,22 +296,22 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 3 \n'
-            u'| 2 \n'
-            u'| <report_page:Foobar> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| 7 \n'
-            u'| 3 \n'
-            u'| <report_page:Barfoo> \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| <report_page:Foobar> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| 7 \n'
+            '| 3 \n'
+            '| <report_page:Barfoo> \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_images = 10
         expected_total_ids = 5
 
@@ -347,22 +347,22 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 3 \n'
-            u'| 2 \n'
-            u'| <report_page> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| skipped: no unusedImagesPage \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| skipped: no unusedImagesPage \n'
+            '| --- \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_images = 3
         expected_total_ids = 2
 
@@ -440,19 +440,19 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_instruction_header.assert_called_once()
 
     def test_output_country_report_complete(self):
-        expected_cmt = u'Images to be used in monument lists: 5'
+        expected_cmt = 'Images to be used in monument lists: 5'
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'<gallery>\n'
-            u'File:filename1_11.jpg|id_11\n'
-            u'File:filename1_12.jpg|id_11\n'
-            u'File:filename1_21.jpg|id_12\n'
-            u'File:filename1_22.jpg|id_12\n'
-            u'</gallery>\n'
-            u'=== source_link_2 ===\n'
-            u'<gallery>\n'
-            u'File:filename2.jpg|id_21\n'
-            u'</gallery>\n')
+            '=== source_link_1 ===\n'
+            '<gallery>\n'
+            'File:filename1_11.jpg|id_11\n'
+            'File:filename1_12.jpg|id_11\n'
+            'File:filename1_21.jpg|id_12\n'
+            'File:filename1_22.jpg|id_12\n'
+            '</gallery>\n'
+            '=== source_link_2 ===\n'
+            '<gallery>\n'
+            'File:filename2.jpg|id_21\n'
+            '</gallery>\n')
         expected_totals = {
             'images': 5,
             'pages': 2,
@@ -474,16 +474,16 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_images = 2
 
         expected_cmt = (
-            u'Images to be used in monument lists: 2 (gallery maximum '
-            u'reached), total of unused images: 5')
+            'Images to be used in monument lists: 2 (gallery maximum '
+            'reached), total of unused images: 5')
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'<gallery>\n'
-            u'File:filename1_11.jpg|id_11\n'
-            u'File:filename1_12.jpg|id_11\n'
-            u'</gallery>\n'
-            u'<!-- Maximum number of images reached: 2, '
-            u'total of unused images: 5 -->\n')
+            '=== source_link_1 ===\n'
+            '<gallery>\n'
+            'File:filename1_11.jpg|id_11\n'
+            'File:filename1_12.jpg|id_11\n'
+            '</gallery>\n'
+            '<!-- Maximum number of images reached: 2, '
+            'total of unused images: 5 -->\n')
         expected_totals = {
             'images': 5,
             'pages': 2,
@@ -503,18 +503,18 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_images = 3
 
         expected_cmt = (
-            u'Images to be used in monument lists: 3 (gallery maximum '
-            u'reached), total of unused images: 5')
+            'Images to be used in monument lists: 3 (gallery maximum '
+            'reached), total of unused images: 5')
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'<gallery>\n'
-            u'File:filename1_11.jpg|id_11\n'
-            u'File:filename1_12.jpg|id_11\n'
-            u'File:filename1_21.jpg|id_12\n'
-            u'File:filename1_22.jpg|id_12\n'
-            u'</gallery>\n'
-            u'<!-- Maximum number of images reached: 3, '
-            u'total of unused images: 5 -->\n')
+            '=== source_link_1 ===\n'
+            '<gallery>\n'
+            'File:filename1_11.jpg|id_11\n'
+            'File:filename1_12.jpg|id_11\n'
+            'File:filename1_21.jpg|id_12\n'
+            'File:filename1_22.jpg|id_12\n'
+            '</gallery>\n'
+            '<!-- Maximum number of images reached: 3, '
+            'total of unused images: 5 -->\n')
         expected_totals = {
             'images': 5,
             'pages': 2,
@@ -534,7 +534,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_images = 3
         self.unused_images = {}
 
-        expected_cmt = u'Images to be used in monument lists: 0'
+        expected_cmt = 'Images to be used in monument lists: 0'
         expected_output = self.mock_done_message.return_value
         expected_totals = {
             'images': 0,
@@ -554,15 +554,15 @@ class TestOutputCountryReport(TestCreateReportBase):
 
     def test_output_country_report_sparql(self):
         del self.unused_images['source_url_1']['id_12']  # only one id per item
-        expected_cmt = u'Images to be used in monument lists: 3'
+        expected_cmt = 'Images to be used in monument lists: 3'
         expected_output = (
-            u'<gallery>\n'
-            u'File:filename1_11.jpg|source_link_1\n'
-            u'File:filename1_12.jpg|source_link_1\n'
-            u'</gallery>\n'
-            u'<gallery>\n'
-            u'File:filename2.jpg|source_link_2\n'
-            u'</gallery>\n')
+            '<gallery>\n'
+            'File:filename1_11.jpg|source_link_1\n'
+            'File:filename1_12.jpg|source_link_1\n'
+            '</gallery>\n'
+            '<gallery>\n'
+            'File:filename2.jpg|source_link_2\n'
+            '</gallery>\n')
         expected_totals = {
             'images': 3,
             'pages': 2,

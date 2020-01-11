@@ -3,8 +3,7 @@
 """Unit tests for monuments_config."""
 
 import unittest
-
-import mock
+import unittest.mock as mock
 
 from erfgoedbot import monuments_config
 
@@ -48,21 +47,21 @@ class TestFilteredCountries(unittest.TestCase):
         countries = set()
         for (c, l), conf in monuments_config.filtered_countries():
             countries.add(c)
-        self.assertEquals(countries, set())
+        self.assertEqual(countries, set())
 
     def test_filtered_countries_default(self):
         expected_countries = set(['foo', 'foo_sparql', 'foo_wlpa', 'foo_rich'])
         countries = set()
         for (c, l), conf in monuments_config.filtered_countries():
             countries.add(c)
-        self.assertEquals(countries, expected_countries)
+        self.assertEqual(countries, expected_countries)
 
     def test_filtered_countries_skip_wd(self):
         expected_countries = set(['foo', 'foo_wlpa', 'foo_rich'])
         countries = set()
         for (c, l), conf in monuments_config.filtered_countries(skip_wd=True):
             countries.add(c)
-        self.assertEquals(countries, expected_countries)
+        self.assertEqual(countries, expected_countries)
 
     def test_filtered_countries_skip_wlpa(self):
         expected_countries = set(['foo', 'foo_sparql', 'foo_rich'])
@@ -70,7 +69,7 @@ class TestFilteredCountries(unittest.TestCase):
         for (c, l), conf in monuments_config.filtered_countries(
                 skip_wlpa=True):
             countries.add(c)
-        self.assertEquals(countries, expected_countries)
+        self.assertEqual(countries, expected_countries)
 
     def test_filtered_countries_keep_skip(self):
         expected_countries = set(
@@ -79,4 +78,4 @@ class TestFilteredCountries(unittest.TestCase):
         for (c, l), conf in monuments_config.filtered_countries(
                 respect_skip=False):
             countries.add(c)
-        self.assertEquals(countries, expected_countries)
+        self.assertEqual(countries, expected_countries)

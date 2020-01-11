@@ -5,9 +5,9 @@ Those that aren't checked through test_update_database
 """
 
 import unittest
+import unittest.mock as mock
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import checkers
 
 
@@ -39,7 +39,7 @@ class TestIsInt(unittest.TestCase):
         self.assertEqual(result, True)
 
     def test_other_script_succeed(self):
-        s = u'۱۲۳۴۵۶۷۸۹۰'
+        s = '۱۲۳۴۵۶۷۸۹۰'
         result = checkers.is_int(s)
         self.assertEqual(result, True)
 
@@ -68,7 +68,7 @@ class TestCountryBboxRequireLatLon(TestCheckersBase):
 
     def test_countryBbox_lat_no_lon(self):
         self.fieldnames.append('lat')
-        expected_errorMsg = u"Longitude is not set for monument %s." % self.monumentKey
+        expected_errorMsg = "Longitude is not set for monument %s." % self.monumentKey
 
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             checkers.check_lat_with_lon(self.fieldnames, self.monumentKey, self.mock_page)
@@ -76,7 +76,7 @@ class TestCountryBboxRequireLatLon(TestCheckersBase):
 
     def test_countryBbox_lon_no_lat(self):
         self.fieldnames.append('lon')
-        expected_errorMsg = u"Latitude is not set for monument %s." % self.monumentKey
+        expected_errorMsg = "Latitude is not set for monument %s." % self.monumentKey
 
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             checkers.check_lat_with_lon(self.fieldnames, self.monumentKey, self.mock_page)
@@ -98,7 +98,7 @@ class TestCheckLatNoCountryBbox(TestCheckersBase):
 
     def test_non_float_lat(self):
         lat = 'some_string'
-        expected_errorMsg = u"Invalid latitude value: %s for monument %s" % (
+        expected_errorMsg = "Invalid latitude value: %s for monument %s" % (
             lat, self.monumentKey)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
@@ -107,7 +107,7 @@ class TestCheckLatNoCountryBbox(TestCheckersBase):
 
     def test_positive_out_of_bounds_lat(self):
         lat = '90.1'
-        expected_errorMsg = u"Latitude for monument %s out of range: %s" % (
+        expected_errorMsg = "Latitude for monument %s out of range: %s" % (
             self.monumentKey, lat)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
@@ -116,7 +116,7 @@ class TestCheckLatNoCountryBbox(TestCheckersBase):
 
     def test_negative_out_of_bounds_lat(self):
         lat = '-90.1'
-        expected_errorMsg = u"Latitude for monument %s out of range: %s" % (
+        expected_errorMsg = "Latitude for monument %s out of range: %s" % (
             self.monumentKey, lat)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
@@ -138,11 +138,11 @@ class TestCheckLatWithCountryBbox(TestCheckersBase):
 
     def setUp(self):
         super(TestCheckLatWithCountryBbox, self).setUp()
-        self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
+        self.country_config['countryBbox'] = '8.5,10.5,28.0,60.0'
 
     def test_lat_outside_Bbox(self):
         lat = '-1.337'
-        expected_errorMsg = u"Latitude for monument %s out of country area: %s" % (
+        expected_errorMsg = "Latitude for monument %s out of country area: %s" % (
             self.monumentKey, lat)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLat(lat, self.monumentKey, self.country_config, self.mock_page)
@@ -164,7 +164,7 @@ class TestCheckLonNoCountryBbox(TestCheckersBase):
 
     def test_non_float_lon(self):
         lon = 'some_string'
-        expected_errorMsg = u"Invalid longitude value: %s for monument %s" % (
+        expected_errorMsg = "Invalid longitude value: %s for monument %s" % (
             lon, self.monumentKey)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
@@ -173,7 +173,7 @@ class TestCheckLonNoCountryBbox(TestCheckersBase):
 
     def test_positive_out_of_bounds_lon(self):
         lon = '180.1'
-        expected_errorMsg = u"Longitude for monument %s out of range: %s" % (
+        expected_errorMsg = "Longitude for monument %s out of range: %s" % (
             self.monumentKey, lon)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
@@ -182,7 +182,7 @@ class TestCheckLonNoCountryBbox(TestCheckersBase):
 
     def test_negative_out_of_bounds_lon(self):
         lon = '-180.1'
-        expected_errorMsg = u"Longitude for monument %s out of range: %s" % (
+        expected_errorMsg = "Longitude for monument %s out of range: %s" % (
             self.monumentKey, lon)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
@@ -204,11 +204,11 @@ class TestCheckLonWithCountryBbox(TestCheckersBase):
 
     def setUp(self):
         super(TestCheckLonWithCountryBbox, self).setUp()
-        self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
+        self.country_config['countryBbox'] = '8.5,10.5,28.0,60.0'
 
     def test_lon_outside_Bbox(self):
         lon = '-1.337'
-        expected_errorMsg = u"Longitude for monument %s out of country area: %s" % (
+        expected_errorMsg = "Longitude for monument %s out of country area: %s" % (
             self.monumentKey, lon)
         with mock.patch('erfgoedbot.checkers.reportDataError', autospec=True) as mock_reportDataError:
             result = checkers.checkLon(lon, self.monumentKey, self.country_config, self.mock_page)
@@ -225,7 +225,7 @@ class TestCheckWikidata(TestCheckersBase):
 
     def setUp(self):
         super(TestCheckWikidata, self).setUp()
-        self.error_msg = u"Invalid wikidata value: %s for monument %s"
+        self.error_msg = "Invalid wikidata value: %s for monument %s"
 
     def test_empty_wd_item(self):
         wd_item = ''
@@ -258,7 +258,7 @@ class TestCheckInteger(TestCheckersBase):
 
     def setUp(self):
         super(TestCheckInteger, self).setUp()
-        self.error_msg = u"Invalid integer value: %s for monument %s"
+        self.error_msg = "Invalid integer value: %s for monument %s"
 
     def test_check_integer_empty_string(self):
         text = ''

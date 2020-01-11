@@ -3,8 +3,7 @@
 """Unit tests for update_database."""
 
 import unittest
-
-import mock
+import unittest.mock as mock
 
 from erfgoedbot import monument_tables
 
@@ -46,7 +45,7 @@ class TestProcessClassicConfig(unittest.TestCase):
 
     def test_process_classic_config_unicode_field(self):
         self.country_config["fields"].append(
-            {"dest": "d_val", "source": u"s_val_öé"})
+            {"dest": "d_val", "source": "s_val_öé"})
         expected_output = ("the_table|primkey|"
                            "  `d_val` varchar(255) NOT NULL DEFAULT '',|")
         result = monument_tables.process_classic_config(self.country_config)

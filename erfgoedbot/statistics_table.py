@@ -1,11 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8  -*-
 """Create a wikitext formated statistics table."""
-from __future__ import unicode_literals
+
 
 from collections import OrderedDict
 
-import common as common
+import erfgoedbot.common as common
 
 
 class StatisticsTable(object):
@@ -57,7 +57,7 @@ class StatisticsTable(object):
                 row_cols[col] = empty
         self.rows.append(row_cols)
 
-        for col in self.totals.keys():
+        for col in list(self.totals.keys()):
             if col in num_cols:  # num_cols.get(col) misses 0
                 self.totals[col] += num_cols.get(col)
             elif is_number(row_cols.get(col)):
@@ -72,14 +72,14 @@ class StatisticsTable(object):
 
         @param wikitext: the wikitext for a single row.
         """
-        if not isinstance(wikitext, (str, unicode)):
+        if not isinstance(wikitext, str):
             raise ValueError('wikitext must be a (unicode) string')
         self.rows.append(wikitext.rstrip('\n'))
 
     def get_header_row(self):
         """Get a header row using appropriate titles, as wikitext."""
         titles = OrderedDict()
-        for col, title in self.columns.iteritems():
+        for col, title in self.columns.items():
             if title is None:
                 title = col
             titles.update({title: col in self.totals})
@@ -131,7 +131,7 @@ class StatisticsTable(object):
                 text += '|-\n'
                 text += delimiter.join([
                     '| {} '.format(row.get(col))
-                    for col in self.columns.keys()])
+                    for col in list(self.columns.keys())])
             text += '\n'
         if add_summation:
             text += self.get_summation_row()

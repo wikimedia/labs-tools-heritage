@@ -10,12 +10,12 @@ python update_database.py
 # work on specific country-lang
 python update_database.py -countrycode:XX -langcode:YY
 """
-from __future__ import unicode_literals
+
 
 import datetime
 import os
 import time
-import urlparse
+import urllib.parse
 import warnings
 from collections import Counter, OrderedDict
 
@@ -25,27 +25,27 @@ import pywikibot
 import pywikibot.data.sparql
 from pywikibot import pagegenerators
 
-import common as common
-import monuments_config as mconfig
-from checkers import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.checkers import (
     check_integer,
     check_lat_with_lon,
     check_wikidata,
     checkLat,
     checkLon
 )
-from converters import (
+from erfgoedbot.converters import (
     CH1903Converter,
     extract_elements_from_template_param,
     extractWikilink,
     int_to_european_digits,
     remove_commons_category_prefix
 )
-from database_connection import (
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
-from statistics_table import StatisticsTable
+from erfgoedbot.statistics_table import StatisticsTable
 
 _logger = 'update_database'
 
@@ -172,8 +172,8 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
     else:
         title_column = ['Field', 'Count', 'Sources']
         table = StatisticsTable(title_column, ['Count'])
-        for key, counter in unknown_fields.iteritems():
-            pages_with_fields.update(counter.keys())
+        for key, counter in unknown_fields.items():
+            pages_with_fields.update(list(counter.keys()))
             table.add_row({
                 'Field': key,
                 'Count': sum(counter.values()),
@@ -206,7 +206,7 @@ def format_source_field(sources, site, sample_size=4):
     """
     source_text = ''
     if len(sources) == 1:
-        source_page = sources.keys()[0]
+        source_page = list(sources.keys())[0]
         source_text = source_page.title(
             as_link=True, with_ns=False, insite=site)
     else:
@@ -317,7 +317,7 @@ def process_monument_wikidata(result, param_order):
             result[key] = result[key].value
 
     if result['image']:
-        result['image'] = urlparse.unquote(
+        result['image'] = urllib.parse.unquote(
             result['image'].value).split('/')[-1]
 
     if result['itemLabel']:
@@ -556,8 +556,9 @@ def process_country_wikidata(countryconfig, conn, cursor):
         ('%s, ' * len(params)).rstrip(', '))
 
     batch_size = 100
+    i = 0
     for result_chunk in [query_result[i:i + batch_size]
-                         for i in xrange(0, len(query_result), batch_size)]:
+                         for i in range(0, len(query_result), batch_size)]:
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter('always')
             cursor.executemany(
@@ -587,7 +588,7 @@ def make_statistics(statistics):
     ])
     table = StatisticsTable(
         title_column,
-        list(filter(lambda col: col.startswith('total'), title_column)))
+        list([col for col in title_column if col.startswith('total')]))
     for row in statistics:
         if not row:
             # sparql harvests don't generate statistics
@@ -596,12 +597,12 @@ def make_statistics(statistics):
 
         row_template = common.get_template_link(
             countryconfig.get('lang'),
-            countryconfig.get('project', u'wikipedia'),
+            countryconfig.get('project', 'wikipedia'),
             countryconfig.get('rowTemplate'),
             site)
         header_template = common.get_template_link(
             countryconfig.get('lang'),
-            countryconfig.get('project', u'wikipedia'),
+            countryconfig.get('project', 'wikipedia'),
             countryconfig.get('headerTemplate'),
             site)
         report_page = row.get('report_page').title(

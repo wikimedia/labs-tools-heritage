@@ -1,9 +1,9 @@
 """Unit tests for StatisticsTable."""
 import unittest
+import unittest.mock as mock
 from collections import OrderedDict
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import statistics_table
 
 

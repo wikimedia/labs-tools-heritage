@@ -2,12 +2,12 @@
 import os
 import tempfile
 import unittest
+import unittest.mock as mock
 from collections import OrderedDict
-
-import mock
 
 import pywikibot
 
+import custom_assertions  # noqa F401
 from erfgoedbot import common
 
 
@@ -16,23 +16,23 @@ class TestGetSourcePage(unittest.TestCase):
     def test_getSourcePage_wikipedia(self):
         source = '//en.wikipedia.org/w/index.php?title=foo&oldid=123'
         result = common.get_source_page(source)
-        self.assertEquals(result, ('foo', ('wikipedia', 'en')))
+        self.assertEqual(result, ('foo', ('wikipedia', 'en')))
 
     def test_getSourcePage_wikipedia_urlencode(self):
         source = '//ka.wikipedia.org/w/index.php?title=%E1%83%95%E1%83%98%E1%83%99&oldid=3179801'
         result = common.get_source_page(source)
-        self.assertEquals(
+        self.assertEqual(
             result, ('%E1%83%95%E1%83%98%E1%83%99', ('wikipedia', 'ka')))
 
     def test_getSourcePage_wikivoyage(self):
         source = '//ru.wikivoyage.org/w/index.php?title=foo&oldid=123'
         result = common.get_source_page(source)
-        self.assertEquals(result, ('foo', ('wikivoyage', 'ru')))
+        self.assertEqual(result, ('foo', ('wikivoyage', 'ru')))
 
     def test_getSourcePage_sparql(self):
         source = 'http://www.wikidata.org/entity/Q123'
         result = common.get_source_page(source, 'sparql')
-        self.assertEquals(result, ('Q123', ('wikidata', 'www')))
+        self.assertEqual(result, ('Q123', ('wikidata', 'www')))
 
 
 class TestGetPageFromUrl(unittest.TestCase):
@@ -40,17 +40,17 @@ class TestGetPageFromUrl(unittest.TestCase):
     def test_get_page_from_url_entity(self):
         source = 'http://www.wikidata.org/entity/Q123'
         result = common.get_page_from_url(source)
-        self.assertEquals(result, ('Q123', ('wikidata', 'www')))
+        self.assertEqual(result, ('Q123', ('wikidata', 'www')))
 
     def test_get_page_from_url_page(self):
         source = 'http://www.wikidata.org/wiki/Q123'
         result = common.get_page_from_url(source)
-        self.assertEquals(result, ('Q123', ('wikidata', 'www')))
+        self.assertEqual(result, ('Q123', ('wikidata', 'www')))
 
     def test_get_page_from_url_wikipedia(self):
         source = 'http://en.wikipedia.org/entity/foo'
         result = common.get_page_from_url(source)
-        self.assertEquals(result, ('foo', ('wikipedia', 'en')))
+        self.assertEqual(result, ('foo', ('wikipedia', 'en')))
 
 
 class TestGetSourceLink(unittest.TestCase):
@@ -63,22 +63,22 @@ class TestGetSourceLink(unittest.TestCase):
     def test_getSourcePage_wikipedia(self):
         self.mock_get_source.return_value = ('foo', ('wikipedia', 'en'))
         result = common.get_source_link('a link')
-        self.assertEquals(result, '[[foo]]')
+        self.assertEqual(result, '[[foo]]')
 
     def test_getSourcePage_wikipedia_label(self):
         self.mock_get_source.return_value = ('foo', ('wikipedia', 'en'))
         result = common.get_source_link('a link', label='bar')
-        self.assertEquals(result, '[[foo|bar]]')
+        self.assertEqual(result, '[[foo|bar]]')
 
     def test_getSourcePage_sparql(self):
         self.mock_get_source.return_value = ('Q123', ('wikidata', 'www'))
         result = common.get_source_link('a link', 'sparql')
-        self.assertEquals(result, '[[:d:Q123]]')
+        self.assertEqual(result, '[[:d:Q123]]')
 
     def test_getSourcePage_sparql_label(self):
         self.mock_get_source.return_value = ('Q123', ('wikidata', 'www'))
         result = common.get_source_link('a link', 'sparql', 'bar')
-        self.assertEquals(result, '[[:d:Q123|bar]]')
+        self.assertEqual(result, '[[:d:Q123|bar]]')
 
 
 class TestPageToFilename(unittest.TestCase):
@@ -86,41 +86,41 @@ class TestPageToFilename(unittest.TestCase):
     def test_page_to_filename_commons(self):
         site = pywikibot.Site('commons', 'commons')
         page = pywikibot.Page(site, 'Foo')
-        self.assertEquals(
+        self.assertEqual(
             common.page_to_filename(page),
-            '[commons_commons][_]Foo.wiki'
+            b'[commons_commons][_]Foo.wiki'
         )
 
     def test_page_to_filename_wikipedia(self):
         site = pywikibot.Site('en', 'wikipedia')
         page = pywikibot.Page(site, 'Foo')
-        self.assertEquals(
+        self.assertEqual(
             common.page_to_filename(page),
-            '[wikipedia_en][_]Foo.wiki'
+            b'[wikipedia_en][_]Foo.wiki'
         )
 
     def test_page_to_filename_namespace(self):
         site = pywikibot.Site('commons', 'commons')
         page = pywikibot.Page(site, 'Template:Foo')
-        self.assertEquals(
+        self.assertEqual(
             common.page_to_filename(page),
-            '[commons_commons][Template]Foo.wiki'
+            b'[commons_commons][Template]Foo.wiki'
         )
 
     def test_page_to_filename_subpage(self):
         site = pywikibot.Site('commons', 'commons')
         page = pywikibot.Page(site, 'Foo/Bar')
-        self.assertEquals(
+        self.assertEqual(
             common.page_to_filename(page),
-            '[commons_commons][_]Foo_Bar.wiki'
+            b'[commons_commons][_]Foo_Bar.wiki'
         )
 
     def test_page_to_filename_with_spaces(self):
         site = pywikibot.Site('commons', 'commons')
         page = pywikibot.Page(site, 'Foo bar')
-        self.assertEquals(
+        self.assertEqual(
             common.page_to_filename(page),
-            '[commons_commons][_]Foo_bar.wiki'
+            b'[commons_commons][_]Foo_bar.wiki'
         )
 
 
@@ -167,21 +167,21 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
             newtext=content, summary=summary, minorEdit=True)
         self.mock_page_to_filename.assert_not_called()
         self.mock_join.assert_not_called()
-        self.assertEquals(self.test_outfile.read(), '')
+        self.assertEqual(self.test_outfile.read(), b'')
 
     def test_save_to_wiki_or_local_write_locally(self):
         summary = 'a summary'
-        content = u'The content'
+        content = 'The content'
         self.mock_environ_get.return_value = 'something'
         common.save_to_wiki_or_local(self.page, summary, content)
         self.mock_environ_get.assert_called_once_with(
             'HERITAGE_LOCAL_WRITE_PATH')
         self.mock_page_put.assert_not_called()
         self.mock_page_to_filename.assert_called_once_with(self.page)
-        self.mock_join.assert_called_once_with('something', 'filename')
-        self.assertEquals(
+        self.mock_join.assert_called_once_with(b'something', 'filename')
+        self.assertEqual(
             self.test_outfile.read(),
-            '#summary: a summary\n---------------\nThe content'
+            b'#summary: a summary\n---------------\nThe content'
         )
 
 
@@ -196,7 +196,7 @@ class TestGetIdFromSortKey(unittest.TestCase):
         sort_key = '123'
         expected = '123'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_exact_with_dict(self):
         known_ids = {
@@ -208,43 +208,43 @@ class TestGetIdFromSortKey(unittest.TestCase):
         sort_key = '123'
         expected = '123'
         result = common.get_id_from_sort_key(sort_key, known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_multi_line(self):
         sort_key = '123\nfoo'
         expected = '123'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_trim(self):
         sort_key = ' \t123\t '
         expected = '123'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_padded(self):
         sort_key = '000001230'
         expected = '1230'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_underscored(self):
         sort_key = '_01230_'
         expected = '01230_'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_upper(self):
         sort_key = 'F00bar'
         expected = 'F00BAR'
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_id_from_sort_key_no_match(self):
         sort_key = ' 000_foo \nbar'
         expected = None
         result = common.get_id_from_sort_key(sort_key, self.known_ids)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
 
 class TestTableHeaderRow(unittest.TestCase):
@@ -254,22 +254,22 @@ class TestTableHeaderRow(unittest.TestCase):
     def test_table_header_row_wo_numeric(self):
         columns = OrderedDict([('a', False), ('b', False), ('c', False)])
         expected = (
-            u'{| class="wikitable sortable"\n'
-            u'! a\n'
-            u'! b\n'
-            u'! c\n')
+            '{| class="wikitable sortable"\n'
+            '! a\n'
+            '! b\n'
+            '! c\n')
         result = common.table_header_row(columns)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_table_header_row_w_numeric(self):
         columns = OrderedDict([('a', False), ('b', True), ('c', False)])
         expected = (
-            u'{| class="wikitable sortable"\n'
-            u'! a\n'
-            u'! data-sort-type="number"| b\n'
-            u'! c\n')
+            '{| class="wikitable sortable"\n'
+            '! a\n'
+            '! data-sort-type="number"| b\n'
+            '! c\n')
         result = common.table_header_row(columns)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
 
 class TestTableBottomRow(unittest.TestCase):
@@ -278,23 +278,23 @@ class TestTableBottomRow(unittest.TestCase):
 
     def test_table_bottom_row_no_value(self):
         expected = (
-            u'|- class="sortbottom"\n'
-            u'|style="background-color: #ccc;"|\n'
-            u'|style="background-color: #ccc;"|\n'
-            u'|}\n')
+            '|- class="sortbottom"\n'
+            '|style="background-color: #ccc;"|\n'
+            '|style="background-color: #ccc;"|\n'
+            '|}\n')
         result = common.table_bottom_row(2)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_table_bottom_row_basic(self):
         values = {2: 123}
         expected = (
-            u'|- class="sortbottom"\n'
-            u'|style="background-color: #ccc;"|\n'
-            u'|style="background-color: #ccc;"|\n'
-            u"| '''123'''\n"
-            u'|style="background-color: #ccc;"|\n'
-            u'|style="background-color: #ccc;"|\n'
-            u'|style="background-color: #ccc;"|\n'
-            u'|}\n')
+            '|- class="sortbottom"\n'
+            '|style="background-color: #ccc;"|\n'
+            '|style="background-color: #ccc;"|\n'
+            "| '''123'''\n"
+            '|style="background-color: #ccc;"|\n'
+            '|style="background-color: #ccc;"|\n'
+            '|style="background-color: #ccc;"|\n'
+            '|}\n')
         result = common.table_bottom_row(6, values)
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)

@@ -2,10 +2,11 @@
 # -*- coding: utf-8  -*-
 """Unit tests for check_emailable_users."""
 import unittest
+import unittest.mock as mock
 
-import mock
 from freezegun import freeze_time
 
+import custom_assertions  # noqa F401
 from erfgoedbot import check_emailable_users
 
 
@@ -19,19 +20,19 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         mock_connect_to_commons_database.return_value = (None, self.mock_cursor_commons)
         self.addCleanup(patcher.stop)
         self.expected_query = (
-            u"SELECT"
-            u" user.user_name as uploader"
-            u" FROM (SELECT"
-            u"   cl_to,"
-            u"   cl_from"
-            u"   FROM categorylinks"
-            u"   WHERE cl_to = %s AND cl_type = 'file') cats"
-            u" INNER JOIN page ON cl_from = page_id"
-            u" INNER JOIN image ON page_title = img_name"
-            u" LEFT JOIN actor ON actor.actor_id = image.img_actor"
-            u" LEFT JOIN user ON user.user_id = actor.actor_user"
-            u" WHERE img_timestamp BETWEEN %s AND %s"
-            u" GROUP BY uploader"
+            "SELECT"
+            " user.user_name as uploader"
+            " FROM (SELECT"
+            "   cl_to,"
+            "   cl_from"
+            "   FROM categorylinks"
+            "   WHERE cl_to = %s AND cl_type = 'file') cats"
+            " INNER JOIN page ON cl_from = page_id"
+            " INNER JOIN image ON page_title = img_name"
+            " LEFT JOIN actor ON actor.actor_id = image.img_actor"
+            " LEFT JOIN user ON user.user_id = actor.actor_user"
+            " WHERE img_timestamp BETWEEN %s AND %s"
+            " GROUP BY uploader"
         )
 
     @freeze_time("2018-09-14 03:21:34")
@@ -40,7 +41,7 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         expected_query_params = ('Some_category', '20180914012134', '20180914032134')
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
-        self.assertEquals(result, ['A', 'B'])
+        self.assertEqual(result, ['A', 'B'])
 
     @freeze_time("2018-09-14 03:21:34")
     def test_get_usernames_with_custom_delta(self):
@@ -48,7 +49,7 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         expected_query_params = ('Some_category', '20180914022134', '20180914032134')
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
-        self.assertEquals(result, ['A', 'B'])
+        self.assertEqual(result, ['A', 'B'])
 
     @freeze_time("2018-09-14 03:21:34")
     def test_get_usernames_with_no_result(self):
@@ -57,4 +58,4 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         expected_query_params = ('Some_category', '20180914012134', '20180914032134')
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
-        self.assertEquals(result, [])
+        self.assertEqual(result, [])

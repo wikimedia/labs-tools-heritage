@@ -7,9 +7,9 @@ Bot to add {{Object location dec}} to monuments. Location is based on informatio
 '''
 import pywikibot
 
-import common as common
-import monuments_config as mconfig
-from database_connection import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_commons_database,
     connect_to_monuments_database
@@ -32,25 +32,25 @@ def locateCountry(countryconfig, conn, cursor, conn2, cursor2):
 
 
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
-    site = pywikibot.getSite(u'commons', u'commons')
+    site = pywikibot.getSite('commons', 'commons')
     query = (
-        u"SELECT page_title, cl_sortkey_prefix "
-        u"FROM page "
-        u"JOIN templatelinks ON page_id=tl_from "
-        u"JOIN categorylinks ON page_id=cl_from "
-        u"WHERE page_namespace=6 AND page_is_redirect=0 "
-        u"AND tl_namespace=10 AND tl_title=%s "
-        u"AND cl_to=%s AND NOT EXISTS({sub}) "
-        u"LIMIT 10000")
+        "SELECT page_title, cl_sortkey_prefix "
+        "FROM page "
+        "JOIN templatelinks ON page_id=tl_from "
+        "JOIN categorylinks ON page_id=cl_from "
+        "WHERE page_namespace=6 AND page_is_redirect=0 "
+        "AND tl_namespace=10 AND tl_title=%s "
+        "AND cl_to=%s AND NOT EXISTS({sub}) "
+        "LIMIT 10000")
     subquery = (
-        u"SELECT * "
-        u"FROM categorylinks AS loccat "
-        u"WHERE page_id=loccat.cl_from "
-        u"AND loccat.cl_to='Media_with_locations'"
+        "SELECT * "
+        "FROM categorylinks AS loccat "
+        "WHERE page_id=loccat.cl_from "
+        "AND loccat.cl_to='Media_with_locations'"
     )
-    commonsTemplate = countryconfig.get('commonsTemplate').replace(u' ', u'_')
+    commonsTemplate = countryconfig.get('commonsTemplate').replace(' ', '_')
     commonsTrackerCategory = countryconfig.get(
-        'commonsTrackerCategory').replace(u' ', u'_')
+        'commonsTrackerCategory').replace(' ', '_')
 
     cursor2.execute(
         query.format(sub=subquery), (
@@ -64,9 +64,14 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
             # Nothing left
             break
         if pageName and sortkey:
-            page = pywikibot.Page(site, 'File:' + unicode(pageName, 'utf-8'))
+            if not isinstance(pageName, str):
+                pageName = str(pageName, encoding='utf-8')
+            page = pywikibot.Page(site, 'File:' + pageName)
             try:
-                monumentId = unicode(sortkey, 'utf-8', errors='replace')
+                if not isinstance(sortkey, str):
+                    monumentId = str(sortkey, encoding='utf-8', errors='replace')
+                else:
+                    monumentId = sortkey
                 # Just want the first line
                 mLines = monumentId.splitlines()
                 monumentId = mLines[0]
@@ -74,16 +79,16 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
                 monumentId = monumentId.strip()
                 # Remove leading zero's. FIXME: This should be replaced with
                 # underscores
-                monumentId = monumentId.lstrip(u'0')
+                monumentId = monumentId.lstrip('0')
                 # Remove leading underscors.
-                monumentId = monumentId.lstrip(u'_')
+                monumentId = monumentId.lstrip('_')
                 yield (page, monumentId)
             except ValueError:
-                pywikibot.output(u'Got value error for %s' % (monumentId,))
+                pywikibot.output('Got value error for %s' % (monumentId,))
 
 
 def locateImage(page, monumentId, countryconfig, conn, cursor):
-    pywikibot.output(u'Working on: %s with id %s' % (page.title(), monumentId))
+    pywikibot.output('Working on: %s with id %s' % (page.title(), monumentId))
 
     # First check if the identifier returns something useful
     coordinates = getCoordinates(
@@ -91,7 +96,7 @@ def locateImage(page, monumentId, countryconfig, conn, cursor):
         conn, cursor)
     if not coordinates:
         pywikibot.output(
-            u'File contains an unknown identifier: %s' % monumentId)
+            'File contains an unknown identifier: %s' % monumentId)
         return False
 
     (lat, lon, source) = coordinates
@@ -100,15 +105,15 @@ def locateImage(page, monumentId, countryconfig, conn, cursor):
     # not already a template on the page.
     templates = page.templates()
 
-    if (u'Location' in templates or
-            u'Location dec' in templates or
-            u'Object location' in templates or
-            u'Object location dec' in templates):
+    if ('Location' in templates or
+            'Location dec' in templates or
+            'Object location' in templates or
+            'Object location dec' in templates):
         pywikibot.output(
-            u'Location template already found at: %s' % page.title())
+            'Location template already found at: %s' % page.title())
         return False
 
-    locationTemplate = u'{{Object location dec|%s|%s|region:%s_type:landmark_scale:1500}}<!-- Location from %s -->' % (
+    locationTemplate = '{{Object location dec|%s|%s|region:%s_type:landmark_scale:1500}}<!-- Location from %s -->' % (
         lat, lon, countryconfig.get('country').upper(), source)
 
     return locationTemplate
@@ -119,15 +124,15 @@ def getCoordinates(monumentId, countrycode, lang, conn, cursor):
     Get coordinates from the erfgoed database
     '''
     query = (
-        u"SELECT lat, lon, source "
-        u"FROM monuments_all "
-        u"WHERE id=%s "
-        u"AND country=%s "
-        u"AND lang=%s "
-        u"AND NOT lat=0 AND NOT lon=0 "
-        u"AND NOT lat='' AND NOT lon='' "
-        u"AND NOT lat IS NULL AND NOT lon IS NULL "
-        u"LIMIT 1")
+        "SELECT lat, lon, source "
+        "FROM monuments_all "
+        "WHERE id=%s "
+        "AND country=%s "
+        "AND lang=%s "
+        "AND NOT lat=0 AND NOT lon=0 "
+        "AND NOT lat='' AND NOT lon='' "
+        "AND NOT lat IS NULL AND NOT lon IS NULL "
+        "LIMIT 1")
 
     cursor.execute(query, (monumentId, countrycode, lang,))
 
@@ -143,13 +148,13 @@ def addLocation(page, locationTemplate):
         oldtext = page.get()
     except pywikibot.NoPage:
         # For some reason we sometimes get a NoPage Exception
-        pywikibot.output(u'No text found at %s. Skipping' % (page.title(),))
+        pywikibot.output('No text found at %s. Skipping' % (page.title(),))
         return False
 
-    comment = u'Adding object location based on monument identifier'
+    comment = 'Adding object location based on monument identifier'
 
     newtext = putAfterTemplate(
-        oldtext, u'Information', locationTemplate, loose=True)
+        oldtext, 'Information', locationTemplate, loose=True)
     pywikibot.showDiff(oldtext, newtext)
     common.save_to_wiki_or_local(page, comment, newtext)
 
@@ -162,13 +167,13 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
 
     Based on cc-by-sa-3.0 code by Dschwen
     '''
-    newtext = u''
+    newtext = ''
 
-    templatePosition = oldtext.find(u'{{%s' % (template,))
+    templatePosition = oldtext.find('{{%s' % (template,))
 
     if templatePosition >= 0:
-        previousChar = u''
-        currentChar = u''
+        previousChar = ''
+        currentChar = ''
         templatePosition += 2
         curly = 1
         square = 0
@@ -176,18 +181,18 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
         while templatePosition < len(oldtext):
             currentChar = oldtext[templatePosition]
 
-            if currentChar == u'[' and previousChar == u'[':
+            if currentChar == '[' and previousChar == '[':
                 square += 1
-                previousChar = u''
-            if currentChar == u']' and previousChar == u']':
+                previousChar = ''
+            if currentChar == ']' and previousChar == ']':
                 square -= 1
-                previousChar = u''
-            if currentChar == u'{' and previousChar == u'{':
+                previousChar = ''
+            if currentChar == '{' and previousChar == '{':
                 curly += 1
-                previousChar = u''
-            if currentChar == u'}' and previousChar == u'}':
+                previousChar = ''
+            if currentChar == '}' and previousChar == '}':
                 curly -= 1
-                previousChar = u''
+                previousChar = ''
 
             previousChar = currentChar
             templatePosition += 1
@@ -196,7 +201,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
                 # Found end of template
                 break
         newtext = oldtext[:templatePosition] + \
-            u'\n' + toadd + oldtext[templatePosition:]
+            '\n' + toadd + oldtext[templatePosition:]
 
     else:
         if loose:
@@ -205,7 +210,7 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
             ll = pywikibot.getLanguageLinks(newtext)
             newtext = pywikibot.removeLanguageLinks(newtext)
             newtext = pywikibot.removeCategoryLinks(newtext)
-            newtext += u'\n' + toadd
+            newtext += '\n' + toadd
             newtext = pywikibot.replaceCategoryLinks(newtext, cats)
             newtext = pywikibot.replaceLanguageLinks(newtext, ll)
 
@@ -213,8 +218,8 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
 
 
 def main():
-    countrycode = u''
-    lang = u''
+    countrycode = ''
+    lang = ''
     skip_wd = False
 
     # Connect database, we need that
@@ -231,46 +236,46 @@ def main():
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-skip_wd" or pywikibot args. '
+                'Found "{}"'.format(option))
 
-    pywikibot.setSite(pywikibot.getSite(u'commons', u'commons'))
+    pywikibot.setSite(pywikibot.getSite('commons', 'commons'))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.output(
-                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+                'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         pywikibot.output(
-            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         locateCountry(mconfig.countries.get((countrycode, lang)),
                       conn, cursor, conn2, cursor2)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             if not countryconfig.get('autoGeocode'):
                 pywikibot.output(
-                    u'"%s" in language "%s" is not supported in auto geocode mode (yet).' % (countrycode, lang))
+                    '"%s" in language "%s" is not supported in auto geocode mode (yet).' % (countrycode, lang))
             else:
                 pywikibot.output(
-                    u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+                    'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
                 try:
                     locateCountry(countryconfig, conn, cursor, conn2, cursor2)
                 except Exception as e:
                     pywikibot.error(
-                        u'Unknown error occurred when processing country '
-                        u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                        'Unknown error occurred when processing country '
+                        '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                     continue
 
     close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     try:
         main()
     finally:

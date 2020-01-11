@@ -2,9 +2,9 @@
 # -*- coding: utf-8  -*-
 """Unit tests for images_of_monuments_without_id."""
 import unittest
+import unittest.mock as mock
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import images_of_monuments_without_id
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
@@ -25,7 +25,7 @@ class TestProcessCountry(TestCreateReportBase):
             'project': 'wikisource'
         }
         self.add_template = True
-        self.comment = u'Images without an id'
+        self.comment = 'Images without an id'
 
         patcher = mock.patch(
             'erfgoedbot.images_of_monuments_without_id.getMonumentsWithPhoto')
@@ -62,7 +62,7 @@ class TestProcessCountry(TestCreateReportBase):
             'config': self.countryconfig,
             'totals': expected_total
         }
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_monuments_with_photo.assert_called_once_with(
             'foo', 'bar', 'conn', 'cursor')
         self.mock_get_monuments_with_template.assert_called_once_with(
@@ -82,7 +82,7 @@ class TestProcessCountry(TestCreateReportBase):
             'config': self.countryconfig,
             'cmt': expected_cmt
         }
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_get_monuments_with_photo.assert_not_called()
         self.mock_get_monuments_with_template.assert_not_called()
         self.mock_get_monuments_without_template.assert_not_called()
@@ -226,7 +226,7 @@ class TestProcessCountry(TestCreateReportBase):
             self.countryconfig, self.add_template,
             'conn', 'cursor', 'conn2', 'cursor2')
 
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
         self.mock_add_commons_template.assert_called_once_with(
             'Foobar.jpg', 'A template', 123)
         self.mock_get_monuments_with_photo.assert_called_once()
@@ -304,7 +304,7 @@ class TestFormatGalleryRow(unittest.TestCase):
     def test_format_gallery_row_image(self):
         image = 'Foo.jpg'
         self.assertEqual(
-            u'File:Foo.jpg',
+            'File:Foo.jpg',
             images_of_monuments_without_id.format_gallery_row(image)
         )
 
@@ -312,7 +312,7 @@ class TestFormatGalleryRow(unittest.TestCase):
         image = 'Foo.jpg'
         id = 123
         self.assertEqual(
-            u'File:Foo.jpg|123',
+            'File:Foo.jpg|123',
             images_of_monuments_without_id.format_gallery_row(image, id)
         )
 
@@ -321,7 +321,7 @@ class TestFormatGalleryRow(unittest.TestCase):
         id = 123
         template = 'Bar'
         self.assertEqual(
-            u'File:Foo.jpg|<nowiki>{{Bar|123}}</nowiki>',
+            'File:Foo.jpg|<nowiki>{{Bar|123}}</nowiki>',
             images_of_monuments_without_id.format_gallery_row(
                 image, id, template)
         )
@@ -335,7 +335,7 @@ class TestAddCommonsTemplate(unittest.TestCase):
         self.identifier = 123
         self.image = 'Foo.jpg'
         self.page_templates = ['Pre-existing Template']
-        self.comment = u'Adding template {0} based on usage in list'
+        self.comment = 'Adding template {0} based on usage in list'
 
         # silence diff viewer
         patcher = mock.patch(
@@ -378,7 +378,7 @@ class TestAddCommonsTemplate(unittest.TestCase):
 
     def test_addCommonsTemplate_successfull(self):
         template = 'A new template'
-        expected_text = u'{{A new template|123}}\n<page contents>'
+        expected_text = '{{A new template|123}}\n<page contents>'
         result = images_of_monuments_without_id.addCommonsTemplate(
             self.image, template, self.identifier)
 
@@ -471,7 +471,7 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_instruction_header.assert_called_once()
 
     def test_output_country_report_empty(self):
-        expected_cmt = u'Images without an id: 0'
+        expected_cmt = 'Images without an id: 0'
         expected_output = self.mock_done_message.return_value
 
         images_of_monuments_without_id.output_country_report(
@@ -483,13 +483,13 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_format_gallery_row.assert_not_called()
 
     def test_output_country_report_complete(self):
-        expected_cmt = u'Images without an id: 3'
+        expected_cmt = 'Images without an id: 3'
         expected_output = (
-            u'<gallery>\n'
-            u'<formatted row>\n'
-            u'<formatted row>\n'
-            u'<formatted row>\n'
-            u'</gallery>')
+            '<gallery>\n'
+            '<formatted row>\n'
+            '<formatted row>\n'
+            '<formatted row>\n'
+            '</gallery>')
 
         images_of_monuments_without_id.output_country_report(
             self.rows, self.mock_report_page)
@@ -507,15 +507,15 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_images = 2
 
         expected_cmt = (
-            u'Images without an id: 2 (gallery maximum reached), '
-            u'total of images without id: 3')
+            'Images without an id: 2 (gallery maximum reached), '
+            'total of images without id: 3')
         expected_output = (
-            u'<gallery>\n'
-            u'<formatted row>\n'
-            u'<formatted row>\n'
-            u'</gallery>\n'
-            u'<!-- Maximum number of images reached: 2, '
-            u'total of images without id: 3 -->')
+            '<gallery>\n'
+            '<formatted row>\n'
+            '<formatted row>\n'
+            '</gallery>\n'
+            '<!-- Maximum number of images reached: 2, '
+            'total of images without id: 3 -->')
 
         images_of_monuments_without_id.output_country_report(
             self.rows, self.mock_report_page, max_images=max_images)
@@ -548,10 +548,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }
 
         self.comment = (
-            u'Updating images without id statistics. Total of {total_with_id} '
-            u'images with suggested ids and {total_without_id} without.')
-        self.pagename = (u'Commons:Monuments database/'
-                         u'Images without id/Statistics')
+            'Updating images without id statistics. Total of {total_with_id} '
+            'images with suggested ids and {total_without_id} without.')
+        self.pagename = ('Commons:Monuments database/'
+                         'Images without id/Statistics')
 
     def bundled_asserts(self, expected_rows,
                         expected_total_with_id,
@@ -586,13 +586,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 456 \n'
-            u'| 789 \n'
-            u'| <report_page> \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 456 \n'
+            '| 789 \n'
+            '| <report_page> \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 456
         expected_total_without_id = 789
 
@@ -616,13 +616,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 456 \n'
-            u'| 789 \n'
-            u'| <report_page> \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 456 \n'
+            '| 789 \n'
+            '| <report_page> \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 456
         expected_total_without_id = 789
 
@@ -640,13 +640,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: due to foo \n'
-            u'| --- \n'
-            u'| <report_page> \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: due to foo \n'
+            '| --- \n'
+            '| <report_page> \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 0
         expected_total_without_id = 0
 
@@ -664,13 +664,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: due to foo \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: due to foo \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_with_id = 0
         expected_total_without_id = 0
 
@@ -688,13 +688,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: due to foo \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: due to foo \n'
+            '| --- \n'
+            '| --- \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 0
         expected_total_without_id = 0
 
@@ -734,20 +734,20 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 2 \n'
-            u'| 3 \n'
-            u'| <report_page:Foobar> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| 5 \n'
-            u'| 6 \n'
-            u'| <report_page:Barfoo> \n'
-            u'| {{tl|another template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| 3 \n'
+            '| <report_page:Foobar> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| 5 \n'
+            '| 6 \n'
+            '| <report_page:Barfoo> \n'
+            '| {{tl|another template}} \n')
         expected_total_with_id = 7
         expected_total_without_id = 9
 
@@ -778,20 +778,20 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 2 \n'
-            u'| 3 \n'
-            u'| <report_page> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| skipped: due to foo \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| 3 \n'
+            '| <report_page> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| skipped: due to foo \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_with_id = 2
         expected_total_without_id = 3
 

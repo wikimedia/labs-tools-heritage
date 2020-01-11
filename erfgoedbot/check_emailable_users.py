@@ -10,7 +10,7 @@ import datetime
 
 import pywikibot
 
-from database_connection import (
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_commons_database
 )
@@ -23,19 +23,19 @@ def get_usernames_from_database(conn, cursor, category, delta_minutes=120):
     """
     pywikibot.output("Retrieving users...")
     query = (
-        u"SELECT"
-        u" user.user_name as uploader"
-        u" FROM (SELECT"
-        u"   cl_to,"
-        u"   cl_from"
-        u"   FROM categorylinks"
-        u"   WHERE cl_to = %s AND cl_type = 'file') cats"
-        u" INNER JOIN page ON cl_from = page_id"
-        u" INNER JOIN image ON page_title = img_name"
-        u" LEFT JOIN actor ON actor.actor_id = image.img_actor"
-        u" LEFT JOIN user ON user.user_id = actor.actor_user"
-        u" WHERE img_timestamp BETWEEN %s AND %s"
-        u" GROUP BY uploader")
+        "SELECT"
+        " user.user_name as uploader"
+        " FROM (SELECT"
+        "   cl_to,"
+        "   cl_from"
+        "   FROM categorylinks"
+        "   WHERE cl_to = %s AND cl_type = 'file') cats"
+        " INNER JOIN page ON cl_from = page_id"
+        " INNER JOIN image ON page_title = img_name"
+        " LEFT JOIN actor ON actor.actor_id = image.img_actor"
+        " LEFT JOIN user ON user.user_id = actor.actor_user"
+        " WHERE img_timestamp BETWEEN %s AND %s"
+        " GROUP BY uploader")
 
     now = datetime.datetime.utcnow()
 
@@ -53,7 +53,7 @@ def get_non_emailable_users(usernames):
     """
     Return all non-emailable users among the given usernames.
     """
-    pywikibot_site = pywikibot.Site(u'commons', u'commons')
+    pywikibot_site = pywikibot.Site('commons', 'commons')
     users = [pywikibot.User(pywikibot_site, username.decode('utf-8')) for username in usernames]
     return [user for user in users if not user.isEmailable()]
 
@@ -62,16 +62,16 @@ def notify_user(user):
     talk_page = user.getUserTalkPage()
     try:
         text = "{{subst:WLM-enable-email}}"
-        summary = u"Notifying WLM participant of missing e-mail address."
-        history_users = [edit[u'user'] for edit in talk_page.getLatestEditors(limit=10)]
+        summary = "Notifying WLM participant of missing e-mail address."
+        history_users = [edit['user'] for edit in talk_page.getLatestEditors(limit=10)]
         if user.site.username() in history_users:
             pywikibot.output("Already notified the user")
             return
-        pywikibot.output(u"Notifying user {}...".format(user))
+        pywikibot.output("Notifying user {}...".format(user))
         talk_page.text += text
         talk_page.save(summary=summary, minor=False)
     except pywikibot.LockedPage:
-        pywikibot.output(u'Talk page blocked, skip.')
+        pywikibot.output('Talk page blocked, skip.')
 
 
 def notify_users(users):
@@ -82,7 +82,7 @@ def notify_users(users):
         try:
             notify_user(user)
         except Exception as e:
-            pywikibot.error(u"Error when notifying user {}, skipping".format(user))
+            pywikibot.error("Error when notifying user {}, skipping".format(user))
             continue
 
 
@@ -90,9 +90,9 @@ def process(category, delta_minutes, notify=False):
     (conn, cursor) = connect_to_commons_database()
     usernames = get_usernames_from_database(conn, cursor, category, delta_minutes)
     close_database_connection(conn, cursor)
-    pywikibot.output(u"There were {} uploaders in the last {} minutes...".format(len(usernames), delta_minutes))
+    pywikibot.output("There were {} uploaders in the last {} minutes...".format(len(usernames), delta_minutes))
     users = get_non_emailable_users(usernames)
-    pywikibot.output(u"...and {} non-emailable users".format(len(users)))
+    pywikibot.output("...and {} non-emailable users".format(len(users)))
     if notify:
         notify_users(users)
 
@@ -114,8 +114,8 @@ def main():
             notify = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-category", "-delta", "-notify" or '
-                u'pywikibot args. Found "{}"'.format(arg))
+                'Bad parameters. Expected "-category", "-delta", "-notify" or '
+                'pywikibot args. Found "{}"'.format(arg))
     if category and delta_minutes:
         process(category, delta_minutes, notify=notify)
     else:

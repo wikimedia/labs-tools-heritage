@@ -2,10 +2,11 @@
 
 import os
 import unittest
+import unittest.mock as mock
 
-import mock
 from pymysql.connections import Connection
 
+import custom_assertions  # noqa F401
 from erfgoedbot import database_connection
 
 
@@ -20,7 +21,7 @@ class TestGetDatabaseConfigFile(unittest.TestCase):
     def test_get_database_config_file_return_default_file(self):
         expected_file = os.path.join('/foo/bar', database_connection.DEFAULT_CONFIG_FILE_NAME)
         config_file = database_connection._get_database_config_file()
-        self.assertEquals(config_file, expected_file)
+        self.assertEqual(config_file, expected_file)
 
 
 class TestGetConfigContents(unittest.TestCase):
@@ -36,11 +37,11 @@ class TestGetConfigContents(unittest.TestCase):
 
     def test_get_monuments_database_config(self):
         result = database_connection.get_monuments_database_config()
-        self.assertEquals(result, 'fake_monuments_db')
+        self.assertEqual(result, 'fake_monuments_db')
 
     def test_get_commons_database_config(self):
         result = database_connection.get_commons_database_config()
-        self.assertEquals(result, 'fake_commons_db')
+        self.assertEqual(result, 'fake_commons_db')
 
 
 class TestConnectToMonumentsDatabase(unittest.TestCase):
@@ -63,11 +64,11 @@ class TestConnectToMonumentsDatabase(unittest.TestCase):
         result = database_connection.connect_to_monuments_database()
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
-            user=u'', passwd=u'',
+            user='', passwd='',
             charset='utf8', use_unicode=True
         )
         self.mock_connection.ping.assert_called_once_with(True)
-        self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))
+        self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))
 
     def test_connect_to_monuments_database_with_overriden_credentials(self):
         self.mock_database_config.return_value = {
@@ -79,11 +80,11 @@ class TestConnectToMonumentsDatabase(unittest.TestCase):
         result = database_connection.connect_to_monuments_database()
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
-            user=u'fake_username', passwd=u'fake_password',
+            user='fake_username', passwd='fake_password',
             charset='utf8', use_unicode=True
         )
         self.mock_connection.ping.assert_called_once_with(True)
-        self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))
+        self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))
 
 
 class TestConnectToCommonsDatabase(unittest.TestCase):
@@ -106,11 +107,11 @@ class TestConnectToCommonsDatabase(unittest.TestCase):
         result = database_connection.connect_to_commons_database()
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
-            user=u'', passwd=u'',
+            user='', passwd='',
             charset='latin1', use_unicode=True
         )
         self.mock_connection.ping.assert_not_called()
-        self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))
+        self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))
 
     def test_connect_to_commons_database_with_overriden_credentials(self):
         self.mock_database_config.return_value = {
@@ -122,8 +123,8 @@ class TestConnectToCommonsDatabase(unittest.TestCase):
         result = database_connection.connect_to_commons_database()
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
-            user=u'fake_username', passwd=u'fake_password',
+            user='fake_username', passwd='fake_password',
             charset='latin1', use_unicode=True
         )
         self.mock_connection.ping.assert_not_called()
-        self.assertEquals(result, (self.mock_connection, self.mock_connection.cursor()))
+        self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))

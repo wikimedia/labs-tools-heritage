@@ -1,10 +1,9 @@
 # -*- coding: utf-8  -*-
 """Base class for testing report outputting."""
-from __future__ import unicode_literals
+
 
 import unittest
-
-import mock
+import unittest.mock as mock
 
 
 class TestCreateReportBase(unittest.TestCase):

@@ -19,9 +19,9 @@ import re
 
 import pywikibot
 
-import common as common
-import monuments_config as mconfig
-from database_connection import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_commons_database,
     connect_to_monuments_database
@@ -32,12 +32,12 @@ wikiData = {
     ('et'): {
         'coordTemplate': 'Coordinate',
         # coordTemplateSyntax % (lat, lon, countrycode.upper() )
-        'coordTemplateSyntax': u'{{Coordinate|NS=%f|EW=%f|type=landmark|region=%s}}'
+        'coordTemplateSyntax': '{{Coordinate|NS=%f|EW=%f|type=landmark|region=%s}}'
     },
     ('fr'): {
         'coordTemplate': 'coord',
         # {{coord|52.51626|13.3777|type:landmark_region:DE|format=dms|display=title}}
-        'coordTemplateSyntax': u'{{coord|%f|%f|type:landmark_region=%s|format=dms|display=title}}'
+        'coordTemplateSyntax': '{{coord|%f|%f|type:landmark_region=%s|format=dms|display=title}}'
     }
 }
 
@@ -58,13 +58,13 @@ class Monument:
     # Constructor with default arguments
     def __init__(self, id=None):
         self.id = id
-        self.name = u''
-        self.country = u''
-        self.wikilang = u''
-        self.article = u''
+        self.name = ''
+        self.country = ''
+        self.wikilang = ''
+        self.article = ''
         self.lat = None
         self.lon = None
-        self.source = u''
+        self.source = ''
 
 
 # functions
@@ -77,7 +77,7 @@ def processCountry(countryconfig, coordconfig, connMon, cursorMon):
     if (not coordconfig or not coordconfig.get('coordTemplate')):
         # No template found, just skip.
         pywikibot.output(
-            u'Language: {0} has no coordTemplate set!'.format(
+            'Language: {0} has no coordTemplate set!'.format(
                 countryconfig.get('lang')))
         return False
 
@@ -92,7 +92,7 @@ def processCountry(countryconfig, coordconfig, connMon, cursorMon):
     monumentsWithArticle = []
 
     for aMonument in withCoordinates:
-        article_name = u''
+        article_name = ''
         result = re.match("\[\[(.+?)\|.+?\]\]", aMonument.name)
         if (result and result.group(1)):
             article_name = result.group(1)
@@ -116,7 +116,7 @@ def processCountry(countryconfig, coordconfig, connMon, cursorMon):
                     monumentsWithArticle.append(aMonument)
 
     if len(duplicateArticles):
-        pywikibot.output(u'Multiple references to following articles: %s in monument lists! Skipped those.' % duplicateArticles[:])
+        pywikibot.output('Multiple references to following articles: %s in monument lists! Skipped those.' % duplicateArticles[:])
 
     for aMonument in monumentsWithArticle:
         PageNs = WP_ARTICLE_NS
@@ -135,9 +135,9 @@ def getMonumentsWithCoordinates(countrycode, lang, cursor):
     '''
     result = []
     query = (
-        u"SELECT id, name, lat, lon, source "
-        u"FROM monuments_all "
-        u"WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s")
+        "SELECT id, name, lat, lon, source "
+        "FROM monuments_all "
+        "WHERE lat<>0 AND lon<>0 AND country=%s AND lang=%s")
     cursor.execute(query, (countrycode, lang))
 
     # result = cursor.fetchall ()
@@ -165,10 +165,10 @@ def hasCoordinates(pageId, lang, cursor):
 
         # check if primary coordinate i.e. article coordinate exists for pageId
         query = (
-            u"SELECT gc_from "
-            u"FROM %s "
-            u"WHERE (gc_from = %d AND gc_primary = 1) "
-            u"LIMIT 1")
+            "SELECT gc_from "
+            "FROM %s "
+            "WHERE (gc_from = %d AND gc_primary = 1) "
+            "LIMIT 1")
         # FIXME escape & sanitize coordTable and pageId
         cursor.execute(query, (coordTable, int(pageId)))
 
@@ -187,21 +187,21 @@ def getPageId(pageName, conn, cursor,
     '''
 
     # underscores
-    pageName = pageName.replace(u' ', u'_')
+    pageName = pageName.replace(' ', '_')
     retStatus = ''
     pageId = ''
     redirNs = ''
-    redirTitle = u''
+    redirTitle = ''
 
     # FIXME page_titles like 'Château_de_Bercy' won't work, but titles like 'Käru' do ??
     query = (
-        u"SELECT page_id, page_is_redirect "
-        u"FROM page "
-        u"WHERE page_namespace = %s AND page_title = %s")
+        "SELECT page_id, page_is_redirect "
+        "FROM page "
+        "WHERE page_namespace = %s AND page_title = %s")
     cursor.execute(query, (pageNamespace, pageName))
     if DEBUG:
-        print cursor._executed
-        print u'rowcount: %d ' % cursor.rowcount
+        print(cursor._executed)
+        print('rowcount: %d ' % cursor.rowcount)
 
     if (cursor.rowcount > 0):
         row = cursor.fetchone()
@@ -209,7 +209,8 @@ def getPageId(pageName, conn, cursor,
         if (IsRedirect):
             if (followRedirect):
                 (redirNs, redirTitle) = getRedirPageNsTitle(pageId, cursor)
-                redirTitle = unicode(redirTitle, "utf-8")
+                if not isinstance(redirTitle, str):
+                    redirTitle = str(redirTitle, encoding="utf-8")
                 (dummy0, pageId, dummy1, dummy2) = getPageId(redirTitle, conn, cursor, redirNs)
                 retStatus = 'FOLLOWED_REDIR'
             else:
@@ -227,12 +228,12 @@ def getRedirPageNsTitle(pageId, cursor):
 
     if (pageId):
         pageNs = ''
-        pageTitle = u''
+        pageTitle = ''
 
         query = (
-            u"SELECT rd_namespace, rd_title "
-            u"FROM redirect "
-            u"WHERE rd_from = %s")
+            "SELECT rd_namespace, rd_title "
+            "FROM redirect "
+            "WHERE rd_from = %s")
         cursor.execute(query, (pageId,))
 
         if (cursor.rowcount > 0):
@@ -259,10 +260,10 @@ def addCoords(countryconfig, monument, coordconfig):
         except pywikibot.NoPage:  # First except, prevent empty pages
             return False
         except pywikibot.IsRedirectPage:  # second except, prevent redirect
-            pywikibot.output(u'%s is a redirect!' % monument.article)
+            pywikibot.output('%s is a redirect!' % monument.article)
             return False
         except pywikibot.Error:  # third exception, take the problem and print
-            pywikibot.output(u"Some error, skipping..")
+            pywikibot.output("Some error, skipping..")
             return False
 
         if coordTemplate in page.templates():
@@ -274,8 +275,8 @@ def addCoords(countryconfig, monument, coordconfig):
                                            countrycode.upper())
         localCatName = pywikibot.getSite().namespace(WP_CATEGORY_NS)
         catStart = r'\[\[(' + localCatName + '|Category):'
-        catStartPlain = u'[[' + localCatName + ':'
-        replacementText = u''
+        catStartPlain = '[[' + localCatName + ':'
+        replacementText = ''
         replacementText = coordText + '\n\n' + catStartPlain
 
         # insert coordinate template before categories
@@ -288,9 +289,9 @@ def addCoords(countryconfig, monument, coordconfig):
                     countryconfig.get('type'))
             except ValueError:
                 source_link = ''
-            comment = u'Adding template %s based on %s, # %s' % (coordTemplate, source_link, monument.id)
+            comment = 'Adding template %s based on %s, # %s' % (coordTemplate, source_link, monument.id)
             pywikibot.showDiff(text, newtext)
-            modPage = pywikibot.input(u'Modify page: %s ([y]/n) ?' % (monument.article))
+            modPage = pywikibot.input('Modify page: %s ([y]/n) ?' % (monument.article))
             if (modPage.lower == 'y' or modPage == ''):
                 page.put(newtext, comment)
             return True
@@ -301,8 +302,8 @@ def addCoords(countryconfig, monument, coordconfig):
 
 
 def main():
-    countrycode = u''
-    lang = u''
+    countrycode = ''
+    lang = ''
     skip_wd = False
     connMon = None
     cursorMon = None
@@ -319,37 +320,37 @@ def main():
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd" or pywikibot args. Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-skip_wd" or pywikibot args. Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
-            pywikibot.output(u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+            pywikibot.output('I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
-        pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+        pywikibot.output('Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(mconfig.countries.get((countrycode, lang)),
                        wikiData.get(lang), connMon, cursorMon)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
-            pywikibot.output(u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            pywikibot.output('Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             try:
                 processCountry(
                     countryconfig, wikiData.get(lang), connMon, cursorMon)
             except Exception as e:
                 pywikibot.error(
-                    u'Unknown error occurred when processing country '
-                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 continue
 
     close_database_connection(connMon, cursorMon)
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     try:
         main()
     finally:

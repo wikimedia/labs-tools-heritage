@@ -5,7 +5,7 @@
 
 import re
 
-from checkers import is_int
+from erfgoedbot.checkers import is_int
 
 
 def CH1903Converter(x, y):
@@ -45,7 +45,7 @@ def ucfirst(text):
 
 
 def extractWikilink(text):
-    articleName = u''
+    articleName = ''
     # result = re.search("\[\[(.+?)(\||\]\])", text)
     regex = re.compile(r"""
       \[\[              # Opening brackets
@@ -55,7 +55,7 @@ def extractWikilink(text):
     match = re.search(regex, text)
     if match:
         articleName = match.group('target')
-        articleName = articleName.replace(u' ', u'_')
+        articleName = articleName.replace(' ', '_')
         articleName = ucfirst(articleName)
     return articleName
 
@@ -77,7 +77,7 @@ def extract_elements_from_template_param(template_param):
 
     """Extract and sanitize the contents of a parsed template param."""
 
-    (field, _, value) = template_param.partition(u'=')
+    (field, _, value) = template_param.partition('=')
     # Remove leading or trailing spaces
     field = field.strip()
     return (field, sanitize_wikitext_string(value))
@@ -103,5 +103,5 @@ def int_to_european_digits(text):
     Returns an empty string on fail and trims any leading zeros.
     """
     if is_int(text):
-        return u'%d' % int(text)
-    return u''
+        return '%d' % int(text)
+    return ''

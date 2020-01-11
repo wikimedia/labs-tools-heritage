@@ -1,4 +1,5 @@
 -i https://pypi.org/simple
+bz2file==0.98
 certifi==2018.8.24
 chardet==3.0.4
 enum34==1.1.10

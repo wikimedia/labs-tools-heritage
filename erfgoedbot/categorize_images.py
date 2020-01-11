@@ -25,41 +25,41 @@ import yaml
 import pywikibot
 from pywikibot import pagegenerators, textlib
 
-import common as common
-import monuments_config as mconfig
-from database_connection import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
-from statistics_table import StatisticsTable
+from erfgoedbot.statistics_table import StatisticsTable
 
 _logger = "categorize_images"
 
 SKIP_LIST = [
-    (u'au', u'en'),  # Australia in English
-    (u'cn', u'en'),
-    (u'gb-sct', u'en'),  # Scotland in English
-    (u'dz', u'ar'),  # Algeria in Arabic
-    (u'ir', u'fa'),
-    (u'it', u'it'),
-    (u'jo', u'ar'),
-    (u'ge', u'ka'),
-    (u'gh', u'en'),  # Ghana in English
-    (u'mt', u'de'),  # Malta in German
-    (u'np', u'en'),
-    (u'pe', u'es'),  # Peru in Spanish
-    (u'sv', u'es'),  # El Salvador in Spanish
-    (u've', u'es'),  # Venezuela in Spanish
+    ('au', 'en'),  # Australia in English
+    ('cn', 'en'),
+    ('gb-sct', 'en'),  # Scotland in English
+    ('dz', 'ar'),  # Algeria in Arabic
+    ('ir', 'fa'),
+    ('it', 'it'),
+    ('jo', 'ar'),
+    ('ge', 'ka'),
+    ('gh', 'en'),  # Ghana in English
+    ('mt', 'de'),  # Malta in German
+    ('np', 'en'),
+    ('pe', 'es'),  # Peru in Spanish
+    ('sv', 'es'),  # El Salvador in Spanish
+    ('ve', 'es'),  # Venezuela in Spanish
 ]
 
 
 class NoMonumentIdentifierFoundException(pywikibot.exceptions.PageRelatedError):
-    message = u"No Monument Identifier could be found for %s"
+    message = "No Monument Identifier could be found for %s"
     pass
 
 
 class NoCommonsCatFromWikidataItemException(pywikibot.exceptions.PageRelatedError):
-    message = u"No CommonsCat could be retrieved through Wikidata for %s"
+    message = "No CommonsCat could be retrieved through Wikidata for %s"
     pass
 
 
@@ -77,41 +77,41 @@ def _load_ignored_categories():
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     yaml_file = os.path.join(data_dir, 'ignore_commons_categories.yml')
     raw_list = yaml.load(open(yaml_file, 'r'))
-    commons_site = pywikibot.Site(u'commons', u'commons')
+    commons_site = pywikibot.Site('commons', 'commons')
     return [pywikibot.Category(commons_site, cat) for cat in raw_list]
 
 
 def _get_commons_template(template_name):
-    site = pywikibot.Site(u'commons', u'commons')
+    site = pywikibot.Site('commons', 'commons')
     return pywikibot.Page(site, 'Template:%s' % template_name)
 
 
 def categorizeImage(
         countrycode, lang, commonsTemplateName, commonsCategoryBase,
         commonsCatTemplates, page, conn, cursor, harvest_type):
-    pywikibot.log(u'Working on: %s' % page.title())
+    pywikibot.log('Working on: %s' % page.title())
     commonsTemplate = _get_commons_template(commonsTemplateName)
     currentcats = list(page.categories())
     if commonsCategoryBase not in currentcats:
-        pywikibot.log(u'%s category not found at: %s. Someone probably already categorized it.' % (
+        pywikibot.log('%s category not found at: %s. Someone probably already categorized it.' % (
             commonsCategoryBase, page.title()))
         return False
 
-    if u'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
-        pywikibot.log(u'%s in %s is a placeholder, skipping it.' % (
+    if 'Wikipedia image placeholders for cultural heritage monuments' in currentcats:
+        pywikibot.log('%s in %s is a placeholder, skipping it.' % (
             page.title(), commonsCategoryBase))
         return False
 
     templates = page.templates()
     if commonsTemplate not in templates:
-        pywikibot.log(u'%s template not found at: %s' % (
+        pywikibot.log('%s template not found at: %s' % (
             commonsTemplate, page.title()))
         return False
 
     try:
         monumentId = get_monument_id(page, commonsTemplate)
     except NoMonumentIdentifierFoundException:
-        pywikibot.warning(u'Didn\'t find a valid monument identifier at: %s' % (
+        pywikibot.warning('Didn\'t find a valid monument identifier at: %s' % (
             page.title(),))
         return False
 
@@ -122,24 +122,24 @@ def categorizeImage(
             monData = getMonData(countrycode, lang, monumentId, conn, cursor)
         except ValueError:
             pywikibot.debug(
-                u'Can\'t convert %s to an integer' % (monumentId,), _logger)
+                'Can\'t convert %s to an integer' % (monumentId,), _logger)
 
     if not monData:
         # Triage as log since there are plenty of valid reasons for this
         pywikibot.log(
-            u'Monument with id %s not in monuments database' % (monumentId, ))
+            'Monument with id %s not in monuments database' % (monumentId, ))
         return False
 
     (newcats, categorisation_method) = get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_type)
 
     # See if one of the three options worked
     if newcats:
-        comment = u'Adding categories based on [[Template:%s]] with identifier %s (method %s)' % (
+        comment = 'Adding categories based on [[Template:%s]] with identifier %s (method %s)' % (
             commonsTemplateName, monumentId, categorisation_method)
         return replace_default_cat_with_new_categories_in_image(
             page, commonsCategoryBase, newcats, comment, verbose=True)
     else:
-        pywikibot.log(u'Categories not found for %s' % page.title())
+        pywikibot.log('Categories not found for %s' % page.title())
 
 
 def get_monument_id(page, commonsTemplate):
@@ -151,7 +151,7 @@ def get_monument_id(page, commonsTemplate):
                     monumentId = params[0]
                 except ValueError:
                     pywikibot.warning(
-                        u'Unable to extract a valid id for %s on %s' % (
+                        'Unable to extract a valid id for %s on %s' % (
                             template, page.title()))
                 break
     if not monumentId:
@@ -162,7 +162,7 @@ def get_monument_id(page, commonsTemplate):
 def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_type):
     (monumentName, monumentCommonscat,
      monumentArticleTitle, monumentSource, project) = monData
-    commons_site = pywikibot.Site(u'commons', u'commons')
+    commons_site = pywikibot.Site('commons', 'commons')
     newcats = []
     categorisation_method = ''
     # First try to add a category based on the commonscat field in the list
@@ -174,11 +174,11 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_t
             categorisation_method = 'A: CommonsCat in the monument list'
         except ValueError:
             pywikibot.warning(
-                u'The Commonscat field for %s contains an invalid category %s' % (
+                'The Commonscat field for %s contains an invalid category %s' % (
                     monumentId, monumentCommonscat))
         except pywikibot.exceptions.InvalidTitle:
             pywikibot.warning(
-                u'Incorrect category title %s' % (monumentCommonscat,))
+                'Incorrect category title %s' % (monumentCommonscat,))
 
     # Option two is to use the article about the monument and see if it has
     # Commonscat links
@@ -199,13 +199,13 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_t
                             newcats.append(new_cat)
                             categorisation_method = 'B%s: CommonsCat on the monument article' % method
                 except pywikibot.SectionError:
-                    pywikibot.warning(u'Incorrect redirect at %s' % (
+                    pywikibot.warning('Incorrect redirect at %s' % (
                         monumentArticle.title(),))
             except pywikibot.exceptions.InvalidTitle:
-                pywikibot.warning(u'Incorrect article title %s' % (
+                pywikibot.warning('Incorrect article title %s' % (
                     monumentArticleTitle,))
             except pywikibot.exceptions.Error as e:
-                pywikibot.error(u'Error occured with monument %s: %s' % (
+                pywikibot.error('Error occured with monument %s: %s' % (
                     monumentId, str(e)))
 
     # Option three is to see if the list contains Commonscat links (whole list)
@@ -219,7 +219,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_t
         try:
             (newcats, categorisation_method) = get_categories_from_source_page(monumentList, commonsCatTemplates)
         except pywikibot.exceptions.Error as e:
-            pywikibot.error(u'Error occured with monument %s: %s' % (
+            pywikibot.error('Error occured with monument %s: %s' % (
                 monumentId, str(e)))
     return (newcats, categorisation_method)
 
@@ -245,7 +245,7 @@ def replace_default_cat_with_new_categories_in_image(
         return True
     except pywikibot.EditConflict:
         pywikibot.log(
-            u'Got an edit conflict. Someone else beat me to it at %s' % page.title())
+            'Got an edit conflict. Someone else beat me to it at %s' % page.title())
         return False
 
 
@@ -274,18 +274,17 @@ def filter_out_categories_to_add(new_categories, unwanted_categories):
     """
     candidate_categories = set(new_categories) - set(unwanted_categories)
     candidate_categories -= set(_load_ignored_categories())
-    final_categories = filter(lambda cat: not cat.isHiddenCategory(),
-                              list(candidate_categories))
+    final_categories = [cat for cat in list(candidate_categories) if not cat.isHiddenCategory()]
     return final_categories
 
 
 def getMonData(countrycode, lang, monumentId, conn, cursor):
     """Get monument name and source from db."""
     query = (
-        u"SELECT `name`, `commonscat`, `monument_article`, `source`, `project` "
-        u"FROM monuments_all "
-        u"WHERE (country=%s AND lang=%s AND id=%s) "
-        u"LIMIT 1")
+        "SELECT `name`, `commonscat`, `monument_article`, `source`, `project` "
+        "FROM monuments_all "
+        "WHERE (country=%s AND lang=%s AND id=%s) "
+        "LIMIT 1")
 
     cursor.execute(query, (countrycode, lang, monumentId))
 
@@ -293,7 +292,7 @@ def getMonData(countrycode, lang, monumentId, conn, cursor):
         row = cursor.fetchone()
         return row
     except TypeError:
-        pywikibot.warning(u'Didn\'t find anything for id %s' % (monumentId,))
+        pywikibot.warning('Didn\'t find anything for id %s' % (monumentId,))
         return False
 
 
@@ -336,7 +335,7 @@ def get_categories_from_source_page(page, commonsCatTemplates):
             categorisation_method = 'C1: CommonsCat on the monument list page'
     if not len(new_categories):
         try:
-            site = pywikibot.Site(u'commons', u'commons')
+            site = pywikibot.Site('commons', 'commons')
             cat_title = get_Commons_category_via_Wikidata(page)
             cat = pywikibot.Category(site, cat_title)
             new_categories.add(cat)
@@ -359,7 +358,7 @@ def get_categories_from_upper_categories(page, commonsCatTemplates):
                 (new_cat, method) = getCategoryFromCommonscat(cat, commonsCatTemplates)
                 new_categories.add(new_cat)
         try:
-            site = pywikibot.Site(u'commons', u'commons')
+            site = pywikibot.Site('commons', 'commons')
             new_cat_title = get_Commons_category_via_Wikidata(cat)
             new_cat = pywikibot.Category(site, new_cat_title)
             new_categories.add(new_cat)
@@ -395,7 +394,7 @@ def getCategoryFromCommonscat(page, commonsCatTemplates):
         categorisation_method = '3'
         cat_title = page.title(with_ns=False)
 
-    site = pywikibot.Site(u'commons', u'commons')
+    site = pywikibot.Site('commons', 'commons')
     cat = pywikibot.Category(site, cat_title)
     return (cat, categorisation_method)
 
@@ -420,7 +419,7 @@ def get_Commons_category_via_Wikidata(page):
         if 'P373' in claims:
             return 'Category:' + claims['P373'][0].getTarget()
         else:
-            commons_site = pywikibot.Site(u'commons', u'commons')
+            commons_site = pywikibot.Site('commons', 'commons')
             commons_page = data_item.getSitelink(commons_site)
             if commons_page.startswith('Category:'):
                 return commons_page
@@ -458,14 +457,14 @@ def processCountry(countryconfig, commonsCatTemplates, conn, cursor,
     if (not commonsCatTemplates):
         # No commonsCatTemplates found, just skip.
         pywikibot.warning(
-            u'Language: {0} has no commonsCatTemplates set!'.format(
+            'Language: {0} has no commonsCatTemplates set!'.format(
                 countryconfig.get('lang')))
         return False
 
     totalImages = 0
     categorizedImages = 0
 
-    site = pywikibot.Site(u'commons', u'commons')
+    site = pywikibot.Site('commons', 'commons')
     generator = None
     commonsTemplate = countryconfig.get('commonsTemplate')
     harvest_type = countryconfig.get('type')
@@ -504,7 +503,7 @@ def outputStatistics(statistics):
     """Output the results of the bot as a nice wikitable."""
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
-        site, u'Commons:Monuments database/Categorization/Statistics')
+        site, 'Commons:Monuments database/Categorization/Statistics')
 
     title_column = OrderedDict([
         ('code', 'country'),
@@ -540,7 +539,7 @@ def outputStatistics(statistics):
             total_images = None
 
         if row.get('cat'):
-            cat_link = u'[[:Category:{0}]]'.format(row['cat'])
+            cat_link = '[[:Category:{0}]]'.format(row['cat'])
             pages_in_cat = '{{PAGESINCATEGORY:%s|files}}' % row['cat']
 
         if row.get('template'):
@@ -562,8 +561,8 @@ def outputStatistics(statistics):
     output = table.to_wikitext()
 
     summary = (
-        u'Updating categorization statistics. '
-        u'Total: {total_images} Categorized: {cat_images} '
+        'Updating categorization statistics. '
+        'Total: {total_images} Categorized: {cat_images} '
         'Leftover: {leftover}'.format(**table.get_sum()))
     common.save_to_wiki_or_local(page, summary, output)
 
@@ -575,15 +574,15 @@ def getCommonscatTemplates(lang=None, project=None):
     Expects the language code and project.
     Return as list containing the primary template and it's alternatives
     """
-    project = project or u'wikipedia'  # default to wikipedia
+    project = project or 'wikipedia'  # default to wikipedia
 
     wikipedia_commonscat_templates = _load_wikipedia_commonscat_templates()
 
     result = []
-    if project == u'wikipedia' and lang in wikipedia_commonscat_templates:
+    if project == 'wikipedia' and lang in wikipedia_commonscat_templates:
         (prim, backups) = wikipedia_commonscat_templates[lang]
     else:
-        (prim, backups) = wikipedia_commonscat_templates[u'_default']
+        (prim, backups) = wikipedia_commonscat_templates['_default']
     result.append(prim)
     result += backups
     return result
@@ -591,8 +590,8 @@ def getCommonscatTemplates(lang=None, project=None):
 
 def custom_output_statistics_message(country_config, message):
     """Return a outputStatistics compatible summary for a missing dataset (skipped or failed)."""
-    site = pywikibot.Site(u'commons', u'commons')
-    commons_category_base = pywikibot.Category(site, u'{ns}:{cat}'.format(
+    site = pywikibot.Site('commons', 'commons')
+    commons_category_base = pywikibot.Category(site, '{ns}:{cat}'.format(
         ns=site.namespace(14), cat=country_config.get('commonsCategoryBase')))
     return {
         'code': country_config.get('country'),
@@ -605,9 +604,9 @@ def custom_output_statistics_message(country_config, message):
 
 def main():
 
-    countrycode = u''
-    lang = u''
-    overridecat = u''
+    countrycode = ''
+    lang = ''
+    overridecat = ''
     skip_wd = False
     conn = None
     cursor = None
@@ -624,17 +623,17 @@ def main():
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-overridecat", "-skip_wd" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-overridecat", "-skip_wd" or pywikibot args. '
+                'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+                'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         countryconfig = mconfig.countries.get((countrycode, lang))
         commonsCatTemplates = getCommonscatTemplates(
             lang, countryconfig.get('project'))
@@ -644,8 +643,8 @@ def main():
                        overridecat=overridecat)
         close_database_connection(conn, cursor)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
@@ -653,12 +652,12 @@ def main():
 
             if (countrycode, lang) in SKIP_LIST:
                 pywikibot.log(
-                    u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
+                    'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
                 statistics.append(custom_output_statistics_message(countryconfig, 'skipped: on the skip-list'))
                 continue
 
             pywikibot.log(
-                u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+                'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(
                 lang, countryconfig.get('project'))
             (conn, cursor) = connect_to_monuments_database()
@@ -667,8 +666,8 @@ def main():
                     countryconfig, commonsCatTemplates, conn, cursor)
             except Exception as e:
                 pywikibot.error(
-                    u'Unknown error occurred when processing country '
-                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append(custom_output_statistics_message(countryconfig, 'failed: unexpected error during processing'))
                 continue
             finally:
@@ -680,5 +679,5 @@ def main():
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     main()

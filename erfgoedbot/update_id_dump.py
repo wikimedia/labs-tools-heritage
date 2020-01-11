@@ -15,9 +15,9 @@ python update_id_dump.py
 import pywikibot
 from pywikibot import pagegenerators
 
-import monuments_config as mconfig
-from converters import extract_elements_from_template_param
-from database_connection import (
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.converters import extract_elements_from_template_param
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
@@ -39,27 +39,27 @@ def updateMonument(countryconfig, identifier, source, conn, cursor):
     fieldnames.append('lang')
     fieldvalues.append(countryconfig.get('lang'))
 
-    query = u"""INSERT INTO `id_dump`("""
+    query = """INSERT INTO `id_dump`("""
 
     j = 0
     for fieldname in fieldnames:
         if j == 0:
-            query += u"""`%s`""" % (fieldname,)
+            query += """`%s`""" % (fieldname,)
         else:
-            query += u""", `%s`""" % (fieldname,)
+            query += """, `%s`""" % (fieldname,)
         j += 1
 
-    query += u""") VALUES ("""
+    query += """) VALUES ("""
 
     j = 0
     for fieldvalue in fieldvalues:
         if j == 0:
-            query += u"""%s"""
+            query += """%s"""
         else:
-            query += u""", %s"""
+            query += """, %s"""
         j += 1
 
-    query += u""")"""
+    query += """)"""
     cursor.execute(query, fieldvalues)
 
 
@@ -68,7 +68,7 @@ def processMonument(countryconfig, params, source, conn, cursor):
     Process a single instance of a monument row template
     '''
 
-    identifier = u''
+    identifier = ''
 
     for param in params:
         (field, value) = extract_elements_from_template_param(param)
@@ -99,7 +99,7 @@ def processCountry(countryconfig, conn, cursor):
     site = pywikibot.getSite(
         countryconfig.get('lang'), countryconfig.get('project'))
     rowTemplate = pywikibot.Page(
-        site, u'%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
+        site, '%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
     transGen = pagegenerators.ReferringPageGenerator(
         rowTemplate, onlyTemplateInclusion=True)
@@ -119,8 +119,8 @@ def main():
     '''
     # First find out what to work on
 
-    countrycode = u''
-    lang = u''
+    countrycode = ''
+    lang = ''
     skip_wd = False
     conn = None
     cursor = None
@@ -132,46 +132,46 @@ def main():
             countrycode = value
         elif option == '-langcode':
             lang = value
-        elif option == u'-skip_wd':
+        elif option == '-skip_wd':
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd" or pywikibot args. Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-skip_wd" or pywikibot args. Found "{}"'.format(option))
 
-    query = u"""TRUNCATE table `id_dump`"""
+    query = """TRUNCATE table `id_dump`"""
     cursor.execute(query)
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
+                'I have no config for countrycode "%s" in language "%s"' % (countrycode, lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+            'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         processCountry(
             mconfig.countries.get((countrycode, lang)), conn, cursor)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             pywikibot.log(
-                u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
+                'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             try:
                 processCountry(countryconfig, conn, cursor)
             except Exception as e:
                 pywikibot.error(
-                    u'Unknown error occurred when processing country '
-                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 continue
 
     close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     try:
         main()
     finally:

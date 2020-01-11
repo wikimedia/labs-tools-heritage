@@ -3,9 +3,9 @@
 # from pywikibot.site import APISite
 # from pywikibot.exceptions import NoPage
 import unittest
+import unittest.mock as mock
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import categorize_images
 from report_base_test import TestCreateReportTableBase
 
@@ -20,7 +20,7 @@ class TestLoadWikipediaCommonscatTemplates(unittest.TestCase):
             data = categorize_images._load_wikipedia_commonscat_templates()
         except IOError:
             self.fail("Commonscat json file not found")
-        self.assertIn(u'_default', data.keys())
+        self.assertIn('_default', list(data.keys()))
 
 
 class TestLoadIgnoredCategories(unittest.TestCase):
@@ -58,20 +58,20 @@ class TestGetCommonsCatTemplates(unittest.TestCase):
 
     def test_getCommonscatTemplates_with_defaults(self):
         result = categorize_images.getCommonscatTemplates()
-        self.assertEquals(result, [u'default_template'])
+        self.assertEqual(result, ['default_template'])
 
     def test_getCommonscatTemplates_with_one_alternative(self):
         result = categorize_images.getCommonscatTemplates(lang='lang_1')
-        self.assertEquals(result, [u'lang_1_main_template', u'lang_1_template_1'])
+        self.assertEqual(result, ['lang_1_main_template', 'lang_1_template_1'])
 
     def test_getCommonscatTemplates_with_two_alternatives(self):
         result = categorize_images.getCommonscatTemplates(lang='lang_2')
-        self.assertEquals(
-            result, [u'lang_2_main_template', u'lang_2_template_1', u'lang_2_template_2'])
+        self.assertEqual(
+            result, ['lang_2_main_template', 'lang_2_template_1', 'lang_2_template_2'])
 
     def test_getCommonscatTemplates_with_wikivoyage(self):
         result = categorize_images.getCommonscatTemplates(project='wikivoyage')
-        self.assertEquals(result, [u'default_template'])
+        self.assertEqual(result, ['default_template'])
 
 
 class TestReplaceCategories(unittest.TestCase):
@@ -89,8 +89,8 @@ class TestReplaceCategories(unittest.TestCase):
         new_categories = ["B"]
         new_text = categorize_images.replace_default_cat_with_new_categories_in_image_text(
             old_text, self.mock_old_category, new_categories)
-        expected_text = u'[[Category:B]]'
-        self.assertEquals(new_text, expected_text)
+        expected_text = '[[Category:B]]'
+        self.assertEqual(new_text, expected_text)
 
     def test_replace_categories_with_main_category_present_and_new_category_should_remove_old_category(self):
         old_text = """
@@ -99,8 +99,8 @@ class TestReplaceCategories(unittest.TestCase):
         new_categories = ["B"]
         new_text = categorize_images.replace_default_cat_with_new_categories_in_image_text(
             old_text, self.mock_old_category, new_categories)
-        expected_text = u'[[Category:B]]'
-        self.assertEquals(new_text, expected_text)
+        expected_text = '[[Category:B]]'
+        self.assertEqual(new_text, expected_text)
 
     def test_replace_categories_with_no_categories_to_add_raise_Exception(self):
         old_text = ""
@@ -135,49 +135,49 @@ class TestFilterOutCategoriesToAdd(unittest.TestCase):
         current_categories = []
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertEquals(result, [])
+        self.assertEqual(result, [])
 
     def test_filter_categories_all_present(self):
         new_categories = [self.cat_A, self.cat_B]
         current_categories = [self.cat_A, self.cat_B, self.cat_C]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertEquals(result, [])
+        self.assertEqual(result, [])
 
     def test_filter_out_some_categories_present(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_C]
         current_categories = [self.cat_A, self.cat_B]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertEquals(result, [self.cat_C])
+        self.assertEqual(result, [self.cat_C])
 
     def test_filter_out_with_no_categories_among_present(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_C]
         current_categories = [self.cat_D, self.cat_E]
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, [self.cat_A, self.cat_B, self.cat_C])
+        self.assertCountEqual(result, [self.cat_A, self.cat_B, self.cat_C])
 
     def test_filter_out_with_no_categories_present(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_C]
         current_categories = []
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, [self.cat_A, self.cat_B, self.cat_C])
+        self.assertCountEqual(result, [self.cat_A, self.cat_B, self.cat_C])
 
     def test_filter_out_deduplicate_categories(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_A]
         current_categories = []
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, [self.cat_A, self.cat_B])
+        self.assertCountEqual(result, [self.cat_A, self.cat_B])
 
     def test_filter_out_hidden_categories(self):
         new_categories = [self.cat_A, self.cat_hidden, self.cat_C]
         current_categories = []
         result = categorize_images.filter_out_categories_to_add(
             new_categories, current_categories)
-        self.assertItemsEqual(result, [self.cat_A, self.cat_C])
+        self.assertCountEqual(result, [self.cat_A, self.cat_C])
 
     def test_filter_out_ignored_categories(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_C]
@@ -186,7 +186,7 @@ class TestFilterOutCategoriesToAdd(unittest.TestCase):
             mock_load_ignored_categories.return_value = [self.cat_B, ]
             result = categorize_images.filter_out_categories_to_add(
                 new_categories, current_categories)
-            self.assertItemsEqual(result, [self.cat_A, self.cat_C])
+            self.assertCountEqual(result, [self.cat_A, self.cat_C])
 
 
 class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
@@ -201,14 +201,14 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
         self.mock_claim = mock.create_autospec(
             categorize_images.pywikibot.Claim)
 
-        self.mock_claim.getTarget.return_value = u'A category'
+        self.mock_claim.getTarget.return_value = 'A category'
         self.mock_data_item.get.return_value = {
-            u'claims': {},
-            u'sitelinks': {},
+            'claims': {},
+            'sitelinks': {},
         }
-        self.claims = {u'P373': [self.mock_claim, ]}
-        self.page_sitelink = u'Some page'
-        self.category_sitelink = u'Category:Some category'
+        self.claims = {'P373': [self.mock_claim, ]}
+        self.page_sitelink = 'Some page'
+        self.category_sitelink = 'Category:Some category'
 
     # def test_get_Commons_category_via_Wikidata_no_data_item(self):
     #    self.mock_page.data_item.side_effect = NoPage
@@ -226,9 +226,9 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
 
     def test_get_Commons_category_via_Wikidata_with_claim(self):
         self.mock_page.data_item.return_value = self.mock_data_item
-        self.mock_data_item.get.return_value[u'claims'] = self.claims
-        expected = u'Category:A category'
-        self.assertEquals(
+        self.mock_data_item.get.return_value['claims'] = self.claims
+        expected = 'Category:A category'
+        self.assertEqual(
             categorize_images.get_Commons_category_via_Wikidata(self.mock_page),
             expected)
 
@@ -241,18 +241,18 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
     def test_get_Commons_category_via_Wikidata_with_category_sitelink(self):
         self.mock_page.data_item.return_value = self.mock_data_item
         self.mock_data_item.getSitelink.return_value = self.category_sitelink
-        expected = u'Category:Some category'
-        self.assertEquals(
+        expected = 'Category:Some category'
+        self.assertEqual(
             categorize_images.get_Commons_category_via_Wikidata(self.mock_page),
             expected)
 
     def test_get_Commons_category_via_Wikidata_with_claim_and_category_sitelink(self):
         """Ensure claim value is chosen over sitelink value."""
         self.mock_page.data_item.return_value = self.mock_data_item
-        self.mock_data_item.get.return_value[u'claims'] = self.claims
+        self.mock_data_item.get.return_value['claims'] = self.claims
         self.mock_data_item.getSitelink.return_value = self.category_sitelink
-        expected = u'Category:A category'
-        self.assertEquals(
+        expected = 'Category:A category'
+        self.assertEqual(
             categorize_images.get_Commons_category_via_Wikidata(self.mock_page),
             expected)
 
@@ -268,7 +268,7 @@ class TestGetCategoriesFromUpperCategories(unittest.TestCase):
     def test_get_categories_from_upper_categories_with_no_categories_returns_empty_set(self):
         self.mock_page.categories.return_value = []
         result = categorize_images.get_categories_from_upper_categories(self.mock_page, None)
-        self.assertEquals(result, set())
+        self.assertEqual(result, set())
 
 
 class TestCategorizeImage(unittest.TestCase):
@@ -276,7 +276,7 @@ class TestCategorizeImage(unittest.TestCase):
     """ Test the categorizeImage method."""
 
     def setUp(self):
-        self.base_category = u'Base category'
+        self.base_category = 'Base category'
         self.template_name = 'Historical monument'
         self.monument_data = (
             'Some Monument', 'Some commonscat', 'Some Article', 'Some list', 'Some Wikiproject'
@@ -295,11 +295,11 @@ class TestCategorizeImage(unittest.TestCase):
         self.mock_base_template.title.return_value = self.template_name
 
         self.mock_page = mock.create_autospec(categorize_images.pywikibot.Page)
-        self.mock_page.title.return_value = u'Some page'
+        self.mock_page.title.return_value = 'Some page'
         self.mock_page.templates.return_value = [
             self.mock_template_random, self.mock_base_template
         ]
-        self.mock_page.categories.return_value = [u'A', u'B', self.base_category]
+        self.mock_page.categories.return_value = ['A', 'B', self.base_category]
 
         patcher = mock.patch(
             'erfgoedbot.categorize_images._get_commons_template')
@@ -310,7 +310,7 @@ class TestCategorizeImage(unittest.TestCase):
         patcher = mock.patch(
             'erfgoedbot.categorize_images.get_monument_id')
         self.mock_get_monument_id = patcher.start()
-        self.mock_get_monument_id.return_value = u'123'
+        self.mock_get_monument_id.return_value = '123'
         self.addCleanup(patcher.stop)
 
         patcher = mock.patch(
@@ -322,7 +322,7 @@ class TestCategorizeImage(unittest.TestCase):
         patcher = mock.patch(
             'erfgoedbot.categorize_images.get_new_categories')
         self.mock_get_new_categories = patcher.start()
-        self.mock_get_new_categories.return_value = ([u'New category'], 'method Z')
+        self.mock_get_new_categories.return_value = (['New category'], 'method Z')
         self.addCleanup(patcher.stop)
 
         patcher = mock.patch(
@@ -343,7 +343,7 @@ class TestCategorizeImage(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
     def test_categorizeImage_no_base_category(self):
-        self.mock_page.categories.return_value = [u'A', u'B']
+        self.mock_page.categories.return_value = ['A', 'B']
         result = categorize_images.categorizeImage(
             self.countrycode, self.lang, self.template_name, self.base_category,
             self.commonscat_templates, self.mock_page, None, None, self.harvest_type
@@ -355,8 +355,8 @@ class TestCategorizeImage(unittest.TestCase):
         self.assertFalse(result)
 
     def test_categorizeImage_placeholder_image(self):
-        placeholder_category = u'Wikipedia image placeholders for cultural heritage monuments'
-        self.mock_page.categories.return_value = [u'A', u'B', self.base_category, placeholder_category]
+        placeholder_category = 'Wikipedia image placeholders for cultural heritage monuments'
+        self.mock_page.categories.return_value = ['A', 'B', self.base_category, placeholder_category]
         result = categorize_images.categorizeImage(
             self.countrycode, self.lang, self.template_name, self.base_category,
             self.commonscat_templates, self.mock_page, None, None, self.harvest_type
@@ -400,7 +400,7 @@ class TestCategorizeImage(unittest.TestCase):
         )
         self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
         calls = [
-            mock.call('ge', 'ka', u'123', None, None),
+            mock.call('ge', 'ka', '123', None, None),
             mock.call('ge', 'ka', 123, None, None)
         ]
         self.mock_getMonData.assert_has_calls(calls)
@@ -415,9 +415,9 @@ class TestCategorizeImage(unittest.TestCase):
             self.commonscat_templates, self.mock_page, None, None, self.harvest_type
         )
         self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
-        self.mock_getMonData.assert_called_once_with('ge', 'ka', u'123', None, None),
+        self.mock_getMonData.assert_called_once_with('ge', 'ka', '123', None, None),
         self.mock_get_new_categories.assert_called_once_with(
-            u'123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
+            '123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
         )
         self.mock_replace_default_cat_with_new_categories_in_image.assert_not_called()
         self.assertIsNone(result)
@@ -428,13 +428,13 @@ class TestCategorizeImage(unittest.TestCase):
             self.commonscat_templates, self.mock_page, None, None, self.harvest_type
         )
         self.mock_get_monument_id.assert_called_once_with(self.mock_page, self.mock_base_template)
-        self.mock_getMonData.assert_called_once_with('ge', 'ka', u'123', None, None),
+        self.mock_getMonData.assert_called_once_with('ge', 'ka', '123', None, None),
         self.mock_get_new_categories.assert_called_once_with(
-            u'123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
+            '123', self.monument_data, 'ka', self.commonscat_templates, self.harvest_type
         )
-        comment = u'Adding categories based on [[Template:Historical monument]] with identifier 123 (method method Z)'
+        comment = 'Adding categories based on [[Template:Historical monument]] with identifier 123 (method method Z)'
         self.mock_replace_default_cat_with_new_categories_in_image.assert_called_once_with(
-            self.mock_page, self.base_category, [u'New category'], comment, verbose=True
+            self.mock_page, self.base_category, ['New category'], comment, verbose=True
         )
         self.assertTrue(result)
 
@@ -448,9 +448,9 @@ class TestOutputStatistics(TestCreateReportTableBase):
         super(TestOutputStatistics, self).setUp()
 
         self.comment = (
-            u'Updating categorization statistics. '
-            u'Total: {0} Categorized: {1} Leftover: {2}')
-        self.pagename = u'Commons:Monuments database/Categorization/Statistics'
+            'Updating categorization statistics. '
+            'Total: {0} Categorized: {1} Leftover: {2}')
+        self.pagename = 'Commons:Monuments database/Categorization/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images_sum,
@@ -487,15 +487,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| [[:Category:A category]] \n'
-            u'| {{tl|A template}} \n'
-            u'| 321 \n'
-            u'| 123 \n'
-            u'| 198 \n'
-            u'| {{PAGESINCATEGORY:A category|files}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| [[:Category:A category]] \n'
+            '| {{tl|A template}} \n'
+            '| 321 \n'
+            '| 123 \n'
+            '| 198 \n'
+            '| {{PAGESINCATEGORY:A category|files}} \n')
         expected_total_images_sum = 321
         expected_categorized_images_sum = 123
         expected_leftover_images_sum = 198
@@ -516,15 +516,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| 321 \n'
-            u'| 123 \n'
-            u'| 198 \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 321 \n'
+            '| 123 \n'
+            '| 198 \n'
+            '| --- \n')
         expected_total_images_sum = 321
         expected_categorized_images_sum = 123
         expected_leftover_images_sum = 198
@@ -544,15 +544,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| skipped: some reason \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n'
+            '| skipped: some reason \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_images_sum = 0
         expected_categorized_images_sum = 0
         expected_leftover_images_sum = 0
@@ -573,15 +573,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| 321 \n'
-            u'| 321 \n'
-            u'| 0 \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 321 \n'
+            '| 321 \n'
+            '| 0 \n'
+            '| --- \n')
         expected_total_images_sum = 321
         expected_categorized_images_sum = 321
         expected_leftover_images_sum = 0
@@ -609,24 +609,24 @@ class TestOutputStatistics(TestCreateReportTableBase):
             }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| 3 \n'
-            u'| 2 \n'
-            u'| 1 \n'
-            u'| --- \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| 7 \n'
-            u'| 3 \n'
-            u'| 4 \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| 1 \n'
+            '| --- \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| --- \n'
+            '| --- \n'
+            '| 7 \n'
+            '| 3 \n'
+            '| 4 \n'
+            '| --- \n')
         expected_total_images_sum = 10
         expected_categorized_images_sum = 5
         expected_leftover_images_sum = 5
@@ -653,24 +653,24 @@ class TestOutputStatistics(TestCreateReportTableBase):
             }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| 3 \n'
-            u'| 2 \n'
-            u'| 1 \n'
-            u'| --- \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| oh no! \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| 1 \n'
+            '| --- \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n'
+            '| oh no! \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_images_sum = 3
         expected_categorized_images_sum = 2
         expected_leftover_images_sum = 1

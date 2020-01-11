@@ -17,7 +17,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
 
     def set_label(self, key):
         """Set self label based on the country key."""
-        self.label = u'%s_(%s)' % key
+        self.label = '%s_(%s)' % key
 
     def test_monuments_config_valid_base_variables(self):
         """Ensure the base variables are present and of the right type."""
@@ -25,7 +25,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
 
     def test_monuments_config_valid_country_keys(self):
         """Ensure all country keys are country, lang tuples."""
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             self.assertIsInstance(key, tuple, msg=self.label)
             self.assertEqual(len(key), 2, msg=self.label)
@@ -54,7 +54,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
             'skip'
         ]
         optional_sql = ['sql_where', ]
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             if key[0].startswith('wlpa'):
                 required = required_all + required_base_sql
@@ -67,8 +67,8 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
                     required += required_base_sql
                 optional = optional_base + optional_sql
             self.assertIsInstance(data, dict, msg=self.label)
-            self.assert_all_in(required, data.keys(), msg=self.label)
-            self.assert_all_in(data.keys(), required + optional,
+            self.assert_all_in(required, list(data.keys()), msg=self.label)
+            self.assert_all_in(list(data.keys()), required + optional,
                                msg=self.label)
 
     def test_monuments_config_valid_country_entry_types(self):
@@ -80,28 +80,28 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
             'autoGeocode': bool,
             'namespaces': list,
             'fields': list,
-            'primkey': (str, unicode, tuple),
-            'commonsTemplate': (str, unicode, bool),
-            'sql_lang': (str, unicode),
-            'sql_country': (str, unicode),
+            'primkey': (str, str, tuple),
+            'commonsTemplate': (str, str, bool),
+            'sql_lang': (str, str),
+            'sql_country': (str, str),
             'sql_data': dict,
-            'sql_where': (str, unicode),
+            'sql_where': (str, str),
             'skip': bool
         }
-        expected_default = (str, unicode)
-        for key, data in config.countries.iteritems():
+        expected_default = (str, str)
+        for key, data in config.countries.items():
             self.set_label(key)
-            for entry in data.keys():
-                if entry in expected.keys():
+            for entry in list(data.keys()):
+                if entry in list(expected.keys()):
                     self.assertIsInstance(data[entry], expected[entry],
-                                          msg=u'%s: %s' % (self.label, entry))
+                                          msg='%s: %s' % (self.label, entry))
                 else:
                     self.assertIsInstance(data[entry], expected_default,
-                                          msg=u'%s: %s' % (self.label, entry))
+                                          msg='%s: %s' % (self.label, entry))
 
     def test_monuments_config_valid_namespaces_types(self):
         """Ensure that namespaces is a list of ints."""
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for n in data.get('namespaces', []):
                 self.assertIsInstance(n, int, msg=self.label)
@@ -109,7 +109,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
     def test_monuments_config_valid_primkey_values(self):
         """Ensure that primkey values are valid field dest entries."""
         # TODO: should ensure primkey entries are present in field
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
 
             if data.get('type') == 'sparql':
@@ -131,17 +131,17 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
         """Ensure the country field entry are all formatted correctly."""
         required = ['source', 'dest']
         optional = ['type', 'check', 'conv', 'default', 'auto_increment']
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for field in data.get('fields', []):
                 self.assertIsInstance(field, dict, msg=self.label)
-                self.assert_all_in(required, field.keys(), msg=self.label)
-                self.assert_all_in(field.keys(), required + optional,
+                self.assert_all_in(required, list(field.keys()), msg=self.label)
+                self.assert_all_in(list(field.keys()), required + optional,
                                    msg=self.label)
 
     def test_monuments_config_country_field_dests_ascii(self):
         """Ensure the country field dest entries are all ascii."""
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for field in data.get('fields', []):
                 self.assert_is_ascii(field.get('dest'), msg=self.label)
@@ -149,7 +149,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
     def test_monuments_config_country_field_lat_and_lon(self):
         """Ensure the country field dest entries contain lat-lon pair."""
         # if one is present both should be present
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             dests = [field.get('dest') for field in data.get('fields', [])]
             if 'lat' in dests:
@@ -165,7 +165,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
             'es-ct-fop', 'il-fop', 'fi-fop',
             'generateRegistrantUrl-wlpa-es-ct', 'generateRegistrantUrl-sv-ship'
         ]
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for field in data.get('fields', []):
                 if field.get('conv'):
@@ -178,7 +178,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
         Ensure that a config with a generateRegistrantUrl
         has a valid registrantUrlBase.
         """
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for field in data.get('fields', []):
                 if field.get('conv') == 'generateRegistrantUrl':
@@ -190,7 +190,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
     def test_monuments_config_known_checkers(self):
         """Ensure the only known checkers are used in field entries."""
         recognized = ['checkLon', 'checkLat', 'checkWD', 'checkInt']
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for field in data.get('fields', []):
                 if field.get('check'):
@@ -204,7 +204,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
         included.
         """
         template_params = ['headerTemplate', 'rowTemplate', 'commonsTemplate']
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             self.set_label(key)
             for template in template_params:
                 if data.get(template):
@@ -214,7 +214,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
     def test_monuments_config_valid_sparql(self):
         """Ensure that the sparql query delivers ?item and ?id."""
         # TODO: should ensure primkey entries are present in field
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             if data.get('type') != 'sparql':
                 continue
 

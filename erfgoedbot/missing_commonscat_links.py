@@ -13,14 +13,14 @@ from collections import OrderedDict
 
 import pywikibot
 
-import common as common
-import monuments_config as mconfig
-from database_connection import (
+import erfgoedbot.common as common
+import erfgoedbot.monuments_config as mconfig
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_commons_database,
     connect_to_monuments_database
 )
-from statistics_table import StatisticsTable
+from erfgoedbot.statistics_table import StatisticsTable
 
 _logger = "missing_commonscat"
 
@@ -47,7 +47,7 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
             'cmt': 'skipped: cannot handle sparql'
         }
 
-    commonscatField = lookupSourceField(u'commonscat', countryconfig)
+    commonscatField = lookupSourceField('commonscat', countryconfig)
     if not commonscatField:
         # Field is missing. Something is seriously wrong, but we just skip it
         # silently
@@ -58,22 +58,22 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
 
     missingCommonscatPage = countryconfig.get('missingCommonscatPage')
     commonsTrackerCategory = countryconfig.get(
-        'commonsTrackerCategory'). replace(u' ', u'_')
+        'commonsTrackerCategory'). replace(' ', '_')
 
     withoutCommonscat = getMonumentsWithoutCommonscat(
         countryconfig.get('country'), countryconfig.get('lang'), conn, cursor)
     commonscats = getMonumentCommonscats(
         commonsTrackerCategory, conn2, cursor2)
 
-    pywikibot.log(u'withoutCommonscat {num} elements'.format(
+    pywikibot.log('withoutCommonscat {num} elements'.format(
         num=len(withoutCommonscat)))
-    pywikibot.log(u'commonscats {num} elements'.format(
+    pywikibot.log('commonscats {num} elements'.format(
         num=len(withoutCommonscat)))
 
     missing_commonscat = group_missing_commonscat_by_source(
         commonscats, withoutCommonscat, countryconfig)
 
-    site = pywikibot.Site(countryconfig.get('lang'), u'wikipedia')
+    site = pywikibot.Site(countryconfig.get('lang'), 'wikipedia')
     page = pywikibot.Page(site, missingCommonscatPage)
     iw_links = getInterwikisMissingCommonscatPage(
         countryconfig.get('country'), countryconfig.get('lang'))
@@ -110,17 +110,17 @@ def output_country_report(missing_commonscat, commonscat_field, report_page,
     if not missing_commonscat:
         text += common.done_message(central_page, 'missing commonscat')
     else:
-        for source_page, cats in missing_commonscat.iteritems():
+        for source_page, cats in missing_commonscat.items():
             total_pages += 1
             if totalCategories < max_cats:
-                text += u'=== {0} ===\n'.format(source_page)
+                text += '=== {0} ===\n'.format(source_page)
                 for (cat_name, monument_id) in cats:
                     text += (
-                        u'* <nowiki>|</nowiki> {field} = '
-                        u'[[:c:Category:{_name}|{name}]] - {id}\n'.format(
+                        '* <nowiki>|</nowiki> {field} = '
+                        '[[:c:Category:{_name}|{name}]] - {id}\n'.format(
                             field=commonscat_field,
                             _name=cat_name,
-                            name=cat_name.replace(u'_', u' '),
+                            name=cat_name.replace('_', ' '),
                             id=monument_id
                         )
                     )
@@ -130,16 +130,16 @@ def output_country_report(missing_commonscat, commonscat_field, report_page,
 
     if totalCategories >= max_cats:
         text += (
-            u'<!-- Maximum number of categories reached: {max}, '
-            u'total of missing commonscat links: {total} -->\n'.format(
+            '<!-- Maximum number of categories reached: {max}, '
+            'total of missing commonscat links: {total} -->\n'.format(
                 max=max_cats, total=totalCategories))
         comment = (
-            u'Commonscat links to be made in monument lists: '
-            u'{max} (list maximum reached), '
-            u'total of missing commonscat links: {total}'.format(
+            'Commonscat links to be made in monument lists: '
+            '{max} (list maximum reached), '
+            'total of missing commonscat links: {total}'.format(
                 max=max_cats, total=totalCategories))
     else:
-        comment = u'Commonscat links to be made in monument lists: {0}'.format(
+        comment = 'Commonscat links to be made in monument lists: {0}'.format(
             totalCategories)
 
     if iw_links:
@@ -164,7 +164,7 @@ def group_missing_commonscat_by_source(commonscats, withoutCommonscat,
             monumentId = common.get_id_from_sort_key(
                 catSortKey, withoutCommonscat)
         except ValueError:
-            pywikibot.warning(u'Got value error for {0}'.format(catSortKey))
+            pywikibot.warning('Got value error for {0}'.format(catSortKey))
             continue
 
         if monumentId in withoutCommonscat:
@@ -176,7 +176,7 @@ def group_missing_commonscat_by_source(commonscats, withoutCommonscat,
                     missing_commonscat[source_link] = []
             except ValueError:
                 pywikibot.warning(
-                    u'Could not find source page for {0} ({1})'.format(
+                    'Could not find source page for {0} ({1})'.format(
                         monumentId, withoutCommonscat.get(monumentId)))
                 continue
 
@@ -195,11 +195,11 @@ def lookupSourceField(destination, countryconfig):
 
 def getInterwikisMissingCommonscatPage(countrycode, lang):
     """Get interwiki link to missing_commonscat_page for the same country."""
-    result = u''
-    for (countrycode2, lang2), countryconfig in mconfig.countries.iteritems():
+    result = ''
+    for (countrycode2, lang2), countryconfig in mconfig.countries.items():
         if countrycode == countrycode2 and lang != lang2:
             if countryconfig.get('missingCommonscatPage'):
-                result += u'[[{lang}:{page}]]\n'.format(
+                result += '[[{lang}:{page}]]\n'.format(
                     lang=lang2,
                     page=countryconfig.get('missingCommonscatPage'))
 
@@ -216,10 +216,10 @@ def getMonumentsWithoutCommonscat(countrycode, lang, conn, cursor):
     result = {}
 
     query = (
-        u"SELECT id, source "
-        u"FROM monuments_all "
-        u"WHERE (commonscat IS NULL or commonscat='') "
-        u"AND country=%s AND lang=%s")
+        "SELECT id, source "
+        "FROM monuments_all "
+        "WHERE (commonscat IS NULL or commonscat='') "
+        "AND country=%s AND lang=%s")
 
     cursor.execute(query, (countrycode, lang))
 
@@ -243,10 +243,10 @@ def getMonumentCommonscats(commonsTrackerCategory, conn, cursor):
         category name as value. category_sort_key contains the monument id.
     """
     query = (
-        u"SELECT page_title, cl_sortkey_prefix "
-        u"FROM page "
-        u"JOIN categorylinks ON page_id=cl_from "
-        u"WHERE page_namespace=14 AND page_is_redirect=0 AND cl_to=%s")
+        "SELECT page_title, cl_sortkey_prefix "
+        "FROM page "
+        "JOIN categorylinks ON page_id=cl_from "
+        "WHERE page_namespace=14 AND page_is_redirect=0 AND cl_to=%s")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
@@ -258,7 +258,7 @@ def makeStatistics(statistics):
     site = pywikibot.Site('commons', 'commons')
     page = pywikibot.Page(
         site,
-        u'Commons:Monuments database/Missing commonscat links/Statistics')
+        'Commons:Monuments database/Missing commonscat links/Statistics')
 
     title_column = OrderedDict([
         ('code', 'country'),
@@ -283,12 +283,12 @@ def makeStatistics(statistics):
         if countryconfig.get('type') != 'sparql':
             row_template = common.get_template_link(
                 countryconfig.get('lang'),
-                countryconfig.get('project', u'wikipedia'),
+                countryconfig.get('project', 'wikipedia'),
                 countryconfig.get('rowTemplate'),
                 site)
 
         if countryconfig.get('commonsTemplate'):
-            commons_template = u'{{tl|%s}}' % (
+            commons_template = '{{tl|%s}}' % (
                 countryconfig.get('commonsTemplate'), )
 
         if row.get('report_page'):
@@ -306,16 +306,16 @@ def makeStatistics(statistics):
     text = table.to_wikitext()
 
     comment = (
-        u'Updating missing commonscat links statistics. '
-        u'Total missing links: {total_cats}'.format(
+        'Updating missing commonscat links statistics. '
+        'Total missing links: {total_cats}'.format(
             total_cats=table.get_sum('total')))
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(page, comment, text)
 
 
 def main():
-    countrycode = u''
-    lang = u''
+    countrycode = ''
+    lang = ''
     skip_wd = False
     conn = None
     cursor = None
@@ -333,38 +333,38 @@ def main():
             skip_wd = True
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-skip_wd" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-skip_wd" or pywikibot args. '
+                'Found "{}"'.format(option))
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
             pywikibot.warning(
-                u'I have no config for countrycode "{code}" in language '
-                u'"{lang}"'.format(code=countrycode, lang=lang))
+                'I have no config for countrycode "{code}" in language '
+                '"{lang}"'.format(code=countrycode, lang=lang))
             return False
         pywikibot.log(
-            u'Working on countrycode "{code}" in language "{lang}"'.format(
+            'Working on countrycode "{code}" in language "{lang}"'.format(
                 code=countrycode, lang=lang))
         processCountry(mconfig.countries.get((countrycode, lang)),
                        conn, cursor, conn2, cursor2)
     elif countrycode or lang:
-        raise Exception(u'The "countrycode" and "langcode" arguments must '
-                        u'be used together.')
+        raise Exception('The "countrycode" and "langcode" arguments must '
+                        'be used together.')
     else:
         statistics = []
         for (countrycode, lang), countryconfig in mconfig.filtered_countries(
                 skip_wd=skip_wd):
             pywikibot.log(
-                u'Working on countrycode "{code}" in language "{lang}"'.format(
+                'Working on countrycode "{code}" in language "{lang}"'.format(
                     code=countrycode, lang=lang))
             try:
                 statistics.append(processCountry(
                     countryconfig, conn, cursor, conn2, cursor2))
             except Exception as e:
                 pywikibot.error(
-                    u'Unknown error occurred when processing country '
-                    u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                    'Unknown error occurred when processing country '
+                    '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append({
                     'config': countryconfig,
                     'cmt': 'failed: unexpected error during processing'
@@ -376,5 +376,5 @@ def main():
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     main()

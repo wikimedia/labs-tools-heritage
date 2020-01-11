@@ -67,12 +67,12 @@ SomeText
         expected_replaced = ['r_1', 'r_2', 'r_3', 'r_4', 'r_5', 'r_6', 'r_7']
         expected_sources = ['s_1', 's_2', 's_3', 's_4', 's_5', 's_6']
         data = isolate_dataset_entries(indata)
-        self.assertItemsEqual(data.keys(), [expected_table, ])
-        self.assertItemsEqual(data[expected_table]['to_replace'],
+        self.assertCountEqual(list(data.keys()), [expected_table, ])
+        self.assertCountEqual(data[expected_table]['to_replace'],
                               expected_to_replace)
-        self.assertItemsEqual(data[expected_table]['replaced'],
+        self.assertCountEqual(data[expected_table]['replaced'],
                               expected_replaced)
-        self.assertItemsEqual(data[expected_table]['sources'],
+        self.assertCountEqual(data[expected_table]['sources'],
                               expected_sources)
 
 
@@ -88,14 +88,14 @@ class FillTableMonumentsValidation(unittest.TestCase, CustomAssertions):
     def test_fill_table_monuments_all_replaced(self):
         """Ensure all variables stated to be replaced are in fact replaced."""
         self.longMessage = True
-        for table, dataset in self.data.iteritems():
-            self.assertItemsEqual(
+        for table, dataset in self.data.items():
+            self.assertCountEqual(
                 dataset['to_replace'], dataset['replaced'], msg=table)
 
     def test_fill_table_monuments_all_required_replacements(self):
         """Ensure the required variables are replaced, at least."""
         required = ['source', 'changed', 'country', 'lang', 'id', 'adm0']
-        for table, dataset in self.data.iteritems():
+        for table, dataset in self.data.items():
             msg = '%s in fill_table_monuments_all ' % table
             msg += 'missing required variable(s): %s'
             self.assert_all_in(required, dataset['replaced'], msg=msg)
@@ -116,7 +116,7 @@ class TestFillTableMonumentsOntoMonumentsConfig(unittest.TestCase,
         """Identify tables in monuments_config."""
         self.config_tables = []
         self.config_lookup = {}
-        for key, data in config.countries.iteritems():
+        for key, data in config.countries.items():
             table = data['table']
             if table.startswith('monuments'):  # i.e. not wlpa
                 self.config_tables.append(table)
@@ -133,17 +133,17 @@ class TestFillTableMonumentsOntoMonumentsConfig(unittest.TestCase,
     def test_fill_table_monuments_all_tables_present(self):
         """Ensure all needed tables are present in monuments_config."""
         msg = '%s in fill_table_monuments_all not present in monuments_config'
-        self.assert_all_in(self.data.keys(), self.config_tables, msg=msg)
+        self.assert_all_in(list(self.data.keys()), self.config_tables, msg=msg)
 
     def test_fill_table_monuments_all_config_tables_used(self):
         """Ensure that all monuments_config tables are used."""
         msg = '%s in monuments_config not used in fill_table_monuments_all'
-        self.assert_all_in(self.config_tables, self.data.keys(), msg=msg)
+        self.assert_all_in(self.config_tables, list(self.data.keys()), msg=msg)
 
     @unittest.expectedFailure  # @todo fix
     def test_fill_table_monuments_all_source_in_config(self):
         """Ensure all sources are present in the corresponding config entry."""
-        for table, dataset in self.data.iteritems():
+        for table, dataset in self.data.items():
             msg = '%s in fill_table_monuments_all ' % table
             msg += 'expects missing field(s): %s'
             dest = self.get_config_field_dests(table)

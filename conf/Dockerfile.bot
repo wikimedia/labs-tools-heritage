@@ -1,7 +1,9 @@
 FROM debian:stretch-slim
 RUN apt-get update && \
-	apt-get install -y python python-pip && \
+	apt-get install -y python3 python3-pip && \
 	apt-get clean
+RUN rm -f /usr/bin/python && ln -s /usr/bin/python3 /usr/bin/python
+RUN rm -f /usr/bin/pip && ln -s /usr/bin/pip3 /usr/bin/pip
 RUN pip install --upgrade pip
 ADD requirements.txt requirements.txt
 RUN pip install --ignore-installed -r requirements.txt

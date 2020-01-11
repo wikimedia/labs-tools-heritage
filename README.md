@@ -22,8 +22,8 @@ To spin-up a development environement simulating harvesting:
 docker-compose build
 
 # Create database tables
-docker-compose run --rm --no-deps --entrypoint python bot erfgoedbot/monument_tables.py
-docker-compose run --rm --no-deps --entrypoint python bot erfgoedbot/fill_table_monuments_all.py
+docker-compose run --rm --no-deps --entrypoint python bot -m erfgoedbot.monument_tables
+docker-compose run --rm --no-deps --entrypoint python bot -m erfgoedbot.fill_table_monuments_all
 
 # Start the Docker containers
 docker-compose up -d
@@ -32,7 +32,7 @@ docker-compose up -d
 mkdir -p docker_pages
 
 # Run the bot to harvest a country
-docker-compose run --rm bot python erfgoedbot/update_database.py -countrycode:ge -langcode:ka -log
+docker-compose run --rm bot python -m erfgoedbot.update_database -countrycode:ge -langcode:ka -log
 
 # Update the monuments_all table
 docker-compose run --rm db mysql -h db s51138__heritage_p --user=heritage --password=password < erfgoedbot/sql/fill_table_monuments_all.sql

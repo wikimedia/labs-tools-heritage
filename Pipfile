@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-mock = "*"
 nose = "*"
 nose-cov = "*"
 coverage = "*"
@@ -18,4 +17,4 @@ PyMySQL = "*"
 PyYAML = "*"
 
 [requires]
-python_version = "2.7"
+python_version = "3.5"

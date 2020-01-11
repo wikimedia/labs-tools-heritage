@@ -11,7 +11,7 @@ from collections import Counter
 
 import pywikibot
 
-from database_connection import (
+from erfgoedbot.database_connection import (
     close_database_connection,
     connect_to_monuments_database
 )
@@ -23,10 +23,10 @@ def getAddresses(countrycode, lang, municipality, conn, cursor):
     '''
     result = []
     query = (
-        u"SELECT address "
-        u"FROM monuments_all "
-        u"WHERE country=%s AND lang=%s AND municipality=%s "
-        u"ORDER BY address ASC")
+        "SELECT address "
+        "FROM monuments_all "
+        "WHERE country=%s AND lang=%s AND municipality=%s "
+        "ORDER BY address ASC")
     cursor.execute(query, (countrycode, lang, municipality))
 
     while True:
@@ -46,11 +46,11 @@ def printTopStreets(addresses, minimum):
     '''
     streets = Counter()  # collections.Counter
     for address in addresses:
-        address = address.replace(u'{{sorteer|', u'')
-        temp = u''
+        address = address.replace('{{sorteer|', '')
+        temp = ''
         partslist = []
-        for addrPart in address.split(u' '):
-            temp += u' ' + addrPart
+        for addrPart in address.split(' '):
+            temp += ' ' + addrPart
             partslist.append(temp.strip())
 
         streets.update(partslist)
@@ -70,27 +70,27 @@ def printTopStreets(addresses, minimum):
                 filteredStreets.append(topStreet1)
                 break
 
-    pywikibot.output(u'Filtered out the following. These are probably '
-                     u'street parts:')
+    pywikibot.output('Filtered out the following. These are probably '
+                     'street parts:')
     for street in streets.most_common():
         if street[1] < minimum:
             break
         if street[0] in filteredStreets:
-            pywikibot.output(u'* %s - %s' % street)
+            pywikibot.output('* %s - %s' % street)
 
-    pywikibot.output(u'Found the following entries which are probably '
-                     u'real streets:')
+    pywikibot.output('Found the following entries which are probably '
+                     'real streets:')
     for street in streets.most_common():
         if street[1] < minimum:
             break
         if not street[0] in filteredStreets:
-            pywikibot.output(u'* %s - %s' % street)
+            pywikibot.output('* %s - %s' % street)
 
 
 def main():
-    countrycode = u''
-    lang = u''
-    municipality = u''
+    countrycode = ''
+    lang = ''
+    municipality = ''
     minimum = 15
     conn = None
     cursor = None
@@ -109,21 +109,21 @@ def main():
             minimum = int(value)
         else:
             raise Exception(
-                u'Bad parameters. Expected "-countrycode", "-langcode", '
-                u'"-municipality", "-minimum" or pywikibot args. '
-                u'Found "{}"'.format(option))
+                'Bad parameters. Expected "-countrycode", "-langcode", '
+                '"-municipality", "-minimum" or pywikibot args. '
+                'Found "{}"'.format(option))
 
     if countrycode and lang and municipality:
         addresses = getAddresses(countrycode, lang, municipality, conn, cursor)
         printTopStreets(addresses, minimum)
     else:
-        print u'Usage'
+        print('Usage')
 
     close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
-    pywikibot.log(u'Start of %s' % __file__)
+    pywikibot.log('Start of %s' % __file__)
     try:
         main()
     finally:

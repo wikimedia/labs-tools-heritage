@@ -3,12 +3,12 @@
 """Unit tests for update_database."""
 
 import unittest
+import unittest.mock as mock
 from collections import Counter, OrderedDict
-
-import mock
 
 import pywikibot
 
+import custom_assertions  # noqa F401
 from erfgoedbot import update_database
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
@@ -17,16 +17,16 @@ class TestUpdateDatabaseBase(unittest.TestCase):
 
     def setUp(self):
         self.country_config = {
-            'primkey': u'id',
+            'primkey': 'id',
             'table': 'dummy_table',
             'fields': [
                 {
-                    'source': u'id',
-                    'dest': u'id',
+                    'source': 'id',
+                    'dest': 'id',
                 },
                 {
-                    'source': u'name',
-                    'dest': u'name',
+                    'source': 'name',
+                    'dest': 'name',
                 }
             ],
         }
@@ -56,9 +56,9 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
 
     def test_process_monument_with_one_unknown_param_correctly_returns_unknown_fields(self):
         params = [
-            u'id=1234',
-            u'name=A Monument Name',
-            u'some_unknown_field=An unknown field value'
+            'id=1234',
+            'name=A Monument Name',
+            'some_unknown_field=An unknown field value'
         ]
         unknown_fields = {}
         expected_unknown = Counter({self.mock_page: 1})
@@ -68,14 +68,14 @@ class TestProcessMonumentNoPrimkey(TestUpdateDatabaseBase):
                 self.mock_page, self.header_defaults, unknown_fields)
         self.assertEqual(
             unknown_fields,
-            {u'some_unknown_field': expected_unknown}
+            {'some_unknown_field': expected_unknown}
         )
 
 
 class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
 
     def test_process_monument_with_empty_primkey_value(self):
-        params = [u'id=', u'name=A Monument Name']
+        params = ['id=', 'name=A Monument Name']
         header_defaults = {}
         unknown_fields = {}
 
@@ -88,17 +88,17 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
 
     def test_process_monument_calls_update_monument_and_returns_unknown_fields(self):
         params = [
-            u'id=1234',
-            u'name=A Monument Name',
-            u'some_unknown_field=An unknown field value'
+            'id=1234',
+            'name=A Monument Name',
+            'some_unknown_field=An unknown field value'
         ]
         header_defaults = {}
         unknown_fields = {}
 
         expected_contents = {
             'title': 'MockPageTitle',
-            u'id': u'1234',
-            u'name': u'A Monument Name',
+            'id': '1234',
+            'name': 'A Monument Name',
             'source': 'DummySource'
         }
         expected_unknown = Counter({self.mock_page: 1})
@@ -113,7 +113,7 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
                 self.mock_cursor, self.mock_page)
         self.assertEqual(
             unknown_fields,
-            {u'some_unknown_field': expected_unknown}
+            {'some_unknown_field': expected_unknown}
         )
 
 
@@ -123,24 +123,24 @@ class TestUpdateMonument(TestUpdateDatabaseBase):
         source = 'DummySource'
         contents = {
             'title': 'MockPageTitle',
-            u'id': u'1234',
-            u'name': u'A Monument Name',
+            'id': '1234',
+            'name': 'A Monument Name',
             'source': source
         }
         update_database.update_monument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
-        expected_query = u'REPLACE INTO `dummy_table` (`source`, `id`, `name`) VALUES (%s, %s, %s)'
-        expected_query_params = ['DummySource', u'1234', u'A Monument Name']
+        expected_query = 'REPLACE INTO `dummy_table` (`source`, `id`, `name`) VALUES (%s, %s, %s)'
+        expected_query_params = ['DummySource', '1234', 'A Monument Name']
         self.mock_cursor.execute.assert_called_once_with(expected_query, expected_query_params)
 
 
 class TestProcessHeader(TestUpdateDatabaseBase):
 
     def test_process_header_parses_correct_fields_and_skips_unknowns(self):
-        params = [u'id=1234', u'name=A Monument Name', u'some_unknown_field=An unknown field value']
+        params = ['id=1234', 'name=A Monument Name', 'some_unknown_field=An unknown field value']
         result = update_database.process_header(params, self.country_config)
         expected_contents = {
-            u'id': u'1234',
-            u'name': u'A Monument Name',
+            'id': '1234',
+            'name': 'A Monument Name',
         }
         self.assertEqual(result, expected_contents)
 
@@ -151,8 +151,8 @@ class TestLookupSourceField(TestUpdateDatabaseBase):
         super(TestLookupSourceField, self).setUp()
         self.country_config['fields'].append(
             {
-                'source': u'source-name',
-                'dest': u'dest-name',
+                'source': 'source-name',
+                'dest': 'dest-name',
             }
         )
 
@@ -161,7 +161,7 @@ class TestLookupSourceField(TestUpdateDatabaseBase):
         self.assertEqual(result, None)
 
     def test_lookup_source_field_on_known_field_return_source(self):
-        result = update_database.lookup_source_field(u'dest-name', self.country_config)
+        result = update_database.lookup_source_field('dest-name', self.country_config)
         self.assertEqual(result, 'source-name')
 
 
@@ -220,17 +220,17 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
 
     def setUp(self):
         super(TestCountryBboxRequireLatLon, self).setUp()
-        self.country_config['countryBbox'] = u'8.5,10.5,28.0,60.0'
+        self.country_config['countryBbox'] = '8.5,10.5,28.0,60.0'
         self.monument_key = 'some-key'
         self.contents = {
             'title': 'MockPageTitle',
-            u'id': self.monument_key,
-            u'name': u'A Monument Name',
+            'id': self.monument_key,
+            'name': 'A Monument Name',
             'source': self.source
         }
 
     def test_countryBbox_calls_check(self):
-        expected_fieldnames = [u'source', u'id', u'name']
+        expected_fieldnames = ['source', 'id', 'name']
         with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
             update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monument_key, self.mock_page)
@@ -238,12 +238,12 @@ class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
     def test_countryBbox_calls_check_with_lon(self):
         self.country_config['fields'].append(
             {
-                'source': u'lon',
-                'dest': u'lon',
+                'source': 'lon',
+                'dest': 'lon',
             }
         )
         self.contents['lon'] = '123'
-        expected_fieldnames = [u'source', u'id', u'name', 'lon']
+        expected_fieldnames = ['source', 'id', 'name', 'lon']
         with mock.patch('erfgoedbot.update_database.check_lat_with_lon', autospec=True) as mock_check_lat_with_lon:
             update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
             mock_check_lat_with_lon.assert_called_once_with(expected_fieldnames, self.monument_key, self.mock_page)
@@ -253,17 +253,17 @@ class TestTriggerConversion(TestUpdateDatabaseBase):
 
     def test_call_convert_field(self):
         new_field = {
-            'source': u'source-name',
-            'dest': u'dest-name',
+            'source': 'source-name',
+            'dest': 'dest-name',
             'conv': 'some-converter',
         }
         self.country_config['fields'].append(new_field)
         source = 'DummySource'
         contents = {
             'title': 'MockPageTitle',
-            u'id': u'1234',
-            u'name': u'A Monument Name',
-            'source-name': u'Some value',
+            'id': '1234',
+            'name': 'A Monument Name',
+            'source-name': 'Some value',
             'source': source
         }
 
@@ -279,21 +279,21 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         self.monument_key = 'some-key'
         self.contents = {
             'title': 'MockPageTitle',
-            u'id': self.monument_key,
-            u'name': u'A Monument Name',
+            'id': self.monument_key,
+            'name': 'A Monument Name',
             'source': self.source
         }
 
     def test_trigger_checkLat(self):
         self.country_config['fields'].append(
             {
-                'source': u'lat',
-                'dest': u'lat',
-                'check': u'checkLat',
+                'source': 'lat',
+                'dest': 'lat',
+                'check': 'checkLat',
             }
         )
         lat = '13.37'
-        self.contents[u'lat'] = lat
+        self.contents['lat'] = lat
 
         with mock.patch('erfgoedbot.update_database.checkLat', autospec=True) as mock_checkLat:
             update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
@@ -302,13 +302,13 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
     def test_trigger_checkLon(self):
         self.country_config['fields'].append(
             {
-                'source': u'lon',
-                'dest': u'lon',
-                'check': u'checkLon',
+                'source': 'lon',
+                'dest': 'lon',
+                'check': 'checkLon',
             }
         )
         lon = '-13.37'
-        self.contents[u'lon'] = lon
+        self.contents['lon'] = lon
 
         with mock.patch('erfgoedbot.update_database.checkLon', autospec=True) as mock_checkLon:
             update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
@@ -317,13 +317,13 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
     def test_trigger_checkWD(self):
         self.country_config['fields'].append(
             {
-                'source': u'wd_item',
-                'dest': u'wd_item',
-                'check': u'checkWD',
+                'source': 'wd_item',
+                'dest': 'wd_item',
+                'check': 'checkWD',
             }
         )
         wd_item = 'Q123'
-        self.contents[u'wd_item'] = wd_item
+        self.contents['wd_item'] = wd_item
 
         with mock.patch('erfgoedbot.update_database.check_wikidata', autospec=True) as mock_check_wikidata:
             update_database.update_monument(self.contents, self.source, self.country_config, None, self.mock_cursor, self.mock_page)
@@ -332,13 +332,13 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
     def test_trigger_unknown_check(self):
         self.country_config['fields'].append(
             {
-                'source': u'source-field',
-                'dest': u'dest-field',
-                'check': u'unknown',
+                'source': 'source-field',
+                'dest': 'dest-field',
+                'check': 'unknown',
             }
         )
         val = 'something'
-        self.contents[u'source-field'] = val
+        self.contents['source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
             update_database.update_monument(
@@ -352,13 +352,13 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         # It is a known bug that any function can be triggered using a check
         self.country_config['fields'].append(
             {
-                'source': u'source-field',
-                'dest': u'dest-field',
-                'check': u'connectDatabase',
+                'source': 'source-field',
+                'dest': 'dest-field',
+                'check': 'connectDatabase',
             }
         )
         val = 'something'
-        self.contents[u'source-field'] = val
+        self.contents['source-field'] = val
 
         with self.assertRaises(pywikibot.Error) as cm:
             update_database.update_monument(
@@ -380,8 +380,8 @@ class TestFormatSourceField(unittest.TestCase):
 
     def test_format_source_field_single(self):
         sources = Counter({self.page_1: 5})
-        expected = u'[[wikipedia:test:Foo1|Foo1]]'
-        self.assertEquals(
+        expected = '[[wikipedia:test:Foo1|Foo1]]'
+        self.assertEqual(
             update_database.format_source_field(sources, self.commons),
             expected
         )
@@ -389,11 +389,11 @@ class TestFormatSourceField(unittest.TestCase):
     def test_format_source_field_max(self):
         sources = Counter({self.page_1: 1, self.page_2: 3, self.page_3: 2})
         expected = (
-            u'\n* [[wikipedia:test:Foo2|Foo2]] (3)'
-            u'\n* [[wikipedia:test:Foo3|Foo3]] (2)'
-            u'\n* [[wikipedia:test:Foo1|Foo1]] (1)'
+            '\n* [[wikipedia:test:Foo2|Foo2]] (3)'
+            '\n* [[wikipedia:test:Foo3|Foo3]] (2)'
+            '\n* [[wikipedia:test:Foo1|Foo1]] (1)'
         )
-        self.assertEquals(
+        self.assertEqual(
             update_database.format_source_field(
                 sources, self.commons, sample_size=3),
             expected
@@ -402,11 +402,11 @@ class TestFormatSourceField(unittest.TestCase):
     def test_format_source_field_remaining(self):
         sources = Counter({self.page_1: 1, self.page_2: 3, self.page_3: 2})
         expected = (
-            u'\n* [[wikipedia:test:Foo2|Foo2]] (3)'
-            u'\n* [[wikipedia:test:Foo3|Foo3]] (2)'
-            u"\n* ''and 1 more page(s)''"
+            '\n* [[wikipedia:test:Foo2|Foo2]] (3)'
+            '\n* [[wikipedia:test:Foo3|Foo3]] (2)'
+            "\n* ''and 1 more page(s)''"
         )
-        self.assertEquals(
+        self.assertEqual(
             update_database.format_source_field(
                 sources, self.commons, sample_size=2),
             expected
@@ -432,10 +432,10 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.mock_report_page.title.return_value = '<report_page>'
 
         self.comment = (
-            u'Updating unknown fields statistics. Total of {total_fields} '
-            u'unknown fields used {total_usages} times on {total_pages} '
-            u'different pages.')
-        self.pagename = u'Commons:Monuments database/Unknown fields/Statistics'
+            'Updating unknown fields statistics. Total of {total_fields} '
+            'unknown fields used {total_usages} times on {total_pages} '
+            'different pages.')
+        self.pagename = 'Commons:Monuments database/Unknown fields/Statistics'
 
     def bundled_asserts(self, expected_rows,
                         expected_total_fields,
@@ -478,15 +478,15 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 123 \n'
-            u'| 456 \n'
-            u'| 789 \n'
-            u'| <report_page> \n'
-            u'| <template_link> \n'
-            u'| <template_link> \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 123 \n'
+            '| 456 \n'
+            '| 789 \n'
+            '| <report_page> \n'
+            '| <template_link> \n'
+            '| <template_link> \n')
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
@@ -546,24 +546,24 @@ class TestMakeStatistics(TestCreateReportTableBase):
             }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 123 \n'
-            u'| 456 \n'
-            u'| 789 \n'
-            u'| <report_page:Foobar> \n'
-            u'| <template_link> \n'
-            u'| <template_link> \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| 321 \n'
-            u'| 654 \n'
-            u'| 987 \n'
-            u'| <report_page:Barfoo> \n'
-            u'| <template_link> \n'
-            u'| <template_link> \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 123 \n'
+            '| 456 \n'
+            '| 789 \n'
+            '| <report_page:Foobar> \n'
+            '| <template_link> \n'
+            '| <template_link> \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| 321 \n'
+            '| 654 \n'
+            '| 987 \n'
+            '| <report_page:Barfoo> \n'
+            '| <template_link> \n'
+            '| <template_link> \n')
         expected_total_fields = 444
         expected_total_usages = 1110
         expected_total_pages = 1776
@@ -597,15 +597,15 @@ class TestMakeStatistics(TestCreateReportTableBase):
             None]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 123 \n'
-            u'| 456 \n'
-            u'| 789 \n'
-            u'| <report_page> \n'
-            u'| <template_link> \n'
-            u'| <template_link> \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 123 \n'
+            '| 456 \n'
+            '| 789 \n'
+            '| <report_page> \n'
+            '| <template_link> \n'
+            '| <template_link> \n')
         expected_total_fields = 123
         expected_total_usages = 456
         expected_total_pages = 789
@@ -657,14 +657,14 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         self.addCleanup(patcher.stop)
 
         self.postfix = (
-            u'[[Category:Commons:Monuments database/Unknown fields]]')
+            '[[Category:Commons:Monuments database/Unknown fields]]')
 
-        self.comment = u'Updating the list of unknown fields with {0} entries'
+        self.comment = 'Updating the list of unknown fields with {0} entries'
         self.countryconfig = {
             'table': 'table_name',
             'foo': 'bar'
         }
-        self.pagename = u'Commons:Monuments database/Unknown fields/table_name'
+        self.pagename = 'Commons:Monuments database/Unknown fields/table_name'
         self.commons = self.mock_site.return_value
         self.mock_report_page = self.mock_page.return_value
 
@@ -695,11 +695,11 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
     def test_unknown_fields_statistics_complete(self):
         expected_cmt = self.comment.format(2)
         expected_table = self.table_prefix + (
-            u'|-\n'
-            u'| unknown_field_1 || 6 || formatted_entry \n'
-            u'|-\n'
-            u'| unknown_field_2 || 3 || formatted_entry \n'
-            u'|}\n')
+            '|-\n'
+            '| unknown_field_1 || 6 || formatted_entry \n'
+            '|-\n'
+            '| unknown_field_2 || 3 || formatted_entry \n'
+            '|}\n')
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
@@ -740,11 +740,11 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         self.unknown_fields['unknown_field_2'] = new_counter
         expected_cmt = self.comment.format(2)
         expected_table = self.table_prefix + (
-            u'|-\n'
-            u'| unknown_field_1 || 6 || formatted_entry \n'
-            u'|-\n'
-            u'| unknown_field_2 || 9 || formatted_entry \n'
-            u'|}\n')
+            '|-\n'
+            '| unknown_field_1 || 6 || formatted_entry \n'
+            '|-\n'
+            '| unknown_field_2 || 9 || formatted_entry \n'
+            '|}\n')
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,

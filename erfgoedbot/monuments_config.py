@@ -14,7 +14,7 @@ def _get_config_dir():
 
 
 def _read_config_from_file(config_file):
-    with open(config_file, 'r') as fp:
+    with open(config_file, 'r', encoding='utf-8') as fp:
         return json.load(fp)
 
 
@@ -49,7 +49,7 @@ def filtered_countries(respect_skip=True, skip_wd=False, skip_wlpa=False):
     @param skip_wd: filter out any dataset with "type='sparql'"
     @param skip_wlpa: filter out any dataset in the wlpa_all table
     """
-    for key, countryconfig in get_countries().iteritems():
+    for key, countryconfig in get_countries().items():
         if respect_skip and countryconfig.get('skip'):
             continue
         elif skip_wd and (countryconfig.get('type') == 'sparql'):

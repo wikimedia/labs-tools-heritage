@@ -7,7 +7,7 @@ Author: Platonides
 """
 import os
 
-import monuments_config as mconfig
+import erfgoedbot.monuments_config as mconfig
 
 
 def process_country(country_config):
@@ -26,12 +26,12 @@ def process_country(country_config):
             sql = process_classic_config(country_config)
     except Exception as e:
         raise Exception(
-            u'{exception} for countrycode: {country}, lang: {lang}'.format(
+            '{exception} for countrycode: {country}, lang: {lang}'.format(
                 exception=e, country=country_config.get('country'),
                 lang=country_config.get('lang')))
 
-    f = open(os.path.join(
-        get_sql_dir(), u'create_table_{}.sql'.format(table)), 'w')
+    f = open(os.path.join(get_sql_dir(), 'create_table_{}.sql'.format(table)),
+             'w', encoding='utf-8')
     f.write(sql)
     f.close()
 
@@ -61,7 +61,7 @@ def process_classic_config(country_config):
         if column in ['lon', 'lat']:
             has_lat_lon = True
             fields_sql.append(
-                u'`{}` double DEFAULT NULL,'.format(column.encode('utf8')))
+                '`{}` double DEFAULT NULL,'.format(column))
         else:
             typ = field.get('type') or default_type
             if typ.startswith('int('):
@@ -71,12 +71,12 @@ def process_classic_config(country_config):
                     typ += ' NOT NULL DEFAULT 0'
             elif typ.startswith("varchar("):
                 if field.get('default'):
-                    typ += u" NOT NULL DEFAULT '{}'".format(
+                    typ += " NOT NULL DEFAULT '{}'".format(
                         field.get('default'))
                 else:
                     typ += " NOT NULL DEFAULT ''"
 
-            fields_sql.append(u'`{}` {},'.format(column.encode('utf8'), typ))
+            fields_sql.append('`{}` {},'.format(column, typ))
 
     try:
         primkey = validate_primkey(source_primkey, primkey)
@@ -92,8 +92,8 @@ def process_classic_config(country_config):
 
     sql = load_classic_template_sql().format(
         table=country_config['table'],
-        rows=b'\n  '.join(fields_sql),
-        primkey=primkey.encode('utf8'),
+        rows='\n  '.join(fields_sql),
+        primkey=primkey,
         extra_keys=extra_keys)
 
     return sql
@@ -109,8 +109,8 @@ def validate_primkey(source_primkey, primkey):
     @raises Exception
     """
     if not primkey:
-        if source_primkey and not isinstance(source_primkey, (str, unicode)):
-            primkey = u"`,`".join(source_primkey)
+        if source_primkey and not isinstance(source_primkey, str):
+            primkey = "`,`".join(source_primkey)
         else:
             raise Exception('Primary key not found')
     return primkey
@@ -157,7 +157,7 @@ def get_template_dir():
 
 
 def main():
-    for (countrycode, lang), countryconfig in mconfig.countries.iteritems():
+    for (countrycode, lang), countryconfig in mconfig.countries.items():
         process_country(countryconfig)
 
 

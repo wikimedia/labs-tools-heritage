@@ -2,10 +2,10 @@
 # -*- coding: utf-8  -*-
 """Unit tests for missing_commonscat_links."""
 import unittest
+import unittest.mock as mock
 from collections import OrderedDict
 
-import mock
-
+import custom_assertions  # noqa F401
 from erfgoedbot import missing_commonscat_links
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
@@ -23,29 +23,29 @@ class TestGetInterwikisMissingCommonscatPage(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
     def test_get_interwikis_missing_commonscat_page_hit(self):
-        expected = u'[[sv:foobar]]\n'
+        expected = '[[sv:foobar]]\n'
         result = missing_commonscat_links.getInterwikisMissingCommonscatPage(
             'se', 'fr')
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_interwikis_missing_commonscat_page_no_hit(self):
-        expected = u''
+        expected = ''
         result = missing_commonscat_links.getInterwikisMissingCommonscatPage(
             'fr', 'fr')
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_interwikis_missing_commonscat_page_same_lang(self):
-        expected = u''
+        expected = ''
         result = missing_commonscat_links.getInterwikisMissingCommonscatPage(
             'se', 'sv')
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
     def test_get_interwikis_missing_commonscat_page_no_commonscat(self):
         self.mock_mconfig.countries = {('se', 'sv'): {'foo': 'bar'}}
-        expected = u''
+        expected = ''
         result = missing_commonscat_links.getInterwikisMissingCommonscatPage(
             'se', 'fr')
-        self.assertEquals(result, expected)
+        self.assertEqual(result, expected)
 
 
 class TestMakeStatistics(TestCreateReportTableBase):
@@ -67,9 +67,9 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.mock_report_page.title.return_value = '<report_page>'
 
         self.comment = (
-            u'Updating missing commonscat links statistics. '
-            u'Total missing links: {total_cats}')
-        self.pagename = u'Commons:Monuments database/Missing commonscat links/Statistics'
+            'Updating missing commonscat links statistics. '
+            'Total missing links: {total_cats}')
+        self.pagename = 'Commons:Monuments database/Missing commonscat links/Statistics'
 
     def bundled_asserts(self, expected_rows, expected_total_cats):
         """The full battery of asserts to do for each test."""
@@ -99,13 +99,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 123 \n'
-            u'| <report_page> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 123 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_cats = 123
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -123,13 +123,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 123 \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 123 \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_cats = 123
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -147,13 +147,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: cannot handle sparql \n'
-            u'| --- \n'
-            u'| --- \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: cannot handle sparql \n'
+            '| --- \n'
+            '| --- \n'
+            '| --- \n')
         expected_total_cats = 0
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -170,13 +170,13 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| skipped: no missingCommonscatPage \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| skipped: no missingCommonscatPage \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_cats = 0
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -212,20 +212,20 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 2 \n'
-            u'| <report_page:Foobar> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| 3 \n'
-            u'| <report_page:Barfoo> \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| <report_page:Foobar> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| 3 \n'
+            '| <report_page:Barfoo> \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_cats = 5
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -256,20 +256,20 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ]
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| en \n'
-            u'| 2 \n'
-            u'| <report_page> \n'
-            u'| <row_template_link> \n'
-            u'| {{tl|commons template}} \n'
-            u'|-\n'
-            u'| bar \n'
-            u'| fr \n'
-            u'| skipped: no missingCommonscatPage \n'
-            u'| --- \n'
-            u'| <row_template_link> \n'
-            u'| --- \n')
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n'
+            '|-\n'
+            '| bar \n'
+            '| fr \n'
+            '| skipped: no missingCommonscatPage \n'
+            '| --- \n'
+            '| <row_template_link> \n'
+            '| --- \n')
         expected_total_cats = 2
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -328,13 +328,13 @@ class TestOutputCountryReport(TestCreateReportBase):
         self.mock_instruction_header.assert_called_once()
 
     def test_output_country_report_complete(self):
-        expected_cmt = u'Commonscat links to be made in monument lists: 3'
+        expected_cmt = 'Commonscat links to be made in monument lists: 3'
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
-            u'=== source_link_2 ===\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_21|Cat 21]] - id_3\n'
+            '=== source_link_1 ===\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
+            '=== source_link_2 ===\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_21|Cat 21]] - id_3\n'
         )
         expected_totals = {
             'cats': 3,
@@ -353,14 +353,14 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_cats = 2
 
         expected_cmt = (
-            u'Commonscat links to be made in monument lists: 2 (list maximum '
-            u'reached), total of missing commonscat links: 3')
+            'Commonscat links to be made in monument lists: 2 (list maximum '
+            'reached), total of missing commonscat links: 3')
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
-            u'<!-- Maximum number of categories reached: 2, '
-            u'total of missing commonscat links: 3 -->\n')
+            '=== source_link_1 ===\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
+            '<!-- Maximum number of categories reached: 2, '
+            'total of missing commonscat links: 3 -->\n')
         expected_totals = {
             'cats': 3,
             'pages': 2
@@ -379,14 +379,14 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_cats = 1
 
         expected_cmt = (
-            u'Commonscat links to be made in monument lists: 1 (list maximum '
-            u'reached), total of missing commonscat links: 3')
+            'Commonscat links to be made in monument lists: 1 (list maximum '
+            'reached), total of missing commonscat links: 3')
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
-            u'<!-- Maximum number of categories reached: 1, '
-            u'total of missing commonscat links: 3 -->\n')
+            '=== source_link_1 ===\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
+            '<!-- Maximum number of categories reached: 1, '
+            'total of missing commonscat links: 3 -->\n')
         expected_totals = {
             'cats': 3,
             'pages': 2
@@ -404,7 +404,7 @@ class TestOutputCountryReport(TestCreateReportBase):
     def test_output_country_report_no_images(self):
         self.missing_cats = {}
 
-        expected_cmt = u'Commonscat links to be made in monument lists: 0'
+        expected_cmt = 'Commonscat links to be made in monument lists: 0'
         expected_output = self.mock_done_message.return_value
         expected_totals = {
             'cats': 0,
@@ -424,15 +424,15 @@ class TestOutputCountryReport(TestCreateReportBase):
         max_cats = 2
 
         expected_cmt = (
-            u'Commonscat links to be made in monument lists: 2 (list maximum '
-            u'reached), total of missing commonscat links: 3')
+            'Commonscat links to be made in monument lists: 2 (list maximum '
+            'reached), total of missing commonscat links: 3')
         expected_output = (
-            u'=== source_link_1 ===\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
-            u'* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
-            u'<!-- Maximum number of categories reached: 2, '
-            u'total of missing commonscat links: 3 -->\n'
-            u'iw_links text')
+            '=== source_link_1 ===\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_11|Cat 11]] - id_1\n'
+            '* <nowiki>|</nowiki> cf = [[:c:Category:Cat_12|Cat 12]] - id_2\n'
+            '<!-- Maximum number of categories reached: 2, '
+            'total of missing commonscat links: 3 -->\n'
+            'iw_links text')
         expected_totals = {
             'cats': 3,
             'pages': 2
@@ -480,12 +480,12 @@ class TestGroupMissingCommonscatBySource(unittest.TestCase):
             'ID_3': '//de.wikipedia.org/w/index.php?title=Dummy_page_B&oldid=12345',
         }
         expected = {
-            u'[[Dummy_page_A]]': [
-                (u'Some Monument', u'ID_1'),
-                (u'Some Other Monument', u'ID_2'),
+            '[[Dummy_page_A]]': [
+                ('Some Monument', 'ID_1'),
+                ('Some Other Monument', 'ID_2'),
             ],
-            u'[[Dummy_page_B]]': [
-                (u'Yet Another Monument', u'ID_3'),
+            '[[Dummy_page_B]]': [
+                ('Yet Another Monument', 'ID_3'),
             ]
         }
 

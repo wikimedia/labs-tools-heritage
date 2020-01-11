@@ -2,12 +2,12 @@
 # -*- coding: utf-8  -*-
 """Unit tests for populate_image_table."""
 import unittest
+import unittest.mock as mock
 from collections import OrderedDict
-
-import mock
 
 import pywikibot
 
+import custom_assertions  # noqa F401
 from erfgoedbot import populate_image_table
 from report_base_test import TestCreateReportTableBase
 
@@ -28,8 +28,8 @@ class TestGetSources(unittest.TestCase):
             "commonsTrackerCategory": "Tracker category B",
         }
         country_config = {
-            (u'aa', u'xx'): country_config_1,
-            (u'bb', u'yy'): country_config_2
+            ('aa', 'xx'): country_config_1,
+            ('bb', 'yy'): country_config_2
         }
         patcher = mock.patch('erfgoedbot.monuments_config.get_countries')
         self.mock_get_countries = patcher.start()
@@ -39,16 +39,16 @@ class TestGetSources(unittest.TestCase):
     def test_getSources(self):
         result = populate_image_table.getSources()
         expected = {
-            u'aa': {
+            'aa': {
                 'commonsTrackerCategory': 'Tracker category A',
                 'commonsTemplate': 'Template A'
             },
-            u'bb': {
+            'bb': {
                 'commonsTrackerCategory': 'Tracker category B',
                 'commonsTemplate': 'Template B'
             }
         }
-        self.assertItemsEqual(result, expected)
+        self.assertCountEqual(result, expected)
 
 
 class TestProcessSource(unittest.TestCase):
@@ -90,10 +90,10 @@ class TestProcessSource(unittest.TestCase):
             (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
         )
         result = populate_image_table.processSource('aa', self.country_config)
-        self.assertItemsEqual(mock_updateImage.mock_calls, [
-            mock.call('aa', u'44', u'Example_-_01.jpg', True, None, self.mock_cursor_monuments),
-            mock.call('aa', u'44', u'Example_-_02.jpg', True, None, self.mock_cursor_monuments)])
-        self.assertEquals(result, (2, 2))
+        self.assertCountEqual(mock_updateImage.mock_calls, [
+            mock.call('aa', '44', 'Example_-_01.jpg', True, None, self.mock_cursor_monuments),
+            mock.call('aa', '44', 'Example_-_02.jpg', True, None, self.mock_cursor_monuments)])
+        self.assertEqual(result, (2, 2))
 
     @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.normalize_identifier', autospec=True)
@@ -107,12 +107,12 @@ class TestProcessSource(unittest.TestCase):
             (' 00000044\nEXAMPLE - 01.JPG', 'Example_-_01.jpg'),
             (' 00000044\nEXAMPLE - 02.JPG', 'Example_-_02.jpg')
         )
-        mock_normalize_identifier.side_effect = [populate_image_table.CannotNormalizeException, u'44']
+        mock_normalize_identifier.side_effect = [populate_image_table.CannotNormalizeException, '44']
         result = populate_image_table.processSource('aa', self.country_config)
-        self.assertItemsEqual(mock_updateImage.mock_calls, [
-            mock.call('aa', u'44', u'Example_-_02.jpg', False, None, self.mock_cursor_monuments)
+        self.assertCountEqual(mock_updateImage.mock_calls, [
+            mock.call('aa', '44', 'Example_-_02.jpg', False, None, self.mock_cursor_monuments)
         ])
-        self.assertEquals(result, (2, 1))
+        self.assertEqual(result, (2, 1))
 
     @mock.patch('erfgoedbot.populate_image_table.has_geolocation', autospec=True)
     @mock.patch('erfgoedbot.populate_image_table.updateImage', autospec=True)
@@ -122,10 +122,10 @@ class TestProcessSource(unittest.TestCase):
             (' 00000044\nEXAMPLE - 01.JPG', '71_Cathédrale_Saint-Sauveur.JPG'),
         )
         result = populate_image_table.processSource('aa', self.country_config)
-        self.assertItemsEqual(mock_updateImage.mock_calls, [
-            mock.call('aa', u'44', u'71_Cath\xe9drale_Saint-Sauveur.JPG',
+        self.assertCountEqual(mock_updateImage.mock_calls, [
+            mock.call('aa', '44', '71_Cath\xe9drale_Saint-Sauveur.JPG',
                       True, None, self.mock_cursor_monuments)])
-        self.assertEquals(result, (1, 1))
+        self.assertEqual(result, (1, 1))
 
 
 class TestNormalizeIdentifier(unittest.TestCase):
@@ -136,43 +136,43 @@ class TestNormalizeIdentifier(unittest.TestCase):
 
     def test_normalize_identifier_alphanumeric(self):
         result = populate_image_table.normalize_identifier("PA123")
-        self.assertEquals(result, u'PA123')
+        self.assertEqual(result, 'PA123')
 
     def test_normalize_identifier_numbers(self):
         result = populate_image_table.normalize_identifier("12345")
-        self.assertEquals(result, u'12345')
+        self.assertEqual(result, '12345')
 
     def test_normalize_identifier_strips_spaces(self):
         result = populate_image_table.normalize_identifier(" 12345  ")
-        self.assertEquals(result, u'12345')
+        self.assertEqual(result, '12345')
 
     def test_normalize_identifier_with_slashes(self):
         result = populate_image_table.normalize_identifier("1.1/1")
-        self.assertEquals(result, u'1.1/1')
+        self.assertEqual(result, '1.1/1')
 
     def test_normalize_identifier_with_dashes(self):
         result = populate_image_table.normalize_identifier("ASPA-101")
-        self.assertEquals(result, u'ASPA-101')
+        self.assertEqual(result, 'ASPA-101')
 
     def test_normalize_identifier_strips_leading_zeroes(self):
         result = populate_image_table.normalize_identifier("0010")
-        self.assertEquals(result, u'10')
+        self.assertEqual(result, '10')
 
     def test_normalize_identifier_strips_leading_underscores(self):
         result = populate_image_table.normalize_identifier("__123__45_")
-        self.assertEquals(result, u'123__45_')
+        self.assertEqual(result, '123__45_')
 
     def test_normalize_identifier_with_leading_zeroes_and_dashes(self):
         result = populate_image_table.normalize_identifier("00-147")
-        self.assertEquals(result, u'-147')
+        self.assertEqual(result, '-147')
 
     def test_normalize_identifier_with_unicode(self):
         result = populate_image_table.normalize_identifier("110Д000001-2")
-        self.assertEquals(result, u'110Д000001-2')
+        self.assertEqual(result, '110Д000001-2')
 
     def test_normalize_identifier_does_not_convert_to_uppercase(self):
         result = populate_image_table.normalize_identifier("ab123")
-        self.assertEquals(result, u'ab123')
+        self.assertEqual(result, 'ab123')
 
 
 class TestMakeStatistics(TestCreateReportTableBase):
@@ -184,11 +184,11 @@ class TestMakeStatistics(TestCreateReportTableBase):
         super(TestMakeStatistics, self).setUp()
 
         self.comment = (
-            u'Updating indexed image statistics. '
-            u'Total indexed images: {0}')
+            'Updating indexed image statistics. '
+            'Total indexed images: {0}')
         commons = pywikibot.Site('commons', 'commons')
         self.page = pywikibot.Page(
-            commons, u'Commons:Monuments database/Indexed images/Statistics')
+            commons, 'Commons:Monuments database/Indexed images/Statistics')
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images_sum,
@@ -217,12 +217,12 @@ class TestMakeStatistics(TestCreateReportTableBase):
         }
 
         expected_rows = (
-            u'|-\n'
-            u'| foo \n'
-            u'| 10 \n'
-            u'| 5 \n'
-            u'| {{tl|foo_temp}} \n'
-            u'| [[:Category:foo_cat|foo_cat]] \n')
+            '|-\n'
+            '| foo \n'
+            '| 10 \n'
+            '| 5 \n'
+            '| {{tl|foo_temp}} \n'
+            '| [[:Category:foo_cat|foo_cat]] \n')
         expected_total_images_sum = 10
         expected_tracked_images_sum = 5
 
@@ -250,18 +250,18 @@ class TestMakeStatistics(TestCreateReportTableBase):
         ])
 
         expected_rows = (
-            u'|-\n'
-            u'| bar \n'
-            u'| 100 \n'
-            u'| 50 \n'
-            u'| {{tl|bar_temp}} \n'
-            u'| [[:Category:bar_cat|bar_cat]] \n'
-            u'|-\n'
-            u'| foo \n'
-            u'| 10 \n'
-            u'| 5 \n'
-            u'| {{tl|foo_temp}} \n'
-            u'| [[:Category:foo_cat|foo_cat]] \n')
+            '|-\n'
+            '| bar \n'
+            '| 100 \n'
+            '| 50 \n'
+            '| {{tl|bar_temp}} \n'
+            '| [[:Category:bar_cat|bar_cat]] \n'
+            '|-\n'
+            '| foo \n'
+            '| 10 \n'
+            '| 5 \n'
+            '| {{tl|foo_temp}} \n'
+            '| [[:Category:foo_cat|foo_cat]] \n')
         expected_total_images_sum = 110
         expected_tracked_images_sum = 55
 
