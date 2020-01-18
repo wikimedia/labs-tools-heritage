@@ -8,8 +8,8 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $ERFGOED_PATH || exit
 
 # First create the sql statements
-python $ERFGOED_PATH/monument_tables.py
-python $ERFGOED_PATH/fill_table_monuments_all.py
+$PYWIKIBOT_BIN $ERFGOED_PATH/monument_tables.py
+$PYWIKIBOT_BIN $ERFGOED_PATH/fill_table_monuments_all.py
 for i in $ERFGOED_PATH/sql/create_table_monuments*; do
     echo "$i"
     $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
