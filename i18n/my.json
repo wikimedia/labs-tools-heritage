@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dr Lotus Black"
+		]
+	},
+	"search-table-th-filter": "စိစစ်မှု",
+	"search-table-th-search": "ရှာဖွေရန်",
+	"search-table-tr-countries": "နိုင်ငံများ",
+	"search-table-tr-languages": "ဘာသာစကားများ",
+	"search-table-tr-name": "အမည်",
+	"search-table-tr-address": "လိပ်စာ",
+	"search-table-tr-coordinates": "ကိုဩဒိနိတ်များ",
+	"search-table-tr-images": "ရုပ်ပုံများ",
+	"search-table-button-search": "ရှာဖွေရန်",
+	"filter-all-countries": "နိုင်ငံများအားလုံး",
+	"filter-all-languages": "ဘာသာစကားများ အားလုံး",
+	"db-field-country": "နိုင်ငံ",
+	"db-field-lang": "ဘာသာစကား",
+	"db-field-name": "အမည်",
+	"db-field-address": "လိပ်စာ",
+	"db-field-lat": "လတ္တီကျု",
+	"db-field-lon": "လောင်ဂျီကျု",
+	"db-field-image": "ရုပ်ပုံ",
+	"db-field-source": "ရင်းမြစ်",
+	"db-field-st_address": "လိပ်စာများ",
+	"db-field-st_address_pct": "လိပ်စာများ %",
+	"db-field-st_coordinates": "ကိုဩဒိနိတ်များ",
+	"db-field-st_coordinates_pct": "ကိုဩဒိနိတ်များ %",
+	"db-field-st_image": "ရုပ်ပုံ",
+	"db-field-st_image_pct": "ဓါတ်ပုံ $1",
+	"db-field-st_name": "အမည်များ",
+	"db-field-st_name_pct": "အမည်များ %",
+	"db-field-st_total": "စုစုပေါင်း အရေအတွက်",
+	"toolbox-nav-homepage": "ဗဟိုစာမျက်နှာ",
+	"toolbox-nav-statistics": "စာရင်းအင်း",
+	"toolbox-nav-search": "ရှာဖွေရန်",
+	"location": "တည်နေရာ"
+}
