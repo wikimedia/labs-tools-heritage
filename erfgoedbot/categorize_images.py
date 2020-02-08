@@ -589,8 +589,8 @@ def getCommonscatTemplates(lang=None, project=None):
     return result
 
 
-def skip(country_config):
-    """Return a outputStatistics compatible summary for a skipped country."""
+def custom_output_statistics_message(country_config, message):
+    """Return a outputStatistics compatible summary for a missing dataset (skipped or failed)."""
     site = pywikibot.Site(u'commons', u'commons')
     commons_category_base = pywikibot.Category(site, u'{ns}:{cat}'.format(
         ns=site.namespace(14), cat=country_config.get('commonsCategoryBase')))
@@ -599,7 +599,7 @@ def skip(country_config):
         'lang': country_config.get('lang'),
         'cat': commons_category_base.title(with_ns=False),
         'template': country_config.get('commonsTemplate'),
-        'cmt': 'skipped: blacklisted'
+        'cmt': message
     }
 
 
@@ -654,7 +654,7 @@ def main():
             if (countrycode, lang) in SKIP_LIST:
                 pywikibot.log(
                     u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
-                statistics.append(skip(countryconfig))
+                statistics.append(custom_output_statistics_message(countryconfig, 'skipped: blacklisted'))
                 continue
 
             pywikibot.log(
@@ -668,6 +668,7 @@ def main():
                 pywikibot.error(
                     u'Unknown error occurred when processing country '
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
+                statistics.append(custom_output_statistics_message(countryconfig, 'failed: unexpected error during processing'))
                 continue
             if result:
                 statistics.append(result)
