@@ -3,12 +3,13 @@
 		"authors": [
 			"RajeshPandey",
 			"सरोज कुमार ढकाल",
-			"Nirmal Dulal"
+			"Nirmal Dulal",
+			"हिमाल सुबेदी"
 		]
 	},
 	"search-title": "धरोहर खोज",
 	"search-table-th-field": "फिल्ड",
-	"search-table-th-filter": "फिल्टर",
+	"search-table-th-filter": "छनाेट",
 	"search-table-th-search": "खोज्नुहोस्",
 	"search-table-th-output": "उत्पादन",
 	"search-table-tr-countries": "देशहरू",
