@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Arystanbek"
+			"Arystanbek",
+			"Fontan 030"
 		]
 	},
 	"search-title": "Монументтерді іздеу",
@@ -9,6 +10,7 @@
 	"search-table-th-field": "Жолақ",
 	"search-table-th-filter": "Сүзгі",
 	"search-table-th-search": "Іздеу",
+	"search-table-tr-languages": "Тілдер",
 	"filter-all-countries": "Барлық мемлекеттер",
 	"filter-all-languages": "Барлық тілдер",
 	"db-field-country": "мемлекет",
@@ -24,6 +26,7 @@
 	"db-field-source": "Қайнары",
 	"db-field-monument_article": "Монумент беті",
 	"db-field-registrant_url": "Тіркелуші URL-і",
+	"db-field-wd_item": "Уикидерек данасы",
 	"db-field-st_address": "Мекенжайлар",
 	"db-field-st_address_pct": "Мекенжайлар %",
 	"db-field-st_coordinates": "Координаталары",
