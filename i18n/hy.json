@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"search-table-th-search": "Որոնում",
+	"search-table-tr-countries": "Երկրներ",
+	"search-table-tr-languages": "Լեզուներ",
+	"search-table-tr-name": "Անուն",
+	"search-table-tr-address": "Հասցե",
+	"search-table-tr-coordinates": "Կոորդինատներ",
+	"search-table-tr-images": "Պատկերներ",
+	"search-table-button-search": "Որոնել",
+	"filter-all-countries": "Բոլոր երկրները",
+	"filter-all-languages": "Բոլոր լեզուները",
+	"db-field-country": "Երկիր",
+	"db-field-lang": "Լեզու",
+	"db-field-name": "Անուն",
+	"db-field-address": "Հասցե",
+	"db-field-lat": "Լայնություն",
+	"db-field-lon": "Երկայնություն",
+	"db-field-image": "Պատկեր",
+	"db-field-source": "Աղբյուր",
+	"db-field-st_image": "Պատկեր",
+	"toolbox-nav-statistics": "Վիճակագրություն",
+	"toolbox-nav-search": "Որոնում"
+}
