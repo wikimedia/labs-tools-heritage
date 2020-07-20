@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cedric31"
+			"Cedric31",
+			"Guilhelma"
 		]
 	},
 	"search-title": "Recèrca de monuments",
@@ -36,6 +37,8 @@
 	"db-field-source": "Font",
 	"db-field-monument_article": "Article del monument",
 	"db-field-registrant_url": "URL de la basa de donadas",
+	"db-field-commonscat": "Categoria de Commons",
+	"db-field-wd_item": "Item de Wikidata",
 	"db-field-project": "Projècte Wikimèdia",
 	"db-field-st_address": "Adreças",
 	"db-field-st_address_pct": "Adreças %",
@@ -48,10 +51,17 @@
 	"db-field-st_name": "Noms",
 	"db-field-st_name_pct": "Noms %",
 	"db-field-st_total": "Nombre total",
+	"toolbox-label-searchtipps": "utilizar %term o term% or %term% per una recèrca aproximativa",
+	"toolbox-meta-title": "Aisinas per Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Logo Wiki Loves Monuments",
+	"toolbox-main-title": "Aisinas per WLM",
+	"toolbox-main-description": "Ensemble d'aisinas ligats a $1",
+	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Pagina d'acuèlh",
 	"toolbox-nav-statistics": "Estatisticas",
 	"toolbox-nav-search": "Recercar",
 	"toolbox-title-searchmonuments": "Recercar de monuments",
 	"toolbox-title-statistics": "Estatisticas del monument",
-	"location": "Emplaçament"
+	"location": "Emplaçament",
+	"source-monuments-list": "Tièra originala de monuments sus un projècte Wikimedia"
 }
