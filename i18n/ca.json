@@ -3,6 +3,7 @@
 		"authors": [
 			"Arnaugir",
 			"Macofe",
+			"Mguix",
 			"SMP",
 			"Toniher"
 		]
@@ -52,7 +53,7 @@
 	"toolbox-label-searchtipps": "feu servir %term or term% o %term% per a una cerca aproximada",
 	"toolbox-meta-title": "Joc d'eines del Wiki Loves Monuments",
 	"toolbox-main-title": "Joc d'eines del WLM",
-	"toolbox-main-description": "Un conjunt d'eines relacionades amb el",
+	"toolbox-main-description": "Un conjunt d'eines relacionades amb $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Pàgina d'inici",
 	"toolbox-nav-statistics": "Estadístiques",
