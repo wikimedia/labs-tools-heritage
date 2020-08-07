@@ -23,6 +23,7 @@
 	"search-table-tr-images": "Imatges",
 	"search-table-tr-output-language": "Llengua de sortida",
 	"search-table-tr-output-format": "Format de sortida",
+	"search-table-checkbox-only-images": "Només els monuments sense imatges",
 	"search-table-button-search": "Cerca",
 	"filter-all-countries": "Tots els països",
 	"filter-all-languages": "Tots els idiomes",
@@ -39,6 +40,9 @@
 	"db-field-source": "Font",
 	"db-field-monument_article": "Article de monument",
 	"db-field-registrant_url": "URL del registrador",
+	"db-field-commonscat": "Categoria de Commons",
+	"db-field-wd_item": "Element del Wikidata",
+	"db-field-project": "Projecte Wikimedia",
 	"db-field-st_address": "Adreces",
 	"db-field-st_address_pct": "% adreces",
 	"db-field-st_coordinates": "Coordenades",
@@ -52,6 +56,7 @@
 	"db-field-st_total": "Nombre total",
 	"toolbox-label-searchtipps": "feu servir %term or term% o %term% per a una cerca aproximada",
 	"toolbox-meta-title": "Joc d'eines del Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Logo de  Wiki ama els  monuments ",
 	"toolbox-main-title": "Joc d'eines del WLM",
 	"toolbox-main-description": "Un conjunt d'eines relacionades amb $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
@@ -59,5 +64,7 @@
 	"toolbox-nav-statistics": "Estadístiques",
 	"toolbox-nav-search": "Cerca",
 	"toolbox-title-searchmonuments": "Cerca monuments",
-	"location": "Ubicació"
+	"toolbox-title-statistics": "Estadístiques dels monuments",
+	"location": "Ubicació",
+	"source-monuments-list": "Llista font dels monuments sobre un projecte Wikimedia"
 }
