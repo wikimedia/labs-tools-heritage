@@ -14,7 +14,7 @@ freezegun = "*"
 future = "*"
 pywikibot = "*"
 requests = "*"
-PyMySQL = "==0.7.11"
+PyMySQL = "*"
 PyYAML = "*"
 
 [requires]
