@@ -654,7 +654,7 @@ def main():
             if (countrycode, lang) in SKIP_LIST:
                 pywikibot.log(
                     u'Skipping countrycode "%s" in language "%s"' % (countrycode, lang))
-                statistics.append(custom_output_statistics_message(countryconfig, 'skipped: blacklisted'))
+                statistics.append(custom_output_statistics_message(countryconfig, 'skipped: on the skip-list'))
                 continue
 
             pywikibot.log(
