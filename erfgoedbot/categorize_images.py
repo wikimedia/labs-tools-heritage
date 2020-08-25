@@ -612,7 +612,6 @@ def main():
     conn = None
     cursor = None
     # Connect database, we need that
-    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handleArgs():
         option, sep, value = arg.partition(':')
@@ -641,8 +640,10 @@ def main():
         commonsCatTemplates = getCommonscatTemplates(
             lang, countryconfig.get('project'))
         # print commonsCatTemplates
+        (conn, cursor) = connect_to_monuments_database()
         processCountry(countryconfig, commonsCatTemplates, conn, cursor,
                        overridecat=overridecat)
+        close_database_connection(conn, cursor)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -661,6 +662,7 @@ def main():
                 u'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
             commonsCatTemplates = getCommonscatTemplates(
                 lang, countryconfig.get('project'))
+            (conn, cursor) = connect_to_monuments_database()
             try:
                 result = processCountry(
                     countryconfig, commonsCatTemplates, conn, cursor)
@@ -670,12 +672,12 @@ def main():
                     u'{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 statistics.append(custom_output_statistics_message(countryconfig, 'failed: unexpected error during processing'))
                 continue
+            finally:
+                close_database_connection(conn, cursor)
             if result:
                 statistics.append(result)
 
         outputStatistics(statistics)
-
-    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
