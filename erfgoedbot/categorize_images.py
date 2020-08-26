@@ -21,6 +21,7 @@ import os
 from collections import OrderedDict
 
 import yaml
+from pymysql.err import InterfaceError
 
 import pywikibot
 from pywikibot import pagegenerators, textlib
@@ -643,7 +644,11 @@ def main():
         (conn, cursor) = connect_to_monuments_database()
         processCountry(countryconfig, commonsCatTemplates, conn, cursor,
                        overridecat=overridecat)
-        close_database_connection(conn, cursor)
+        try:
+            close_database_connection(conn, cursor)
+        except InterfaceError:
+            # if mySQL server has gone away
+            pass
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -673,7 +678,11 @@ def main():
                 statistics.append(custom_output_statistics_message(countryconfig, 'failed: unexpected error during processing'))
                 continue
             finally:
-                close_database_connection(conn, cursor)
+                try:
+                    close_database_connection(conn, cursor)
+                except InterfaceError:
+                    # if mySQL server has gone away
+                    pass
             if result:
                 statistics.append(result)
 
