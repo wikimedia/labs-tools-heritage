@@ -15,7 +15,7 @@
         ]
     },
     "require": {
-        "Krinkle/intuition": "^0.6.1",
+        "krinkle/intuition": "^0.6.1",
         "sentry/sentry": "^1.7.1"
     }
 }
