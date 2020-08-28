@@ -365,9 +365,6 @@ def main():
     add_template = False
     conn = None
     cursor = None
-    # Connect database, we need that
-    (conn, cursor) = connect_to_monuments_database()
-    (conn2, cursor2) = connect_to_commons_database()
 
     # FIXME add option to only run based on list usage, not category membership
     for arg in pywikibot.handleArgs():
@@ -395,8 +392,11 @@ def main():
         pywikibot.log(
             u'Working on countrycode "{0}" in language "{1}"'.format(
                 countrycode, lang))
+        (conn, cursor) = connect_to_monuments_database()
+        (conn2, cursor2) = connect_to_commons_database()
         processCountry(mconfig.countries.get((countrycode, lang)),
                        add_template, conn, cursor, conn2, cursor2)
+        close_database_connection(conn, cursor)
     elif countrycode or lang:
         raise Exception(u'The "countrycode" and "langcode" arguments must '
                         u'be used together.')
@@ -407,6 +407,8 @@ def main():
             pywikibot.log(
                 u'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
+            (conn, cursor) = connect_to_monuments_database()
+            (conn2, cursor2) = connect_to_commons_database()
             try:
                 statistics.append(processCountry(
                     countryconfig, add_template, conn, cursor, conn2, cursor2))
@@ -419,9 +421,9 @@ def main():
                     'cmt': 'failed: unexpected error during processing'
                 })
                 continue
+            finally:
+                close_database_connection(conn, cursor)
         make_statistics(statistics)
-
-    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
