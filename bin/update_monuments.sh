@@ -76,7 +76,7 @@ ln -f monuments_db.sql.gz monuments_db-old.sql.gz
 
 # Dump the database
 echo_time "Dump database..."
-$MYSQLDUMP_BIN --host=$DB_SERVER --single-transaction $DATABASE > monuments_db-new.sql
+$MYSQLDUMP_BIN --host=$DB_SERVER --single-transaction --compress $DATABASE > monuments_db-new.sql
 nice gzip monuments_db-new.sql
 
 # Atomically replace the provided file
