@@ -4,7 +4,9 @@ import os
 
 import pymysql
 import yaml
+from pymysql.err import InterfaceError
 
+import pywikibot
 from pywikibot import config as pywikibot_config
 
 DEFAULT_CONFIG_FILE_NAME = 'database_config.default.yml'
@@ -67,5 +69,8 @@ def connect_to_commons_database():
 
 def close_database_connection(conn, cursor):
     """Close the cursor and commit the current transactions."""
-    conn.commit()
-    cursor.close()
+    try:
+        conn.commit()
+        cursor.close()
+    except InterfaceError:
+        pywikibot.error('Looks like MySQL server went away')
