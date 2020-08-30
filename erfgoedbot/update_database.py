@@ -334,7 +334,7 @@ def process_monument_wikidata(result, param_order):
     result['wd_item'] = result['item'].getID()
 
     if result['coordinate']:
-        result['lat'], result['lon'] = result['coordinate'].value[
+        result['lon'], result['lat'] = result['coordinate'].value[
             len('Point('):-1].split(' ')
 
     # remove params that may not be NULL
