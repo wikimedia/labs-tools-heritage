@@ -397,6 +397,7 @@ def main():
         processCountry(mconfig.countries.get((countrycode, lang)),
                        add_template, conn, cursor, conn2, cursor2)
         close_database_connection(conn, cursor)
+        close_database_connection(conn2, cursor2)
     elif countrycode or lang:
         raise Exception('The "countrycode" and "langcode" arguments must '
                         'be used together.')
@@ -423,6 +424,7 @@ def main():
                 continue
             finally:
                 close_database_connection(conn, cursor)
+                close_database_connection(conn2, cursor2)
         make_statistics(statistics)
 
 
