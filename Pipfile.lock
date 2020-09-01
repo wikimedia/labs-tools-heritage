@@ -88,7 +88,7 @@
         },
         "pywikibot": {
             "hashes": [
-                "sha256:5cd191c509af78698bef3d5bb444780d5be63deb8c811ea6028290994c9c9b90"
+                "sha256:af7dc748b8b1d73e00f27058820df888bc40542d1a44809ef1a43d4747676e47"
             ],
             "index": "pypi",
             "version": "==3.0.20200703"
