@@ -4,7 +4,7 @@ import os
 
 import pymysql
 import yaml
-from pymysql.err import InterfaceError
+from pymysql.err import InterfaceError, OperationalError
 
 import pywikibot
 from pywikibot import config as pywikibot_config
@@ -72,5 +72,5 @@ def close_database_connection(conn, cursor):
     try:
         conn.commit()
         cursor.close()
-    except InterfaceError:
-        pywikibot.error('Looks like MySQL server went away')
+    except (InterfaceError, OperationalError) as e:
+        pywikibot.error('Looks like MySQL server went away: {}'.format(e))
