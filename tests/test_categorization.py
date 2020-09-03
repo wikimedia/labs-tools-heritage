@@ -610,15 +610,6 @@ class TestOutputStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| --- \n'
-            '| --- \n'
-            '| 3 \n'
-            '| 2 \n'
-            '| 1 \n'
-            '| --- \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| --- \n'
@@ -626,6 +617,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
             '| 7 \n'
             '| 3 \n'
             '| 4 \n'
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| 1 \n'
             '| --- \n')
         expected_total_images_sum = 10
         expected_categorized_images_sum = 5
@@ -654,15 +654,6 @@ class TestOutputStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| --- \n'
-            '| --- \n'
-            '| 3 \n'
-            '| 2 \n'
-            '| 1 \n'
-            '| --- \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| --- \n'
@@ -670,6 +661,15 @@ class TestOutputStatistics(TestCreateReportTableBase):
             '| --- \n'
             '| oh no! \n'
             '| --- \n'
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| --- \n'
+            '| --- \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| 1 \n'
             '| --- \n')
         expected_total_images_sum = 3
         expected_categorized_images_sum = 2

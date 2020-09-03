@@ -11,7 +11,7 @@ import erfgoedbot.common as common
 class StatisticsTable(object):
     """A table intended to be outputted as wikitext."""
 
-    def __init__(self, title_columns, numeric):
+    def __init__(self, title_columns, numeric, sort=('code', 'lang')):
         """
         Initialise the Table by defining its columns.
 
@@ -25,6 +25,8 @@ class StatisticsTable(object):
             missing titles are interpreted as None.
         @param numeric: list of columns (labels) which should be treated as
             numeric.
+        @param sort: list of column labels to use for sorting. Set to None to
+            disable sorting. Defaults to (code, lang).
         """
         # convert more compact notations to OrderedDict
         if isinstance(title_columns, (list, tuple)):
@@ -34,6 +36,7 @@ class StatisticsTable(object):
 
         self.columns = title_columns
         self.totals = dict.fromkeys(numeric, 0)
+        self.sort = sort
         self.rows = []
 
     def add_row(self, row_cols, num_cols=None, empty=None):
@@ -116,7 +119,7 @@ class StatisticsTable(object):
         Output the table as wikitext.
 
         @param add_summation: Whether to add a summation row at the end.
-        @param inline: whether to output each row on one line as oposed to one
+        @param inline: whether to output each row on one line as opposed to one
             line per cell. Note that this has no effect on the header and
             summation rows.
         """
@@ -124,6 +127,10 @@ class StatisticsTable(object):
         if inline:
             delimiter = '|'
         text = self.get_header_row()
+        if self.sort:
+            self.rows = sorted(
+                self.rows,
+                key=lambda k: [k[v] for v in self.sort])
         for row in self.rows:
             if not isinstance(row, dict):
                 text += row

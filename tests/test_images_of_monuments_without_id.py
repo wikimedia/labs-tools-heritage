@@ -726,19 +726,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 2 \n'
-            '| 3 \n'
-            '| <report_page:Foobar> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| 5 \n'
             '| 6 \n'
             '| <report_page:Barfoo> \n'
-            '| {{tl|another template}} \n')
+            '| {{tl|another template}} \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| 3 \n'
+            '| <report_page:Foobar> \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 7
         expected_total_without_id = 9
 
@@ -770,19 +770,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 2 \n'
-            '| 3 \n'
-            '| <report_page> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| skipped: due to foo \n'
             '| --- \n'
             '| --- \n'
-            '| --- \n')
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| 3 \n'
+            '| <report_page> \n'
+            '| {{tl|commons template}} \n')
         expected_total_with_id = 2
         expected_total_without_id = 3
 

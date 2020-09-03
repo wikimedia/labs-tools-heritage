@@ -57,6 +57,7 @@ class TestStatisticsTableInit(unittest.TestCase):
         self.assertEqual(st.columns, {})
         self.assertEqual(st.totals, {})
         self.assertEqual(st.rows, [])
+        self.assertEqual(st.sort, ('code', 'lang'))
 
     def test_statistics_table_init_basic(self):
         cols = OrderedDict([
@@ -64,10 +65,11 @@ class TestStatisticsTableInit(unittest.TestCase):
             ('b', 'B'),
             ('c', None)
         ])
-        st = statistics_table.StatisticsTable(cols, ['a'])
+        st = statistics_table.StatisticsTable(cols, ['a'], ('b', 'a'))
         self.assertEqual(st.columns, cols)
         self.assertEqual(st.totals, {'a': 0})
         self.assertEqual(st.rows, [])
+        self.assertEqual(st.sort, ('b', 'a'))
 
     def test_statistics_table_init_list(self):
         cols = ['a', ('b', 'B'), 'c']
@@ -336,6 +338,7 @@ class TestStatisticsTableToWikitext(unittest.TestCase):
             {'a': 1, 'b': 'foo', 'c': 2},
             {'a': 3, 'b': 'bar', 'c': 4}
         ]
+        self.st.sort = None
 
         patcher = mock.patch(
             'erfgoedbot.statistics_table.StatisticsTable.get_header_row')
@@ -403,6 +406,24 @@ class TestStatisticsTableToWikitext(unittest.TestCase):
             '| 1 \n| foo \n| 2 \n'
             '|-\n'
             '|some wikitext\n'
+            '|-\n'
+            '| 3 \n| bar \n| 4 \n'
+            'summation_row'
+        )
+        result = self.st.to_wikitext()
+        self.mock_table_header_row.assert_called_once_with()
+        self.mock_table_bottom_row.assert_called_once_with()
+        self.assertEqual(result, expected)
+
+    def test_statistics_table_to_wikitext_sorted(self):
+        self.st.sort = ('c', 'b')
+        self.st.rows.append({'a': 5, 'b': 'bar', 'c': 2})
+        expected = (
+            'header_row'
+            '|-\n'
+            '| 5 \n| bar \n| 2 \n'
+            '|-\n'
+            '| 1 \n| foo \n| 2 \n'
             '|-\n'
             '| 3 \n| bar \n| 4 \n'
             'summation_row'

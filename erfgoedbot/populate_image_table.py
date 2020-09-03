@@ -208,7 +208,8 @@ def makeStatistics(totals):
         'country', ('images', 'total'), 'tracked',
         ('template', 'tracker template'), ('cat', 'tracker category')
     ]
-    table = StatisticsTable(title_column, ('images', 'tracked'))
+    table = StatisticsTable(
+        title_column, ('images', 'tracked'), ('country',))
 
     for (countrycode, countryresults) in sorted(totals.items()):
         table.add_row({

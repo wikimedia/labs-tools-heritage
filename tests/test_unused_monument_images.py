@@ -297,21 +297,21 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 3 \n'
-            '| 2 \n'
-            '| <report_page:Foobar> \n'
-            '| <row_template_link> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| 7 \n'
             '| 3 \n'
             '| <report_page:Barfoo> \n'
             '| <row_template_link> \n'
-            '| --- \n')
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| <report_page:Foobar> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_images = 10
         expected_total_ids = 5
 
@@ -348,21 +348,21 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 3 \n'
-            '| 2 \n'
-            '| <report_page> \n'
-            '| <row_template_link> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| skipped: no unusedImagesPage \n'
             '| --- \n'
             '| --- \n'
             '| <row_template_link> \n'
-            '| --- \n')
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 3 \n'
+            '| 2 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_images = 3
         expected_total_ids = 2
 

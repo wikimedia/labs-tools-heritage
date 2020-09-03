@@ -171,7 +171,7 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
         text += common.done_message(central_page, 'unknown fields')
     else:
         title_column = ['Field', 'Count', 'Sources']
-        table = StatisticsTable(title_column, ['Count'])
+        table = StatisticsTable(title_column, ['Count'], ('Field',))
         for key, counter in unknown_fields.items():
             pages_with_fields.update(list(counter.keys()))
             table.add_row({

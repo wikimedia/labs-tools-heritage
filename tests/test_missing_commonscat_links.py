@@ -213,19 +213,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 2 \n'
-            '| <report_page:Foobar> \n'
-            '| <row_template_link> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| 3 \n'
             '| <report_page:Barfoo> \n'
             '| <row_template_link> \n'
-            '| --- \n')
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| <report_page:Foobar> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_cats = 5
 
         missing_commonscat_links.makeStatistics(statistics)
@@ -257,19 +257,19 @@ class TestMakeStatistics(TestCreateReportTableBase):
 
         expected_rows = (
             '|-\n'
-            '| foo \n'
-            '| en \n'
-            '| 2 \n'
-            '| <report_page> \n'
-            '| <row_template_link> \n'
-            '| {{tl|commons template}} \n'
-            '|-\n'
             '| bar \n'
             '| fr \n'
             '| skipped: no missingCommonscatPage \n'
             '| --- \n'
             '| <row_template_link> \n'
-            '| --- \n')
+            '| --- \n'
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 2 \n'
+            '| <report_page> \n'
+            '| <row_template_link> \n'
+            '| {{tl|commons template}} \n')
         expected_total_cats = 2
 
         missing_commonscat_links.makeStatistics(statistics)

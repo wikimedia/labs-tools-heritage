@@ -54,7 +54,7 @@ def outputStatistics(statistics):
     ])
     numeric = [x for x in list(title_column.keys()) if x not in ('country', 'lang')]
 
-    table = StatisticsTable(title_column, numeric)
+    table = StatisticsTable(title_column, numeric, None)
     totals = dict.fromkeys(numeric, 0)
     country_format = (
         '[//tools.wmflabs.org/heritage/api/api.php?'
