@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Cekli829",
-			"Khan27"
+			"Khan27",
+			"Şeyx Şamil"
 		]
 	},
 	"search-title": "Abidələr axtar",
@@ -10,6 +11,15 @@
 	"search-table-th-field": "Sahə",
 	"search-table-th-filter": "Filtrlər",
 	"search-table-th-search": "Axtar",
+	"search-table-tr-countries": "Ölkələr",
+	"search-table-tr-languages": "Dillər",
+	"search-table-tr-name": "Ad",
+	"search-table-tr-address": "Ünvan",
+	"search-table-tr-municipality": "Bələdiyyə",
+	"search-table-tr-coordinates": "Koordinatlar",
+	"search-table-tr-images": "Şəkillər",
+	"search-table-checkbox-only-images": "Ancaq şəkilsiz abidələr",
+	"search-table-button-search": "Axtar",
 	"filter-all-countries": "Bütün ölkələr",
 	"filter-all-languages": "Bütün dillər",
 	"db-field-country": "Ölkə",
@@ -19,9 +29,19 @@
 	"db-field-address": "Ünvan",
 	"db-field-municipality": "Bələdiyyə",
 	"db-field-image": "Şəkil",
+	"db-field-source": "Mənbə",
+	"db-field-project": "Vikimedia layihəsi",
+	"db-field-st_address": "Ünvanlar",
+	"db-field-st_coordinates": "Koordinatlar",
+	"db-field-st_image": "Şəkil",
+	"db-field-st_municipality": "Bələdiyyə",
+	"db-field-st_name": "Adlar",
+	"toolbox-main-logo-alt": "Viki Abidələri Sevir loqosu",
+	"toolbox-wikilovesmonuments": "Viki Abidələri Sevir",
 	"toolbox-nav-homepage": "Ana səhifə",
 	"toolbox-nav-statistics": "Statistikalar",
 	"toolbox-nav-search": "Axtar",
 	"toolbox-title-searchmonuments": "Abidələr axtar",
+	"toolbox-title-statistics": "Abidə statistikası",
 	"location": "Yerləşməsi"
 }
