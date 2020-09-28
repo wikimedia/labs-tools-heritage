@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Daud I.F. Argana",
 			"Farras",
 			"Hidayatsrf"
 		]
@@ -10,6 +11,7 @@
 	"search-table-th-field": "Kolom",
 	"search-table-th-filter": "Penyaring",
 	"search-table-th-search": "Cari",
+	"search-table-th-output": "Hasil",
 	"search-table-tr-countries": "Negara",
 	"search-table-tr-languages": "Bahasa",
 	"search-table-tr-name": "Nama",
@@ -61,5 +63,6 @@
 	"toolbox-nav-search": "Cari",
 	"toolbox-title-searchmonuments": "Cari monumen",
 	"toolbox-title-statistics": "Statistik monumen",
-	"location": "Lokasi"
+	"location": "Lokasi",
+	"source-monuments-list": "Sumber daftar monumen di sebuah proyek Wikimedia"
 }
