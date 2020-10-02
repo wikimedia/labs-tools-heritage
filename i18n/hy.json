@@ -4,7 +4,10 @@
 			"Kareyac"
 		]
 	},
+	"search-table-th-field": "Դաշտ",
+	"search-table-th-filter": "Զտիչ",
 	"search-table-th-search": "Որոնում",
+	"search-table-th-output": "Արդյունք",
 	"search-table-tr-countries": "Երկրներ",
 	"search-table-tr-languages": "Լեզուներ",
 	"search-table-tr-name": "Անուն",
@@ -22,7 +25,11 @@
 	"db-field-lon": "Երկայնություն",
 	"db-field-image": "Պատկեր",
 	"db-field-source": "Աղբյուր",
+	"db-field-project": "Վիքիմեդիայի նախագիծ",
 	"db-field-st_image": "Պատկեր",
+	"toolbox-nav-homepage": "Հիմնական էջ",
 	"toolbox-nav-statistics": "Վիճակագրություն",
-	"toolbox-nav-search": "Որոնում"
+	"toolbox-nav-search": "Որոնում",
+	"toolbox-title-searchmonuments": "Հուշարձանների որոնում",
+	"location": "Տեղադրություն"
 }
