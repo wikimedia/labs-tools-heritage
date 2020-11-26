@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kareyac",
 			"LexArt",
 			"Mechanizatar",
 			"Wizardist"
@@ -12,6 +13,7 @@
 	"search-table-th-filter": "Фільтр",
 	"search-table-th-search": "Знайсці",
 	"search-table-tr-languages": "Мовы",
+	"search-table-tr-address": "Адрас",
 	"search-table-button-search": "Пошук",
 	"filter-all-countries": "Усе краіны",
 	"filter-all-languages": "Усе мовы",
