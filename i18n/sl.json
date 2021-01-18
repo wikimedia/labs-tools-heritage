@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dbc334"
+			"Dbc334",
+			"Eleassar"
 		]
 	},
 	"search-title": "Iskanje spomenikov",
@@ -60,7 +61,7 @@
 	"toolbox-nav-statistics": "Statistika",
 	"toolbox-nav-search": "Iskanje",
 	"toolbox-title-searchmonuments": "Iskanje spomenikov",
-	"toolbox-title-statistics": "Statistike spomenikov",
+	"toolbox-title-statistics": "Statistika spomenikov",
 	"location": "Nahajališče",
 	"source-monuments-list": "Izvorni seznam spomenikov na projektu Wikimedie"
 }

@@ -26,6 +26,8 @@
 	"db-field-image": "Պատկեր",
 	"db-field-source": "Աղբյուր",
 	"db-field-project": "Վիքիմեդիայի նախագիծ",
+	"db-field-st_address": "Հասցեներ",
+	"db-field-st_coordinates": "Կոորդինատներ",
 	"db-field-st_image": "Պատկեր",
 	"toolbox-nav-homepage": "Հիմնական էջ",
 	"toolbox-nav-statistics": "Վիճակագրություն",
