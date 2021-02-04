@@ -4,6 +4,15 @@
 			"Умар"
 		]
 	},
+	"search-table-tr-countries": "Пачхьалкхаш",
+	"search-table-tr-languages": "Меттанаш",
+	"search-table-tr-name": "ЦӀе",
+	"search-table-tr-address": "Адрес",
+	"search-table-tr-municipality": "Муниципалитет",
+	"search-table-tr-coordinates": "Координаташ",
+	"search-table-tr-images": "сурт",
+	"search-table-tr-output-format": "Арадакхаран тайп:",
+	"search-table-button-search": "Лахар",
 	"filter-all-languages": "Берриге меттанаш",
 	"db-field-lang": "Мотт",
 	"db-field-st_image": "Сурт",

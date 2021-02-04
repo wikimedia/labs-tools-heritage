@@ -1,5 +1,7 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": []
+	},
 	"search-title": "Monumentsøk",
 	"search-monuments-database": "Søk i monumentdatabasen",
 	"search-table-th-field": "Felt",
