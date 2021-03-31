@@ -4,5 +4,5 @@ monuments_db:
   db_name: 's51138__heritage_p'
 
 commons_db:
-  server: 'commonswiki.analytics.db.svc.eqiad.wmflabs'
+  server: 'commonswiki.analytics.db.svc.wikimedia.cloud'
   db_name: 'commonswiki_p'
