@@ -1,0 +1,137 @@
+{
+    "country": "in-com",
+    "lang": "commons",
+    "description": "Monuments in India in English on Commons",
+    "project": "commons",
+    "namespaces": [
+        4
+    ],
+    "table": "monuments_in-com_(en)",
+    "truncate": false,
+    "primkey": "item",
+    "headerTemplate": "India heritage list header",
+    "rowTemplate": "India heritage list row",
+    "commonsTemplate": "WLM India Wikidata ID",
+    "commonsTrackerCategory": "Indian monuments with Wikidata QIDs",
+    "commonsCategoryBase": "Cultural heritage monuments in India",
+    "unusedImagesPage": "Commons:Wiki Loves Monuments in India/Monuments/Unused images",
+    "imagesWithoutIdPage": "Commons:Wiki Loves Monuments in India/Monuments/Images without ID",
+    "missingCommonscatPage": "Commons:Wiki Loves Monuments in India/Monuments/Missing commonscat links",
+    "fields": [
+        {
+            "dest": "item",
+            "source": "item",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "extra_id",
+            "source": "id"
+        },
+        {
+            "dest": "label",
+            "source": "label"
+        },
+        {
+            "dest": "list",
+            "source": "list"
+        },
+        {
+            "dest": "district",
+            "source": "district"
+        },
+        {
+            "dest": "admin_area",
+            "source": "p131"
+        },
+        {
+            "dest": "class",
+            "source": "p31"
+        },
+        {
+            "dest": "place",
+            "source": "p276"
+        },
+        {
+            "dest": "street",
+            "source": "p669"
+        },
+        {
+            "dest": "image",
+            "source": "p18",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "commonscat",
+            "source": "p373",
+            "conv": "extractWikilink"
+        },
+        {
+            "dest": "coord",
+            "source": "p625"
+        },
+        {
+            "dest": "street_number",
+            "source": "street_number"
+        }
+    ],
+    "sql_lang": "English",
+    "sql_country": "India",
+    "sql_data": {
+        "country": {
+            "value": "in",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "en",
+            "type": "Text"
+        },
+        "project": {
+            "value": "commons",
+            "type": "Text"
+        },
+        "id": {
+            "value": "SUBSTRING(`item`, 4, 100)",
+            "type": "Raw"
+        },
+        "adm0": {
+            "value": "in",
+            "type": "Text"
+        },
+        "adm2": {
+            "value": "district",
+            "type": "Field"
+        },
+        "name": {
+            "value": "label",
+            "type": "Field"
+        },
+        "address": {
+            "value": "TRIM(CONCAT(`street`, ' ', `street_number`))",
+            "type": "Raw"
+        },
+        "municipality": {
+            "value": "place",
+            "type": "Field"
+        },
+        "image": {
+            "value": "SUBSTRING(`image`, 6, 1000)",
+            "type": "Raw"
+        },
+        "commonscat": {
+            "value": "SUBSTRING(`commonscat`, 19, 1000)",
+            "type": "Raw"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "wd_item": {
+            "value": "SUBSTRING(`item`, 4, 100)",
+            "type": "Raw"
+        }
+    }
+}
