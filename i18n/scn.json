@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"search-table-tr-name": "Nomu",
+	"search-table-tr-address": "Nnirizzu",
+	"search-table-tr-municipality": "Cumuni",
+	"search-table-tr-images": "Mmàggini",
+	"db-field-name": "Nomu",
+	"db-field-address": "Nnirizzu",
+	"db-field-municipality": "Cumuni",
+	"db-field-lat": "Latitùdini",
+	"db-field-lon": "Loncitùdini",
+	"db-field-image": "Mmàggini",
+	"db-field-st_address": "Nnirizzi",
+	"db-field-st_address_pct": "Nnirizzi %",
+	"db-field-st_image": "Mmàggini",
+	"db-field-st_image_pct": "Mmàggini %",
+	"db-field-st_municipality": "Cumuni",
+	"db-field-st_municipality_pct": "Cumuni %",
+	"db-field-st_name": "Noma",
+	"db-field-st_name_pct": "Noma %",
+	"toolbox-nav-homepage": "Pàggina principali"
+}
