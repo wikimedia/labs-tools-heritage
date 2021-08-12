@@ -4,10 +4,12 @@
 			"Ajeje Brazorf"
 		]
 	},
+	"search-table-tr-languages": "Lingui",
 	"search-table-tr-name": "Nomu",
 	"search-table-tr-address": "Nnirizzu",
 	"search-table-tr-municipality": "Cumuni",
 	"search-table-tr-images": "Mmàggini",
+	"db-field-lang": "Lingua",
 	"db-field-name": "Nomu",
 	"db-field-address": "Nnirizzu",
 	"db-field-municipality": "Cumuni",
