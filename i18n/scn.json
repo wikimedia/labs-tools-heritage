@@ -9,6 +9,9 @@
 	"search-table-tr-address": "Nnirizzu",
 	"search-table-tr-municipality": "Cumuni",
 	"search-table-tr-images": "Mmàggini",
+	"filter-all-countries": "Tutti li Paisi",
+	"filter-all-languages": "Tutti li lingui",
+	"db-field-country": "Paisi",
 	"db-field-lang": "Lingua",
 	"db-field-name": "Nomu",
 	"db-field-address": "Nnirizzu",
@@ -24,5 +27,6 @@
 	"db-field-st_municipality_pct": "Cumuni %",
 	"db-field-st_name": "Noma",
 	"db-field-st_name_pct": "Noma %",
-	"toolbox-nav-homepage": "Pàggina principali"
+	"toolbox-nav-homepage": "Pàggina principali",
+	"toolbox-nav-statistics": "Statìstichi"
 }
