@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A1",
+			"DDPAT",
 			"Piramidion",
 			"Тест"
 		]
@@ -40,7 +41,7 @@
 	"db-field-registrant_url": "URL-адреса в державній базі даних",
 	"db-field-commonscat": "Категорія на Вікісховищі",
 	"db-field-wd_item": "Елемент Вікіданих",
-	"db-field-project": "Проект Вікімедіа",
+	"db-field-project": "Проєкт Вікімедіа",
 	"db-field-st_address": "Адреси",
 	"db-field-st_address_pct": "Адреси %",
 	"db-field-st_coordinates": "Координати",
@@ -64,5 +65,5 @@
 	"toolbox-title-searchmonuments": "Пошук пам'яток",
 	"toolbox-title-statistics": "Статистика пам'яток",
 	"location": "Географічні координати",
-	"source-monuments-list": "Вихідний список пам'яток у проекті Вікімедіа"
+	"source-monuments-list": "Вихідний список пам'яток у проєкті Вікімедіа"
 }
