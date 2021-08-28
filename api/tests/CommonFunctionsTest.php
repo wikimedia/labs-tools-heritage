@@ -69,6 +69,22 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 		);
 	}
 
+	public function test_processWikitext_makelinks_multilingual_commons()
+	{
+		$this->assertEquals(
+			'Lorem <a href="//commons.wikimedia.org/wiki/Ipsum">Ipsum</a> Dolor',
+			processWikitext('en', 'Lorem [[Ipsum]] Dolor', True, 'commons')
+		);
+	}
+
+	public function test_processWikitext_makelinks_multilingual_wikidata()
+	{
+		$this->assertEquals(
+			'Lorem <a href="//www.wikidata.org/wiki/Ipsum">Ipsum</a> Dolor',
+			processWikitext('en', 'Lorem [[Ipsum]] Dolor', True, 'wikidata')
+		);
+	}
+
 	public function test_matchWikiprojectLink_no_match()
 	{
 		$input = 'not-a-link';

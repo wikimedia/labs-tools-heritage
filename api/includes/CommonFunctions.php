@@ -17,10 +17,23 @@ function processWikitext($wikilang, $text, $makelinks, $wikiproject = "wikipedia
 	 * If makelinks is true, make html links
 	 * If makelinks is false, remove wikitext to produce normal text without links
 	 */
+
+	/**
+	 * Mapping of multilingual sites not following the lang.project.org pattern
+	 */
+	static $multilingualSiteMap = [
+		'commons' => 'commons.wikimedia.org',
+		'wikidata' => 'www.wikidata.org',
+	];
+
 	$result = $text;
 	$differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
 	$simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
-	$wikiUrl = '//' . $wikilang . '.' . $wikiproject . '.org/wiki/';
+	if ( array_key_exists( $wikiproject, $multilingualSiteMap ) ) {
+		$wikiUrl = '//' . $multilingualSiteMap[ $wikiproject ] . '/wiki/';
+	} else {
+		$wikiUrl = '//' . $wikilang . '.' . $wikiproject . '.org/wiki/';
+	}
 	$differentLinkReplace = function($m) use($wikiUrl) {
 		return '<a href="' . $wikiUrl . rawurlencode( $m[1] ) . '">'. $m[2] .'</a>';
 	};
