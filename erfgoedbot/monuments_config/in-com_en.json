@@ -78,7 +78,7 @@
     "sql_country": "India",
     "sql_data": {
         "country": {
-            "value": "in",
+            "value": "in-com",
             "type": "Text"
         },
         "lang": {

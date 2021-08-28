@@ -101,7 +101,7 @@
     "sql_country": "Israel",
     "sql_data": {
         "country": {
-            "value": "il",
+            "value": "il-npa",
             "type": "Text"
         },
         "lang": {

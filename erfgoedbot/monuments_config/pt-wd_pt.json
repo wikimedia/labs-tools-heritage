@@ -15,7 +15,7 @@
     "sql_country": "Portugal",
     "sql_data": {
         "dataset": {
-            "value": "pt",
+            "value": "pt-wd",
             "type": "Text"
         },
         "lang": {

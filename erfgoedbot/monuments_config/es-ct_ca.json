@@ -113,7 +113,7 @@
     "sql_country": "Catalunya",
     "sql_data": {
         "country": {
-            "value": "es",
+            "value": "es-ct",
             "type": "Text"
         },
         "lang": {

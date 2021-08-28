@@ -91,7 +91,7 @@
     "sql_country": "Galicia province (Spain)",
     "sql_data": {
         "country": {
-            "value": "es",
+            "value": "es-gl",
             "type": "Text"
         },
         "lang": {

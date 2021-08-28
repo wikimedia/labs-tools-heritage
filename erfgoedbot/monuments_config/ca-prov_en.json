@@ -108,7 +108,7 @@
     "sql_country": "Canada",
     "sql_data": {
         "country": {
-            "value": "ca",
+            "value": "ca-prov",
             "type": "Text"
         },
         "lang": {

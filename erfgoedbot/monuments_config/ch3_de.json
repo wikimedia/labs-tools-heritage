@@ -88,7 +88,7 @@
     "sql_country": "Switzerland",
     "sql_data": {
         "country": {
-            "value": "ch",
+            "value": "ch3",
             "type": "Text"
         },
         "lang": {

@@ -106,7 +106,7 @@
     "sql_country": "Valencia",
     "sql_data": {
         "country": {
-            "value": "es",
+            "value": "es-vc",
             "type": "Text"
         },
         "lang": {
