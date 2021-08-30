@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aue Nai"
+			"Aue Nai",
+			"咽頭べさ"
 		]
 	},
 	"search-table-tr-images": "သၞိၚ်ရုပ်",
 	"search-table-button-search": "ဂၠာဲ",
+	"filter-all-languages": "အရေဝ်ဘာသာ သီုဖအိုတ်ဂမၠိုင်",
 	"db-field-country": "ဍုင်",
 	"db-field-lang": "အရေဝ်ဘာသာ",
 	"db-field-name": "ယၟု",
@@ -15,6 +17,7 @@
 	"db-field-source": " တမ်ရိုဟ်",
 	"db-field-st_address": " ဌာန်ဒတန်",
 	"db-field-st_image": " သၞိၚ်ရုပ်",
+	"db-field-st_image_pct": "ဗီုရုပ် $1",
 	"db-field-st_name": "ယၟု",
 	"toolbox-nav-homepage": "မုက်လိက်တမ်",
 	"toolbox-nav-statistics": "စရင်အင်",
