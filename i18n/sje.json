@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Olve Utne"
+		]
+	},
+	"search-table-th-search": "Åtså",
+	"search-table-tr-countries": "Lánda",
+	"search-table-tr-languages": "Giela",
+	"search-table-tr-name": "Namma",
+	"search-table-tr-address": "Adrässa",
+	"search-table-tr-municipality": "Kommuvdna",
+	"search-table-tr-images": "Gåvå",
+	"search-table-button-search": "Åtså",
+	"filter-all-countries": "Gájk lánda",
+	"filter-all-languages": "Gájka giela",
+	"db-field-country": "Lánnda",
+	"db-field-lang": "Giella",
+	"db-field-name": "Namma",
+	"db-field-address": "Adrässa",
+	"db-field-municipality": "Kommuvdna",
+	"db-field-image": "Gåvvå",
+	"db-field-source": "Gálldo",
+	"db-field-project": "Wikimedia-prosjäkkta",
+	"db-field-st_address": "Adriessa",
+	"db-field-st_address_pct": "Adriessa %",
+	"db-field-st_image": "Gåvvå",
+	"db-field-st_image_pct": "Gåvvå %",
+	"db-field-st_municipality": "Kommuvdna",
+	"db-field-st_municipality_pct": "Kommuvdna %",
+	"db-field-st_name": "Nama",
+	"db-field-st_name_pct": "Nama %",
+	"toolbox-nav-statistics": "Statistijjka",
+	"toolbox-nav-search": "Åtså"
+}
