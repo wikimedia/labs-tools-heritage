@@ -5,28 +5,5 @@
 			"Andibing"
 		]
 	},
-	"search-title": "Monuments search",
-	"search-monuments-database": "Search the monuments database",
-	"search-table-th-field": "Field",
-	"search-table-th-filter": "Filter",
-	"search-table-th-search": "Search",
-	"search-table-th-output": "Output",
-	"search-table-tr-countries": "Countries",
-	"search-table-tr-languages": "Languages",
-	"search-table-tr-name": "Name",
-	"search-table-tr-address": "Address",
-	"search-table-tr-municipality": "Municipality",
-	"search-table-tr-coordinates": "Coordinates:",
-	"search-table-tr-images": "Images",
-	"search-table-button-search": "Search",
-	"filter-all-countries": "All countries",
-	"filter-all-languages": "All languages",
-	"db-field-country": "Country",
-	"db-field-lang": "Language",
-	"db-field-id": "Identifier",
-	"db-field-name": "Name",
-	"db-field-address": "Address",
-	"db-field-municipality": "Municipality",
-	"db-field-lat": "Latitude",
-	"db-field-lon": "Longitude"
+	"search-table-tr-coordinates": "Coordinates:"
 }
