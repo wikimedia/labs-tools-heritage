@@ -63,5 +63,6 @@
 	"toolbox-nav-search": "Haku",
 	"toolbox-title-searchmonuments": "Hae monumenttejä",
 	"toolbox-title-statistics": "Monumenttitilastot",
-	"location": "Sijainti"
+	"location": "Sijainti",
+	"source-monuments-list": "Monumenttilistan lähde Wikimedia-projektissa"
 }
