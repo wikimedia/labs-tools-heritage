@@ -611,7 +611,7 @@ def main():
     conn = None
     cursor = None
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

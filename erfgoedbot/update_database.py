@@ -351,7 +351,7 @@ def process_monument_wikidata(result, param_order):
 def process_monument(params, source, countryconfig, conn, cursor, source_page,
                      header_defaults, unknown_fields):
     """Process a single instance of a monument row template."""
-    title = source_page.title(True)
+    title = source_page.title()
 
     # Get all the fields
     contents = {}
@@ -478,8 +478,7 @@ def process_country_list(countryconfig, conn, cursor, full_update, days_back):
         site, '{0}:{1}'.format(site.namespace(10),
                                countryconfig.get('rowTemplate')))
 
-    trans_gen = pagegenerators.ReferringPageGenerator(
-        row_template, onlyTemplateInclusion=True)
+    trans_gen = row_template.getReferences(only_template_inclusion=True)
     filtered_gen = pagegenerators.NamespaceFilterPageGenerator(
         trans_gen, countryconfig.get('namespaces'), site=site)
 
@@ -644,7 +643,7 @@ def main():
     cursor = None
     (conn, cursor) = connect_to_monuments_database()
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

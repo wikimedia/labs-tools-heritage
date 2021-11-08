@@ -155,7 +155,7 @@ def normalize_identifier(data):
 
 def has_geolocation(page_title):
     site = pywikibot.Site('commons', 'commons')
-    page = pywikibot.ImagePage(site, page_title)
+    page = pywikibot.FilePage(site, page_title)
     geoloc_cat = pywikibot.Category(site, "Category:Media with locations")
     return geoloc_cat in list(page.categories())
 
@@ -233,7 +233,7 @@ def main():
     countrycode = ''
     skip_wd = False
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

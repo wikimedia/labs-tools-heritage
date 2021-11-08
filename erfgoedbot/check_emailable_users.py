@@ -104,7 +104,7 @@ def main():
     category = None
     notify = False
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-delta':
             delta_minutes = int(value)

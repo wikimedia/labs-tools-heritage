@@ -357,7 +357,7 @@ class TestAddCommonsTemplate(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
         patcher = mock.patch(
-            'erfgoedbot.images_of_monuments_without_id.pywikibot.ImagePage',
+            'erfgoedbot.images_of_monuments_without_id.pywikibot.FilePage',
             autospec=True)
         self.mock_page = patcher.start()
         self.image_page = self.mock_page.return_value
@@ -365,7 +365,6 @@ class TestAddCommonsTemplate(unittest.TestCase):
 
         self.image_page.exists.return_value = True
         self.image_page.isRedirectPage.return_value = False
-        self.image_page.isEmpty.return_value = False
         self.image_page.templates.return_value = self.page_templates
         self.image_page.get.return_value = '<page contents>'
 
@@ -402,14 +401,6 @@ class TestAddCommonsTemplate(unittest.TestCase):
 
     def test_addCommonsTemplate_skip_on_redirect(self):
         self.image_page.isRedirectPage.return_value = True
-        template = 'A new template'
-        result = images_of_monuments_without_id.addCommonsTemplate(
-            self.image, template, self.identifier)
-
-        self.bundled_asserts_skipped(result)
-
-    def test_addCommonsTemplate_skip_on_empty(self):
-        self.image_page.isEmpty.return_value = True
         template = 'A new template'
         result = images_of_monuments_without_id.addCommonsTemplate(
             self.image, template, self.identifier)

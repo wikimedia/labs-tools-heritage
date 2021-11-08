@@ -15,6 +15,7 @@ pywikibot = "*"
 requests = "*"
 PyMySQL = "*"
 PyYAML = "*"
+mwparserfromhell = "*"
 
 [requires]
 python_version = "3.5"

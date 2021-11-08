@@ -101,8 +101,7 @@ def processCountry(countryconfig, conn, cursor):
     rowTemplate = pywikibot.Page(
         site, '%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))
 
-    transGen = pagegenerators.ReferringPageGenerator(
-        rowTemplate, onlyTemplateInclusion=True)
+    transGen = rowTemplate.getReferences(only_template_inclusion=True)
     filteredGen = pagegenerators.NamespaceFilterPageGenerator(
         transGen, countryconfig.get('namespaces'))
     pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
@@ -126,7 +125,7 @@ def main():
     cursor = None
     (conn, cursor) = connect_to_monuments_database()
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

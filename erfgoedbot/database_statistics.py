@@ -250,7 +250,7 @@ def main():
     skip_wd = False
     (conn, cursor) = connect_to_monuments_database()
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-skip_wd':
             skip_wd = True

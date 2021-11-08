@@ -280,8 +280,8 @@ def addCommonsTemplate(image, commonsTemplate, identifier):
     Assumes that the template only takes one unnamed parameter, the id.
     """
     site = pywikibot.Site('commons', 'commons')
-    page = pywikibot.ImagePage(site, image)
-    if not page.exists() or page.isRedirectPage() or page.isEmpty():
+    page = pywikibot.FilePage(site, image)
+    if not page.exists() or page.isRedirectPage():
         return False
 
     if commonsTemplate in page.templates():
@@ -367,7 +367,7 @@ def main():
     cursor = None
 
     # FIXME add option to only run based on list usage, not category membership
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

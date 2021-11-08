@@ -226,7 +226,7 @@ def main():
     (conn, cursor) = connect_to_monuments_database()
     (conn2, cursor2) = connect_to_commons_database()
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value

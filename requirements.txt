@@ -8,9 +8,10 @@ future==0.16.0
 idna==2.7
 ipaddr==2.2.0
 ipaddress==1.0.23
+mwparserfromhell==0.6.3
 pathlib2==2.3.5
 pymysql==0.10.0
-pywikibot==3.0.20200703
+pywikibot==6.6.2
 pyyaml==3.13
 requests==2.20.1
 scandir==1.10.0; python_version < '3.5'

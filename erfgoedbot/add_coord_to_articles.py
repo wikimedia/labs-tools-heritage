@@ -310,7 +310,7 @@ def main():
 
     (connMon, cursorMon) = connect_to_monuments_database()
 
-    for arg in pywikibot.handleArgs():
+    for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
         if option == '-countrycode':
             countrycode = value
