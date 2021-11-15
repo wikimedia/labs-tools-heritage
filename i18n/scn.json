@@ -19,6 +19,8 @@
 	"db-field-lat": "Latitùdini",
 	"db-field-lon": "Loncitùdini",
 	"db-field-image": "Mmàggini",
+	"db-field-changed": "Canciatu",
+	"db-field-project": "Pruggettu Wikimedia",
 	"db-field-st_address": "Nnirizzi",
 	"db-field-st_address_pct": "Nnirizzi %",
 	"db-field-st_image": "Mmàggini",
