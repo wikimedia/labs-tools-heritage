@@ -5,6 +5,7 @@
 		]
 	},
 	"search-table-th-field": "Campu",
+	"search-table-th-filter": "Filtru",
 	"search-table-tr-countries": "Paisi",
 	"search-table-tr-languages": "Lingui",
 	"search-table-tr-name": "Nomu",
@@ -22,6 +23,10 @@
 	"db-field-lon": "Loncitùdini",
 	"db-field-image": "Mmàggini",
 	"db-field-changed": "Canciatu",
+	"db-field-source": "Orìggini",
+	"db-field-monument_article": "Vuci supra lu munumentu",
+	"db-field-registrant_url": "URL dû riggistru",
+	"db-field-commonscat": "Catigurìa Commons",
 	"db-field-project": "Pruggettu Wikimedia",
 	"db-field-st_address": "Nnirizzi",
 	"db-field-st_address_pct": "Nnirizzi %",
@@ -31,6 +36,7 @@
 	"db-field-st_municipality_pct": "Cumuni %",
 	"db-field-st_name": "Noma",
 	"db-field-st_name_pct": "Noma %",
+	"db-field-st_total": "Nùmmiru tutali",
 	"toolbox-nav-homepage": "Pàggina principali",
 	"toolbox-nav-statistics": "Statìstichi"
 }
