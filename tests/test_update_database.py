@@ -195,6 +195,14 @@ class TestProcessPage(TestUpdateDatabaseBase):
                 None, None, self.mock_page, {}, unknown_fields={}
             )
 
+    def test_process_page_Commonscat(self):
+        self.mock_template.title.return_value = "Commonscat"
+        self.country_config['lang'] = 'ge'
+        update_database.process_page(self.mock_page, self.source, self.country_config, None, self.mock_cursor)
+        expected_query = "REPLACE INTO commonscat (site, title, commonscat) VALUES (%s, %s, %s)"
+        expected_query_params = ('ge', 'MockPageTitle', 'a')
+        self.mock_cursor.execute.assert_called_once_with(expected_query, expected_query_params)
+
 #    # awaiting solution to T147752
 #    def test_process_page_warning_on_NoPrimkeyException(self):
 #        self.country_config['rowTemplate'] = 'MockTemplate'
