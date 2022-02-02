@@ -451,12 +451,12 @@ def process_page(page, source, countryconfig, conn, cursor,
                 """VALUES (%s, %s, %s)""")
             cursor.execute(
                 query,
-                (countryconfig.get('lang'), page.title(True), params[0]))
+                (countryconfig.get('lang'), page.title(underscore=True), params[0]))
 
     # output missing primkey warning
     if primkey_exceptions > 0:
         pywikibot.warning('{0:d} primkey(s) missing on {1} ({2})'.format(
-            primkey_exceptions, page.title(True), countryconfig.get('table')))
+            primkey_exceptions, page.title(underscore=True), countryconfig.get('table')))
 
     return unknown_fields
 
