@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Akapochtli",
+			"Languaeditor",
 			"Ricardo gs",
 			"Taresi",
 			"Teòtlalili"
@@ -22,5 +23,5 @@
 	"db-field-st_name": "Tōcāitl",
 	"db-field-st_name_pct": "Tōcāitl %",
 	"toolbox-nav-homepage": "Yacatlahcuilolli",
-	"toolbox-nav-search": "Tlatemoliztli"
+	"toolbox-nav-search": "Xiktemo"
 }
