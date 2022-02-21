@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"David1010",
-			"MIKHEIL"
+			"MIKHEIL",
+			"Გიო ოქრო"
 		]
 	},
 	"search-table-th-field": "ველი",
@@ -33,6 +34,8 @@
 	"db-field-image": "სურათი",
 	"db-field-source": "წყარო",
 	"db-field-monument_article": "ძეგლის გვერდი",
+	"db-field-commonscat": "ვიკისაწყობის კატეგორია",
+	"db-field-wd_item": "ვიკიმონაცემების ელემენტი",
 	"db-field-project": "ვიკიმედიის პროექტი",
 	"db-field-st_address": "მისამართები",
 	"db-field-st_address_pct": "მისამართები %",
