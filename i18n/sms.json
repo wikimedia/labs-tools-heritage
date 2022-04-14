@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yupik"
+		]
+	},
+	"search-table-th-filter": "Siʹllʼjeei",
+	"search-table-th-search": "Ooʒʒ",
+	"search-table-tr-languages": "Ǩiõl",
+	"search-table-tr-name": "Nõmm",
+	"search-table-tr-address": "Addrõs",
+	"search-table-button-search": "Ooʒʒ",
+	"filter-all-languages": "Puk ǩiõl",
+	"db-field-lang": "Ǩiõll",
+	"db-field-name": "Nõmm",
+	"db-field-address": "Addrõs",
+	"db-field-commonscat": "Commons-kategoria",
+	"db-field-project": "Wikimedia-projeʹktt",
+	"db-field-st_name": "Nõõm",
+	"db-field-st_name_pct": "Nõõm %",
+	"toolbox-nav-statistics": "Statistiikk",
+	"toolbox-nav-search": "Ooʒʒ"
+}
