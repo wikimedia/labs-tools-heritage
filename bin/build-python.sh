@@ -6,7 +6,7 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 set -ex
 if [ ! -d $VIRTUAL_ENV_PATH ]; then
     echo "Creating virtual environment..."
-    virtualenv --python=python3.5 $VIRTUAL_ENV_PATH --system-site-packages
+    virtualenv --python=python3.7 $VIRTUAL_ENV_PATH --system-site-packages
 fi
 
 source $VIRTUAL_ENV_PATH/bin/activate

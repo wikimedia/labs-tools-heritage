@@ -42,7 +42,7 @@ echo_time "Update monuments_all table..."
 $MYSQL_BIN -h $DB_SERVER $DATABASE < $ERFGOED_PATH/sql/fill_table_monuments_all.sql
 
 echo_time "Restart the categorization job..."
-jsub -l release=trusty -mem 1000m -once -j y -o $LOGS_PATH/categorize_images.log -N $CATEGORIZATION_JOB_NAME $SOURCE_PATH/bin/categorize_images.sh >> $LOGS_PATH/crontab.log
+jsub -l -release buster -mem 1000m -once -j y -o $LOGS_PATH/categorize_images.log -N $CATEGORIZATION_JOB_NAME $SOURCE_PATH/bin/categorize_images.sh >> $LOGS_PATH/crontab.log
 
 ## Update the image table. Is now another job
 # echo_time "Update image table..."
