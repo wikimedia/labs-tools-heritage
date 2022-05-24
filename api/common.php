@@ -26,21 +26,6 @@ if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_overrid
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
- * Raven client for error reporting
- */
-if ( isset($sentryDSN) ){
-
-	$sentryClient = new Raven_Client($sentryDSN, array(
-		'name' => 'heritage',
-		'environment' => $environment,
-		'tags' => array(
-			'php_version' => phpversion(),
-		)
-	));
-	$sentryClient->install();
-}
-
-/**
  * Localization
  * Intuition was loaded via Composer
  */
