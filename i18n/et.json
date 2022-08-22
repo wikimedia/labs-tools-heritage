@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Avjoska",
+			"Kareyac",
 			"Pikne",
 			"WikedKentaur"
 		]
@@ -11,6 +12,7 @@
 	"search-table-th-field": "Väli",
 	"search-table-th-filter": "Filter",
 	"search-table-th-search": "Otsitekst",
+	"search-table-tr-address": "Aadress",
 	"filter-all-countries": "Kõik riigid",
 	"filter-all-languages": "Kõik keeled",
 	"db-field-country": "Riik",
