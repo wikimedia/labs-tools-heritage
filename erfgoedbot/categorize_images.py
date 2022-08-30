@@ -425,7 +425,7 @@ def get_Commons_category_via_Wikidata(page):
                 return commons_page
             else:
                 raise NoCommonsCatFromWikidataItemException(page)
-    except (pywikibot.NoPage, KeyError, NoCommonsCatFromWikidataItemException):
+    except (pywikibot.exceptions.NoPageError, KeyError, NoCommonsCatFromWikidataItemException):
         raise NoCommonsCatFromWikidataItemException(page)
 
 

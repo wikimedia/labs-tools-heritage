@@ -65,7 +65,7 @@ def run_check(check, field_value, monument_key, countryconfig, source_page):
     elif check == 'checkInt':
         return check_integer(field_value, monument_key, source_page)
     else:
-        raise pywikibot.Error('Un-defined check in config for {0}: {1}'.format(
+        raise pywikibot.exceptions.Error('Un-defined check in config for {0}: {1}'.format(
             countryconfig.get('table'), check))
 
 
@@ -137,7 +137,7 @@ def convert_field(field, contents, countryconfig):
         except ValueError:
             return 'noFoP'
     else:
-        raise pywikibot.Error(
+        raise pywikibot.exceptions.Error(
             'Un-defined converter in config for {1}: {2}'.format(
                 countryconfig.get('table'), field.get('conv')))
 

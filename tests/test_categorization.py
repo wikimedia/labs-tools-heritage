@@ -1,7 +1,7 @@
 """Unit tests for categorize_images."""
 
 # from pywikibot.site import APISite
-# from pywikibot.exceptions import NoPage
+# from pywikibot.exceptions import NoPageError
 import unittest
 import unittest.mock as mock
 
@@ -211,14 +211,14 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
         self.category_sitelink = 'Category:Some category'
 
     # def test_get_Commons_category_via_Wikidata_no_data_item(self):
-    #    self.mock_page.data_item.side_effect = NoPage
+    #    self.mock_page.data_item.side_effect = NoPageError
     #    with self.assertRaises(categorize_images.NoCommonsCatFromWikidataItemException):
     #        categorize_images.get_Commons_category_via_Wikidata(self.mock_page)
 
     # def test_get_Commons_category_via_Wikidata_no_claim_or_sitelink(self):
     #    expected_site = APISite("commons", "commons")
     #    self.mock_page.data_item.return_value = self.mock_data_item
-    #    self.mock_data_item.getSitelink.side_effect = NoPage
+    #    self.mock_data_item.getSitelink.side_effect = NoPageError
     #    with self.assertRaises(categorize_images.NoCommonsCatFromWikidataItemException):
     #        categorize_images.get_Commons_category_via_Wikidata(self.mock_page)
     #        self.mock_data_item.getSitelink.assert_called_once_with(

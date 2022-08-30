@@ -146,8 +146,8 @@ def getCoordinates(monumentId, countrycode, lang, conn, cursor):
 def addLocation(page, locationTemplate):
     try:
         oldtext = page.get()
-    except pywikibot.NoPage:
-        # For some reason we sometimes get a NoPage Exception
+    except pywikibot.exceptions.NoPageError:
+        # For some reason we sometimes get a NoPageError Exception
         pywikibot.output('No text found at %s. Skipping' % (page.title(),))
         return False
 

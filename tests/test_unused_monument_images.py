@@ -3,7 +3,7 @@
 """Unit tests for unused_monument_images."""
 
 # from pywikibot.site import APISite
-# from pywikibot.exceptions import NoPage
+# from pywikibot.exceptions import NoPageError
 import unittest
 import unittest.mock as mock
 from collections import OrderedDict

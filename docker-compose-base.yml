@@ -32,5 +32,5 @@ bot:
   volumes:
     - .:/code
   environment:
-    PYWIKIBOT2_NO_USER_CONFIG: 2
+    PYWIKIBOT_NO_USER_CONFIG: 2
   entrypoint: ["./conf/wait-for-db.sh"]

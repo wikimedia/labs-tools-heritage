@@ -19,7 +19,7 @@ def reportDataError(errorMsg, wikiPage, exceptWord, comment=''):
     talkPage = wikiPage.toggleTalkPage()
     try:
         content = talkPage.get()
-    except (pywikibot.NoPage, pywikibot.IsRedirectPage):
+    except (pywikibot.exceptions.NoPageError, pywikibot.IsRedirectPage):
         content = ''
     if exceptWord and exceptWord not in content:
         content += '\n\n{0} --~~~~\n\n'.format(errorMsg)

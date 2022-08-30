@@ -348,7 +348,7 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         val = 'something'
         self.contents['source-field'] = val
 
-        with self.assertRaises(pywikibot.Error) as cm:
+        with self.assertRaises(pywikibot.exceptions.Error) as cm:
             update_database.update_monument(
                 self.contents, self.source, self.country_config, None,
                 self.mock_cursor, self.mock_page)
@@ -368,7 +368,7 @@ class TestTriggerChecks(TestUpdateDatabaseBase):
         val = 'something'
         self.contents['source-field'] = val
 
-        with self.assertRaises(pywikibot.Error) as cm:
+        with self.assertRaises(pywikibot.exceptions.Error) as cm:
             update_database.update_monument(
                 self.contents, self.source, self.country_config, None,
                 self.mock_cursor, self.mock_page)
