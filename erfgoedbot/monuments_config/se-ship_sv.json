@@ -4,11 +4,12 @@
     "description": "Listed historical ships in Sweden in Swedish",
     "project": "wikipedia",
     "namespaces": [
-        0
+        0,
+        4
     ],
     "table": "monuments_se-ship_(sv)",
     "truncate": false,
-    "primkey": "signal",
+    "primkey": "wd_item",
     "headerTemplate": "K-fartyg-huvud",
     "rowTemplate": "K-fartyg",
     "commonsTemplate": "K-Fartyg",
@@ -17,7 +18,6 @@
     "unusedImagesPage": "Wikipedia:Projekt kulturarv/Oanvända bilder av kulturmärkta fartyg i Sverige",
     "imagesWithoutIdPage": "Wikipedia:Projekt kulturarv/Bilder av kulturmärkta fartyg i Sverige utan ID",
     "missingCommonscatPage": "Wikipedia:Projekt kulturarv/Saknade länkar för commonscat - kulturmärkta fartyg",
-    "registrantUrlBase": "http://www.sjohistoriska.se/sv/Kusten-runt/Fartyg--batar/K-markning-av-fartyg/K-markta-fartyg/%s",
     "fields": [
         {
             "dest": "signal",
@@ -76,9 +76,17 @@
             "source": "commonscat"
         },
         {
-            "dest": "registrant_url",
-            "source": "signal",
-            "conv": "generateRegistrantUrl-sv-ship"
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
+        },
+        {
+            "dest": "fotnot",
+            "source": "fotnot"
+        },
+        {
+            "dest": "lank_namn",
+            "source": "länk-namn"
         }
     ],
     "sql_lang": "Swedish",
@@ -93,7 +101,7 @@
             "type": "Text"
         },
         "id": {
-            "value": "signal",
+            "value": "wd_item",
             "type": "Field"
         },
         "adm0": {
@@ -128,8 +136,8 @@
             "value": "artikel",
             "type": "Field"
         },
-        "registrant_url": {
-            "value": "registrant_url",
+        "wd_item": {
+            "value": "wd_item",
             "type": "Field"
         }
     }
