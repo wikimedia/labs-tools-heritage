@@ -63,7 +63,7 @@ def notify_user(user):
     try:
         text = "{{subst:WLM-enable-email}}"
         summary = "Notifying WLM participant of missing e-mail address."
-        history_users = [edit['user'] for edit in talk_page.getLatestEditors(limit=10)]
+        history_users = [edit['user'] for edit in talk_page.revisions(total=10)]
         if user.site.username() in history_users:
             pywikibot.output("Already notified the user")
             return
