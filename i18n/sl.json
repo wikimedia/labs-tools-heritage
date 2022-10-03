@@ -26,7 +26,7 @@
 	"filter-all-languages": "Vsi jeziki",
 	"db-field-country": "Država",
 	"db-field-lang": "Jezik",
-	"db-field-id": "Označevalnik",
+	"db-field-id": "Identifikator",
 	"db-field-name": "Ime",
 	"db-field-address": "Naslov",
 	"db-field-municipality": "Občina",
