@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
@@ -26,7 +27,7 @@
 	"db-field-lat": "Hêlîpan",
 	"db-field-lon": "Hêlîlar",
 	"db-field-image": "Wêne",
-	"db-field-changed": "Hate guhertin",
+	"db-field-changed": "Hate guhartin",
 	"db-field-source": "Çavkanî",
 	"db-field-project": "Projeya Wîkîmediyayê",
 	"db-field-st_address": "Navnîşan",
