@@ -4,6 +4,7 @@
 			"Evropi",
 			"Geraki",
 			"Glavkos",
+			"Jimkats",
 			"NikosLikomitros",
 			"Nikosgranturismogt",
 			"Ανώνυμος Βικιπαιδιστής"
@@ -22,6 +23,8 @@
 	"search-table-tr-municipality": "Δήμος",
 	"search-table-tr-coordinates": "Συντεταγμένες",
 	"search-table-tr-images": "Εικόνες",
+	"search-table-tr-output-language": "Γλώσσα εξόδου",
+	"search-table-tr-output-format": "Μορφή εξόδου",
 	"search-table-checkbox-only-images": "Μόνο μνημεία χωρίς εικόνες",
 	"search-table-button-search": "Αναζήτηση",
 	"filter-all-countries": "Όλες οι χώρες",
