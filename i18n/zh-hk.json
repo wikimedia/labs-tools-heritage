@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Justincheng12345"
+			"Justincheng12345",
+			"捍粵者"
 		]
 	},
 	"search-title": "歷史搜索",
@@ -23,7 +24,7 @@
 	"db-field-source": "來源",
 	"db-field-monument_article": "歷史條目",
 	"db-field-registrant_url": "註冊者url",
-	"toolbox-label-searchtipps": "使用%term或term%或%term%來進行模糊搜索",
+	"toolbox-label-searchtipps": "用%term、term%或%term%來模糊搜索",
 	"toolbox-meta-title": "維基友愛歷史工具箱",
 	"toolbox-main-title": "WLM 工具箱",
 	"toolbox-wikilovesmonuments": "維基友愛歷史",
