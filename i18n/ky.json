@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bosogo",
 			"Growingup",
 			"Викиней"
 		]
 	},
 	"search-table-th-filter": "Чыпка",
 	"search-table-th-search": "Издөө",
+	"search-table-button-search": "Издөө",
 	"filter-all-countries": "Бардык өлкөлөр",
 	"filter-all-languages": "Бардык тилдер",
 	"db-field-country": "Өлкө",
@@ -19,5 +21,6 @@
 	"db-field-image": "Сүрөт",
 	"db-field-changed": "өзгөртүлдү",
 	"db-field-source": "Булагы",
-	"db-field-st_address": "Даректерди"
+	"db-field-st_address": "Даректерди",
+	"toolbox-nav-search": "Издөө"
 }
