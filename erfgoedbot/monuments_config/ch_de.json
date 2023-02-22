@@ -19,7 +19,7 @@
         {
             "dest": "kgs-nr",
             "source": "KGS-Nr",
-            "type": "int(11)"
+            "type": "varchar(11)"
         },
         {
             "dest": "foto",
