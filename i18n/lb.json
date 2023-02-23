@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Les Meloures",
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"search-title": "Monumenter sichen",
@@ -54,7 +55,7 @@
 	"toolbox-label-searchtipps": "benotzt %term or term% oder %term% fir méi Resultater ze fannen",
 	"toolbox-meta-title": "\"Wiki Loves Monuments\"-Geschierkëscht",
 	"toolbox-main-logo-alt": "Logo vu Wiki Loves Monuments",
-	"toolbox-main-title": "WLM Geschierkëscht",
+	"toolbox-main-title": "WLM-Geschierkëscht",
 	"toolbox-main-description": "'Geschierkëscht' fir $1",
 	"toolbox-wikilovesmonuments": "\"Wiki Loves Monuments\"",
 	"toolbox-nav-homepage": "Haaptsäit",
