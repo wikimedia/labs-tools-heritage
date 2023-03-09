@@ -1,16 +1,19 @@
 {
 	"@metadata": {
 		"authors": [
+			"Pacha Tchernof",
 			"פוילישער"
 		]
 	},
 	"search-table-th-field": "פעלד",
 	"search-table-th-filter": "פֿילטער",
 	"search-table-th-search": "זוכן",
+	"search-table-tr-languages": "שפּראַכן",
+	"search-table-button-search": "זוכן",
 	"filter-all-countries": "אלע לענדער",
 	"filter-all-languages": "אלע שפראַכן",
 	"db-field-country": "לאַנד",
-	"db-field-lang": "שפראַך",
+	"db-field-lang": "שפּראַך",
 	"db-field-id": "אידענטיפֿיצירער",
 	"db-field-name": "נאָמען",
 	"db-field-address": "אַדרעס",
