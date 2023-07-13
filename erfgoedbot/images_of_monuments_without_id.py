@@ -230,7 +230,9 @@ def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
     subquery = (
         "SELECT * "
         "FROM templatelinks "
-        "WHERE page_id=tl_from AND tl_namespace=10 AND tl_title=%s")
+        "JOIN linktarget ON tl_target_id=lt_id "
+        "WHERE page_id=tl_from "
+        "AND lt_namespace=10 AND lt_title=%s ")
     cursor.execute(
         query.format(sub=subquery), (
             commonsCategoryBase, '{}_in_%'.format(commonsCategoryBase),

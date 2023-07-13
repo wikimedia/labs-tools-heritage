@@ -38,8 +38,9 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
         "FROM page "
         "JOIN templatelinks ON page_id=tl_from "
         "JOIN categorylinks ON page_id=cl_from "
+        "JOIN linktarget ON tl_target_id=lt_id "
         "WHERE page_namespace=6 AND page_is_redirect=0 "
-        "AND tl_namespace=10 AND tl_title=%s "
+        "AND lt_namespace=10 AND lt_title=%s "
         "AND cl_to=%s AND NOT EXISTS({sub}) "
         "LIMIT 10000")
     subquery = (
