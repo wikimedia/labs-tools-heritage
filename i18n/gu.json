@@ -1,28 +1,42 @@
 {
 	"@metadata": {
 		"authors": [
+			"CptViraj",
 			"Harsh4101991"
 		]
 	},
 	"search-table-th-field": "ક્ષેત્ર",
 	"search-table-th-filter": "ચાળણી",
 	"search-table-th-search": "શોધો",
+	"search-table-tr-countries": "દેશો",
+	"search-table-tr-languages": "ભાષાઓ",
+	"search-table-tr-name": "નામ",
+	"search-table-tr-address": "સરનામું",
+	"search-table-tr-municipality": "નગરપાલિકા",
+	"search-table-button-search": "શોધો",
 	"filter-all-countries": "બધા દેશ",
 	"filter-all-languages": "બધી ભાષાઓ",
 	"db-field-country": "દેશ",
 	"db-field-lang": "ભાષા",
 	"db-field-name": "નામ",
 	"db-field-address": "સરનામું",
+	"db-field-municipality": "નગરપાલિકા",
 	"db-field-lat": "અક્ષાંશ",
 	"db-field-lon": "રેખાંશ",
 	"db-field-image": "ચિત્ર",
 	"db-field-source": "સ્રોત",
+	"db-field-st_address": "સરનામાં",
+	"db-field-st_address_pct": "સરનામાં %",
 	"db-field-st_image": "ચિત્ર",
 	"db-field-st_image_pct": "ચિત્ર %",
+	"db-field-st_municipality": "નગરપાલિકા",
+	"db-field-st_municipality_pct": "નગરપાલિકા %",
 	"db-field-st_name": "નામ",
 	"db-field-st_name_pct": "નામ %",
 	"db-field-st_total": "કુલ આંકડો",
+	"toolbox-wikilovesmonuments": "વિકિ લવ્સ મોન્યુમેન્ટ્સ",
 	"toolbox-nav-homepage": "મુખપૃષ્ઠ",
+	"toolbox-nav-statistics": "આંકડાકીય માહિતી",
 	"toolbox-nav-search": "શોધો",
 	"location": "સ્થળ"
 }
