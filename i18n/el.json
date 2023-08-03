@@ -55,6 +55,7 @@
 	"db-field-st_name": "Ονόματα",
 	"db-field-st_name_pct": "Ονόματα %",
 	"db-field-st_total": "Συνολικός αριθμός",
+	"toolbox-label-searchtipps": "χρησιμοποιήστε %term ή term% ή %term% για ασαφή αναζήτηση",
 	"toolbox-meta-title": "Κουτί εργαλείων Το Βίκι Αγαπάει τα Μνημεία",
 	"toolbox-main-logo-alt": "Το Βίκι αγαπάει το λογότυπο για τα Μνημεία",
 	"toolbox-main-title": "Κουτί εργαλείων WLM",
