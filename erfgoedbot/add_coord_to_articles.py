@@ -259,7 +259,7 @@ def addCoords(countryconfig, monument, coordconfig):
             text = page.get()
         except pywikibot.exceptions.NoPageError:  # First except, prevent empty pages
             return False
-        except pywikibot.IsRedirectPage:  # second except, prevent redirect
+        except pywikibot.exceptions.IsRedirectPageError:  # second except, prevent redirect
             pywikibot.output('%s is a redirect!' % monument.article)
             return False
         except pywikibot.exceptions.Error:  # third exception, take the problem and print
