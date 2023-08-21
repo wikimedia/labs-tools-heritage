@@ -243,7 +243,7 @@ def update_monument(contents, source, countryconfig, conn, cursor,
             fieldnames.append(field.get('dest'))
 
             # Do some conversions here
-            field_value = ''  # Should this be None?
+            field_value = None
             if field.get('conv'):
                 field_value = convert_field(field, contents, countryconfig)
             else:
@@ -253,7 +253,7 @@ def update_monument(contents, source, countryconfig, conn, cursor,
                 # check data
                 if not run_check(field.get('check'), field_value, monument_key,
                                  countryconfig, source_page):
-                    field_value = ''  # throw away input if check fails
+                    field_value = None  # throw away input if check fails
             fieldvalues.append(field_value)
 
     if countryconfig.get('countryBbox'):
