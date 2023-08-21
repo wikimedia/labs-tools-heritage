@@ -256,6 +256,10 @@ def update_monument(contents, source, countryconfig, conn, cursor,
                     field_value = None  # throw away input if check fails
             fieldvalues.append(field_value)
 
+            if field.get('dest') == countryconfig.get('primkey') and not field_value:
+                pywikibot.warning("The primkey for monument %s on page %s turned out to resolve empty, skipping the monument" % (monument_key, source))
+                return
+
     if countryconfig.get('countryBbox'):
         check_lat_with_lon(fieldnames, monument_key, source_page)
 
