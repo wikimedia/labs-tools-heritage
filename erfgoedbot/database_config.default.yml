@@ -1,6 +1,6 @@
 ---
 monuments_db:
-  server: 'tools-db'
+  server: 'tools.db.svc.wikimedia.cloud'
   db_name: 's51138__heritage_p'
 
 commons_db:
