@@ -16,7 +16,7 @@ db_dump:
     MYSQL_PASSWORD: password
 
 db_empty:
-  image: mariadb:10.0
+  image: mariadb:10.4.29
   volumes:
     - ./mysql:/etc/mysql/conf.d
     - ./erfgoedbot/sql/:/docker-entrypoint-initdb.d/
