@@ -25,6 +25,7 @@ db_empty:
     MYSQL_DATABASE: s51138__heritage_p
     MYSQL_USER: heritage
     MYSQL_PASSWORD: password
+  command: mysqld --sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
 bot:
   build: .
