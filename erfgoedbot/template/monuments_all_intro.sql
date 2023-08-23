@@ -7,6 +7,8 @@
 -- Update PHP code when changing this
 SET @granularity = 20;
 
+SET sql_mode = "ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION";
+
 SET NAMES UTF8;
 
 DROP TABLE IF EXISTS `{domain}_all_tmp`;
