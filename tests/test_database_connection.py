@@ -65,7 +65,8 @@ class TestConnectToMonumentsDatabase(unittest.TestCase):
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
             user='', passwd='',
-            charset='utf8', use_unicode=True
+            charset='utf8', use_unicode=True,
+            sql_mode='ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
         )
         self.mock_connection.ping.assert_called_once_with(True)
         self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))
@@ -81,7 +82,8 @@ class TestConnectToMonumentsDatabase(unittest.TestCase):
         self.mock_connect.assert_called_once_with(
             db='fake_db_name', host='fake_server',
             user='fake_username', passwd='fake_password',
-            charset='utf8', use_unicode=True
+            charset='utf8', use_unicode=True,
+            sql_mode='ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
         )
         self.mock_connection.ping.assert_called_once_with(True)
         self.assertEqual(result, (self.mock_connection, self.mock_connection.cursor()))

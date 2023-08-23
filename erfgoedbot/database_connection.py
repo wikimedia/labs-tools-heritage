@@ -48,7 +48,8 @@ def connect_to_monuments_database():
     conn = pymysql.connect(
         host=db_config['server'], db=db_config['db_name'],
         user=username, passwd=password,
-        use_unicode=True, charset='utf8')
+        use_unicode=True, charset='utf8',
+        sql_mode='ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION')
     conn.ping(True)
     cursor = conn.cursor()
     return (conn, cursor)
