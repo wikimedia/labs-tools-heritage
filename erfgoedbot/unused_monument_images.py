@@ -168,7 +168,7 @@ def output_country_report(unused_images, report_page, is_sparql=False,
             totalImages)
 
     pywikibot.debug(text, _logger)
-    common.save_to_wiki_or_local(report_page, comment, text, minorEdit=False)
+    common.save_to_wiki_or_local(report_page, comment, text, minor=False)
 
     return {
         'images': totalImages,

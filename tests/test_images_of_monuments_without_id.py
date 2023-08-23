@@ -457,7 +457,7 @@ class TestOutputCountryReport(TestCreateReportBase):
             self.mock_report_page,
             expected_cmt,
             expected_output,
-            minorEdit=False
+            minor=False
         )
         self.mock_instruction_header.assert_called_once()
 

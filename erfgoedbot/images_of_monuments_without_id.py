@@ -161,7 +161,7 @@ def output_country_report(rows, report_page, max_images=1000):
 
     pywikibot.debug(text, _logger)
     common.save_to_wiki_or_local(
-        report_page, comment, text, minorEdit=False)
+        report_page, comment, text, minor=False)
 
 
 def format_gallery_row(image, id=None, template=None):

@@ -164,7 +164,7 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
         self.mock_environ_get.assert_called_once_with(
             'HERITAGE_LOCAL_WRITE_PATH')
         self.mock_page_put.assert_called_once_with(
-            newtext=content, summary=summary, minorEdit=True)
+            newtext=content, summary=summary, minor=True)
         self.mock_page_to_filename.assert_not_called()
         self.mock_join.assert_not_called()
         self.assertEqual(self.test_outfile.read(), b'')

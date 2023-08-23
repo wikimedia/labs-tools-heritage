@@ -82,7 +82,7 @@ def get_source_page(source, harvest_type=None):
     return (page_name, site)
 
 
-def save_to_wiki_or_local(page, summary, content, minorEdit=True):
+def save_to_wiki_or_local(page, summary, content, minor=True):
     """
     Save the content to the page on a given site or store it locally.
 
@@ -92,7 +92,7 @@ def save_to_wiki_or_local(page, summary, content, minorEdit=True):
     @param page: the pywikibot.Page to which the content should be written
     @param content: the content to store
     @param summary: the edit summary to save the content with
-    @param minorEdit: if the edit should be marked as minor (defaults to True)
+    @param minor: if the edit should be marked as minor (defaults to True)
     """
     if not isinstance(page, pywikibot.Page):
         pywikibot.warning(
@@ -103,7 +103,7 @@ def save_to_wiki_or_local(page, summary, content, minorEdit=True):
 
     if not local_path:
         try:
-            page.put(newtext=content, summary=summary, minorEdit=minorEdit)
+            page.put(newtext=content, summary=summary, minor=minor)
         except (OtherPageSaveError, PageSaveRelatedError):
             pywikibot.warning(
                 'Could not save page {0} ({1})'.format(page, summary))
