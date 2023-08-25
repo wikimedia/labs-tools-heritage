@@ -73,7 +73,9 @@ def processCountry(countryconfig, conn, cursor, conn2, cursor2):
     missing_commonscat = group_missing_commonscat_by_source(
         commonscats, withoutCommonscat, countryconfig)
 
-    site = pywikibot.Site(countryconfig.get('lang'), 'wikipedia')
+    site = pywikibot.Site(
+        countryconfig.get('lang'),
+        countryconfig.get('project', 'wikipedia'))
     page = pywikibot.Page(site, missingCommonscatPage)
     iw_links = getInterwikisMissingCommonscatPage(
         countryconfig.get('country'), countryconfig.get('lang'))
