@@ -7,7 +7,7 @@ FAIL=0
 
 for f in $files; do
     if [ -e "$f" ]; then
-        (jsonschema -i  "$f" $JSON_PATH/monuments_config.schema && echo "√ $f") || FAIL=$((FAIL+1))
+        (check-jsonschema --schemafile="$JSON_PATH/monuments_config.schema" "$f" && echo "√ $f") || FAIL=$((FAIL+1))
     fi
 done
 if [[ $FAIL -ne 0 ]];  then
