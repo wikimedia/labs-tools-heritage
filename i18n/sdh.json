@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"TerranBoy"
+		]
+	},
+	"search-table-th-filter": "پاڵیار",
+	"search-table-th-search": "مینە",
+	"search-table-tr-countries": "وڵاتەگان",
+	"search-table-tr-languages": "زوانەگان",
+	"search-table-tr-name": "ناو",
+	"search-table-tr-address": "ناونیشان",
+	"search-table-tr-images": "وێنەگان",
+	"search-table-button-search": "مینە",
+	"filter-all-countries": "گشت وڵاتەگان",
+	"filter-all-languages": "گشت زوانەگان",
+	"db-field-country": "وڵات",
+	"db-field-lang": "زوان",
+	"db-field-name": "ناو",
+	"db-field-address": "ناونیشان",
+	"db-field-image": "چێنە",
+	"db-field-changed": "ئاڵشتکریاێ",
+	"db-field-source": "سەرچاوە",
+	"db-field-st_address": "ناونیشانەگان",
+	"db-field-st_address_pct": "ناونیشانەگان %",
+	"db-field-st_image": "وێنە",
+	"db-field-st_image_pct": "وێنە %",
+	"db-field-st_name": "ناوەگان",
+	"db-field-st_name_pct": "ناوەگان %",
+	"toolbox-nav-homepage": "ماڵپەڕ",
+	"toolbox-nav-statistics": "ئامارەگان",
+	"toolbox-nav-search": "مینە",
+	"location": "شوون"
+}
