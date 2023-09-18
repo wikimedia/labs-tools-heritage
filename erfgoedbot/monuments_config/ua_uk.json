@@ -80,6 +80,75 @@
             "dest": "monument_article",
             "source": "назва",
             "conv": "extractWikilink"
+        },
+        {
+            "dest": "",
+            "source": "ref-address"
+        },
+        {
+            "dest": "",
+            "source": "ref-name"
+        },
+        {
+            "dest": "",
+            "source": "ref-number"
+        },
+        {
+            "dest": "",
+            "source": "ref-place"
+        },
+        {
+            "dest": "",
+            "source": "ref-type"
+        },
+        {
+            "dest": "",
+            "source": "ref-year"
+        },
+        {
+            "dest": "wd_item",
+            "source": "wikidata",
+            "check": "checkWD"
+        },
+        {
+            "dest": "",
+            "source": "виключена"
+        },
+        {
+            "dest": "",
+            "source": "виключений"
+        },
+        {
+            "dest": "",
+            "source": "документ"
+        },
+        {
+            "dest": "",
+            "source": "комплекс"
+        },
+        {
+            "dest": "",
+            "source": "координати"
+        },
+        {
+            "dest": "",
+            "source": "назва-уточн"
+        },
+        {
+            "dest": "",
+            "source": "наказ"
+        },
+        {
+            "dest": "",
+            "source": "паспорт"
+        },
+        {
+            "dest": "",
+            "source": "сорт-адреса"
+        },
+        {
+            "dest": "",
+            "source": "тип-нп"
         }
     ],
     "sql_lang": "Ukrainian",
