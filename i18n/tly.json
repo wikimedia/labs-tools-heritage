@@ -8,10 +8,10 @@
 		]
 	},
 	"search-table-th-filter": "Филтр",
-	"search-table-th-search": "Bınəv",
+	"search-table-th-search": "Nəve",
 	"filter-all-languages": "Һәммәј зывонон",
 	"db-field-country": "Мәмләкәт",
-	"db-field-lang": "Zıvon",
+	"db-field-lang": "Zyvon",
 	"db-field-name": "Nom",
 	"db-field-address": "Унвон",
 	"db-field-lat": "Hevüji",
@@ -23,5 +23,5 @@
 	"db-field-st_name": "Nomon",
 	"db-field-st_name_pct": "Nomon %",
 	"toolbox-nav-homepage": "Əsosə səhifə",
-	"toolbox-nav-search": "Bınəv"
+	"toolbox-nav-search": "Nəve"
 }
