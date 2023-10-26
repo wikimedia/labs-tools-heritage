@@ -6,7 +6,8 @@
 			"LNDDYL",
 			"Liuxinyu970226",
 			"Shirayuki",
-			"Simon Shek"
+			"Simon Shek",
+			"Winston Sung"
 		]
 	},
 	"search-title": "搜尋古蹟",
@@ -43,7 +44,7 @@
 	"db-field-registrant_url": "註冊者的url",
 	"db-field-commonscat": "維基共享資源分類",
 	"db-field-wd_item": "維基數據項目",
-	"db-field-project": "維基媒體計劃",
+	"db-field-project": "維基媒體專案",
 	"db-field-st_address": "地址",
 	"db-field-st_address_pct": "地址 %",
 	"db-field-st_coordinates": "座標",
@@ -67,5 +68,5 @@
 	"toolbox-title-searchmonuments": "搜尋古蹟",
 	"toolbox-title-statistics": "古蹟統計內容",
 	"location": "位置",
-	"source-monuments-list": "維基媒體計劃上的紀念建築清單來源"
+	"source-monuments-list": "維基媒體專案上的紀念建築清單來源"
 }
