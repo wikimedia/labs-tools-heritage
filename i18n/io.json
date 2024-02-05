@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joao Xavier"
+		]
+	},
+	"search-table-th-field": "Loko por skribar",
+	"search-table-th-search": "Serchez",
+	"search-table-th-output": "Produkturo",
+	"search-table-tr-languages": "Lingui",
+	"search-table-tr-coordinates": "Koordinati",
+	"search-table-tr-images": "Imaji",
+	"search-table-button-search": "Serchez",
+	"filter-all-countries": "Omna landi",
+	"db-field-lang": "Linguo",
+	"db-field-name": "Nomo",
+	"db-field-image": "Imajo",
+	"db-field-source": "Fonto",
+	"db-field-st_coordinates": "Koordinati",
+	"db-field-st_coordinates_pct": "Koordinati %",
+	"db-field-st_image": "Imajo",
+	"db-field-st_image_pct": "Imajo %",
+	"toolbox-nav-search": "Serchez"
+}
