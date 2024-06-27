@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajiniyaz Nurniyazov",
 			"Inabat Allanova"
 		]
 	},
@@ -57,7 +58,7 @@
 	"toolbox-main-description": "$1 menen baylanıslı úskeneler paneli",
 	"toolbox-wikilovesmonuments": "Wiki Esteliklerdi Súyedi",
 	"toolbox-nav-homepage": "Bas bet",
-	"toolbox-nav-statistics": "Statistika",
+	"toolbox-nav-statistics": "Statistikalar",
 	"toolbox-nav-search": "Izlew",
 	"toolbox-title-searchmonuments": "Esteliklerdi izlew",
 	"toolbox-title-statistics": "Estelik statistikası",
