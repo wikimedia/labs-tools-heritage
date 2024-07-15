@@ -3,6 +3,7 @@
 		"authors": [
 			"Nirmal Dulal",
 			"RajeshPandey",
+			"पर्वत सुबेदी",
 			"सरोज कुमार ढकाल",
 			"हिमाल सुबेदी"
 		]
@@ -36,6 +37,7 @@
 	"db-field-source": "स्रोत",
 	"db-field-monument_article": "धरोहर पृष्ठ",
 	"db-field-registrant_url": "दर्ता युआरएल",
+	"db-field-commonscat": "कमन्स श्रेणी",
 	"db-field-st_address": "ठेगानाहरू",
 	"db-field-st_address_pct": "ठेगानाहरू %",
 	"db-field-st_coordinates": "अक्षांशहरु",
