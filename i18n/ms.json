@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Anakmalaysia"
+			"Anakmalaysia",
+			"Hakimi97"
 		]
 	},
 	"search-title": "Carian monumen",
@@ -24,6 +25,7 @@
 	"db-field-source": "Sumber",
 	"db-field-monument_article": "Rencana monumen",
 	"db-field-registrant_url": "URL Pendaftar",
+	"db-field-project": "Projek Wikimedia",
 	"db-field-st_address": "Alamat",
 	"db-field-st_address_pct": "% Alamat",
 	"db-field-st_coordinates": "Koordinat",
