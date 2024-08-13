@@ -4,7 +4,7 @@ user="";
 if [ -n "$1" ]; then
     user="$1"@
 fi
-ssh "$user"login-buster.toolforge.org <<'ENDSSH'
+ssh "$user"login.toolforge.org <<'ENDSSH'
 become heritage
 cd heritage
 echo "Pulling changes from Git..."
