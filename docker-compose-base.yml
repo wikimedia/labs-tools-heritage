@@ -1,37 +1,41 @@
-web:
-  build: .
-  dockerfile: conf/Dockerfile.web
-  ports:
-    - "8000:80"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: conf/Dockerfile.web
+    ports:
+      - "5000:80"
 
-db_dump:
-  build: ./conf/
-  dockerfile: Dockerfile.dbdump
-  volumes:
-    - ./mysql:/etc/mysql/conf.d
-  environment:
-    MYSQL_ROOT_PASSWORD: root_password
-    MYSQL_DATABASE: s51138__heritage_p
-    MYSQL_USER: heritage
-    MYSQL_PASSWORD: password
+  db_dump:
+    build:
+      context: ./conf/
+      dockerfile: Dockerfile.dbdump
+    volumes:
+      - ./mysql:/etc/mysql/conf.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: s51138__heritage_p
+      MYSQL_USER: heritage
+      MYSQL_PASSWORD: password
 
-db_empty:
-  image: mariadb:10.4.29
-  volumes:
-    - ./mysql:/etc/mysql/conf.d
-    - ./erfgoedbot/sql/:/docker-entrypoint-initdb.d/
-  environment:
-    MYSQL_ROOT_PASSWORD: root_password
-    MYSQL_DATABASE: s51138__heritage_p
-    MYSQL_USER: heritage
-    MYSQL_PASSWORD: password
-  command: mysqld --sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+  db_empty:
+    image: mariadb:10.4.29
+    volumes:
+      - ./mysql:/etc/mysql/conf.d
+      - ./erfgoedbot/sql/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: s51138__heritage_p
+      MYSQL_USER: heritage
+      MYSQL_PASSWORD: password
+    command: mysqld --sql_mode="ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
 
-bot:
-  build: .
-  dockerfile: conf/Dockerfile.bot
-  volumes:
-    - .:/code
-  environment:
-    PYWIKIBOT_NO_USER_CONFIG: 2
-  entrypoint: ["./conf/wait-for-db.sh"]
+  bot:
+    build:
+      context: .
+      dockerfile: conf/Dockerfile.bot
+    volumes:
+      - .:/code
+    environment:
+      PYWIKIBOT_NO_USER_CONFIG: 2
+    entrypoint: ["./conf/wait-for-db.sh"]
