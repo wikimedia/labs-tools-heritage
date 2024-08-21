@@ -41,7 +41,7 @@ docker-compose run --rm db mysql -h db s51138__heritage_p --user=heritage --pass
 docker-compose run --rm web php ../maintenance/_buildStats.php
 ```
 
-The web interface will be accessible on http://localhost:8000/
+The web interface will be accessible on http://localhost:5000/
 
 ### Toolforge
 
@@ -65,4 +65,4 @@ To hack on it, use [Composer](https://getcomposer.org/) to run PHP tests and [do
 docker-compose -f docker-compose-dump.yml up -d
 ```
 
-The web interface will be accessible on http://localhost:8000/
+The web interface will be accessible on http://localhost:5000/
