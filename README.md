@@ -66,3 +66,9 @@ docker-compose -f docker-compose-dump.yml up -d
 ```
 
 The web interface will be accessible on http://localhost:5000/
+
+License
+--------------------------
+
+With the exception of directories containing their own LICENSE file,
+this repository is licensed under the [MIT License](./LICENSE).
