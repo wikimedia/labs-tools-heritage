@@ -7,11 +7,16 @@ fi
 ssh "$user"login.toolforge.org <<'ENDSSH'
 become heritage
 cd heritage
+
 echo "Pulling changes from Git..."
 git pull
 git log "@{1}.." --oneline --reverse -C --no-merges
+
 echo "Updating dependencies..."
-./bin/build.sh
+toolforge jobs run build-python --command "cd $PWD && ./bin/build-python.sh" --image python3.7 --wait
+toolforge jobs run build-php --command "cd $PWD && ./bin/build-php.sh" --image php7.4 --wait
+echo "Dependencies updated"
+
 echo "Updating the Server Admin Log..."
 dologmsg "$(python bin/deploy_message_from_git_log.py)"
 echo "Deploy done."
