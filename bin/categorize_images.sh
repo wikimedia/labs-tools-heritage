@@ -2,17 +2,16 @@
 #
 # Script to categorize images
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $CURRENT_DIR/defaults.sh
 
-# Use a virtual environment with our requirements
+cd $SOURCE_PATH || exit
 source $VIRTUAL_ENV_PATH/bin/activate
-
-# Make sure we are in our homedir
-cd $HOME_DIR || exit
-
-# Use a virtual environment with our requirements
-source $VIRTUAL_ENV_PATH/bin/activate
+export PYTHONPATH=$SOURCE_PATH
 
 # Categorize some images
 echo_time "Categorize images..."
