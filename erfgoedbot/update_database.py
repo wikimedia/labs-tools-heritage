@@ -645,7 +645,6 @@ def main():
     days_back = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
-    (conn, cursor) = connect_to_monuments_database()
 
     for arg in pywikibot.handle_args():
         option, sep, value = arg.partition(':')
@@ -678,8 +677,10 @@ def main():
                 countrycode, lang))
         try:
             countryconfig = mconfig.countries.get((countrycode, lang))
+            (conn, cursor) = connect_to_monuments_database()
             process_country(countryconfig, conn, cursor, full_update,
                             days_back)
+            close_database_connection(conn, cursor)
         except Exception as e:
             pywikibot.error(
                 'Unknown error occurred when processing country '
@@ -695,17 +696,17 @@ def main():
                 'Working on countrycode "{0}" in language "{1}"'.format(
                     countrycode, lang))
             try:
+                (conn, cursor) = connect_to_monuments_database()
                 statistics.append(
                     process_country(countryconfig, conn, cursor, full_update,
                                     days_back))
+                close_database_connection(conn, cursor)
             except Exception as e:
                 pywikibot.error(
                     'Unknown error occurred when processing country '
                     '{0} in lang {1}\n{2}'.format(countrycode, lang, str(e)))
                 continue
         make_statistics(statistics)
-
-    close_database_connection(conn, cursor)
 
 
 if __name__ == "__main__":
