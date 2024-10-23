@@ -63,7 +63,12 @@ class Language {
 			$cldrCode = isset( self::$cldrOverrides[$prettyCode] )
 				? self::$cldrOverrides[$prettyCode]
 				: $prettyCode;
-			$file = "{$cldrPath}/CldrNames/CldrNames{$cldrCode}.php";
+			$file = "{$cldrPath}/CldrMain/CldrMain{$cldrCode}.php";
+			if ( !file_exists( $file ) ) {
+				// Backwards-compatibility, can be removed when we are sure
+				// https://gerrit.wikimedia.org/r/1082033 is deployed and stable
+				$file = "{$cldrPath}/CldrNames/CldrNames{$cldrCode}.php";
+			}
 			if ( is_file( $file ) ) {
 				$countryNames = [];
 				require_once $file;
