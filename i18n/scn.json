@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajeje Brazorf"
+			"Ajeje Brazorf",
+			"GianAntonucci"
 		]
 	},
 	"search-table-th-field": "Campu",
@@ -37,6 +38,6 @@
 	"db-field-st_name": "Noma",
 	"db-field-st_name_pct": "Noma %",
 	"db-field-st_total": "Nùmmiru tutali",
-	"toolbox-nav-homepage": "Pàggina principali",
+	"toolbox-nav-homepage": "Pàggina mastra",
 	"toolbox-nav-statistics": "Statìstichi"
 }
