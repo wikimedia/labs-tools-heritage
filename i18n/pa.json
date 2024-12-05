@@ -6,6 +6,8 @@
 			"Tow"
 		]
 	},
+	"search-title": "ਸਮਾਰਕਾਂ ਦੀ ਖੋਜ",
+	"search-monuments-database": "ਸਮਾਰਕਾਂ ਦੇ ਡਾਟਾਬੇਸ ਦੀ ਖੋਜ ਕਰੋ",
 	"search-table-th-field": "ਖੇਤਰ",
 	"search-table-th-filter": "ਛਾਨਣੀ",
 	"search-table-th-search": "ਖੋਜ",
@@ -19,9 +21,10 @@
 	"search-table-tr-images": "ਤਸਵੀਰਾੰ",
 	"search-table-tr-output-language": "ਆਊਟਪੁੱਟ ਭਾਸ਼ਾ",
 	"search-table-tr-output-format": "ਆਊਟਪੁੱਟ ਰੂਪ",
+	"search-table-checkbox-only-images": "ਚਿੱਤਰਾਂ ਤੋਂ ਬਿਨਾਂ ਸਿਰਫ ਸਮਾਰਕ",
 	"search-table-button-search": "ਖੋਜ",
 	"filter-all-countries": "ਸਾਰੇ ਦੇਸ਼",
-	"filter-all-languages": "ਸਾਰੀਆੰ ਭਾਸ਼ਾਵਾੰ",
+	"filter-all-languages": "ਸਾਰੀਆਂ ਭਾਸ਼ਾਵਾਂ",
 	"db-field-country": "ਮੁਲਕ",
 	"db-field-lang": "ਭਾਸ਼ਾ",
 	"db-field-id": "ਸ਼ਨਾਖ਼ਤਕਾਰ",
@@ -53,5 +56,6 @@
 	"toolbox-nav-search": "ਖੋਜ",
 	"toolbox-title-searchmonuments": "ਸਮਾਰਕ ਖੋਜੋ",
 	"toolbox-title-statistics": "ਸਮਾਰਕ ਆਂਕੜੇ",
-	"location": "ਟਿਕਾਣਾ"
+	"location": "ਟਿਕਾਣਾ",
+	"source-monuments-list": "ਵਿਕੀਮੀਡੀਆ ਪ੍ਰੋਜੈਕਟ ਉੱਤੇ ਸਰੋਤ ਸਮਾਰਕਾਂ ਦੀ ਸੂਚੀ"
 }
