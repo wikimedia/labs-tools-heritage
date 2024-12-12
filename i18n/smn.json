@@ -34,8 +34,10 @@
 	"db-field-lat": "Kobdodâhcekki",
 	"db-field-lon": "Kukkodâhcekki",
 	"db-field-image": "Kove",
+	"db-field-changed": "Hämmejum",
 	"db-field-source": "Käldee",
 	"db-field-monument_article": "Monumentartikkâl",
+	"db-field-registrant_url": "Registeristum URL",
 	"db-field-commonscat": "Commons-luokka",
 	"db-field-wd_item": "Wikidata-tiŋgâ",
 	"db-field-project": "Wikimedia-proojeekt",
@@ -51,10 +53,16 @@
 	"db-field-st_name_pct": "Noomah %",
 	"db-field-st_total": "Olesmeeri",
 	"toolbox-label-searchtipps": "Keevti %term, term% teikkâ %term% siävŋus uuccâm várás",
+	"toolbox-meta-title": "Wiki Loves Monuments tyejiniävuh",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments -logo",
+	"toolbox-main-title": "WLM-tyejiniävvukassâ",
+	"toolbox-main-description": "Tyejiniävuh moh lohtâseh čuosâttâsân $1",
+	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Ovdâsijđo",
 	"toolbox-nav-statistics": "Statistiikeh",
 	"toolbox-nav-search": "Uusâ",
 	"toolbox-title-searchmonuments": "Uusâ monumentijd",
 	"toolbox-title-statistics": "Monumentstatistiikeh",
-	"location": "Sajadâh"
+	"location": "Sajadâh",
+	"source-monuments-list": "Monumentlisto käldee Wikimedia-projektist"
 }
