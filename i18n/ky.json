@@ -8,6 +8,7 @@
 	},
 	"search-table-th-filter": "Чыпка",
 	"search-table-th-search": "Издөө",
+	"search-table-tr-countries": "Өлкөлөр",
 	"search-table-tr-images": "Сүрөттөр",
 	"search-table-button-search": "Издөө",
 	"filter-all-countries": "Бардык өлкөлөр",
@@ -25,5 +26,6 @@
 	"db-field-st_address": "Даректерди",
 	"db-field-st_image": "Сүрөт",
 	"db-field-st_image_pct": "Сүрөт %",
+	"toolbox-nav-statistics": "Статистика",
 	"toolbox-nav-search": "Издөө"
 }
