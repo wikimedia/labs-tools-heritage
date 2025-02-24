@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Erdemaslancan",
+			"GolyatGeri",
 			"Kumkumuk",
 			"Mirzali"
 		]
@@ -39,7 +40,7 @@
 	"db-field-monument_article": "Wesiqey zıyarık",
 	"db-field-registrant_url": "URL Tescil",
 	"db-field-commonscat": "Kategoriya embari",
-	"db-field-wd_item": "Obceya Wikidata",
+	"db-field-wd_item": "Obcey Wikidayıt",
 	"db-field-project": "Proceyê wikimedya",
 	"db-field-st_address": "Adres",
 	"db-field-st_address_pct": "Adresê %",
