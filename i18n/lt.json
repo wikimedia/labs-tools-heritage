@@ -52,6 +52,7 @@
 	"db-field-st_name": "Pavadinimai",
 	"db-field-st_name_pct": "Pavadinimai %",
 	"db-field-st_total": "Bendras skaičius",
+	"toolbox-label-searchtipps": "naudokite %term, term% ar %term% abstrakčiai paieškai",
 	"toolbox-meta-title": "„Wiki Loves Monuments“ įrankiai",
 	"toolbox-main-logo-alt": "Wiki Loves Monuments logotipas",
 	"toolbox-main-title": "WLM įrankiai",
@@ -62,5 +63,6 @@
 	"toolbox-nav-search": "Ieškoti",
 	"toolbox-title-searchmonuments": "Ieškoti paminklų",
 	"toolbox-title-statistics": "Paminklo statistika",
-	"location": "Vietovė"
+	"location": "Vietovė",
+	"source-monuments-list": "Šaltinių paminklų sąrašas Vikimedijos projekte"
 }
