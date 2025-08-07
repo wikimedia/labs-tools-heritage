@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BHARATHESHA ALASANDEMAJALU",
+			"ChiK",
 			"VASANTH S.N.",
 			"Vishwanatha Badikana"
 		]
@@ -26,7 +27,7 @@
 	"db-field-st_municipality": "ಪುರಸಬೆ",
 	"db-field-st_municipality_pct": "ಪುರಸಬೆ %",
 	"db-field-st_total": "ಒಟ್ಟು ಸಂಕ್ಯೆ",
-	"toolbox-nav-statistics": "ಅಂಕಿ ಅಂಸೊಲು",
+	"toolbox-nav-statistics": "ಅಂಕಿಅಂಸೊಲು",
 	"toolbox-nav-search": "ನಾಡ್‍ಲೆ",
 	"location": "ಸ್ತಲೊ"
 }
