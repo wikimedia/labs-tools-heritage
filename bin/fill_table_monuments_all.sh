@@ -42,7 +42,7 @@ curl -X 'POST' \
     "filelog_stdout": "logs/post_harvesting_python.out",
     "memory": "2G",
     "name": "post-harvesting-python",
-    "imagename": "python3.7"
+    "imagename": "python3.9"
 }'
 
 echo_time "Triggering categorization job..."
@@ -58,7 +58,7 @@ curl -X 'POST' \
     "filelog_stdout": "logs/categorize_images.out",
     "memory": "2G",
     "name": "categorize-images",
-    "imagename": "python3.7"
+    "imagename": "python3.9"
 }'
 
 echo_time "Done with fill_table_monuments_all"
