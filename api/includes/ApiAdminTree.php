@@ -105,7 +105,7 @@ class ApiAdminTree extends ApiBase {
 	 *
 	 * @return array
 	 */
-	private function getAdmDetails( $lang, $name, $level=false, $parent=false ) {
+	private function getAdmDetails( $lang, $name, $level = false, $parent = false ) {
 		$data = [];
 		$db = Database::getDb();
 		$fields = [ 'id', 'name', 'level' ];
@@ -196,7 +196,7 @@ class ApiAdminTree extends ApiBase {
 
 		// determine the id of the bottom-most requested zone
 		if ( $tree_depth > 1 ) {
-			for ( $i=1; $i < $tree_depth; $i++ ) {
+			for ( $i = 1; $i < $tree_depth; $i++ ) {
 				$adm_name = $admtree[$i];
 				$adm_details = $this->getAdmDetails( $lang, $adm_name, $i, $parent_id );
 				if ( !count( $adm_details ) ) {

@@ -7,8 +7,8 @@
 header( "Cache-Control: no-cache, must-revalidate" );
 header( "Expires: Thu, 01 Jan 1970 00:00:00 GMT" );
 header( 'Content-type: text/javascript;; charset=utf-8' );
-function getLatest( $size, $number, $country ) {
 
+function getLatest( $size, $number, $country ) {
 	$config_override = 'database.inc';
 	if ( file_exists( dirname( dirname( __DIR__ ) ) . "/{$config_override}" ) ) {
 		require dirname( dirname( __DIR__ ) ) . "/{$config_override}";
@@ -58,24 +58,24 @@ function getLatest( $size, $number, $country ) {
 	$fullimg = "https://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
 	$thumbprefix = "https://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
 
-	if ( !( $size==-1 ) && $size < $row['img_width'] ) {
+	if ( !( $size == -1 ) && $size < $row['img_width'] ) {
 		$upload['image'] = $thumbprefix . "/" . (int)$_GET["size"] . "px-" . $upload['title'];
 	} else {
 		$upload['image'] = $fullimg;
 	}
-	$returnResult[] =$upload;
+	$returnResult[] = $upload;
 	}
 	return json_encode( $returnResult );
 }
 
-$size =-1;
+$size = -1;
 if ( isset( $_GET["size"] ) ) {
-	$size =(int)$_GET["size"];
+	$size = (int)$_GET["size"];
 }
-$number=5;
-$max_number=20;
+$number = 5;
+$max_number = 20;
 if ( isset( $_GET["number"] ) ) {
-	$number =(int)$_GET["number"];
+	$number = (int)$_GET["number"];
 	if ( $number > $max_number ) {
 		$number = $max_number;
 	}
@@ -91,4 +91,3 @@ if ( isset( $_GET["year"] ) ) {
 
 $jsonData = getLatest( $size, $number, $country, $year );
 echo $_GET['callback'] . '(' . $jsonData . ');';
-

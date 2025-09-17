@@ -15,7 +15,7 @@ class Database {
 	 * @return Database
 	 */
 	static function getDb() {
-		if ( is_null( self::$singleton ) ) {
+		if ( self::$singleton === null ) {
 			throw new Exception( 'Database not available' );
 		}
 		return self::$singleton;
@@ -52,7 +52,7 @@ class Database {
 						$text .= $this->escapeIdentifier( $key ) . ' IN (' . $this->quote( $value[0] );
 						for ( $i = 1; $i < count( $value ); $i++ ) {
 							$text .= ', ' . $this->quote( $value[$i] );
-	     }
+						}
 						$text .= ')' . $glue;
 					} else {
 						$value = $value[0];
@@ -89,10 +89,10 @@ class Database {
 
 		if ( $orderBy ) {
 			$sql .= " ORDER BY " . $this->implodeIdentifier( $orderBy );
-	 }
+		}
 		if ( $limit ) {
 			$sql .= " LIMIT $limit";
-	 }
+		}
 		return new ResultWrapper( $this, $this->query( $sql ) );
 	}
 

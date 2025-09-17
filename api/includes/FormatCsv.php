@@ -44,7 +44,6 @@ class FormatCsv extends FormatBase {
 	}
 
 	function outputEnd() {
-
 	}
 
 	static function csvQuote( $text ) {

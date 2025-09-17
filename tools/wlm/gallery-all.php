@@ -102,6 +102,7 @@ class SillyLanguage {
 	function needsGenderDistinction() {
 		return false;
 	}
+
 	function getNsText( $namespace ) {
 		if ( $namespace != NS_FILE ) {
 			throw new Exception( "getNsText($namespace)" );
@@ -129,7 +130,7 @@ class SillyLanguage {
 	function getMessage( $name ) {
 		if ( $name == 'nbytes' ) {
 			return '$1 bytes'; // It's the same in most languages
-	 }
+		}
 		throw new Exception( "Requested message $name" );
 	}
 }
@@ -152,7 +153,7 @@ AND page_is_redirect=0";
 if ( isset( $_GET['country'] ) ) {
 	if ( isset( $monumentCat[$_GET['country']] ) ) {
 		$monIdCat = str_replace( " ", "_", $monumentCat[$_GET['country']] );
-		$query .= " AND clB.cl_to=". $db->addQuotes( $monIdCat );
+		$query .= " AND clB.cl_to=" . $db->addQuotes( $monIdCat );
 	} else {
 		die( 'No conf for country!' );
 	}
@@ -169,7 +170,7 @@ if ( isset( $_GET['id'] ) ) {
 	$query .= " AND clB.cl_sortkey LIKE '" . $db->strencode( $id_insortkey ) . "'";
 
 	echo "<p>", _html( 'gallery-header', [ 'raw-variables' => true, 'variables' => [
-		"<a href=\"http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry=". htmlspecialchars( $_GET['country'] ) ."&srlang=&srid=" . htmlspecialchars( $_GET['id'] ) . '">' . htmlspecialchars( $_GET['id'] ) . '</a>' ] ] ), " (Username shown is the last uploader.)</p>";
+		"<a href=\"http://toolserver.org/~erfgoed/api/api.php?action=search&format=htmllist&srcountry=" . htmlspecialchars( $_GET['country'] ) . "&srlang=&srid=" . htmlspecialchars( $_GET['id'] ) . '">' . htmlspecialchars( $_GET['id'] ) . '</a>' ] ] ), " (Username shown is the last uploader.)</p>";
 
 } else {
 	exit( 0 );
@@ -180,9 +181,8 @@ $gallery->mShowBytes = false;
 
 $res = $db->query( $query );
 foreach ( $res as $row ) {
-	$author_url = $wgServer . '/wiki/User:'. $row->author_text;
+	$author_url = $wgServer . '/wiki/User:' . $row->author_text;
 	$gallery->add( Title::newFromRow( $row ), Html::element( 'a', [ 'class' => 'author', 'href' => $author_url ], $row->author_text ) );
 }
 
 echo $gallery->toHTML();
-

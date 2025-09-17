@@ -13,10 +13,10 @@ class SearchPage {
 		$result = [];
 		$result[] = '<html>';
 		$result[] = '<head>';
-		$result[] = '<title>'. _i18n( 'search-title' ) .'</title>';
+		$result[] = '<title>' . _i18n( 'search-title' ) . '</title>';
 		$result[] = '</head>';
 		$result[] = '<body>';
-		$result[] = '<H1>'. _i18n( 'search-monuments-database' ) .'</H1>';
+		$result[] = '<H1>' . _i18n( 'search-monuments-database' ) . '</H1>';
 		$result = array_merge( $result, $this->getSearchForm() );
 		$result[] = '<br/><hr/>';
 		$result[] = $this->I18N->getPromoBox();
@@ -28,7 +28,7 @@ class SearchPage {
 
 	private function getSearchForm() {
 		$result = [];
-		$result[] = '<form action="'. $this->apiUrl .'">';
+		$result[] = '<form action="' . $this->apiUrl . '">';
 		$result[] = '<input type="hidden" name="action" value="search">';
 		$result[] = '<table border="1">';
 		$result[] = '<tr>';
@@ -123,10 +123,10 @@ class SearchPage {
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
-			$option = '<option value="'. htmlspecialchars( $row->country ) . '"';
+			$option = '<option value="' . htmlspecialchars( $row->country ) . '"';
 			if ( @$_GET['country'] == $row->country ) { $option .= ' selected="selected"';
-	  }
-			$option .= '>'. htmlspecialchars( $row->country ) .'</option>';
+			}
+			$option .= '>' . htmlspecialchars( $row->country ) . '</option>';
 			$result[] = $option;
 		}
 		$result[] = '</select>';
@@ -136,10 +136,10 @@ class SearchPage {
 
 	private function getLanguagesFilter() {
 		/*
-	 	 * Pull the languages from the database and build a nice select box
+		  * Pull the languages from the database and build a nice select box
 		 */
 		$result = [];
-		$result[] = '<select name="srlang" ' .$this->fieldStyle . '>';
+		$result[] = '<select name="srlang" ' . $this->fieldStyle . '>';
 		/* FIXME Pull from database and localize */
 		$result[] = '<option value="">' . _html( 'filter-all-languages' ) . '</option>';
 
@@ -148,10 +148,10 @@ class SearchPage {
 		$qres = new ResultWrapper( $db, $db->query( $sql ) );
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
-			$option = '<option value="'. htmlspecialchars( $row->lang ) .'"';
+			$option = '<option value="' . htmlspecialchars( $row->lang ) . '"';
 			if ( @$_GET['lang'] == $row->lang ) { $option .= ' selected="selected"';
-	  }
-			$option .= '>'. htmlspecialchars( $row->lang ) .'</option>';
+			}
+			$option .= '>' . htmlspecialchars( $row->lang ) . '</option>';
 			$result[] = $option;
 		}
 		$result[] = '</select>';
@@ -269,7 +269,7 @@ class SearchPage {
 		$result[] = '<select name="' . htmlspecialchars( $selectName ) . '" ' . $this->fieldStyle . '>';
 		foreach ( $options as $value => $name ) {
 			$result[] = '<option value="' . htmlspecialchars( $value ) . '"' .
-				( $value === $selected ? ' selected="selected"' : '' ) .	'>' . htmlspecialchars( $name ) . '</option>';
+				( $value === $selected ? ' selected="selected"' : '' ) . '>' . htmlspecialchars( $name ) . '</option>';
 		}
 		$result[] = '</select>';
 		return $result;

@@ -8,7 +8,7 @@
  * NOTE May be optimized by INSERTing in batches
  */
 // functions: processWikitext
-require_once ( 'CommonFunctions.php' );
+require_once 'CommonFunctions.php';
 
 /*
 *
@@ -35,19 +35,19 @@ class StatsBuilder extends Statistics {
 	var $aFields = null; // built on constructor, to allow Statistics::$fieldPrefix
 
 	/** Indicates where report should be built in RAM
-	* true - more RAM, but traceable;
-	* false - much less RAM, no traceability, not necessarily faster?
-	*/
+	 * true - more RAM, but traceable;
+	 * false - much less RAM, no traceability, not necessarily faster?
+	 */
 	static $bBuildInRAM = true;
 
 	function __construct( $oDB = null ) {
 		parent::__construct( $oDB );
 		$this->aFields = [
-			'name' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'name' ],
-			'address' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'address' ],
-			'municipality' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'municipality' ],
-			'image' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix.'image' ],
-			'coordinates' => [ 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix.'coordinates' ],
+			'name' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix . 'name' ],
+			'address' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix . 'address' ],
+			'municipality' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix . 'municipality' ],
+			'image' => [ 'type' => 'string', 'report_as' => Statistics::$fieldPrefix . 'image' ],
+			'coordinates' => [ 'type' => 'latlon', 'report_as' => Statistics::$fieldPrefix . 'coordinates' ],
 		];
 		ini_set( 'memory_limit', '512M' );
 	}
@@ -60,7 +60,7 @@ class StatsBuilder extends Statistics {
 		//   The server ignores DELAYED for INSERT ... SELECT or INSERT ... ON DUPLICATE KEY UPDATE statements.
 		// Anyway, from the benchmarks, there was no actual gain.
 		$sql = 'INSERT INTO ' . Statistics::$dbTable .
-			   ' VALUES("' . $this->getLatestDay() . '","' . $item . '","' . implode( '","', $index ) . '","' . $value . '")'.
+			   ' VALUES("' . $this->getLatestDay() . '","' . $item . '","' . implode( '","', $index ) . '","' . $value . '")' .
 			   ' ON DUPLICATE KEY UPDATE value = "' . $value . '"';
 		// $this->debug("  + SQL: $sql");
 		return $this->db->query( $sql );
@@ -70,8 +70,8 @@ class StatsBuilder extends Statistics {
 	 * Wipe "Latest Day" statistics (removing changing)
 	 */
 	private function clearLatestData() {
-		$this->debug( 'Clearing latest stats: '.$this->getLatestDay() );
-		$sql = 'DELETE FROM '.Statistics::$dbTable.' WHERE day = "'.$this->getLatestDay().'"';
+		$this->debug( 'Clearing latest stats: ' . $this->getLatestDay() );
+		$sql = 'DELETE FROM ' . Statistics::$dbTable . ' WHERE day = "' . $this->getLatestDay() . '"';
 		$this->db->query( $sql );
 	}
 
@@ -81,7 +81,7 @@ class StatsBuilder extends Statistics {
 	private function getTotals() {
 		$this->debug( 'Determining Totals' );
 		$sql = 'SELECT country, municipality, lang, project, COUNT(1) AS total
-			FROM '.Monuments::$dbTable.'
+			FROM ' . Monuments::$dbTable . '
 			GROUP BY country, municipality';
 		$wres = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$wres ) {
@@ -91,7 +91,7 @@ class StatsBuilder extends Statistics {
 		while ( $row = $wres->fetchRow() ) {
 			$idx = Statistics::packIdxFromIndex( $row, $this->db );
 			$count = $row[4];  // update if packageIdx changes
-			$this->setReportItem( Statistics::$fieldPrefix.'total', $idx, $count );
+			$this->setReportItem( Statistics::$fieldPrefix . 'total', $idx, $count );
 		}
 		return true;
 	}
@@ -102,36 +102,35 @@ class StatsBuilder extends Statistics {
 			$filter = 'lat <> 0 AND lon <> 0';
 			break;
 		default: /* 'string' */
-			$filter = $field.' IS NOT NULL AND LENGTH(TRIM('.$field.')) > 0';
+			$filter = $field . ' IS NOT NULL AND LENGTH(TRIM(' . $field . ')) > 0';
 			break;
 		}
 		return $filter;
 	}
 
 	private function getFieldStats( $field ) {
-
 		$filter = $this->getFilterForField( $field );
 		$report_as = $this->aFields[$field]['report_as'];
 
-		$tmp_table = 'tmp_'.$field;
+		$tmp_table = 'tmp_' . $field;
 
-		$sql = 'CREATE TEMPORARY TABLE '.$tmp_table.'
+		$sql = 'CREATE TEMPORARY TABLE ' . $tmp_table . '
 			SELECT country, municipality, count(1) as non_blank
-			FROM '.Monuments::$dbTable.'
-			WHERE '.$filter.'
+			FROM ' . Monuments::$dbTable . '
+			WHERE ' . $filter . '
 			GROUP BY country, municipality';
 		$this->db->query( $sql );
 
-		$sql = 'ALTER TABLE '.$tmp_table.' ADD UNIQUE INDEX idx1(country,municipality)';
+		$sql = 'ALTER TABLE ' . $tmp_table . ' ADD UNIQUE INDEX idx1(country,municipality)';
 		$this->db->query( $sql );
 
 		$sql = 'SELECT m1.country, m1.municipality, m1.lang, m1.project, IF(m2.non_blank IS NULL,0,m2.non_blank) AS non_blank
-		  FROM '.Monuments::$dbTable.' m1
-		  LEFT JOIN '.$tmp_table.' m2 ON m2.country = m1.country AND m2.municipality = m1.municipality
+		  FROM ' . Monuments::$dbTable . ' m1
+		  LEFT JOIN ' . $tmp_table . ' m2 ON m2.country = m1.country AND m2.municipality = m1.municipality
 		  GROUP BY m1.country, m1.municipality';
 		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg( "ERROR: failed to get total:".$field );
+			$this->setErrorMsg( "ERROR: failed to get total:" . $field );
 			return false;
 		}
 
@@ -139,8 +138,8 @@ class StatsBuilder extends Statistics {
 			$idx = Statistics::packIdxFromIndex( $row, $this->db );
 			$count = $row[4];  // update if packIdxFromIndex changes
 			$this->setReportItem( $report_as, $idx, $count );
-			$value_pct = sprintf( "%.2f", 100*$count/$this->report[Statistics::$fieldPrefix.'total'][Statistics::makeIdxString( $idx )] );
-			$this->setReportItem( $report_as.'_pct', $idx, $value_pct );
+			$value_pct = sprintf( "%.2f", 100 * $count / $this->report[Statistics::$fieldPrefix . 'total'][Statistics::makeIdxString( $idx )] );
+			$this->setReportItem( $report_as . '_pct', $idx, $value_pct );
 		}
 		return true;
 	}
@@ -151,11 +150,11 @@ class StatsBuilder extends Statistics {
 	public function setReportItem( $item, $idx, $value ) {
 		// $this->debug('REPORT['.$item.']['.$idx.'] = '.$value);
 		// we will need the totals in RAM anyway
-		if ( ( $item === Statistics::$fieldPrefix.'total' ) or StatsBuilder::$bBuildInRAM ) {
+		if ( ( $item === Statistics::$fieldPrefix . 'total' ) or self::$bBuildInRAM ) {
 			$this->report[$item][Statistics::makeIdxString( $idx )] = $value;
 		}
 
-		if ( !StatsBuilder::$bBuildInRAM ) {
+		if ( !self::$bBuildInRAM ) {
 			$this->storeValue( $item, $idx, $value );
 		}
 	}
@@ -169,14 +168,14 @@ class StatsBuilder extends Statistics {
 			return false;
 		}
 		foreach ( $this->aFields as $field => $fdata ) {
-			$this->debug( ' + Building report for field: '.$field );
+			$this->debug( ' + Building report for field: ' . $field );
 			$nTimeStart2 = time();
 			$this->getFieldStats( $field );
 			$nTimeEnd2 = time();
-			$this->debug( '   - Time elapsed: '.( $nTimeEnd2 - $nTimeStart2 ).' seconds.' );
+			$this->debug( '   - Time elapsed: ' . ( $nTimeEnd2 - $nTimeStart2 ) . ' seconds.' );
 		}
 		$nTimeEnd = time();
-		$this->debug( ' - Time elapsed: '.( $nTimeEnd - $nTimeStart ).' seconds.' );
+		$this->debug( ' - Time elapsed: ' . ( $nTimeEnd - $nTimeStart ) . ' seconds.' );
 		return true;
 	}
 
@@ -186,9 +185,9 @@ class StatsBuilder extends Statistics {
 	public function storeReport() {
 		$nTimeStart = time();
 		$this->debug( 'storeReport(): start' );
-		if ( StatsBuilder::$bBuildInRAM ) {
+		if ( self::$bBuildInRAM ) {
 			foreach ( $this->report as $item => $table ) {
-				$this->debug( ' + Storing report for item: '.$item );
+				$this->debug( ' + Storing report for item: ' . $item );
 				foreach ( $table as $idxString => $val ) {
 					if ( !$this->storeValue( $item, Statistics::invertIdxString( $idxString ), $val ) ) {
 						return false;
@@ -197,7 +196,7 @@ class StatsBuilder extends Statistics {
 			}
 		}
 		$nTimeEnd = time();
-		$this->debug( ' - Time elapsed: '.( $nTimeEnd - $nTimeStart ).' seconds.' );
+		$this->debug( ' - Time elapsed: ' . ( $nTimeEnd - $nTimeStart ) . ' seconds.' );
 	}
 
 }

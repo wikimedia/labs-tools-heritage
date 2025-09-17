@@ -5,7 +5,7 @@ error_reporting( E_ALL );
  * @author Joancreus (jcreus), based on Platonides work
  */
 // functions: processWikitext, getImageFromCommons, makeWikidataUrl, matchUrl, urlencodeWikiprojectLink
-require_once ( 'CommonFunctions.php' );
+require_once 'CommonFunctions.php';
 
 class FormatHtml extends FormatBase {
 	function getContentType() {
@@ -122,13 +122,13 @@ class FormatHtml extends FormatBase {
 					}
 					$cellData = processWikitext( $lang, $value, $makeLinks, $project );
 				} elseif ( strpos( strrev( $name ), 'tcp_' ) === 0 ) { // capture Statistics _pct fields
-					$tdattrs = ' class="ht'.( intval( $value/10 ) ).'"';
+					$tdattrs = ' class="ht' . ( intval( $value / 10 ) ) . '"';
 					$cellData = $value; // .' %' // this will break sorting! :(;
 				} else {
 					$cellData = htmlspecialchars( $value );
 				}
 
-				echo '<td'.$tdattrs.'>' . $cellData . '</td>';
+				echo '<td' . $tdattrs . '>' . $cellData . '</td>';
 				$this->linebreak();
 			}
 		}
@@ -139,7 +139,7 @@ class FormatHtml extends FormatBase {
 	function outputEnd() {
 		if ( $this->isTableOpen ) {
 			echo "</table>\n";
-	 }
+		}
 
 		echo "</body>\n</html>";
 	}

@@ -27,6 +27,7 @@ abstract class ApiBase {
 	abstract protected function executeModule();
 
 	protected $errors = [];
+
 	function setError( $errorCode ) {
 		$this->errors[] = $errorCode;
 	}
@@ -34,20 +35,20 @@ abstract class ApiBase {
 	public function getDefaultAllowedParams() {
 		global $dbMiserMode;
 		$params = [
-			'format' => [ ApiBase::PARAM_DFLT => 'xmlfm',
-				ApiBase::PARAM_TYPE => $dbMiserMode
+			'format' => [ self::PARAM_DFLT => 'xmlfm',
+				self::PARAM_TYPE => $dbMiserMode
 					? [ 'json', 'jsonp', 'xml', 'xmlfm' ]
 					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable', 'jsonp' ] ],
-			'callback' => [ ApiBase::PARAM_DFLT => false, ApiBase::PARAM_TYPE => 'callback' ],
-			'limit' => [ ApiBase::PARAM_MIN => 0, ApiBase::PARAM_MAX => $dbMiserMode ? 500 : 5000,
-				ApiBase::PARAM_DFLT => 100, ApiBase::PARAM_TYPE => 'integer' ],
+			'callback' => [ self::PARAM_DFLT => false, self::PARAM_TYPE => 'callback' ],
+			'limit' => [ self::PARAM_MIN => 0, self::PARAM_MAX => $dbMiserMode ? 500 : 5000,
+				self::PARAM_DFLT => 100, self::PARAM_TYPE => 'integer' ],
 			'action' => [
-				ApiBase::PARAM_DFLT => 'help',
-				ApiBase::PARAM_TYPE => ApiMain::getActions()
+				self::PARAM_DFLT => 'help',
+				self::PARAM_TYPE => ApiMain::getActions()
 			],
 			'uselang' => [
-				ApiBase::PARAM_DFLT => false,
-				ApiBase::PARAM_TYPE => 'string'
+				self::PARAM_DFLT => false,
+				self::PARAM_TYPE => 'string'
 			],
 		];
 		return $params;
@@ -64,14 +65,14 @@ abstract class ApiBase {
 			}
 
 			if ( isset( $_GET[$name] ) and strlen( $_GET[$name] ) ) {
-				$p = $allowed[$name][ApiBase::PARAM_TYPE];
+				$p = $allowed[$name][self::PARAM_TYPE];
 				if ( is_array( $p ) ) {
-					if ( empty( $allowed[$name][ApiBase::PARAM_ISMULTI] ) ) {
+					if ( empty( $allowed[$name][self::PARAM_ISMULTI] ) ) {
 						if ( in_array( $_GET[$name], $p ) ) {
 							$cache[$name] = $_GET[$name];
 						} else {
 							$this->setError( 'bad-param', $name );
-							$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
+							$cache[$name] = $allowed[$name][self::PARAM_DFLT];
 						}
 					} else {
 						$items = explode( '|', $_GET[$name] );
@@ -86,8 +87,8 @@ abstract class ApiBase {
 					}
 				} elseif ( $p == 'integer' ) {
 					$i = intval( $_GET[$name] ); // @fixme this will return 0 on failure, or 1 if it's a non-empty array... is this desired?
-					$cache[$name] = min( max( $i, $allowed[$name][ApiBase::PARAM_MIN] ),
-						$allowed[$name][ApiBase::PARAM_MAX] );
+					$cache[$name] = min( max( $i, $allowed[$name][self::PARAM_MIN] ),
+						$allowed[$name][self::PARAM_MAX] );
 				} elseif ( $p == 'boolean' ) {
 					if ( $_GET[$name] == '0' || ( $_GET[$name] == 'no' ) ) {
 						$cache[$name] = false;
@@ -95,17 +96,17 @@ abstract class ApiBase {
 						$cache[$name] = true;
 					} else {
 						$this->setError( 'bad-param', $name );
-						$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
+						$cache[$name] = $allowed[$name][self::PARAM_DFLT];
 					}
 				} elseif ( $p == 'callback' ) {
 					if ( !preg_match( '/^[A-Za-z0-9_]+$/', $_GET[$name] ) ) {
 						$this->setError( 'bad-callback-name', $_GET[$name] );
-						$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
+						$cache[$name] = $allowed[$name][self::PARAM_DFLT];
 					} else {
 						$cache[$name] = $_GET[$name];
 					}
 				} elseif ( $p == 'string' ) {
-					if ( empty( $allowed[$name][ApiBase::PARAM_ISMULTI] ) ) {
+					if ( empty( $allowed[$name][self::PARAM_ISMULTI] ) ) {
 						$cache[$name] = (string)$_GET[$name];
 					} elseif ( is_array( $_GET[$name] ) ) {
 						$cache[$name] = $_GET[$name];
@@ -116,7 +117,7 @@ abstract class ApiBase {
 					throw new Exception( "Unknown param type $p" );
 				}
 			} else {
-				$cache[$name] = $allowed[$name][ApiBase::PARAM_DFLT];
+				$cache[$name] = $allowed[$name][self::PARAM_DFLT];
 			}
 		}
 		return $cache[$name];
@@ -173,9 +174,9 @@ abstract class ApiBase {
 	/**
 	 * Returns the user's preferred language
 	 *
-	 * @param bool $useDefault: Whether default language for this country should be returned if user hasn't provided a language
+	 * @param bool $useDefault Whether default language for this country should be returned if user hasn't provided a language
 	 *
-	 * @return string|bool: Language code or false if uselang was not specified
+	 * @return string|bool Language code or false if uselang was not specified
 	 */
 	function getUseLang( $useDefault = true ) {
 		$useLang = $this->getParam( 'uselang' );
@@ -195,7 +196,7 @@ abstract class ApiBase {
 	}
 
 	/**
-	 * @return string|bool: Country code to be used by getUseLang() or false if none available/needed
+	 * @return string|bool Country code to be used by getUseLang() or false if none available/needed
 	 */
 	protected function getCountry() {
 		return false;
@@ -274,7 +275,6 @@ abstract class ApiBase {
 		$value = preg_replace( $pattern, $replacement, $value );
 		$value = explode( '|', $value );
 		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val );
-
-	 }, $value );
+		}, $value );
 	}
 }

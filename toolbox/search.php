@@ -1,5 +1,5 @@
 <?php
-require_once ( 'toolbox.php' );
+require_once 'toolbox.php';
 
 $toolboxPage = new ToolboxPage( $I18N );
 echo $toolboxPage->getPageIntro();
@@ -162,7 +162,7 @@ Output URL <small>for easy copy + paste</small>			</label><br/>
 	 /* get and convert values for on-the-fly query string */
 	  var format = "&format=" + $("#format").val();
 	  var props =  "&props="+ ($("#props-filler").val() || []).join('|');
-	   	var countries = ($("#country-filler").val() || []).join('|').toLowerCase();
+		   var countries = ($("#country-filler").val() || []).join('|').toLowerCase();
 	  var srcountry = "&srcountry=" + countries;
 	  var srname = ($("#srname").val() != "") ? "&srname=" + $("#srname").val() : "";
 	  var srid = ($("#srid").val() != "") ? "&srid=" + $("#srid").val() : "";

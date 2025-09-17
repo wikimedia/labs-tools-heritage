@@ -87,6 +87,7 @@ class ApiImages extends ApiBase {
 		$primaryKey = [ 'country', 'id' ];
 		$this->getFormatter()->output( $rows, $limit, 'continue', $props, $primaryKey );
 	}
+
 	/*
 	 * Add a link to a thumbnail and to the image page
 	 *

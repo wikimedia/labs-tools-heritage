@@ -17,6 +17,7 @@ class FormatXml extends FormatBase {
 	function outputBegin( $selectedItems ) {
 		echo sprintf( '<%s>', $this->api->getTopLevelNodeName() );
 	}
+
 	function outputContinue( $row, $continueKey, $primaryKey ) {
 		$continue = '';
 		foreach ( $primaryKey as $key ) {
@@ -35,6 +36,7 @@ class FormatXml extends FormatBase {
 		}
 		echo ' />';
 	}
+
 	function outputEnd() {
 		echo sprintf( '</%s>', $this->api->getTopLevelNodeName() );
 	}

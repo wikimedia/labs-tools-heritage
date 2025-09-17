@@ -6,20 +6,20 @@
  */
 class DatabaseExt {
 	private static $singleton = null;
-	private $db = [ 0=> '', 1=>'' ];
+	private $db = [ 0 => '', 1 => '' ];
 	private static $_last_slot = 0;
 	private static $_cur_slot = 0;
 
 	private static $__bDebug = true;
 
 	function debug( $msg ) {
-		if ( DatabaseExt::$__bDebug ) {
-			print "[d] ".$msg."\n";
+		if ( self::$__bDebug ) {
+			print "[d] " . $msg . "\n";
 		}
 	}
 
 	function getDb( $slot = 0 ) {
-		if ( is_null( self::$singleton ) ) {
+		if ( self::$singleton === null ) {
 			throw new Exception( 'Database not available' );
 		}
 		return self::$singleton;
@@ -29,7 +29,7 @@ class DatabaseExt {
 		if ( isset( self::$singleton->db[$slot] ) ) {
 			self::$_cur_slot = $slot;
 		}
-		DatabaseExt::debug( ' + Switched to server: '.mysqli_get_host_info( self::$singleton->db[self::$_cur_slot] ) );
+		self::debug( ' + Switched to server: ' . mysqli_get_host_info( self::$singleton->db[self::$_cur_slot] ) );
 			return self::$singleton->db[self::$_cur_slot];
 	}
 
@@ -39,7 +39,7 @@ class DatabaseExt {
 	}
 
 	static function initialize( $server, $database, $username, $password, $characterset = 'utf8' ) {
-		if ( is_null( self::$singleton ) ) {
+		if ( self::$singleton === null ) {
 			self::$singleton = new DatabaseExt();
 		}
 		self::$singleton->db[self::$_last_slot] = @mysqli_connect( $server, $username, $password );
@@ -48,7 +48,7 @@ class DatabaseExt {
 		}
 		self::setCurSlot( self::$_last_slot );
 		self::$_last_slot++;
-		self::$singleton->query( 'SET NAMES '.$characterset );
+		self::$singleton->query( 'SET NAMES ' . $characterset );
 		return mysqli_select_db( self::$singleton->db[self::$_cur_slot], $database );
 	}
 

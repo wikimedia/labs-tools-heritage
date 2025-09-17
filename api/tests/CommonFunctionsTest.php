@@ -2,7 +2,7 @@
 
 require(dirname(__FILE__).'/../includes/CommonFunctions.php');
 
-class CommonFunctionsTest extends PHPUnit_Framework_TestCase
+class CommonFunctionsTest extends \PHPUnit\Framework\TestCase
 {
 
 	public function test_getImageFromCommons()
@@ -88,9 +88,9 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 	public function test_matchWikiprojectLink_no_match()
 	{
 		$input = 'not-a-link';
-		$this->setExpectedException('Exception');  // present in phpUnit 4.8
+		// $this->setExpectedException('Exception');  // present in phpUnit 4.8
 		// $this->expectException('Exception');  // present in phpUnit 5.2+
-		// $this->expectExceptionMessage('No project link in text.');  // present in phpUnit 5.2+
+		$this->expectExceptionMessage('No project link in text.');  // present in phpUnit 5.2+
 		matchWikiprojectLink( $input );
 	}
 
@@ -210,9 +210,9 @@ class CommonFunctionsTest extends PHPUnit_Framework_TestCase
 	public function test_matchWikidataLink_no_match()
 	{
 		$input = 'not-a-link';
-		$this->setExpectedException('Exception');  // present in phpUnit 4.8
+		// $this->setExpectedException('Exception');  // present in phpUnit 4.8
 		// $this->expectException('Exception');  // present in phpUnit 5.2+
-		// $this->expectExceptionMessage('The provided url was not a wikidata link.');  // present in phpUnit 5.2+
+		$this->expectExceptionMessage('The provided url was not a wikidata link.');  // present in phpUnit 5.2+
 		matchWikidataLink( $input );
 	}
 

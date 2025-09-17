@@ -6,7 +6,7 @@ error_reporting( E_ALL );
  *
  */
 // functions: processWikitext, getImageFromCommons, makeWikidataUrl, urlencodeWikiprojectLink, matchUrl
-require_once ( 'CommonFunctions.php' );
+require_once 'CommonFunctions.php';
 
 class FormatHtmllist extends FormatBase {
 
@@ -31,11 +31,9 @@ class FormatHtmllist extends FormatBase {
 			  .oddRow { background-color:#F1F1F1; }
 			  .evenRow { background-color:#F9F9F9; }';
 		echo '</style>';
-
 	}
 
 	function outputTitle( $result, $numRows ) {
-
 		$title = '';
 		if ( $numRows == 1 ) {
 			foreach ( $result as $row ) {
@@ -47,7 +45,7 @@ class FormatHtmllist extends FormatBase {
 		} else {
 			$title = 'Monuments list';
 		}
-		echo '<title>'. $title .'</title>';
+		echo '<title>' . $title . '</title>';
 		echo "</head>\n<body>\n";
 		echo '<div class="main">';
 	}
@@ -85,14 +83,14 @@ class FormatHtmllist extends FormatBase {
 		if ( isset( $row->name ) and $row->name ) {
 			if ( isset( $row->monument_article ) and $row->monument_article ) {
 				$makeLinks = false;
-				$article_url = '//'. $row->lang . '.' . $row->project . '.org/wiki/' . $row->monument_article;
+				$article_url = '//' . $row->lang . '.' . $row->project . '.org/wiki/' . $row->monument_article;
 				$desc .= '<h2>';
 				$desc .= makeHTMLlink( $article_url, processWikitext(
 					$row->lang, $row->name, $makeLinks, $row->project ) );
 				$desc .= '</h2>';
 			} else {
 				$makeLinks = true;
-				$desc .= '<h2>'. processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</h2>';
+				$desc .= '<h2>' . processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) . '</h2>';
 			}
 		}
 		$desc .= '<ul>';

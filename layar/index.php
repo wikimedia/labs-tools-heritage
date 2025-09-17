@@ -7,7 +7,7 @@
 # ini_set('display_errors', true);
 # ini_set('html_errors', false);
 
-require_once ( dirname( __DIR__ ) . '/prox_search/clsARLayarServer.php' );
+require_once dirname( __DIR__ ) . '/prox_search/clsARLayarServer.php';
 require_once dirname( __DIR__ ) . '/api/common.php';
 
 $monTable = Monuments::$dbTable;
@@ -15,12 +15,12 @@ $proxTable = 'prox_search';
 $layarName = 'wikilovesmonuments';
 $layarAttribution = 'wikilovesmonuments.org';
 
-$joinSql = "JOIN ". $monTable ." allm ON (m.mon_country = allm.country AND m.mon_lang = allm.lang AND m.mon_id = allm.id)";
+$joinSql = "JOIN " . $monTable . " allm ON (m.mon_country = allm.country AND m.mon_lang = allm.lang AND m.mon_id = allm.id)";
 
 $ly = new clsARLayarServer();
 $ly_params = [ 'layar_name' => $layarName,
 				'layar_attribution' => $layarAttribution,
-// 			'actions_label_1' => "actions_label_1",
+// 'actions_label_1' => "actions_label_1",
 				'actions_uri_1' => "actions_uri_1",
 				'line_2' => "line_2",
 				'line_3' => "line_3",
@@ -28,7 +28,7 @@ $ly_params = [ 'layar_name' => $layarName,
 				'title' => "title",
 				'imageURL' => "imageURL",
 				'morePages' => true,
-// 			'layerURL' => "layerURL",
+// 'layerURL' => "layerURL",
 				'type' => "type",
 				'debug' => false ];		// Switch to false when taking server live  TEMP to TRUE
 

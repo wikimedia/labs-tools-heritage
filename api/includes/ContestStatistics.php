@@ -55,7 +55,7 @@ class ContestStatistics extends StatisticsBase {
 			break;
 		case 'user':
 			// $ctitems = array('user','n_images','n_images_accepted','n_countries' ,'n_wlm_ids', 'n_images_all', 'n_wlm_ids_all', 'n_images_accepted_all');
-			$report = $this->retrieveReportUser( $ctcountries, $ctitems, $limit, $ctorderby.' DESC' );
+			$report = $this->retrieveReportUser( $ctcountries, $ctitems, $limit, $ctorderby . ' DESC' );
 			break;
 		case 'image':
 			$report = $this->retrieveReportImage( $ctcountries );
@@ -69,9 +69,9 @@ class ContestStatistics extends StatisticsBase {
 		return $report;
 	}
 
-	function retrieveReportUser( $selcountries,$selcolumns, $limit=50,$orderby = false ) {
-		$countries = '"'.implode( '", "', $selcountries ).'"';
-		$selcolumns = array_intersect( ContestStatistics::$reportUserCols, $selcolumns );
+	function retrieveReportUser( $selcountries, $selcolumns, $limit = 50, $orderby = false ) {
+		$countries = '"' . implode( '", "', $selcountries ) . '"';
+		$selcolumns = array_intersect( self::$reportUserCols, $selcolumns );
 		sort( $selcolumns );
 		$sql = 'SELECT
 					st1.img_user_name AS user
@@ -101,24 +101,24 @@ class ContestStatistics extends StatisticsBase {
 					FROM statisticsct2
 					GROUP BY img_user_name) st2
 						ON st1.img_user_name = st2.img_user_name
-				WHERE st1.img_wlm_country IN ( '.$countries.' )
+				WHERE st1.img_wlm_country IN ( ' . $countries . ' )
 				GROUP BY st1.img_user_name';
 		if ( $orderby ) {
-			$sql .= ' ORDER BY '.$this->db->sanitize( $orderby );
+			$sql .= ' ORDER BY ' . $this->db->sanitize( $orderby );
 		}
 		if ( $limit ) {
-			$sql .= ' LIMIT '.$this->db->sanitize( $limit );
+			$sql .= ' LIMIT ' . $this->db->sanitize( $limit );
 		}
 		// print "SQL: $sql";
 		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg( "ERROR: failed to get reportCountry data: ".$this->db->getDBError() );
+			$this->setErrorMsg( "ERROR: failed to get reportCountry data: " . $this->db->getDBError() );
 			return false;
 		}
 		$users = [];
 		while ( $row = $oRes->fetchAssoc() ) {
 			$users[$row['user']] = 1;
-			for ( $i=0;$i<count( $selcolumns );$i++ ) {
+			for ( $i = 0;$i < count( $selcolumns );$i++ ) {
 				$this->report[$row['user']][$selcolumns[$i]] = $row[$selcolumns[$i]];
 			}
 			$this->report[$row['user']]['lang'] = 'pt';
@@ -135,52 +135,52 @@ class ContestStatistics extends StatisticsBase {
 
 	function retrieveReportCountry( $selcolumns, $orderby = false ) {
 		$selcolumns = [ 'country','images','users','new_users' ,'new_users_ratio', 'from_new_users', 'from_new_users_ratio' ];
-		$selcolumns = array_intersect( ContestStatistics::$reportCountryCols, $selcolumns );
+		$selcolumns = array_intersect( self::$reportCountryCols, $selcolumns );
 		sort( $selcolumns );
 		$queries = [];
-		foreach ( ContestStatistics::$activeCountries as $country => $category ) {
+		foreach ( self::$activeCountries as $country => $category ) {
 			$sql = 'SELECT img_wlm_country AS country
 					, COUNT(1) AS images
 					, COUNT(DISTINCT st1.img_user_id) AS users
 					, (SELECT COUNT(DISTINCT img_user_name)
 						FROM statisticsct2 st2
-						WHERE img_wlm_country = "'.$country.'"
+						WHERE img_wlm_country = "' . $country . '"
 							AND st2.user_first_rev >= 20110831230000) AS new_users
 					, ((SELECT COUNT(DISTINCT img_user_name)
 						FROM statisticsct2 st2
-						WHERE img_wlm_country = "'.$country.'"
+						WHERE img_wlm_country = "' . $country . '"
 							AND st2.user_first_rev >= 20110831230000) / COUNT(DISTINCT st1.img_user_id))*100 AS new_users_ratio
 					, (SELECT COUNT(1)
 						FROM statisticsct2 st2
 						WHERE user_first_rev>=20110831230000
-							AND img_wlm_country = "'.$country.'") AS from_new_users
+							AND img_wlm_country = "' . $country . '") AS from_new_users
 					, ((SELECT COUNT(1)
 						FROM statisticsct2 st2
 						WHERE user_first_rev>=20110831230000
-							AND img_wlm_country = "'.$country.'") / COUNT(1))*100 AS from_new_users_ratio
+							AND img_wlm_country = "' . $country . '") / COUNT(1))*100 AS from_new_users_ratio
 				FROM statisticsct2 st1
-				WHERE img_wlm_country = "'.$country.'"
+				WHERE img_wlm_country = "' . $country . '"
 				';
 			$queries[] = $sql;
 		}
 		$sql = implode( ' UNION ', $queries );
 		if ( $orderby ) {
-			$sql .= ' ORDER BY '.$orderby;
+			$sql .= ' ORDER BY ' . $orderby;
 		}
 		// print "SQL: $sql";
 		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg( "ERROR: failed to get reportCountry data: ".$this->db->getDBError() );
+			$this->setErrorMsg( "ERROR: failed to get reportCountry data: " . $this->db->getDBError() );
 			return false;
 		}
 		$countries = [];
 		while ( $row = $oRes->fetchAssoc() ) {
 			// TEMP: skip empty countries
-			if ( strlen( $row['country'] )<=0 ) {
+			if ( strlen( $row['country'] ) <= 0 ) {
 				continue;
 			}
 			$countries[$row['country']] = 1;
-			for ( $i=0;$i<count( $selcolumns );$i++ ) {
+			for ( $i = 0;$i < count( $selcolumns );$i++ ) {
 				$this->report[$row['country']][$selcolumns[$i]] = $row[$selcolumns[$i]];
 			}
 /*
@@ -205,20 +205,20 @@ class ContestStatistics extends StatisticsBase {
 	function retrieveReportImage( $countries ) {
 		// $this->debug('retrieveReport() started.');
 
-		$countries = array_intersect( $countries, array_keys( ContestStatistics::$activeCountries ) );
-		$countries_in = '"'.implode( '", "', $countries ).'"';
+		$countries = array_intersect( $countries, array_keys( self::$activeCountries ) );
+		$countries_in = '"' . implode( '", "', $countries ) . '"';
 		$sql = 'SELECT SUBSTR(img_timestamp,1,10) AS timeslot
 				, img_wlm_country as country
 				, COUNT(1) as n_images
-			FROM '.ContestStatistics::$dbTable.'
-			WHERE img_wlm_country IN ( '.$countries_in.' )
+			FROM ' . self::$dbTable . '
+			WHERE img_wlm_country IN ( ' . $countries_in . ' )
 			GROUP BY img_wlm_country,SUBSTR(img_timestamp,1,10)
 			ORDER BY img_timestamp;
 			';
 		// print "SQL: $sql";
 		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg( "ERROR: failed to get reportImage data: ".$this->db->getDBError() );
+			$this->setErrorMsg( "ERROR: failed to get reportImage data: " . $this->db->getDBError() );
 			return false;
 		}
 		$timeslots = [];
@@ -246,13 +246,13 @@ class ContestStatistics extends StatisticsBase {
 	}
 
 	function retrieveReportDump( $selcountries, $selcolumns, $ctfrom, $limit = 0 ) {
-		$countries_in = '"'.implode( '", "', $selcountries ).'"';
-		$selcolumns = array_intersect( ContestStatistics::$reportDumpCols, $selcolumns );
+		$countries_in = '"' . implode( '", "', $selcountries ) . '"';
+		$selcolumns = array_intersect( self::$reportDumpCols, $selcolumns );
 		sort( $selcolumns );
 		$ctfrom = $this->db->sanitize( $ctfrom );
-		for ( $i=0;$i<count( $selcolumns );$i++ ) {
+		for ( $i = 0;$i < count( $selcolumns );$i++ ) {
 			if ( $selcolumns[$i] != 'user_first_rev' ) {
-				$selcolumns[$i] = 'img_'.$selcolumns[$i];
+				$selcolumns[$i] = 'img_' . $selcolumns[$i];
 			}
 		}
 		$qcolumns = $selcolumns;
@@ -260,25 +260,25 @@ class ContestStatistics extends StatisticsBase {
 			$qcolumns[] = 'img_name';
 		}
 
-		$sql = 'SELECT '.implode( ',', $qcolumns ).'
-			FROM '.ContestStatistics::$dbTable.'
-			WHERE img_wlm_country IN ( '.$countries_in.' )
-				AND img_timestamp >= '.$ctfrom.'
+		$sql = 'SELECT ' . implode( ',', $qcolumns ) . '
+			FROM ' . self::$dbTable . '
+			WHERE img_wlm_country IN ( ' . $countries_in . ' )
+				AND img_timestamp >= ' . $ctfrom . '
 			ORDER BY img_timestamp
 			';
 		if ( $limit ) {
-			$sql .= 'LIMIT '.$limit;
+			$sql .= 'LIMIT ' . $limit;
 		}
 		// print "SQL: $sql";
 		$oRes = new ResultWrapper( $this->db, $this->db->query( $sql ) );
 		if ( !$oRes ) {
-			$this->setErrorMsg( "ERROR: failed to get reportImage data: ".$this->db->getDBError() );
+			$this->setErrorMsg( "ERROR: failed to get reportImage data: " . $this->db->getDBError() );
 			return false;
 		}
 		$timeslots = [];
 		$countries = [];
 		while ( $row = $oRes->fetchAssoc() ) {
-			for ( $i=0;$i<count( $selcolumns );$i++ ) {
+			for ( $i = 0;$i < count( $selcolumns );$i++ ) {
 				$this->report[$row['img_name']][$selcolumns[$i]] = $row[$selcolumns[$i]];
 			}
 			$this->report[$row['img_name']]['lang'] = 'pt';

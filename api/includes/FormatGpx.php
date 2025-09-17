@@ -18,7 +18,6 @@ class FormatGpx extends FormatBase {
 		echo ' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
 		echo ' xmlns="http://www.topografix.com/GPX/1/0"';
 		echo ' xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd">';
-
 	}
 
 	function outputBegin( $selectedItems ) {
@@ -27,6 +26,7 @@ class FormatGpx extends FormatBase {
 		// FIXME: Add bounds
 		// <bounds minlat="42.401051" minlon="-71.126602" maxlat="42.468655" maxlon="-71.102973"/>
 	}
+
 	function outputContinue( $row, $continueKey, $primaryKey ) {
 		/* $continue = '';
 		 * foreach ( $primaryKey as $key ) {
@@ -53,10 +53,11 @@ class FormatGpx extends FormatBase {
 		// src
 		echo '<src>' . htmlspecialchars( $row->source ) . '</src>';
 		// FIXME: Only include link if set
-		echo '<link>' . 'http://'. $row->lang .'.'. $row->project .'.org/wiki/'. htmlspecialchars( $row->monument_article ) . '</link>';
+		echo '<link>' . 'http://' . $row->lang . '.' . $row->project . '.org/wiki/' . htmlspecialchars( $row->monument_article ) . '</link>';
 		// sym (icon)
 		echo '</wpt>';
 	}
+
 	function outputEnd() {
 		echo '</gpx>';
 		// FIXME: Include some information about the rest

@@ -8,4 +8,3 @@ function autoloader( $name ) {
 }
 
 spl_autoload_register( 'autoloader' );
-

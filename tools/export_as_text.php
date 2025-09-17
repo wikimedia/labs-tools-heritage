@@ -9,8 +9,8 @@ ini_set( 'display_errors', 1 );
 ini_set( 'memory_limit', '200M' );
 
 $t0 = microtime( true );
-require_once ( dirname( __DIR__ ) . '/api/includes/Defaults.php' );
-require_once ( dirname( dirname( __DIR__ ) ) . '/database.inc' );
+require_once dirname( __DIR__ ) . '/api/includes/Defaults.php';
+require_once dirname( dirname( __DIR__ ) ) . '/database.inc';
 
 // make the db connection, check for errors
 $db = new mysqli( $dbServer, $dbUser, $dbPassword, $dbDatabase );

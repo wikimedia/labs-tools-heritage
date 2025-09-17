@@ -20,16 +20,16 @@ href="http://www.wikilovesmonuments.eu">www.wikilovesmonuments.eu</a>';
 		echo '<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://earth.google.com/kml/2.1">
  <Folder>
-  <name>'. $folderName .'</name>
+  <name>' . $folderName . '</name>
   <open>1</open>
   <Snippet></Snippet>
-  <description>'. $desc .'</description>
+  <description>' . $desc . '</description>
   <NetworkLink>
-   <name>'. $linkName .'</name>
+   <name>' . $linkName . '</name>
    <visibility>1</visibility>
    <open>0</open>
    <Link>
-    <href>' . $kml_url .'</href>
+    <href>' . $kml_url . '</href>
     <viewRefreshMode>onStop</viewRefreshMode>
     <viewRefreshTime>1</viewRefreshTime>
     <viewFormat>bbox=[bboxWest],[bboxSouth],[bboxEast],[bboxNorth]</viewFormat>

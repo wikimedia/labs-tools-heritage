@@ -28,16 +28,15 @@ class FormatJson extends FormatBase {
 			$continue .= "|" . rawurlencode( $row->$key );
 		}
 		$continue = substr( $continue, 1 );
-		$this->returnJSONArray["continue"] = [ $continueKey=>$continue ];
+		$this->returnJSONArray["continue"] = [ $continueKey => $continue ];
 	}
 
 	function outputRow( $row, $selectedItems ) {
-
 		$monumentArr = [];
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
 				if ( $name == "lat" || $name == "lon" ) {
-					$monumentArr[$name] = is_null( $value ) ? $value : (float)$value;
+					$monumentArr[$name] = $value === null ? $value : (float)$value;
 				} else {
 					$monumentArr[$name] = $value;
 				}
@@ -45,13 +44,12 @@ class FormatJson extends FormatBase {
 		}
 		$toplevel_node_name = $this->api->getTopLevelNodeName();
 		$this->returnJSONArray[ $toplevel_node_name ][] = $monumentArr;
-
 	}
 
 	function outputEnd() {
 		$prefix = $suffix = '';
 		$callback = $this->api->getParam( 'callback' );
-		if ( !is_null( $callback ) and $callback ) {
+		if ( $callback !== null and $callback ) {
 			$prefix = preg_replace( "/[^][.\\'\\\"_A-Za-z0-9]/", '', $callback ) . '(';
 			$suffix = ')';
 		}

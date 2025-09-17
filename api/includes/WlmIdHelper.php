@@ -11,16 +11,16 @@ class WlmIdHelper extends ExternalAPI {
 		];
 
 	function parseWlmId( $img, $country ) {
-		$text = $this->getPageText( 'File:'.$img );
+		$text = $this->getPageText( 'File:' . $img );
 		if ( !$text ) {
 			return false;
 		}
 		// $this->debug(' + TPL for '.$country.': '.$tpl);
-		if ( !isset( WlmIdHelper::$wlmids[$country] ) ) {
+		if ( !isset( self::$wlmids[$country] ) ) {
 			return false;
 		}
 		$matches = [];
-		if ( !preg_match_all( '/\{\{'.WlmIdHelper::$wlmids[$country].'\|([^\|\}]+)/', $text, $matches ) ) {
+		if ( !preg_match_all( '/\{\{' . self::$wlmids[$country] . '\|([^\|\}]+)/', $text, $matches ) ) {
 			return false;
 		}
 		if ( !isset( $matches[1][0] ) ) {

@@ -13,7 +13,7 @@ class ExternalAPI {
 
 	function debug( $msg ) {
 		if ( $this->__bDebug ) {
-			print "[d] ".$msg."\n";
+			print "[d] " . $msg . "\n";
 		}
 	}
 
@@ -24,11 +24,11 @@ class ExternalAPI {
 	function getPageText( $title ) {
 		// $this->debug('Fetching: '.$title);
 		$url_api = 'http://commons.wikimedia.org/w/api.php';
-		$url = $this->apiUrl.'?action=query&format=json&prop=revisions&rvprop=content&rvprop=timestamp|user|comment|content&titles='.urlencode( $title );
+		$url = $this->apiUrl . '?action=query&format=json&prop=revisions&rvprop=content&rvprop=timestamp|user|comment|content&titles=' . urlencode( $title );
 		// $this->debug(' + URL: '.$url);
 		$page = $this->fetchPage( $url );
 
-		if ( is_null( $page ) ) {
+		if ( $page === null ) {
 			return false;
 		}
 		$retobj = json_decode( $page, true );

@@ -17,8 +17,7 @@ $query = "SELECT `country`, `lang`, `id`, `lat`, `lon`
 GROUP BY `country`, `id`";
 
 $result = $db->query( $query );
-if ( !$result )
-{
+if ( !$result ) {
 	die( 'Invalid query: ' . mysqli_error( $db ) );
 }
 $result = new ResultWrapper( $db, $result );
@@ -26,7 +25,7 @@ $result = new ResultWrapper( $db, $result );
 foreach ( $result as $row ) {
 
 	if ( $row->lat >= -90 and $row->lat <= 90 and
-	     $row->lon >= -180 and $row->lon <= 180 ) {
+		 $row->lon >= -180 and $row->lon <= 180 ) {
 
 		$peano1 = $bg->generate_peano1( $row->lat, $row->lon );
 		$peano2 = $bg->generate_peano2( $row->lat, $row->lon );

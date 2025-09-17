@@ -49,7 +49,7 @@ class ApiMain {
 
 	/**
 	 * Print a help message
-	 * @TODO build this dynamically
+	 * @todo build this dynamically
 	 */
 	public static function help() {
 		/* TODO: Expand me and generate automagically! */
@@ -222,4 +222,3 @@ class ApiDummy extends ApiBase {
 		return $this->getDefaultAllowedParams();
 	}
 }
-

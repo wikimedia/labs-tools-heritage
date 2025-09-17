@@ -8,9 +8,9 @@
  * May be optimized by INSERTing in batches
  */
 
-require_once ( dirname( __DIR__ ) . '/api/autoloader.php' );
+require_once dirname( __DIR__ ) . '/api/autoloader.php';
 require dirname( __DIR__ ) . '/api/includes/Defaults.php';
-require_once ( dirname( dirname( __DIR__ ) ) . '/database.inc' );
+require_once dirname( dirname( __DIR__ ) ) . '/database.inc';
 
 ini_set( 'display_errors', 1 );
 ini_set( 'error_reporting', E_ALL );
@@ -22,14 +22,13 @@ if ( !defined( 'STDIN' ) ) {
 }
 
 Database::define( $dbServer, $dbDatabase, $dbUser,
-	isset( $toolserver_password )? $toolserver_password : $dbPassword );
+	isset( $toolserver_password ) ? $toolserver_password : $dbPassword );
 
 $stb = new StatsBuilder( Database::getDb() );
 if ( !$stb->buildReport() ) {
-	print $stb->getErrorMsg()."\n";
+	print $stb->getErrorMsg() . "\n";
 	die( 0 );
 }
 $stb->storeReport();
-$stb->debug( 'Memory usage: '.memory_get_peak_usage() );
+$stb->debug( 'Memory usage: ' . memory_get_peak_usage() );
 $stb->debug( 'exiting...' );
-

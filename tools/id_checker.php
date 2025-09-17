@@ -4,7 +4,7 @@ ini_set( 'display_errors', true );
 ini_set( 'html_errors', false );
 
 require_once dirname( __DIR__ ) . '/api/common.php';
-require_once ( '/api/includes/CommonFunctions.php' );
+require_once '/api/includes/CommonFunctions.php';
 
 $db = Database::getDb();
 print '<html>';
@@ -34,7 +34,7 @@ if ( isset( $_GET["country"] ) and isset( $_GET["lang"] ) ) {
 		$date = $row->changed;
 	}
 
-	print '<h1>Duplicate IDs in wikilists, as of '. $date .', with limit '. $dupe_limit .'</h1>';
+	print '<h1>Duplicate IDs in wikilists, as of ' . $date . ', with limit ' . $dupe_limit . '</h1>';
 	print '<table>';
 	print '<tr id="header">
 	<th>' . _i18n( 'db-field-id' ) . '</th>
@@ -58,7 +58,7 @@ if ( isset( $_GET["country"] ) and isset( $_GET["lang"] ) ) {
 			$linkText = str_replace( '_', ' ', $m[5] );
 			$encodedLink = urlencodeWikiprojectLink( $m );
 			print '<tr>
-				<td><a href="'. htmlspecialchars( $encodedLink ) .'">' . htmlspecialchars( $linkText ) . '</a></td>
+				<td><a href="' . htmlspecialchars( $encodedLink ) . '">' . htmlspecialchars( $linkText ) . '</a></td>
 			</tr>';
 		}
 	}
@@ -68,7 +68,7 @@ if ( isset( $_GET["country"] ) and isset( $_GET["lang"] ) ) {
 	$sql = "SELECT DISTINCT `country`, `lang` FROM `id_dump`";
 	$qres = new ResultWrapper( $db, $db->query( $sql ) );
 	foreach ( $qres as $row ) {
-		print '* <a href="id_checker.php?country=' . htmlspecialchars( $row->country ) . '&lang=' . htmlspecialchars( $row->lang ) .'">'. htmlspecialchars( $row->country ) . ' ('. htmlspecialchars( $row->lang ) . ')</a><br/>';
+		print '* <a href="id_checker.php?country=' . htmlspecialchars( $row->country ) . '&lang=' . htmlspecialchars( $row->lang ) . '">' . htmlspecialchars( $row->country ) . ' (' . htmlspecialchars( $row->lang ) . ')</a><br/>';
 	}
 
 }

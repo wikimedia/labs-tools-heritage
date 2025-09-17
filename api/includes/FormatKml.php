@@ -5,7 +5,7 @@
  */
 
 // functions
-require_once ( 'CommonFunctions.php' );
+require_once 'CommonFunctions.php';
 
 // class
 
@@ -38,7 +38,7 @@ class FormatKml extends FormatBase {
 		if ( isset( $row->lon ) and isset( $row->lat ) ) {
 			echo '<Placemark';
 			$placemarkId = $row->country . $row->lang . $row->id;
-			echo ' id="'. htmlspecialchars( $placemarkId ) .'">';
+			echo ' id="' . htmlspecialchars( $placemarkId ) . '">';
 			if ( isset( $row->name ) ) {
 				$makeLinks = false;
 				echo '<name>' . htmlspecialchars( processWikitext( $row->lang, $row->name, $makeLinks, $row->project ) ) . '</name>';
@@ -79,7 +79,7 @@ class FormatKml extends FormatBase {
 				$styleUrl = '#monumentStyle';
 			}
 			echo '<styleUrl>' . $styleUrl . '</styleUrl>';
-			echo '<Point><coordinates>' . $row->lon . ','  . $row->lat . '</coordinates></Point>';
+			echo '<Point><coordinates>' . $row->lon . ',' . $row->lat . '</coordinates></Point>';
 			echo '</Placemark>';
 		}
 	}

@@ -52,10 +52,10 @@ class Language {
 			$file = "{$subdivisionsPath}/subdivisions/Subdivisions{$subCode}.php";
 			if ( is_file( $file ) ) {
 				$subdivisions = [];
-				require_once ( $file );
+				require_once $file;
 				$overrides_file = "{$subdivisionsPath}/overrides/Overrides{$subCode}.php";
 				if ( is_file( $overrides_file ) ) {
-					require_once ( $overrides_file );
+					require_once $overrides_file;
 				}
 				$data['subdivisions'] = $subdivisions;
 			}
@@ -66,7 +66,7 @@ class Language {
 			$file = "{$cldrPath}/CldrNames/CldrNames{$cldrCode}.php";
 			if ( is_file( $file ) ) {
 				$countryNames = [];
-				require_once ( $file );
+				require_once $file;
 				$data['countryNames'] = $countryNames;
 			}
 		}

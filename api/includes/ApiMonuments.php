@@ -82,6 +82,7 @@ class ApiMonuments extends ApiBase {
 	}
 
 	private $isComplex = false;
+
 	private function complexQuery() {
 		if ( $this->isComplex ) {
 			$this->error( 'Only one pattern matching (%) or full-text (~) condition allowed' );
@@ -251,7 +252,7 @@ class ApiMonuments extends ApiBase {
 		/* FIXME: User should be able to set sort fields and order */
 		// add format specific order_by
 		$formatOrderby = $formatter->getRequiredOrderBy();
-		if ( $formatOrderby ){
+		if ( $formatOrderby ) {
 			$orderby = $formatOrderby;
 		}
 
@@ -261,7 +262,7 @@ class ApiMonuments extends ApiBase {
 			if ( count( $orderby ) != count( $v ) ) {
 				$this->error( 'Invalid continue parameter' );
 			}
-			for ( $i = 0; $i < count( $orderby ); $i++ ){
+			for ( $i = 0; $i < count( $orderby ); $i++ ) {
 				$where[] = $db->escapeIdentifier( $orderby[$i] ) . '>='
 					. $db->quote( rawurldecode( $v[$i] ) );
 			}
@@ -293,8 +294,7 @@ class ApiMonuments extends ApiBase {
 				if ( $useLang ) {
 					$id = "{$row->country}-{$row->id}";
 					if ( !isset( $rows[$id] )
-						|| $this->rowWeight( $row, $useLang ) > $this->rowWeight( $rows[$id], $useLang ) )
-					{
+						|| $this->rowWeight( $row, $useLang ) > $this->rowWeight( $rows[$id], $useLang ) ) {
 						$rows[$id] = $row;
 					}
 				} else {
@@ -304,7 +304,7 @@ class ApiMonuments extends ApiBase {
 			if ( $spatialMode ) {
 				$props[] = 'dist';
 				usort( $rows,
-					function( $a, $b ) {
+					function ( $a, $b ) {
 						if ( $a->dist == $b->dist ) {
 							return 0;
 						}
@@ -328,10 +328,9 @@ class ApiMonuments extends ApiBase {
 		}
 
 		$formatter->setRowFilter(
-			function( $row ) {
+			function ( $row ) {
 				if ( isset( $row->lat ) && isset( $row->lon )
-					&& !$row->lat && !$row->lon )
-				{
+					&& !$row->lat && !$row->lon ) {
 					unset( $row->lat );
 					unset( $row->lon );
 				}
@@ -342,6 +341,7 @@ class ApiMonuments extends ApiBase {
 	}
 
 	private $countryDefaults = [];
+
 	private function rowWeight( $row, $useLang ) {
 		if ( $useLang ) {
 			if ( $row->lang == $useLang ) {
@@ -363,7 +363,6 @@ class ApiMonuments extends ApiBase {
 	}
 
 	function statistics_db() {
-
 		global $dbMiserMode;
 		if ( $dbMiserMode ) {
 			$this->error( 'action=statistics is disabled due to miser mode' );
@@ -382,7 +381,7 @@ class ApiMonuments extends ApiBase {
 
 		$ctscope = $this->getParam( 'ctscope' );
 		$ctitems = $this->getParam( 'ctitem' );
-		if ( count( $ctitems )<=0 ) {
+		if ( count( $ctitems ) <= 0 ) {
 			if ( $ctscope == 'user' ) {
 				$ctitems = ContestStatistics::$reportUserCols;
 			} elseif ( $ctscope == 'country' ) {
@@ -406,7 +405,7 @@ class ApiMonuments extends ApiBase {
 	 * @param float $lat
 	 * @param float $lon
 	 * @param float $radius
-	 * @return Array
+	 * @return array
 	 */
 	public static function rectAround( $lat, $lon, $radius ) {
 		if ( !$radius ) {
@@ -443,7 +442,7 @@ class ApiMonuments extends ApiBase {
 	 * Returns a range of tenths of degree. Borrowed from Extension:GeoData
 	 * @param float $start
 	 * @param float $end
-	 * @return Array
+	 * @return array
 	 */
 	public static function intRange( $start, $end ) {
 		$start = round( $start * self::GRANULARITY );

@@ -1,9 +1,9 @@
 <?php
-$size =150;
+$size = 150;
 if ( isset( $_GET["size"] ) ) {
-	$size =(int)$_GET["size"];
+	$size = (int)$_GET["size"];
 }
-$margin = intval( 10*$size/150 ); // allow scaled margin
+$margin = intval( 10 * $size / 150 ); // allow scaled margin
 ?><!DOCTYPE html>
 <html><head>
 	<title></title>

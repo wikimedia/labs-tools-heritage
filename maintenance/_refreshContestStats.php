@@ -8,8 +8,8 @@
  * May be optimized by INSERTing in batches
  */
 
-require_once ( dirname( __DIR__ ) . '/api/autoloader.php' );
-require_once ( dirname( dirname( __DIR__ ) ) . '/database.inc' );
+require_once dirname( __DIR__ ) . '/api/autoloader.php';
+require_once dirname( dirname( __DIR__ ) ) . '/database.inc';
 
 ini_set( 'display_errors', 1 );
 ini_set( 'error_reporting', E_ALL );
@@ -29,29 +29,28 @@ if ( !$stb->openExclusiveLock() ) {
 	die( 0 );
 }
 $stb->clearLatestData();
-$stb->debug( 'Resuming update from: '.$stb->getLatestTimestamp() );
+$stb->debug( 'Resuming update from: ' . $stb->getLatestTimestamp() );
 
 DatabaseExt::initialize( CommonsDB::$dbServer, CommonsDB::$dbDatabase,
 	CommonsDB::$dbUser, $toolserver_password, 'latin1' );
 
 if ( !$stb->buildReport() ) {
-	print $stb->getErrorMsg()."\n";
+	print $stb->getErrorMsg() . "\n";
 	die( 0 );
 }
 
 DatabaseExt::getDb()->setCurSlot( 0 );
 
 if ( !$stb->storeReport() ) {
-	print $stb->getErrorMsg()."\n";
+	print $stb->getErrorMsg() . "\n";
 	die( 0 );
 }
 
-$stb->debug( 'Memory usage: '.memory_get_peak_usage() );
+$stb->debug( 'Memory usage: ' . memory_get_peak_usage() );
 
 if ( !$stb->updateWlmEmptyIds() ) {
-	print $stb->getErrorMsg()."\n";
+	print $stb->getErrorMsg() . "\n";
 	die( 0 );
 }
 $stb->printStats();
 $stb->closeExclusiveLock();
-

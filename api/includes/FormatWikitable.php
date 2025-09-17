@@ -5,7 +5,7 @@ error_reporting( E_ALL );
  * @author Joancreus (jcreus), based on Platonides work
  */
 // functions: matchWikiprojectLink, makeWikidataWikilink, matchWikidataQid
-require_once ( 'CommonFunctions.php' );
+require_once 'CommonFunctions.php';
 
 class FormatWikitable extends FormatBase {
 	function getContentType() {
@@ -81,8 +81,9 @@ class FormatWikitable extends FormatBase {
 	function outputEnd() {
 		if ( $this->isTableOpen ) {
 			echo "|}\n";
-	 }
+		}
 	}
+
 	/**
 	 * Make this a nice link if it is a url (source column)
 	 */
@@ -107,7 +108,9 @@ class FormatWikitable extends FormatBase {
 
 	static function genImage( $img ) {
 		if ( $img != "" ) {
-			return '[[File:'.$img.'|100px]]';
+			return '[[File:' . $img . '|100px]]';
+		} else {
+			return "";
 		}
 	}
 }

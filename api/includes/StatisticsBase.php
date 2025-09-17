@@ -22,13 +22,13 @@ class StatisticsBase {
 
 	function debug( $msg ) {
 		if ( $this->__bDebug ) {
-			print "[d] ".$msg."\n";
+			print "[d] " . $msg . "\n";
 		}
 	}
 
 	// TODO
 	function getSanitizedParam( $sParam ) {
-		return isset( $_GET[$sParam] )?$_GET[$sParam]:false;
+		return isset( $_GET[$sParam] ) ? $_GET[$sParam] : false;
 	}
 
 	protected function setErrorMsg( $msg ) {

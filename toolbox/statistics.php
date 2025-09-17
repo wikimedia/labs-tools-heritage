@@ -1,5 +1,5 @@
 <?php
-require_once ( 'toolbox.php' );
+require_once 'toolbox.php';
 
 $toolboxPage = new ToolboxPage( $I18N );
 echo $toolboxPage->getPageIntro();

@@ -33,7 +33,7 @@ header( 'Content-type: text/html;; charset=utf-8' );
 	}
 <?php
 	if ( isset( $_GET['width'] ) ) {
-		echo 'table { width: '.$_GET['width']."; }\n\n";
+		echo 'table { width: ' . $_GET['width'] . "; }\n\n";
 	}
 ?>
 	td {

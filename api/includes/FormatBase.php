@@ -36,9 +36,13 @@ abstract class FormatBase {
 	}
 
 	abstract function getContentType();
+
 	abstract function outputBegin( $selectedItems );
+
 	abstract function outputContinue( $row, $continueKey, $primaryKey );
+
 	abstract function outputRow( $row, $selectedItems );
+
 	abstract function outputEnd();
 
 	function output( $result, $limit, $continueKey, $selectedItems, $primaryKey ) {
@@ -61,7 +65,7 @@ abstract class FormatBase {
 	}
 
 	/**
-	 * @param array|string $errors: Error message or array of them
+	 * @param array|string $errors Error message or array of them
 	 */
 	function outputErrors( $errors ) {
 		// Does nothing by default because not every format has the means of reporting errors

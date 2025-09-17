@@ -23,7 +23,7 @@ class Statistics extends StatisticsBase {
 
 	function getLatestDay() {
 		if ( empty( $this->lastDay ) ) {
-			$sql = 'SELECT MAX(day) FROM '.Statistics::$dbTable;
+			$sql = 'SELECT MAX(day) FROM ' . self::$dbTable;
 			$res = $this->db->query( $sql );
 			$oRes = new ResultWrapper( $this->db, $res );
 			$row = $oRes->fetchRow();
@@ -41,11 +41,11 @@ class Statistics extends StatisticsBase {
 
 		// sanitize inputs
 		$items = [];
-		for ( $i=0; $i<count( $aItems ); $i++ ) {
+		for ( $i = 0; $i < count( $aItems ); $i++ ) {
 			$items[] = $this->db->sanitize( $aItems[$i] );
 		}
 		$filters = [];
-		for ( $i=0; $i<count( $aFilters ); $i++ ) {
+		for ( $i = 0; $i < count( $aFilters ); $i++ ) {
 			$filters[] = $this->db->sanitize( $aFilters[$i] );
 		}
 		$sLimit = $this->db->sanitize( $sLimit );
@@ -57,17 +57,17 @@ class Statistics extends StatisticsBase {
 		$fields = [ 'country', 'muni', 'lang', 'project', 'day', 'item', 'value' ];
 		$where = [];
 
-		$items_in = '"'. Statistics::$fieldPrefix . implode( '","'.Statistics::$fieldPrefix, $items ) . '"';
-		$where[] = 'item IN ('.$items_in.')';
-		$where[] = '`day` = "'.$this->getLatestDay().'"';
+		$items_in = '"' . self::$fieldPrefix . implode( '","' . self::$fieldPrefix, $items ) . '"';
+		$where[] = 'item IN (' . $items_in . ')';
+		$where[] = '`day` = "' . $this->getLatestDay() . '"';
 
 		$filters_in = [];
-		for ( $i=0; $i<count( $filters ); $i++ ) {
-			$filters_in[] = 'country LIKE "'.$filters[$i].'%"';
+		for ( $i = 0; $i < count( $filters ); $i++ ) {
+			$filters_in[] = 'country LIKE "' . $filters[$i] . '%"';
 		}
 		$where[] = implode( ' OR ', $filters_in );
 
-		$oRes = $this->db->select( $fields, Statistics::$dbTable, $where, false, $sLimit );
+		$oRes = $this->db->select( $fields, self::$dbTable, $where, false, $sLimit );
 		if ( !$oRes ) {
 			$this->setErrorMsg( 'ERROR: Error running query' );
 			return false;
@@ -76,9 +76,9 @@ class Statistics extends StatisticsBase {
 		$idxs = [];
 		while ( $row = $oRes->fetchAssoc() ) {
 			# var_dump($row);
-			$idx = Statistics::packIdxFromLabel( $row );
+			$idx = self::packIdxFromLabel( $row );
 			# var_dump($idx);
-			$idxString = Statistics::makeIdxString( $idx );
+			$idxString = self::makeIdxString( $idx );
 			$group[$row[$gc]] = 1;
 			$idxs[$idxString] = 1;
 			list( $country,$municipality,$lang,$project ) = $idx;
@@ -115,8 +115,8 @@ class Statistics extends StatisticsBase {
 	static function packIdxFromIndex( $row, $db ) {
 		$country = $db->sanitize( $row[0] );
 		$muni = $row[1];
-		if ( strlen( $muni ) >= Statistics::$maxMuniLength ) {
-			$muni = substr( $muni, 0, Statistics::$maxMuniLength - 1 ) . '…';
+		if ( strlen( $muni ) >= self::$maxMuniLength ) {
+			$muni = substr( $muni, 0, self::$maxMuniLength - 1 ) . '…';
 		}
 		$municipality = $db->sanitize( $muni );
 		$lang = $db->sanitize( $row[2] );
