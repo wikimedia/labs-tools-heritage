@@ -217,6 +217,10 @@
         "monument_article": {
             "value": "monument_article",
             "type": "Field"
+        },
+        "wd_item": {
+            "value": "wd_item",
+            "type": "Field"
         }
     }
 }

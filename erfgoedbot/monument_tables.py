@@ -62,6 +62,9 @@ def process_classic_config(country_config):
             has_lat_lon = True
             fields_sql.append(
                 '`{}` double DEFAULT NULL,'.format(column))
+        elif column == 'wd_item':
+            fields_sql.append(
+                '`{}` {} DEFAULT NULL,'.format(column, default_type))
         else:
             typ = field.get('type') or default_type
             if typ.startswith('int('):
