@@ -15,8 +15,8 @@ def get_git_log():
     command = 'git log %s --format="%s"' % (GIT_LOG_OPTIONS, GIT_LOG_FORMAT)
     process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
     (log, _) = process.communicate()
-    log = log.strip('\n\x1e').split("\x1e")
-    log = [row.strip().split("\x1f") for row in log]
+    log = log.decode('utf-8').strip('\n\x1e').split('\x1e')
+    log = [row.strip().split('\x1f') for row in log]
     log = [dict(list(zip(GIT_COMMIT_FIELDS, row))) for row in log]
     return log
 

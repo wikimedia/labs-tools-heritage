@@ -1,4 +1,8 @@
 #!/bin/bash
+
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+. $CURRENT_DIR/defaults.sh
+
 set -e
 user="";
 if [ -n "$1" ]; then
@@ -18,6 +22,6 @@ toolforge jobs run build-php --command "./bin/build-php.sh" --image php7.4 --wai
 echo "Dependencies updated"
 
 echo "Updating the Server Admin Log..."
-dologmsg "$(python bin/deploy_message_from_git_log.py)"
+dologmsg "$($VIRTUAL_ENV_PATH/bin/$PYWIKIBOT_BIN bin/deploy_message_from_git_log.py)"
 echo "Deploy done."
 ENDSSH
