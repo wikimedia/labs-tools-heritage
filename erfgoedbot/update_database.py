@@ -269,9 +269,13 @@ def update_monument(contents, source, countryconfig, conn, cursor,
         ('%s, ' * len(fieldnames)).rstrip(', '))
 
     # print query % tuple(fieldvalues)
-    with warnings.catch_warnings(record=True) as w:
-        warnings.simplefilter('always')
-        cursor.execute(query, fieldvalues)
+    try:
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+            cursor.execute(query, fieldvalues)
+    except Exception as e:
+        pywikibot.error("Error when inserting monument from {}: {}".format(source_page, e))
+        print(query % tuple(fieldvalues))
 
         # FIXME : Disable for now because print throws UnicodeEncodeErrors
         # if len(w) == 1:

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """Parse Git logs of the latest deploy and prepare a SAL message."""
 
 import re
