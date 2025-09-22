@@ -41,6 +41,7 @@
 	"db-field-changed": "Άλλαξε",
 	"db-field-source": "Πηγή",
 	"db-field-monument_article": "Σελίδα μνημείου",
+	"db-field-registrant_url": "URL καταχωρίζοντος",
 	"db-field-commonscat": "Κατηγορία των Κοινών",
 	"db-field-wd_item": "Τεμάχιο Wikidata",
 	"db-field-project": "Εγχείρημα του Wikimedia",
@@ -66,5 +67,6 @@
 	"toolbox-nav-search": "Αναζήτηση",
 	"toolbox-title-searchmonuments": "Αναζήτηση μνημείων",
 	"toolbox-title-statistics": "Στατιστικά Μνημείων",
-	"location": "Τοποθεσία"
+	"location": "Τοποθεσία",
+	"source-monuments-list": "Λίστα πηγών μνημείων σε ένα έργο Wikimedia"
 }
