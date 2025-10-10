@@ -14,7 +14,7 @@ future = "*"
 pywikibot = "*"
 requests = "*"
 PyMySQL = "*"
-PyYAML = "*"
+PyYAML = "<6.0"
 mwparserfromhell = "*"
 
 [requires]
