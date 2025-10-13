@@ -1,13 +1,27 @@
 {
 	"@metadata": {
 		"authors": [
-			"ChrisPtDe"
+			"ChrisPtDe",
+			"L'Arpetani"
 		]
 	},
 	"search-title": "Rechèrche de monuments",
+	"search-monuments-database": "Rechèrchiér dens la bâsa de balyês des monuments",
 	"search-table-th-field": "Champ",
 	"search-table-th-filter": "Filtro",
 	"search-table-th-search": "Rechèrchiér",
+	"search-table-th-output": "Sortia",
+	"search-table-tr-countries": "Payis",
+	"search-table-tr-languages": "Lengoues",
+	"search-table-tr-name": "Nom",
+	"search-table-tr-address": "Adrèce",
+	"search-table-tr-municipality": "Municipalitât",
+	"search-table-tr-coordinates": "Coordonâs",
+	"search-table-tr-images": "Émâges",
+	"search-table-tr-output-language": "Lengoua de sortia",
+	"search-table-tr-output-format": "Format de sortia :",
+	"search-table-checkbox-only-images": "Solament los monuments sen émâges",
+	"search-table-button-search": "Rechèrchiér",
 	"filter-all-countries": "Tôs los payis",
 	"filter-all-languages": "Totes les lengoues",
 	"db-field-country": "Payis",
@@ -22,6 +36,10 @@
 	"db-field-changed": "Changiê",
 	"db-field-source": "Sôrsa",
 	"db-field-monument_article": "Articllo sur lo monument",
+	"db-field-registrant_url": "URL de l'encartâjo",
+	"db-field-commonscat": "Catègorie Commons",
+	"db-field-wd_item": "Èlèment Wikidata",
+	"db-field-project": "Projèt Wikimedia",
 	"db-field-st_address": "Adrèces",
 	"db-field-st_address_pct": "Adrèces %",
 	"db-field-st_coordinates": "Coordonâs",
@@ -35,11 +53,15 @@
 	"db-field-st_total": "Soma",
 	"toolbox-label-searchtipps": "empleyéd %mot ou ben mot% ou ben %mot% por na rechèrche trobla",
 	"toolbox-meta-title": "Bouèta d’outils de Wiki Loves Monuments",
+	"toolbox-main-logo-alt": "Simbolo de « Wiki Loves Monuments »",
 	"toolbox-main-title": "Bouèta d’outils de WLM",
+	"toolbox-main-description": "Un ensemblo d'outils relatifs a $1",
 	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "Pâge de reçua",
 	"toolbox-nav-statistics": "Statistiques",
 	"toolbox-nav-search": "Rechèrche",
 	"toolbox-title-searchmonuments": "Rechèrche de monuments",
-	"location": "Emplacement"
+	"toolbox-title-statistics": "Statistiques des monuments",
+	"location": "Emplacement",
+	"source-monuments-list": "Lista sôrsa des monuments sur un projèt Wikimedia"
 }
