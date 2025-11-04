@@ -1,0 +1,23 @@
+[project]
+name = "erfgoedbot"
+version = "0.0.1"
+requires-python = "~=3.9"
+dependencies = [
+    "future",
+    "pywikibot",
+    "requests",
+    "PyMySQL",
+    "PyYAML<6.0",
+    "mwparserfromhell",
+]
+
+[dependency-groups]
+dev = [
+    "nose",
+    "nose-cov",
+    "coverage",
+    "freezegun",
+]
+
+[tool.uv]
+package = false
