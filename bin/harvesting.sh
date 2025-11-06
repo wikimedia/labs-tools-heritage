@@ -26,7 +26,7 @@ FILL_TABLE_MONUMENTS_ALL_JOB=$(
     "filelog_stdout": "logs/fill_table_monuments_all.out",
     "memory": "2G",
     "name": "fill-table-monuments-all",
-    "imagename": "mariadb"
+    "imagename": "$TOOLFORGE_MARIADB_IMAGE"
 }
 EOF
 )

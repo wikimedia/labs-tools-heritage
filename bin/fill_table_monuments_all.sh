@@ -23,7 +23,7 @@ PHP_POST_HARVEST_JOB=$(
     "filelog_stdout": "logs/post_harvesting_php.out",
     "memory": "2G",
     "name": "post-harvesting-php",
-    "imagename": "php7.4"
+    "imagename": "$TOOLFORGE_PHP_IMAGE"
 }
 EOF
 )
@@ -39,7 +39,7 @@ PYTHON_POST_HARVEST_JOB=$(
     "filelog_stdout": "logs/post_harvesting_python.out",
     "memory": "2G",
     "name": "post-harvesting-python",
-    "imagename": "python3.9"
+    "imagename": "$TOOLFORGE_PYTHON_IMAGE"
 }
 EOF
 )
@@ -55,7 +55,7 @@ CATEGORISATION_JOB=$(
     "filelog_stdout": "logs/categorize_images.out",
     "memory": "2G",
     "name": "categorize-images",
-    "imagename": "python3.9"
+    "imagename": "$TOOLFORGE_PYTHON_IMAGE"
 }
 EOF
 )

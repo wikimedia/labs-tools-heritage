@@ -31,6 +31,9 @@ create_toolforge_job() {
 : ${TOOLFORGE_API_CERT:=$HOME_DIR/.toolskube/client.crt}
 : ${TOOLFORGE_API_JOBS_ENDPOINT:=$TOOLFORGE_API_URL/jobs/v1/tool/$TOOL_NAME/jobs/}
 : ${TOOLFORGE_API_FLAGS:=--insecure --cert $TOOLFORGE_API_CERT --key $TOOLFORGE_API_KEY}
+: ${TOOLFORGE_PYTHON_IMAGE:=python3.9}
+: ${TOOLFORGE_PHP_IMAGE:=php7.4}
+: ${TOOLFORGE_MARIADB_IMAGE:=mariadb}
 
 # Executables
 : ${PYWIKIBOT_BIN:=python}
