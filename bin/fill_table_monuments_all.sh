@@ -14,12 +14,9 @@ SQL_FILE="$ERFGOED_PATH/sql/fill_table_monuments_all.sql"
 $MYSQL_BIN -h $DB_SERVER $DATABASE < $SQL_FILE
 
 echo_time "Triggering Python post-harvesting steps..."
-curl -X 'POST' \
-    $TOOLFORGE_API_FLAGS \
-    $TOOLFORGE_API_JOBS_ENDPOINT \
-    -H 'accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d '{
+PHP_POST_HARVEST_JOB=$(
+    cat <<EOF
+{
     "cmd": "./bin/post_harvesting_php.sh",
     "filelog": true,
     "filelog_stderr": "logs/post_harvesting_php.err",
@@ -27,15 +24,20 @@ curl -X 'POST' \
     "memory": "2G",
     "name": "post-harvesting-php",
     "imagename": "php7.4"
-}'
-
-echo_time "Triggering PHP post-harvesting steps..."
+}
+EOF
+)
 curl -X 'POST' \
     $TOOLFORGE_API_FLAGS \
     $TOOLFORGE_API_JOBS_ENDPOINT \
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' \
-    -d '{
+    -d "$PHP_POST_HARVEST_JOB"
+
+echo_time "Triggering PHP post-harvesting steps..."
+PYTHON_POST_HARVEST_JOB=$(
+    cat <<EOF
+{
     "cmd": "./bin/post_harvesting_python.sh",
     "filelog": true,
     "filelog_stderr": "logs/post_harvesting_python.err",
@@ -43,15 +45,20 @@ curl -X 'POST' \
     "memory": "2G",
     "name": "post-harvesting-python",
     "imagename": "python3.9"
-}'
-
-echo_time "Triggering categorization job..."
+}
+EOF
+)
 curl -X 'POST' \
     $TOOLFORGE_API_FLAGS \
     $TOOLFORGE_API_JOBS_ENDPOINT \
     -H 'accept: application/json' \
     -H 'Content-Type: application/json' \
-    -d '{
+    PYTHON"$PYTHON_POST_HARVEST_JOB"
+
+echo_time "Triggering categorization job..."
+CATEGORISATION_JOB=$(
+    cat <<EOF
+{
     "cmd": "./bin/categorize_images.sh",
     "filelog": true,
     "filelog_stderr": "logs/categorize_images.err",
@@ -59,6 +66,14 @@ curl -X 'POST' \
     "memory": "2G",
     "name": "categorize-images",
     "imagename": "python3.9"
-}'
+}
+EOF
+)
+curl -X 'POST' \
+    $TOOLFORGE_API_FLAGS \
+    $TOOLFORGE_API_JOBS_ENDPOINT \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d "$CATEGORISATION_JOB"
 
 echo_time "Done with fill_table_monuments_all"
