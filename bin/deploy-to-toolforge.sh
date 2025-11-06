@@ -1,8 +1,5 @@
 #!/bin/bash
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-. $CURRENT_DIR/defaults.sh
-
 set -e
 user="";
 if [ -n "$1" ]; then
@@ -11,6 +8,7 @@ fi
 ssh "$user"login.toolforge.org <<'ENDSSH'
 become heritage
 cd heritage
+. bin/defaults.sh
 
 echo "Pulling changes from Git..."
 git pull
