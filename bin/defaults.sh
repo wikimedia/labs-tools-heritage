@@ -2,6 +2,16 @@ echo_time() {
     echo "$(date +%F_%T) $*"
 }
 
+create_toolforge_job() {
+    local json_payload="$1"
+    curl -X 'POST' \
+        "$TOOLFORGE_API_FLAGS" \
+        "$TOOLFORGE_API_JOBS_ENDPOINT" \
+        -H 'accept: application/json' \
+        -H 'Content-Type: application/json' \
+        -d "$json_payload"
+}
+
 # Paths
 : ${TOOL_NAME:=heritage}
 : ${HOME_DIR:=/data/project/$TOOL_NAME}

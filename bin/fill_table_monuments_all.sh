@@ -27,12 +27,7 @@ PHP_POST_HARVEST_JOB=$(
 }
 EOF
 )
-curl -X 'POST' \
-    $TOOLFORGE_API_FLAGS \
-    $TOOLFORGE_API_JOBS_ENDPOINT \
-    -H 'accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d "$PHP_POST_HARVEST_JOB"
+create_toolforge_job "$PHP_POST_HARVEST_JOB"
 
 echo_time "Triggering PHP post-harvesting steps..."
 PYTHON_POST_HARVEST_JOB=$(
@@ -48,12 +43,7 @@ PYTHON_POST_HARVEST_JOB=$(
 }
 EOF
 )
-curl -X 'POST' \
-    $TOOLFORGE_API_FLAGS \
-    $TOOLFORGE_API_JOBS_ENDPOINT \
-    -H 'accept: application/json' \
-    -H 'Content-Type: application/json' \
-    PYTHON"$PYTHON_POST_HARVEST_JOB"
+create_toolforge_job "$PYTHON_POST_HARVEST_JOB"
 
 echo_time "Triggering categorization job..."
 CATEGORISATION_JOB=$(
@@ -69,11 +59,6 @@ CATEGORISATION_JOB=$(
 }
 EOF
 )
-curl -X 'POST' \
-    $TOOLFORGE_API_FLAGS \
-    $TOOLFORGE_API_JOBS_ENDPOINT \
-    -H 'accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d "$CATEGORISATION_JOB"
+create_toolforge_job "$CATEGORISATION_JOB"
 
 echo_time "Done with fill_table_monuments_all"

@@ -30,11 +30,6 @@ FILL_TABLE_MONUMENTS_ALL_JOB=$(
 }
 EOF
 )
-curl -X 'POST' \
-    $TOOLFORGE_API_FLAGS \
-    $TOOLFORGE_API_JOBS_ENDPOINT \
-    -H 'accept: application/json' \
-    -H 'Content-Type: application/json' \
-    -d "$FILL_TABLE_MONUMENTS_ALL_JOB"
+create_toolforge_job "$FILL_TABLE_MONUMENTS_ALL_JOB"
 
 echo_time "Done harvesting"
