@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"CoderSI"
+			"CoderSI",
+			"Procedural human"
 		]
 	},
-	"search-title": "Inshootlarni qidirish",
-	"search-monuments-database": "Inshootlar bazasi boʻyicha qidirish",
+	"search-title": "Yodgorliklarni qidirish",
+	"search-monuments-database": "Yodgorliklar ma'lumotlar bazasi boʻyicha qidirish",
 	"search-table-th-field": "Maydon",
 	"search-table-th-filter": "Filtr",
 	"search-table-th-search": "Qidiruv",
-	"filter-all-countries": "Darcha davlatlar",
+	"filter-all-countries": "Barcha davlatlar",
 	"filter-all-languages": "Barcha tillar",
 	"db-field-country": "Davlat",
 	"db-field-lang": "Til",
@@ -22,7 +23,7 @@
 	"db-field-image": "Rasm",
 	"db-field-changed": "Oʻzgartirildi",
 	"db-field-source": "Manba",
-	"db-field-monument_article": "Yodgorlik haqida maqola",
+	"db-field-monument_article": "Yodgorlik sahifasi",
 	"db-field-registrant_url": "Registrantning URL-manzili",
 	"db-field-st_address": "Manzillar",
 	"db-field-st_address_pct": "Manzillar %",
@@ -30,12 +31,12 @@
 	"db-field-st_coordinates_pct": "Koordinatalar %",
 	"db-field-st_image": "Tasvir",
 	"db-field-st_image_pct": "Tasvir %",
-	"db-field-st_municipality": "Munitsipalitetlar",
-	"db-field-st_municipality_pct": "Munitsipalitetlar %",
+	"db-field-st_municipality": "Munitsipalitet",
+	"db-field-st_municipality_pct": "Munitsipalitet %",
 	"db-field-st_name": "Nomlar",
 	"db-field-st_name_pct": "Nomlar %",
 	"db-field-st_total": "Umumiy soni",
-	"toolbox-label-searchtipps": "eskirgan maʼlumotlarni qidirish uchun %term, term% yoki %term% dan foydalaning",
+	"toolbox-label-searchtipps": "taxminiy qidiruv uchun %atama, atama% yoki %atama% dan foydalaning",
 	"toolbox-meta-title": "Wiki Loves Monuments asboblari",
 	"toolbox-main-title": "WLM asboblari",
 	"toolbox-main-description": "Quyidagi bilan bogʻliq asboblar toʻplami",
