@@ -93,6 +93,10 @@
             "source": "lon",
             "check": "checkLon"
         },
+	{
+            "dest": "",
+            "source": "geo_naam"
+        },
         {
             "dest": "image",
             "source": "image"
