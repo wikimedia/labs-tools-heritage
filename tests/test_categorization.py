@@ -6,6 +6,7 @@ import unittest
 import unittest.mock as mock
 
 from erfgoedbot import categorize_images
+
 from report_base_test import TestCreateReportTableBase
 
 

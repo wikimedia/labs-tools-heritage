@@ -9,6 +9,7 @@ from collections import Counter, OrderedDict
 import pywikibot
 
 from erfgoedbot import update_database
+
 from report_base_test import (
     TestCreateReportBase,
     TestCreateReportTableBase,

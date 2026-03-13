@@ -76,7 +76,7 @@ def _load_wikipedia_commonscat_templates():
 def _load_ignored_categories():
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     yaml_file = os.path.join(data_dir, 'ignore_commons_categories.yml')
-    raw_list = yaml.load(open(yaml_file, 'r'))
+    raw_list = yaml.safe_load(open(yaml_file, 'r'))
     commons_site = pywikibot.Site('commons', 'commons')
     return [pywikibot.Category(commons_site, cat) for cat in raw_list]
 

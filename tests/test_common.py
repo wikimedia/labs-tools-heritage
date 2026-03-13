@@ -6,6 +6,7 @@ import unittest.mock as mock
 from collections import OrderedDict
 
 from erfgoedbot import common
+
 from report_base_test import make_mock_page
 
 

@@ -5,6 +5,7 @@ import unittest
 import unittest.mock as mock
 
 from erfgoedbot import images_of_monuments_without_id
+
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 
 

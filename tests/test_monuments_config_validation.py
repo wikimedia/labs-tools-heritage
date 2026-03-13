@@ -3,8 +3,9 @@
 
 import unittest
 
-from custom_assertions import CustomAssertions
 from erfgoedbot import monuments_config as config
+
+from custom_assertions import CustomAssertions
 
 
 class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):

@@ -3,6 +3,7 @@ import unittest
 import unittest.mock as mock
 
 from erfgoedbot import database_statistics
+
 from report_base_test import TestCreateReportBase
 
 

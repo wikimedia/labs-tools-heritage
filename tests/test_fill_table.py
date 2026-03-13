@@ -4,9 +4,10 @@
 import re
 import unittest
 
-from custom_assertions import CustomAssertions
 from erfgoedbot import fill_table_monuments_all as fill_table
 from erfgoedbot import monuments_config as config
+
+from custom_assertions import CustomAssertions
 
 
 def isolate_dataset_entries(text):
