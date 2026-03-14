@@ -477,7 +477,7 @@ def processCountry(countryconfig, commonsCatTemplates, conn, cursor,
 
     # Get a preloading generator with only images
     pgenerator = pagegenerators.PreloadingGenerator(
-        pagegenerators.NamespaceFilterPageGenerator(generator, [6]))
+        pagegenerators.NamespaceFilterPageGenerator(generator, [6]), quiet=True)
     for page in pgenerator:
         totalImages += 1
         success = False

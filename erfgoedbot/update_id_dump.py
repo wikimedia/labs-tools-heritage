@@ -104,7 +104,7 @@ def processCountry(countryconfig, conn, cursor):
     transGen = rowTemplate.getReferences(only_template_inclusion=True)
     filteredGen = pagegenerators.NamespaceFilterPageGenerator(
         transGen, countryconfig.get('namespaces'))
-    pregenerator = pagegenerators.PreloadingGenerator(filteredGen)
+    pregenerator = pagegenerators.PreloadingGenerator(filteredGen, quiet=True)
     for page in pregenerator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking

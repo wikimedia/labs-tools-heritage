@@ -495,12 +495,12 @@ def process_country_list(countryconfig, conn, cursor, full_update, days_back):
         # requested.
         query = """TRUNCATE table `{0}`""".format(countryconfig.get('table'))
         cursor.execute(query)
-        generator = pagegenerators.PreloadingGenerator(filtered_gen)
+        generator = pagegenerators.PreloadingGenerator(filtered_gen, quiet=True)
         # FIXME : Truncate the table
     else:
         # Preloading first because the whole page needs to be fetched to get
         # the time
-        pregenerator = pagegenerators.PreloadingGenerator(filtered_gen)
+        pregenerator = pagegenerators.PreloadingGenerator(filtered_gen, quiet=True)
         begintime = datetime.datetime.utcnow() + \
             datetime.timedelta(days=0 - days_back)
         generator = pagegenerators.EdittimeFilterPageGenerator(
