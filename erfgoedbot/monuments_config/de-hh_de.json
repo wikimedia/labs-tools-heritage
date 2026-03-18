@@ -1,0 +1,157 @@
+{
+    "country": "de-hh",
+    "lang": "de",
+    "description": "Baudenkmäler i Hamburg in German",
+    "project": "wikipedia",
+    "namespaces": [
+        0
+    ],
+    "table": "monuments_de-hh_(de)",
+    "truncate": false,
+    "primkey": "nummer",
+    "headerTemplate": "Denkmalliste Hamburg Tabellenkopf",
+    "rowTemplate": "Denkmalliste Hamburg Tabellenzeile",
+    "commonsTemplate": "Kulturdenkmal Hamburg",
+    "commonsTrackerCategory": "Cultural heritage monuments in Hamburg with known IDs",
+    "commonsCategoryBase": "Cultural heritage monuments in Hamburg",
+    "unusedImagesPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hamburg/Ungenutzte Bilder",
+    "imagesWithoutIdPage": "Wikipedia:WikiProjekt Denkmalpflege/Deutschland/Hamburg/Bilder ohne Nummer",
+    "fields": [
+        {
+            "dest": "nummer",
+            "source": "Nummer",
+            "default": "0",
+            "type": "varchar(15)"
+        },
+        {
+            "dest": "",
+            "source": "Num_alt"
+        },
+        {
+            "dest": "wikidata",
+            "source": "Wikidata"
+        },
+        {
+            "dest": "adresse",
+            "source": "Adresse"
+        },
+        {
+            "dest": "",
+            "source": "Art"
+        },
+        {
+            "dest": "",
+            "source": "Typ"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschreibung"
+        },
+        {
+            "dest": "",
+            "source": "Datierung"
+        },
+        {
+            "dest": "",
+            "source": "Entwurf"
+        },
+        {
+            "dest": "",
+            "source": "Ensemble"
+        },
+        {
+            "dest": "artikel",
+            "source": "Artikel"
+        },
+        {
+            "dest": "bild",
+            "source": "Bild"
+        },
+        {
+            "dest": "commonscat",
+            "source": "Commonscat"
+        },
+        {
+            "dest": "lat",
+            "source": "NS",
+            "check": "checkLat"
+        },
+        {
+            "dest": "lon",
+            "source": "EW",
+            "check": "checkLon"
+        },
+        {
+            "dest": "stadt",
+            "source": "Gemeinde"
+        }
+    ],
+    "sql_lang": "German",
+    "sql_country": "Hamburg, Germany",
+    "sql_data": {
+        "country": {
+            "value": "de-hh",
+            "type": "Text"
+        },
+        "lang": {
+            "value": "de",
+            "type": "Text"
+        },
+        "id": {
+            "value": "nummer",
+            "type": "Field"
+        },
+        "adm0": {
+            "value": "de",
+            "type": "Text"
+        },
+        "adm1": {
+            "value": "de-hh",
+            "type": "Text"
+        },
+        "adm4": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "name": {
+            "value": "artikel",
+            "type": "Field"
+        },
+        "address": {
+            "value": "adresse",
+            "type": "Field"
+        },
+        "municipality": {
+            "value": "stadt",
+            "type": "Field"
+        },
+        "lat": {
+            "value": "lat",
+            "type": "Field"
+        },
+        "lon": {
+            "value": "lon",
+            "type": "Field"
+        },
+        "image": {
+            "value": "bild",
+            "type": "Field"
+        },
+        "commonscat": {
+            "value": "commonscat",
+            "type": "Field"
+        },
+        "source": {
+            "value": "source",
+            "type": "Field"
+        },
+        "changed": {
+            "value": "changed",
+            "type": "Field"
+        },
+        "monument_article": {
+            "value": "REPLACE( `artikel`, ' ', '_' )",
+            "type": "Raw"
+        }
+    }
+}
