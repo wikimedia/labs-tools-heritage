@@ -154,6 +154,24 @@ class TestProcessMonumentWithPrimkey(TestUpdateDatabaseBase):
             {'1234': Counter({self.mock_page: 2})})
 
 
+class TestProcessMonumentTuplePrimkey(TestUpdateDatabaseBase):
+
+    def setUp(self):
+        super(TestProcessMonumentTuplePrimkey, self).setUp()
+        self.country_config['primkey'] = ('id', 'name')
+        self.header_defaults = {}
+
+    def test_process_monument_tuple_primkey_missing_part_raises(self):
+        params = ['id=1234', 'name=']
+        harvest_state = update_database._new_harvest_state()
+
+        with self.assertRaises(update_database.NoPrimkeyException):
+            update_database.process_monument(
+                params, self.source, self.country_config, None,
+                self.mock_cursor, self.mock_page, self.header_defaults,
+                harvest_state)
+
+
 class TestUpdateMonument(TestUpdateDatabaseBase):
 
     def test_update_monument_executes_database_replace(self):
@@ -241,25 +259,69 @@ class TestProcessPage(TestUpdateDatabaseBase):
         expected_query_params = ('ge', 'MockPageTitle', 'a')
         self.mock_cursor.execute.assert_called_once_with(expected_query, expected_query_params)
 
-#    # awaiting solution to T147752
-#    def test_process_page_warning_on_NoPrimkeyException(self):
-#        self.country_config['rowTemplate'] = 'MockTemplate'
-#        ## two templates to ensure count works
-#        self.mock_page.templatesWithParams.return_value = [
-#            (self.mock_template, ['a', 'b']),
-#            (self.mock_template, ['a', 'b'])
-#        ]
-#
-#        warning_patcher = mock.patch('erfgoedbot.update_database.pywikibot.warning', autospec=True)
-#        mock_warning = warning_patcher.start()
-#        self.addCleanup(warning_patcher.stop)
-#
-#        with mock.patch('erfgoedbot.update_database.process_monument', autospec=True,
-#                        side_effect=update_database.NoPrimkeyException):
-#            update_database.process_page(
-#                self.mock_page, self.source, self.country_config, None, None)
-#            mock_warning.assert_called_once_with(
-#                u"2 primkey(s) missing on MockPageTitle (dummy_table)")
+    def test_process_page_tracks_missing_ids_on_NoPrimkeyException(self):
+        self.country_config['rowTemplate'] = 'MockTemplate'
+        # two templates to ensure count works
+        self.mock_page.templatesWithParams.return_value = [
+            (self.mock_template, ['a', 'b']),
+            (self.mock_template, ['a', 'b'])
+        ]
+
+        with mock.patch('erfgoedbot.update_database.process_monument',
+                        autospec=True,
+                        side_effect=update_database.NoPrimkeyException):
+            result = update_database.process_page(
+                self.mock_page, self.source, self.country_config, None, None)
+            self.assertEqual(
+                result['missing_ids'][self.mock_page], 2)
+
+    def test_process_page_shared_harvest_state_across_pages(self):
+        """Harvest state accumulates duplicates and missing IDs across pages."""
+        self.country_config['rowTemplate'] = 'MockTemplate'
+
+        page_a = mock.create_autospec(update_database.pywikibot.Page)
+        page_a.title.return_value = 'PageA'
+        page_a.templatesWithParams.return_value = [
+            (self.mock_template, ['id=1234', 'name=Mon'])
+        ]
+
+        page_b = mock.create_autospec(update_database.pywikibot.Page)
+        page_b.title.return_value = 'PageB'
+        page_b.templatesWithParams.return_value = [
+            (self.mock_template, ['id=1234', 'name=Mon']),
+            (self.mock_template, ['id=5678', 'name=Other'])
+        ]
+
+        page_c = mock.create_autospec(update_database.pywikibot.Page)
+        page_c.title.return_value = 'PageC'
+        page_c.templatesWithParams.return_value = [
+            (self.mock_template, ['id=', 'name=NoId'])
+        ]
+
+        harvest_state = update_database._new_harvest_state()
+        with mock.patch('erfgoedbot.update_database.update_monument',
+                        autospec=True):
+            update_database.process_page(
+                page_a, 'src_a', self.country_config, None, None,
+                harvest_state=harvest_state)
+            update_database.process_page(
+                page_b, 'src_b', self.country_config, None, None,
+                harvest_state=harvest_state)
+            update_database.process_page(
+                page_c, 'src_c', self.country_config, None, None,
+                harvest_state=harvest_state)
+
+        # id=1234 seen on page_a and page_b -> duplicate
+        self.assertIn('1234', harvest_state['duplicate_ids'])
+        self.assertEqual(
+            harvest_state['duplicate_ids']['1234'][page_a], 1)
+        self.assertEqual(
+            harvest_state['duplicate_ids']['1234'][page_b], 1)
+        # id=5678 seen only once -> not a duplicate
+        self.assertNotIn('5678', harvest_state['duplicate_ids'])
+        self.assertIn('5678', harvest_state['seen_ids'])
+        # page_c has empty id -> missing
+        self.assertEqual(harvest_state['missing_ids'][page_c], 1)
 
 
 class TestCountryBboxRequireLatLon(TestUpdateDatabaseBase):
@@ -573,6 +635,123 @@ class TestMakeAggregateStatistics(TestCreateReportTableBase):
         self.bundled_asserts(expected_rows, 42)
 
 
+class TestPerCountryReport(TestCreateReportBase):
+
+    """Test the _per_country_report helper."""
+
+    def setUp(self):
+        self.class_name = 'erfgoedbot.update_database'
+        super(TestPerCountryReport, self).setUp()
+
+        self.instruction_prefix = 'instruction_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.instruction_header')
+        self.mock_instruction_header = patcher.start()
+        self.mock_instruction_header.return_value = self.instruction_prefix
+        self.addCleanup(patcher.stop)
+
+        self.done_message = 'done_message'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.mock_done_message.return_value = self.done_message
+        self.addCleanup(patcher.stop)
+
+        self.table_prefix = 'table_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.table_prefix
+        self.addCleanup(patcher.stop)
+
+        self.countryconfig = {
+            'table': 'table_name',
+            'foo': 'bar'
+        }
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = self.mock_page.return_value
+
+    def test_per_country_report_with_data(self):
+        data = OrderedDict([('item_a', 3), ('item_b', 7)])
+
+        def row_builder(key, value, site):
+            return {'Item': key, 'Count': value}
+
+        result = update_database._per_country_report(
+            self.countryconfig, data,
+            report_type='Test Report',
+            title_column=['Item', 'Count'],
+            row_builder=row_builder,
+            total_entries=2,
+            total_pages=5)
+
+        self.mock_instruction_header.assert_called_once_with(
+            ':c:Commons:Monuments_database/Test Report')
+        self.mock_done_message.assert_not_called()
+
+        expected_table = self.table_prefix + (
+            '|-\n'
+            '| item_a || 3 \n'
+            '|-\n'
+            '| item_b || 7 \n'
+            '|}\n')
+        expected_postfix = '[[Category:Commons:Monuments database/Test Report]]'
+        expected_text = self.instruction_prefix + expected_table + expected_postfix
+
+        self.mock_page.assert_called_once_with(
+            self.commons,
+            'Commons:Monuments database/Test Report/table_name')
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            'Updating the list of test Report with 2 entries',
+            expected_text)
+
+        self.assertEqual(result, {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_entries': 2,
+            'total_pages': 5,
+            'total_occurrences': 10
+        })
+
+    def test_per_country_report_empty(self):
+        def row_builder(key, value, site):
+            return {'Item': key, 'Count': value}
+
+        result = update_database._per_country_report(
+            self.countryconfig, {},
+            report_type='Test Report',
+            title_column=['Item', 'Count'],
+            row_builder=row_builder,
+            total_entries=0,
+            total_pages=0)
+
+        self.mock_done_message.assert_called_once_with(
+            ':c:Commons:Monuments_database/Test Report', 'test Report')
+
+        self.assertEqual(result, {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_entries': 0,
+            'total_pages': 0,
+            'total_occurrences': 0
+        })
+
+    def test_per_country_report_total_entries_defaults_to_zero(self):
+        def row_builder(key, value, site):
+            return {'Item': key, 'Count': value}
+
+        result = update_database._per_country_report(
+            self.countryconfig, {},
+            report_type='Test report',
+            title_column=['Item', 'Count'],
+            row_builder=row_builder)
+
+        self.assertEqual(result['total_entries'], 0)
+        self.assertEqual(result['total_pages'], 0)
+        self.assertEqual(result['total_occurrences'], 0)
+
+
 class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
 
     """Test the make_unknown_fields_statistics method."""
@@ -592,19 +771,19 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
         self.mock_report_page.title.return_value = '<report_page>'
 
         self.comment = (
-            'Updating unknown fields statistics. Total of {total_fields} '
-            'unknown fields used {total_usages} times on {total_pages} '
+            'Updating unknown fields statistics. Total of {total_entries} '
+            'unknown fields used {total_occurrences} times on {total_pages} '
             'different pages.')
         self.pagename = 'Commons:Monuments database/Unknown fields/Statistics'
 
     def bundled_asserts(self, expected_rows,
-                        expected_total_fields,
-                        expected_total_usages,
+                        expected_total_entries,
+                        expected_total_occurrences,
                         expected_total_pages):
         """The full battery of asserts to do for each test."""
         expected_text = self.prefix + expected_rows + self.postfix.format(
-            total_fields=expected_total_fields,
-            total_usages=expected_total_usages,
+            total_entries=expected_total_entries,
+            total_occurrences=expected_total_occurrences,
             total_pages=expected_total_pages)
 
         self.mock_site.assert_called_once_with('commons', 'commons')
@@ -613,15 +792,15 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
         self.mock_save_to_wiki_or_local.assert_called_once_with(
             self.mock_page.return_value,
             self.comment.format(
-                total_fields=expected_total_fields,
-                total_usages=expected_total_usages,
+                total_entries=expected_total_entries,
+                total_occurrences=expected_total_occurrences,
                 total_pages=expected_total_pages),
             expected_text
         )
         self.mock_table_header_row.assert_called_once()
         self.mock_table_bottom_row.assert_called_once_with(8, {
-            2: expected_total_fields,
-            3: expected_total_usages,
+            2: expected_total_entries,
+            3: expected_total_occurrences,
             4: expected_total_pages})
 
     def test_make_unknown_fields_statistics_single_basic(self):
@@ -632,8 +811,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
                 'rowTemplate': 'row template',
                 'headerTemplate': 'head template'},
             'report_page': self.mock_report_page,
-            'total_fields': 123,
-            'total_usages': 456,
+            'total_entries': 123,
+            'total_occurrences': 456,
             'total_pages': 789
         }]
 
@@ -647,8 +826,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
             '| <report_page> \n'
             '| <template_link> \n'
             '| <template_link> \n')
-        expected_total_fields = 123
-        expected_total_usages = 456
+        expected_total_entries = 123
+        expected_total_occurrences = 456
         expected_total_pages = 789
 
         update_database.make_unknown_fields_statistics(statistics)
@@ -657,22 +836,22 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
             mock.call('en', 'wikipedia', 'head template', self.commons),
         ])
         self.bundled_asserts(expected_rows,
-                             expected_total_fields,
-                             expected_total_usages,
+                             expected_total_entries,
+                             expected_total_occurrences,
                              expected_total_pages)
 
     def test_make_unknown_fields_statistics_single_empty(self):
         statistics = [None, ]
 
         expected_rows = ''
-        expected_total_fields = 0
-        expected_total_usages = 0
+        expected_total_entries = 0
+        expected_total_occurrences = 0
         expected_total_pages = 0
 
         update_database.make_unknown_fields_statistics(statistics)
         self.bundled_asserts(expected_rows,
-                             expected_total_fields,
-                             expected_total_usages,
+                             expected_total_entries,
+                             expected_total_occurrences,
                              expected_total_pages)
 
     def test_make_unknown_fields_statistics_multiple_basic(self):
@@ -688,8 +867,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
                     'rowTemplate': 'row template',
                     'headerTemplate': 'head template'},
                 'report_page': report_page_1,
-                'total_fields': 123,
-                'total_usages': 456,
+                'total_entries': 123,
+                'total_occurrences': 456,
                 'total_pages': 789
             },
             {
@@ -700,8 +879,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
                     'headerTemplate': 'head2 template',
                     'project': 'wikisource'},
                 'report_page': report_page_2,
-                'total_fields': 321,
-                'total_usages': 654,
+                'total_entries': 321,
+                'total_occurrences': 654,
                 'total_pages': 987
             }]
 
@@ -724,8 +903,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
             '| <report_page:Foobar> \n'
             '| <template_link> \n'
             '| <template_link> \n')
-        expected_total_fields = 444
-        expected_total_usages = 1110
+        expected_total_entries = 444
+        expected_total_occurrences = 1110
         expected_total_pages = 1776
 
         update_database.make_unknown_fields_statistics(statistics)
@@ -736,8 +915,8 @@ class TestMakeUnknownFieldsStatistics(TestCreateReportTableBase):
             mock.call('fr', 'wikisource', 'head2 template', self.commons),
         ])
         self.bundled_asserts(expected_rows,
-                             expected_total_fields,
-                             expected_total_usages,
+                             expected_total_entries,
+                             expected_total_occurrences,
                              expected_total_pages)
 
 
@@ -823,9 +1002,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
-            'total_fields': 2,
+            'total_entries': 2,
             'total_pages': 3,
-            'total_usages': 9
+            'total_occurrences': 9
         }
 
         result = update_database.unknown_fields_statistics(
@@ -843,9 +1022,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
-            'total_fields': 0,
+            'total_entries': 0,
             'total_pages': 0,
-            'total_usages': 0
+            'total_occurrences': 0
         }
 
         result = update_database.unknown_fields_statistics(
@@ -868,9 +1047,9 @@ class TestUnknownFieldsStatistics(TestCreateReportBase):
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
-            'total_fields': 2,
+            'total_entries': 2,
             'total_pages': 4,
-            'total_usages': 15
+            'total_occurrences': 15
         }
 
         result = update_database.unknown_fields_statistics(
@@ -899,6 +1078,7 @@ class TestProcessCountry(unittest.TestCase):
         self.mock_process_country_list.return_value = {
             'unknown_fields': 'unknown_field_stats',
             'duplicate_ids': 'duplicate_id_stats',
+            'missing_ids': 'missing_id_stats',
         }
         self.addCleanup(patcher.stop)
 
@@ -920,6 +1100,7 @@ class TestProcessCountry(unittest.TestCase):
         self.assertEqual(result, {
             'unknown_fields': 'unknown_field_stats',
             'duplicate_ids': 'duplicate_id_stats',
+            'missing_ids': 'missing_id_stats',
         })
         self.mock_process_country_wikidata.assert_not_called()
         self.mock_process_country_list.assert_called_once_with(
@@ -933,6 +1114,7 @@ class TestProcessCountry(unittest.TestCase):
         self.assertEqual(result, {
             'unknown_fields': 'unknown_field_stats',
             'duplicate_ids': 'duplicate_id_stats',
+            'missing_ids': 'missing_id_stats',
         })
         self.mock_process_country_wikidata.assert_not_called()
         self.mock_process_country_list.assert_called_once_with(
@@ -1111,7 +1293,7 @@ class TestDuplicateIdsStatistics(TestCreateReportBase):
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
-            'total_ids': 2,
+            'total_entries': 2,
             'total_pages': 3,
             'total_occurrences': 9
         }
@@ -1131,7 +1313,7 @@ class TestDuplicateIdsStatistics(TestCreateReportBase):
         expected_return = {
             'report_page': self.mock_report_page,
             'config': self.countryconfig,
-            'total_ids': 0,
+            'total_entries': 0,
             'total_pages': 0,
             'total_occurrences': 0
         }
@@ -1163,14 +1345,14 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
         self.mock_report_page.title.return_value = '<report_page>'
 
         self.comment = (
-            'Updating duplicate ID statistics. Total of {total_ids} '
+            'Updating duplicate ID statistics. Total of {total_entries} '
             'duplicate IDs with {total_occurrences} occurrences on '
             '{total_pages} different pages.')
         self.pagename = (
             'Commons:Monuments database/Duplicate IDs/Statistics')
 
     def bundled_asserts(self, expected_rows,
-                        expected_total_ids,
+                        expected_total_entries,
                         expected_total_occurrences,
                         expected_total_pages):
         """The full battery of asserts to do for each test."""
@@ -1182,14 +1364,14 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
         self.mock_save_to_wiki_or_local.assert_called_once_with(
             self.mock_page.return_value,
             self.comment.format(
-                total_ids=expected_total_ids,
+                total_entries=expected_total_entries,
                 total_occurrences=expected_total_occurrences,
                 total_pages=expected_total_pages),
             expected_text
         )
         self.mock_table_header_row.assert_called_once()
         self.mock_table_bottom_row.assert_called_once_with(7, {
-            2: expected_total_ids,
+            2: expected_total_entries,
             3: expected_total_occurrences,
             4: expected_total_pages})
 
@@ -1200,7 +1382,7 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
                 'country': 'foo',
                 'rowTemplate': 'row template'},
             'report_page': self.mock_report_page,
-            'total_ids': 10,
+            'total_entries': 10,
             'total_occurrences': 25,
             'total_pages': 5
         }]
@@ -1214,7 +1396,7 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
             '| 5 \n'
             '| <report_page> \n'
             '| <template_link> \n')
-        expected_total_ids = 10
+        expected_total_entries = 10
         expected_total_occurrences = 25
         expected_total_pages = 5
 
@@ -1222,7 +1404,7 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
         self.mock_get_template_link.assert_called_once_with(
             'en', 'wikipedia', 'row template', self.commons)
         self.bundled_asserts(expected_rows,
-                             expected_total_ids,
+                             expected_total_entries,
                              expected_total_occurrences,
                              expected_total_pages)
 
@@ -1230,13 +1412,13 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
         statistics = [None, ]
 
         expected_rows = ''
-        expected_total_ids = 0
+        expected_total_entries = 0
         expected_total_occurrences = 0
         expected_total_pages = 0
 
         update_database.make_duplicate_id_statistics(statistics)
         self.bundled_asserts(expected_rows,
-                             expected_total_ids,
+                             expected_total_entries,
                              expected_total_occurrences,
                              expected_total_pages)
 
@@ -1252,7 +1434,7 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
                     'country': 'foo',
                     'rowTemplate': 'row template'},
                 'report_page': report_page_1,
-                'total_ids': 10,
+                'total_entries': 10,
                 'total_occurrences': 25,
                 'total_pages': 5
             },
@@ -1263,7 +1445,7 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
                     'rowTemplate': 'row2 template',
                     'project': 'wikisource'},
                 'report_page': report_page_2,
-                'total_ids': 20,
+                'total_entries': 20,
                 'total_occurrences': 50,
                 'total_pages': 8
             }]
@@ -1298,3 +1480,194 @@ class TestMakeDuplicateIdStatistics(TestCreateReportTableBase):
                              expected_total_ids,
                              expected_total_occurrences,
                              expected_total_pages)
+
+
+class TestMissingIdsStatistics(TestCreateReportBase):
+
+    """Test the missing_ids_statistics method."""
+
+    def setUp(self):
+        self.class_name = 'erfgoedbot.update_database'
+        super(TestMissingIdsStatistics, self).setUp()
+
+        self.instruction_prefix = 'instruction_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.instruction_header')
+        self.mock_instruction_header = patcher.start()
+        self.mock_instruction_header.return_value = self.instruction_prefix
+        self.addCleanup(patcher.stop)
+
+        self.done_message = 'done_message'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.done_message')
+        self.mock_done_message = patcher.start()
+        self.mock_done_message.return_value = self.done_message
+        self.addCleanup(patcher.stop)
+
+        self.table_prefix = 'table_prefix'
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.table_header_row')
+        self.mock_table_header_row = patcher.start()
+        self.mock_table_header_row.return_value = self.table_prefix
+        self.addCleanup(patcher.stop)
+
+        self.postfix = (
+            '[[Category:Commons:Monuments database/Missing IDs]]')
+
+        self.comment = 'Updating the list of missing IDs with {0} entries'
+        self.countryconfig = {
+            'table': 'table_name',
+            'foo': 'bar'
+        }
+        self.pagename = 'Commons:Monuments database/Missing IDs/table_name'
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = self.mock_page.return_value
+
+        self.page_a = mock.MagicMock()
+        self.page_a.title.return_value = '<page_a>'
+        self.page_b = mock.MagicMock()
+        self.page_b.title.return_value = '<page_b>'
+
+    def bundled_asserts(self, result,
+                        expected_table,
+                        expected_return,
+                        expected_cmt):
+        """The full battery of asserts to do for each test."""
+        expected_output = (self.instruction_prefix + expected_table +
+                           self.postfix)
+        self.assertEqual(result, expected_return)
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_report_page,
+            expected_cmt,
+            expected_output
+        )
+        self.mock_instruction_header.assert_called_once()
+
+    def test_missing_ids_statistics_complete(self):
+        missing_ids = Counter({self.page_a: 3, self.page_b: 1})
+        expected_cmt = self.comment.format(2)
+        expected_table = self.table_prefix + (
+            '|-\n'
+            '| <page_a> || 3 \n'
+            '|-\n'
+            '| <page_b> || 1 \n'
+            '|}\n')
+        expected_return = {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_entries': 0,
+            'total_pages': 2,
+            'total_occurrences': 4
+        }
+
+        result = update_database.missing_ids_statistics(
+            self.countryconfig, missing_ids)
+        self.bundled_asserts(result, expected_table, expected_return,
+                             expected_cmt)
+
+    def test_missing_ids_statistics_no_missing(self):
+        expected_cmt = self.comment.format(0)
+        expected_table = self.done_message
+        expected_return = {
+            'report_page': self.mock_report_page,
+            'config': self.countryconfig,
+            'total_entries': 0,
+            'total_pages': 0,
+            'total_occurrences': 0
+        }
+
+        result = update_database.missing_ids_statistics(
+            self.countryconfig, Counter())
+        self.mock_done_message.assert_called_once()
+        self.bundled_asserts(result, expected_table, expected_return,
+                             expected_cmt)
+
+
+class TestMakeMissingIdStatistics(TestCreateReportTableBase):
+
+    """Test the make_missing_id_statistics method."""
+
+    def setUp(self):
+        self.class_name = 'erfgoedbot.update_database'
+        super(TestMakeMissingIdStatistics, self).setUp()
+
+        patcher = mock.patch(
+            'erfgoedbot.update_database.common.get_template_link')
+        self.mock_get_template_link = patcher.start()
+        self.mock_get_template_link.return_value = '<template_link>'
+        self.addCleanup(patcher.stop)
+
+        self.commons = self.mock_site.return_value
+        self.mock_report_page = mock.MagicMock()
+        self.mock_report_page.title.return_value = '<report_page>'
+
+        self.comment = (
+            'Updating missing ID statistics. Total of {total_occurrences} '
+            'missing IDs on {total_pages} different pages.')
+        self.pagename = (
+            'Commons:Monuments database/Missing IDs/Statistics')
+
+    def bundled_asserts(self, expected_rows,
+                        expected_total_pages,
+                        expected_total_occurrences):
+        """The full battery of asserts to do for each test."""
+        expected_text = self.prefix + expected_rows + self.postfix
+
+        self.mock_site.assert_called_once_with('commons', 'commons')
+        self.mock_page.assert_called_once_with(
+            self.mock_site.return_value, self.pagename)
+        self.mock_save_to_wiki_or_local.assert_called_once_with(
+            self.mock_page.return_value,
+            self.comment.format(
+                total_pages=expected_total_pages,
+                total_occurrences=expected_total_occurrences),
+            expected_text
+        )
+        self.mock_table_header_row.assert_called_once()
+        self.mock_table_bottom_row.assert_called_once_with(6, {
+            2: expected_total_pages,
+            3: expected_total_occurrences})
+
+    def test_make_missing_id_statistics_single_basic(self):
+        statistics = [{
+            'config': {
+                'lang': 'en',
+                'country': 'foo',
+                'rowTemplate': 'row template'},
+            'report_page': self.mock_report_page,
+            'total_pages': 5,
+            'total_occurrences': 25,
+        }]
+
+        expected_rows = (
+            '|-\n'
+            '| foo \n'
+            '| en \n'
+            '| 5 \n'
+            '| 25 \n'
+            '| <report_page> \n'
+            '| <template_link> \n')
+        expected_total_pages = 5
+        expected_total_occurrences = 25
+
+        update_database.make_missing_id_statistics(statistics)
+        self.mock_get_template_link.assert_called_once_with(
+            'en', 'wikipedia', 'row template', self.commons)
+        self.bundled_asserts(expected_rows,
+                             expected_total_pages,
+                             expected_total_occurrences)
+
+    def test_make_missing_id_statistics_single_empty(self):
+        statistics = [None, ]
+
+        expected_rows = ''
+        expected_total_pages = 0
+        expected_total_occurrences = 0
+
+        update_database.make_missing_id_statistics(statistics)
+        self.bundled_asserts(expected_rows,
+                             expected_total_pages,
+                             expected_total_occurrences)

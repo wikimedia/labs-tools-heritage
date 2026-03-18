@@ -142,6 +142,63 @@ def convert_field(field, contents, countryconfig):
                 countryconfig.get('table'), field.get('conv')))
 
 
+def _per_country_report(countryconfig, data, report_type,
+                        title_column, row_builder,
+                        total_entries=0, total_pages=0):
+    """
+    Shared skeleton for per-country report pages.
+
+    Builds a wikitext table from *data*, saves it to a Commons subpage,
+    and returns a dict with unified keys.
+
+    @param countryconfig: the configurations for the dataset being processed.
+    @param data: the data dict/Counter to iterate over.
+    @param report_type: report name used in page title and category
+        (e.g. 'Unknown fields').
+    @param title_column: list of column names for the StatisticsTable.
+    @param row_builder: callable(key, value, site) returning a row dict.
+    @param total_entries: pre-computed entry count.
+    @param total_pages: pre-computed page count.
+    @return: dict with keys report_page, config, total_entries, total_pages,
+        total_occurrences.
+    """
+    done_label = report_type[0].lower() + report_type[1:]
+    site = pywikibot.Site('commons', 'commons')
+    page = pywikibot.Page(
+        site, 'Commons:Monuments database/{0}/{1}'.format(
+            report_type, countryconfig.get('table')))
+    summary = 'Updating the list of {0} with {{0}} entries'.format(
+        done_label)
+
+    central_page = ':c:Commons:Monuments_database/{0}'.format(report_type)
+    text = common.instruction_header(central_page)
+
+    total_occurrences = 0
+
+    if not data:
+        text += common.done_message(central_page, done_label)
+    else:
+        table = StatisticsTable(
+            title_column, ['Count'], (title_column[0],))
+        for key, value in data.items():
+            table.add_row(row_builder(key, value, site))
+        total_occurrences = table.get_sum('Count')
+        text += table.to_wikitext(add_summation=False, inline=True)
+
+    text += '[[Category:Commons:Monuments database/{0}]]'.format(report_type)
+
+    common.save_to_wiki_or_local(
+        page, summary.format(len(data)), text)
+
+    return {
+        'report_page': page,
+        'config': countryconfig,
+        'total_entries': total_entries or 0,
+        'total_pages': total_pages or 0,
+        'total_occurrences': total_occurrences
+    }
+
+
 def unknown_fields_statistics(countryconfig, unknown_fields):
     """
     Outputs a list of any unknown fields as a wikitext table.
@@ -154,46 +211,25 @@ def unknown_fields_statistics(countryconfig, unknown_fields):
         Counter for how frequently the field is encountered per page.
     @return: dict summarising the usages
     """
-    site = pywikibot.Site('commons', 'commons')
-    page = pywikibot.Page(
-        site, 'Commons:Monuments database/Unknown fields/{0}'.format(
-            countryconfig.get('table')))
-    summary = 'Updating the list of unknown fields with {0} entries'
-
-    # People can add a /header template with more info
-    central_page = ':c:Commons:Monuments_database/Unknown fields'
-    text = common.instruction_header(central_page)
-
-    total_usages = 0
     pages_with_fields = set()
+    for counter in unknown_fields.values():
+        pages_with_fields.update(list(counter.keys()))
 
-    if not unknown_fields:
-        text += common.done_message(central_page, 'unknown fields')
-    else:
-        title_column = ['Field', 'Count', 'Sources']
-        table = StatisticsTable(title_column, ['Count'], ('Field',))
-        for key, counter in unknown_fields.items():
-            pages_with_fields.update(list(counter.keys()))
-            table.add_row({
-                'Field': key,
-                'Count': sum(counter.values()),
-                'Sources': format_source_field(counter, site)
-            })
-        total_usages = table.get_sum('Count')
-        text += table.to_wikitext(add_summation=False, inline=True)
+    def row_builder(key, counter, site):
+        return {
+            'Field': key,
+            'Count': sum(counter.values()),
+            'Sources': format_source_field(counter, site)
+        }
 
-    text += '[[Category:Commons:Monuments database/Unknown fields]]'
-
-    common.save_to_wiki_or_local(
-        page, summary.format(len(unknown_fields)), text)
-
-    return {
-        'report_page': page,
-        'config': countryconfig,
-        'total_fields': len(unknown_fields),
-        'total_pages': len(pages_with_fields),
-        'total_usages': total_usages
-    }
+    return _per_country_report(
+        countryconfig, unknown_fields,
+        report_type='Unknown fields',
+        title_column=['Field', 'Count', 'Sources'],
+        row_builder=row_builder,
+        total_entries=len(unknown_fields),
+        total_pages=len(pages_with_fields)
+    )
 
 
 def format_source_field(sources, site, sample_size=4):
@@ -236,45 +272,52 @@ def duplicate_ids_statistics(countryconfig, duplicate_ids):
         Counter for how frequently the ID is encountered per page.
     @return: dict summarising the duplicate ID occurrences
     """
-    site = pywikibot.Site('commons', 'commons')
-    page = pywikibot.Page(
-        site, 'Commons:Monuments database/Duplicate IDs/{0}'.format(
-            countryconfig.get('table')))
-    summary = 'Updating the list of duplicate IDs with {0} entries'
-
-    central_page = ':c:Commons:Monuments_database/Duplicate IDs'
-    text = common.instruction_header(central_page)
-
-    total_occurrences = 0
     pages_with_duplicates = set()
+    for counter in duplicate_ids.values():
+        pages_with_duplicates.update(list(counter.keys()))
 
-    if not duplicate_ids:
-        text += common.done_message(central_page, 'duplicate IDs')
-    else:
-        title_column = ['Monument ID', 'Count', 'Sources']
-        table = StatisticsTable(title_column, ['Count'], ('Monument ID',))
-        for monument_id, counter in duplicate_ids.items():
-            pages_with_duplicates.update(list(counter.keys()))
-            table.add_row({
-                'Monument ID': monument_id,
-                'Count': sum(counter.values()),
-                'Sources': format_source_field(counter, site)
-            })
-        total_occurrences = table.get_sum('Count')
-        text += table.to_wikitext(add_summation=False, inline=True)
+    def row_builder(monument_id, counter, site):
+        return {
+            'Monument ID': monument_id,
+            'Count': sum(counter.values()),
+            'Sources': format_source_field(counter, site)
+        }
 
-    text += '[[Category:Commons:Monuments database/Duplicate IDs]]'
+    return _per_country_report(
+        countryconfig, duplicate_ids,
+        report_type='Duplicate IDs',
+        title_column=['Monument ID', 'Count', 'Sources'],
+        row_builder=row_builder,
+        total_entries=len(duplicate_ids),
+        total_pages=len(pages_with_duplicates)
+    )
 
-    common.save_to_wiki_or_local(
-        page, summary.format(len(duplicate_ids)), text)
 
-    return {
-        'report_page': page,
-        'config': countryconfig,
-        'total_ids': len(duplicate_ids),
-        'total_pages': len(pages_with_duplicates),
-        'total_occurrences': total_occurrences
-    }
+def missing_ids_statistics(countryconfig, missing_ids):
+    """
+    Outputs a list of pages with missing monument IDs as a wikitext table.
+
+    The table contains the source page and the count of monuments with
+    missing IDs on that page.
+
+    @param countryconfig: the configurations for the dataset being processed.
+    @param missing_ids: Counter of pages with missing IDs and their counts.
+    @return: dict summarising the missing ID occurrences
+    """
+    def row_builder(source_page, count, site):
+        return {
+            'Source page': source_page.title(
+                as_link=True, with_ns=False, insite=site),
+            'Count': count
+        }
+
+    return _per_country_report(
+        countryconfig, missing_ids,
+        report_type='Missing IDs',
+        title_column=['Source page', 'Count'],
+        row_builder=row_builder,
+        total_pages=len(missing_ids)
+    )
 
 
 def update_monument(contents, source, countryconfig, conn, cursor,
@@ -465,6 +508,8 @@ def process_monument(params, source, countryconfig, conn, cursor, source_page,
                 track_duplicate_ids(monument_id, source_page, harvest_state)
             update_monument(
                 contents, source, countryconfig, conn, cursor, source_page)
+        else:
+            raise NoPrimkeyException
     # Check if the primkey is filled. This only works for a single primkey,
     # not a tuple
     elif contents.get(lookup_source_field(countryconfig.get('primkey'),
@@ -543,8 +588,13 @@ def track_duplicate_ids(monument_id, source_page, harvest_state):
 
 
 def _new_harvest_state():
-    """Create a new harvest state dict with all required keys."""
-    return {'unknown_fields': {}, 'seen_ids': {}, 'duplicate_ids': {}}
+    """Create a new harvest state dict with all required keys.
+
+    @return: dict with keys 'unknown_fields' (dict of str to Counter),
+        'seen_ids' (dict of str to Page), 'duplicate_ids' (dict of str
+        to Counter), 'missing_ids' (Counter of Page to int).
+    """
+    return {'unknown_fields': {}, 'seen_ids': {}, 'duplicate_ids': {}, 'missing_ids': Counter()}
 
 
 def process_page(page, source, countryconfig, conn, cursor,
@@ -552,14 +602,13 @@ def process_page(page, source, countryconfig, conn, cursor,
     """
     Process text containing one or more instances of the monument row template.
 
-    Also tracks any unexpected fields and duplicate monument IDs.
+    Also tracks any unexpected fields, duplicate monument IDs, and missing IDs.
     """
     if harvest_state is None:
         harvest_state = _new_harvest_state()
 
     templates = page.templatesWithParams()
     header_defaults = {}
-    primkey_exceptions = 0
 
     for (template, params) in templates:
         template_name = template.title(with_ns=False)
@@ -573,7 +622,7 @@ def process_page(page, source, countryconfig, conn, cursor,
                     params, source, countryconfig, conn, cursor, page,
                     header_defaults, harvest_state)
             except NoPrimkeyException:
-                primkey_exceptions += 1
+                harvest_state['missing_ids'][page] += 1
             # time.sleep(5)
         elif template_name == 'Commonscat' and len(params) >= 1:
             query = (
@@ -582,11 +631,6 @@ def process_page(page, source, countryconfig, conn, cursor,
             cursor.execute(
                 query,
                 (countryconfig.get('lang'), page.title(underscore=True), params[0]))
-
-    # output missing primkey warning
-    if primkey_exceptions > 0:
-        pywikibot.warning('{0:d} primkey(s) missing on {1} ({2})'.format(
-            primkey_exceptions, page.title(underscore=True), countryconfig.get('table')))
 
     return harvest_state
 
@@ -642,6 +686,8 @@ def process_country_list(countryconfig, conn, cursor, full_update, days_back):
             countryconfig, harvest_state['unknown_fields']),
         'duplicate_ids': duplicate_ids_statistics(
             countryconfig, harvest_state['duplicate_ids']),
+        'missing_ids': missing_ids_statistics(
+            countryconfig, harvest_state['missing_ids']),
     }
 
 
@@ -744,8 +790,8 @@ def make_unknown_fields_statistics(statistics):
     title_column = OrderedDict([
         ('code', 'country'),
         ('lang', None),
-        ('total_fields', 'Total fields'),
-        ('total_usages', 'Total usage of fields'),
+        ('total_entries', 'Total fields'),
+        ('total_occurrences', 'Total usage of fields'),
         ('total_pages', 'Total pages containing fields'),
         ('report_page', 'Report page'),
         ('row_template', 'Row template'),
@@ -768,8 +814,8 @@ def make_unknown_fields_statistics(statistics):
         return {
             'code': countryconfig.get('country'),
             'lang': countryconfig.get('lang'),
-            'total_fields': row.get('total_fields'),
-            'total_usages': row.get('total_usages'),
+            'total_entries': row.get('total_entries'),
+            'total_occurrences': row.get('total_occurrences'),
             'total_pages': row.get('total_pages'),
             'report_page': report_page,
             'row_template': row_template,
@@ -781,9 +827,9 @@ def make_unknown_fields_statistics(statistics):
         'Commons:Monuments database/Unknown fields/Statistics',
         title_column,
         row_builder,
-        'Updating unknown fields statistics. Total of {total_fields} '
-        'unknown fields used {total_usages} times on {total_pages} different '
-        'pages.')
+        'Updating unknown fields statistics. Total of {total_entries} '
+        'unknown fields used {total_occurrences} times on {total_pages} '
+        'different pages.')
 
 
 def make_duplicate_id_statistics(statistics):
@@ -791,7 +837,7 @@ def make_duplicate_id_statistics(statistics):
     title_column = OrderedDict([
         ('code', 'country'),
         ('lang', None),
-        ('total_ids', 'Total duplicate IDs'),
+        ('total_entries', 'Total duplicate IDs'),
         ('total_occurrences', 'Total occurrences'),
         ('total_pages', 'Total pages with duplicates'),
         ('report_page', 'Report page'),
@@ -809,7 +855,7 @@ def make_duplicate_id_statistics(statistics):
         return {
             'code': countryconfig.get('country'),
             'lang': countryconfig.get('lang'),
-            'total_ids': row.get('total_ids'),
+            'total_entries': row.get('total_entries'),
             'total_occurrences': row.get('total_occurrences'),
             'total_pages': row.get('total_pages'),
             'report_page': report_page,
@@ -821,9 +867,46 @@ def make_duplicate_id_statistics(statistics):
         'Commons:Monuments database/Duplicate IDs/Statistics',
         title_column,
         row_builder,
-        'Updating duplicate ID statistics. Total of {total_ids} '
+        'Updating duplicate ID statistics. Total of {total_entries} '
         'duplicate IDs with {total_occurrences} occurrences on '
         '{total_pages} different pages.')
+
+
+def make_missing_id_statistics(statistics):
+    """Output the overall results for missing IDs as a nice wikitable."""
+    title_column = OrderedDict([
+        ('code', 'country'),
+        ('lang', None),
+        ('total_pages', 'Total pages with missing IDs'),
+        ('total_occurrences', 'Total occurrences'),
+        ('report_page', 'Report page'),
+        ('row_template', 'Row template'),
+    ])
+
+    def row_builder(row, countryconfig, site):
+        row_template = common.get_template_link(
+            countryconfig.get('lang'),
+            countryconfig.get('project', 'wikipedia'),
+            countryconfig.get('rowTemplate'),
+            site)
+        report_page = row.get('report_page').title(
+            as_link=True, with_ns=False, insite=site)
+        return {
+            'code': countryconfig.get('country'),
+            'lang': countryconfig.get('lang'),
+            'total_pages': row.get('total_pages'),
+            'total_occurrences': row.get('total_occurrences'),
+            'report_page': report_page,
+            'row_template': row_template,
+        }
+
+    _make_aggregate_statistics(
+        statistics,
+        'Commons:Monuments database/Missing IDs/Statistics',
+        title_column,
+        row_builder,
+        'Updating missing ID statistics. Total of {total_occurrences} '
+        'missing IDs on {total_pages} different pages.')
 
 
 def main():
@@ -906,8 +989,13 @@ def main():
             row.get('duplicate_ids') if row else None
             for row in statistics
         ]
+        missing_ids_stats = [
+            row.get('missing_ids') if row else None
+            for row in statistics
+        ]
         make_unknown_fields_statistics(unknown_fields_stats)
         make_duplicate_id_statistics(duplicate_ids_stats)
+        make_missing_id_statistics(missing_ids_stats)
 
 
 if __name__ == "__main__":
