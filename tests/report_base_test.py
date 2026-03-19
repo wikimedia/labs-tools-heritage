@@ -5,6 +5,17 @@
 import unittest
 import unittest.mock as mock
 
+import pywikibot
+
+
+def make_mock_page(site_str='', namespace_prefix='', title_str=''):
+    """Create a mock pywikibot.Page with configurable return values."""
+    page = mock.MagicMock(spec=pywikibot.Page)
+    page.site = site_str
+    page.namespace.return_value.custom_prefix.return_value = namespace_prefix
+    page.title.return_value = title_str
+    return page
+
 
 class TestCreateReportBase(unittest.TestCase):
 

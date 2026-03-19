@@ -5,8 +5,6 @@ import unittest
 import unittest.mock as mock
 from collections import OrderedDict
 
-import pywikibot
-
 from erfgoedbot import populate_image_table
 from report_base_test import TestCreateReportTableBase
 
@@ -185,9 +183,7 @@ class TestMakeStatistics(TestCreateReportTableBase):
         self.comment = (
             'Updating indexed image statistics. '
             'Total indexed images: {0}')
-        commons = pywikibot.Site('commons', 'commons')
-        self.page = pywikibot.Page(
-            commons, 'Commons:Monuments database/Indexed images/Statistics')
+        self.page = self.mock_page.return_value
 
     def bundled_asserts(self, expected_rows,
                         expected_total_images_sum,

@@ -26,6 +26,18 @@ class TestLoadIgnoredCategories(unittest.TestCase):
 
     """Test the _load_ignored_categories method."""
 
+    def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.Site')
+        self.mock_site = patcher.start()
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.Category')
+        self.mock_category = patcher.start()
+        self.mock_category.side_effect = lambda site, cat: cat
+        self.addCleanup(patcher.stop)
+
     def test__load_ignored_categories(self):
         """Ensure ignored categories YAML file is present and decodes to a list."""
         try:
@@ -75,9 +87,29 @@ class TestGetCommonsCatTemplates(unittest.TestCase):
 
 class TestReplaceCategories(unittest.TestCase):
 
-    """Test the replace_default_cat_with_new_categories_in_image_text method."""
+    """Test the replace_default_cat_with_new_categories_in_image_text method.
+
+    Note: textlib functions are mocked to allow offline execution. This means
+    these tests only verify orchestration (correct functions called in the
+    right order) and the NoCategoryToAddException guard, not the actual
+    wikitext category replacement behaviour.
+    """
 
     def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.textlib.replaceCategoryInPlace')
+        self.mock_replace_in_place = patcher.start()
+        self.mock_replace_in_place.side_effect = lambda text, old, new: ''
+        self.addCleanup(patcher.stop)
+
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.textlib.replaceCategoryLinks')
+        self.mock_replace_links = patcher.start()
+        self.mock_replace_links.side_effect = (
+            lambda text, cats, **kw: ''.join(
+                '[[Category:{0}]]'.format(c) for c in cats))
+        self.addCleanup(patcher.stop)
+
         self.mock_old_category = mock.Mock()
         self.mock_old_category.title.return_value = "A"
         self.mock_old_category.__str__ = mock.Mock()
@@ -112,6 +144,13 @@ class TestReplaceCategories(unittest.TestCase):
 class TestFilterOutCategoriesToAdd(unittest.TestCase):
 
     def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images._load_ignored_categories',
+            autospec=True)
+        self.mock_load_ignored_categories = patcher.start()
+        self.mock_load_ignored_categories.return_value = []
+        self.addCleanup(patcher.stop)
+
         self.cat_A = self.make_mock_cat('A')
         self.cat_B = self.make_mock_cat('B')
         self.cat_C = self.make_mock_cat('C')
@@ -120,13 +159,9 @@ class TestFilterOutCategoriesToAdd(unittest.TestCase):
         self.cat_hidden = self.make_mock_cat('F', hidden=True)
 
     def make_mock_cat(self, title, hidden=False):
-        mock_category = mock.create_autospec(
-            categorize_images.pywikibot.Category)
-        mock_category._link = categorize_images.pywikibot.Link(title, None)
-        if hidden:
-            mock_category.isHiddenCategory.return_value = True
-        else:
-            mock_category.isHiddenCategory.return_value = False
+        mock_category = mock.MagicMock(spec=categorize_images.pywikibot.Category)
+        mock_category.title.return_value = title
+        mock_category.isHiddenCategory.return_value = hidden
         return mock_category
 
     def test_filter_categories_no_categories(self):
@@ -181,11 +216,10 @@ class TestFilterOutCategoriesToAdd(unittest.TestCase):
     def test_filter_out_ignored_categories(self):
         new_categories = [self.cat_A, self.cat_B, self.cat_C]
         current_categories = []
-        with mock.patch('erfgoedbot.categorize_images._load_ignored_categories', autospec=True) as mock_load_ignored_categories:
-            mock_load_ignored_categories.return_value = [self.cat_B, ]
-            result = categorize_images.filter_out_categories_to_add(
-                new_categories, current_categories)
-            self.assertCountEqual(result, [self.cat_A, self.cat_C])
+        self.mock_load_ignored_categories.return_value = [self.cat_B]
+        result = categorize_images.filter_out_categories_to_add(
+            new_categories, current_categories)
+        self.assertCountEqual(result, [self.cat_A, self.cat_C])
 
 
 class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
@@ -193,6 +227,11 @@ class TestGetCommonsCategoryViaWikidata(unittest.TestCase):
     """Tests the get_Commons_category_via_Wikidata method."""
 
     def setUp(self):
+        patcher = mock.patch(
+            'erfgoedbot.categorize_images.pywikibot.Site')
+        self.mock_site = patcher.start()
+        self.addCleanup(patcher.stop)
+
         self.mock_page = mock.create_autospec(
             categorize_images.pywikibot.Page)
         self.mock_data_item = mock.create_autospec(

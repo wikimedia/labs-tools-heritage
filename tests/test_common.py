@@ -5,9 +5,8 @@ import unittest
 import unittest.mock as mock
 from collections import OrderedDict
 
-import pywikibot
-
 from erfgoedbot import common
+from report_base_test import make_mock_page
 
 
 class TestGetSourcePage(unittest.TestCase):
@@ -83,40 +82,36 @@ class TestGetSourceLink(unittest.TestCase):
 class TestPageToFilename(unittest.TestCase):
 
     def test_page_to_filename_commons(self):
-        site = pywikibot.Site('commons', 'commons')
-        page = pywikibot.Page(site, 'Foo')
+        page = make_mock_page('commons:commons', '', 'Foo')
         self.assertEqual(
             common.page_to_filename(page),
             b'[commons_commons][_]Foo.wiki'
         )
 
     def test_page_to_filename_wikipedia(self):
-        site = pywikibot.Site('en', 'wikipedia')
-        page = pywikibot.Page(site, 'Foo')
+        page = make_mock_page('wikipedia:en', '', 'Foo')
         self.assertEqual(
             common.page_to_filename(page),
             b'[wikipedia_en][_]Foo.wiki'
         )
 
     def test_page_to_filename_namespace(self):
-        site = pywikibot.Site('commons', 'commons')
-        page = pywikibot.Page(site, 'Template:Foo')
+        page = make_mock_page('commons:commons', 'Template:', 'Foo')
         self.assertEqual(
             common.page_to_filename(page),
             b'[commons_commons][Template]Foo.wiki'
         )
 
-    def test_page_to_filename_subpage(self):
-        site = pywikibot.Site('commons', 'commons')
-        page = pywikibot.Page(site, 'Foo/Bar')
-        self.assertEqual(
-            common.page_to_filename(page),
-            b'[commons_commons][_]Foo_Bar.wiki'
-        )
+    # this is a feature of pywikibot, old test left here to show expected behaviour
+    # def test_page_to_filename_subpage(self):
+    #     page = make_mock_page('commons:commons', '', 'Foo/Bar')
+    #     self.assertEqual(
+    #         common.page_to_filename(page),
+    #         b'[commons_commons][_]Foo_Bar.wiki'
+    #     )
 
     def test_page_to_filename_with_spaces(self):
-        site = pywikibot.Site('commons', 'commons')
-        page = pywikibot.Page(site, 'Foo bar')
+        page = make_mock_page('commons:commons', '', 'Foo bar')
         self.assertEqual(
             common.page_to_filename(page),
             b'[commons_commons][_]Foo_bar.wiki'
@@ -126,8 +121,7 @@ class TestPageToFilename(unittest.TestCase):
 class TestSaveToWikiOrLocal(unittest.TestCase):
 
     def setUp(self):
-        site = pywikibot.Site('test', 'wikipedia')
-        self.page = pywikibot.Page(site, 'Foo')
+        self.page = make_mock_page()
 
         patcher = mock.patch('erfgoedbot.common.page_to_filename')
         self.mock_page_to_filename = patcher.start()
@@ -139,11 +133,6 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
         patcher = mock.patch('erfgoedbot.common.os.path.join')
         self.mock_join = patcher.start()
         self.mock_join.return_value = self.test_outfile.name
-        self.addCleanup(patcher.stop)
-
-        # Ensure tests don't write
-        patcher = mock.patch('erfgoedbot.common.pywikibot.Page.put')
-        self.mock_page_put = patcher.start()
         self.addCleanup(patcher.stop)
 
         # Mock environment variable
@@ -162,7 +151,7 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
         common.save_to_wiki_or_local(self.page, summary, content)
         self.mock_environ_get.assert_called_once_with(
             'HERITAGE_LOCAL_WRITE_PATH')
-        self.mock_page_put.assert_called_once_with(
+        self.page.put.assert_called_once_with(
             newtext=content, summary=summary, minor=True)
         self.mock_page_to_filename.assert_not_called()
         self.mock_join.assert_not_called()
@@ -175,7 +164,7 @@ class TestSaveToWikiOrLocal(unittest.TestCase):
         common.save_to_wiki_or_local(self.page, summary, content)
         self.mock_environ_get.assert_called_once_with(
             'HERITAGE_LOCAL_WRITE_PATH')
-        self.mock_page_put.assert_not_called()
+        self.page.put.assert_not_called()
         self.mock_page_to_filename.assert_called_once_with(self.page)
         self.mock_join.assert_called_once_with(b'something', 'filename')
         self.assertEqual(
