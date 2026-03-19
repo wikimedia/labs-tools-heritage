@@ -6,7 +6,6 @@ import unittest.mock as mock
 
 from freezegun import freeze_time
 
-import custom_assertions  # noqa F401
 from erfgoedbot import check_emailable_users
 
 

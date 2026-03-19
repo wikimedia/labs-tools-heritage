@@ -6,7 +6,6 @@ import unittest.mock as mock
 
 from pymysql.connections import Connection
 
-import custom_assertions  # noqa F401
 from erfgoedbot import database_connection
 
 

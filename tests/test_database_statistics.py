@@ -2,7 +2,6 @@
 import unittest
 import unittest.mock as mock
 
-import custom_assertions  # noqa F401
 from erfgoedbot import database_statistics
 from report_base_test import TestCreateReportBase
 

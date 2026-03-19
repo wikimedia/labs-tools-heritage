@@ -8,7 +8,6 @@ from collections import Counter, OrderedDict
 
 import pywikibot
 
-import custom_assertions  # noqa F401
 from erfgoedbot import update_database
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 

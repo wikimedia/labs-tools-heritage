@@ -7,7 +7,6 @@ Those that aren't checked through test_update_database
 import unittest
 import unittest.mock as mock
 
-import custom_assertions  # noqa F401
 from erfgoedbot import checkers
 
 

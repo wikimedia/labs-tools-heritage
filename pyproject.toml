@@ -13,8 +13,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "nose",
-    "nose-cov",
+    "pytest",
+    "pytest-cov",
     "coverage",
     "freezegun",
 ]

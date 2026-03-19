@@ -1,6 +1,5 @@
 # -*- coding: utf-8  -*-
 """Custom assertions for erfgoedbot unit tests."""
-import sys
 
 
 class CustomAssertions:
@@ -43,20 +42,3 @@ class CustomAssertions:
             error_msg = '%s : %s' % (error_msg, msg)
         if len(text) != len(text.encode()):
             raise AssertionError(error_msg)
-
-
-# Backport of function existing in py >= 3.6
-def assert_called_once(self):
-    """assert that the mock was called only once.
-    """
-    if not self.call_count == 1:
-        msg = ("Expected '%s' to have been called once. Called %s times.%s"
-               % (self._mock_name or 'mock',
-                  self.call_count,
-                  self._calls_repr()))
-        raise AssertionError(msg)
-
-
-if sys.version_info[:3] < (3, 6, 0):
-    from unittest.mock import NonCallableMock
-    NonCallableMock.assert_called_once = assert_called_once

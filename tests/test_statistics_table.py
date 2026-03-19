@@ -3,7 +3,6 @@ import unittest
 import unittest.mock as mock
 from collections import OrderedDict
 
-import custom_assertions  # noqa F401
 from erfgoedbot import statistics_table
 
 

@@ -8,7 +8,6 @@ import unittest
 import unittest.mock as mock
 from collections import OrderedDict
 
-import custom_assertions  # noqa F401
 from erfgoedbot import unused_monument_images
 from report_base_test import TestCreateReportBase, TestCreateReportTableBase
 

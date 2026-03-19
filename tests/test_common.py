@@ -7,7 +7,6 @@ from collections import OrderedDict
 
 import pywikibot
 
-import custom_assertions  # noqa F401
 from erfgoedbot import common
 
 
