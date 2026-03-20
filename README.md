@@ -14,8 +14,28 @@ You can override them via the `database_config.yml` file.
 ### Development
 
 To hack on it, use [tox](https://tox.readthedocs.io) to run the tests
+This should be run with [uv](https://docs.astral.sh/uv/) as:
 
-To spin-up a development environement simulating harvesting:
+uv run tox
+
+To spin-up a development environement simulating harvesting, some settings are controlled with enviroment variables.
+
+Needed:
+
+```
+export TOOLFORGE_DB_USERNAME=<username from .my.cnf>
+export TOOLFORGE_DB_PASSWORD=<password from .my.cnf>
+export SSH_USER=<toolforge username>
+```
+
+optional to set ports (shown are defaults):
+
+```
+export HERITAGE_DBPORT=3306
+export HERITAGE_WEBPORT=5000
+```
+
+Then to setup and run docker:
 
 ```
 # Build Docker images
@@ -41,7 +61,9 @@ docker-compose run --rm db mysql -h db s51138__heritage_p --user=heritage --pass
 docker-compose run --rm web php ../maintenance/_buildStats.php
 ```
 
-The web interface will be accessible on http://localhost:5000/
+The web interface will be accessible on http://localhost:5000/ or the set port in HERITAGE_WEBPORT.
+
+On port 3306 or the port set in HERITAGE_DBPORT you can connect a local mysql client like dbeaver with username heritage and password password.
 
 ### Toolforge
 

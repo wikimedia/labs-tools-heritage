@@ -17,6 +17,8 @@ services:
     extends:
       file: docker-compose-base.yml
       service: db_empty
+    ports:
+      - "${HERITAGE_DBPORT:-3306}:3306"
 
   web:
     extends:
@@ -29,6 +31,7 @@ services:
 
   db_commons:
     image: jeanfred/wiki-replicas-proxy
+    platform: linux/amd64
     volumes:
       - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
     environment:
