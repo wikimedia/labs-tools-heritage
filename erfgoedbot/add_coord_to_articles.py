@@ -70,6 +70,20 @@ class Monument:
 # functions
 
 
+def extract_article_name(name):
+    """Extract article name from a wikilink string."""
+    article_name = ''
+    result = re.match(r"\[\[(.+?)\|.+?\]\]", name)
+    if result and result.group(1):
+        article_name = result.group(1)
+
+    result = re.match(r"\[\[([^\|]+?)\]\]", name)
+    if result and result.group(1):
+        article_name = result.group(1)
+
+    return article_name
+
+
 def processCountry(countryconfig, coordconfig, connMon, cursorMon):
     '''
     Work on a single country.
@@ -92,14 +106,7 @@ def processCountry(countryconfig, coordconfig, connMon, cursorMon):
     monumentsWithArticle = []
 
     for aMonument in withCoordinates:
-        article_name = ''
-        result = re.match("\[\[(.+?)\|.+?\]\]", aMonument.name)
-        if (result and result.group(1)):
-            article_name = result.group(1)
-
-        result = re.match("\[\[([^\|]+?)\]\]", aMonument.name)
-        if (result and result.group(1)):
-            article_name = result.group(1)
+        article_name = extract_article_name(aMonument.name)
 
         if (article_name):
             if article_name not in duplicateArticles:

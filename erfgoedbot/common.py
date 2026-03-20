@@ -40,7 +40,7 @@ def get_page_from_url(url):
     Retrieve the wikipage and site from a page or entity url.
     """
     supported_sites = ['wikipedia', 'wikivoyage', 'wikidata', 'wikimedia']
-    pattern = '\/\/(.+?)\.({0})\.org\/(wiki|entity)\/(.+?)$'.format(
+    pattern = r'\/\/(.+?)\.({0})\.org\/(wiki|entity)\/(.+?)$'.format(
         '|'.join(supported_sites))
     m = re.search(pattern, url)
     site = (m.group(2), m.group(1))
@@ -69,7 +69,7 @@ def get_source_page(source, harvest_type=None):
                 'Could not find source list ({0})'.format(source))
     else:
         supported_sites = ['wikipedia', 'wikivoyage', 'wikidata', 'wikimedia']
-        pattern = '\/\/(.+?)\.({0})\.org\/w\/index\.php\?title=(.+?)&'.format(
+        pattern = r'\/\/(.+?)\.({0})\.org\/w\/index\.php\?title=(.+?)&'.format(
             '|'.join(supported_sites))
         m = re.search(pattern, source)
         try:
