@@ -58,11 +58,11 @@
         },
         {
             "dest": "",
-            "source": "RD_x"
+            "source": "rd_x"
         },
         {
             "dest": "",
-            "source": "RD_y"
+            "source": "rd_y"
         },
         {
             "dest": "lat",
@@ -86,6 +86,58 @@
             "dest": "monument_article",
             "source": "object",
             "conv": "extractWikilink"
+        },
+        {
+            "dest": "",
+            "source": "MIP_nr"
+        },
+        {
+            "dest": "",
+            "source": "aangewezen"
+        },
+        {
+            "dest": "",
+            "source": "aantal"
+        },
+        {
+            "dest": "",
+            "source": "bijzonderheden"
+        },
+        {
+            "dest": "",
+            "source": "bouwstijl"
+        },
+        {
+            "dest": "",
+            "source": "kadaster"
+        },
+        {
+            "dest": "",
+            "source": "oorspr_fun"
+        },
+        {
+            "dest": "",
+            "source": "oud_id"
+        },
+        {
+            "dest": "",
+            "source": "plaats"
+        },
+        {
+            "dest": "",
+            "source": "postcode"
+        },
+        {
+            "dest": "",
+            "source": "rijksmonument"
+        },
+        {
+            "dest": "",
+            "source": "url"
+        },
+        {
+            "dest": "",
+            "source": "urlopm"
         },
         {
             "dest": "wd_item",
