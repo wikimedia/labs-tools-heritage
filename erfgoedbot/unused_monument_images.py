@@ -216,7 +216,9 @@ def getMonumentPhotos(commonsTrackerCategory, conn, cursor):
         "SELECT page_title, cl_sortkey_prefix "
         "FROM page "
         "JOIN categorylinks ON page_id=cl_from "
-        "WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s")
+        "JOIN linktarget ON cl_target_id=lt_id "
+        "WHERE page_namespace=6 AND page_is_redirect=0 "
+        "AND lt_namespace = 14 AND lt_title=%s")
 
     cursor.execute(query, (commonsTrackerCategory,))
 
