@@ -1,0 +1,7 @@
+FROM alpine
+
+RUN apk add --no-cache openssh-client bash
+
+COPY conf/docker-entrypoint-proxy.sh /
+
+ENTRYPOINT ["/docker-entrypoint-proxy.sh"]

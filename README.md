@@ -18,9 +18,9 @@ This should be run with [uv](https://docs.astral.sh/uv/) as:
 
 uv run tox
 
-To spin-up a development environement simulating harvesting, some settings are controlled with enviroment variables.
+To spin-up a development environment simulating harvesting a docker setup can be run.
 
-Needed:
+To connect to the commons database, a proxy is setup to connect to the commons database via toolforge. For the config of that the following environment variables are needed:
 
 ```
 export TOOLFORGE_DB_USERNAME=<username from .my.cnf>
@@ -28,14 +28,24 @@ export TOOLFORGE_DB_PASSWORD=<password from .my.cnf>
 export SSH_USER=<toolforge username>
 ```
 
-optional to set ports (shown are defaults):
+The openssh inside the docker needs access to your ssh keys. By default that is done via the SSH_AUTH_SOCK variable set by the ssh agent.
+
+If that doesn't work, you can mount your .ssh dir inside the docker instead. For that you need to specify a different docker yml file:
+
+```
+export COMPOSE_FILE=docker-compose-sshdir.yml
+```
+
+There might be config in your .ssh/config not liked by the openssh inside the docker. If the heritage-db_commons-1 container doesn't show up in docker compose ps, run docker compose logs | grep commons | less for debugging.
+
+A webservice and a database are started, where to can connect to. To set ports different (shown are defaults):
 
 ```
 export HERITAGE_DBPORT=3306
 export HERITAGE_WEBPORT=5000
 ```
 
-Then to setup and run docker:
+After all this to setup and run docker:
 
 ```
 # Build Docker images

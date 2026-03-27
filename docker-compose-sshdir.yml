@@ -34,8 +34,7 @@ services:
       file: docker-compose-base.yml
       service: db_proxy
     volumes:
-      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+      - $HOME/.ssh:/root/ssh:ro
     environment:
       SSH_USER: $SSH_USER
       WIKI_DB: commonswiki
-      SSH_AUTH_SOCK:

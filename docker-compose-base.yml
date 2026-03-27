@@ -39,3 +39,8 @@ services:
     environment:
       PYWIKIBOT_NO_USER_CONFIG: 2
     entrypoint: ["./conf/wait-for-db.sh"]
+
+  db_proxy:
+    build:
+      context: .
+      dockerfile: conf/Dockerfile.proxy
