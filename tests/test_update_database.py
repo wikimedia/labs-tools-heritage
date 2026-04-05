@@ -1095,7 +1095,7 @@ class TestProcessCountry(unittest.TestCase):
         config = {'type': 'sparql'}
 
         result = update_database.process_country(
-            config, 'conn', 'cursor', 'full_update', 'days_back')
+            config, 'conn', 'cursor', 'full_update', 'days_back', 'progress')
         self.assertEqual(result, None)
         self.mock_process_country_wikidata.assert_called_once_with(
             config, 'conn', 'cursor')
@@ -1105,7 +1105,7 @@ class TestProcessCountry(unittest.TestCase):
         config = {'type': 'list'}
 
         result = update_database.process_country(
-            config, 'conn', 'cursor', 'full_update', 'days_back')
+            config, 'conn', 'cursor', 'full_update', 'days_back', 'progress')
         self.assertEqual(result, {
             'unknown_fields': 'unknown_field_stats',
             'duplicate_ids': 'duplicate_id_stats',
@@ -1113,13 +1113,13 @@ class TestProcessCountry(unittest.TestCase):
         })
         self.mock_process_country_wikidata.assert_not_called()
         self.mock_process_country_list.assert_called_once_with(
-            config, 'conn', 'cursor', 'full_update', 'days_back')
+            config, 'conn', 'cursor', 'full_update', 'days_back', 'progress')
 
     def test_process_country_default_to_list(self):
         config = {}
 
         result = update_database.process_country(
-            config, 'conn', 'cursor', 'full_update', 'days_back')
+            config, 'conn', 'cursor', 'full_update', 'days_back', 'progress')
         self.assertEqual(result, {
             'unknown_fields': 'unknown_field_stats',
             'duplicate_ids': 'duplicate_id_stats',
@@ -1127,7 +1127,7 @@ class TestProcessCountry(unittest.TestCase):
         })
         self.mock_process_country_wikidata.assert_not_called()
         self.mock_process_country_list.assert_called_once_with(
-            config, 'conn', 'cursor', 'full_update', 'days_back')
+            config, 'conn', 'cursor', 'full_update', 'days_back', 'progress')
 
 
 class TestGetMonumentId(TestUpdateDatabaseBase):

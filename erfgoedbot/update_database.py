@@ -635,16 +635,16 @@ def process_page(page, source, countryconfig, conn, cursor,
     return harvest_state
 
 
-def process_country(countryconfig, conn, cursor, full_update, days_back):
+def process_country(countryconfig, conn, cursor, full_update, days_back, progress):
     """Process all the monuments of one country."""
     if countryconfig.get('type') == 'sparql':
         process_country_wikidata(countryconfig, conn, cursor)
     else:
         return process_country_list(
-            countryconfig, conn, cursor, full_update, days_back)
+            countryconfig, conn, cursor, full_update, days_back, progress)
 
 
-def process_country_list(countryconfig, conn, cursor, full_update, days_back):
+def process_country_list(countryconfig, conn, cursor, full_update, days_back, progress):
     """Process all the monuments of one country using row templates."""
     site = pywikibot.Site(countryconfig.get('lang'),
                           countryconfig.get('project'))
@@ -677,6 +677,8 @@ def process_country_list(countryconfig, conn, cursor, full_update, days_back):
     for page in generator:
         if page.exists() and not page.isRedirectPage():
             # Do some checking
+            if progress:
+                print(page.title())
             harvest_state = process_page(
                 page, page.permalink(percent_encoded=False), countryconfig,
                 conn, cursor, harvest_state=harvest_state)
@@ -917,6 +919,7 @@ def main():
     lang = ''
     full_update = True
     skip_wd = False
+    progress = False
     days_back = 2  # Default 2 days. Runs every night so can miss one night.
     conn = None
     cursor = None
@@ -933,10 +936,12 @@ def main():
             full_update = True
         elif option == '-skip_wd':
             skip_wd = True
+        elif option == '-progress':
+            progress = True
         else:
             raise Exception(
                 'Bad parameters. Expected "-countrycode", "-langcode", '
-                '"-daysback", "-fullupdate", "-skip_wd" or pywikibot args. '
+                '"-daysback", "-fullupdate", "-skip_wd", "-progress" or pywikibot args. '
                 'Found "{}"'.format(option))
 
     if countrycode and lang:
@@ -954,7 +959,7 @@ def main():
             countryconfig = mconfig.countries.get((countrycode, lang))
             (conn, cursor) = connect_to_monuments_database()
             process_country(countryconfig, conn, cursor, full_update,
-                            days_back)
+                            days_back, progress)
             close_database_connection(conn, cursor)
         except Exception as e:
             pywikibot.error(
