@@ -96,7 +96,7 @@ def processCountry(countryconfig, conn, cursor):
     Process all the monuments of one country
     '''
 
-    site = pywikibot.getSite(
+    site = pywikibot.Site(
         countryconfig.get('lang'), countryconfig.get('project'))
     rowTemplate = pywikibot.Page(
         site, '%s:%s' % (site.namespace(10), countryconfig.get('rowTemplate')))

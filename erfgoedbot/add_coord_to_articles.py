@@ -259,7 +259,7 @@ def addCoords(countryconfig, monument, coordconfig):
     if (countrycode and lang):
         coordTemplate = coordconfig.get('coordTemplate')
         coordTemplateSyntax = coordconfig.get('coordTemplateSyntax')
-        site = pywikibot.getSite(lang, 'wikipedia')
+        site = pywikibot.Site(lang, 'wikipedia')
 
         page = pywikibot.Page(site, monument.article)
         try:
@@ -280,7 +280,7 @@ def addCoords(countryconfig, monument, coordconfig):
         replCount = 1
         coordText = coordTemplateSyntax % (monument.lat, monument.lon,
                                            countrycode.upper())
-        localCatName = pywikibot.getSite().namespace(WP_CATEGORY_NS)
+        localCatName = site.namespace(WP_CATEGORY_NS)
         catStart = r'\[\[(' + localCatName + '|Category):'
         catStartPlain = '[[' + localCatName + ':'
         replacementText = ''

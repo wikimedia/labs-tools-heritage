@@ -6,6 +6,7 @@ Bot to add {{Object location dec}} to monuments. Location is based on informatio
 
 '''
 import pywikibot
+from pywikibot import textlib
 
 import erfgoedbot.common as common
 import erfgoedbot.monuments_config as mconfig
@@ -16,7 +17,7 @@ from erfgoedbot.database_connection import (
 )
 
 
-def locateCountry(countryconfig, conn, cursor, conn2, cursor2):
+def locateCountry(countryconfig, conn, cursor, conn2, cursor2, site):
     '''
     Locate images in a single country.
     '''
@@ -28,11 +29,11 @@ def locateCountry(countryconfig, conn, cursor, conn2, cursor2):
         locationTemplate = locateImage(
             page, monumentId, countryconfig, conn, cursor)
         if locationTemplate:
-            addLocation(page, locationTemplate)
+            addLocation(page, locationTemplate, site)
 
 
 def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
-    site = pywikibot.getSite('commons', 'commons')
+    site = pywikibot.Site('commons', 'commons')
     query = (
         "SELECT page_title, cl_sortkey_prefix "
         "FROM page "
@@ -147,7 +148,7 @@ def getCoordinates(monumentId, countrycode, lang, conn, cursor):
         return False
 
 
-def addLocation(page, locationTemplate):
+def addLocation(page, locationTemplate, site):
     try:
         oldtext = page.get()
     except pywikibot.exceptions.NoPageError:
@@ -158,12 +159,12 @@ def addLocation(page, locationTemplate):
     comment = 'Adding object location based on monument identifier'
 
     newtext = putAfterTemplate(
-        oldtext, 'Information', locationTemplate, loose=True)
+        oldtext, 'Information', locationTemplate, site, loose=True)
     pywikibot.showDiff(oldtext, newtext)
     common.save_to_wiki_or_local(page, comment, newtext)
 
 
-def putAfterTemplate(oldtext, template, toadd, loose=True):
+def putAfterTemplate(oldtext, template, toadd, site, loose=True):
     '''
     Try to put text after template.
     If the template is not found return False if loose is set to False
@@ -210,13 +211,13 @@ def putAfterTemplate(oldtext, template, toadd, loose=True):
     else:
         if loose:
             newtext = oldtext
-            cats = pywikibot.getCategoryLinks(newtext)
-            ll = pywikibot.getLanguageLinks(newtext)
-            newtext = pywikibot.removeLanguageLinks(newtext)
-            newtext = pywikibot.removeCategoryLinks(newtext)
+            cats = textlib.getCategoryLinks(newtext, site)
+            ll = textlib.getLanguageLinks(newtext, insite=site)
+            newtext = textlib.removeLanguageLinks(newtext, site)
+            newtext = textlib.removeCategoryLinks(newtext, site)
             newtext += '\n' + toadd
-            newtext = pywikibot.replaceCategoryLinks(newtext, cats)
-            newtext = pywikibot.replaceLanguageLinks(newtext, ll)
+            newtext = textlib.replaceCategoryLinks(newtext, cats, site)
+            newtext = textlib.replaceLanguageLinks(newtext, ll, site)
 
     return newtext
 
@@ -244,7 +245,7 @@ def main():
                 '"-skip_wd" or pywikibot args. '
                 'Found "{}"'.format(option))
 
-    pywikibot.setSite(pywikibot.getSite('commons', 'commons'))
+    site = pywikibot.Site('commons', 'commons')
 
     if countrycode and lang:
         if not mconfig.countries.get((countrycode, lang)):
@@ -254,7 +255,7 @@ def main():
         pywikibot.output(
             'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
         locateCountry(mconfig.countries.get((countrycode, lang)),
-                      conn, cursor, conn2, cursor2)
+                      conn, cursor, conn2, cursor2, site)
     elif countrycode or lang:
         raise Exception('The "countrycode" and "langcode" arguments must '
                         'be used together.')
@@ -268,7 +269,7 @@ def main():
                 pywikibot.output(
                     'Working on countrycode "%s" in language "%s"' % (countrycode, lang))
                 try:
-                    locateCountry(countryconfig, conn, cursor, conn2, cursor2)
+                    locateCountry(countryconfig, conn, cursor, conn2, cursor2, site)
                 except Exception as e:
                     pywikibot.error(
                         'Unknown error occurred when processing country '

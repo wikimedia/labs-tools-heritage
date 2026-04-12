@@ -72,7 +72,7 @@ def notify_user(user):
         pywikibot.output("Notifying user {}...".format(user))
         talk_page.text += text
         talk_page.save(summary=summary, minor=False)
-    except pywikibot.LockedPage:
+    except pywikibot.exceptions.LockedPageError:
         pywikibot.output('Talk page blocked, skip.')
 
 

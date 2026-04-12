@@ -198,7 +198,7 @@ def get_new_categories(monumentId, monData, lang, commonsCatTemplates, harvest_t
                             (new_cat, method) = getCategoryFromCommonscat(monumentArticle, commonsCatTemplates)
                             newcats.append(new_cat)
                             categorisation_method = 'B%s: CommonsCat on the monument article' % method
-                except pywikibot.SectionError:
+                except pywikibot.exceptions.SectionError:
                     pywikibot.warning('Incorrect redirect at %s' % (
                         monumentArticle.title(),))
             except pywikibot.exceptions.InvalidTitle:
@@ -243,7 +243,7 @@ def replace_default_cat_with_new_categories_in_image(
     try:
         common.save_to_wiki_or_local(page, comment, final_text)
         return True
-    except pywikibot.EditConflict:
+    except pywikibot.exceptions.EditConflictError:
         pywikibot.log(
             'Got an edit conflict. Someone else beat me to it at %s' % page.title())
         return False

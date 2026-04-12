@@ -6,6 +6,8 @@ import unittest.mock as mock
 
 from freezegun import freeze_time
 
+import pywikibot
+
 from erfgoedbot import check_emailable_users
 
 
@@ -60,3 +62,40 @@ class TestGetUsernamesFromDatabase(unittest.TestCase):
         self.mock_cursor_commons.execute.assert_called_once_with(self.expected_query, expected_query_params)
         self.mock_cursor_commons.fetchall.assert_called_once_with()
         self.assertEqual(result, [])
+
+
+class TestNotifyUser(unittest.TestCase):
+    """Test the notify_user function."""
+
+    def setUp(self):
+        self.mock_user = mock.create_autospec(pywikibot.User)
+        self.mock_talk_page = mock.create_autospec(pywikibot.Page)
+        self.mock_user.getUserTalkPage.return_value = self.mock_talk_page
+        self.mock_user.site.username.return_value = 'TestBot'
+        self.mock_talk_page.text = 'Existing talk page text'
+
+    def test_happy_path_saves_notification(self):
+        """User not yet notified — save is called."""
+        self.mock_talk_page.revisions.return_value = [
+            {'user': 'SomeOtherUser'}]
+        check_emailable_users.notify_user(self.mock_user)
+        self.mock_talk_page.save.assert_called_once_with(
+            summary='Notifying WLM participant of missing e-mail address.',
+            minor=False)
+
+    def test_already_notified_skips_save(self):
+        """Bot username in recent history — save is not called."""
+        self.mock_talk_page.revisions.return_value = [
+            {'user': 'TestBot'}]
+        check_emailable_users.notify_user(self.mock_user)
+        self.mock_talk_page.save.assert_not_called()
+
+    def test_locked_page_is_caught(self):
+        """LockedPageError is caught and does not propagate."""
+        self.mock_talk_page.revisions.return_value = [
+            {'user': 'SomeOtherUser'}]
+        self.mock_talk_page.save.side_effect = (
+            pywikibot.exceptions.LockedPageError(
+                mock.create_autospec(pywikibot.Page)))
+        # Should not raise
+        check_emailable_users.notify_user(self.mock_user)
