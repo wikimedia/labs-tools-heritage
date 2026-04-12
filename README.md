@@ -38,7 +38,7 @@ export COMPOSE_FILE=docker-compose-sshdir.yml
 
 There might be config in your .ssh/config not liked by the openssh inside the docker. If the heritage-db_commons-1 container doesn't show up in docker compose ps, run docker compose logs | grep commons | less for debugging.
 
-A webservice and a database are started, where to can connect to. To set ports different (shown are defaults):
+A webservice and a database are started, which you can connect to. To set ports different from the defaults (shown are defaults):
 
 ```
 export HERITAGE_DBPORT=3306
