@@ -260,7 +260,7 @@ def replace_default_cat_with_new_categories_in_image_text(
     page_text_without_base_category = textlib.replaceCategoryInPlace(
         old_text, base_category, None)
     final_text = textlib.replaceCategoryLinks(
-        page_text_without_base_category, new_categories, addOnly=True)
+        page_text_without_base_category, new_categories, add_only=True)
     return final_text
 
 

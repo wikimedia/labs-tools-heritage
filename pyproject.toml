@@ -4,7 +4,7 @@ version = "0.0.1"
 requires-python = "~=3.11.0"
 dependencies = [
     "future",
-    "pywikibot",
+    "pywikibot>=11.0.0",
     "requests",
     "PyMySQL",
     "PyYAML",
