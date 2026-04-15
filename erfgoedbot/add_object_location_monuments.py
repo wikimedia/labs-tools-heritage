@@ -38,16 +38,19 @@ def getMonumentsWithoutLocation(countryconfig, conn2, cursor2):
         "FROM page "
         "JOIN templatelinks ON page_id=tl_from "
         "JOIN categorylinks ON page_id=cl_from "
-        "JOIN linktarget ON tl_target_id=lt_id "
+        "JOIN linktarget AS tllt ON tl_target_id=tllt.lt_id "
+        "JOIN linktarget AS cllt ON cl_target_id=cllt.lt_id "
         "WHERE page_namespace=6 AND page_is_redirect=0 "
-        "AND lt_namespace=10 AND lt_title=%s "
-        "AND cl_to=%s AND NOT EXISTS({sub}) "
+        "AND tllt.lt_namespace=10 AND tllt.lt_title=%s "
+        "AND cllt.lt_namespace=14 AND cllt.lt_title=%s "
+        "AND NOT EXISTS({sub}) "
         "LIMIT 10000")
     subquery = (
         "SELECT * "
         "FROM categorylinks AS loccat "
+        "JOIN linktarget AS loclt ON loccat.cl_target_id=loclt.lt_id "
         "WHERE page_id=loccat.cl_from "
-        "AND loccat.cl_to='Media_with_locations'"
+        "AND loclt.lt_namespace=14 AND loclt.lt_title='Media_with_locations'"
     )
     commonsTemplate = countryconfig.get('commonsTemplate').replace(' ', '_')
     commonsTrackerCategory = countryconfig.get(

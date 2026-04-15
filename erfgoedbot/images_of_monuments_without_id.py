@@ -223,8 +223,10 @@ def getMonumentsWithoutTemplate(countryconfig, conn, cursor):
         "SELECT DISTINCT(page_title) "
         "FROM page "
         "JOIN categorylinks ON page_id=cl_from "
+        "JOIN linktarget ON cl_target_id=lt_id "
         "WHERE page_namespace=6 AND page_is_redirect=0 "
-        "AND (cl_to=%s OR cl_to LIKE %s) AND NOT EXISTS({sub}) "
+        "AND lt_namespace=14 AND (lt_title=%s OR lt_title LIKE %s) "
+        "AND NOT EXISTS({sub}) "
         "ORDER BY page_title ASC"
     )
     subquery = (
@@ -260,7 +262,9 @@ def getMonumentsWithTemplate(countryconfig, conn, cursor):
         "SELECT DISTINCT(page_title) "
         "FROM page "
         "JOIN categorylinks ON page_id=cl_from "
-        "WHERE page_namespace=6 AND page_is_redirect=0 AND cl_to=%s "
+        "JOIN linktarget ON cl_target_id=lt_id "
+        "WHERE page_namespace=6 AND page_is_redirect=0 "
+        "AND lt_namespace=14 AND lt_title=%s "
         "ORDER BY page_title ASC")
     cursor.execute(query, (commonsTrackerCategory,))
 
