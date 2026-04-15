@@ -115,8 +115,8 @@ class Statistics extends StatisticsBase {
 	static function packIdxFromIndex( $row, $db ) {
 		$country = $db->sanitize( $row[0] );
 		$muni = $row[1];
-		if ( strlen( $muni ) >= self::$maxMuniLength ) {
-			$muni = substr( $muni, 0, self::$maxMuniLength - 1 ) . '…';
+		if ( mb_strlen( $muni, 'UTF-8' ) >= self::$maxMuniLength ) {
+			$muni = mb_substr( $muni, 0, self::$maxMuniLength - 1, 'UTF-8' ) . '…';
 		}
 		$municipality = $db->sanitize( $muni );
 		$lang = $db->sanitize( $row[2] );

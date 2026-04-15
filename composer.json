@@ -16,6 +16,7 @@
         ]
     },
     "require": {
-        "krinkle/intuition": "^0.6.1"
+        "krinkle/intuition": "^0.6.1",
+        "ext-mbstring": "*"
     }
 }
