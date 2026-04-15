@@ -28,6 +28,10 @@
             "source": "Num_alt"
         },
         {
+            "dest": "",
+            "source": "Nummer_alt"
+        },
+        {
             "dest": "wikidata",
             "source": "Wikidata"
         },
@@ -46,6 +50,10 @@
         {
             "dest": "beschreibung",
             "source": "Beschreibung"
+        },
+        {
+            "dest": "beschreibung",
+            "source": "Beschriftung"
         },
         {
             "dest": "",
