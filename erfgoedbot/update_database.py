@@ -979,7 +979,7 @@ def main():
                 (conn, cursor) = connect_to_monuments_database()
                 statistics.append(
                     process_country(countryconfig, conn, cursor, full_update,
-                                    days_back))
+                                    days_back, progress))
                 close_database_connection(conn, cursor)
             except Exception as e:
                 pywikibot.error(
