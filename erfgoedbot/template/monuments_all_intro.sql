@@ -11,6 +11,10 @@ SET sql_mode = "ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTIT
 
 SET NAMES UTF8;
 
+-- Lift the per-statement timeout for this one-shot refresh; the final
+-- DROP on a large {domain}_all exceeds tools-db's default cap.
+SET SESSION max_statement_time = 300;
+
 DROP TABLE IF EXISTS `{domain}_all_tmp`;
 
 CREATE TABLE `{domain}_all_tmp` (
