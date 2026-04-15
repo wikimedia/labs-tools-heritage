@@ -4,9 +4,12 @@ CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 . $CURRENT_DIR/defaults.sh
 
 set -ex
-if [ ! -d $VIRTUAL_ENV_PATH ]; then
-    echo "Creating virtual environment..."
-    python3 -m venv $VIRTUAL_ENV_PATH
+# Probe `import pip` to detect a stale venv left over from a previous
+# python3 (e.g. after a 3.9 -> 3.11 image bump); recreate if broken.
+if [ ! -d "$VIRTUAL_ENV_PATH" ] \
+   || ! "$VIRTUAL_ENV_PATH/bin/python" -c 'import pip' >/dev/null 2>&1; then
+    echo "Creating/refreshing virtual environment..."
+    python3 -m venv --clear "$VIRTUAL_ENV_PATH"
 fi
 
 source $VIRTUAL_ENV_PATH/bin/activate
