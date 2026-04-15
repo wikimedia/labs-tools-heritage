@@ -5,6 +5,9 @@ echo_time() {
 create_toolforge_job() {
     local json_payload="$1"
     curl -X 'POST' \
+        --no-progress-meter \
+        --fail-with-body \
+        --output /dev/null \
         $TOOLFORGE_API_FLAGS \
         "$TOOLFORGE_API_JOBS_ENDPOINT" \
         -H 'accept: application/json' \
