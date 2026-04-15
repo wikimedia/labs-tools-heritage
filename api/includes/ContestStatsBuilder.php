@@ -144,13 +144,18 @@ class ContestStatsBuilder extends ContestStatistics {
 				, u.user_id AS img_user_id
 				, u.user_name AS img_user_name
 				, p.page_id AS img_page_id
-				, SUBSTR(cl2.cl_to, 42) AS img_wlm_country
+				, SUBSTR(cl2lt.lt_title, 42) AS img_wlm_country
 				, i.img_timestamp AS img_timestamp
 				, INSTR(GROUP_CONCAT(DISTINCT ug.ug_group), "bot") AS found_bot
 			FROM categorylinks cl
+			JOIN linktarget cllt ON cl.cl_target_id = cllt.lt_id
 			/* get country category - there can/must be only one */
-			LEFT JOIN categorylinks cl2 ON cl2.cl_from = cl.cl_from
-				AND cl2.cl_to LIKE "Images_from_Wiki_Loves_Monuments_2011_in_%"
+			LEFT JOIN (
+				categorylinks cl2
+				JOIN linktarget cl2lt ON cl2.cl_target_id = cl2lt.lt_id
+			) ON cl2.cl_from = cl.cl_from
+				AND cl2lt.lt_namespace = 14
+				AND cl2lt.lt_title LIKE "Images_from_Wiki_Loves_Monuments_2011_in_%"
 			/* resolve mw info */
 			JOIN page p ON cl.cl_from = p.page_id
 				AND p.page_namespace = 6
@@ -162,7 +167,8 @@ class ContestStatsBuilder extends ContestStatistics {
 			/* exclude bots: they are probably the last uploaders on a WLM photo.. */
 			LEFT JOIN user_groups ug ON ug.ug_user = u.user_id
 
-			WHERE cl.cl_to = "Images_from_Wiki_Loves_Monuments_2011"
+			WHERE cllt.lt_namespace = 14
+				AND cllt.lt_title = "Images_from_Wiki_Loves_Monuments_2011"
 			GROUP BY i.img_name
 			HAVING found_bot <= 0 OR found_bot IS NULL
 			ORDER BY i.img_timestamp';
