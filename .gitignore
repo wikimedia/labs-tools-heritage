@@ -25,3 +25,6 @@ docker_pages
 
 # IDE files
 *.iml
+
+# Generated from jobs.yml.template during deploy
+jobs.yml

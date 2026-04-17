@@ -24,6 +24,11 @@ toolforge jobs run load-monuments-config-changes --command "./bin/load_monuments
 toolforge jobs run recreate-source-tables --command "./bin/recreate_source_tables.sh" --image "$TOOLFORGE_MARIADB_IMAGE" --wait
 echo "Tables recreated"
 
+echo "Syncing scheduled jobs..."
+TOOLFORGE_PYTHON_IMAGE="$TOOLFORGE_PYTHON_IMAGE" envsubst '${TOOLFORGE_PYTHON_IMAGE}' < jobs.yml.template > jobs.yml
+toolforge jobs load jobs.yml
+echo "Scheduled jobs synced"
+
 echo "Updating the Server Admin Log..."
 dologmsg "$($VIRTUAL_ENV_PATH/bin/$PYWIKIBOT_BIN bin/deploy_message_from_git_log.py)"
 echo "Deploy done."
