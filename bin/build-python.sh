@@ -8,14 +8,14 @@ set -ex
 # python3 (e.g. after a 3.9 -> 3.11 image bump); recreate if broken.
 if [ ! -d "$VIRTUAL_ENV_PATH" ] \
    || ! "$VIRTUAL_ENV_PATH/bin/$PYWIKIBOT_BIN" -c 'import pip' >/dev/null 2>&1; then
-    echo "Creating/refreshing virtual environment..."
+    echo_time "Creating/refreshing virtual environment..."
     "$TOOLFORGE_VENV_PYTHON" -m venv --clear "$VIRTUAL_ENV_PATH"
 fi
 
 source $VIRTUAL_ENV_PATH/bin/activate
 
-echo "Upgrade pip to latest and add support for the wheel package format..."
+echo_time "Upgrade pip to latest and add support for the wheel package format..."
 pip install --upgrade pip wheel
 
-echo "Installing Python requirements..."
+echo_time "Installing Python requirements..."
 pip install -r $SOURCE_PATH/requirements.txt

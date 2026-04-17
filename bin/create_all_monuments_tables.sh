@@ -11,11 +11,11 @@ cd $ERFGOED_PATH || exit
 $PYWIKIBOT_BIN $ERFGOED_PATH/monument_tables.py
 $PYWIKIBOT_BIN $ERFGOED_PATH/fill_table_monuments_all.py
 for i in $ERFGOED_PATH/sql/create_table_monuments*; do
-    echo "$i"
+    echo_time "$i"
     $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
 done
 for i in $ERFGOED_PATH/sql/create_table_wlpa_*; do
-    echo "$i"
+    echo_time "$i"
     $MYSQL_BIN -h $DB_SERVER $DATABASE < "$i"
 done
 # Admin tree for browsing ISO codes
