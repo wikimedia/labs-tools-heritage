@@ -9,7 +9,7 @@ set -ex
 if [ ! -d "$VIRTUAL_ENV_PATH" ] \
    || ! "$VIRTUAL_ENV_PATH/bin/$PYWIKIBOT_BIN" -c 'import pip' >/dev/null 2>&1; then
     echo "Creating/refreshing virtual environment..."
-    python3 -m venv --clear "$VIRTUAL_ENV_PATH"
+    "$TOOLFORGE_VENV_PYTHON" -m venv --clear "$VIRTUAL_ENV_PATH"
 fi
 
 source $VIRTUAL_ENV_PATH/bin/activate
