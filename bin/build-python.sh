@@ -7,7 +7,7 @@ set -ex
 # Probe `import pip` to detect a stale venv left over from a previous
 # python3 (e.g. after a 3.9 -> 3.11 image bump); recreate if broken.
 if [ ! -d "$VIRTUAL_ENV_PATH" ] \
-   || ! "$VIRTUAL_ENV_PATH/bin/python" -c 'import pip' >/dev/null 2>&1; then
+   || ! "$VIRTUAL_ENV_PATH/bin/$PYWIKIBOT_BIN" -c 'import pip' >/dev/null 2>&1; then
     echo "Creating/refreshing virtual environment..."
     python3 -m venv --clear "$VIRTUAL_ENV_PATH"
 fi
