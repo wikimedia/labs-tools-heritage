@@ -32,10 +32,11 @@ def get_usernames_from_database(conn, cursor, category, delta_minutes=120):
         "   WHERE lt_namespace=14 AND lt_title=%s"
         "   AND cl_type='file') cats"
         " INNER JOIN page ON cl_from = page_id"
-        " INNER JOIN image ON page_title = img_name"
-        " LEFT JOIN actor ON actor.actor_id = image.img_actor"
+        " INNER JOIN file ON page_title = file_name"
+        " INNER JOIN filerevision ON filerevision.fr_id = file.file_latest"
+        " LEFT JOIN actor ON actor.actor_id = filerevision.fr_actor"
         " LEFT JOIN user ON user.user_id = actor.actor_user"
-        " WHERE img_timestamp BETWEEN %s AND %s"
+        " WHERE fr_timestamp BETWEEN %s AND %s"
         " GROUP BY uploader")
 
     now = datetime.datetime.utcnow()
