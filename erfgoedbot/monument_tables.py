@@ -7,6 +7,8 @@ Author: Platonides
 """
 import os
 
+from pymysql.converters import escape_string
+
 import erfgoedbot.monuments_config as mconfig
 
 
@@ -75,7 +77,7 @@ def process_classic_config(country_config):
             elif typ.startswith("varchar("):
                 if field.get('default'):
                     typ += " NOT NULL DEFAULT '{}'".format(
-                        field.get('default'))
+                        escape_string(str(field.get('default'))))
                 else:
                     typ += " NOT NULL DEFAULT ''"
 

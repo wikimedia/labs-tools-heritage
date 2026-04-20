@@ -127,6 +127,26 @@ class TestProcessClassicConfig(unittest.TestCase):
         result = monument_tables.process_classic_config(self.country_config)
         self.assertEqual(result, expected_output)
 
+    def test_process_classic_config_default_field_single_quote(self):
+        """Ensure single quotes in varchar defaults are escaped."""
+        self.country_config["fields"].append(
+            {"dest": "d_val", "source": "s_val", "default": "L'Aquila"})
+        expected_output = ("the_table|primkey|"
+                           "  `d_val` varchar(255) NOT NULL "
+                           "DEFAULT 'L\\'Aquila',|")
+        result = monument_tables.process_classic_config(self.country_config)
+        self.assertEqual(result, expected_output)
+
+    def test_process_classic_config_default_field_backslash(self):
+        """Ensure backslashes in varchar defaults are escaped."""
+        self.country_config["fields"].append(
+            {"dest": "d_val", "source": "s_val", "default": "a\\b"})
+        expected_output = ("the_table|primkey|"
+                           "  `d_val` varchar(255) NOT NULL "
+                           "DEFAULT 'a\\\\b',|")
+        result = monument_tables.process_classic_config(self.country_config)
+        self.assertEqual(result, expected_output)
+
     def test_process_classic_config_varchar_field(self):
         self.country_config["fields"].append(
             {"dest": "d_val", "source": "s_val", "type": "varchar(14)"})
