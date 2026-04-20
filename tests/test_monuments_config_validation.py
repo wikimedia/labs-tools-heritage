@@ -147,6 +147,28 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
             for field in data.get('fields', []):
                 self.assert_is_ascii(field.get('dest'), msg=self.label)
 
+    def test_monuments_config_country_field_dests_unique(self):
+        """Ensure field dest entries are unique, except for empty strings.
+
+        Duplicate non-empty dest values lead to duplicate columns when the
+        CREATE TABLE SQL is generated.
+        """
+        for key, data in config.countries.items():
+            self.set_label(key)
+            seen = set()
+            duplicates = set()
+            for field in data.get('fields', []):
+                dest = field.get('dest')
+                if not dest:
+                    continue
+                if dest in seen:
+                    duplicates.add(dest)
+                seen.add(dest)
+            self.assertEqual(
+                duplicates, set(),
+                msg='%s: duplicate dest values: %s' % (
+                    self.label, ', '.join(sorted(duplicates))))
+
     def test_monuments_config_country_field_lat_and_lon(self):
         """Ensure the country field dest entries contain lat-lon pair."""
         # if one is present both should be present
