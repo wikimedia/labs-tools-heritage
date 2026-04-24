@@ -2,6 +2,7 @@
 #    uv export --format requirements-txt --no-annotate --no-hashes --only-dev
 colorama==0.4.6 ; sys_platform == 'win32'
 coverage==7.10.7
+coverage2clover==4.0.0
 exceptiongroup==1.3.1 ; python_full_version < '3.11'
 freezegun==1.5.5
 iniconfig==2.1.0 ; python_full_version < '3.10'
@@ -9,6 +10,7 @@ iniconfig==2.3.0 ; python_full_version >= '3.10'
 packaging==25.0
 pluggy==1.6.0
 pygments==2.19.2
+pygount==1.2.4
 pytest==8.4.2 ; python_full_version < '3.10'
 pytest==9.0.2 ; python_full_version >= '3.10'
 pytest-cov==7.0.0

@@ -16,6 +16,8 @@ node_modules
 
 # tox/composer/docker files
 .coverage
+coverage.xml
+coverage/
 htmlcov
 .tox
 composer.lock
