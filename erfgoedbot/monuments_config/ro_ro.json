@@ -63,7 +63,8 @@
         },
         {
             "dest": "imagine",
-            "source": "Imagine"
+            "source": "Imagine",
+            "conv": "remove_file_prefix"
         },
         {
             "dest": "commonscat",

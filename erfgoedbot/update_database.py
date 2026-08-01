@@ -13,6 +13,7 @@ python update_database.py -countrycode:XX -langcode:YY
 
 
 import datetime
+import functools
 import os
 import time
 import urllib.parse
@@ -39,7 +40,8 @@ from erfgoedbot.converters import (
     extract_elements_from_template_param,
     extractWikilink,
     int_to_european_digits,
-    remove_commons_category_prefix
+    remove_commons_category_prefix,
+    remove_file_prefix
 )
 from erfgoedbot.database_connection import (
     close_database_connection,
@@ -69,6 +71,34 @@ def run_check(check, field_value, monument_key, countryconfig, source_page):
             countryconfig.get('table'), check))
 
 
+@functools.lru_cache(maxsize=None)
+def _fetch_file_namespace_prefixes(lang, project):
+    """
+    Look up the names of the file namespace on a wiki.
+
+    Kept separate from get_file_namespace_prefixes since the cache requires
+    hashable arguments. Returns a tuple so that the cached value cannot be
+    modified by a caller.
+    """
+    site = pywikibot.Site(lang, project)
+    return tuple(site.namespaces.FILE)
+
+
+def get_file_namespace_prefixes(countryconfig):
+    """
+    Get the names, and aliases, of the file namespace on the source wiki.
+
+    The result is cached since it is the same for every monument in a dataset.
+
+    @param countryconfig: the configurations for the dataset being processed.
+        The 'lang' and 'project' entries identify the source wiki.
+    @return: tuple of all the names of the file namespace
+    """
+    return _fetch_file_namespace_prefixes(
+        countryconfig.get('lang'),
+        countryconfig.get('project', 'wikipedia'))
+
+
 def convert_field(field, contents, countryconfig):
     """Convert a field."""
     if field.get('conv') == 'extractWikilink':
@@ -76,6 +106,10 @@ def convert_field(field, contents, countryconfig):
     elif field.get('conv') == 'remove_commons_category_prefix':
         return remove_commons_category_prefix(
             contents.get(field.get('source')))
+    elif field.get('conv') == 'remove_file_prefix':
+        return remove_file_prefix(
+            contents.get(field.get('source')),
+            get_file_namespace_prefixes(countryconfig))
     elif field.get('conv') == 'generateRegistrantUrl' and \
             countryconfig.get('registrantUrlBase'):
         return countryconfig.get('registrantUrlBase') % (

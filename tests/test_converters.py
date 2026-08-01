@@ -9,6 +9,7 @@ from erfgoedbot.converters import (
     extractWikilink,
     int_to_european_digits,
     remove_commons_category_prefix,
+    remove_file_prefix,
     sanitize_wikitext_string,
     ucfirst
 )
@@ -83,6 +84,101 @@ class TestRemoveCommonsCategoryPrefix(unittest.TestCase):
     def test_remove_commons_category_prefix_with_no_prefix_should_return(self):
         text = 'Tropaeum Traiani'
         self.assertEqual(remove_commons_category_prefix(text), "Tropaeum Traiani")
+
+
+class TestRemoveFilePrefix(unittest.TestCase):
+
+    """Test the remove_file_prefix method."""
+
+    def setUp(self):
+        # the file namespace on ro.wikipedia
+        self.prefixes = ['Fișier', 'File', 'Image', 'Fişier', 'Imagine']
+
+    def test_remove_file_prefix_empty_should_return_empty(self):
+        self.assertEqual(remove_file_prefix('', self.prefixes), '')
+
+    def test_remove_file_prefix_without_prefixes_should_return_input(self):
+        text = 'File:Catalina monulesti.jpg'
+        self.assertEqual(remove_file_prefix(text, []), text)
+
+    def test_remove_file_prefix_with_no_prefix_should_return_input(self):
+        text = 'Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_remove_canonical_prefix(self):
+        text = 'File:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_remove_localized_prefix(self):
+        text = 'Fișier:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_remove_alias_prefix(self):
+        text = 'Imagine:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_remove_legacy_alias_prefix(self):
+        # Fişier, with a cedilla, is a legacy spelling of Fișier
+        text = 'Fişier:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_ignore_case(self):
+        text = 'fișier:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_remove_leading_colon(self):
+        text = ':File:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_ignore_whitespace(self):
+        text = ' File : Catalina monulesti.jpg '
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_ignore_underscores(self):
+        text = 'File_:_Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_require_a_colon(self):
+        text = 'Imagine bisericii.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes), 'Imagine bisericii.jpg')
+
+    def test_remove_file_prefix_on_bare_prefix_should_return_empty(self):
+        text = 'Fișier:'
+        self.assertEqual(remove_file_prefix(text, self.prefixes), '')
+
+    def test_remove_file_prefix_should_only_remove_one_prefix(self):
+        text = 'File:File:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes),
+            'File:Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_keep_prefix_of_other_namespace(self):
+        text = 'Categorie:Catalina monulesti.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes),
+            'Categorie:Catalina monulesti.jpg')
+
+    def test_remove_file_prefix_should_keep_colon_in_file_name(self):
+        text = 'Rembrandt: The Night Watch.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes),
+            'Rembrandt: The Night Watch.jpg')
+
+    def test_remove_file_prefix_should_keep_colon_in_prefixed_file_name(self):
+        text = 'File:Rembrandt: The Night Watch.jpg'
+        self.assertEqual(
+            remove_file_prefix(text, self.prefixes),
+            'Rembrandt: The Night Watch.jpg')
 
 
 class TestCH1903Converter(unittest.TestCase):

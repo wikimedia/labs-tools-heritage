@@ -73,6 +73,32 @@ def remove_commons_category_prefix(text):
     return result
 
 
+def remove_file_prefix(text, prefixes):
+    """
+    Remove a leading file namespace prefix from an image name.
+
+    Some wikis have a convention of giving the image as a full page title,
+    rather than as just a file name.
+
+    Surrounding whitespace is always stripped, whether or not a prefix was
+    found.
+
+    @param text: the image name, with or without a prefix
+    @param prefixes: all of the names of the file namespace on the source
+        wiki, canonical, localized and aliases, since any of them may have
+        been used. If empty no prefix is removed.
+    @return: the image name without a file namespace prefix
+    """
+    text = text.strip()
+    if not prefixes:
+        # an empty alternation still matches, stripping a bare leading colon
+        return text
+
+    regex = re.compile(r'^:?[\s_]*({0})[\s_]*:[\s_]*'.format(
+        '|'.join(re.escape(prefix) for prefix in prefixes)), re.IGNORECASE)
+    return regex.sub('', text)
+
+
 def extract_elements_from_template_param(template_param):
 
     """Extract and sanitize the contents of a parsed template param."""

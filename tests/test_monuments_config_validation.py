@@ -185,7 +185,7 @@ class ValidateMonumentsConfig(unittest.TestCase, CustomAssertions):
         recognized = [
             'extractWikilink', 'generateRegistrantUrl', 'to_default_numeral',
             'CH1903ToLat', 'CH1903ToLon', 'remove_commons_category_prefix',
-            'es-ct-fop', 'il-fop', 'fi-fop',
+            'remove_file_prefix', 'es-ct-fop', 'il-fop', 'fi-fop',
             'generateRegistrantUrl-wlpa-es-ct', 'generateRegistrantUrl-sv-ship'
         ]
         for key, data in config.countries.items():

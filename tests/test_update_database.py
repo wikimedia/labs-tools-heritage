@@ -7,6 +7,7 @@ import unittest.mock as mock
 from collections import Counter, OrderedDict
 
 import pywikibot
+from pywikibot.site import Namespace
 
 from erfgoedbot import update_database
 
@@ -382,6 +383,97 @@ class TestTriggerConversion(TestUpdateDatabaseBase):
         with mock.patch('erfgoedbot.update_database.convert_field', autospec=True) as mock_convert_field:
             update_database.update_monument(contents, source, self.country_config, None, self.mock_cursor, self.mock_page)
             mock_convert_field.assert_called_once_with(new_field, contents, self.country_config)
+
+
+class TestConvertFieldRemoveFilePrefix(TestUpdateDatabaseBase):
+
+    def setUp(self):
+        super(TestConvertFieldRemoveFilePrefix, self).setUp()
+        self.country_config['lang'] = 'ro'
+        self.country_config['project'] = 'wikipedia'
+        self.field = {
+            'source': 'Imagine',
+            'dest': 'imagine',
+            'conv': 'remove_file_prefix',
+        }
+
+        patcher = mock.patch(
+            'erfgoedbot.update_database.get_file_namespace_prefixes',
+            autospec=True)
+        self.mock_get_file_namespace_prefixes = patcher.start()
+        self.mock_get_file_namespace_prefixes.return_value = (
+            'Fișier', 'File', 'Image', 'Fişier', 'Imagine')
+        self.addCleanup(patcher.stop)
+
+    def test_convert_field_removes_localized_file_prefix(self):
+        contents = {'Imagine': 'Fișier:Catalina monulesti.jpg'}
+        self.assertEqual(
+            update_database.convert_field(
+                self.field, contents, self.country_config),
+            'Catalina monulesti.jpg')
+        self.mock_get_file_namespace_prefixes.assert_called_once_with(
+            self.country_config)
+
+    def test_convert_field_keeps_unprefixed_file_name(self):
+        contents = {'Imagine': 'Catalina monulesti.jpg'}
+        self.assertEqual(
+            update_database.convert_field(
+                self.field, contents, self.country_config),
+            'Catalina monulesti.jpg')
+
+
+class TestGetFileNamespacePrefixes(TestUpdateDatabaseBase):
+
+    def setUp(self):
+        super(TestGetFileNamespacePrefixes, self).setUp()
+        update_database._fetch_file_namespace_prefixes.cache_clear()
+        self.addCleanup(
+            update_database._fetch_file_namespace_prefixes.cache_clear)
+
+        patcher = mock.patch(
+            'erfgoedbot.update_database.pywikibot.Site', autospec=True)
+        self.mock_site = patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def set_file_namespace(self, custom_name, aliases):
+        self.mock_site.return_value.namespaces.FILE = Namespace(
+            6, canonical_name='File', custom_name=custom_name, aliases=aliases)
+
+    def test_get_file_namespace_prefixes_uses_source_wiki(self):
+        self.country_config['lang'] = 'ro'
+        self.country_config['project'] = 'wikipedia'
+        self.set_file_namespace('Fișier', ['Image', 'Fişier', 'Imagine'])
+
+        self.assertEqual(
+            update_database.get_file_namespace_prefixes(self.country_config),
+            ('Fișier', 'File', 'Image', 'Fişier', 'Imagine'))
+        self.mock_site.assert_called_once_with('ro', 'wikipedia')
+
+    def test_get_file_namespace_prefixes_on_commons(self):
+        self.country_config['lang'] = 'commons'
+        self.country_config['project'] = 'commons'
+        self.set_file_namespace('File', ['Image'])
+
+        self.assertEqual(
+            update_database.get_file_namespace_prefixes(self.country_config),
+            ('File', 'Image'))
+        self.mock_site.assert_called_once_with('commons', 'commons')
+
+    def test_get_file_namespace_prefixes_defaults_to_wikipedia(self):
+        self.country_config['lang'] = 'ro'
+        self.set_file_namespace('Fișier', [])
+
+        update_database.get_file_namespace_prefixes(self.country_config)
+        self.mock_site.assert_called_once_with('ro', 'wikipedia')
+
+    def test_get_file_namespace_prefixes_only_looks_up_a_wiki_once(self):
+        self.country_config['lang'] = 'ro'
+        self.country_config['project'] = 'wikipedia'
+        self.set_file_namespace('Fișier', ['Imagine'])
+
+        update_database.get_file_namespace_prefixes(self.country_config)
+        update_database.get_file_namespace_prefixes(self.country_config)
+        self.mock_site.assert_called_once_with('ro', 'wikipedia')
 
 
 class TestTriggerChecks(TestUpdateDatabaseBase):
