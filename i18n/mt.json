@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrisportelli"
+			"Chrisportelli",
+			"JiodoJ"
 		]
 	},
 	"search-title": "Fittex monumenti",
@@ -9,6 +10,18 @@
 	"search-table-th-field": "Qasam",
 	"search-table-th-filter": "Filtru",
 	"search-table-th-search": "Fittex",
+	"search-table-th-output": "Riżultat",
+	"search-table-tr-countries": "Pajjiżi",
+	"search-table-tr-languages": "Lingwi",
+	"search-table-tr-name": "Isem",
+	"search-table-tr-address": "Indirizz",
+	"search-table-tr-municipality": "Muniċipalità",
+	"search-table-tr-coordinates": "Koordinati",
+	"search-table-tr-images": "Stampa",
+	"search-table-tr-output-language": "Lingwa riżultanti",
+	"search-table-tr-output-format": "Format riżultanti",
+	"search-table-checkbox-only-images": "Monumenti biss mingħajr stampi",
+	"search-table-button-search": "Fittex",
 	"filter-all-countries": "Kull pajjiż",
 	"filter-all-languages": "Kull lingwa",
 	"db-field-country": "Pajjiż",
@@ -24,6 +37,9 @@
 	"db-field-source": "Sors",
 	"db-field-monument_article": "Artiklu dwar il-monument",
 	"db-field-registrant_url": "URL tar-reġistru",
+	"db-field-commonscat": "Kategorija tal-Komuni",
+	"db-field-wd_item": "Oġġett tal-Wikidata",
+	"db-field-project": "Proġett Wikimedja",
 	"db-field-st_address": "Indirizzi",
 	"db-field-st_address_pct": "Indirizzi %",
 	"db-field-st_coordinates": "Koordinati",
@@ -35,13 +51,17 @@
 	"db-field-st_name": "Ismijiet",
 	"db-field-st_name_pct": "Ismijiet %",
 	"db-field-st_total": "Numru totali",
+	"toolbox-label-searchtipps": "uża %terminu jew terminu% jew %terminu% għal tfittxija fażżija",
 	"toolbox-meta-title": "Għodda Wiki Tħobb il-Monumenti",
+	"toolbox-main-logo-alt": "Logo Wiki Tħobb il-Monumenti",
 	"toolbox-main-title": "Għodda WLM",
-	"toolbox-main-description": "Ġabra ta' għodda relatati ma'",
+	"toolbox-main-description": "Ġabra ta' għodda relatati ma' $1",
 	"toolbox-wikilovesmonuments": "Wiki Tħobb il-Monumenti",
 	"toolbox-nav-homepage": "Paġna prinċipali",
 	"toolbox-nav-statistics": "Statistika",
 	"toolbox-nav-search": "Fittex",
 	"toolbox-title-searchmonuments": "Fittex monumenti",
-	"location": "Post"
+	"toolbox-title-statistics": "Statistiki tal-monumenti",
+	"location": "Post",
+	"source-monuments-list": "Lista ta' monumenti sors fuq proġett Wikimedja"
 }
