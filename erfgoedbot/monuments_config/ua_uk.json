@@ -149,6 +149,10 @@
         {
             "dest": "",
             "source": "тип-нп"
+        },
+        {
+            "dest": "",
+            "source": "бали"
         }
     ],
     "sql_lang": "Ukrainian",
