@@ -18,5 +18,14 @@
     "require": {
         "krinkle/intuition": "^0.6.1",
         "ext-mbstring": "*"
-    }
+    },
+    "config": {
+      "policy": {
+          "advisories": {
+              "ignore-id": {
+                  "PKSA-rdkp-vv9z-mjkg": "phpcs pinned by mediawiki-codesniffer 34; dev-only linter"
+              }
+          }
+      }
+  }
 }
