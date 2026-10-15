@@ -4,6 +4,7 @@
 			"Nirmal Dulal",
 			"RajeshPandey",
 			"पर्वत सुबेदी",
+			"बडा काजी",
 			"सरोज कुमार ढकाल",
 			"हिमाल सुबेदी"
 		]
@@ -48,7 +49,7 @@
 	"db-field-st_municipality_pct": "नगरपालिका %",
 	"db-field-st_name": "नामहरू",
 	"db-field-st_name_pct": "नामहरू %",
-	"db-field-st_total": "कुल संख्या",
+	"db-field-st_total": "पुरा सङ्ख्या",
 	"toolbox-main-title": "WLM औजारबट्टा",
 	"toolbox-wikilovesmonuments": "विकी लभ्स मोनुमेन्टस्",
 	"toolbox-nav-homepage": "मुख्य पृष्ठ",
