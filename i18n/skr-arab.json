@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Tauqeerkhansurani"
 		]
 	},
+	"search-title": "یادگاراں دی ڳول",
+	"search-monuments-database": "یادگاراں دا ڈیٹابیس ڳولو",
 	"search-table-th-field": " فیلڈ",
 	"search-table-th-filter": "چھاݨاں",
 	"search-table-th-search": "ڳولو",
@@ -17,6 +20,7 @@
 	"search-table-tr-images": "تصویراں",
 	"search-table-tr-output-language": "آؤٹ پٹ زبان",
 	"search-table-tr-output-format": "آؤٹ پٹ فارمیٹ",
+	"search-table-checkbox-only-images": "صرف بنا تصویراں آلیاں یادگاراں",
 	"search-table-button-search": "ڳولو",
 	"filter-all-countries": "سارے ملک",
 	"filter-all-languages": "ساریاں زباناں",
@@ -31,6 +35,9 @@
 	"db-field-image": "تصویر",
 	"db-field-changed": "تبدیلیاں",
 	"db-field-source": "ماخذ",
+	"db-field-monument_article": "یادگار دا صفحہ",
+	"db-field-registrant_url": "رجسٹر کرݨ آلا دا یوآرایل",
+	"db-field-commonscat": "Commons زمرہ",
 	"db-field-wd_item": "وکی ڈیٹا آئٹم",
 	"db-field-project": "وکیمیڈیا منصوبہ",
 	"db-field-st_address": "پتے",
@@ -44,8 +51,17 @@
 	"db-field-st_name": "ناں",
 	"db-field-st_name_pct": "ناں %",
 	"db-field-st_total": "کل نمبر",
+	"toolbox-label-searchtipps": "دھندلی ڳول کیتے %لفظ یا لفظ% یا %لفظ% استعمال کرو",
+	"toolbox-meta-title": "Wiki Loves Monuments Toolbox",
+	"toolbox-main-logo-alt": "Wiki Loves Monuments لوگو",
+	"toolbox-main-title": "WLM Toolbox",
+	"toolbox-main-description": "$1 نال تعلق رکھݨ آلیاں اوزاراں دا سیٹ",
+	"toolbox-wikilovesmonuments": "Wiki Loves Monuments",
 	"toolbox-nav-homepage": "مرکزی ورقہ",
 	"toolbox-nav-statistics": "شماريات",
 	"toolbox-nav-search": "ڳولو",
-	"location": "محل وقوع"
+	"toolbox-title-searchmonuments": "یادگاراں ڳولو",
+	"toolbox-title-statistics": "یادگاراں دے شماریات",
+	"location": "محل وقوع",
+	"source-monuments-list": "ویکی میڈیا منصوبے تے ماخذ یادگاراں دی فہرست"
 }
