@@ -50,8 +50,19 @@
 	<exclude-pattern>node_modules</exclude-pattern>
 	<exclude-pattern>vendor</exclude-pattern>
 	<exclude-pattern>api/tripplanner</exclude-pattern>
-	<exclude-pattern>common</exclude-pattern>
 	<exclude-pattern>map</exclude-pattern>
 	<exclude-pattern>prox_search/cls</exclude-pattern>
 	<exclude-pattern>tools/browser</exclude-pattern>
+	<!--
+		These files were never linted: the old "common" exclude-pattern matched
+		them as a substring (common.php, CommonFunctions, CommonsDB) as well as
+		the now deleted common/ directory. Keep them excluded so this change
+		preserves the previous lint scope exactly; cleaning up their (for the
+		api/ files, currently clean) state is a separate task.
+	-->
+	<exclude-pattern>api/common\.php</exclude-pattern>
+	<exclude-pattern>api/includes/CommonFunctions\.php</exclude-pattern>
+	<exclude-pattern>api/includes/CommonsDB\.php</exclude-pattern>
+	<exclude-pattern>api/tests/CommonFunctionsTest\.php</exclude-pattern>
+	<exclude-pattern>prox_search/CommonFunctions\.php</exclude-pattern>
 </ruleset>
