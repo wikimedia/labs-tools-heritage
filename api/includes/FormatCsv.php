@@ -15,7 +15,7 @@ class FormatCsv extends FormatBase {
 	}
 
 	function outputBegin( $selectedItems ) {
-		$selectedItems = array_map( 'self::csvQuote', $selectedItems );
+		$selectedItems = array_map( [ self::class, 'csvQuote' ], $selectedItems );
 		echo implode( ',', $selectedItems );
 	}
 
