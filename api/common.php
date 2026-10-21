@@ -29,6 +29,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
  * Localization
  * Intuition was loaded via Composer
  */
+use Krinkle\Intuition\Intuition;
 
 $opts = array(
 	'domain' => 'heritage', // name of your main text-domain here
