@@ -1,5 +1,4 @@
 <?php
-error_reporting( E_ALL );
 /**
  * Wikitable output type, based on HTML, which at its turn is based on XML
  * @author Joancreus (jcreus), based on Platonides work

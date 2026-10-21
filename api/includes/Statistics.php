@@ -5,10 +5,6 @@
  *
  * Depends on StatsBuilder being run on a daily basis
  */
-
-ini_set( 'display_errors', 1 );
-ini_set( 'error_reporting', E_ALL );
-
 class Statistics extends StatisticsBase {
 	static $dbTable = 'statistics';
 	var $report = [];

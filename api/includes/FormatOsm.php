@@ -1,5 +1,4 @@
 <?php
-error_reporting( E_ALL );
 /**
  * OSM output type, the format just redirects you to an OpenStreetMap
  * based map containing the result of the search.

@@ -1,5 +1,4 @@
 <?php
-error_reporting( E_ALL );
 /**
  * HTML output type, based on XML. This output is for users (and not automated tools) so internationalization will be used.
  * @author Joancreus (jcreus), based on Platonides work

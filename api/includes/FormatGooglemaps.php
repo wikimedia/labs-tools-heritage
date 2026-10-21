@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL);
 /**
  * Googlemap output type, the format just redirects you to Google Maps
  * based map containing the result of the search.

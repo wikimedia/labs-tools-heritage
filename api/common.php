@@ -1,7 +1,5 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', true);
-ini_set('html_errors', true);
 
 /* Entry point for the monuments api */
 require dirname( __FILE__ ) . '/autoloader.php';
@@ -19,6 +17,12 @@ if ( file_exists( dirname( dirname( dirname( __FILE__ ) ) ) . "/{$config_overrid
 } elseif ( file_exists( dirname( dirname( __FILE__ ) ) . "/{$config_override}" ) ) {
 	require dirname( dirname( __FILE__ ) ) . "/{$config_override}";
 }
+
+// Log errors, but only show them in the response outside production
+$displayErrors = $environment === 'production' ? '0' : '1';
+ini_set( 'log_errors', '1' );
+ini_set( 'display_errors', $displayErrors );
+ini_set( 'html_errors', $displayErrors );
 
 /**
  * Loading libraries installed via Composer
