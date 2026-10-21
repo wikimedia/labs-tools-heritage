@@ -95,6 +95,9 @@ class ResultWrapper implements Iterator {
 	 * above may cause rows to be skipped or repeated.
 	 */
 
+	// phpcs:disable Squiz.WhiteSpace.FunctionSpacing.Before -- phpcs 3.5 parses attributes as comments
+
+	#[\ReturnTypeWillChange]
 	function rewind() {
 		if ( $this->numRows() ) {
 			$this->db->dataSeek( $this, 0 );
@@ -103,6 +106,7 @@ class ResultWrapper implements Iterator {
 		$this->currentRow = null;
 	}
 
+	#[\ReturnTypeWillChange]
 	function current() {
 		if ( $this->currentRow === null ) {
 			$this->next();
@@ -110,19 +114,24 @@ class ResultWrapper implements Iterator {
 		return $this->currentRow;
 	}
 
+	#[\ReturnTypeWillChange]
 	function key() {
 		return $this->pos;
 	}
 
+	#[\ReturnTypeWillChange]
 	function next() {
 		$this->pos++;
 		$this->currentRow = $this->fetchObject();
 		return $this->currentRow;
 	}
 
+	#[\ReturnTypeWillChange]
 	function valid() {
 		return $this->current() !== null;
 	}
+
+	// phpcs:enable
 
 	function isError() {
 		return ( $this->result === null or ( $this->result === false ) );
