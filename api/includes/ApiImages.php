@@ -36,7 +36,7 @@ class ApiImages extends ApiBase {
 			 'props' => [
 				 ApiBase::PARAM_DFLT => [ 'country', 'id', 'img_name' ],
 				 ApiBase::PARAM_TYPE => [ 'country', 'id', 'img_name' ],
-				 ApiBase::PARAM_ISMULTI => true ,
+				 ApiBase::PARAM_ISMULTI => true,
 			 ],
 		];
 		$params = array_merge_recursive( $defaultParams, $params );
@@ -57,7 +57,6 @@ class ApiImages extends ApiBase {
 
 	/**
 	 * Display images based on country and id
-	 *
 	 */
 	public function images() {
 		// $display_fields = array( 'country', 'id', 'img_name', 'img_thumb', 'img_page');

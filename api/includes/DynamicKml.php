@@ -3,7 +3,6 @@
 /**
  * KML network link generation
  */
-
 class DynamicKml {
 
 	function output( $request_url ) {

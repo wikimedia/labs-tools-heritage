@@ -49,10 +49,10 @@ Format		</label>
 	$db = Database::getDb();
 	$rows = $db->query( "SELECT DISTINCT name FROM admin_tree WHERE level = 0 ORDER BY name" );
 
-	foreach ( $rows as $row ) {
-		$name = htmlspecialchars( $row->name );
-		echo "			<option value=\"$name\">$name</option>\n";
-	}
+foreach ( $rows as $row ) {
+	$name = htmlspecialchars( $row->name );
+	echo "			<option value=\"$name\">$name</option>\n";
+}
 ?>
 		</select>
 		<input type="hidden" name="srcountry" value="" id="srcountry" />

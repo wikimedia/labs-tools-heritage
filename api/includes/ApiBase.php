@@ -14,13 +14,13 @@ abstract class ApiBase {
 
 	/**
 	 * The name of the encapsulating node for data output
-	 * @param string
+	 * @var string
 	 */
 	protected $toplevel_node_name = "nodes";
 
 	/**
 	 * The name of the object nodes for data output
-	 * @param string
+	 * @var string
 	 */
 	protected $object_node_name = "node";
 
@@ -274,7 +274,7 @@ abstract class ApiBase {
 		$replacement = "$1//pipe//$3";
 		$value = preg_replace( $pattern, $replacement, $value );
 		$value = explode( '|', $value );
-		return array_map( function ( $val ) { return str_replace( "//pipe//", "|", $val );
+		return array_map( static function ( $val ) { return str_replace( "//pipe//", "|", $val );
 		}, $value );
 	}
 }

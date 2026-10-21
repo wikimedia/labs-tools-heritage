@@ -146,7 +146,8 @@ function insert_sub_adm( $lang, $level, $adm, $parentId ) {
  * Helper function for verbose output.
  */
 function out( $str ) {
-	if ( VERBOSE ) { echo $str . "\n";
+	if ( VERBOSE ) {
+		echo $str . "\n";
 	}
 }
 

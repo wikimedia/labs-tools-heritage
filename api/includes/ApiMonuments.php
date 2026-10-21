@@ -222,8 +222,8 @@ class ApiMonuments extends ApiBase {
 				if ( count( $coords ) != 2 ) {
 					$this->error( 'Invalid coordinate format, 2 comma-delimited numbers are expected' );
 				}
-				list( $lat, $lon ) = $coords;
-				list( $bl_lat, $bl_lon, $tr_lat, $tr_lon ) =
+				[ $lat, $lon ] = $coords;
+				[ $bl_lat, $bl_lon, $tr_lat, $tr_lon ] =
 					self::rectAround( $lat, $lon, $this->getParam( 'radius' ) );
 			}
 			if ( $dbMiserMode && ( $tr_lat - $bl_lat ) * ( $tr_lon - $bl_lon ) > self::MAX_GEOSEARCH_AREA ) {
@@ -304,7 +304,7 @@ class ApiMonuments extends ApiBase {
 			if ( $spatialMode ) {
 				$props[] = 'dist';
 				usort( $rows,
-					function ( $a, $b ) {
+					static function ( $a, $b ) {
 						if ( $a->dist == $b->dist ) {
 							return 0;
 						}
@@ -328,7 +328,7 @@ class ApiMonuments extends ApiBase {
 		}
 
 		$formatter->setRowFilter(
-			function ( $row ) {
+			static function ( $row ) {
 				if ( isset( $row->lat ) && isset( $row->lon )
 					&& !$row->lat && !$row->lon ) {
 					unset( $row->lat );

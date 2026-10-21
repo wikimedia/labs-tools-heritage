@@ -33,17 +33,17 @@ $ly_params = [ 'layar_name' => $layarName,
 				'debug' => false ];		// Switch to false when taking server live  TEMP to TRUE
 
 $ly->layar_request( $ly_params );
-$params = [ 'latitude' => $ly->layar_latitude,		// Latitude in decimal degrees of center of search
-		'longitude' => $ly->layar_longitude,			// Longitude in decimal degrees of center of search
-		'table_name' => $proxTable,		// Main table name that is being searched on
-		'id_field' => "point_id",	// Unique reference to each point in the table
-		'latitude_field' => "lat",	// Field in table that has the latitude in decimal
+$params = [ 'latitude' => $ly->layar_latitude, // Latitude in decimal degrees of center of search
+		'longitude' => $ly->layar_longitude, // Longitude in decimal degrees of center of search
+		'table_name' => $proxTable, // Main table name that is being searched on
+		'id_field' => "point_id", // Unique reference to each point in the table
+		'latitude_field' => "lat", // Field in table that has the latitude in decimal
 		'longitude_field' => "lon",	// Field in table that has the longitude in decimal
-		'peano_field_header' => "int_peano",	// First letters of fields in table that hold peano
+		'peano_field_header' => "int_peano", // First letters of fields in table that hold peano
 														// integers E.g. 'int_peano', which gets appended
 							// to create 'int_peano1, int_peano2, int_peano1iv,
 							// int_peano2iv'
-		'max_records' => $ly->max_records,	// 10 by default
+		'max_records' => $ly->max_records, // 10 by default
 		'first_record' => $ly->layar_next_page_key,
 		'radius' => $ly->layar_radius,
 		'misc_fields' => "
@@ -56,12 +56,12 @@ $params = [ 'latitude' => $ly->layar_latitude,		// Latitude in decimal degrees o
 				 allm.image AS image,
 				 allm.monument_article AS monument_article,
 				  0 AS type
-				  ",				// Type 0 is the default black circle, 1 = first entered type
+				  ", // Type 0 is the default black circle, 1 = first entered type
 		'custom_join' => $joinSql,
 		'show_queries' => false,
 		'provide_count' => true
 ];
 
-list( $results_array, $count ) = $ly->proximity_finder( $params );
+[ $results_array, $count ] = $ly->proximity_finder( $params );
 
 $ly->layar_response( $results_array, $count['show_next'] );

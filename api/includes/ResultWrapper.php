@@ -6,7 +6,10 @@
  * @ingroup Database
  */
 class ResultWrapper implements Iterator {
-	var $db, $result, $pos = 0, $currentRow = null;
+	var $db;
+	var $result;
+	var $pos = 0;
+	var $currentRow = null;
 
 	/**
 	 * Create a new result object from a result resource and a Database object

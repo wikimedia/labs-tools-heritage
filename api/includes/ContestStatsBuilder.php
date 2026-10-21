@@ -7,7 +7,6 @@
  *
  * NOTE May be optimized by INSERTing in batches
  */
-
 class ContestStatsBuilder extends ContestStatistics {
 
 	var $stats_wlmid_failed = 0;
@@ -131,7 +130,8 @@ class ContestStatsBuilder extends ContestStatistics {
 				$this->debug( 'Failed to get ID for: ' . $row['img_name'] );
 				print 'X';
 			}
-			if ( ++$count % $this->uiFeedback == 0 ) { print '.';
+			if ( ++$count % $this->uiFeedback == 0 ) {
+				print '.';
 			}
 		}
 		print "\n";
@@ -216,7 +216,8 @@ class ContestStatsBuilder extends ContestStatistics {
 				$this->setErrorMsg( 'ERROR: failed to store bulk data at line: ' . $i . ' -- ' . $sql . ';; Database says: ' . $this->db->getDBError() );
 				return false;
 			}
-			if ( $i % $this->uiFeedback == 0 ) { print '.';
+			if ( $i % $this->uiFeedback == 0 ) {
+				print '.';
 			}
 		}
 		print "\n";

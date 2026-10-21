@@ -25,9 +25,9 @@ function getLatest( $size, $number, $country ) {
 	unset( $dbPassword );
 
 	if ( $country ) {
-	$category = 'Images_from_Wiki_Loves_Monuments_' . $year . '_in_' . $db->real_escape_string( $country );
+		$category = 'Images_from_Wiki_Loves_Monuments_' . $year . '_in_' . $db->real_escape_string( $country );
 	} else {
-	$category = 'Images_from_Wiki_Loves_Monuments_' . $year;
+		$category = 'Images_from_Wiki_Loves_Monuments_' . $year;
 	}
 
 	$result = $db->query( "SELECT rc_title, img_width, img_user_text, img_timestamp
@@ -48,22 +48,22 @@ function getLatest( $size, $number, $country ) {
 	$firstrow = true;
 
 	while ( $row = $result->fetch_assoc() ) {
-	$upload = [];
-	$upload['title'] = $row['rc_title'];
-	$upload['uploader'] = $row['img_user_text'];
-	$upload['timestamp'] = $row['img_timestamp'];
-	$upload['url'] = "https://commons.wikimedia.org/wiki/File:" . $row['rc_title'];
+		$upload = [];
+		$upload['title'] = $row['rc_title'];
+		$upload['uploader'] = $row['img_user_text'];
+		$upload['timestamp'] = $row['img_timestamp'];
+		$upload['url'] = "https://commons.wikimedia.org/wiki/File:" . $row['rc_title'];
 
-	$hash = md5( $row['rc_title'] );
-	$fullimg = "https://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
-	$thumbprefix = "https://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+		$hash = md5( $row['rc_title'] );
+		$fullimg = "https://upload.wikimedia.org/wikipedia/commons/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
+		$thumbprefix = "https://upload.wikimedia.org/wikipedia/commons/thumb/" . $hash[0] . "/" . $hash[0] . $hash[1] . "/" . $row['rc_title'];
 
-	if ( !( $size == -1 ) && $size < $row['img_width'] ) {
-		$upload['image'] = $thumbprefix . "/" . (int)$_GET["size"] . "px-" . $upload['title'];
-	} else {
-		$upload['image'] = $fullimg;
-	}
-	$returnResult[] = $upload;
+		if ( !( $size == -1 ) && $size < $row['img_width'] ) {
+			$upload['image'] = $thumbprefix . "/" . (int)$_GET["size"] . "px-" . $upload['title'];
+		} else {
+			$upload['image'] = $fullimg;
+		}
+		$returnResult[] = $upload;
 	}
 	return json_encode( $returnResult );
 }

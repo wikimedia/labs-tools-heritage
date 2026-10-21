@@ -7,7 +7,7 @@ class ApiMain {
 	 *   action => API name (class name without 'API' prefix)
 	 * NOTE: if you are creating new API actions, you MUST make sure
 	 * they are mapped here.
-	 * @TODO refactor this list to get registered either by config or somehow
+	 * @todo refactor this list to get registered either by config or somehow
 	 *   automagically so new API action creators do not have to edit this file
 	 */
 	protected static $actionMap = [

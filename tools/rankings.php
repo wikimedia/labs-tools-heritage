@@ -32,9 +32,9 @@ header( 'Content-type: text/html;; charset=utf-8' );
 		background-position: center center;
 	}
 <?php
-	if ( isset( $_GET['width'] ) ) {
-		echo 'table { width: ' . $_GET['width'] . "; }\n\n";
-	}
+if ( isset( $_GET['width'] ) ) {
+	echo 'table { width: ' . $_GET['width'] . "; }\n\n";
+}
 ?>
 	td {
 		text-align: right;

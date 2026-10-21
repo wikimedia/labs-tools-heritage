@@ -2,6 +2,7 @@
 <ruleset>
 	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Generic.Classes.DuplicateClassName.Found"/>
+		<exclude name="Generic.CodeAnalysis.AssignmentInCondition"/>
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
 		<exclude name="Generic.Files.LineLength"/>
 		<exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
@@ -27,7 +28,7 @@
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch"/>
 		<exclude name="MediaWiki.Files.ClassMatchesFilename.WrongCase"/>
 		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName"/>
-		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix"/>
+		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.allowedPrefix"/>
 		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.allowedPrefix"/>
 		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix"/>
 		<exclude name="MediaWiki.Usage.ExtendClassUsage.FunctionConfigUsage"/>

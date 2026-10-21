@@ -98,12 +98,12 @@ class StatsBuilder extends Statistics {
 
 	private function getFilterForField( $field ) {
 		switch ( $this->aFields[$field]['type'] ) {
-		case 'latlon':
-			$filter = 'lat <> 0 AND lon <> 0';
-			break;
-		default: /* 'string' */
-			$filter = $field . ' IS NOT NULL AND LENGTH(TRIM(' . $field . ')) > 0';
-			break;
+			case 'latlon':
+				$filter = 'lat <> 0 AND lon <> 0';
+				break;
+			default: /* 'string' */
+				$filter = $field . ' IS NOT NULL AND LENGTH(TRIM(' . $field . ')) > 0';
+				break;
 		}
 		return $filter;
 	}

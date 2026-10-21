@@ -4,7 +4,6 @@
  * based map containing the result of the search.
  * @author Maarten Dammers (multichill), based on Platonides work
  */
-
 class FormatOsm extends FormatBase {
 	private $osmUrl = 'http://toolserver.org/~erfgoed/map/';
 

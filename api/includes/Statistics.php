@@ -77,7 +77,7 @@ class Statistics extends StatisticsBase {
 			$idxString = self::makeIdxString( $idx );
 			$group[$row[$gc]] = 1;
 			$idxs[$idxString] = 1;
-			list( $country,$municipality,$lang,$project ) = $idx;
+			[ $country, $municipality, $lang, $project ] = $idx;
 			$this->report[$idxString]['country'] = $country;
 			$this->report[$idxString]['municipality'] = $municipality;
 			$this->report[$idxString]['lang'] = $lang;
@@ -125,7 +125,7 @@ class Statistics extends StatisticsBase {
 	 */
 	static function makeIdxString( $idx ) {
 		// Need to replace any naturally occuring ':' in row[1]
-		list( $country, $muni, $lang, $project ) = $idx;
+		[ $country, $muni, $lang, $project ] = $idx;
 		$muni = str_replace( ':', '&#58;', $muni );
 		return $country . ':' . $muni . ':' . $lang . ':' . $project;
 	}
@@ -134,7 +134,7 @@ class Statistics extends StatisticsBase {
 	 * Helper to invert idx identifier string to array
 	 */
 	static function invertIdxString( $idxString ) {
-		list( $country, $municipality, $lang, $project ) = explode( ':', $idxString, 4 );
+		[ $country, $municipality, $lang, $project ] = explode( ':', $idxString, 4 );
 		$municipality = str_replace( '&#58;', ':', $municipality );
 		return [ $country, $municipality, $lang, $project ];
 	}

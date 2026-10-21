@@ -40,7 +40,7 @@ class StatisticsTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function test_makeIdxString() {
-		$idx = [ 'country','municipality','lang','project' ];
+		$idx = [ 'country', 'municipality', 'lang', 'project' ];
 		$this->assertEquals(
 			"country:municipality:lang:project",
 			Statistics::makeIdxString( $idx )
@@ -48,7 +48,7 @@ class StatisticsTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function test_makeIdxString_colon() {
-		$idx = [ 'country','[[se:municipality]]','lang','project' ];
+		$idx = [ 'country', '[[se:municipality]]', 'lang', 'project' ];
 		$this->assertEquals(
 			"country:[[se&#58;municipality]]:lang:project",
 			Statistics::makeIdxString( $idx )
@@ -58,7 +58,7 @@ class StatisticsTest extends PHPUnit\Framework\TestCase {
 	public function test_invertIdxString() {
 		$idx = "country:municipality:lang:project";
 		$this->assertEquals(
-			[ 'country','municipality','lang','project' ],
+			[ 'country', 'municipality', 'lang', 'project' ],
 			Statistics::invertIdxString( $idx )
 		);
 	}
@@ -66,7 +66,7 @@ class StatisticsTest extends PHPUnit\Framework\TestCase {
 	public function test_invertIdxString_colon() {
 		$idx = "country:[[se&#58;municipality]]:lang:project";
 		$this->assertEquals(
-			[ 'country','[[se:municipality]]','lang','project' ],
+			[ 'country', '[[se:municipality]]', 'lang', 'project' ],
 			Statistics::invertIdxString( $idx )
 		);
 	}

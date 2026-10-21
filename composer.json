@@ -4,7 +4,7 @@
         "cweiske/php-sqllint": "^0.2.2",
         "php-parallel-lint/php-console-highlighter": "0.5",
         "php-parallel-lint/php-parallel-lint": "1.3.1",
-        "mediawiki/mediawiki-codesniffer": "34.0.0"
+        "mediawiki/mediawiki-codesniffer": "52.0.1"
     },
     "scripts": {
         "fix": "phpcbf",
@@ -20,12 +20,8 @@
         "ext-mbstring": "*"
     },
     "config": {
-      "policy": {
-          "advisories": {
-              "ignore-id": {
-                  "PKSA-rdkp-vv9z-mjkg": "phpcs pinned by mediawiki-codesniffer 34; dev-only linter"
-              }
-          }
-      }
-  }
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
 }

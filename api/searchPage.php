@@ -124,7 +124,8 @@ class SearchPage {
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
 			$option = '<option value="' . htmlspecialchars( $row->country ) . '"';
-			if ( @$_GET['country'] == $row->country ) { $option .= ' selected="selected"';
+			if ( @$_GET['country'] == $row->country ) {
+				$option .= ' selected="selected"';
 			}
 			$option .= '>' . htmlspecialchars( $row->country ) . '</option>';
 			$result[] = $option;
@@ -149,7 +150,8 @@ class SearchPage {
 		/* FIXME localize */
 		foreach ( $qres as $row ) {
 			$option = '<option value="' . htmlspecialchars( $row->lang ) . '"';
-			if ( @$_GET['lang'] == $row->lang ) { $option .= ' selected="selected"';
+			if ( @$_GET['lang'] == $row->lang ) {
+				$option .= ' selected="selected"';
 			}
 			$option .= '>' . htmlspecialchars( $row->lang ) . '</option>';
 			$result[] = $option;

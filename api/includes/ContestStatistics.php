@@ -25,19 +25,19 @@ class ContestStatistics extends StatisticsBase {
 		'Poland' => 'Cultural_heritage_monuments_in_Poland_with_known_IDs',
 		'Belgium' => 'Onroerend_erfgoed_with_known_IDs',
 		'the_Netherlands' => 'Rijksmonumenten_with_known_IDs',
-		'Russia' => 'Cultural_heritage_monuments_in_Russia_with_known_IDs',         // ??
+		'Russia' => 'Cultural_heritage_monuments_in_Russia_with_known_IDs', // ??
 		'Luxembourg' => 'Cultural_heritage_monuments_in_Luxembourg_with_known_IDs', // ??
 		'Norway' => 'Cultural_heritage_monuments_in_Norway_with_known_IDs',
 		'Sweden' => 'Cultural_heritage_monuments_in_Sweden_with_known_IDs',
-		'Germany' => 'Images_from_Wiki_Loves_Monuments_2011_in_Germany',  // ??
+		'Germany' => 'Images_from_Wiki_Loves_Monuments_2011_in_Germany', // ??
 		'Spain' => 'Cultural_heritage_monuments_in_Spain_with_known_IDs',
-		'Switzerland' => 'Images_from_Wiki_Loves_Monuments_2011_in_Switzerland',    // ??
+		'Switzerland' => 'Images_from_Wiki_Loves_Monuments_2011_in_Switzerland', // ??
 	];
 
-	static $reportUserCols = [ 'user','n_images','images','n_images_accepted','n_countries' ,'countries', 'n_wlm_ids', 'wlm_ids', 'n_images_all', 'images_all', 'n_images_accepted_all', 'n_wlm_ids_all', 'wlm_ids_all', 'user_is_new' ];
-	static $reportCountryCols = [ 'country','images','users','new_users' ,'new_users_ratio', 'from_new_users', 'from_new_users_ratio' ];
+	static $reportUserCols = [ 'user', 'n_images', 'images', 'n_images_accepted', 'n_countries', 'countries', 'n_wlm_ids', 'wlm_ids', 'n_images_all', 'images_all', 'n_images_accepted_all', 'n_wlm_ids_all', 'wlm_ids_all', 'user_is_new' ];
+	static $reportCountryCols = [ 'country', 'images', 'users', 'new_users', 'new_users_ratio', 'from_new_users', 'from_new_users_ratio' ];
 	static $reportDumpCols = [ 'name', 'user_id', 'user_name', 'page_id', 'wlm_country', 'wlm_id', 'timestamp', 'user_first_rev', 'is_valid' ];
-	static $ctScopes = [ /*default(0)=>*/ 'user','country','image','dump' ];
+	static $ctScopes = [ /*default(0)=>*/ 'user', 'country', 'image', 'dump' ];
 
 	function getAxis( $sAxis ) {
 		return $this->axis[$sAxis];
@@ -45,22 +45,22 @@ class ContestStatistics extends StatisticsBase {
 
 	function retrieveReport( $ctscope, $ctitems, $ctcountries, $ctfrom, $limit, $ctorderby = 'n_images' ) {
 		switch ( $ctscope ) {
-		case 'country':
-			$ctitems = [ 'country','images','users','new_users' ,'new_users_ratio' ];
-			$report = $this->retrieveReportCountry( $ctitems, 'images DESC' );
-			break;
-		case 'user':
-			// $ctitems = array('user','n_images','n_images_accepted','n_countries' ,'n_wlm_ids', 'n_images_all', 'n_wlm_ids_all', 'n_images_accepted_all');
-			$report = $this->retrieveReportUser( $ctcountries, $ctitems, $limit, $ctorderby . ' DESC' );
-			break;
-		case 'image':
-			$report = $this->retrieveReportImage( $ctcountries );
-			break;
-		case 'dump':
-			$report = $this->retrieveReportDump( $ctcountries, $ctitems, $ctfrom, $limit );
-			break;
-		default:
-			$report = null;
+			case 'country':
+				$ctitems = [ 'country', 'images', 'users', 'new_users', 'new_users_ratio' ];
+				$report = $this->retrieveReportCountry( $ctitems, 'images DESC' );
+				break;
+			case 'user':
+				// $ctitems = array('user','n_images','n_images_accepted','n_countries' ,'n_wlm_ids', 'n_images_all', 'n_wlm_ids_all', 'n_images_accepted_all');
+				$report = $this->retrieveReportUser( $ctcountries, $ctitems, $limit, $ctorderby . ' DESC' );
+				break;
+			case 'image':
+				$report = $this->retrieveReportImage( $ctcountries );
+				break;
+			case 'dump':
+				$report = $this->retrieveReportDump( $ctcountries, $ctitems, $ctfrom, $limit );
+				break;
+			default:
+				$report = null;
 		}
 		return $report;
 	}
@@ -130,7 +130,7 @@ class ContestStatistics extends StatisticsBase {
 	}
 
 	function retrieveReportCountry( $selcolumns, $orderby = false ) {
-		$selcolumns = [ 'country','images','users','new_users' ,'new_users_ratio', 'from_new_users', 'from_new_users_ratio' ];
+		$selcolumns = [ 'country', 'images', 'users', 'new_users', 'new_users_ratio', 'from_new_users', 'from_new_users_ratio' ];
 		$selcolumns = array_intersect( self::$reportCountryCols, $selcolumns );
 		sort( $selcolumns );
 		$queries = [];

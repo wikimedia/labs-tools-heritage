@@ -4,7 +4,6 @@
  * External API wrapper
  * @author Nuno Tavares <nuno.tavares@wikimedia.pt>
  */
-
 class WlmIdHelper extends ExternalAPI {
 	static $wlmids = [
 		'Portugal' => 'WLM-PT',
