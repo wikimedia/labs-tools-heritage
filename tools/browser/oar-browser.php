@@ -192,7 +192,7 @@ class oarBrowser
 	public $rvolve_user_id;
 
 
-	public function __construct($url, $lat, $lon, $search, $page_key = null, $view_type = LIST_VIEW, $template_url = null, $my_link_target = "_parent", $my_geo_bias, $my_init_map_zoom, $my_address = null, $my_list_height = null, $my_rvolve = null, $oar_browser_path, $oar_browser_dir)
+	public function __construct($url, $lat, $lon, $search, $page_key, $view_type, $template_url, $my_link_target, $my_geo_bias, $my_init_map_zoom, $my_address, $my_list_height, $my_rvolve, $oar_browser_path, $oar_browser_dir)
 	{
 
 		$this->url = $url;
