@@ -25,6 +25,7 @@ class FormatHtml extends FormatBase {
 	}
 
 	private $isTableOpen;
+	private $isFirstRow;
 
 	function outputBegin( $selectedItems ) {
 		echo '<html>';

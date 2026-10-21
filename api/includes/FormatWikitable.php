@@ -20,6 +20,7 @@ class FormatWikitable extends FormatBase {
 	}
 
 	private $isTableOpen;
+	private $isFirstRow;
 
 	function outputBegin( $selectedItems ) {
 		echo '{|class="wikitable" style="width:100%;"';
