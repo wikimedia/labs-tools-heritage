@@ -47,6 +47,6 @@ class FormatCsv extends FormatBase {
 	}
 
 	static function csvQuote( $text ) {
-		return '"' . str_replace( '"', '""', $text ) . '"';
+		return '"' . str_replace( '"', '""', $text ?? '' ) . '"';
 	}
 }

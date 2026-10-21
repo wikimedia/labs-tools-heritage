@@ -125,7 +125,7 @@ class FormatHtml extends FormatBase {
 					$tdattrs = ' class="ht' . ( intval( $value / 10 ) ) . '"';
 					$cellData = $value; // .' %' // this will break sorting! :(;
 				} else {
-					$cellData = htmlspecialchars( $value );
+					$cellData = htmlspecialchars( $value ?? '' );
 				}
 
 				echo '<td' . $tdattrs . '>' . $cellData . '</td>';

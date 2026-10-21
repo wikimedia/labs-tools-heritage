@@ -112,7 +112,7 @@ class FormatHtmllist extends FormatBase {
 						} elseif ( strcmp( $name, 'commonscat' ) == 0 ) {
 							$desc .= makeHTMLlink( makeCommonsCatUrl( $value ), $value );
 						} else {
-							$desc .= htmlspecialchars( $value );
+							$desc .= htmlspecialchars( $value ?? '' );
 						}
 					}
 					$desc .= '</li>';

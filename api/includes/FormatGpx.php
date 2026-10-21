@@ -40,8 +40,8 @@ class FormatGpx extends FormatBase {
 	function outputRow( $row, $selectedItems ) {
 		// FIXME: Only include item if proper lat and lon are set
 		echo '<wpt';
-		echo ' lat="' . htmlspecialchars( $row->lat ) . '"';
-		echo ' lon="' . htmlspecialchars( $row->lon ) . '"';
+		echo ' lat="' . htmlspecialchars( $row->lat ?? '' ) . '"';
+		echo ' lon="' . htmlspecialchars( $row->lon ?? '' ) . '"';
 		echo '>';
 		// FIXME: Check if the time format is correct.
 		echo '<time>' . htmlspecialchars( date( 'c', strtotime( $row->changed ) ) ) . '</time>';

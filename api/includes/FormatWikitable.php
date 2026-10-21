@@ -69,7 +69,7 @@ class FormatWikitable extends FormatBase {
 				} elseif ( $name == "commonscat" ) {
 					$cellData = makeCommonsCatWikilink( $value );
 				} else {
-					$cellData = htmlspecialchars( $value );
+					$cellData = htmlspecialchars( $value ?? '' );
 				}
 
 				echo '|' . $cellData;

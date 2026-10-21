@@ -31,7 +31,7 @@ class FormatXml extends FormatBase {
 		echo sprintf( '<%s', $this->api->getObjectNodeName() );
 		foreach ( $row as $name => $value ) {
 			if ( in_array( $name, $selectedItems ) ) {
-				echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ) . '"';
+				echo ' ' . htmlspecialchars( $name ) . '="' . htmlspecialchars( $value ?? '' ) . '"';
 			}
 		}
 		echo ' />';

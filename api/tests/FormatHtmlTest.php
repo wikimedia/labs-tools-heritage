@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../includes/FormatBase.php';
-require __DIR__ . '/../includes/FormatHtml.php';
+require_once __DIR__ . '/../includes/FormatHtml.php';
 
 class FormatHtmlTest extends PHPUnit\Framework\TestCase {
 

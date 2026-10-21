@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../includes/FormatBase.php';
-require __DIR__ . '/../includes/FormatWikitable.php';
+require_once __DIR__ . '/../includes/FormatWikitable.php';
 
 class FormatWikitableTest extends PHPUnit\Framework\TestCase {
 
