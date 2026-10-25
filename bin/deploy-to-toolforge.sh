@@ -6,13 +6,20 @@ if [ -n "$1" ]; then
     user="$1"@
 fi
 ssh "$user"login.toolforge.org <<'ENDSSH'
+# The local set -e does not apply here. Both the login shell and the shell
+# opened by become read this script, so both need it: otherwise a failing
+# step only ends the inner shell and the login shell runs the rest.
+set -e
 become heritage
+set -e
 cd heritage
-. bin/defaults.sh
 
 echo "Pulling changes from Git..."
 git pull
 git log "@{1}.." --oneline --reverse -C --no-merges
+
+# Only load the settings once pulled, so changes to them apply to this deploy
+. bin/defaults.sh
 
 echo "Updating dependencies..."
 toolforge jobs run build-python --command "./bin/build-python.sh" --image "$TOOLFORGE_PYTHON_IMAGE" --wait
