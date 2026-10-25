@@ -20,7 +20,6 @@ coverage.xml
 coverage/
 htmlcov
 .tox
-composer.lock
 erfgoedbot/database_config.yml
 conf/monuments_db.sql.gz
 docker_pages
