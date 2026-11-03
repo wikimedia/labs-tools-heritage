@@ -9,6 +9,8 @@ require_once __DIR__ . '/../includes/FormatHtmllist.php';
 require_once __DIR__ . '/../includes/FormatWikitable.php';
 require_once __DIR__ . '/../includes/FormatXml.php';
 
+use Krinkle\Intuition\Intuition;
+
 if ( !function_exists( '_i18n' ) ) {
 	// Normally provided by api/common.php; only used for table headers.
 	function _i18n( $key ) {
@@ -26,11 +28,8 @@ class FormatNullColumnsTest extends PHPUnit\Framework\TestCase {
 
 	protected function setUp(): void {
 		// FormatHtmllist reads its labels from the global Intuition instance.
-		$GLOBALS['I18N'] = new class {
-			public function msg( $key ) {
-				return $key;
-			}
-		};
+		$GLOBALS['I18N'] = $this->createMock( Intuition::class );
+		$GLOBALS['I18N']->method( 'msg' )->willReturnArgument( 0 );
 		set_error_handler( static function ( $errno, $errstr, $errfile, $errline ) {
 			throw new ErrorException( $errstr, 0, $errno, $errfile, $errline );
 		} );
