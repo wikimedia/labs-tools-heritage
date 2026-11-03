@@ -1,5 +1,9 @@
 <?php
-class Language {
+/**
+ * Localised country and subdivision names for one language, from CLDR
+ * and the subdivisions data, with language fallbacks.
+ */
+class RegionNames {
 	private $data;
 	private $code;
 	private static $languageCache = [];
@@ -37,7 +41,7 @@ class Language {
 			$data = self::getRawData( $countryLang );
 		}
 
-		self::$languageCache[$code] = new Language( $code, $data );
+		self::$languageCache[$code] = new self( $code, $data );
 		return self::$languageCache[$code];
 	}
 

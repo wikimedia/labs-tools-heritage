@@ -6,7 +6,7 @@
  */
 class ApiAdminTree extends ApiBase {
 	/**
-	 * @var Language
+	 * @var RegionNames
 	 */
 	private $language;
 
@@ -64,7 +64,7 @@ class ApiAdminTree extends ApiBase {
 			if ( !$useLang ) {
 				$useLang = $countryLang;
 			}
-			$this->language = Language::newFromCode( $useLang, $countryLang );
+			$this->language = RegionNames::newFromCode( $useLang, $countryLang );
 			$useLang = ApiCountries::pickCountryLanguage( $country, $useLang );
 			// @hack: Get default language once again in case pickCountryLanguage() reset it to default
 			if ( !$useLang ) {
@@ -133,11 +133,11 @@ class ApiAdminTree extends ApiBase {
 		$db = Database::getDb();
 		// get a list of countries
 		$useLang = $this->getParam( 'uselang' ); // Not getUseLang() because that will throw an exception w/o adm0
-		$lang = $useLang ? Language::newFromCode( $useLang ) : null;
+		$lang = $useLang ? RegionNames::newFromCode( $useLang ) : null;
 		$res = new ResultWrapper( $db, $db->query( 'SELECT `id`, `name` FROM `admin_tree` WHERE `level` = 0 GROUP BY `name`' ) );
 		while ( $row = $db->fetchAssoc( $res ) ) {
 			$fallbackLang = ApiCountries::getDefaultLanguage( $row['name'] );
-			$this->translateRow( $row, $lang && $lang->hasData() ? $lang : Language::newFromCode( $fallbackLang ) );
+			$this->translateRow( $row, $lang && $lang->hasData() ? $lang : RegionNames::newFromCode( $fallbackLang ) );
 			$data[] = $row;
 		}
 		return $data;
