@@ -3,7 +3,6 @@
 require_once __DIR__ . '/../includes/ApiBase.php';
 require_once __DIR__ . '/../includes/FormatBase.php';
 require_once __DIR__ . '/../includes/FormatCsv.php';
-require_once __DIR__ . '/../includes/FormatGpx.php';
 require_once __DIR__ . '/../includes/FormatHtml.php';
 require_once __DIR__ . '/../includes/FormatHtmllist.php';
 require_once __DIR__ . '/../includes/FormatWikitable.php';
@@ -74,7 +73,6 @@ class FormatNullColumnsTest extends PHPUnit\Framework\TestCase {
 	public static function provideFormats() {
 		return [
 			'csv' => [ FormatCsv::class, '"123","",""' ],
-			'gpx' => [ FormatGpx::class, '<wpt lat="" lon="">' ],
 			'html' => [ FormatHtml::class, '<td>123</td>' . "\n" . '<td></td>' ],
 			'htmllist' => [ FormatHtmllist::class, '<li> db-field-adm1: </li>' ],
 			'wikitable' => [ FormatWikitable::class, "|123\n|\n|\n" ],

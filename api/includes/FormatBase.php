@@ -35,6 +35,16 @@ abstract class FormatBase {
 		return null;
 	}
 
+	/**
+	 * Returns the fields the format reads from every row, which are fetched
+	 * whatever the props parameter asks for. The primary key is always
+	 * fetched.
+	 * @return string[]
+	 */
+	function getRequiredProps() {
+		return [];
+	}
+
 	abstract function getContentType();
 
 	abstract function outputBegin( $selectedItems );

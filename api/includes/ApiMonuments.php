@@ -270,8 +270,8 @@ class ApiMonuments extends ApiBase {
 
 		$limit = $this->getParam( 'limit' );
 
-		// add any properties expected to be ordered by
-		$props = array_unique( array_merge( $orderby, $props ) );
+		// add any properties expected to be ordered by, or read by the format
+		$props = array_unique( array_merge( $orderby, $props, $formatter->getRequiredProps() ) );
 
 		$res = $db->select(
 			array_merge( Monuments::$dbPrimaryKey, $props ),

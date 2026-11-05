@@ -9,6 +9,10 @@ class FormatGpx extends FormatBase {
 		return "application/xml";
 	}
 
+	function getRequiredProps() {
+		return [ 'lat', 'lon', 'changed', 'name', 'source', 'monument_article' ];
+	}
+
 	function headers() {
 		parent::headers();
 		echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>';
@@ -38,10 +42,13 @@ class FormatGpx extends FormatBase {
 	}
 
 	function outputRow( $row, $selectedItems ) {
-		// FIXME: Only include item if proper lat and lon are set
+		// A waypoint must have coordinates
+		if ( !isset( $row->lat ) || !isset( $row->lon ) ) {
+			return;
+		}
 		echo '<wpt';
-		echo ' lat="' . htmlspecialchars( $row->lat ?? '' ) . '"';
-		echo ' lon="' . htmlspecialchars( $row->lon ?? '' ) . '"';
+		echo ' lat="' . htmlspecialchars( $row->lat ) . '"';
+		echo ' lon="' . htmlspecialchars( $row->lon ) . '"';
 		echo '>';
 		// FIXME: Check if the time format is correct.
 		echo '<time>' . htmlspecialchars( date( 'c', strtotime( $row->changed ) ) ) . '</time>';

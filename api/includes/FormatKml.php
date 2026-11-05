@@ -19,6 +19,10 @@ class FormatKml extends FormatBase {
 		return [ 'country', 'municipality', 'address' ];
 	}
 
+	function getRequiredProps() {
+		return [ 'lat', 'lon' ];
+	}
+
 	function headers() {
 		parent::headers();
 		echo '<?xml version="1.0" encoding="UTF-8"?>';
