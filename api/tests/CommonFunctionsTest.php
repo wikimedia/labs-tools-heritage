@@ -85,6 +85,129 @@ class CommonFunctionsTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
+	public function test_getImageFromCommons_encodes_filename()
+	{
+		$this->assertEquals(
+			'//upload.wikimedia.org/wikipedia/commons/thumb/c/c8/a%22_onerror%3D%22x.jpg/100px-a%22_onerror%3D%22x.jpg',
+			getImageFromCommons('a" onerror="x.jpg', 100)
+		);
+	}
+
+	public function test_getImageFromCommons_encodes_non_ascii_filename_and_size()
+	{
+		// The hash is taken from the unencoded name, as Commons does
+		$md5 = md5('Église_x.jpg');
+		$this->assertEquals(
+			"//upload.wikimedia.org/wikipedia/commons/thumb/{$md5[0]}/{$md5[0]}{$md5[1]}/%C3%89glise_x.jpg/100px-%C3%89glise_x.jpg",
+			getImageFromCommons('Église x.jpg', '100" onerror="y')
+		);
+	}
+
+	public function test_processWikitext_makelinks_keeps_entities()
+	{
+		$this->assertEquals(
+			'A&nbsp;<a href="//fr.wikipedia.org/wiki/B">B</a> &lt;i&gt; &amp; C',
+			processWikitext('fr', 'A&nbsp;[[B]] &lt;i&gt; & C', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_keeps_entities_in_label()
+	{
+		$this->assertEquals(
+			'<a href="//fr.wikipedia.org/wiki/X">3&ndash;5</a>',
+			processWikitext('fr', '[[X|3&ndash;5]]', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_escapes_text()
+	{
+		$this->assertEquals(
+			'Lorem &lt;b&gt;&amp; <a href="//fr.wikipedia.org/wiki/Ipsum">Ipsum</a> &lt;/b&gt;',
+			processWikitext('fr', 'Lorem <b>& [[Ipsum]] </b>', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_escapes_label()
+	{
+		$this->assertEquals(
+			'Kerk <a href="//nl.wikipedia.org/wiki/X">&lt;img src=x onerror=alert(1)&gt;</a>',
+			processWikitext('nl', 'Kerk [[X|<img src=x onerror=alert(1)>]]', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_encodes_target()
+	{
+		$this->assertEquals(
+			'<a href="//fr.wikipedia.org/wiki/A%22%3E%3Cb%3E">A&quot;&gt;&lt;b&gt;</a>',
+			processWikitext('fr', '[[A"><b>]]', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_decodes_entities_in_target()
+	{
+		$this->assertEquals(
+			'<a href="//fr.wikipedia.org/wiki/A%20%26%20B">A &amp; B</a>',
+			processWikitext('fr', '[[A &amp; B]]', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_several_links()
+	{
+		$this->assertEquals(
+			'<a href="//fr.wikipedia.org/wiki/A">A</a>, <a href="//fr.wikipedia.org/wiki/B">C</a>',
+			processWikitext('fr', '[[A]], [[B|C]]', True)
+		);
+	}
+
+	public function test_processWikitext_nolinks_several_links()
+	{
+		$this->assertEquals(
+			'A, C',
+			processWikitext('fr', '[[A]], [[B|C]]', False)
+		);
+	}
+
+	public function test_processWikitext_makelinks_keeps_unmatched_brackets()
+	{
+		$this->assertEquals(
+			'a [b] [[c',
+			processWikitext('fr', 'a [b] [[c', True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_substitutes_invalid_utf8()
+	{
+		$this->assertEquals(
+			"Caf\u{FFFD} <a href=\"//fr.wikipedia.org/wiki/A\">A</a>",
+			processWikitext('fr', "Caf\xe9 [[A]]", True)
+		);
+	}
+
+	public function test_processWikitext_makelinks_keeps_line_breaks()
+	{
+		$this->assertEquals(
+			'A<br />B<br />C<br />D<br />E',
+			processWikitext('fr', 'A<br>B<br/>C<BR />D</br>E', True)
+		);
+	}
+
+	public function test_processWikitext_nolinks_line_breaks_become_spaces()
+	{
+		$this->assertEquals(
+			'A B C',
+			processWikitext('fr', 'A <br />B<br>C', False)
+		);
+	}
+
+	public function test_processWikitext_nolinks_does_not_escape()
+	{
+		// Callers escape the plain text for the context they put it in
+		$this->assertEquals(
+			'<b> Ipsum',
+			processWikitext('fr', '<b> [[Ipsum]]', False)
+		);
+	}
+
 	public function test_matchWikiprojectLink_no_match()
 	{
 		$input = 'not-a-link';

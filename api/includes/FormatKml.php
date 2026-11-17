@@ -66,7 +66,7 @@ class FormatKml extends FormatBase {
 							$makeLinks = true;
 							$desc .= processWikitext( $row->lang, $value, $makeLinks, $row->project );
 						} else {
-							$desc .= $value;
+							$desc .= htmlspecialchars( $value );
 						}
 						$desc .= '</li>';
 					}

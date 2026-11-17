@@ -5,19 +5,34 @@ function getImageFromCommons($filename, $size) {
 	if ($filename and $size) {
 		$filename = str_replace(' ', '_', $filename);
 		$md5hash = md5($filename);
-		//urlencode($filename);
-		//TODO: can be replaced by something like https://commons.wikimedia.org/w/thumb.php?f=" . $filename . "&width=" . $size;
-		$url = "//upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . $filename . "/" . $size . "px-" . $filename;
+		// The filename is harvested wikitext, so encode it for use in a URL
+		// and HTML attribute
+		$encoded = rawurlencode($filename);
+		$width = intval($size);
+		// TODO: could use https://commons.wikimedia.org/w/thumb.php?f=<file>&width=<px> instead of computing the md5 path
+		$url = "//upload.wikimedia.org/wikipedia/commons/thumb/" . $md5hash[0] . "/" . $md5hash[0] . $md5hash[1] . "/" . $encoded . "/" . $width . "px-" . $encoded;
 		return $url;
 	}
 }
 
+/**
+ * Process harvested wikitext into HTML or plain text.
+ *
+ * With $makelinks, the result is HTML: all of the text is escaped, line breaks
+ * (<br>, <br/>, <br /> or </br>) are kept and wikilinks become <a> links.
+ * Entities written in the wikitext are kept.
+ *
+ * Without $makelinks, the result is plain text, not escaped: wikilinks are
+ * replaced by their labels and line breaks by spaces. Callers escape it for
+ * the context they put it in.
+ *
+ * @param string $wikilang Language of the wiki the links point to
+ * @param string $text The wikitext
+ * @param bool $makelinks Whether to return HTML with links or plain text
+ * @param string $wikiproject Project of the wiki the links point to
+ * @return string
+ */
 function processWikitext($wikilang, $text, $makelinks, $wikiproject = "wikipedia") {
-	/* Process the wikitext.
-	 * If makelinks is true, make html links
-	 * If makelinks is false, remove wikitext to produce normal text without links
-	 */
-
 	/**
 	 * Mapping of multilingual sites not following the lang.project.org pattern
 	 */
@@ -26,31 +41,36 @@ function processWikitext($wikilang, $text, $makelinks, $wikiproject = "wikipedia
 		'wikidata' => 'www.wikidata.org',
 	];
 
-	$result = $text;
-	$differentLinkRegex="/\[\[([^\|]*)\|([^\]]*)\]\]/";
-	$simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
 	if ( array_key_exists( $wikiproject, $multilingualSiteMap ) ) {
 		$wikiUrl = '//' . $multilingualSiteMap[ $wikiproject ] . '/wiki/';
 	} else {
 		$wikiUrl = '//' . $wikilang . '.' . $wikiproject . '.org/wiki/';
 	}
-	$differentLinkReplace = function($m) use($wikiUrl) {
-		return '<a href="' . $wikiUrl . rawurlencode( $m[1] ) . '">'. $m[2] .'</a>';
+
+	/**
+	 * @param string $target Page title, HTML escaped
+	 * @param string $label Link text, HTML escaped
+	 */
+	$makeLink = function ( $target, $label ) use ( $wikiUrl ) {
+		// Decode the escaped target back to plain text before URL encoding it
+		$href = $wikiUrl . rawurlencode( html_entity_decode( $target, ENT_QUOTES, 'UTF-8' ) );
+		return '<a href="' . htmlspecialchars( $href ) . '">' . $label . '</a>';
 	};
-	$simpleLinkReplace = function($m) use($wikiUrl) {
-		return '<a href="' . $wikiUrl . rawurlencode( $m[1] ) . '">'. $m[1] .'</a>';
-	};
+
+	$result = $text;
+	$differentLinkRegex="/\[\[([^\]\|]*)\|([^\]]*)\]\]/";
+	$simpleLinkRegex="/\[\[([^\]]*)\\]\]/";
+	$lineBreakRegex = '#\s*</?br\s*/?>\s*#i';
 	if ( $makelinks ) {
-		$result = preg_replace_callback(
-			$differentLinkRegex,
-			$differentLinkReplace,
-			$result);
-		$result = preg_replace_callback(
-			$simpleLinkRegex,
-			$simpleLinkReplace,
-			$result);
-		$result = $result;
+		// Escape first; this leaves "[", "]" and "|" so links can still be found
+		$escape = fn ( $part ) => htmlspecialchars( $part, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false );
+		$result = implode( '<br />', array_map( $escape, preg_split( $lineBreakRegex, $result ) ) );
+		$result = preg_replace_callback( $differentLinkRegex,
+			fn ( $m ) => $makeLink( $m[1], $m[2] ), $result );
+		$result = preg_replace_callback( $simpleLinkRegex,
+			fn ( $m ) => $makeLink( $m[1], $m[1] ), $result );
 	} else {
+		$result = preg_replace( $lineBreakRegex, ' ', $result );
 		$result = preg_replace($differentLinkRegex, "$2", $result);
 		$result = preg_replace($simpleLinkRegex, "$1", $result);
 	}
