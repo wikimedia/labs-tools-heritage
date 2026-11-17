@@ -52,7 +52,6 @@
 	<exclude-pattern>api/tripplanner</exclude-pattern>
 	<exclude-pattern>map</exclude-pattern>
 	<exclude-pattern>prox_search/cls</exclude-pattern>
-	<exclude-pattern>tools/browser</exclude-pattern>
 	<!--
 		These files were never linted: the old "common" exclude-pattern matched
 		them as a substring (common.php, CommonFunctions, CommonsDB) as well as

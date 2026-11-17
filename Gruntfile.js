@@ -24,8 +24,7 @@ module.exports = function ( grunt ) {
 				'!coverage/**',
 				'!api/tripplanner/**',
 				'!map/**',
-				'!prox_search/**',
-				'!tools/browser/**'
+				'!prox_search/**'
 			]
 		},
 
