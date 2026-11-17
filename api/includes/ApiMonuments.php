@@ -50,14 +50,6 @@ class ApiMonuments extends ApiBase {
 		$params['stitem'] = [ ApiBase::PARAM_DFLT => Statistics::$aItems,
 			ApiBase::PARAM_TYPE => Statistics::$aItems, ApiBase::PARAM_ISMULTI => true ];
 
-		$params['ctcountry'] = [ ApiBase::PARAM_DFLT => array_keys( ContestStatistics::$activeCountries ),
-			ApiBase::PARAM_TYPE => array_keys( ContestStatistics::$activeCountries ), ApiBase::PARAM_ISMULTI => true ];
-		$params['ctscope'] = [ ApiBase::PARAM_DFLT => ContestStatistics::$ctScopes[0], ApiBase::PARAM_TYPE => ContestStatistics::$ctScopes ];
-		$params['ctitem'] = [ ApiBase::PARAM_DFLT => [],
-			ApiBase::PARAM_TYPE => array_merge( ContestStatistics::$reportUserCols, ContestStatistics::$reportCountryCols, ContestStatistics::$reportDumpCols ), ApiBase::PARAM_ISMULTI => true ];
-		$params['ctfrom'] = [ ApiBase::PARAM_DFLT => '20110901000000', ApiBase::PARAM_TYPE => 'string' ];
-		$params['ctorderby'] = [ ApiBase::PARAM_DFLT => 'n_images', ApiBase::PARAM_TYPE => 'string' ];
-
 		return $params;
 	}
 
@@ -69,10 +61,6 @@ class ApiMonuments extends ApiBase {
 			case 'statistics':
 			case 'statisticsdb':
 				$this->statistics_db();
-				break;
-			case 'statisticsct':
-				$this->statistics_ct();
-				break;
 				break;
 			case 'help':
 			default:
@@ -374,29 +362,6 @@ class ApiMonuments extends ApiBase {
 
 		$r = $st->retrieveReport( $items, $filters, $limit );
 		$this->getFormatter()->output( $r, 9999999, 'stcontinue', array_merge( [ 'country', 'municipality' ], $st->getAxis( 'columns' ) ), Monuments::$dbPrimaryKey );
-	}
-
-	function statistics_ct() {
-		$st = new ContestStatistics( $db = Database::getDb() );
-
-		$ctscope = $this->getParam( 'ctscope' );
-		$ctitems = $this->getParam( 'ctitem' );
-		if ( count( $ctitems ) <= 0 ) {
-			if ( $ctscope == 'user' ) {
-				$ctitems = ContestStatistics::$reportUserCols;
-			} elseif ( $ctscope == 'country' ) {
-				$ctitems = ContestStatistics::$reportCountryCols;
-			} else { /* scope=images */
-				$ctitems = [];
-			}
-		}
-		$ctcountries = $this->getParam( 'ctcountry' );
-		$limit = $this->getParam( 'limit' );
-		$ctfrom = $this->getParam( 'ctfrom' );
-		$ctorderby = $this->getParam( 'ctorderby' );
-
-		$r = $st->retrieveReport( $ctscope, $ctitems, $ctcountries, $ctfrom, $limit, $ctorderby );
-		$this->getFormatter()->output( $r, 9999999, 'stcontinue', $st->getAxis( 'columns' ), ContestStatistics::$dbPrimaryKey );
 	}
 
 	/**
