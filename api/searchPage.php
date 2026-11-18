@@ -342,7 +342,6 @@ class SearchPage {
 <option value="statickml">Static KML (Google Earth/Google Maps)</option>
 <option value="gpx">Gpx (GPS format)</option>
 <option value="poi">POI (TomTom format)</option>
-<option value="layar">Layar (Augmented reality for your phone)</option>
 <option value="printhtml">HTML to print</option>
 <!-- http://www.mediawiki.org/wiki/API:Data_formats -->
 <option value="json">JSON format</option>

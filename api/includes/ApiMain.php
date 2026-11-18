@@ -73,7 +73,7 @@ class ApiMain {
 
 			Parameters:
 			  format         - The format of the output
-			                   One value: dynamickml, kml, gpx, poi, html, htmllist, layar, json, xml, xmlfm
+			                   One value: dynamickml, kml, gpx, poi, html, htmllist, json, xml, xmlfm
 			                   Default: xmlfm
 			  action         - What action you would like to perform. 
 			                   One value: search, statistics, help

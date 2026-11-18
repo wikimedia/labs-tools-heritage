@@ -38,7 +38,7 @@ abstract class ApiBase {
 			'format' => [ self::PARAM_DFLT => 'xmlfm',
 				self::PARAM_TYPE => $dbMiserMode
 					? [ 'json', 'jsonp', 'xml', 'xmlfm' ]
-					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'layar', 'json', 'osm', 'xml', 'xmlfm', 'wikitable', 'jsonp' ] ],
+					: [ 'csv', 'dynamickml', 'kml', 'gpx', 'googlemaps', 'poi', 'html', 'htmllist', 'json', 'osm', 'xml', 'xmlfm', 'wikitable', 'jsonp' ] ],
 			'callback' => [ self::PARAM_DFLT => false, self::PARAM_TYPE => 'callback' ],
 			'limit' => [ self::PARAM_MIN => 0, self::PARAM_MAX => $dbMiserMode ? 500 : 5000,
 				self::PARAM_DFLT => 100, self::PARAM_TYPE => 'integer' ],
