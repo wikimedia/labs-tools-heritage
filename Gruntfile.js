@@ -22,8 +22,7 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!vendor/**',
 				'!coverage/**',
-				'!api/tripplanner/**',
-				'!prox_search/**'
+				'!api/tripplanner/**'
 			]
 		},
 

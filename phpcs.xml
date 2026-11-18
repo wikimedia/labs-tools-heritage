@@ -50,7 +50,6 @@
 	<exclude-pattern>node_modules</exclude-pattern>
 	<exclude-pattern>vendor</exclude-pattern>
 	<exclude-pattern>api/tripplanner</exclude-pattern>
-	<exclude-pattern>prox_search/cls</exclude-pattern>
 	<!--
 		These files were never linted: the old "common" and "map"
 		exclude-patterns matched them as a substring (common.php,
@@ -63,5 +62,4 @@
 	<exclude-pattern>api/includes/CommonFunctions\.php</exclude-pattern>
 	<exclude-pattern>api/includes/FormatGooglemaps\.php</exclude-pattern>
 	<exclude-pattern>api/tests/CommonFunctionsTest\.php</exclude-pattern>
-	<exclude-pattern>prox_search/CommonFunctions\.php</exclude-pattern>
 </ruleset>

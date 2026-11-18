@@ -15,9 +15,6 @@ cd $SOURCE_PATH || exit
 echo_time "Make more detailed statistics..."
 $PHP_BIN $SOURCE_PATH/maintenance/_buildStats.php
 
-echo_time "Refill prox_search table..."
-$PHP_BIN $SOURCE_PATH/prox_search/fill_table_prox_search.php
-
 # Update admin structure tree
 echo_time "Update admin structure tree..."
 $PHP_BIN $ERFGOED_PATH/populate_adm_tree.php
